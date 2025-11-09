@@ -99,7 +99,7 @@
 
             function generateCardHTML(test, index) {
                 const fullTitle = `${test.date} ${test.title}`;
-                const isNew = index < 3; // Mark the 3 most recent tests (in the reversed list) as new
+                const isNew = index > 3; // Mark the 3 most recent tests (in the reversed list) as new
                 return `
                     <a href="test.html?id=${test.id}" class="test-card">
                         ${isNew ? '<div class="new-badge">New!</div>' : ''}
