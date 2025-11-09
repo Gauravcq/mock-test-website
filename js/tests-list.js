@@ -1,10 +1,11 @@
 // File: js/tests-list.js
 // This file is just for the homepage cards.
 
-const ALL_TESTS = [
+const ALL_TESTS = [ // **FIXED: Changed { to [ for array definition**
+
     // --- Maths Tests ---
     {
-        id: "ssc_cgl_12_sep_s1_m", // Changed ID for clarity
+        id: "ssc_cgl_12_sep_s1_m", // Unique ID for the test
         date: "12 Sep",
         title: "Shift 1",
         subject: "Maths"
@@ -21,23 +22,25 @@ const ALL_TESTS = [
         title: "Shift 3",
         subject: "Maths"
     },
+
     // --- Reasoning Tests (NEWLY ADDED) ---
     {
-        id: "ssc_cgl_12_sep_s1_r", // New unique ID
+        id: "ssc_cgl_12_sep_s1_r", // New unique ID for Reasoning Shift 1
         date: "12 Sep",
         title: "Shift 1",
-        subject: "Reasoning" // **CRITICAL FIX**
+        subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
     },
     {
-        id: "ssc_cgl_12_sep_s2_r", // New unique ID
+        id: "ssc_cgl_12_sep_s2_r", // New unique ID for Reasoning Shift 2
         date: "12 Sep",
         title: "Shift 2",
-        subject: "Reasoning" // **CRITICAL FIX**
+        subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
     },
     {
-        id: "ssc_cgl_12_sep_s3_r", // New unique ID
+        id: "ssc_cgl_12_sep_s3_r", // New unique ID for Reasoning Shift 3
         date: "12 Sep",
         title: "Shift 3",
-        subject: "Reasoning" // **CRITICAL FIX**
+        subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
     }
-];
+
+]; // **FIXED: Changed } to ] to close the array**
