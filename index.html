@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CGL Mock Tests</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --light-grey: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-grey);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-container h1 {
+            color: var(--text-dark);
+            font-size: 2em;
+        }
+        
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 12px 40px 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 1em;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2em;
+            pointer-events: none; /* Make icon unclickable */
+        }
+
+        .test-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .test-card {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            align-items: center; 
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-title,
+        .test-card hr,
+        .card-stats {
+            width: 100%; 
+        }
+        
+        .card-title {
+            font-size: 1.15em;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .test-card hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .card-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-item .value {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .stat-item .label {
+            font-size: 0.8em;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .attempt-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 14px 80px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1.1em;
+            margin-top: auto;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+        
+        .test-card:hover .attempt-btn {
+            background-color: #0b5ed7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header-container">
+            <h1>All Mock Tests</h1>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Type here to search...">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+
+        <div id="test-grid-container" class="test-grid-container">
+            <!-- Test cards are generated here -->
+        </div>
+    </div>
+
+    <!-- Script to load the list of tests -->
+    <script src="js/tests-list.js"></script>
+    
+    <!-- Script to build the homepage cards -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridContainer = document.getElementById('test-grid-container');
+            const searchInput = document.getElementById('searchInput');
+
+            if (typeof ALL_TESTS !== 'undefined') {
+                gridContainer.innerHTML = ALL_TESTS.map(generateCardHTML).join('');
+            } else {
+                gridContainer.innerHTML = "<p>Error: Could not load tests-list.js. Check the file path and browser console (F12).</p>";
+            }
+
+            function generateCardHTML(test) {
+                const fullTitle = `${test.date} ${test.title} ${test.subject}`;
+                return `
+                    <a href="test.html?id=${test.id}" class="test-card" data-title="${fullTitle.toLowerCase()}">
+                        <div class="card-title">${fullTitle}</div>
+                        <hr>
+                        <div class="card-stats">
+                            <div class="stat-item"><div class="value">25</div><div class="label">Questions</div></div>
+                            <div class="stat-item"><div class="value">50</div><div class="label">Marks</div></div>
+                            <div class="stat-item"><div class="value">20</div><div class="label">Minutes</div></div>
+                        </div>
+                        <div class="attempt-btn">Attempt</div>
+                    </a>
+                `;
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const allCards = document.querySelectorAll('.test-card');
+                
+                allCards.forEach(card => {
+                    const cardTitle = card.getAttribute('data-title');
+                    if (cardTitle.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
