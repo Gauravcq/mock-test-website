@@ -5,19 +5,19 @@ const ALL_TESTS = [ // **FIXED: Changed { to [ for array definition**
 
     // --- Maths Tests ---
     {
-        id: "ssc_cgl_12_sep_s1_m", // Unique ID for the test
+        id: "ssc_cgl_12_sep_s1", // Unique ID for the test
         date: "12 Sep",
         title: "Shift 1",
         subject: "Maths"
     },
     {
-        id: "ssc_cgl_12_sep_s2_m",
+        id: "ssc_cgl_12_sep_s2",
         date: "12 Sep",
         title: "Shift 2",
         subject: "Maths"
     },
     {
-        id: "ssc_cgl_12_sep_s3_m",
+        id: "ssc_cgl_12_sep_s3",
         date: "12 Sep",
         title: "Shift 3",
         subject: "Maths"
@@ -25,7 +25,7 @@ const ALL_TESTS = [ // **FIXED: Changed { to [ for array definition**
 
     // --- Reasoning Tests (NEWLY ADDED) ---
     {
-        id: "ssc_cgl_12_sep_s1_r", // New unique ID for Reasoning Shift 1
+        id: "ssc_cgl_12_sep_s1", // New unique ID for Reasoning Shift 1
         date: "12 Sep",
         title: "Shift 1",
         subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
