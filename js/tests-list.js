@@ -2,24 +2,42 @@
 // This file is just for the homepage cards.
 
 const ALL_TESTS = [
+    // --- Maths Tests ---
     {
-        id: "ssc_cgl_12_sep_s1", // Unique ID for the test
+        id: "ssc_cgl_12_sep_s1_m", // Changed ID for clarity
         date: "12 Sep",
         title: "Shift 1",
         subject: "Maths"
     },
     {
-        id: "ssc_cgl_12_sep_s2",
+        id: "ssc_cgl_12_sep_s2_m",
         date: "12 Sep",
         title: "Shift 2",
         subject: "Maths"
     },
     {
-        id: "ssc_cgl_12_sep_s3",
+        id: "ssc_cgl_12_sep_s3_m",
         date: "12 Sep",
         title: "Shift 3",
         subject: "Maths"
+    },
+    // --- Reasoning Tests (NEWLY ADDED) ---
+    {
+        id: "ssc_cgl_12_sep_s1_r", // New unique ID
+        date: "12 Sep",
+        title: "Shift 1",
+        subject: "Reasoning" // **CRITICAL FIX**
+    },
+    {
+        id: "ssc_cgl_12_sep_s2_r", // New unique ID
+        date: "12 Sep",
+        title: "Shift 2",
+        subject: "Reasoning" // **CRITICAL FIX**
+    },
+    {
+        id: "ssc_cgl_12_sep_s3_r", // New unique ID
+        date: "12 Sep",
+        title: "Shift 3",
+        subject: "Reasoning" // **CRITICAL FIX**
     }
-    // To add a new test, copy one of the blocks above, paste it here, and change the id/date/title.
-    // Remember to add a comma between objects!
 ];
