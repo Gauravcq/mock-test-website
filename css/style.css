@@ -80,3 +80,84 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
         max-width: 650px;
     }
 }
+/* ADD THIS TO THE END of css/style.css */
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.modal-content {
+    background: var(--secondary-bg);
+    padding: 30px 40px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.modal-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary-brand);
+}
+.modal-content ul {
+    list-style-type: none;
+    text-align: left;
+    margin-bottom: 30px;
+    padding-left: 0;
+}
+.modal-content ul li {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+}
+.modal-btn {
+    background: linear-gradient(45deg, var(--primary-brand), var(--secondary-brand));
+    color: white;
+    padding: 14px 35px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.modal-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74, 0, 224, 0.3); }
+
+/* Styles for Submit Summary Modal */
+.submission-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+.submission-stats div {
+    background-color: var(--primary-bg);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+.submission-stats span { font-weight: 700; float: right; }
+
+.modal-content p { font-size: 1.1rem; margin-bottom: 25px; }
+
+.modal-btn-group { display: flex; justify-content: center; gap: 20px; }
+.modal-btn.secondary { background: var(--text-secondary); }
+.modal-btn.secondary:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+/* --- Enhanced Result Page Styles --- */
+#result-stats-full {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px 30px;
+}

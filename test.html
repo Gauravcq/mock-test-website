@@ -1,54 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Mock Test</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Math Mock Test</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- MathJax script if you are using it -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
+    <!-- NEW: Instructions Modal -->
+    <div id="instructions-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Test Instructions</h2>
+            <ul>
+                <li>Total Questions: <strong>25</strong></li>
+                <li>Total Time: <strong>20 Minutes</strong></li>
+                <li>Marking Scheme: <strong>+2</strong> for a correct answer, <strong>-0.5</strong> for an incorrect answer.</li>
+                <li>Use the palette on the right to navigate between questions.</li>
+                <li>Click the pause button (❚❚) in the header to pause the test at any time.</li>
+            </ul>
+            <button id="start-test-btn" class="modal-btn">Start Test</button>
+        </div>
+    </div>
 
-    <!-- Main Quiz UI -->
-    <div id="quiz-ui">
-        <header class="main-header">
-            <div id="test-main-title" class="logo">🎓 Loading Test...</div>
-            <div class="header-controls">
-                <div id="timer">20:00</div>
-                <!-- NEW: Pause Button -->
-                <button id="pause-btn" title="Pause Test">❚❚</button>
+    <!-- NEW: Submit Summary Modal -->
+    <div id="submit-summary-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Test Summary</h2>
+            <div id="submission-stats" class="submission-stats"></div>
+            <p>Are you sure you want to submit the test?</p>
+            <div class="modal-btn-group">
+                <button id="final-submit-btn" class="modal-btn">Yes, Submit</button>
+                <button id="cancel-submit-btn" class="modal-btn secondary">Go Back</button>
             </div>
-        </header>
-        <main class="quiz-body">
-            <!-- (The rest of the quiz-body is unchanged) -->
-            <div class="question-panel">
-                <div class="question-header" id="question-title">Question...</div>
-                <div id="question-area"></div>
-                <div class="action-buttons"><button id="prev-btn" class="action-btn">Previous</button><button id="clear-response-btn" class="action-btn">Clear</button><button id="mark-review-btn" class="action-btn">Mark</button><button id="next-btn" class="action-btn">Save & Next</button></div>
-            </div>
-            <aside class="palette-panel">
-                <div class="palette-header">Question Palette</div><div id="question-palette"></div><button id="submit-test-btn">Submit Test</button>
-            </aside>
-        </main>
+        </div>
     </div>
     
-    <!-- NEW: Pause Overlay Screen -->
-    <div id="pause-overlay" class="hidden">
-        <h2>Test Paused</h2>
-        <button id="resume-btn">Resume Test</button>
+    <!-- Main Quiz UI (initially hidden) -->
+    <div id="quiz-ui" class="hidden">
+        <header class="main-header"><div id="test-main-title" class="logo">🎓 Loading Test...</div><div class="header-controls"><div id="timer">20:00</div><button id="pause-btn" title="Pause Test">❚❚</button></div></header>
+        <main class="quiz-body"><div class="question-panel"><div class="question-header" id="question-title">Question...</div><div id="question-area"></div><div class="action-buttons"><button id="prev-btn" class="action-btn">Previous</button><button id="clear-response-btn" class="action-btn">Clear</button><button id="mark-review-btn" class="action-btn">Mark</button><button id="next-btn" class="action-btn">Save & Next</button></div></div><aside class="palette-panel"><div class="palette-header">Question Palette</div><div id="question-palette"></div><button id="submit-test-btn">Submit Test</button></aside></main>
     </div>
+    
+    <div id="pause-overlay" class="hidden"><h2>Test Paused</h2><button id="resume-btn">Resume Test</button></div>
+    <div id="result-summary-page" class="hidden"><div class="result-summary-header">Test Results</div><div id="result-stats-full"></div><div class="result-summary-footer"><button id="review-test-btn">Review Test</button></div></div>
+    <div id="review-page" class="hidden"><div class="question-panel" style="margin: auto;"><div class="question-header" id="review-question-title">Reviewing...</div><div id="review-question-area"></div><div class="action-buttons"><button id="review-prev-btn" class="action-btn">Previous</button><a href="index.html" class="action-btn" style="text-decoration:none; background-color: var(--primary-brand); color:white;">Back to Home</a><button id="review-next-btn" class="action-btn" style="margin-left: auto;">Next</button></div></div></div>
 
-    <!-- (The hidden result and review pages are unchanged) -->
-    <div id="result-summary-page" class="hidden">
-        <div class="result-summary-header">Test Results</div><div class="result-stats-grid"><div class="stat-card score"><span id="result-score" class="value">0.00</span><span class="label">Score</span></div><div class="stat-card correct"><span id="result-correct" class="value">0</span><span class="label">Correct</span></div><div class="stat-card incorrect"><span id="result-incorrect" class="value">0</span><span class="label">Incorrect</span></div><div class="stat-card unattempted"><span id="result-unattempted" class="value">0</span><span class="label">Unattempted</span></div></div><div class="result-summary-footer"><button id="review-test-btn">Review Test</button></div>
-    </div>
-    <div id="review-page" class="hidden">
-        <div class="question-panel" style="margin: auto;"><div class="question-header" id="review-question-title">Reviewing...</div><div id="review-question-area"></div><div class="action-buttons"><button id="review-prev-btn" class="action-btn">Previous</button><a href="index.html" id="back-to-home-btn" class="action-btn" style="text-decoration:none; background-color: var(--primary-brand); color:white;">Back to Home</a><button id="review-next-btn" class="action-btn" style="margin-left: auto;">Next</button></div></div>
-    </div>
-
-    <!-- Script loading order remains the same -->
+    <!-- Scripts -->
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>
