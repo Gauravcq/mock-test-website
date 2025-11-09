@@ -92,17 +92,16 @@
             function displayTests(subject) {
                 if (typeof ALL_TESTS === 'undefined') { gridContainer.innerHTML = "<p>Error: Could not load tests-list.js.</p>"; return; }
                 const filteredTests = ALL_TESTS.filter(test => test.subject === subject);
-                const reversedTests = [...filteredTests].reverse(); // Reverse to show newest tests first
-                if (reversedTests.length > 0) { gridContainer.innerHTML = reversedTests.map((test, index) => generateCardHTML(test, index)).join(''); } 
-                else { gridContainer.innerHTML = `<p>No tests found for ${subject}.</p>`; }
+                
+               if (filteredTests.length > 0) {
+    gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
+} 
             }
 
             function generateCardHTML(test, index) {
                 const fullTitle = `${test.date} ${test.title}`;
-                const isNew = index > 3; // Mark the 3 most recent tests (in the reversed list) as new
                 return `
                     <a href="test.html?id=${test.id}" class="test-card">
-                        ${isNew ? '<div class="new-badge">New!</div>' : ''}
                         <div class="card-title">${fullTitle}</div><hr>
                         <div class="card-stats">
                             <div class="stat-item"><div class="value">25</div><div class="label">Questions</div></div>
