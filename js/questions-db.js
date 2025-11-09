@@ -186,7 +186,7 @@ const QUESTIONS_DATABASE = {
         // ... add questions for Shift 3 here ...
     ], // <-- NO comma after the last test
 
-    "ssc_cgl_12_sep_s3-r": [
+    "ssc_cgl_12_sep_s1-r": [
         {
             question: "Shift 3, Q1: The sum of angles in a triangle is always:",
             options: ["90°", "180°", "270°", "360°"],
