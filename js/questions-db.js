@@ -184,6 +184,15 @@ const QUESTIONS_DATABASE = {
             explanation: "The sum of the interior angles of any triangle is always 180 degrees."
         }
         // ... add questions for Shift 3 here ...
-    ] // <-- NO comma after the last test
+    ], // <-- NO comma after the last test
 
+    "ssc_cgl_12_sep_s3-r": [
+        {
+            question: "Shift 3, Q1: The sum of angles in a triangle is always:",
+            options: ["90°", "180°", "270°", "360°"],
+            correctAnswer: "180°",
+            explanation: "The sum of the interior angles of any triangle is always 180 degrees."
+        }
+        // ... add questions for Shift 3 here ...
+    ], // <-- NO comma after the last test
 };

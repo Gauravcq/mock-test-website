@@ -25,7 +25,7 @@ const ALL_TESTS = [ // **FIXED: Changed { to [ for array definition**
 
     // --- Reasoning Tests (NEWLY ADDED) ---
     {
-        id: "ssc_cgl_12_sep_s1", // New unique ID for Reasoning Shift 1
+        id: "ssc_cgl_12_sep_s1-r", // New unique ID for Reasoning Shift 1
         date: "12 Sep",
         title: "Shift 1",
         subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
