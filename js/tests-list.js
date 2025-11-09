@@ -30,17 +30,6 @@ const ALL_TESTS = [ // **FIXED: Changed { to [ for array definition**
         title: "Shift 1",
         subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
     },
-    {
-        id: "ssc_cgl_12_sep_s2_r", // New unique ID for Reasoning Shift 2
-        date: "12 Sep",
-        title: "Shift 2",
-        subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
-    },
-    {
-        id: "ssc_cgl_12_sep_s3_r", // New unique ID for Reasoning Shift 3
-        date: "12 Sep",
-        title: "Shift 3",
-        subject: "Reasoning" // **FIXED: Content for the Reasoning tab**
-    }
+
 
 ]; // **FIXED: Changed } to ] to close the array**
