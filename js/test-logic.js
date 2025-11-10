@@ -20,6 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeQuiz(questions, testInfo);
     });
 
+    /**
+     * Helper function for robust string comparison.
+     * It handles spaces, converts to lowercase, and standardizes common math/currency symbols.
+     */
+    function normalizeString(str) {
+        if (str === null) return '';
+        return String(str)
+            .replace(/[\u20b9₹]/g, '') // Remove Rupee symbols (₹)
+            .replace(/m\u00b2/g, 'm^2') // Standardize m² to m^2
+            .replace(/\u00b0/g, 'deg') // Standardize degree symbol (°)
+            .replace(/\s+/g, '') // Remove all internal whitespace
+            .toLowerCase();
+    }
+
     function initializeQuiz(questions, testInfo) {
         let currentQuestionIndex = 0; let currentReviewIndex = 0; let questionStates = []; let timerInterval;
         let timeRemaining = 20 * 60; let isPaused = false;
@@ -64,7 +78,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!autoSubmit) { submitSummaryModal.classList.add('hidden'); }
             clearInterval(timerInterval); saveCurrentAnswer();
             let score = 0, correctCount = 0, incorrectCount = 0, attemptedCount = 0;
-            questionStates.forEach((state, index) => { if (state.userAnswer !== null) { attemptedCount++; if (state.userAnswer === questions[index].correctAnswer) { score += 2; correctCount++; } else { score -= 0.5; incorrectCount++; } } });
+            
+            questionStates.forEach((state, index) => { 
+                if (state.userAnswer !== null) { 
+                    attemptedCount++; 
+                    
+                    // NEW LOGIC: Use the robust normalization function for comparison
+                    const userAnswerNormalized = normalizeString(state.userAnswer);
+                    const correctAnswerNormalized = normalizeString(questions[index].correctAnswer);
+
+                    if (userAnswerNormalized === correctAnswerNormalized) { 
+                        score += 2; correctCount++; 
+                    } else { 
+                        score -= 0.5; incorrectCount++; 
+                    } 
+                } 
+            });
             
             const resultStatsEl = document.getElementById('result-stats-full');
             resultStatsEl.innerHTML = `
@@ -81,8 +110,23 @@ document.addEventListener('DOMContentLoaded', () => {
         function showQuestion(index) { currentQuestionIndex = index; const question = questions[index]; const state = questionStates[index]; if (state.status === 'not-visited') { state.status = 'not-answered'; } questionTitle.textContent = `Question ${index + 1} of ${questions.length}`; questionArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${question.options.map(option => `<label class="option"><input type="radio" name="option" value="${option}" ${state.userAnswer === option ? 'checked' : ''}><span>${option}</span></label>`).join('')}</div>`; if (window.MathJax) { window.MathJax.typeset(); } updateNavigation(); updatePalette(); }
         function updateNavigation() { prevBtn.disabled = currentQuestionIndex === 0; nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Save' : 'Save & Next'; markReviewBtn.textContent = questionStates[currentQuestionIndex].markedForReview ? 'Unmark' : 'Mark'; }
         function updatePalette() { document.querySelectorAll('.palette-btn').forEach((btn, index) => { const state = questionStates[index]; btn.className = 'palette-btn'; if (state.markedForReview) { btn.classList.add(state.status === 'answered' ? 'answered-marked-review' : 'marked-review'); } else if (state.status === 'answered') { btn.classList.add('answered'); } else if (state.status === 'not-answered') { btn.classList.add('not-answered'); } else { btn.classList.add('not-visited'); } if (index === currentQuestionIndex) { btn.classList.add('current'); } }); }
-        function saveCurrentAnswer() { const selectedOption = document.querySelector('input[name="option"]:checked'); const state = questionStates[currentQuestionIndex]; if (selectedOption) { state.userAnswer = selectedOption.value; state.status = 'answered'; } }
-        function showReviewQuestion(index) { currentReviewIndex = index; const question = questions[index]; const state = questionStates[index]; const reviewArea = document.getElementById('review-question-area'); document.getElementById('review-question-title').textContent = `Reviewing Question ${index + 1} of ${questions.length}`; const optionsHtml = question.options.map(option => { const isCorrect = option === question.correctAnswer; const isUserChoice = option === state.userAnswer; let optionClass = 'review-option'; if (isCorrect) optionClass += ' correct'; if (isUserChoice && !isCorrect) optionClass += ' incorrect'; return ` <div class="${optionClass}"><div class="review-option-text"><span class="radio-icon"></span><span>${option}</span></div> ${isUserChoice ? `<span class="user-pick-indicator">✔️ Your Pick</span>` : ''}</div>`; }).join(''); reviewArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${optionsHtml}</div><div class="solution-box"><h4>Solution:</h4><p>${question.explanation}</p></div>`; if (window.MathJax) { window.MathJax.typeset(); } reviewPrevBtn.disabled = index === 0; reviewNextBtn.disabled = index === questions.length - 1; }
+        
+        // NEW LOGIC: Store the raw user selection, but we will use normalization only for scoring.
+        function saveCurrentAnswer() { 
+            const selectedOption = document.querySelector('input[name="option"]:checked'); 
+            const state = questionStates[currentQuestionIndex]; 
+            if (selectedOption) { 
+                // Store the original value (for displaying the selected option)
+                state.userAnswer = selectedOption.value; 
+                state.status = 'answered'; 
+            } 
+        }
+
+        function showReviewQuestion(index) { currentReviewIndex = index; const question = questions[index]; const state = questionStates[index]; const reviewArea = document.getElementById('review-question-area'); document.getElementById('review-question-title').textContent = `Reviewing Question ${index + 1} of ${questions.length}`; const optionsHtml = question.options.map(option => { 
+            // NEW LOGIC: Normalize the option and the correct answer for the review screen comparison
+            const isCorrect = normalizeString(option) === normalizeString(question.correctAnswer); 
+            const isUserChoice = option === state.userAnswer; 
+            let optionClass = 'review-option'; if (isCorrect) optionClass += ' correct'; if (isUserChoice && !isCorrect) optionClass += ' incorrect'; return ` <div class="${optionClass}"><div class="review-option-text"><span class="radio-icon"></span><span>${option}</span></div> ${isUserChoice ? `<span class="user-pick-indicator">✔️ Your Pick</span>` : ''}</div>`; }).join(''); reviewArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${optionsHtml}</div><div class="solution-box"><h4>Solution:</h4><p>${question.explanation}</p></div>`; if (window.MathJax) { window.MathJax.typeset(); } reviewPrevBtn.disabled = index === 0; reviewNextBtn.disabled = index === questions.length - 1; }
 
         // --- Event Listeners ---
         pauseBtn.addEventListener('click', pauseTest); resumeBtn.addEventListener('click', resumeTest);
