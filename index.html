@@ -40,6 +40,7 @@
         body.dark-mode .test-card { background-color: var(--dark-card-bg); border-color: var(--dark-border); box-shadow: 0 4px 6px var(--dark-shadow); color: var(--dark-text-primary); }
         .test-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px var(--light-shadow); }
         body.dark-mode .test-card:hover { box-shadow: 0 10px 20px var(--dark-shadow); }
+        /* NOTE: This position is crucial for the badge to show correctly on the card corner */
         .new-badge { position: absolute; top: -1px; right: -1px; background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; padding: 5px 15px; font-size: 0.8em; font-weight: 700; border-bottom-left-radius: 12px; }
         .card-title, .test-card hr, .card-stats { width: 100%; }
         .card-title { font-size: 1.1em; font-weight: 700; margin-bottom: 15px; text-align: center; }
@@ -93,16 +94,19 @@
                 if (typeof ALL_TESTS === 'undefined') { gridContainer.innerHTML = "<p>Error: Could not load tests-list.js.</p>"; return; }
                 const filteredTests = ALL_TESTS.filter(test => test.subject === subject);
                 
-               if (filteredTests.length > 0) {
-    gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
-} 
+                if (filteredTests.length > 0) {
+                    gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
+                } 
             }
 
-            function generateCardHTML(test, index) {
+            function generateCardHTML(test) { // Removed 'index' argument
                 const fullTitle = `${test.date} ${test.title}`;
+                // ⭐ ADDED: Conditional NEW badge
+                const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
+
                 return `
                     <a href="test.html?id=${test.id}" class="test-card">
-                        <div class="card-title">${fullTitle}</div><hr>
+                        ${newBadge} <div class="card-title">${fullTitle}</div><hr>
                         <div class="card-stats">
                             <div class="stat-item"><div class="value">25</div><div class="label">Questions</div></div>
                             <div class="stat-item"><div class="value">50</div><div class="label">Marks</div></div>
