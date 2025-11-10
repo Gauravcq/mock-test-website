@@ -59,7 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         window.addEventListener('beforeunload', (e) => { e.preventDefault(); e.returnValue = ''; });
         
-        function startTimer() { timerInterval = setInterval(() => { if (isPaused) return; timeRemaining--; const minutes = Math.floor(timeRemaining / 60); const seconds = timeRemaining % 60; if (timerEl) { timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; } if (timeRemaining <= 0) { clearInterval(timerInterval); calculateAndShowResults(true); } }, 1000); }
+        function startTimer() { 
+            // FIXED SYNTAX ERROR HERE
+            timerInterval = setInterval(() => { 
+                if (isPaused) return; 
+                timeRemaining--; 
+                const minutes = Math.floor(timeRemaining / 60); 
+                const seconds = timeRemaining % 60; 
+                if (timerEl) { 
+                    timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; 
+                } 
+                if (timeRemaining <= 0) { 
+                    clearInterval(timerInterval); 
+                    calculateAndShowResults(true); 
+                } 
+            }, 1000); 
+        }
         function pauseTest() { isPaused = true; pauseOverlay.classList.remove('hidden'); }
         function resumeTest() { isPaused = false; pauseOverlay.classList.add('hidden'); }
         
@@ -83,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (state.userAnswer !== null) { 
                     attemptedCount++; 
                     
-                    // NEW LOGIC: Use the robust normalization function for comparison
+                    // Uses the robust normalizeString for comparison
                     const userAnswerNormalized = normalizeString(state.userAnswer);
                     const correctAnswerNormalized = normalizeString(questions[index].correctAnswer);
 
@@ -105,25 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
             quizUI.classList.add('hidden'); resultSummaryPage.classList.remove('hidden');
         }
 
-        // --- All other functions are the same ---
+        // --- All other functions ---
         function createPalette() { questionPalette.innerHTML = ''; questions.forEach((_, index) => { const btn = document.createElement('button'); btn.className = 'palette-btn'; btn.textContent = index + 1; btn.dataset.index = index; btn.addEventListener('click', () => { saveCurrentAnswer(); showQuestion(index); }); questionPalette.appendChild(btn); }); }
         function showQuestion(index) { currentQuestionIndex = index; const question = questions[index]; const state = questionStates[index]; if (state.status === 'not-visited') { state.status = 'not-answered'; } questionTitle.textContent = `Question ${index + 1} of ${questions.length}`; questionArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${question.options.map(option => `<label class="option"><input type="radio" name="option" value="${option}" ${state.userAnswer === option ? 'checked' : ''}><span>${option}</span></label>`).join('')}</div>`; if (window.MathJax) { window.MathJax.typeset(); } updateNavigation(); updatePalette(); }
         function updateNavigation() { prevBtn.disabled = currentQuestionIndex === 0; nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Save' : 'Save & Next'; markReviewBtn.textContent = questionStates[currentQuestionIndex].markedForReview ? 'Unmark' : 'Mark'; }
         function updatePalette() { document.querySelectorAll('.palette-btn').forEach((btn, index) => { const state = questionStates[index]; btn.className = 'palette-btn'; if (state.markedForReview) { btn.classList.add(state.status === 'answered' ? 'answered-marked-review' : 'marked-review'); } else if (state.status === 'answered') { btn.classList.add('answered'); } else if (state.status === 'not-answered') { btn.classList.add('not-answered'); } else { btn.classList.add('not-visited'); } if (index === currentQuestionIndex) { btn.classList.add('current'); } }); }
         
-        // NEW LOGIC: Store the raw user selection, but we will use normalization only for scoring.
         function saveCurrentAnswer() { 
             const selectedOption = document.querySelector('input[name="option"]:checked'); 
             const state = questionStates[currentQuestionIndex]; 
             if (selectedOption) { 
-                // Store the original value (for displaying the selected option)
                 state.userAnswer = selectedOption.value; 
                 state.status = 'answered'; 
             } 
         }
 
         function showReviewQuestion(index) { currentReviewIndex = index; const question = questions[index]; const state = questionStates[index]; const reviewArea = document.getElementById('review-question-area'); document.getElementById('review-question-title').textContent = `Reviewing Question ${index + 1} of ${questions.length}`; const optionsHtml = question.options.map(option => { 
-            // NEW LOGIC: Normalize the option and the correct answer for the review screen comparison
             const isCorrect = normalizeString(option) === normalizeString(question.correctAnswer); 
             const isUserChoice = option === state.userAnswer; 
             let optionClass = 'review-option'; if (isCorrect) optionClass += ' correct'; if (isUserChoice && !isCorrect) optionClass += ' incorrect'; return ` <div class="${optionClass}"><div class="review-option-text"><span class="radio-icon"></span><span>${option}</span></div> ${isUserChoice ? `<span class="user-pick-indicator">✔️ Your Pick</span>` : ''}</div>`; }).join(''); reviewArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${optionsHtml}</div><div class="solution-box"><h4>Solution:</h4><p>${question.explanation}</p></div>`; if (window.MathJax) { window.MathJax.typeset(); } reviewPrevBtn.disabled = index === 0; reviewNextBtn.disabled = index === questions.length - 1; }
