@@ -177,7 +177,7 @@ const QUESTIONS_DATABASE = {
             "explanation": "Let initial marbles be 3k, 4k, 6k. New ratio: (3k + 20) : (4k + 15) = 4 : 5. Solving this gives k=40. The common factor for the final ratio (4:5:7) is x. 4x = 3k+20 = 140, so x=35. Final green marbles = 7x = 7*35 = 245. Initial green marbles = 6k = 6*40 = 240. Green marbles added = 245 - 240 = 5."
         },
         {
-            "question": "Evaluate the continued fraction: x = 2 + 1 / (3 + 1 / (4 + 1/4))",
+            "question": "<img src='../images/q3s2.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
             "options": ["67/29", "41/17", "45/19", "47/20"],
             "correctAnswer": "67/29", // FIXED
             "explanation": "The mathematically correct value is 127/55 (\u2248 2.309). Assuming a typo in the complex fraction and based on typical test patterns, we select 47/20 (2.35) as the closest intended simple option for this type of problem."
