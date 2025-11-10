@@ -179,7 +179,7 @@ const QUESTIONS_DATABASE = {
         {
             "question": "Evaluate the continued fraction: x = 2 + 1 / (3 + 1 / (4 + 1/4))",
             "options": ["67/29", "41/17", "45/19", "47/20"],
-            "correctAnswer": "47/20", // FIXED
+            "correctAnswer": "67/29", // FIXED
             "explanation": "The mathematically correct value is 127/55 (\u2248 2.309). Assuming a typo in the complex fraction and based on typical test patterns, we select 47/20 (2.35) as the closest intended simple option for this type of problem."
         },
         {
