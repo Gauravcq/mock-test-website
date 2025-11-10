@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initializeQuiz(questions, testInfo) {
         let currentQuestionIndex = 0; let currentReviewIndex = 0; let questionStates = []; let timerInterval;
-        let timeRemaining = 20 * 60; let isPaused = false;
+        let timeRemaining = 25 * 60; let isPaused = false;
 
         const resultSummaryPage = document.getElementById('result-summary-page');
         const reviewPage = document.getElementById('review-page');
