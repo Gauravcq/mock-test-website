@@ -161,3 +161,15 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     gap: 15px;
     padding: 20px 30px;
 }
+.new-badge {
+    background-color: #ff4757; 
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: 10px;
+    vertical-align: middle;
+    animation: pulse 1.5s infinite; 
+}
+/* Add the @keyframes pulse from the previous instructions */

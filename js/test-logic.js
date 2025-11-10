@@ -50,8 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevBtn = document.getElementById('prev-btn'); const nextBtn = document.getElementById('next-btn'); const markReviewBtn = document.getElementById('mark-review-btn');
         const clearResponseBtn = document.getElementById('clear-response-btn'); const submitTestBtn = document.getElementById('submit-test-btn');
         const reviewTestBtn = document.getElementById('review-test-btn'); const reviewPrevBtn = document.getElementById('review-prev-btn'); const reviewNextBtn = document.getElementById('review-next-btn');
-        document.getElementById('test-main-title').textContent = `🎓 ${testInfo.date} - ${testInfo.title}`;
         
+        // --- START OF NEW BADGE IMPLEMENTATION ---
+        document.getElementById('test-main-title').innerHTML = `
+            🎓 ${testInfo.date} - ${testInfo.title}
+            ${testInfo.isNew ? '<span class="new-badge">NEW</span>' : ''}
+        `;
+        // --- END OF NEW BADGE IMPLEMENTATION ---
+
         questionStates = questions.map(() => ({ status: 'not-visited', userAnswer: null, markedForReview: false }));
         createPalette();
         startTimer();
