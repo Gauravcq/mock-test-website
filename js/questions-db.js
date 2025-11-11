@@ -530,13 +530,13 @@ const QUESTIONS_DATABASE = {
     "explanation": "When arranged alphabetically, STUDENT becomes D E N S T T U. The second letter from the left is E (position 5). The fourth letter from the right is S (position 19). The number of letters between E and S is 19 - 5 - 1 = 13."
   },
   {
-    "question": "Which of the following addresses are identical to each other: \n1. Arjun Mehta A-101, Emerald Towers, Surat, 395001\n2. Arjun Mehta A-101, Emerald Tower, Surat, 395001\n3. Arjun M. A-101, Emerald Tower, Surat, 395001\n4. Arjun Mehta A-101, Emerald Tower, Surat, 395001",
+    "question": "<img src='../images/qs.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
     "options": ["1 and 2", "1 and 3", "2 and 4", "3 and 4"],
     "correctAnswer": "2 and 4",
     "explanation": "Addresses 2 and 4 are an exact match: 'Arjun Mehta A-101, Emerald Tower, Surat, 395001'. Address 1 has 'Towers' and Address 3 has 'Arjun M.'."
   },
   {
-    "question": "Which of the following is/are identical to the address given: Meenal Gupta 102, Silver Oaks, Sector 12, Noida, 201301\n1. Meenal Gupta 102, Silver Oaks, Sector 12, Noida, 201301\n2. Meenal Gupta 102, Silver Oaks, Sector-12, Noida, 201301\n3. Meenal Gupta 102, Silver Oaks, Sector 12, Noida 201301\n4. Meenal Gupta 102, Silver Oaks, Sector 12, Noida, 201302",
+    "question": "<img src='../images/new.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
     "options": ["1", "3", "2", "4"],
     "correctAnswer": "1",
     "explanation": "The identical address must be an exact match, including punctuation and the PIN code. Only address 1 is a character-for-character match."
