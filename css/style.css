@@ -504,3 +504,107 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     border: 1px solid var(--border-color);
     box-shadow: none; /* Remove redundant shadow */
 }
+/* --- EXISTING STYLES (KEEP YOUR EXISTING CSS HERE) --- */
+
+/* ... (Your existing CSS rules) ... */
+
+/* --- NEW ALIGNMENT RULES FOR RESULTS PAGE --- */
+
+/* Ensures the modal fully disappears */
+#submit-summary-modal.hidden {
+    display: none !important; 
+}
+
+/* Main container for the results card content (handles the two columns) */
+.result-top-row {
+    display: flex;
+    gap: 30px;
+    align-items: stretch; /* Stretches columns to fill height */
+    padding: 20px 0;
+    width: 100%; /* Ensure it spans the card width */
+}
+
+/* LEFT COLUMN: Shift Info and Action Buttons */
+.test-info-column {
+    flex: 1; /* Takes the left space (e.g., 1/3rd of the area) */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes buttons to the bottom/center */
+    align-items: flex-start;
+    min-width: 200px;
+}
+
+.test-details .shift-info {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--text-primary, #333);
+    margin-bottom: 5px;
+}
+.test-details .question-info {
+    font-size: 0.9em;
+    color: var(--text-secondary, #666);
+}
+
+.result-header-actions {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Make the buttons fill the width of the column */
+.result-header-actions .action-btn {
+    width: 100%; 
+    text-align: center;
+}
+
+/* RIGHT COLUMN: The Stats Grid */
+.stats-grid-column {
+    flex: 2; /* Takes more space than the left column (e.g., 2/3rds of the area) */
+    display: grid;
+    /* Creates a responsive grid of 3 columns */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 15px;
+    /* Add a visual separator (line) between the two columns */
+    border-left: 1px solid var(--border-color, #e0e0e0);
+    padding-left: 30px; 
+}
+
+/* Styling for the individual stat cards (Score, Correct, etc.) */
+.stats-grid-column .stat-card {
+    background-color: var(--card-bg, #f9f9f9); /* Use a light background for separation */
+    border: 1px solid var(--border-color, #e0e0e0);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Optional subtle shadow */
+}
+
+.stat-card .stat-value {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--primary-color, #5e35b1); /* Use a prominent color */
+    line-height: 1.2;
+}
+
+.stat-card .stat-label {
+    font-size: 0.8em;
+    color: var(--text-secondary, #666);
+    text-transform: uppercase;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+    .result-top-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stats-grid-column {
+        padding-left: 0;
+        border-left: none; /* Remove border on smaller screens */
+        border-top: 1px solid var(--border-color, #e0e0e0);
+        padding-top: 20px;
+    }
+}
