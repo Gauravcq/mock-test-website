@@ -270,8 +270,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Clear Response Logic ---
         clearResponseBtn.addEventListener('click', () => { const state = questionStates[currentQuestionIndex]; state.userAnswer = null; state.status = 'not-answered'; showQuestion(currentQuestionIndex); });
         
-        // --- Review Navigation ---
-        reviewNextBtn.addEventListener('click', () => { if (currentReviewIndex < questions.length - 1) { showReviewQuestion(currentReviewIndex + 1); } });
-        reviewPrevBtn.addEventListener('click', () => { if (currentReviewIndex > 0) { showReviewQuestion(currentReviewIndex - 1); } });
     }
 });
