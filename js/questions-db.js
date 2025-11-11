@@ -474,7 +474,7 @@ const QUESTIONS_DATABASE = {
 
 
     "ssc_cgl_12_sep_s1-r": [
-       [
+       
   {
     "question": "In the following question, select the related word from the given alternatives. Watt: Power :: Pascal: ?",
     "options": ["Energy", "Temperature", "Pressure", "Force"],
@@ -577,6 +577,5 @@ const QUESTIONS_DATABASE = {
     "correctAnswer": "4, 6, 8",
     "explanation": "The sets {2, 3, 5}, {11, 13, 17}, and {7, 19, 23} all consist exclusively of prime numbers. The set **{4, 6, 8}** is the odd one out because it consists of composite (non-prime) numbers."
   }
-]
-    ]
+],
 };
