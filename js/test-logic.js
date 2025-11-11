@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentReviewIndex = 0;
         let questionStates = []; 
         let timerInterval;
-        let timeRemaining = 25 * 60; // 25 minutes timer based on test card data
+        let timeRemaining = (testInfo.minutes || 25) * 60; // Use minutes from testInfo
         let isPaused = false;
 
         // --- Element References (Inside Quiz) ---
@@ -68,24 +68,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionArea = document.getElementById('question-area');
         const questionTitle = document.getElementById('question-title');
         const questionPalette = document.getElementById('question-palette');
-        const prevBtn = document.getElementById('prev-btn');
+        
+        // Navigation buttons in the palette panel (These handle Save & Next / Submit)
         const nextBtn = document.getElementById('next-btn');
         const markReviewBtn = document.getElementById('mark-review-btn');
-        const clearResponseBtn = document.getElementById('clear-response-btn');
         const submitTestBtn = document.getElementById('submit-test-btn');
-        const reviewTestBtn = document.getElementById('review-test-btn');
-        const reviewPrevBtn = document.getElementById('review-prev-btn');
-        const reviewNextBtn = document.getElementById('review-next-btn');
 
-        // Set the main test title with the NEW badge
-        document.getElementById('test-main-title').innerHTML = `
-            🎓 ${testInfo.date} - ${testInfo.title}
-            ${testInfo.isNew ? '<span class="new-badge">NEW</span>' : ''}
-        `;
+        // Analysis panel elements
+        const totalAnsweredEl = document.getElementById('total-answered');
+        const analysisAnsweredEl = document.getElementById('analysis-answered');
+        const analysisNotAnsweredEl = document.getElementById('analysis-not-answered');
+        const lastMinuteTimerEl = document.getElementById('last-minute-timer-value');
+
+
+        // Set the main test title and info
+        document.getElementById('test-main-title').textContent = `${testInfo.subject} - ${testInfo.date} ${testInfo.title}`;
         
         // Initialize state array
         questionStates = questions.map(() => ({ 
-            status: 'unvisited', // Corrected initial status to 'unvisited' for accurate palette tracking
+            status: 'unvisited', 
             userAnswer: null, 
             markedForReview: false 
         }));
@@ -93,11 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
         createPalette();
         startTimer();
         showQuestion(0);
+        updateAnalysisPanel();
         
         // Prevent accidental closing
         window.addEventListener('beforeunload', (e) => { 
-            e.preventDefault(); 
-            e.returnValue = ''; 
+            if (!isPaused && timeRemaining > 0) {
+                 e.preventDefault(); 
+                 e.returnValue = ''; 
+            }
         });
 
         // --- TIMER FUNCTIONS ---
@@ -112,6 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (timerEl) { 
                     timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; 
                 } 
+
+                if (lastMinuteTimerEl) {
+                    lastMinuteTimerEl.textContent = `${minutes} Minutes`;
+                }
                 
                 if (timeRemaining <= 0) { 
                     clearInterval(timerInterval); 
@@ -122,22 +130,37 @@ document.addEventListener('DOMContentLoaded', () => {
         function pauseTest() { isPaused = true; pauseOverlay.classList.remove('hidden'); }
         function resumeTest() { isPaused = false; pauseOverlay.classList.add('hidden'); }
         
+        // --- ANALYSIS PANEL UPDATE ---
+        function updateAnalysisPanel() {
+            const answeredCount = questionStates.filter(s => s.userAnswer !== null).length;
+            const notAnsweredCount = questions.length - answeredCount;
+
+            totalAnsweredEl.textContent = answeredCount;
+            analysisAnsweredEl.textContent = answeredCount;
+            // The screenshot shows "Not Answered" counting only the ones that were visited but not answered.
+            // We'll update the logic to reflect the visible palette state (Not Answered includes unvisited too, but for this small panel, we often count unvisited + not-answered).
+            analysisNotAnsweredEl.textContent = questionStates.filter(s => s.status !== 'answered').length; 
+        }
+
         // --- RESULT & SUBMISSION FUNCTIONS ---
         function showSubmissionSummary() {
+            // Ensure the last viewed question's answer is saved
+            saveCurrentAnswer(); 
+
             const answered = questionStates.filter(s => s.userAnswer !== null).length;
             const notAnswered = questions.length - answered;
             const marked = questionStates.filter(s => s.markedForReview).length;
 
-            // Updated status count for better summary
             const answeredMarked = questionStates.filter(s => s.markedForReview && s.userAnswer !== null).length;
             const unansweredMarked = marked - answeredMarked;
+            const unvisited = questionStates.filter(s => s.status === 'unvisited').length;
 
             submissionStatsEl.innerHTML = `
                 <div>Answered: <span>${answered}</span></div>
                 <div>Not Answered: <span>${notAnswered}</span></div>
                 <div>Answered & Marked: <span>${answeredMarked}</span></div>
                 <div>Not Answered & Marked: <span>${unansweredMarked}</span></div>
-                <div>Unvisited: <span>${questionStates.filter(s => s.status === 'unvisited').length}</span></div>
+                <div>Unvisited: <span>${unvisited}</span></div>
             `;
             submitSummaryModal.classList.remove('hidden');
         }
@@ -145,14 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
         function calculateAndShowResults(autoSubmit = false) {
             if (!autoSubmit) { submitSummaryModal.classList.add('hidden'); }
             clearInterval(timerInterval);
-            saveCurrentAnswer(); // Save the answer for the last question viewed
             
             let score = 0, correctCount = 0, incorrectCount = 0, attemptedCount = 0;
-            const positiveMark = 2; // Assuming +2 for correct
-            const negativeMark = 0.5; // Assuming -0.5 for incorrect
+            const positiveMark = 2; // +2 for correct
+            const negativeMark = 0.5; // -0.5 for incorrect
             
             questionStates.forEach((state, index) => { 
-                // Only evaluate if an answer was provided (ignoring review status here)
                 if (state.userAnswer !== null) { 
                     attemptedCount++; 
                     
@@ -208,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.status = 'not-answered'; 
             } 
             
-            questionTitle.textContent = `Question ${index + 1} of ${questions.length}`; 
+            questionTitle.textContent = `Question : ${index + 1}`; 
             
             // Render the options with user's saved answer checked
             const optionsHtml = question.options.map(option => 
@@ -218,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </label>`
             ).join('');
 
-            questionArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${optionsHtml}</div>`; 
+            questionArea.innerHTML = `<p class="question-text">${question.question}</p><div class="options-container">${optionsHtml}</div>`; 
 
             // Re-bind click handler for the new options (to handle 'selected' class)
             questionArea.querySelectorAll('.option').forEach(label => {
@@ -235,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } 
             updateNavigation(); 
             updatePalette(); 
+            updateAnalysisPanel();
         }
 
         function saveCurrentAnswer() { 
@@ -245,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.userAnswer = selectedOption.value; 
                 state.status = 'answered'; // Status is 'answered' if an answer is selected
             } else if (state.status !== 'unvisited') {
-                 // Status reverts to 'not-answered' only if it wasn't unvisited and user cleared selection
+                 // If answer is cleared, revert to 'not-answered'
                  state.userAnswer = null;
                  if (!state.markedForReview) {
                      state.status = 'not-answered';
@@ -254,9 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function updateNavigation() { 
-            prevBtn.disabled = currentQuestionIndex === 0; 
-            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Submit Test' : 'Save & Next'; 
-            markReviewBtn.textContent = questionStates[currentQuestionIndex].markedForReview ? 'Unmark' : 'Mark for Review'; 
+            // Update Mark/Unmark button text
+            markReviewBtn.textContent = questionStates[currentQuestionIndex].markedForReview ? 'Unmark Review' : 'Mark for Review'; 
         }
 
         function updatePalette() { 
@@ -266,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Determine the correct status class based on the combined state
                 if (state.markedForReview) { 
-                    // Use 'answered-marked' for answered and marked, and 'marked-unanswered' for only marked.
                     btn.classList.add(state.userAnswer !== null ? 'answered-marked' : 'marked-unanswered'); 
                 } else if (state.userAnswer !== null) { 
                     btn.classList.add('answered'); 
@@ -284,7 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- REVIEW PAGE FUNCTIONS ---
         function showReviewQuestion(index) { 
-            currentReviewIndex = index; 
+             // ... (Review function logic remains the same from previous step) ...
+             currentReviewIndex = index; 
             const question = questions[index]; 
             const state = questionStates[index]; 
             const reviewArea = document.getElementById('review-question-area'); 
@@ -318,8 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.MathJax) { 
                 window.MathJax.typeset(); 
             } 
-            reviewPrevBtn.disabled = index === 0; 
-            reviewNextBtn.disabled = index === questions.length - 1; 
+            document.getElementById('review-prev-btn').disabled = index === 0; 
+            document.getElementById('review-next-btn').disabled = index === questions.length - 1; 
         }
 
         // --- EVENT LISTENERS ---
@@ -330,56 +351,65 @@ document.addEventListener('DOMContentLoaded', () => {
         finalSubmitBtn.addEventListener('click', () => calculateAndShowResults());
         cancelSubmitBtn.addEventListener('click', () => submitSummaryModal.classList.add('hidden'));
 
+        // Listener for the "Save & Next" button in the palette panel
         nextBtn.addEventListener('click', () => { 
             saveCurrentAnswer(); 
             updatePalette(); 
+            updateAnalysisPanel();
             if (currentQuestionIndex < questions.length - 1) { 
                 showQuestion(currentQuestionIndex + 1); 
             } else {
-                // If on the last question, Next button means Submit Test
+                // If on the last question, Save & Next implies moving to the submission step
                 showSubmissionSummary();
             }
         });
-
-        prevBtn.addEventListener('click', () => { 
-            saveCurrentAnswer(); 
-            updatePalette(); 
-            if (currentQuestionIndex > 0) { 
-                showQuestion(currentQuestionIndex - 1); 
-            } 
-        });
-
+        
+        // Listener for the Mark for Review button
         markReviewBtn.addEventListener('click', () => { 
             const state = questionStates[currentQuestionIndex]; 
             state.markedForReview = !state.markedForReview; 
-            // Do NOT call saveCurrentAnswer() here, as marking shouldn't change the answer state.
             updatePalette(); 
             updateNavigation(); 
+            // Note: Clear Response button is not present in the new UI, 
+            // so we rely on the user selecting a different option to change the answer.
+        });
+        
+        // Listeners for the temporary Save/Report buttons (optional, based on your screenshot)
+        document.getElementById('save-btn')?.addEventListener('click', () => {
+            saveCurrentAnswer();
+            updatePalette();
+            updateAnalysisPanel();
+            alert("Answer Saved!");
+        });
+        document.getElementById('report-btn')?.addEventListener('click', () => {
+            alert("Question Reported.");
         });
 
-        clearResponseBtn.addEventListener('click', () => { 
-            const state = questionStates[currentQuestionIndex]; 
-            state.userAnswer = null; 
-            state.status = 'not-answered'; 
-            showQuestion(currentQuestionIndex); // Re-render to clear radio button
-        });
 
-        reviewTestBtn.addEventListener('click', () => { 
+        // Listeners for the Review Test buttons (if implemented)
+        document.getElementById('review-test-btn')?.addEventListener('click', () => { 
             resultSummaryPage.classList.add('hidden'); 
             reviewPage.classList.remove('hidden'); 
             showReviewQuestion(0); 
         });
 
-        reviewNextBtn.addEventListener('click', () => { 
+        document.getElementById('review-next-btn')?.addEventListener('click', () => { 
             if (currentReviewIndex < questions.length - 1) { 
                 showReviewQuestion(currentReviewIndex + 1); 
             } 
         });
 
-        reviewPrevBtn.addEventListener('click', () => { 
+        document.getElementById('review-prev-btn')?.addEventListener('click', () => { 
             if (currentReviewIndex > 0) { 
                 showReviewQuestion(currentReviewIndex - 1); 
             } 
         });
+
+        // Listener for the Instructions button to re-open the modal
+        document.getElementById('instructions-btn')?.addEventListener('click', () => {
+            if (!isPaused) pauseTest(); // Pause the test if it's running
+            instructionsModal.classList.remove('hidden');
+        });
+        
     }
 });
