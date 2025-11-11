@@ -761,7 +761,7 @@ const QUESTIONS_DATABASE = {
       "Two",
       "Five"
     ],
-    "correctAnswer": "One",
+    "correctAnswer": "Three",
     "explanation": "The letters extracted from PROVIDE (1st, 2nd, 3rd, 6th) are P, R, O, I. The only meaningful four-letter English word that can be formed using these letters once is **PRIO** (a type of prayer or service)."
   },
   {
@@ -876,7 +876,7 @@ const QUESTIONS_DATABASE = {
   "explanation": "This is a direct letter-to-digit coding problem. We assign the digit based on its position in the coded words:\n\nFrom MOUSE (45291):\n* M = 4, O = 5, U = 2, S = 9, E = 1\n\nFrom RAT (786):\n* R = 7, A = 8, T = 6\n\nTo find the code for STORE, substitute the digits for the respective letters:\n* S (9)\n* T (6)\n* O (5)\n* R (7)\n* E (1)\n\nThe code for STORE is **96571**."
 },
 {
-  "question": "If $7 \\$ 3 = 58$ and $6 \\$ 2 = 40$, what is $5 \\$ 1?",
+  "question": "If 7 \\$ 3 = 58 and 6 \\$ 2 = 40, what is 5 \\$ 1?",
   "options": [
     "26",
     "24",
@@ -920,7 +920,7 @@ const QUESTIONS_DATABASE = {
   "explanation": "Let the two numbers be $7x$ and $9x$, based on the ratio $7:9$.\n\n1. Sum of the ratios: $7x + 9x = 16x$\n2. Set the sum equal to 128: $16x = 128$\n3. Solve for $x$: $x = \\frac{128}{16} = 8$\n4. Calculate the numbers:\n   * First number: $7 \\times 8 = 56$\n   * Second number: $9 \\times 8 = 72$\n\nTherefore, the numbers are **56 and 72**."
 },
 {
-  "question": "If $16+11=A$ and $5=B$ (implied value is 3 or 1), and $A \\% B=(A \\times B)-1$, then what is $A \\% B$?",
+  "question": "<img src='../images/24.png' alt='Question 24' style='max-width: 100%; height: auto;'>",
   "options": [
     "0",
     "3",
