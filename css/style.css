@@ -439,3 +439,68 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 .stat-card.unattempted .stat-value { color: var(--status-marked-unanswered); }
 .stat-card.time-taken .stat-value { color: #8e44ad; } /* Custom Purple */
 .stat-card.accuracy .stat-value { color: #f39c12; } /* Custom Orange */
+/* --- NEW ALIGNMENT RULES FOR RESULTS PAGE --- */
+
+/* * This new class wraps the two main columns (Info/Buttons on Left, Stats on Right)
+ * It goes *inside* .result-box-card and *replaces* the old injection logic.
+ */
+.result-top-row {
+    display: flex;
+    gap: 30px;
+    align-items: stretch; /* Stretch columns to fill height */
+    padding: 20px 0;
+}
+
+/* LEFT COLUMN: Shift Info and Buttons */
+.test-info-column {
+    flex: 1; /* Takes the left space */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push buttons to the bottom/center */
+    align-items: flex-start;
+    min-width: 200px; /* Ensure space for the info text */
+}
+
+.test-details .shift-info {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+.test-details .question-info {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.result-header-actions {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Make the buttons fill the width of the column */
+.result-header-actions .action-btn {
+    width: 100%; 
+    text-align: center;
+}
+
+/* RIGHT COLUMN: The Stats Grid */
+.stats-grid-column {
+    flex: 2; /* Takes more space than the left column */
+    display: grid;
+    /* 3 columns in large screen, wraps to 2 or 1 as needed */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 15px;
+    /* Add a visual separator (line) between the two columns */
+    border-left: 1px solid var(--border-color);
+    padding-left: 30px; 
+}
+
+/* The stat cards need light borders to look separate, like in your image */
+.stats-grid-column .stat-card {
+    background-color: var(--secondary-bg); /* White background for separation */
+    border: 1px solid var(--border-color);
+    box-shadow: none; /* Remove redundant shadow */
+}
