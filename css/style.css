@@ -332,3 +332,97 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 .submission-stats span { font-weight: 700; float: right; }
 .modal-btn-group { display: flex; justify-content: center; gap: 20px; }
 .modal-btn.secondary { background: var(--text-secondary); }
+/* --- RESULT SUMMARY PAGE STYLES --- */
+
+/* Base container for the results page */
+#result-summary-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #f4f6f9; /* Light background for the overall page */
+    min-height: 100vh;
+}
+
+.result-summary-header {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #4A00E0; /* Primary brand color */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* The main container card for the stats */
+#result-stats-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    width: 100%;
+    padding: 30px;
+    background-color: #ffffff; /* White card background */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s;
+    background-color: #f7f9fc; /* Light background for individual stats */
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 1em;
+    font-weight: 500;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+/* Specific color coding for key stats */
+.stat-card.score .stat-value { color: #4A00E0; } /* Brand Purple */
+.stat-card.correct .stat-value { color: #28a745; } /* Green */
+.stat-card.incorrect .stat-value { color: #dc3545; } /* Red */
+.stat-card.unattempted .stat-value { color: #ffc107; } /* Yellow */
+.stat-card.accuracy .stat-value { color: #007bff; } /* Blue */
+
+/* Footer actions */
+.result-summary-footer {
+    display: flex;
+    gap: 15px;
+}
+
+.result-summary-footer button {
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#review-test-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+#review-test-btn:hover {
+    background-color: #0056b3;
+}

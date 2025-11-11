@@ -3,120 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Mock Test</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <title>Mock Test - Exam Interface</title>
+    <link rel="stylesheet" href="css/style.css"> 
+    
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    
+
     <div id="instructions-modal" class="modal-overlay">
         <div class="modal-content instructions-content">
-            <h2>Test Instructions & Overview</h2>
-            <div class="instructions-section">
-                <h3>📝 Exam Details</h3>
-                <ul>
-                    <li>Duration: <strong>60 minutes</strong></li>
-                    <li>Total Questions: <strong>100</strong> (4 sections of 25 questions each)</li>
-                    <li>Marking Scheme: **+2** for correct, **-0.5** for incorrect (25% deduction).</li>
-                </ul>
+            <h2>Test Instructions</h2>
+            <p>Please read the rules carefully before proceeding.</p>
+            <ul>
+                <li>Total Questions: <strong>25</strong></li>
+                <li>Total Time: <strong>25 Minutes</strong></li>
+                <li>Marking Scheme: <strong>+2</strong> for correct, <strong>-0.5</strong> for incorrect.</li>
+            </ul>
+            <div class="action-buttons">
+                 <button id="start-test-btn" class="btn primary">Start Test</button>
             </div>
-            
-            <div class="instructions-section">
-                <h3>🚥 Question Status Symbols</h3>
-                <table class="symbol-table">
-                    <tr><td><span class="q-btn symbol-example q-status-unvisited">1</span></td><td>Not Visited (Default)</td></tr>
-                    <tr><td><span class="q-btn symbol-example q-status-not-answered">2</span></td><td>Not Answered (Blue)</td></tr>
-                    <tr><td><span class="q-btn symbol-example q-status-answered">3</span></td><td>Answered (Green)</td></tr>
-                    <tr><td><span class="q-btn symbol-example q-status-marked">4</span></td><td>Marked for Review (Red/Orange)</td></tr>
-                    <tr><td><span class="q-btn symbol-example q-status-answered-marked">5</span></td><td>Answered & Marked for Review (Yellow)</td></tr>
-                </table>
+        </div>
+    </div>
+
+
+    <div id="quiz-ui" class="quiz-container hidden">
+
+        <header class="quiz-header">
+            <div class="header-left">
+                <div class="logo">Test Logo/Name</div>
+                <div id="test-main-title" class="test-title">🎓 Loading Test...</div>
+            </div>
+            <div class="header-controls">
+                <div class="timer-box">
+                    <span class="timer-label">Time Left</span>
+                    <span id="timer" class="timer-value">25:00</span>
+                </div>
+                <button id="pause-btn" class="control-btn">❚❚ Pause</button>
+                <div class="profile-icon">👤</div>
+            </div>
+        </header>
+
+        <div class="quiz-main-grid">
+
+            <div class="left-panel">
+                <div class="section-tabs">
+                    <button class="section-btn active">PART-A</button>
+                    </div>
+
+                <div class="palette-wrapper">
+                    <div class="palette-header">Question Palette</div>
+                    <div id="question-palette" class="question-palette">
+                        </div>
+                </div>
+
+                <div class="analysis-box">
+                    <div class="analysis-stats">
+                        <div class="stat-indicator answered">0 Answered</div>
+                        <div class="stat-indicator not-answered">25 Not Answered</div>
+                    </div>
+                    <button id="submit-test-btn" class="submit-test-btn">Submit Test</button>
+                </div>
             </div>
 
-            <label class="acceptance-check">
-                <input type="checkbox" id="accept-instructions">
-                I have read all the instructions and accept the terms.
-            </label>
-            <button id="start-test-btn" class="modal-btn" disabled>Start Test</button>
+            <div class="right-panel">
+                
+                <div class="question-header-bar">
+                    <h3 id="question-title">Question 1 of 25</h3>
+                    <div class="language-dropdown">
+                        <select id="question-lang-select"><option>English</option><option>Hindi</option></select>
+                    </div>
+                </div>
+
+                <div id="question-area" class="question-area">
+                    </div>
+
+                <div class="bottom-nav-bar">
+                    <button id="prev-btn" class="nav-btn secondary">Previous</button>
+                    <button id="clear-response-btn" class="nav-btn secondary">Clear Response</button>
+                    
+                    <div class="action-btns-group">
+                        <button id="mark-review-btn" class="nav-btn mark-review">Mark for Review</button>
+                        <button id="next-btn" class="nav-btn primary">Save & Next</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div id="pause-overlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Test Paused</h2>
+            <button id="resume-btn" class="btn primary">Resume Test</button>
         </div>
     </div>
 
     <div id="submit-summary-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h2>Test Summary</h2>
-            <div id="submission-stats" class="submission-stats"></div>
-            <p>Are you sure you want to submit the test?</p>
+            <h2>Confirm Submission</h2>
+            <p>Review your status before final submission:</p>
+            <div id="submission-stats" class="summary-stats"></div>
             <div class="modal-btn-group">
-                <button id="final-submit-btn" class="modal-btn">Yes, Submit</button>
-                <button id="cancel-submit-btn" class="modal-btn secondary">Go Back</button>
+                <button id="final-submit-btn" class="btn primary">Yes, Submit</button>
+                <button id="cancel-submit-btn" class="btn secondary">Cancel</button>
             </div>
         </div>
     </div>
-    
-    <div id="quiz-ui" class="hidden">
-        
-        <header class="main-header">
-            <div id="test-main-title" class="logo">MOCK TEST PLATFORM</div>
-            <div class="header-controls">
-                <div id="timer-label">Time Left:</div>
-                <div id="timer">60:00</div>
-                <button id="pause-btn" title="Pause Test">❚❚</button>
-            </div>
-        </header>
 
-        <main class="quiz-body">
+
+    <div id="result-summary-page" class="result-page-container hidden">
+        <div class="result-box-card">
+            <h1 class="result-title">🎉 Test Completed!</h1>
+            <p class="result-subtitle">Here is a summary of your performance:</p>
             
-            <div class="question-panel">
-                <div class="question-header">
-                    <span id="current-section-label">PART-A: Quantitative Aptitude</span>
-                    <select id="language-select" title="Select Question Language">
-                        <option value="en">English</option>
-                        <option value="hi">Hindi</option>
-                    </select>
-                </div>
-                
-                <div class="question-content-wrapper">
-                    <div id="question-area">
-                        <div id="question-text">Loading question...</div>
-                        <div id="options-container"></div>
-                    </div>
+            <div id="result-stats-full" class="result-stats-grid">
                 </div>
 
-                <div class="action-buttons">
-                    <button id="prev-btn" class="action-btn secondary">Previous</button>
-                    <button id="clear-response-btn" class="action-btn secondary">Clear Response</button>
-                    <button id="mark-review-btn" class="action-btn secondary">Mark for Review</button>
-                    <button id="next-btn" class="action-btn primary">Save & Next</button>
+            <div class="result-actions-footer">
+                <button id="review-test-btn" class="btn review-btn">Review Test</button>
+                <a href="index.html" class="btn secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="review-page" class="review-page-container hidden">
+        <div class="review-box">
+            <div class="review-header-bar">
+                <h3 id="review-question-title">Reviewing...</h3>
+                <div class="review-nav-btns">
+                    <button id="review-prev-btn" class="nav-btn secondary">Previous</button>
+                    <button id="review-next-btn" class="nav-btn primary">Next</button>
                 </div>
             </div>
-
-            <aside class="palette-panel">
-                
-                <div class="section-tabs" id="section-tabs">
-                    </div>
-
-                <div class="analysis-panel">
-                    <div class="analysis-header" id="analysis-header">Section Analysis</div>
-                    <div id="q-status-summary">
-                        <p>Answered: <span id="answered-count">0</span></p>
-                        <p>Not Answered: <span id="not-answered-count">0</span></p>
-                        <p>Marked for Review: <span id="marked-count">0</span></p>
-                        <p>Not Visited: <span id="unvisited-count">0</span></p>
-                    </div>
+            
+            <div id="review-question-area" class="review-question-area">
                 </div>
-
-                <div class="palette-header">Question Palette</div>
-                <div id="question-palette">
-                    </div>
-                
-                <button id="submit-test-btn" class="submit-button">Submit Test</button>
-            </aside>
-        </main>
+            
+            <a href="index.html" class="btn secondary back-home-btn">Back to Home</a>
+        </div>
     </div>
-    
-    <div id="pause-overlay" class="hidden"><h2>Test Paused</h2><button id="resume-btn">Resume Test</button></div>
-    <div id="result-summary-page" class="hidden"><div class="result-summary-header">Test Results</div><div id="result-stats-full"></div><div class="result-summary-footer"><button id="review-test-btn">Review Test</button></div></div>
-    <div id="review-page" class="hidden">...</div>
 
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>

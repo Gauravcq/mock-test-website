@@ -47,7 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalSubmitBtn = document.getElementById('final-submit-btn');
         const cancelSubmitBtn = document.getElementById('cancel-submit-btn');
         const questionArea = document.getElementById('question-area'); const questionTitle = document.getElementById('question-title'); const questionPalette = document.getElementById('question-palette');
-        const prevBtn = document.getElementById('prev-btn'); const nextBtn = document.getElementById('next-btn'); const markReviewBtn = document.getElementById('mark-review-btn');
+        const prevBtn = document.getElementById('prev-btn'); 
+        const nextBtn = document.getElementById('next-btn'); // This is now SAVE & NEXT
+        const markReviewBtn = document.getElementById('mark-review-btn'); // This is now MARK FOR REVIEW & NEXT
         const clearResponseBtn = document.getElementById('clear-response-btn'); const submitTestBtn = document.getElementById('submit-test-btn');
         const reviewTestBtn = document.getElementById('review-test-btn'); const reviewPrevBtn = document.getElementById('review-prev-btn'); const reviewNextBtn = document.getElementById('review-next-btn');
         
@@ -66,18 +68,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('beforeunload', (e) => { e.preventDefault(); e.returnValue = ''; });
         
         function startTimer() { 
-            // FIXED SYNTAX ERROR HERE
             timerInterval = setInterval(() => { 
                 if (isPaused) return; 
                 timeRemaining--; 
                 const minutes = Math.floor(timeRemaining / 60); 
                 const seconds = timeRemaining % 60; 
                 if (timerEl) { 
+                    // Update Time Left Display
                     timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; 
                 } 
                 if (timeRemaining <= 0) { 
                     clearInterval(timerInterval); 
-                    calculateAndShowResults(true); 
+                    calculateAndShowResults(true); // Auto-submit on time up
                 } 
             }, 1000); 
         }
@@ -95,19 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
             submitSummaryModal.classList.remove('hidden');
         }
 
+        /**
+         * UPDATED: Calculates and displays results using a structured HTML format
+         * for better styling control on the results page.
+         */
         function calculateAndShowResults(autoSubmit = false) {
             if (!autoSubmit) { submitSummaryModal.classList.add('hidden'); }
             clearInterval(timerInterval); saveCurrentAnswer();
             let score = 0, correctCount = 0, incorrectCount = 0, attemptedCount = 0;
             
             questionStates.forEach((state, index) => { 
+                // Only count attempted if an answer was selected AND it wasn't just marked for review.
+                // NOTE: In professional tests, answers marked for review *are* evaluated. We only check userAnswer !== null.
                 if (state.userAnswer !== null) { 
                     attemptedCount++; 
                     
-                    // Uses the robust normalizeString for comparison
                     const userAnswerNormalized = normalizeString(state.userAnswer);
                     const correctAnswerNormalized = normalizeString(questions[index].correctAnswer);
 
+                    // Scoring: +2 for correct, -0.5 for incorrect/attempted
                     if (userAnswerNormalized === correctAnswerNormalized) { 
                         score += 2; correctCount++; 
                     } else { 
@@ -116,20 +124,64 @@ document.addEventListener('DOMContentLoaded', () => {
                 } 
             });
             
+            const unattemptedCount = questions.length - attemptedCount;
+
+            // --- Enhanced Result Page HTML Structure ---
             const resultStatsEl = document.getElementById('result-stats-full');
             resultStatsEl.innerHTML = `
-                <div class="stat-card score"><span class="value">${score.toFixed(2)}</span><span class="label">Score</span></div>
-                <div class="stat-card correct"><span class="value">${correctCount}</span><span class="label">Correct</span></div>
-                <div class="stat-card incorrect"><span class="value">${incorrectCount}</span><span class="label">Incorrect</span></div>
-                <div class="stat-card unattempted"><span class="value">${questions.length - attemptedCount}</span><span class="label">Unattempted</span></div>
+                <div class="result-summary-section">
+                    <h2>Test Results: ${testInfo.title}</h2>
+                    <p>Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
+                </div>
+                <div class="result-grid-stats">
+                    <div class="stat-card total-score">
+                        <div class="stat-value">${score.toFixed(2)}</div>
+                        <div class="stat-label">Your Score</div>
+                    </div>
+                    <div class="stat-card correct">
+                        <div class="stat-value">${correctCount}</div>
+                        <div class="stat-label">Correct</div>
+                    </div>
+                    <div class="stat-card incorrect">
+                        <div class="stat-value">${incorrectCount}</div>
+                        <div class="stat-label">Incorrect</div>
+                    </div>
+                    <div class="stat-card unattempted">
+                        <div class="stat-value">${unattemptedCount}</div>
+                        <div class="stat-label">Unattempted</div>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button id="review-test-btn" class="action-btn">Review Test</button>
+                    <a href="index.html" class="action-btn secondary-btn">Go to Tests</a>
+                </div>
             `;
-            quizUI.classList.add('hidden'); resultSummaryPage.classList.remove('hidden');
+            // --- End Enhanced Result Page HTML Structure ---
+            
+            // Re-assign the listener since the button was re-rendered
+            document.getElementById('review-test-btn').addEventListener('click', () => { 
+                resultSummaryPage.classList.add('hidden'); 
+                reviewPage.classList.remove('hidden'); 
+                showReviewQuestion(0); 
+            });
+
+            quizUI.classList.add('hidden'); 
+            resultSummaryPage.classList.remove('hidden');
         }
 
         // --- All other functions ---
         function createPalette() { questionPalette.innerHTML = ''; questions.forEach((_, index) => { const btn = document.createElement('button'); btn.className = 'palette-btn'; btn.textContent = index + 1; btn.dataset.index = index; btn.addEventListener('click', () => { saveCurrentAnswer(); showQuestion(index); }); questionPalette.appendChild(btn); }); }
         function showQuestion(index) { currentQuestionIndex = index; const question = questions[index]; const state = questionStates[index]; if (state.status === 'not-visited') { state.status = 'not-answered'; } questionTitle.textContent = `Question ${index + 1} of ${questions.length}`; questionArea.innerHTML = `<p class="question-text">${index + 1}. ${question.question}</p><div class="options-container">${question.options.map(option => `<label class="option"><input type="radio" name="option" value="${option}" ${state.userAnswer === option ? 'checked' : ''}><span>${option}</span></label>`).join('')}</div>`; if (window.MathJax) { window.MathJax.typeset(); } updateNavigation(); updatePalette(); }
-        function updateNavigation() { prevBtn.disabled = currentQuestionIndex === 0; nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Save' : 'Save & Next'; markReviewBtn.textContent = questionStates[currentQuestionIndex].markedForReview ? 'Unmark' : 'Mark'; }
+        function updateNavigation() { 
+            prevBtn.disabled = currentQuestionIndex === 0; 
+            
+            // NOTE: The nextBtn text is now always "Save & Next" to match the mock interface,
+            // as the function handles saving AND moving to the next question.
+            nextBtn.textContent = 'Save & Next'; 
+            
+            // The Mark/Unmark logic remains on the dedicated Mark for Review button
+            markReviewBtn.textContent = questionStates[currentQuestionIndex].markedForReview ? 'Unmark Review' : 'Mark for Review'; 
+        }
         function updatePalette() { document.querySelectorAll('.palette-btn').forEach((btn, index) => { const state = questionStates[index]; btn.className = 'palette-btn'; if (state.markedForReview) { btn.classList.add(state.status === 'answered' ? 'answered-marked-review' : 'marked-review'); } else if (state.status === 'answered') { btn.classList.add('answered'); } else if (state.status === 'not-answered') { btn.classList.add('not-answered'); } else { btn.classList.add('not-visited'); } if (index === currentQuestionIndex) { btn.classList.add('current'); } }); }
         
         function saveCurrentAnswer() { 
@@ -151,11 +203,41 @@ document.addEventListener('DOMContentLoaded', () => {
         submitTestBtn.addEventListener('click', showSubmissionSummary);
         finalSubmitBtn.addEventListener('click', () => calculateAndShowResults());
         cancelSubmitBtn.addEventListener('click', () => submitSummaryModal.classList.add('hidden'));
-        nextBtn.addEventListener('click', () => { saveCurrentAnswer(); updatePalette(); if (currentQuestionIndex < questions.length - 1) { showQuestion(currentQuestionIndex + 1); } });
+        
+        // --- UPDATED NEXT BUTTON LOGIC (Save & Next) ---
+        nextBtn.addEventListener('click', () => { 
+            saveCurrentAnswer(); 
+            updatePalette(); 
+            if (currentQuestionIndex < questions.length - 1) { 
+                showQuestion(currentQuestionIndex + 1); 
+            }
+        });
+        
+        // --- UPDATED MARK FOR REVIEW BUTTON LOGIC (Mark for Review & Next) ---
+        markReviewBtn.addEventListener('click', () => { 
+            const state = questionStates[currentQuestionIndex]; 
+            
+            // 1. Toggle Mark/Unmark State
+            state.markedForReview = !state.markedForReview; 
+
+            // 2. Save Answer (if one is selected)
+            saveCurrentAnswer();
+            
+            // 3. Move to Next Question
+            updatePalette();
+            updateNavigation();
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        });
+        
+        // --- PREVIOUS Button Logic ---
         prevBtn.addEventListener('click', () => { saveCurrentAnswer(); updatePalette(); if (currentQuestionIndex > 0) { showQuestion(currentQuestionIndex - 1); } });
-        markReviewBtn.addEventListener('click', () => { const state = questionStates[currentQuestionIndex]; state.markedForReview = !state.markedForReview; saveCurrentAnswer(); updatePalette(); updateNavigation(); });
+        
+        // --- Clear Response Logic ---
         clearResponseBtn.addEventListener('click', () => { const state = questionStates[currentQuestionIndex]; state.userAnswer = null; state.status = 'not-answered'; showQuestion(currentQuestionIndex); });
-        reviewTestBtn.addEventListener('click', () => { resultSummaryPage.classList.add('hidden'); reviewPage.classList.remove('hidden'); showReviewQuestion(0); });
+        
+        // --- Review Navigation ---
         reviewNextBtn.addEventListener('click', () => { if (currentReviewIndex < questions.length - 1) { showReviewQuestion(currentReviewIndex + 1); } });
         reviewPrevBtn.addEventListener('click', () => { if (currentReviewIndex > 0) { showReviewQuestion(currentReviewIndex - 1); } });
     }
