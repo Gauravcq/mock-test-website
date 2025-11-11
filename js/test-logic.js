@@ -101,21 +101,29 @@ document.addEventListener('DOMContentLoaded', () => {
          * UPDATED: Calculates and displays results using a structured HTML format
          * for better styling control on the results page.
          */
+        // ... (Previous parts of test-logic.js)
+
+        /**
+         * UPDATED: Calculates and displays results using a structured HTML format
+         * for better styling control on the results page.
+         */
         function calculateAndShowResults(autoSubmit = false) {
             if (!autoSubmit) { submitSummaryModal.classList.add('hidden'); }
             clearInterval(timerInterval); saveCurrentAnswer();
+            
+            // --- Calculation Logic ---
+            const totalTimeInSeconds = 25 * 60;
+            const timeTaken = totalTimeInSeconds - timeRemaining; // Use timeRemaining from state
+            const timeTakenMinutes = Math.floor(timeTaken / 60);
+            const timeTakenSeconds = timeTaken % 60;
+
             let score = 0, correctCount = 0, incorrectCount = 0, attemptedCount = 0;
             
             questionStates.forEach((state, index) => { 
-                // Only count attempted if an answer was selected AND it wasn't just marked for review.
-                // NOTE: In professional tests, answers marked for review *are* evaluated. We only check userAnswer !== null.
                 if (state.userAnswer !== null) { 
                     attemptedCount++; 
-                    
                     const userAnswerNormalized = normalizeString(state.userAnswer);
                     const correctAnswerNormalized = normalizeString(questions[index].correctAnswer);
-
-                    // Scoring: +2 for correct, -0.5 for incorrect/attempted
                     if (userAnswerNormalized === correctAnswerNormalized) { 
                         score += 2; correctCount++; 
                     } else { 
@@ -125,14 +133,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             const unattemptedCount = questions.length - attemptedCount;
-
+            const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
+            
             // --- Enhanced Result Page HTML Structure ---
             const resultStatsEl = document.getElementById('result-stats-full');
-            resultStatsEl.innerHTML = `
-                <div class="result-summary-section">
-                    <h2>Test Results: ${testInfo.title}</h2>
-                    <p>Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
+            
+            // 1. Clear the main results container
+            resultStatsEl.innerHTML = ''; 
+
+            // 2. Inject Header and Score/Title Area
+            const headerHtml = `
+                <div class="result-summary-info">
+                    <div class="test-title-info">
+                        <h2>${testInfo.title}</h2>
+                        <p>Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
+                    </div>
+                    <div class="result-header-actions">
+                        <button id="review-test-btn" class="action-btn primary">Review Test</button>
+                        <a href="index.html" class="action-btn secondary">Go to Tests</a>
+                    </div>
                 </div>
+                <div class="divider"></div>
+            `;
+
+            // 3. Inject the Main Stats Grid (4 columns)
+            const statsGridHtml = `
                 <div class="result-grid-stats">
                     <div class="stat-card total-score">
                         <div class="stat-value">${score.toFixed(2)}</div>
@@ -150,15 +175,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="stat-value">${unattemptedCount}</div>
                         <div class="stat-label">Unattempted</div>
                     </div>
-                </div>
-                <div class="result-actions">
-                    <button id="review-test-btn" class="action-btn">Review Test</button>
-                    <a href="index.html" class="action-btn secondary-btn">Go to Tests</a>
+                    <div class="stat-card time-taken">
+                        <div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div>
+                        <div class="stat-label">Time Taken</div>
+                    </div>
+                    <div class="stat-card accuracy">
+                        <div class="stat-value">${accuracy.toFixed(1)}%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
                 </div>
             `;
+            
+            resultStatsEl.innerHTML = headerHtml + statsGridHtml;
             // --- End Enhanced Result Page HTML Structure ---
             
-            // Re-assign the listener since the button was re-rendered
+            // 4. Re-assign the listener since the button was re-rendered
             document.getElementById('review-test-btn').addEventListener('click', () => { 
                 resultSummaryPage.classList.add('hidden'); 
                 reviewPage.classList.remove('hidden'); 
@@ -168,6 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
             quizUI.classList.add('hidden'); 
             resultSummaryPage.classList.remove('hidden');
         }
+
+// ... (Rest of the test-logic.js)
 
         // --- All other functions ---
         function createPalette() { questionPalette.innerHTML = ''; questions.forEach((_, index) => { const btn = document.createElement('button'); btn.className = 'palette-btn'; btn.textContent = index + 1; btn.dataset.index = index; btn.addEventListener('click', () => { saveCurrentAnswer(); showQuestion(index); }); questionPalette.appendChild(btn); }); }

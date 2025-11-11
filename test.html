@@ -7,33 +7,6 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    
-    <div id="instructions-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Test Instructions</h2>
-            <ul>
-                <li>Total Questions: <strong>25</strong></li>
-                <li>Total Time: <strong>25 Minutes</strong></li>
-                <li>Marking Scheme: <strong>+2</strong> for a correct answer, <strong>-0.5</strong> for an incorrect answer.</li>
-                <li>Use the palette on the right to navigate between questions.</li>
-                <li>Click the pause button (❚❚) in the header to pause the test at any time.</li>
-            </ul>
-            <button id="start-test-btn" class="modal-btn">Start Test</button>
-        </div>
-    </div>
-
-    <div id="submit-summary-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>Test Summary</h2>
-            <div id="submission-stats" class="submission-stats"></div>
-            <p>Are you sure you want to submit the test?</p>
-            <div class="modal-btn-group">
-                <button id="final-submit-btn" class="modal-btn">Yes, Submit</button>
-                <button id="cancel-submit-btn" class="modal-btn secondary">Go Back</button>
-            </div>
-        </div>
-    </div>
-    
     <div id="quiz-ui" class="hidden">
         <header class="main-header">
             <div id="test-main-title" class="logo">🎓 Loading Test...</div>
@@ -69,23 +42,11 @@
             <div id="result-stats-full" class="result-stats-grid"></div> 
             
             <div class="result-summary-footer">
-                <button id="review-test-btn" class="btn review-btn">Review Test</button>
-                <a href="index.html" class="action-btn btn secondary">Back to Home</a>
-            </div>
+                </div>
         </div>
     </div>
     
-    <div id="review-page" class="hidden">
-        <div class="question-panel" style="margin: auto;">
-            <div class="question-header" id="review-question-title">Reviewing...</div>
-            <div id="review-question-area"></div>
-            <div class="action-buttons">
-                <button id="review-prev-btn" class="action-btn">Previous</button>
-                <a href="index.html" class="action-btn btn secondary" style="margin-left: auto;">Back to Home</a>
-                <button id="review-next-btn" class="action-btn" style="margin-left: 10px;">Next</button>
-            </div>
-        </div>
-    </div>
+    <div id="review-page" class="hidden"><div class="question-panel" style="margin: auto;"><div class="question-header" id="review-question-title">Reviewing...</div><div id="review-question-area"></div><div class="action-buttons"><button id="review-prev-btn" class="action-btn">Previous</button><a href="index.html" class="action-btn btn secondary" style="margin-left: auto;">Back to Home</a><button id="review-next-btn" class="action-btn" style="margin-left: 10px;">Next</button></div></div></div>
 
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>

@@ -426,3 +426,95 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 #review-test-btn:hover {
     background-color: #0056b3;
 }
+/* --- RESULT SUMMARY PAGE STYLES (from previous steps, ENSURE THESE ARE PRESENT) --- */
+
+#result-summary-page {
+    /* ... existing styles for centering the card ... */
+    background-color: #f4f6f9;
+    min-height: 100vh;
+}
+
+.result-box-card { 
+    /* The main white card container */
+    max-width: 1000px; /* Wider card for better alignment */
+    width: 90%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+/* --- NEW / MODIFIED CSS FOR ALIGNMENT & BUTTONS --- */
+
+.result-summary-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.test-title-info h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin: 0;
+}
+
+.test-title-info p {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.divider {
+    height: 1px;
+    background-color: #e9ecef;
+    margin-bottom: 30px;
+}
+
+.result-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Base button style for the actions */
+.action-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none; /* For the <a> tag (Go to Tests) */
+    transition: background-color 0.3s;
+}
+
+/* Color for Review Test (Primary button) */
+.action-btn.primary {
+    background-color: #4A00E0; /* Deep Purple (Match Quiz UI) */
+    color: white;
+}
+.action-btn.primary:hover {
+    background-color: #3A00B0;
+}
+
+/* Color for Go to Tests (Secondary button - making it colorful) */
+.action-btn.secondary {
+    background-color: #007bff; /* Blue */
+    color: white;
+}
+.action-btn.secondary:hover {
+    background-color: #0056b3;
+}
+
+/* Stats Grid Alignment (6 columns, wrapped) */
+.result-stats-grid {
+    display: grid;
+    /* 3 columns in large screen, flexible down to 2 or 1 */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Specific color for NEW stats */
+.stat-card.time-taken .stat-value { color: #8e44ad; } /* Purple */
+.stat-card.accuracy .stat-value { color: #f39c12; } /* Orange */
