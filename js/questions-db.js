@@ -582,6 +582,17 @@ const QUESTIONS_DATABASE = {
     "options": ["2, 3, 5", "11, 13, 17", "4, 6, 8", "7, 19, 23"],
     "correctAnswer": "4, 6, 8",
     "explanation": "The sets {2, 3, 5}, {11, 13, 17}, and {7, 19, 23} all consist exclusively of prime numbers. The set **{4, 6, 8}** is the odd one out because it consists of composite (non-prime) numbers."
-  }
+  },
+  {
+  "question": "Rani said, 'The man in the photo is my mother’s son-in-law.' Who is the man to Rani?",
+  "options": [
+    "Husband",
+    "Father",
+    "Uncle",
+    "Cousin"
+  ],
+  "correctAnswer": "Husband",
+  "explanation": "Rani's mother's son-in-law is the husband of Rani's sister or the husband of Rani herself. Since only 'Husband' is a viable correct option among the choices, and in the context of typical exam questions, 'my mother’s son-in-law' usually refers to the husband of the speaker (if she is a daughter), the man is Rani's Husband."
+}
 ],
 };
