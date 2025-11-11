@@ -32,7 +32,7 @@ const ALL_TESTS = [
         date: "12 Sep",
         title: "Shift 1",
         subject: "Reasoning",
-        isNew: false // ⭐ ADDED: Mark the Reasoning test as new
+        isNew: true // ⭐ ADDED: Mark the Reasoning test as new
     },
 
 
