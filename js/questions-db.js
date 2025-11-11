@@ -1029,7 +1029,6 @@ const QUESTIONS_DATABASE = {
       "No. 45, 1st Avenue, R.A. Puram, Chennai, TN 600028",
       "No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
       "45, First Avenue, Raja Annamalai Puram, Chennai, Tamil Nadu - 600028",
-      "45, he VaR], Uo AAAS GRA, das, afAcarg - 600028",
       "No. 45/1, First Avenue, R. Annamalaipuram, Chennai, Tamil Nadu - 600028"
     ],
     "correctAnswer": "No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
@@ -1181,10 +1180,10 @@ const QUESTIONS_DATABASE = {
   {
     "question": "After interchanging + & $\\times$ and 3 & 9, which of the following equations will hold true?",
     "options": [
-      "$(3+5) \\times 9 = 48$",
-      "$(9+2) \\times 3 = 10$",
-      "$(3+7) \\times 9 = 60$",
-      "$(9+1) \\times 3 = 15$"
+      "(3+5) \\times 9 = 48",
+      "(9+2) \\times 3 = 10",
+      "(3+7) \\times 9 = 60",
+      "(9+1) \\times 3 = 15"
     ],
     "correctAnswer": "$(3+5) \\times 9 = 48$",
     "explanation": "Test the correct option by applying the interchanges:\n- Original: $(3+5) \\times 9 = 48$\n- Interchanged: $(9 \\times 5) + 3 = 48$\n- Calculation: $45 + 3 = 48$. This equation holds **true**."
@@ -1214,7 +1213,6 @@ const QUESTIONS_DATABASE = {
   {
     "question": "In a tournament of 7 players, each player plays every other player once. How many matches are there?",
     "options": [
-      "21",
       "21",
       "42",
       "36",
