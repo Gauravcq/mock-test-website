@@ -3,396 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="test-title">Mock Test - Quantitative Aptitude</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <link rel="stylesheet" href="css/style.css"> 
-    
-    <style>
-        /* Embed critical CSS for element visibility and dark mode setup */
-        :root {
-            --light-bg: #f7f8fc; --light-card-bg: #ffffff; --light-text-primary: #1a202c; --light-text-secondary: #4a5568; --light-border: #e2e8f0; --light-shadow: rgba(0, 0, 0, 0.05);
-            --dark-bg: #1a202c; --dark-card-bg: #2d3748; --dark-text-primary: #edf2f7; --dark-text-secondary: #a0aec0; --dark-border: #4a5568; --dark-shadow: rgba(0, 0, 0, 0.2);
-            --primary-brand: #4A00E0; --secondary-brand: #8E2DE2; --accent-blue: #0d6efd;
-            
-            /* Palette Colors based on standard test interfaces (Matching screenshot colors) */
-            --status-answered: #28a745; /* Green */
-            --status-not-answered: #0d6efd; /* Blue */
-            --status-marked-unanswered: #8E2DE2; /* Purple/Violet */
-            --status-answered-marked: #6f42c1; /* Darker Purple */
-            --status-unvisited: #6c757d; /* Grey */
-            --status-current: #ffc107; /* Yellow for current question */
-
-            /* Interface Colors */
-            --header-bg: #ffffff;
-            --button-primary: #007bff;
-            --button-success: #28a745;
-            --button-danger: #dc3545;
-        }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--light-bg); 
-            color: var(--light-text-primary); 
-            margin: 0; 
-            transition: background-color 0.3s, color 0.3s;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        body.dark-mode { 
-            background-color: var(--dark-bg); 
-            color: var(--dark-text-primary); 
-        }
-        .hidden { display: none !important; }
-
-        /* --- Header Styles (To match the screenshot) --- */
-        .test-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: var(--header-bg);
-            box-shadow: 0 2px 4px var(--light-shadow);
-            border-bottom: 1px solid var(--light-border);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .header-middle {
-            text-align: center;
-            font-weight: 600;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .header-right .timer-box {
-            background-color: #ffc107; /* Yellow background for timer */
-            color: var(--light-text-primary);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-weight: 700;
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
-        .header-right button {
-            background-color: #ccc;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        /* --- Quiz Main Content --- */
-        .quiz-main {
-            display: flex;
-            flex-grow: 1;
-            width: 100%;
-            /* Removed max-width to let it span the full screen like the image */
-        }
-        .question-panel {
-            flex: 1; /* Takes all available width */
-            padding: 20px;
-            overflow-y: auto;
-            border-right: 1px solid var(--light-border);
-        }
-        .palette-panel {
-            width: 300px; /* Fixed width for the palette */
-            padding: 20px;
-            background-color: var(--light-card-bg);
-            border-left: 1px solid var(--light-border);
-            overflow-y: auto;
-        }
-        
-        /* --- Top Navigation Buttons (Symbols/Instructions/Part A) --- */
-        .top-nav {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            gap: 15px;
-            border-bottom: 1px solid var(--light-border);
-            background-color: var(--light-bg);
-        }
-        .top-nav button {
-            background: none;
-            border: none;
-            font-weight: 600;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .top-nav button:hover, .top-nav button.active {
-            color: var(--primary-brand);
-            border-bottom: 2px solid var(--primary-brand);
-        }
-
-        /* --- Question Header --- */
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--light-border);
-        }
-        .question-header .action-buttons button {
-            padding: 8px 15px;
-            margin-left: 10px;
-            font-weight: 600;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        #mark-review-btn { background-color: var(--status-marked-unanswered); color: white; }
-        #next-btn { background-color: var(--button-success); color: white; }
-        #submit-test-btn { background-color: var(--button-danger); color: white; }
-        .last-minute-timer {
-            color: var(--button-danger);
-            font-weight: 700;
-        }
-
-        /* --- Palette Matching Screenshot --- */
-        #question-palette {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 columns like the image */
-            gap: 8px;
-            margin-top: 15px;
-        }
-        .palette-btn {
-            width: 100%;
-            height: 40px;
-            border: 1px solid var(--light-border);
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            color: white;
-            transition: all 0.2s;
-        }
-        /* Palette Status Classes matching the screenshot's color scheme */
-        .palette-btn.unvisited { background-color: var(--status-unvisited); border-color: var(--status-unvisited); }
-        .palette-btn.not-answered { background-color: var(--status-not-answered); border-color: var(--status-not-answered); } /* Blue */
-        .palette-btn.answered { background-color: var(--status-answered); border-color: var(--status-answered); } /* Green */
-        .palette-btn.marked-unanswered { background-color: var(--status-marked-unanswered); border-color: var(--status-marked-unanswered); } /* Violet/Purple */
-        .palette-btn.answered-marked { background-color: var(--status-answered-marked); border-color: var(--status-answered-marked); } /* Darker Purple for combined status */
-        .palette-btn.current { 
-            border: 3px solid var(--status-current) !important; 
-            box-shadow: 0 0 5px var(--status-current);
-        }
-
-        /* --- Analysis Panel --- */
-        .analysis-panel {
-            background-color: var(--light-bg);
-            padding: 15px;
-            border: 1px solid var(--light-border);
-            margin-top: 20px;
-            border-radius: 4px;
-        }
-        .analysis-panel h3 {
-            margin-top: 0;
-            font-size: 1em;
-            padding-bottom: 5px;
-            border-bottom: 1px dashed var(--light-border);
-        }
-        .analysis-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-        }
-        .analysis-item span {
-            font-weight: 700;
-        }
-        .show-camera-btn {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: var(--button-primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-    </style>
+    <title>Online Mock Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-
-    <div id="instructions-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>📝 Test Instructions</h2>
-            <ul class="instructions-list">
-                <li><strong>Duration:</strong> 60 minutes.</li>
-                <li><strong>Total Questions:</strong> 100.</li>
-                <li><strong>Negative Marking:</strong> 0.25 marks deducted for each wrong answer (25% of 1 mark).</li>
-                <li><strong>Navigation:</strong> Use **Previous or Save & Next** to move between questions. Use **Mark for Review** to flag questions.</li>
-                <li>Answers are only saved after clicking **Save & Next**.</li>
-            </ul>
-            <div class="modal-action" style="text-align: center;">
-                <button id="start-test-btn">Start Test</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="pause-overlay" class="modal-overlay hidden">
-        <div class="modal-content" style="text-align: center;">
-            <h2>⏸️ Test Paused</h2>
-            <p style="font-size: 1.2em; margin-bottom: 30px;">Your time is currently stopped. Click 'Resume' to continue the test.</p>
-            <div class="modal-action">
-                <button id="resume-btn">Resume Test</button>
-            </div>
-        </div>
-    </div>
     
+    <div id="instructions-modal" class="modal-overlay">
+        <div class="modal-content instructions-content">
+            <h2>Test Instructions & Overview</h2>
+            <div class="instructions-section">
+                <h3>📝 Exam Details</h3>
+                <ul>
+                    <li>Duration: <strong>60 minutes</strong></li>
+                    <li>Total Questions: <strong>100</strong> (4 sections of 25 questions each)</li>
+                    <li>Marking Scheme: **+2** for correct, **-0.5** for incorrect (25% deduction).</li>
+                </ul>
+            </div>
+            
+            <div class="instructions-section">
+                <h3>🚥 Question Status Symbols</h3>
+                <table class="symbol-table">
+                    <tr><td><span class="q-btn symbol-example q-status-unvisited">1</span></td><td>Not Visited (Default)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-not-answered">2</span></td><td>Not Answered (Blue)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-answered">3</span></td><td>Answered (Green)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-marked">4</span></td><td>Marked for Review (Red/Orange)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-answered-marked">5</span></td><td>Answered & Marked for Review (Yellow)</td></tr>
+                </table>
+            </div>
+
+            <label class="acceptance-check">
+                <input type="checkbox" id="accept-instructions">
+                I have read all the instructions and accept the terms.
+            </label>
+            <button id="start-test-btn" class="modal-btn" disabled>Start Test</button>
+        </div>
+    </div>
+
     <div id="submit-summary-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h2>⚠️ Confirm Submission</h2>
-            <p>You are about to submit the test. Please review your attempt:</p>
-            <div id="submission-stats" class="submission-stats">
-                </div>
-            <p style="margin-top: 20px; font-weight: 700; color: var(--status-not-answered);">Do you wish to finally submit this test?</p>
-            <div class="modal-action" style="text-align: right;">
-                <button id="cancel-submit-btn">Cancel</button>
-                <button id="final-submit-btn">Yes, Submit</button>
+            <h2>Test Summary</h2>
+            <div id="submission-stats" class="submission-stats"></div>
+            <p>Are you sure you want to submit the test?</p>
+            <div class="modal-btn-group">
+                <button id="final-submit-btn" class="modal-btn">Yes, Submit</button>
+                <button id="cancel-submit-btn" class="modal-btn secondary">Go Back</button>
             </div>
         </div>
     </div>
     
     <div id="quiz-ui" class="hidden">
         
-        <header class="test-header">
-            <div class="header-left">
-                <div id="test-main-title">CHSL Quant - 01 July 2024 - Shift 2</div>
+        <header class="main-header">
+            <div id="test-main-title" class="logo">MOCK TEST PLATFORM</div>
+            <div class="header-controls">
+                <div id="timer-label">Time Left:</div>
+                <div id="timer">60:00</div>
+                <button id="pause-btn" title="Pause Test">❚❚</button>
             </div>
-            <div class="header-middle">
-                Roll No: 735XXXXXX (Sourou singh)
-            </div>
-            <div class="header-right">
-                <button id="pause-btn">⏸️ Pause</button>
-                <div class="timer-box">
-                    Time Left <span id="timer">24:59</span>
-                </div>
-                </div>
         </header>
 
-        <div class="top-nav">
-            <button id="symbols-btn">SYMBOLS</button>
-            <button id="instructions-btn">INSTRUCTIONS</button>
-            <button id="part-a-btn" class="active">PART-A</button>
-        </div>
-
-        <div class="quiz-main">
+        <main class="quiz-body">
             
             <div class="question-panel">
-                
                 <div class="question-header">
-                    <div id="question-title">Question : 1</div>
-                    <div class="action-buttons">
-                        <div class="last-minute-timer">Last <span id="last-minute-timer-value">24 Minutes</span></div> 
+                    <span id="current-section-label">PART-A: Quantitative Aptitude</span>
+                    <select id="language-select" title="Select Question Language">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+                
+                <div class="question-content-wrapper">
+                    <div id="question-area">
+                        <div id="question-text">Loading question...</div>
+                        <div id="options-container"></div>
                     </div>
                 </div>
 
-                <div id="question-area">
-                    <p class="question-text">
-                        The age of the older of two boys is thrice that of the younger. 9 years ago it was five times that of the younger. Find the present age of each.
-                    </p>
-                    <div class="options-container">
-                        <label class="option"><input type="radio" name="option" value="15 years, 45 years"><span>15 years, 45 years</span></label>
-                        <label class="option"><input type="radio" name="option" value="12 years, 36 years"><span>12 years, 36 years</span></label>
-                        <label class="option"><input type="radio" name="option" value="17 years, 51 years"><span>17 years, 51 years</span></label>
-                        <label class="option"><input type="radio" name="option" value="18 years, 54 years"><span>18 years, 54 years</span></label>
-                    </div>
-                </div>
-
-                <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 20px 0;">
-                    <div style="margin-right: auto; display: flex; align-items: center; gap: 5px;">
-                        <label for="lang-select">Select Language:</label>
-                        <select id="lang-select" style="padding: 5px; border-radius: 4px;">
-                            <option value="English">English</option>
-                            <option value="Hindi">Hindi</option>
-                        </select>
-                    </div>
-                    <button id="save-btn" class="action-bar-btn" style="background-color: var(--button-primary); color: white;">Save</button>
-                    <button id="report-btn" class="action-bar-btn" style="background-color: var(--button-danger); color: white;">Report</button>
+                <div class="action-buttons">
+                    <button id="prev-btn" class="action-btn secondary">Previous</button>
+                    <button id="clear-response-btn" class="action-btn secondary">Clear Response</button>
+                    <button id="mark-review-btn" class="action-btn secondary">Mark for Review</button>
+                    <button id="next-btn" class="action-btn primary">Save & Next</button>
                 </div>
             </div>
 
-            <div class="palette-panel">
+            <aside class="palette-panel">
                 
-                <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
-                    <button id="mark-review-btn">Mark for Review</button>
-                    <button id="next-btn" style="background-color: var(--button-primary);">Save & Next</button>
-                    <button id="submit-test-btn" style="background-color: var(--button-danger);">Submit Test</button>
-                </div>
-                
-                <div style="text-align: center; margin-bottom: 15px;">
-                    Total Questions Answered: <span id="total-answered">0</span>
-                </div>
-                
-                <h3 style="background-color: #eee; padding: 5px; text-align: center; font-size: 1em;">Quantitative Aptitude</h3>
-
-                <div id="question-palette">
-                    <button class="palette-btn unvisited">1</button>
-                    <button class="palette-btn unvisited">2</button>
-                    <button class="palette-btn unvisited">3</button>
-                    <button class="palette-btn unvisited">4</button>
-                    <button class="palette-btn unvisited">5</button>
-                    <button class="palette-btn unvisited">6</button>
-                    <button class="palette-btn unvisited">7</button>
-                    <button class="palette-btn unvisited">8</button>
-                    <button class="palette-btn unvisited">9</button>
-                    <button class="palette-btn unvisited">10</button>
-                    <button class="palette-btn unvisited">11</button>
-                    <button class="palette-btn unvisited">12</button>
-                    <button class="palette-btn unvisited">13</button>
-                    <button class="palette-btn unvisited">14</button>
-                    <button class="palette-btn unvisited">15</button>
-                    <button class="palette-btn unvisited">16</button>
-                    <button class="palette-btn unvisited">17</button>
-                    <button class="palette-btn unvisited">18</button>
-                    <button class="palette-btn unvisited">19</button>
-                    <button class="palette-btn unvisited">20</button>
-                    <button class="palette-btn unvisited">21</button>
-                    <button class="palette-btn unvisited">22</button>
-                    <button class="palette-btn unvisited">23</button>
-                    <button class="palette-btn unvisited">24</button>
-                    <button class="palette-btn unvisited">25</button>
-                </div>
+                <div class="section-tabs" id="section-tabs">
+                    </div>
 
                 <div class="analysis-panel">
-                    <h3>PART-A Analysis</h3>
-                    <div class="analysis-item">
-                        <span>Answered</span>
-                        <span id="analysis-answered">0</span>
+                    <div class="analysis-header" id="analysis-header">Section Analysis</div>
+                    <div id="q-status-summary">
+                        <p>Answered: <span id="answered-count">0</span></p>
+                        <p>Not Answered: <span id="not-answered-count">0</span></p>
+                        <p>Marked for Review: <span id="marked-count">0</span></p>
+                        <p>Not Visited: <span id="unvisited-count">0</span></p>
                     </div>
-                    <div class="analysis-item">
-                        <span>Not Answered</span>
-                        <span id="analysis-not-answered">0</span>
+                </div>
+
+                <div class="palette-header">Question Palette</div>
+                <div id="question-palette">
                     </div>
-                    </div>
-            </div>
-        </div>
+                
+                <button id="submit-test-btn" class="submit-button">Submit Test</button>
+            </aside>
+        </main>
+    </div>
+    
+    <div id="pause-overlay" class="hidden"><h2>Test Paused</h2><button id="resume-btn">Resume Test</button></div>
+    <div id="result-summary-page" class="hidden"><div class="result-summary-header">Test Results</div><div id="result-stats-full"></div><div class="result-summary-footer"><button id="review-test-btn">Review Test</button></div></div>
+    <div id="review-page" class="hidden">...</div>
 
-        </div>
-
-    <div id="result-summary-page" class="hidden">
-        <h2>🎉 Test Submitted Successfully!</h2>
-        </div>
-    <div id="review-page" class="hidden">
-        </div>
-
-
-    <script src="js/tests-list.js"></script> 
-    <script src="js/questions-database.js"></script> 
-    <script src="js/test-logic.js"></script> 
-
+    <script src="js/tests-list.js"></script>
+    <script src="js/questions-db.js"></script>
+    <script src="js/test-logic.js"></script>
 </body>
 </html>
