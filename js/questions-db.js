@@ -474,12 +474,109 @@ const QUESTIONS_DATABASE = {
 
 
     "ssc_cgl_12_sep_s1-r": [
-        {
-            question: "Shift 1 - Re-exam, Q1: The sum of angles in a triangle is always:",
-            options: ["90°", "180°", "270°", "360°"],
-            correctAnswer: "180°",
-            explanation: "The sum of the interior angles of any triangle is always 180 degrees."
-        }
-        // ... add questions for ssc_cgl_12_sep_s1-r here ...
+       [
+  {
+    "question": "In the following question, select the related word from the given alternatives. Watt: Power :: Pascal: ?",
+    "options": ["Energy", "Temperature", "Pressure", "Force"],
+    "correctAnswer": "Pressure",
+    "explanation": "The relationship is a physical quantity and its S.I. unit. Watt is the S.I. unit of Power. Similarly, Pascal is the S.I. unit of Pressure."
+  },
+  {
+    "question": "In the following question, select the related word from the given alternatives. Mekong: Tibet :: Amazon:?",
+    "options": ["Chile", "Peru", "Colombia", "Ecuador"],
+    "correctAnswer": "Peru",
+    "explanation": "The relationship is River: Place of Origin. The Mekong River originates in Tibet (the Tibetan Plateau). The Amazon River's source is in the Andes mountains, most commonly cited as being in Peru."
+  },
+  {
+    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. CGK, GKO, KOS, OSW, ?",
+    "options": ["SDA", "KNB", "SWA", "KJH"],
+    "correctAnswer": "SWA",
+    "explanation": "The pattern involves a sequential shift where the first letter of the next cluster is the second letter of the current cluster, and the second letter is the third letter of the current cluster. The third letter is an increment of +4 from the third letter of the current cluster. (O\u2192S, S\u2192W, W\u2192A: W+4=A)."
+  },
+  {
+    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. MIN, NJM, OKL, PLK, ?",
+    "options": ["QWS", "HGF", "QMJ", "UJH"],
+    "correctAnswer": "QMJ",
+    "explanation": "The pattern is an increment or decrement for each letter position across the clusters:\nFirst Letter: M, N, O, P, \u2192 Q (+1)\nSecond Letter: I, J, K, L, \u2192 M (+1)\nThird Letter: N, M, L, K, \u2192 J (-1)"
+  },
+  {
+    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. BRF, EUH, HXJ, KAL, ?",
+    "options": ["NMB", "NKH", "NHG", "NDN"],
+    "correctAnswer": "NDN",
+    "explanation": "The pattern is a constant increment in alphabetical position for each letter in the cluster:\nFirst Letter: B, E, H, K, \u2192 N (+3)\nSecond Letter: R, U, X, A, \u2192 D (+3)\nThird Letter: F, H, J, L, \u2192 N (+2)"
+  },
+  {
+    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series: WZWT, WWOH, WRGV, WNYJ, ?",
+    "options": ["WJQX", "WJQW", "WHPX", "WJPX"],
+    "correctAnswer": "WJQX",
+    "explanation": "The pattern is observed across the four letters:\n1st letter: W (Constant)\n3rd letter: W, O, G, Y, \u2192 Q (-8)\n4th letter: T, H, V, J, \u2192 X (Alternating -12, +14)\n2nd letter: Z, W, R, N, \u2192 J (Irregular difference: -3, -5, -4, -4)"
+  },
+  {
+    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series: MCFI, NEKP, OGPW, PIUD, ?",
+    "options": ["NKYD", "QLYL", "QKZK", "QKZL"],
+    "correctAnswer": "QKZK",
+    "explanation": "The pattern is a constant increment in alphabetical position for each letter in the cluster:\nFirst Letter: M, N, O, P, \u2192 Q (+1)\nSecond Letter: C, E, G, I, \u2192 K (+2)\nThird Letter: F, K, P, U, \u2192 Z (+5)\nFourth Letter: I, P, W, D, \u2192 K (+7)"
+  },
+  {
+    "question": "What comes next: 3, 12, 7, 16, 11, 20, 15, ?",
+    "options": ["16", "24", "14", "18"],
+    "correctAnswer": "24",
+    "explanation": "This is an alternating series. The terms in the odd positions (3, 7, 11, 15) increase by 4. The terms in the even positions (12, 16, 20, ?) also increase by 4. The next term is in the even series: 20 + 4 = 24."
+  },
+  {
+    "question": "Each of the letters in the word STUDENT is arranged in alphabetical order. How many letters are there in the English alphabetical series between the letter that is second from the left and the one that is fourth from the right in the new letter-cluster formed?",
+    "options": ["17", "13", "11", "15"],
+    "correctAnswer": "13",
+    "explanation": "When arranged alphabetically, STUDENT becomes D E N S T T U. The second letter from the left is E (position 5). The fourth letter from the right is S (position 19). The number of letters between E and S is 19 - 5 - 1 = 13."
+  },
+  {
+    "question": "Which of the following addresses are identical to each other: \n1. Arjun Mehta A-101, Emerald Towers, Surat, 395001\n2. Arjun Mehta A-101, Emerald Tower, Surat, 395001\n3. Arjun M. A-101, Emerald Tower, Surat, 395001\n4. Arjun Mehta A-101, Emerald Tower, Surat, 395001",
+    "options": ["1 and 2", "1 and 3", "2 and 4", "3 and 4"],
+    "correctAnswer": "2 and 4",
+    "explanation": "Addresses 2 and 4 are an exact match: 'Arjun Mehta A-101, Emerald Tower, Surat, 395001'. Address 1 has 'Towers' and Address 3 has 'Arjun M.'."
+  },
+  {
+    "question": "Which of the following is/are identical to the address given: Meenal Gupta 102, Silver Oaks, Sector 12, Noida, 201301\n1. Meenal Gupta 102, Silver Oaks, Sector 12, Noida, 201301\n2. Meenal Gupta 102, Silver Oaks, Sector-12, Noida, 201301\n3. Meenal Gupta 102, Silver Oaks, Sector 12, Noida 201301\n4. Meenal Gupta 102, Silver Oaks, Sector 12, Noida, 201302",
+    "options": ["1", "3", "2", "4"],
+    "correctAnswer": "1",
+    "explanation": "The identical address must be an exact match, including punctuation and the PIN code. Only address 1 is a character-for-character match."
+  },
+  {
+    "question": "A is facing North. B is seated second to the right of A. Who is sitting immediately to the left of B?",
+    "options": ["The person seated to the immediate right of A", "The person seated opposite to A", "The person seated to the immediate left of A", "Cannot be determined"],
+    "correctAnswer": "The person seated to the immediate right of A",
+    "explanation": "Regardless of the total number of people or arrangement (linear/circular), if B is the second person to the right of A, the person immediately to B's left is always the one positioned between A and B. This person is, by definition, the one seated immediately to the right of A."
+  },
+  {
+    "question": "In the following question, the second word is related to the first word by a specific pattern of letter transformation. Identify the same pattern and apply it to the third word to find the correct option that completes the analogy. TIME: VJOG :: WORD:?",
+    "options": ["YPTF", "YQTG", "YPSF", "ZPSF"],
+    "correctAnswer": "YPTF",
+    "explanation": "The pattern is a positional shift for each letter:\n(T\u2192V, +2); (I\u2192J, +1); (M\u2192O, +2); (E\u2192G, +2). \nApplying the (+2, +1, +2, +2) rule to WORD: W\u2192Y, O\u2192P, R\u2192T, D\u2192F, resulting in YPTF."
+  },
+  {
+    "question": "In each of the following questions, a specific pattern such as reversal or rearrangement has been applied to the first word to get the second. Apply the same pattern to the third word and find the correct answer from the given options. GNIDAER: READING :: NOITULOS:?",
+    "options": ["SOLUTION", "SOLUNOIT", "NOILOSUT", "POLLUTION"],
+    "correctAnswer": "SOLUTION",
+    "explanation": "The relationship is that the first word is the reverse spelling of the second word (GNIDAER is READING backward). Reversing NOITULOS yields SOLUTION."
+  },
+  {
+    "question": "In each of the following questions, the first word is coded to form the second word using a specific rearrangement and/or substitution rule. Apply the same rule to the third word to determine the correct corresponding word from the given alternatives. AYRRJC: CATTLE :: NCPDCAR:?",
+    "options": ["SUBJECTS", "NEGLECT", "PERFECT", "OPERATE"],
+    "correctAnswer": "PERFECT",
+    "explanation": "The pattern is a shift cipher where the Original Word is derived from the Code Word by shifting each letter forward by 2 in the alphabet (Code Letter \u2192 Original Letter + 2). Applying this rule to NCPDCAR (N\u2192P, C\u2192E, P\u2192R, D\u2192F, C\u2192E, A\u2192C, R\u2192T) results in PERFECT."
+  },
+  {
+    "question": "Identify the odd one: 2, 3, 5, 7, 11, 13, 17, 20",
+    "options": ["17", "13", "20", "11"],
+    "correctAnswer": "20",
+    "explanation": "All numbers in the list (2, 3, 5, 7, 11, 13, 17) are prime numbers, as they are only divisible by 1 and themselves. The number **20** is the only composite number, as it has factors other than 1 and 20."
+  },
+  {
+    "question": "Which of the following is the odd one out? ",
+    "options": ["2, 3, 5", "11, 13, 17", "4, 6, 8", "7, 19, 23"],
+    "correctAnswer": "4, 6, 8",
+    "explanation": "The sets {2, 3, 5}, {11, 13, 17}, and {7, 19, 23} all consist exclusively of prime numbers. The set **{4, 6, 8}** is the odd one out because it consists of composite (non-prime) numbers."
+  }
+]
     ]
 };
