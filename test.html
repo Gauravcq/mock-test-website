@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Math Mock Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Mock Test</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <!-- NEW: Instructions Modal -->
+    
     <div id="instructions-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Test Instructions</h2>
-            <ul>
-                <li>Total Questions: <strong>25</strong></li>
-                <li>Total Time: <strong>25 Minutes</strong></li>
-                <li>Marking Scheme: <strong>+2</strong> for a correct answer, <strong>-0.5</strong> for an incorrect answer.</li>
-                <li>Use the palette on the right to navigate between questions.</li>
-                <li>Click the pause button (❚❚) in the header to pause the test at any time.</li>
-            </ul>
-            <button id="start-test-btn" class="modal-btn">Start Test</button>
+        <div class="modal-content instructions-content">
+            <h2>Test Instructions & Overview</h2>
+            <div class="instructions-section">
+                <h3>📝 Exam Details</h3>
+                <ul>
+                    <li>Duration: <strong>60 minutes</strong></li>
+                    <li>Total Questions: <strong>100</strong> (4 sections of 25 questions each)</li>
+                    <li>Marking Scheme: **+2** for correct, **-0.5** for incorrect (25% deduction).</li>
+                </ul>
+            </div>
+            
+            <div class="instructions-section">
+                <h3>🚥 Question Status Symbols</h3>
+                <table class="symbol-table">
+                    <tr><td><span class="q-btn symbol-example q-status-unvisited">1</span></td><td>Not Visited (Default)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-not-answered">2</span></td><td>Not Answered (Blue)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-answered">3</span></td><td>Answered (Green)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-marked">4</span></td><td>Marked for Review (Red/Orange)</td></tr>
+                    <tr><td><span class="q-btn symbol-example q-status-answered-marked">5</span></td><td>Answered & Marked for Review (Yellow)</td></tr>
+                </table>
+            </div>
+
+            <label class="acceptance-check">
+                <input type="checkbox" id="accept-instructions">
+                I have read all the instructions and accept the terms.
+            </label>
+            <button id="start-test-btn" class="modal-btn" disabled>Start Test</button>
         </div>
     </div>
 
-    <!-- NEW: Submit Summary Modal -->
     <div id="submit-summary-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <h2>Test Summary</h2>
@@ -35,17 +53,71 @@
         </div>
     </div>
     
-    <!-- Main Quiz UI (initially hidden) -->
     <div id="quiz-ui" class="hidden">
-        <header class="main-header"><div id="test-main-title" class="logo">🎓 Loading Test...</div><div class="header-controls"><div id="timer">20:00</div><button id="pause-btn" title="Pause Test">❚❚</button></div></header>
-        <main class="quiz-body"><div class="question-panel"><div class="question-header" id="question-title">Question...</div><div id="question-area"></div><div class="action-buttons"><button id="prev-btn" class="action-btn">Previous</button><button id="clear-response-btn" class="action-btn">Clear</button><button id="mark-review-btn" class="action-btn">Mark</button><button id="next-btn" class="action-btn">Save & Next</button></div></div><aside class="palette-panel"><div class="palette-header">Question Palette</div><div id="question-palette"></div><button id="submit-test-btn">Submit Test</button></aside></main>
+        
+        <header class="main-header">
+            <div id="test-main-title" class="logo">MOCK TEST PLATFORM</div>
+            <div class="header-controls">
+                <div id="timer-label">Time Left:</div>
+                <div id="timer">60:00</div>
+                <button id="pause-btn" title="Pause Test">❚❚</button>
+            </div>
+        </header>
+
+        <main class="quiz-body">
+            
+            <div class="question-panel">
+                <div class="question-header">
+                    <span id="current-section-label">PART-A: Quantitative Aptitude</span>
+                    <select id="language-select" title="Select Question Language">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+                
+                <div class="question-content-wrapper">
+                    <div id="question-area">
+                        <div id="question-text">Loading question...</div>
+                        <div id="options-container"></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="prev-btn" class="action-btn secondary">Previous</button>
+                    <button id="clear-response-btn" class="action-btn secondary">Clear Response</button>
+                    <button id="mark-review-btn" class="action-btn secondary">Mark for Review</button>
+                    <button id="next-btn" class="action-btn primary">Save & Next</button>
+                </div>
+            </div>
+
+            <aside class="palette-panel">
+                
+                <div class="section-tabs" id="section-tabs">
+                    </div>
+
+                <div class="analysis-panel">
+                    <div class="analysis-header" id="analysis-header">Section Analysis</div>
+                    <div id="q-status-summary">
+                        <p>Answered: <span id="answered-count">0</span></p>
+                        <p>Not Answered: <span id="not-answered-count">0</span></p>
+                        <p>Marked for Review: <span id="marked-count">0</span></p>
+                        <p>Not Visited: <span id="unvisited-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="palette-header">Question Palette</div>
+                <div id="question-palette">
+                    </div>
+                
+                <button id="submit-test-btn" class="submit-button">Submit Test</button>
+            </aside>
+        </main>
     </div>
     
     <div id="pause-overlay" class="hidden"><h2>Test Paused</h2><button id="resume-btn">Resume Test</button></div>
     <div id="result-summary-page" class="hidden"><div class="result-summary-header">Test Results</div><div id="result-stats-full"></div><div class="result-summary-footer"><button id="review-test-btn">Review Test</button></div></div>
-    <div id="review-page" class="hidden"><div class="question-panel" style="margin: auto;"><div class="question-header" id="review-question-title">Reviewing...</div><div id="review-question-area"></div><div class="action-buttons"><button id="review-prev-btn" class="action-btn">Previous</button><a href="index.html" class="action-btn" style="text-decoration:none; background-color: var(--primary-brand); color:white;">Back to Home</a><button id="review-next-btn" class="action-btn" style="margin-left: auto;">Next</button></div></div></div>
+    <div id="review-page" class="hidden">...</div>
 
-    <!-- Scripts -->
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>

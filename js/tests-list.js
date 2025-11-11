@@ -9,21 +9,30 @@ const ALL_TESTS = [
         date: "12 Sep",
         title: "Shift 1",
         subject: "Maths",
-        isNew: true // ⭐ ADDED: Mark this test as new
+        isNew: true, // ⭐ ADDED: Mark this test as new
+        questions: 25, // <-- ADDED
+        marks: 50,     // <-- ADDED
+        minutes: 25    // <-- ADDED
     },
     {
         id: "ssc_cgl_12_sep_s2",
         date: "12 Sep",
         title: "Shift 2",
         subject: "Maths",
-        isNew: true // ⭐ ADDED: Mark this test as new
+        isNew: true, // ⭐ ADDED: Mark this test as new
+        questions: 25, // <-- ADDED
+        marks: 50,     // <-- ADDED
+        minutes: 25    // <-- ADDED
     },
     {
         id: "ssc_cgl_12_sep_s3",
         date: "12 Sep",
         title: "Shift 3",
         subject: "Maths",
-        isNew: true // ⭐ ADDED: Mark this test as new
+        isNew: true, // ⭐ ADDED: Mark this test as new
+        questions: 25, // <-- ADDED
+        marks: 50,     // <-- ADDED
+        minutes: 25    // <-- ADDED
     },
 
     // --- Reasoning Tests (NEWLY ADDED) ---
@@ -32,23 +41,29 @@ const ALL_TESTS = [
         date: "12 Sep",
         title: "Shift 1",
         subject: "Reasoning",
-        isNew: true // ⭐ ADDED: Mark the Reasoning test as new
+        isNew: true, // ⭐ ADDED: Mark the Reasoning test as new
+        questions: 25, // <-- ADDED
+        marks: 50,     // <-- ADDED
+        minutes: 25    // <-- ADDED
     },
-     {
+    {
         id: "ssc_cgl_12_sep_s2-r", // New unique ID for Reasoning Shift 1
         date: "12 Sep",
         title: "Shift 2",
         subject: "Reasoning",
-        isNew: true // ⭐ ADDED: Mark the Reasoning test as new
+        isNew: true, // ⭐ ADDED: Mark the Reasoning test as new
+        questions: 25, // <-- ADDED
+        marks: 50,     // <-- ADDED
+        minutes: 25    // <-- ADDED
     },
     {
         id: "ssc_cgl_12_sep_s3-r", // New unique ID for Reasoning Shift 1
         date: "12 Sep",
         title: "Shift 3",
         subject: "Reasoning",
-        isNew: true // ⭐ ADDED: Mark the Reasoning test as new
+        isNew: true, // ⭐ ADDED: Mark the Reasoning test as new
+        questions: 25, // <-- ADDED
+        marks: 50,     // <-- ADDED
+        minutes: 25    // <-- ADDED
     },
-
-
-
 ];

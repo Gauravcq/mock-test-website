@@ -96,21 +96,22 @@
                 
                 if (filteredTests.length > 0) {
                     gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
-                } 
+                } else {
+                    gridContainer.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; color: var(--light-text-secondary); margin-top: 50px;'>No tests found for this subject.</p>";
+                }
             }
 
-            function generateCardHTML(test) { // Removed 'index' argument
+            function generateCardHTML(test) { 
                 const fullTitle = `${test.date} ${test.title}`;
-                // ⭐ ADDED: Conditional NEW badge
                 const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
 
                 return `
                     <a href="test.html?id=${test.id}" class="test-card">
                         ${newBadge} <div class="card-title">${fullTitle}</div><hr>
                         <div class="card-stats">
-                            <div class="stat-item"><div class="value">25</div><div class="label">Questions</div></div>
-                            <div class="stat-item"><div class="value">50</div><div class="label">Marks</div></div>
-                            <div class="stat-item"><div class="value">25</div><div class="label">Minutes</div></div>
+                            <div class="stat-item"><div class="value">${test.questions || 25}</div><div class="label">Questions</div></div>
+                            <div class="stat-item"><div class="value">${test.marks || 50}</div><div class="label">Marks</div></div>
+                            <div class="stat-item"><div class="value">${test.minutes || 25}</div><div class="label">Minutes</div></div>
                         </div>
                         <div class="attempt-btn">Attempt</div>
                     </a>`;
