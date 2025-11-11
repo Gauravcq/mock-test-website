@@ -542,7 +542,7 @@ const QUESTIONS_DATABASE = {
     "explanation": "The identical address must be an exact match, including punctuation and the PIN code. Only address 1 is a character-for-character match."
   },
    {
-    "question": "<img src='../images/as.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/an.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
     "options": ["KO", "KU", "KS", "KW"],
     "correctAnswer": "KU",
     "explanation": "Step 1: Analyze the Numerical Pattern (AG : 10)The standard logic involves adding the positional values of the letters and applying a mathematical rule.A = 1, G = 7Sum of values: $1 + 7 = 8$Resulting number: 10Pattern Rule: Sum of values + $\mathbf{2}$ = Resulting Number$8 + 2 = \mathbf{10}$Step 2: Apply the Pattern to the Second Pair (CM : ?)Apply the same rule to the letters CM:C = 3, M = 13Sum of values: $3 + 13 = 16$Apply Pattern Rule: $16 + 2 = \mathbf{18}$The logically expected answer is 18. Since the given options are letter clusters, this indicates the question is flawed.Step 3: Deriving KU from an Inconsistent Letter-Shift PatternSince KU is the provided answer, we must assume a letter-shift relationship, ignoring the numerical part of the analogy for consistency across all three clusters (AG, CM, KU).The pattern proceeds in two steps: $\mathbf{AG \rightarrow CM}$ and $\mathbf{CM \rightarrow KU}$."
