@@ -107,87 +107,66 @@ document.addEventListener('DOMContentLoaded', () => {
          * UPDATED: Calculates and displays results using a structured HTML format
          * for better styling control on the results page.
          */
-        function calculateAndShowResults(autoSubmit = false) {
-            if (!autoSubmit) { submitSummaryModal.classList.add('hidden'); }
-            clearInterval(timerInterval); saveCurrentAnswer();
-            
-            // --- Calculation Logic ---
-            const totalTimeInSeconds = 25 * 60;
-            const timeTaken = totalTimeInSeconds - timeRemaining; // Use timeRemaining from state
-            const timeTakenMinutes = Math.floor(timeTaken / 60);
-            const timeTakenSeconds = timeTaken % 60;
+        // Inside the calculateAndShowResults function in test-logic.js
+function calculateAndShowResults(autoSubmit = false) {
+    // ... (Your existing calculation logic) ...
 
-            let score = 0, correctCount = 0, incorrectCount = 0, attemptedCount = 0;
-            
-            questionStates.forEach((state, index) => { 
-                if (state.userAnswer !== null) { 
-                    attemptedCount++; 
-                    const userAnswerNormalized = normalizeString(state.userAnswer);
-                    const correctAnswerNormalized = normalizeString(questions[index].correctAnswer);
-                    if (userAnswerNormalized === correctAnswerNormalized) { 
-                        score += 2; correctCount++; 
-                    } else { 
-                        score -= 0.5; incorrectCount++; 
-                    } 
-                } 
-            });
-            
-            const unattemptedCount = questions.length - attemptedCount;
-            const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
-            
-            // --- Enhanced Result Page HTML Structure ---
-            const resultStatsEl = document.getElementById('result-stats-full');
-            
-            // 1. Clear the main results container
-            resultStatsEl.innerHTML = ''; 
+    // --- Enhanced Result Page HTML Structure ---
+    const resultStatsEl = document.getElementById('result-stats-full');
+    
+    // 1. Clear the main results container
+    resultStatsEl.innerHTML = ''; 
 
-            // 2. Inject Header and Score/Title Area
-            const headerHtml = `
-                <div class="result-summary-info">
-                    <div class="test-title-info">
-                        <h2>${testInfo.title}</h2>
-                        <p>Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
-                    </div>
-                    <div class="result-header-actions">
-                        <button id="review-test-btn" class="action-btn primary">Review Test</button>
-                        <a href="index.html" class="action-btn secondary">Go to Tests</a>
-                    </div>
+    // 2. Define the inner content for the result card
+    // We will use a main flex/grid container to hold the left info/buttons and the right stats.
+    const resultsContentHtml = `
+        <div class="result-top-row">
+            <div class="test-info-column">
+                <div class="test-details">
+                    <p class="shift-info">Shift 1</p>
+                    <p class="question-info">Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
                 </div>
-                <div class="divider"></div>
-            `;
-
-            // 3. Inject the Main Stats Grid (4 columns)
-            const statsGridHtml = `
-                <div class="result-grid-stats">
-                    <div class="stat-card total-score">
-                        <div class="stat-value">${score.toFixed(2)}</div>
-                        <div class="stat-label">Your Score</div>
-                    </div>
-                    <div class="stat-card correct">
-                        <div class="stat-value">${correctCount}</div>
-                        <div class="stat-label">Correct</div>
-                    </div>
-                    <div class="stat-card incorrect">
-                        <div class="stat-value">${incorrectCount}</div>
-                        <div class="stat-label">Incorrect</div>
-                    </div>
-                    <div class="stat-card unattempted">
-                        <div class="stat-value">${unattemptedCount}</div>
-                        <div class="stat-label">Unattempted</div>
-                    </div>
-                    <div class="stat-card time-taken">
-                        <div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div>
-                        <div class="stat-label">Time Taken</div>
-                    </div>
-                    <div class="stat-card accuracy">
-                        <div class="stat-value">${accuracy.toFixed(1)}%</div>
-                        <div class="stat-label">Accuracy</div>
-                    </div>
+                <div class="result-header-actions">
+                    <button id="review-test-btn" class="action-btn primary">Review Test</button>
+                    <a href="index.html" class="action-btn secondary">Go to Tests</a>
                 </div>
-            `;
-            
-            resultStatsEl.innerHTML = headerHtml + statsGridHtml;
-            // --- End Enhanced Result Page HTML Structure ---
+            </div>
+
+            <div class="stats-grid-column">
+                <div class="stat-card total-score">
+                    <div class="stat-value">${score.toFixed(2)}</div>
+                    <div class="stat-label">YOUR SCORE</div>
+                </div>
+                <div class="stat-card correct">
+                    <div class="stat-value">${correctCount}</div>
+                    <div class="stat-label">CORRECT</div>
+                </div>
+                <div class="stat-card incorrect">
+                    <div class="stat-value">${incorrectCount}</div>
+                    <div class="stat-label">INCORRECT</div>
+                </div>
+                <div class="stat-card unattempted">
+                    <div class="stat-value">${unattemptedCount}</div>
+                    <div class="stat-label">UNATTEMPTED</div>
+                </div>
+                <div class="stat-card time-taken">
+                    <div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div>
+                    <div class="stat-label">TIME TAKEN</div>
+                </div>
+                <div class="stat-card accuracy">
+                    <div class="stat-value">${accuracy.toFixed(1)}%</div>
+                    <div class="stat-label">ACCURACY</div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // The main result container must be the .result-box-card in the HTML. 
+    // Since #result-stats-full is usually where you inject, we'll assume #result-stats-full is inside .result-box-card.
+    resultStatsEl.innerHTML = resultsContentHtml; 
+    
+    // ... (rest of the JS logic) ...
+}
             
             // 4. Re-assign the listener since the button was re-rendered
             document.getElementById('review-test-btn').addEventListener('click', () => { 
