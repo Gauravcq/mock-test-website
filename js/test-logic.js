@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function normalizeString(str) {
         if (str === null) return '';
         return String(str)
-            .replace(/[\u20b9₹]/g, '') // Remove Rupee symbols (₹)
-            .replace(/m\u00b2/g, 'm^2') // Standardize m² to m^2
-            .replace(/\u00b0/g, 'deg') // Standardize degree symbol (°)
-            .replace(/\s+/g, '') // Remove all internal whitespace
+            .replace(/[\u20b9₹]/g, '') 
+            .replace(/m\u00b2/g, 'm^2')
+            .replace(/\u00b0/g, 'deg') 
+            .replace(/\s+/g, '')
             .toLowerCase();
     }
 
@@ -143,8 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="result-top-row">
                     <div class="test-info-column">
                         <div class="test-details">
-                            <p class="shift-info">Shift 1</p>
-                            <p class="question-info">Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
+                            <p class="shift-info">${testInfo.title}</p> <p class="question-info">Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
                         </div>
                         <div class="result-header-actions">
                             <button id="review-test-btn" class="action-btn primary">Review Test</button>
