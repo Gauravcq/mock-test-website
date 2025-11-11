@@ -593,6 +593,72 @@ const QUESTIONS_DATABASE = {
   ],
   "correctAnswer": "Husband",
   "explanation": "Rani's mother's son-in-law is the husband of Rani's sister or the husband of Rani herself. Since only 'Husband' is a viable correct option among the choices, and in the context of typical exam questions, 'my mother’s son-in-law' usually refers to the husband of the speaker (if she is a daughter), the man is Rani's Husband."
-}
+},
+{
+  "question": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others.",
+  "options": [
+    "K11:I9:G7",
+    "M13:K11:I9",
+    "O15:M13:K11",
+    "N14:K11:H8"
+  ],
+  "correctAnswer": "N14:K11:H8",
+  "explanation": "The pattern involves the alphabetical position of the letters (A=1, B=2, etc.):\n\n1. K11:I9:G7: The positional values are 11, 9, 7. The difference is $11-9=2$ and $9-7=2$ (Pattern: -2, -2).\n2. M13:K11:I9: The positional values are 13, 11, 9. The difference is $13-11=2$ and $11-9=2$ (Pattern: -2, -2).\n3. O15:M13:K11: The positional values are 15, 13, 11. The difference is $15-13=2$ and $13-11=2$ (Pattern: -2, -2).\n4. N14:K11:H8: The positional values are 14, 11, 8. The difference is $14-11=3$ and $11-8=3$ (Pattern: -3, -3).\n\nSince options 1, 2, and 3 follow a constant difference of -2, and option 4 follows a constant difference of -3, **N14:K11:H8** is the odd one out."
+},
+{
+  "question": "In each of the following questions, a group of three number/symbol clusters is given in each option. Identify the group that does NOT follow the same pattern as the others.",
+  "options": [
+    "A1@ : B2# : C3$",
+    "D4% : E54 : F6&",
+    "G7* : H8( : I9)",
+    "J10_:K11@:L12@"
+  ],
+  "correctAnswer": "J10_:K11@:L12@",
+  "explanation": "In Options 1, 2, and 3, both the letters (e.g., A, B, C) and the numbers (e.g., 1, 2, 3) are consecutive, and critically, all three components in the cluster use a **unique symbol** (@, #, $; or %, 4, &; or *, (, )).\n\nIn the odd one out, **J10_:K11@:L12@**, the letters and numbers follow the consecutive pattern (J, K, L and 10, 11, 12), but the **symbols are repeated**: @ is used for both the second and third components (K11@ and L12@). Therefore, this group does not follow the unique symbol pattern established by the others."
+},
+{
+  "question": "Pointing to a man, a woman said, 'His mother is the only daughter of my father.' How is the man related to the woman?",
+  "options": [
+    "Son",
+    "Nephew",
+    "Cousin",
+    "Brother"
+  ],
+  "correctAnswer": "Son",
+  "explanation": "The woman's statement, 'the only daughter of my father,' refers to the woman herself. Therefore, 'His mother is the only daughter of my father' means 'His mother is me (the woman)'. If the man's mother is the woman, the man is her **Son**."
+},
+{
+  "question": "Pointing to a woman, John says, 'She is the wife of my uncle’s only son.' How is the woman related to John?",
+  "options": [
+    "Sister",
+    "Cousin",
+    "Sister-in-law",
+    "Niece"
+  ],
+  "correctAnswer": "Sister-in-law",
+  "explanation": "Breakdown of the relationship:\n1. **My uncle's only son** refers to John's first cousin (since the 'uncle' is usually the paternal or maternal uncle, making his son John's cousin).\n2. **The wife of my cousin** is John's **Sister-in-law** (or more specifically, Cousin's Wife). In the context of the options provided, 'Sister-in-law' is the correct and closest familial term for the wife of a male relative (like a brother or, in this case, a cousin)."
+},
+{
+  "question": "Aman said, 'My mother’s husband's only son is the father of your sister’s brother.' How is the man related to you?",
+  "options": [
+    "Uncle",
+    "Father",
+    "Grandfather",
+    "Brother"
+  ],
+  "correctAnswer": "Father",
+  "explanation": "Let's break down Aman's statement:\n1. **Aman's mother's husband** is Aman's Father.\n2. **Aman's mother's husband's only son** is Aman himself (assuming Aman is the speaker and has only one brother, which is the most common interpretation in these puzzles).\n3. **Your sister’s brother** is You yourself (as a sibling's sibling is the person).\n\nTherefore, the statement simplifies to: **Aman is the father of You.** This means the man (Aman) is your **Father**."
+},
+{
+  "question": "If #=*, @=-, $=+$, then evaluate: 9#2@3$1",
+  "options": [
+    "18",
+    "14",
+    "16",
+    "17"
+  ],
+  "correctAnswer": "16",
+  "explanation": "Substitute the symbols with the given mathematical operators:\n$9 \\times 2 - 3 + 1$\n\nFollow the order of operations (BODMAS/PEMDAS):\n1. Multiplication: $9 \\times 2 = 18$\n2. The expression becomes: $18 - 3 + 1$\n3. Subtraction: $18 - 3 = 15$\n4. Addition: $15 + 1 = 16$\n\nTherefore, the final value is **16**."
+},
 ],
 };
