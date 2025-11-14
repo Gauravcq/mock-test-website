@@ -601,7 +601,7 @@
         .question-area-main {
             border-right: none;
             border-bottom: 1px solid var(--border-light);
-            /* FIX: Set order to 1 to appear at the top */
+            /* FIX: Question content area goes first */
             order: 1; 
         }
         .question-content {
@@ -612,7 +612,7 @@
         /* Palette/Sidebar */
         .right-sidebar {
             width: 100%; /* Full width */
-            /* FIX: Set order to 2 to appear at the bottom */
+            /* FIX: Palette goes second (to the bottom) */
             order: 2; 
             padding: 15px 20px;
             height: auto;
@@ -622,6 +622,11 @@
             grid-template-columns: repeat(6, 1fr); /* More columns for a compact look */
         }
         .sidebar-info { display: none; } /* Hide user info to save space */
+        
+        /* FIX: Bring submit button up on mobile */
+        .sidebar-actions {
+            margin-top: 20px; /* Overrides 'auto' with a fixed spacing */
+        }
         
         /* Footer Navigation */
         .question-footer {
