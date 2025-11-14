@@ -601,7 +601,8 @@
         .question-area-main {
             border-right: none;
             border-bottom: 1px solid var(--border-light);
-            order: 2; /* Main content after palette or use 0 for content first */
+            /* FIX: Set order to 1 to appear at the top */
+            order: 1; 
         }
         .question-content {
             overflow-y: visible; /* Let the body/main container scroll */
@@ -611,7 +612,8 @@
         /* Palette/Sidebar */
         .right-sidebar {
             width: 100%; /* Full width */
-            order: 1; /* Place palette at the top */
+            /* FIX: Set order to 2 to appear at the bottom */
+            order: 2; 
             padding: 15px 20px;
             height: auto;
             flex-shrink: 1;
@@ -865,20 +867,20 @@
         <div class="review-main-content">
             
             <div class="review-question-area-wrapper">
-                       <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
-                       <div id="review-question-area">
-                            </div>
-                       <footer class="review-footer">
-                            <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                            <button id="review-next-btn" class="btn primary">Next Question</button>
-                       </footer>
+                         <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
+                         <div id="review-question-area">
+                             </div>
+                         <footer class="review-footer">
+                             <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                             <button id="review-next-btn" class="btn primary">Next Question</button>
+                         </footer>
             </div>
             
             <aside class="review-sidebar">
                 <div class="review-palette-container">
                     <h3 style="margin-top:0;">Question Palette</h3>
                     <div id="review-palette" class="question-palette">
-                            </div>
+                             </div>
                 </div>
             </aside>
             
