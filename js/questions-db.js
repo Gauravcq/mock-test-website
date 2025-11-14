@@ -1112,7 +1112,7 @@ const QUESTIONS_DATABASE = {
     "explanation": "Solve the system of linear equations:\n1. $x + 2y = 14$\n2. $x - y = 5$\nSubtracting (2) from (1) yields $3y = 9$, so $y=3$. Substituting $y=3$ into (2): $x - 3 = 5$, so $x = \\mathbf{8}$."
   },
   {
-    "question": "If $6 \\$ 2 = 20$ and $4 \\$ 3 = 19$, then $5 \\$ 2 = ?",
+    "question": "If 6$ 2 = 20 and 4 $ 3 = 19, then 5 $ 2 = ?",
     "options": [
       "18",
       "17",
@@ -1412,7 +1412,7 @@ ssc_cgl_13_sep_s1 : [
     "explanation": "To convert degrees to radians, multiply by $\\frac{\\pi}{180}$:\n$150^\\circ \\times \\frac{\\pi}{180^\\circ} = \\frac{150}{180} \\pi = \\frac{5\\pi}{6}$"
   },
   {
-    "question": "What is the area of a sector with a central angle of $120^\\circ$ and radius 8 cm?",
+    "question": "What is the area of a sector with a central angle of 120o circle and radius 8 cm?",
     "options": [
       "64π/3 cm²",
       "54π/3 cm²",
