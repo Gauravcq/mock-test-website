@@ -27,7 +27,7 @@ const ALL_TESTS = [
     },
     {
         id: "ssc_cgl_13_sep_s1",
-        date: "12 Sep",
+        date: "13 Sep",
         title: "Shift 1",
         subject: "Maths",
         isNew: true // ⭐ ADDED: Mark this test as new
@@ -51,7 +51,7 @@ const ALL_TESTS = [
     },
     {
         id: "ssc_cgl_12_sep_s3-r", // New unique ID for Reasoning Shift 1
-        date: "13 Sep",
+        date: "12 Sep",
         title: "Shift 3",
         subject: "Reasoning",
         isNew: true // ⭐ ADDED: Mark the Reasoning test as new
