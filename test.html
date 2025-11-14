@@ -668,9 +668,11 @@
         }
         .results-header-nav a { flex-shrink: 0; }
         
-        /* Review Page Adjustments */
+        /* Review Page Adjustments - START OF FIXES */
         .review-container {
-            padding: 0 10px;
+            padding: 20px 10px; /* **FIX: Added top padding for separation from screen edge** */
+            height: auto;
+            min-height: 100vh;
         }
         .review-main-content {
             flex-direction: column;
@@ -680,6 +682,23 @@
             padding-right: 0;
             order: 1;
         }
+        .results-header-nav {
+            /* FIX: Ensure a bottom margin is present on mobile */
+            margin-bottom: 15px; 
+        }
+        
+        /* Adjusting the overall heading and review title margins */
+        .result-heading { 
+            margin-top: 0;
+            margin-bottom: 15px; 
+        } 
+        
+        #review-question-title {
+            margin-top: 10px; /* FIX: Add some space above the title */
+            margin-bottom: 10px; /* FIX: Add some space below the title */
+            font-size: 1.2rem;
+        }
+
         #review-question-area {
             padding: 10px 0;
             overflow-y: visible;
@@ -701,6 +720,7 @@
         .review-footer .btn {
             width: 100%;
         }
+        /* Review Page Adjustments - END OF FIXES */
     }
 </style>
 </head>
@@ -845,20 +865,20 @@
         <div class="review-main-content">
             
             <div class="review-question-area-wrapper">
-                   <h2 id="review-question-title" style="margin-top:0;">Reviewing Question 1 of 25</h2>
-                   <div id="review-question-area">
-                        </div>
-                   <footer class="review-footer">
-                        <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                        <button id="review-next-btn" class="btn primary">Next Question</button>
-                   </footer>
+                       <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
+                       <div id="review-question-area">
+                            </div>
+                       <footer class="review-footer">
+                            <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                            <button id="review-next-btn" class="btn primary">Next Question</button>
+                       </footer>
             </div>
             
             <aside class="review-sidebar">
                 <div class="review-palette-container">
                     <h3 style="margin-top:0;">Question Palette</h3>
                     <div id="review-palette" class="question-palette">
-                        </div>
+                            </div>
                 </div>
             </aside>
             
