@@ -140,6 +140,16 @@
     .btn.primary:hover { background-color: #0069d9; }
     .btn.secondary { background-color: #6c757d; color: white; }
     .btn.secondary:hover { background-color: #5a6268; }
+    .btn.tertiary { background-color: #f44336; color: white; border: none; }
+
+    /* --- NEW: Submit Button Wrapper (Hidden on Desktop) --- */
+    .submit-btn-wrapper {
+        display: none; /* Hidden on desktop by default */
+    }
+    .submit-btn-wrapper .btn {
+        width: 100%;
+    }
+
 
     /* --- Right Sidebar (Question Palette) --- */
     .right-sidebar {
@@ -623,9 +633,10 @@
         }
         .sidebar-info { display: none; } /* Hide user info to save space */
         
-        /* FIX: Bring submit button up on mobile */
+        /* FIX: Hide the original submit button in the sidebar on mobile */
         .sidebar-actions {
-            margin-top: 20px; /* Overrides 'auto' with a fixed spacing */
+            margin-top: 20px; 
+            display: none; /* Hides the original button */
         }
         
         /* Footer Navigation */
@@ -636,11 +647,20 @@
             width: 100%;
             z-index: 10;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            flex-direction: row; /* Keep buttons horizontal, but centered */
+            /* CHANGE: Use column layout to stack the new submit button */
+            flex-direction: column; 
             flex-wrap: wrap;
             gap: 10px;
             padding: 10px;
         }
+        
+        /* FIX: Show the new submit button in the footer and put it on top */
+        .submit-btn-wrapper {
+            display: block; /* Show on mobile */
+            width: 100%;
+            order: -1; /* Place it at the top */
+        }
+
         .left-btns, .right-btns {
             width: 100%;
             display: grid;
@@ -811,6 +831,9 @@
                         <button id="mark-review-btn" class="btn secondary">Mark for Review & Next</button>
                         <button id="clear-response-btn" class="btn secondary">Clear Response</button>
                     </div>
+                    <div class="submit-btn-wrapper">
+                        <button id="submit-test-footer-btn" class="btn tertiary">Submit Test</button>
+                    </div>
                     <div class="right-btns">
                         <button id="prev-btn" class="btn primary">Previous</button>
                         <button id="next-btn" class="btn primary">Save & Next</button>
@@ -872,20 +895,20 @@
         <div class="review-main-content">
             
             <div class="review-question-area-wrapper">
-                         <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
-                         <div id="review-question-area">
-                             </div>
-                         <footer class="review-footer">
-                             <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                             <button id="review-next-btn" class="btn primary">Next Question</button>
-                         </footer>
+                           <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
+                           <div id="review-question-area">
+                               </div>
+                           <footer class="review-footer">
+                               <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                               <button id="review-next-btn" class="btn primary">Next Question</button>
+                           </footer>
             </div>
             
             <aside class="review-sidebar">
                 <div class="review-palette-container">
                     <h3 style="margin-top:0;">Question Palette</h3>
                     <div id="review-palette" class="question-palette">
-                             </div>
+                               </div>
                 </div>
             </aside>
             
