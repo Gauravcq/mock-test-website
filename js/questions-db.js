@@ -1225,14 +1225,14 @@ const QUESTIONS_DATABASE = {
 
 ssc_cgl_13_sep_s1 : [
   {
-    "question": "Suppose $x=\\sqrt{2}+\\sqrt{3}$, $y=\\sqrt{5}+\\sqrt{1}$ and $z=2\\sqrt{2}+1.$ then which of the following is true?",
+    "question": "<img src='../images/alg.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
-      "$x < y < z$",
-      "$z < y < x$",
-      "$y < x < z$",
-      "$x < z < y$"
+      "x < y < z",
+      "z < y < x",
+      "y < x < z",
+      "x < z < y"
     ],
-    "correctAnswer": "$x < y < z$",
+    "correctAnswer": "x < y < z",
     "explanation": "Approximating the values:\n$x = \\sqrt{2} + \\sqrt{3} \\approx 1.414 + 1.732 = 3.146$\n$y = \\sqrt{5} + 1 \\approx 2.236 + 1 = 3.236$\n$z = 2\\sqrt{2} + 1 \\approx 2(1.414) + 1 = 3.828$\nComparing the values: $3.146 < 3.236 < 3.828$. Thus, $x < y < z$."
   },
   {
