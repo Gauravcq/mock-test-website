@@ -42,15 +42,18 @@
         padding: 0;
         background-color: var(--bg-page);
         color: var(--text-main);
-        height: 100vh;
-        overflow: hidden; 
+        /* * FIX: Removed height: 100vh; overflow: hidden;
+        * to allow the main layout to scroll naturally, especially on mobile.
+        */
+        min-height: 100vh;
+        overflow-y: auto; 
     }
 
     /* --- Quiz Container (Main Layout) --- */
     .quiz-container {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        height: 100vh; /* Keeps the container full height for desktop */
     }
 
     /* Header Bar */
@@ -62,6 +65,7 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0; /* Prevents header from shrinking */
     }
     .header-left h1 { font-size: 1.4rem; font-weight: 700; margin: 0; }
     .header-center .header-btn {
@@ -81,7 +85,8 @@
     .main-content-wrapper {
         display: flex;
         flex-grow: 1;
-        height: calc(100% - 60px); 
+        /* FIX: Use flex-grow instead of calc height for vertical space management */
+        min-height: 0; 
     }
 
     /* --- Main Question Area (LEFT) --- */
@@ -91,6 +96,7 @@
         flex-direction: column;
         background-color: var(--bg-white);
         border-right: 1px solid var(--border-light);
+        min-width: 0; /* Prevents overflow */
     }
     .question-header {
         padding: 15px 20px;
@@ -98,12 +104,18 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-shrink: 0; /* Prevents header from shrinking */
     }
     .question-header h2 { font-size: 1.2rem; margin: 0; font-weight: 600; }
     .language-select {
         padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 1rem;
     }
-    .question-content { flex-grow: 1; padding: 20px; overflow-y: auto; }
+    .question-content { 
+        flex-grow: 1; 
+        padding: 20px; 
+        overflow-y: auto; /* Internal scroll for long questions */
+        min-height: 0; /* Critical for flex-grow to work in vertical column */
+    }
     .question-text { font-size: 1.1rem; line-height: 1.6; font-weight: 500; margin-bottom: 20px; }
     .options-container { display: flex; flex-direction: column; gap: 10px; }
     .option {
@@ -118,6 +130,7 @@
     .question-footer {
         padding: 15px 20px; border-top: 1px solid var(--border-light);
         display: flex; justify-content: space-between; background-color: #f7f7f7;
+        flex-shrink: 0; /* Prevents footer from shrinking */
     }
     .left-btns, .right-btns { display: flex; gap: 15px; }
     .btn {
@@ -136,6 +149,9 @@
         display: flex;
         flex-direction: column;
         overflow-y: auto;
+        flex-shrink: 0; /* Prevents palette from shrinking on desktop */
+        align-self: stretch; /* Ensures it takes full height of flex container */
+        min-height: 0; /* Critical for overflow-y: auto to work */
     }
     .sidebar-info p { font-size: 0.9rem; font-weight: 500; margin: 5px 0; }
     
@@ -254,15 +270,24 @@
     }
     .modal-content {
         background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        max-width: 500px; width: 90%; text-align: center;
+        max-width: 600px; 
+        width: 90%; 
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .modal-content h2 { color: var(--primary-blue); }
+    .modal-content h2 { 
+        color: var(--primary-blue);
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
     .modal-actions { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
 
     .hidden { display: none !important; }
 
     /* ---------------------------------------------------- */
-    /* --- Result Summary Page Styling (Overview) - UPDATED --- */
+    /* --- Result Summary Page Styling (Overview) --- */
     /* ---------------------------------------------------- */
     .result-container {
         padding: 40px;
@@ -270,7 +295,7 @@
         margin: 0 auto;
         background-color: var(--bg-white);
         min-height: 100vh;
-        overflow-y: auto; /* Allow scrolling if content exceeds height */
+        overflow-y: auto; 
     }
     .result-heading {
         font-size: 2.2rem;
@@ -308,10 +333,8 @@
         align-items: flex-start;
     }
 
-    /* Area for Test Details (Shift 1, Total Questions, Max Marks) and Buttons */
-    /* This replaces #review-button-area to be more descriptive */
     .test-info-and-actions {
-        width: 250px; /* Aligned with original #review-button-area width */
+        width: 250px; 
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
@@ -344,9 +367,8 @@
 
     /* --- Stats Grid Area (Right side) --- */
     .stats-grid-container {
-        flex-grow: 1; /* Takes remaining space */
+        flex-grow: 1; 
         display: grid;
-        /* Three equal columns for the score cards, matching image structure */
         grid-template-columns: repeat(3, 1fr); 
         gap: 20px; 
     }
@@ -380,7 +402,7 @@
         border-radius: 8px;
         background-color: var(--secondary-light);
         min-height: 300px;
-        margin-top: 30px; /* Add margin here if you want space above the chart */
+        margin-top: 30px; 
     }
     /* Card Specific Colors (continued) */
     .total-score .stat-value { color: #4A00E0; }
@@ -398,13 +420,14 @@
         max-width: 1200px;
         margin: 0 auto;
         background-color: var(--bg-white);
-        padding: 0 40px; /* Padding for the main content area */
+        padding: 0 40px; 
     }
     
     .review-main-content {
         display: flex;
         flex-grow: 1;
-        overflow-y: hidden; /* Prevent scrolling on the wrapper */
+        overflow-y: hidden; 
+        min-height: 0;
     }
 
     .review-question-area-wrapper {
@@ -412,6 +435,7 @@
         display: flex;
         flex-direction: column;
         padding-right: 20px;
+        min-height: 0;
     }
 
     /* Content area that scrolls */
@@ -419,6 +443,7 @@
         flex-grow: 1;
         padding: 20px 0;
         overflow-y: auto;
+        min-height: 0;
     }
     
     .review-option {
@@ -487,6 +512,7 @@
         border-left: 1px solid var(--border-light);
         padding-left: 20px;
         overflow-y: auto;
+        min-height: 0;
     }
     .review-palette-container h3 {
         font-size: 1.1em;
@@ -501,66 +527,155 @@
         display: flex;
         justify-content: space-between;
         gap: 15px;
+        flex-shrink: 0;
     }
-    /* --- Modals (Existing Styles) --- */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;
-}
-.modal-content {
-    background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    max-width: 600px; /* Increased width for better list layout */
-    width: 90%; 
-    text-align: center;
-    display: flex; /* Enable flex for better vertical alignment */
-    flex-direction: column;
-    align-items: center;
-}
-.modal-content h2 { 
-    color: var(--primary-blue);
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-}
-.modal-actions { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
+    /* --- Modals --- */
+    .instruction-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px 0;
+        text-align: left;
+        width: 100%;
+        max-width: 450px;
+    }
 
-/* ------------------------------------------------------------------ */
-/* --- NEW PROFESSIONAL INSTRUCTION LIST STYLING --- */
-/* ------------------------------------------------------------------ */
-.instruction-list {
-    list-style: none; /* Remove default bullets/numbers */
-    padding: 0;
-    margin: 0 0 30px 0;
-    text-align: left;
-    width: 100%;
-    max-width: 450px;
-}
+    .instruction-list li {
+        background-color: var(--secondary-light);
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        border-left: 5px solid var(--primary-blue);
+        border-radius: 4px;
+        font-size: 1rem;
+        line-height: 1.4;
+        font-weight: 500;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
 
-.instruction-list li {
-    background-color: var(--secondary-light); /* Light background for separation */
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-left: 5px solid var(--primary-blue); /* Highlight strip */
-    border-radius: 4px;
-    font-size: 1rem;
-    line-height: 1.4;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
+    .instruction-list li strong {
+        color: var(--primary-dark);
+        font-weight: 700;
+    }
 
-.instruction-list li strong {
-    color: var(--primary-dark); /* Emphasize key data */
-    font-weight: 700;
-}
+    /* ------------------------------------------------------------------ */
+    /* --- MOBILE RESPONSIVENESS (Max-width 768px) --- */
+    /* ------------------------------------------------------------------ */
+    @media (max-width: 768px) {
+        /* Quiz UI Layout */
+        .quiz-container {
+            height: auto;
+            min-height: 100vh;
+        }
 
-/* Ensure the button is styled correctly after the list */
-#start-test-btn {
-    margin-top: 10px;
-}
+        .main-content-wrapper {
+            flex-direction: column; /* Stack the question and palette */
+            height: auto;
+            flex-grow: 1;
+        }
+
+        /* Question Area */
+        .question-area-main {
+            border-right: none;
+            border-bottom: 1px solid var(--border-light);
+            order: 2; /* Main content after palette or use 0 for content first */
+        }
+        .question-content {
+            overflow-y: visible; /* Let the body/main container scroll */
+            padding-bottom: 100px; /* Space for the stacked footer */
+        }
+
+        /* Palette/Sidebar */
+        .right-sidebar {
+            width: 100%; /* Full width */
+            order: 1; /* Place palette at the top */
+            padding: 15px 20px;
+            height: auto;
+            flex-shrink: 1;
+        }
+        .question-palette {
+            grid-template-columns: repeat(6, 1fr); /* More columns for a compact look */
+        }
+        .sidebar-info { display: none; } /* Hide user info to save space */
+        
+        /* Footer Navigation */
+        .question-footer {
+            position: fixed; /* Fix footer to the bottom */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            flex-direction: row; /* Keep buttons horizontal, but centered */
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+        }
+        .left-btns, .right-btns {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+        }
+        .btn { padding: 10px 15px; }
+        
+        /* Result Summary Page Adjustments */
+        .result-container {
+            padding: 20px 15px;
+        }
+        .result-summary-content-wrapper {
+            flex-direction: column; /* Stack info/buttons and stats */
+            gap: 20px;
+        }
+        .test-info-and-actions {
+            width: 100%; /* Full width */
+        }
+        .stats-grid-container {
+            grid-template-columns: repeat(2, 1fr); /* 2 columns for stats on mobile */
+        }
+        .results-header-nav {
+            overflow-x: auto; /* Allow horizontal scroll for tabs */
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            padding-bottom: 5px;
+            justify-content: flex-start;
+        }
+        .results-header-nav a { flex-shrink: 0; }
+        
+        /* Review Page Adjustments */
+        .review-container {
+            padding: 0 10px;
+        }
+        .review-main-content {
+            flex-direction: column;
+            overflow-y: visible;
+        }
+        .review-question-area-wrapper {
+            padding-right: 0;
+            order: 1;
+        }
+        #review-question-area {
+            padding: 10px 0;
+            overflow-y: visible;
+        }
+        .review-sidebar {
+            width: 100%;
+            padding: 15px 0;
+            border-left: none;
+            border-top: 1px solid var(--border-light);
+            order: 2;
+        }
+        .review-footer {
+            flex-direction: column;
+            position: static;
+            border-top: none;
+        }
+    }
 </style>
 </head>
 <body>
 
-   <div id="instructions-modal" class="modal-overlay">
+    <div id="instructions-modal" class="modal-overlay">
     <div class="modal-content">
         <h2 class="modal-title">Test Instructions</h2>
         
@@ -572,7 +687,7 @@
                 <strong>Scoring:</strong> Each question carries <strong>2 marks</strong>. There is a penalty of <strong>0.5 marks</strong> for each incorrect answer (Negative Marking).
             </li>
             <li>
-                <strong>Navigation:</strong> Use the <strong>Question Palette</strong> on the right to navigate questions.
+                <strong>Navigation:</strong> Use the <strong>Question Palette</strong> on the right (or top on mobile) to navigate questions.
             </li>
             <li>
                 <strong>Start:</strong> Click <strong>Start Test</strong> to begin the official timer and access the questions.
@@ -705,13 +820,13 @@
         <div class="review-main-content">
             
             <div class="review-question-area-wrapper">
-                 <h2 id="review-question-title" style="margin-top:0;">Reviewing Question 1 of 25</h2>
-                 <div id="review-question-area">
-                    </div>
-                 <footer class="review-footer">
-                    <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                    <button id="review-next-btn" class="btn primary">Next Question</button>
-                </footer>
+                   <h2 id="review-question-title" style="margin-top:0;">Reviewing Question 1 of 25</h2>
+                   <div id="review-question-area">
+                       </div>
+                   <footer class="review-footer">
+                       <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                       <button id="review-next-btn" class="btn primary">Next Question</button>
+                   </footer>
             </div>
             
             <aside class="review-sidebar">
