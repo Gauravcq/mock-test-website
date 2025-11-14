@@ -1247,14 +1247,14 @@ ssc_cgl_13_sep_s1 : [
     "explanation": "Assume Total Budget = 10 units. Land (5), Materials (3), Labor (2).\nNew Cost = $5(1 + 0.05) + 3(1 + 0.10) + 2(1 - 0.20)$\nNew Cost = $5.25 + 3.30 + 1.60 = 10.15$ units.\nPercent Change = $\\frac{10.15 - 10}{10} \\times 100 = 1.5\\%$ increase."
   },
   {
-    "question": "Evaluate: $6-[\\frac{2}{3}\\div\\{\\frac{1}{5}+(\\frac{1}{2}\\times(1-\\frac{1}{3}))\\}]$",
+    "question": "<img src='../images/evl.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
-      "4.75",
-      "5.25",
-      "5.75",
-      "4.50"
+      "14/3",
+      "15/3",
+      "16/3",
+      "17/3"
     ],
-    "correctAnswer": "4.75",
+    "correctAnswer": "14/3",
     "explanation": "Simplify the expression using BODMAS:\n$6-[\\frac{2}{3}\\div\\{\\frac{1}{5}+(\\frac{1}{2}\\times\\frac{2}{3})\\}] = 6-[\\frac{2}{3}\\div\\{\\frac{1}{5}+\\frac{1}{3}\\}]$\n$6-[\\frac{2}{3}\\div\\frac{8}{15}] = 6-[\\frac{2}{3} \\times \\frac{15}{8}] = 6 - \\frac{5}{4}$\n$6 - 1.25 = 4.75$"
   },
   {
@@ -1280,7 +1280,7 @@ ssc_cgl_13_sep_s1 : [
     "explanation": "Profit Ratio (A:B) is based on (Capital $\\times$ Time):\nA's EAI: $(48,000 \\times 6) + (24,000 \\times 6) = 432,000$\nB's EAI: $(72,000 \\times 6) + (96,000 \\times 6) = 1,008,000$\nRatio A:B = $432,000 : 1,008,000 = 3:7$.\nTotal parts: $3+7 = 10$.\nB's share = $\\frac{7}{10} \\times 55,000 = ₹38,500$."
   },
   {
-    "question": "What is the average daily earning of Worker C? (Wages: Day 1: 220, Day 2: 230, Day 3: 215, Day 4: 225)",
+    "question": "<img src='../images/wage.png' alt='Question 06' style='max-width: 100%; height: auto;'>",
     "options": [
       "222.5",
       "222.0",
@@ -1390,62 +1390,62 @@ ssc_cgl_13_sep_s1 : [
     "explanation": "Relative Speed = $5 + 7 = 12$ km/h.\nTime for 1st meeting = $\\frac{1.2 \\text{ km}}{12 \\text{ km/h}} = 0.1$ hours.\nTime for 5th meeting = $5 \\times 0.1 = 0.5$ hours (30 minutes).\nMeeting time = 6:00 AM + 30 minutes = 6:30 AM."
   },
   {
-    "question": "The area of a sector of a circle with radius 7 cm and central angle $90^\\circ$ is:",
+    "question": "The area of a sector of a circle with radius 7 cm and central angle 90o circle is ?",
     "options": [
-      "$38.5 \\text{ cm}^2$",
-      "$35.2 \\text{ cm}^2$",
-      "$40.5 \\text{ cm}^2$",
-      "$42.6 \\text{ cm}^2$"
+      "38.5 cm²",
+      "35.2 cm²",
+      "40.5 cm²",
+      "42.6 cm²"
     ],
-    "correctAnswer": "$38.5 \\text{ cm}^2$",
+    "correctAnswer": "38.5 cm²",
     "explanation": "Area of a sector $= \\frac{\\theta}{360} \\times \\pi r^2$\nArea $= \\frac{90}{360} \\times \\frac{22}{7} \\times 7^2 = \\frac{1}{4} \\times 154 = 38.5 \\text{ cm}^2$"
   },
   {
-    "question": "What is the radian measure of $150^\\circ$?",
+    "question": "What is the radian measure of 150o circle?",
     "options": [
-      "$\\frac{5\\pi}{6}$",
-      "$\\frac{3\\pi}{4}$",
-      "$\\frac{2\\pi}{3}$",
-      "$\\frac{7\\pi}{6}$"
+      "5π/6",
+      "2π/3",
+      "3π/4",
+      "π/3"
     ],
-    "correctAnswer": "$\\frac{5\\pi}{6}$",
+    "correctAnswer": "5π/6",
     "explanation": "To convert degrees to radians, multiply by $\\frac{\\pi}{180}$:\n$150^\\circ \\times \\frac{\\pi}{180^\\circ} = \\frac{150}{180} \\pi = \\frac{5\\pi}{6}$"
   },
   {
     "question": "What is the area of a sector with a central angle of $120^\\circ$ and radius 8 cm?",
     "options": [
-      "$\\frac{64\\pi}{3} \\text{ cm}^2$",
-      "$\\frac{32\\pi}{3} \\text{ cm}^2$",
-      "$48 \\text{ cm}^2$",
-      "$52 \\text{ cm}^2$"
+      "64π/3 cm²",
+      "54π/3 cm²",
+      "48 cm²",
+      "52 cm²"
     ],
-    "correctAnswer": "$\\frac{64\\pi}{3} \\text{ cm}^2$",
+    "correctAnswer": "64π/3 cm²",
     "explanation": "Area of a sector $= \\frac{\\theta}{360} \\times \\pi r^2$\nArea $= \\frac{120}{360} \\times \\pi (8)^2 = \\frac{1}{3} \\times 64\\pi = \\frac{64\\pi}{3} \\text{ cm}^2$"
   },
   {
-    "question": "Which of these lines is parallel to $3x+2y=5$?",
+    "question": "Which of these lines is parallel to 3x+2y=5?",
     "options": [
-      "$3x+2y=7$",
-      "$2x+3y=5$",
-      "$3x-2y=5$",
-      "$x+y=5$"
+      "3x+2y=7",
+      "2x+3y=5",
+      "3x-2y=5",
+      "x+y=5"
     ],
-    "correctAnswer": "$3x+2y=7$",
+    "correctAnswer": "3x+2y=7",
     "explanation": "Parallel lines have the same slope. The slope of $3x+2y=5$ is $m = -\\frac{3}{2}$. The line $3x+2y=7$ also has a slope of $m = -\\frac{3}{2}$, making it parallel."
   },
   {
-    "question": "If $\\sin(90^\\circ-x)=\\cos(2x)$ then what is $x$?",
+    "question": "<img src='../images/sin.png' alt='Question 20' style='max-width: 100%; height: auto;'>",
     "options": [
-      "$0^\\circ$",
-      "$30^\\circ$",
-      "$25^\\circ$",
-      "$15^\\circ$"
+      "0°",
+      "30°",
+      "25°",
+      "15°" 
     ],
-    "correctAnswer": "$0^\\circ$",
+    "correctAnswer": "0°",
     "explanation": "Using the co-function identity $\\sin(90^\\circ - x) = \\cos x$. The equation becomes $\\cos x = \\cos(2x)$.\nFor the equation to be true, $x = 2x$, which simplifies to $x = 0^\\circ$."
   },
   {
-    "question": "If $x=\\sqrt{5}+2$ find $x^2-4\\sqrt{5}$",
+    "question": "\<img src='../images/x.png' alt='Question 21' style='max-width: 100%; height: auto;'>",
     "options": [
       "1",
       "7",
@@ -1467,36 +1467,36 @@ ssc_cgl_13_sep_s1 : [
     "explanation": "The Side-Side-Side (SSS) congruence rule states that if all three sides of one triangle are equal to the corresponding three sides of another triangle, then the two triangles are congruent."
   },
   {
-    "question": "Given A and B are complementary angles, and $\\sin A = \\frac{3}{5}$, what is $\\tan B$?",
+    "question": "Given A and B are complementary angles, and sin A = 3/5, what is tan B?",
     "options": [
-      "$\\frac{4}{3}$",
-      "$\\frac{3}{4}$",
-      "$\\frac{5}{3}$",
-      "$\\frac{3}{5}$"
+      "4/3",
+      "3/4",
+      "5/4",
+      "5/3"
     ],
-    "correctAnswer": "$\\frac{4}{3}$",
+    "correctAnswer": "4/3",
     "explanation": "Since A and B are complementary, $\\tan B = \\cot A$. \nGiven $\\sin A = \\frac{3}{5}$ (Opposite/Hypotenuse), the Adjacent side is $\\sqrt{5^2 - 3^2} = 4$.\n$\\cot A = \\frac{\\text{Adjacent}}{\\text{Opposite}} = \\frac{4}{3}$."
   },
   {
-    "question": "In a cyclic quadrilateral ABCD, if angle A is $100^\\circ$, what is the measure of angle C?",
+    "question": "In a cyclic quadilateral ABCD, If angle A is 100°, what Is the measure of angle C?",
     "options": [
-      "$100^\\circ$",
-      "$80^\\circ$",
-      "$90^\\circ$",
-      "$70^\\circ$"
+      "100",
+      "80",
+      "90",
+      "70"
     ],
-    "correctAnswer": "$80^\\circ$",
+    "correctAnswer": "80",
     "explanation": "In a cyclic quadrilateral, opposite angles are supplementary (add up to $180^\\circ$).\n$\\angle C = 180^\\circ - \\angle A = 180^\\circ - 100^\\circ = 80^\\circ$."
   },
   {
-    "question": "If $\\sin^2 A - \\cos^2 A = \\frac{1}{4}$, find the value of $\\cos^2 A$.",
+    "question": "ifsin²A—cos²A = 1/4, find the value of cos²A. ",
     "options": [
-      "$\\frac{3}{8}$",
-      "$\\frac{3}{4}$",
-      "$\\frac{1}{8}$",
-      "$\\frac{5}{8}$"
+      "5/8",
+      "3/8",
+      "1/2",
+      "1/4"
     ],
-    "correctAnswer": "$\\frac{3}{8}$",
+    "correctAnswer": "3/8",
     "explanation": "Use the identity $\\sin^2 A = 1 - \\cos^2 A$. Substitute into the equation:\n$(1 - \\cos^2 A) - \\cos^2 A = \\frac{1}{4}$\n$1 - 2\\cos^2 A = \\frac{1}{4}$\n$2\\cos^2 A = 1 - \\frac{1}{4} = \\frac{3}{4}$\n$\\cos^2 A = \\frac{3}{8}$"
   }
 ]
