@@ -1233,7 +1233,7 @@ ssc_cgl_13_sep_s1 : [
       "$x < z < y$"
     ],
     "correctAnswer": "$x < y < z$",
-    "explanation": "Approximating the values: \n$x = \\sqrt{2} + \\sqrt{3} \\approx 1.414 + 1.732 = 3.146$\n$y = \\sqrt{5} + 1 \\approx 2.236 + 1 = 3.236$\n$z = 2\\sqrt{2} + 1 \\approx 2(1.414) + 1 = 3.828$\nComparing the values: $3.146 < 3.236 < 3.828$. Thus, $x < y < z$."
+    "explanation": "Approximating the values:\n$x = \\sqrt{2} + \\sqrt{3} \\approx 1.414 + 1.732 = 3.146$\n$y = \\sqrt{5} + 1 \\approx 2.236 + 1 = 3.236$\n$z = 2\\sqrt{2} + 1 \\approx 2(1.414) + 1 = 3.828$\nComparing the values: $3.146 < 3.236 < 3.828$. Thus, $x < y < z$."
   },
   {
     "question": "The budget for a construction project is allocated to land acquisition, building materials, and labor in the ratio 5:3:2. During the project, the cost of land acquisition rose by 5%, building materials rose by 10%, and labor fell by 20%. What is the percent change (increase or decrease) in the total project cost?",
@@ -1244,7 +1244,7 @@ ssc_cgl_13_sep_s1 : [
       "2.0% decrease"
     ],
     "correctAnswer": "1.5% increase",
-    "explanation": "Assume Total Budget = 100 units. Land (L)=50, Materials (M)=30, Labor (R)=20. \nNew Costs: \n$L' = 50 \\times (1 + 0.05) = 52.5$\n$M' = 30 \\times (1 + 0.10) = 33.0$\n$R' = 20 \\times (1 - 0.20) = 16.0$\nNew Total Cost = $52.5 + 33.0 + 16.0 = 101.5$\nPercent Change = $\\frac{101.5 - 100}{100} \\times 100 = 1.5\\%$ increase."
+    "explanation": "Assume Total Budget = 10 units. Land (5), Materials (3), Labor (2).\nNew Cost = $5(1 + 0.05) + 3(1 + 0.10) + 2(1 - 0.20)$\nNew Cost = $5.25 + 3.30 + 1.60 = 10.15$ units.\nPercent Change = $\\frac{10.15 - 10}{10} \\times 100 = 1.5\\%$ increase."
   },
   {
     "question": "Evaluate: $6-[\\frac{2}{3}\\div\\{\\frac{1}{5}+(\\frac{1}{2}\\times(1-\\frac{1}{3}))\\}]$",
@@ -1255,7 +1255,7 @@ ssc_cgl_13_sep_s1 : [
       "4.50"
     ],
     "correctAnswer": "4.75",
-    "explanation": "Simplify the inner expression first: \n$1-\\frac{1}{3} = \\frac{2}{3}$\n$\\frac{1}{2}\\times\\frac{2}{3} = \\frac{1}{3}$\n$\\{\\frac{1}{5}+\\frac{1}{3}\\} = \\frac{3+5}{15} = \\frac{8}{15}$\n$\\frac{2}{3}\\div\\frac{8}{15} = \\frac{2}{3} \\times \\frac{15}{8} = \\frac{10}{8} = \\frac{5}{4}$\nFinal Evaluation: $6 - \\frac{5}{4} = \\frac{24-5}{4} = \\frac{19}{4} = 4.75$"
+    "explanation": "Simplify the expression using BODMAS:\n$6-[\\frac{2}{3}\\div\\{\\frac{1}{5}+(\\frac{1}{2}\\times\\frac{2}{3})\\}] = 6-[\\frac{2}{3}\\div\\{\\frac{1}{5}+\\frac{1}{3}\\}]$\n$6-[\\frac{2}{3}\\div\\frac{8}{15}] = 6-[\\frac{2}{3} \\times \\frac{15}{8}] = 6 - \\frac{5}{4}$\n$6 - 1.25 = 4.75$"
   },
   {
     "question": "X, Y, and Z invested ₹25,000, ₹35,000, and ₹40,000 respectively in a business. If the profit at the end of the year was ₹30,000, find Y's share.",
@@ -1266,7 +1266,7 @@ ssc_cgl_13_sep_s1 : [
       "₹11,500"
     ],
     "correctAnswer": "₹10,500",
-    "explanation": "The ratio of investments (X:Y:Z) is $25,000:35,000:40,000$, which simplifies to $5:7:8$.\nTotal ratio parts: $5 + 7 + 8 = 20$.\nY's share of profit = $\\frac{\\text{Y's Ratio}}{\\text{Total Ratio}} \\times \\text{Total Profit} = \\frac{7}{20} \\times 30,000 = 7 \\times 1,500 = ₹10,500$."
+    "explanation": "Investment Ratio (X:Y:Z) = $25,000:35,000:40,000$, which simplifies to $5:7:8$.\nTotal ratio parts: $5 + 7 + 8 = 20$.\nY's share of profit = $\\frac{7}{20} \\times 30,000 = ₹10,500$."
   },
   {
     "question": "A and B started a business by investing ₹48,000 and ₹72,000 respectively. After 6 months, A withdrew half of his capital, while B increased his capital by ₹24,000. At the end of the year, they earned a total profit of ₹55,000. What is B's share in the profit?",
@@ -1277,10 +1277,10 @@ ssc_cgl_13_sep_s1 : [
       "₹36,000"
     ],
     "correctAnswer": "₹38,500",
-    "explanation": "Calculate the equivalent investment for 12 months for A and B: \n**A's Investment:** $(48,000 \\times 6) + (48,000/2 \\times 6) = 288,000 + 144,000 = 432,000$\n**B's Investment:** $(72,000 \\times 6) + ((72,000+24,000) \\times 6) = 432,000 + (96,000 \\times 6) = 432,000 + 576,000 = 1,008,000$\nProfit Ratio (A:B) = $432,000 : 1,008,000$, which simplifies to $3:7$.\nTotal ratio parts: $3 + 7 = 10$.\nB's share = $\\frac{7}{10} \\times 55,000 = 7 \\times 5,500 = ₹38,500$."
+    "explanation": "Profit Ratio (A:B) is based on (Capital $\\times$ Time):\nA's EAI: $(48,000 \\times 6) + (24,000 \\times 6) = 432,000$\nB's EAI: $(72,000 \\times 6) + (96,000 \\times 6) = 1,008,000$\nRatio A:B = $432,000 : 1,008,000 = 3:7$.\nTotal parts: $3+7 = 10$.\nB's share = $\\frac{7}{10} \\times 55,000 = ₹38,500$."
   },
   {
-    "question": "Table - Daily Wages of 5 Workers Over 4 Days\n\n| Day | A | B | C | D | E |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| Day 1 | 200 | 180 | 220 | 160 | 190 |\n| Day 2 | 210 | 175 | 230 | 170 | 195 |\n| Day 3 | 190 | 185 | 215 | 180 | 200 |\n| Day 4 | 220 | 190 | 225 | 175 | 205 |\n\nWhat is the average daily earning of Worker C?",
+    "question": "What is the average daily earning of Worker C? (Wages: Day 1: 220, Day 2: 230, Day 3: 215, Day 4: 225)",
     "options": [
       "222.5",
       "222.0",
@@ -1288,10 +1288,10 @@ ssc_cgl_13_sep_s1 : [
       "215.0"
     ],
     "correctAnswer": "222.5",
-    "explanation": "Worker C's daily earnings are: 220, 230, 215, and 225.\nTotal earnings = $220 + 230 + 215 + 225 = 890$.\nAverage daily earning = $\\frac{\\text{Total Earnings}}{\\text{Number of Days}} = \\frac{890}{4} = 222.5$."
+    "explanation": "Total earnings of Worker C = $220 + 230 + 215 + 225 = 890$.\nAverage daily earning = $\\frac{890}{4} = 222.5$."
   },
   {
-    "question": "In a city, the current number of literate people is 25,000. If the number of literate males decreases by 5% and the number of literate females increases by 10%, the total literate population becomes 25,250. What is the present number of literate males in the city?",
+    "question": "In a city, the current number of literate people is 25,000. If the number of literate males decreases by 5% and the number of literate females increases by 10%, the total literate population becomes 25,250, What is the present number of literate males in the city?",
     "options": [
       "12,500",
       "14,000",
@@ -1299,7 +1299,7 @@ ssc_cgl_13_sep_s1 : [
       "16,500"
     ],
     "correctAnswer": "15,000",
-    "explanation": "Let M be the number of males and F be the number of females.\n1) $M + F = 25,000$\n2) $M(1 - 0.05) + F(1 + 0.10) = 25,250 \\implies 0.95M + 1.10F = 25,250$\nFrom (1), $F = 25,000 - M$. Substitute into (2):\n$0.95M + 1.10(25,000 - M) = 25,250$\n$0.95M + 27,500 - 1.10M = 25,250$\n$27,500 - 25,250 = 1.10M - 0.95M$\n$2,250 = 0.15M$\n$M = \\frac{2,250}{0.15} = 15,000$."
+    "explanation": "Let M be males, F be females. (1) $M + F = 25,000$. (2) $0.95M + 1.10F = 25,250$.\nFrom (1), $F = 25,000 - M$. Substitute into (2):\n$0.95M + 1.10(25,000 - M) = 25,250 \implies 0.95M + 27,500 - 1.10M = 25,250$\n$2,250 = 0.15M \implies M = 15,000$."
   },
   {
     "question": "A baker ordered 10 kg of premium flour and some additional kg of standard flour. The price of premium flour per kg was twice that of the standard flour. Due to an ordering error, the quantities of the two types of flour were interchanged. This decreased the total cost by 25%. Find the ratio of the quantity of premium flour to standard flour in the original order.",
@@ -1310,7 +1310,7 @@ ssc_cgl_13_sep_s1 : [
       "4:5"
     ],
     "correctAnswer": "5:2",
-    "explanation": "Let $P_{qty}=10$ kg, $S_{qty}=x$ kg. Let $S_{price}=c$, so $P_{price}=2c$.\nOriginal Cost ($C_{orig}$): $10(2c) + x(c) = 20c + xc = c(20+x)$\nNew Cost ($C_{new}$, quantities interchanged): $x(2c) + 10(c) = 2xc + 10c = c(2x+10)$\nGiven: $C_{new} = C_{orig} \\times (1 - 0.25) = 0.75 \\times C_{orig}$.\n$c(2x+10) = 0.75 \\times c(20+x)$\n$2x+10 = \\frac{3}{4}(20+x) \\implies 8x + 40 = 60 + 3x$\n$5x = 20 \\implies x = 4$.\nOriginal ratio $P_{qty}:S_{qty} = 10:4 = 5:2$."
+    "explanation": "Let $P_{qty}=10$, $S_{qty}=x$. Let $S_{price}=c$, $P_{price}=2c$.\n$C_{orig} = c(20+x)$. $C_{new} = c(2x+10)$.\n$C_{new} = 0.75 C_{orig} \implies 2x+10 = 0.75(20+x) \implies 8x + 40 = 60 + 3x \implies 5x = 20 \implies x = 4$.\nOriginal ratio $P_{qty}:S_{qty} = 10:4 = 5:2$."
   },
   {
     "question": "A vendor sold 15 toys for ₹3000 and gained a profit of 25%. How many toys should he sell for ₹2816 to make a profit of 10%?",
@@ -1321,7 +1321,7 @@ ssc_cgl_13_sep_s1 : [
       "18"
     ],
     "correctAnswer": "16",
-    "explanation": "CP of 15 toys = $\\frac{3000}{1.25} = ₹2400$.\nCP of 1 toy = $\\frac{2400}{15} = ₹160$.\nRequired SP for 10% profit on 1 toy = $160 \\times 1.10 = ₹176$.\nNumber of toys to sell for ₹2816 = $\\frac{2816}{176} = 16$."
+    "explanation": "Cost Price (CP) of 15 toys = $\\frac{3000}{1.25} = ₹2400$.\nCP of 1 toy = $\\frac{2400}{15} = ₹160$.\nRequired SP per toy for 10% profit = $160 \\times 1.10 = ₹176$.\nNumber of toys = $\\frac{2816}{176} = 16$."
   },
   {
     "question": "A trader sells one brand of tea at ₹150 per kg, incurring a 25% loss. He also sells another brand of tea at ₹200 per kg, incurring a 20% loss. If he mixes the two brands in equal proportions and sells the mixture at ₹175 per kg, what is his overall profit or loss percentage?",
@@ -1332,7 +1332,7 @@ ssc_cgl_13_sep_s1 : [
       "Profit of 25%"
     ],
     "correctAnswer": "Loss of 22.22%",
-    "explanation": "CP of Brand 1 ($CP_1$) = $\\frac{150}{1-0.25} = \\frac{150}{0.75} = ₹200$/kg.\nCP of Brand 2 ($CP_2$) = $\\frac{200}{1-0.20} = \\frac{200}{0.80} = ₹250$/kg.\nCP of Mixture ($CP_{mix}$) = $\\frac{200 + 250}{2} = ₹225$/kg.\nSP of Mixture ($SP_{mix}$) = ₹175/kg.\nSince $SP_{mix} < CP_{mix}$, there is a loss.\nLoss Percentage = $\\frac{225 - 175}{225} \\times 100 = \\frac{50}{225} \\times 100 = \\frac{2}{9} \\times 100 \\approx 22.22\\%$ Loss."
+    "explanation": "CP of Brand 1 ($CP_1$) = $\\frac{150}{0.75} = ₹200$/kg.\nCP of Brand 2 ($CP_2$) = $\\frac{200}{0.80} = ₹250$/kg.\nCP of Mixture ($CP_{mix}$) = $\\frac{200 + 250}{2} = ₹225$/kg.\nLoss Percentage = $\\frac{225 - 175}{225} \\times 100 = \\frac{50}{225} \\times 100 \\approx 22.22\\%$ Loss."
   },
   {
     "question": "A and B together can complete a work in 12 days. B and C together can complete the same work in 15 days. C and A together can do it in 20 days. In how many days can A alone complete the job?",
@@ -1343,7 +1343,7 @@ ssc_cgl_13_sep_s1 : [
       "15 days"
     ],
     "correctAnswer": "30 days",
-    "explanation": "Let Total Work = LCM(12, 15, 20) = 60 units.\nEfficiency (units/day):\n$A+B = 60/12 = 5$\n$B+C = 60/15 = 4$\n$C+A = 60/20 = 3$\nTotal combined efficiency $2(A+B+C) = 5+4+3 = 12$\n$A+B+C = 6$ units/day.\nA's efficiency = $(A+B+C) - (B+C) = 6 - 4 = 2$ units/day.\nTime for A alone = $\\frac{60}{2} = 30$ days."
+    "explanation": "Total Work = LCM(12, 15, 20) = 60 units.\nEfficiencies: $A+B=5$, $B+C=4$, $C+A=3$. $2(A+B+C) = 12 \\implies A+B+C = 6$.\nA's efficiency = $(A+B+C) - (B+C) = 6 - 4 = 2$ units/day.\nTime for A alone = $\\frac{60}{2} = 30$ days."
   },
   {
     "question": "From a 64-liter container of pure spirit, 8 liters are removed and replaced by water. This operation is performed a total of three times. What is the final quantity of spirit remaining in the container?",
@@ -1354,7 +1354,7 @@ ssc_cgl_13_sep_s1 : [
       "42.88 liters"
     ],
     "correctAnswer": "42.88 liters",
-    "explanation": "Remaining Quantity of Spirit $= \\text{Initial Quantity} \\times (1 - \\frac{\\text{Amount Removed}}{\\text{Total Capacity}})^n$\nRemaining Spirit $= 64 \\times (1 - \\frac{8}{64})^3 = 64 \\times (1 - \\frac{1}{8})^3$\nRemaining Spirit $= 64 \\times (\\frac{7}{8})^3 = 64 \\times \\frac{343}{512} = \\frac{343}{8} = 42.875$ liters.\nThis is $42.88$ liters when rounded to two decimal places."
+    "explanation": "Remaining Quantity $= \\text{Initial Quantity} \\times (1 - \\frac{\\text{Amount Removed}}{\\text{Total Capacity}})^n$\nRemaining Spirit $= 64 \\times (1 - \\frac{8}{64})^3 = 64 \\times (\\frac{7}{8})^3$\nRemaining Spirit $= 64 \\times \\frac{343}{512} = \\frac{343}{8} = 42.875$ liters (or $42.88$ liters)."
   },
   {
     "question": "A juice vendor mixes water with pure orange juice. If he sells the mixture at the cost price of pure orange juice and makes a profit of 20%, what is the ratio of water to pure orange juice in the mixture, respectively?",
@@ -1365,7 +1365,7 @@ ssc_cgl_13_sep_s1 : [
       "5:1"
     ],
     "correctAnswer": "1:5",
-    "explanation": "When selling at the CP of the pure ingredient, the profit is entirely due to the presence of water (the free ingredient). \nProfit Percentage = $\\frac{\\text{Quantity of Water}}{\\text{Quantity of Juice}} \\times 100$\n$20 = \\frac{\\text{Water}}{\\text{Juice}} \\times 100 \\implies \\frac{\\text{Water}}{\\text{Juice}} = \\frac{20}{100} = \\frac{1}{5}$\nThe ratio of water to pure orange juice is 1:5."
+    "explanation": "Profit is due to water added. Profit Percentage = $\\frac{\\text{Quantity of Water}}{\\text{Quantity of Juice}} \\times 100$\n$20 = \\frac{\\text{Water}}{\\text{Juice}} \\times 100 \implies \\frac{\\text{Water}}{\\text{Juice}} = \\frac{20}{100} = \\frac{1}{5}$\nRatio of water to pure orange juice is $1:5$."
   },
   {
     "question": "A car covers 40% of a certain distance at a pace of 20 km/h and the remaining distance at a pace of 30 km/h. What is the average speed of the car for the entire journey?",
@@ -1376,7 +1376,7 @@ ssc_cgl_13_sep_s1 : [
       "27 km/h"
     ],
     "correctAnswer": "25 km/h",
-    "explanation": "Assume total distance $D=100$ km. \nDistance $D_1 = 40$ km at $v_1 = 20$ km/h. Time $t_1 = 40/20 = 2$ h.\nDistance $D_2 = 60$ km at $v_2 = 30$ km/h. Time $t_2 = 60/30 = 2$ h.\nAverage Speed $= \\frac{\\text{Total Distance}}{\\text{Total Time}} = \\frac{40 + 60}{2 + 2} = \\frac{100}{4} = 25$ km/h."
+    "explanation": "Assume Total Distance = 100 km.\nTime 1 ($t_1$) = $\\frac{40}{20} = 2$ h. Time 2 ($t_2$) = $\\frac{60}{30} = 2$ h.\nAverage Speed $= \\frac{\\text{Total Distance}}{\\text{Total Time}} = \\frac{100}{2 + 2} = 25$ km/h."
   },
   {
     "question": "A and B are jogging around a park's circular track which has a perimeter of 1.2 km. They start from the same point at 6:00 a.m. and run in opposite directions. A's speed is 5 km/h, and B's speed is 7 km/h. At what time will they meet for the fifth time?",
@@ -1387,7 +1387,7 @@ ssc_cgl_13_sep_s1 : [
       "7:00 AM"
     ],
     "correctAnswer": "6:30 AM",
-    "explanation": "Relative Speed ($v_{rel}$) in opposite directions = $5 + 7 = 12$ km/h.\nTime for first meeting ($t_1$) = $\\frac{\\text{Distance}}{\\text{Relative Speed}} = \\frac{1.2 \\text{ km}}{12 \\text{ km/h}} = 0.1$ hours.\nTime for the fifth meeting ($t_5$) = $5 \\times t_1 = 5 \\times 0.1$ hours $= 0.5$ hours.\n$0.5$ hours is $30$ minutes.\nMeeting time = 6:00 AM + 30 minutes = 6:30 AM."
+    "explanation": "Relative Speed = $5 + 7 = 12$ km/h.\nTime for 1st meeting = $\\frac{1.2 \\text{ km}}{12 \\text{ km/h}} = 0.1$ hours.\nTime for 5th meeting = $5 \\times 0.1 = 0.5$ hours (30 minutes).\nMeeting time = 6:00 AM + 30 minutes = 6:30 AM."
   },
   {
     "question": "The area of a sector of a circle with radius 7 cm and central angle $90^\\circ$ is:",
@@ -1398,7 +1398,7 @@ ssc_cgl_13_sep_s1 : [
       "$42.6 \\text{ cm}^2$"
     ],
     "correctAnswer": "$38.5 \\text{ cm}^2$",
-    "explanation": "Area of a sector $= \\frac{\\theta}{360} \\times \\pi r^2$\nArea $= \\frac{90}{360} \\times \\frac{22}{7} \\times 7^2 = \\frac{1}{4} \\times 22 \\times 7 = \\frac{154}{4} = 38.5 \\text{ cm}^2$.\n(The option $38.48$ in the PDF is the closest approximation to $38.5$)"
+    "explanation": "Area of a sector $= \\frac{\\theta}{360} \\times \\pi r^2$\nArea $= \\frac{90}{360} \\times \\frac{22}{7} \\times 7^2 = \\frac{1}{4} \\times 154 = 38.5 \\text{ cm}^2$"
   },
   {
     "question": "What is the radian measure of $150^\\circ$?",
@@ -1409,7 +1409,7 @@ ssc_cgl_13_sep_s1 : [
       "$\\frac{7\\pi}{6}$"
     ],
     "correctAnswer": "$\\frac{5\\pi}{6}$",
-    "explanation": "To convert degrees to radians, multiply by $\\frac{\\pi}{180}$:\n$150^\\circ \\times \\frac{\\pi}{180^\\circ} = \\frac{150}{180} \\pi = \\frac{5}{6}\\pi$"
+    "explanation": "To convert degrees to radians, multiply by $\\frac{\\pi}{180}$:\n$150^\\circ \\times \\frac{\\pi}{180^\\circ} = \\frac{150}{180} \\pi = \\frac{5\\pi}{6}$"
   },
   {
     "question": "What is the area of a sector with a central angle of $120^\\circ$ and radius 8 cm?",
@@ -1420,7 +1420,7 @@ ssc_cgl_13_sep_s1 : [
       "$52 \\text{ cm}^2$"
     ],
     "correctAnswer": "$\\frac{64\\pi}{3} \\text{ cm}^2$",
-    "explanation": "Area of a sector $= \\frac{\\theta}{360} \\times \\pi r^2$\nArea $= \\frac{120}{360} \\times \\pi (8)^2 = \\frac{1}{3} \\times 64\\pi = \\frac{64\\pi}{3} \\text{ cm}^2$."
+    "explanation": "Area of a sector $= \\frac{\\theta}{360} \\times \\pi r^2$\nArea $= \\frac{120}{360} \\times \\pi (8)^2 = \\frac{1}{3} \\times 64\\pi = \\frac{64\\pi}{3} \\text{ cm}^2$"
   },
   {
     "question": "Which of these lines is parallel to $3x+2y=5$?",
@@ -1431,7 +1431,7 @@ ssc_cgl_13_sep_s1 : [
       "$x+y=5$"
     ],
     "correctAnswer": "$3x+2y=7$",
-    "explanation": "Parallel lines have the same slope. The slope of $3x+2y=5$ is $m = -\\frac{3}{2}$.\nThe line $3x+2y=7$ has the same slope $m = -\\frac{3}{2}$, therefore it is parallel."
+    "explanation": "Parallel lines have the same slope. The slope of $3x+2y=5$ is $m = -\\frac{3}{2}$. The line $3x+2y=7$ also has a slope of $m = -\\frac{3}{2}$, making it parallel."
   },
   {
     "question": "If $\\sin(90^\\circ-x)=\\cos(2x)$ then what is $x$?",
@@ -1442,7 +1442,7 @@ ssc_cgl_13_sep_s1 : [
       "$15^\\circ$"
     ],
     "correctAnswer": "$0^\\circ$",
-    "explanation": "Using the trigonometric identity: if $\\sin A = \\cos B$, then $A + B = 90^\\circ$. \nHere, $A = 90^\\circ - x$ and $B = 2x$. \n$(90^\\circ - x) + (2x) = 90^\\circ$\n$90^\\circ + x = 90^\\circ$\n$x = 0^\\circ$."
+    "explanation": "Using the co-function identity $\\sin(90^\\circ - x) = \\cos x$. The equation becomes $\\cos x = \\cos(2x)$.\nFor the equation to be true, $x = 2x$, which simplifies to $x = 0^\\circ$."
   },
   {
     "question": "If $x=\\sqrt{5}+2$ find $x^2-4\\sqrt{5}$",
@@ -1453,7 +1453,7 @@ ssc_cgl_13_sep_s1 : [
       "3"
     ],
     "correctAnswer": "9",
-    "explanation": "First, calculate $x^2$: \n$x^2 = (\\sqrt{5}+2)^2 = (\\sqrt{5})^2 + 2^2 + 2(\\sqrt{5})(2) = 5 + 4 + 4\\sqrt{5} = 9 + 4\\sqrt{5}$\nNow, substitute this into the expression: \n$x^2 - 4\\sqrt{5} = (9 + 4\\sqrt{5}) - 4\\sqrt{5} = 9$"
+    "explanation": "First, find $x^2$: $x^2 = (\\sqrt{5}+2)^2 = 5 + 4 + 4\\sqrt{5} = 9 + 4\\sqrt{5}$.\nSubstitute into the expression: $x^2 - 4\\sqrt{5} = (9 + 4\\sqrt{5}) - 4\\sqrt{5} = 9$."
   },
   {
     "question": "In triangles ABC and XYZ, if the lengths of the sides are such that AB equals XY, BC equals YZ, and CA equals ZX, which congruence rule demonstrates that triangle ABC is congruent to triangle XYZ?",
@@ -1464,7 +1464,7 @@ ssc_cgl_13_sep_s1 : [
       "AAS"
     ],
     "correctAnswer": "SSS",
-    "explanation": "The Side-Side-Side (SSS) congruence rule states that if three sides of one triangle are congruent to three sides of another triangle, then the two triangles are congruent."
+    "explanation": "The Side-Side-Side (SSS) congruence rule states that if all three sides of one triangle are equal to the corresponding three sides of another triangle, then the two triangles are congruent."
   },
   {
     "question": "Given A and B are complementary angles, and $\\sin A = \\frac{3}{5}$, what is $\\tan B$?",
@@ -1475,7 +1475,7 @@ ssc_cgl_13_sep_s1 : [
       "$\\frac{3}{5}$"
     ],
     "correctAnswer": "$\\frac{4}{3}$",
-    "explanation": "Since A and B are complementary, $B = 90^\\circ - A$. Therefore, $\\tan B = \\tan(90^\\circ - A) = \\cot A$.\nGiven $\\sin A = \\frac{3}{5}$ (Opposite/Hypotenuse), the Adjacent side is $\\sqrt{5^2 - 3^2} = 4$.\n$\\cot A = \\frac{\\text{Adjacent}}{\\text{Opposite}} = \\frac{4}{3}$.\nThus, $\\tan B = \\frac{4}{3}$."
+    "explanation": "Since A and B are complementary, $\\tan B = \\cot A$. \nGiven $\\sin A = \\frac{3}{5}$ (Opposite/Hypotenuse), the Adjacent side is $\\sqrt{5^2 - 3^2} = 4$.\n$\\cot A = \\frac{\\text{Adjacent}}{\\text{Opposite}} = \\frac{4}{3}$."
   },
   {
     "question": "In a cyclic quadrilateral ABCD, if angle A is $100^\\circ$, what is the measure of angle C?",
@@ -1486,7 +1486,7 @@ ssc_cgl_13_sep_s1 : [
       "$70^\\circ$"
     ],
     "correctAnswer": "$80^\\circ$",
-    "explanation": "In a cyclic quadrilateral, the sum of opposite angles is $180^\\circ$. \n$\\angle A + \\angle C = 180^\\circ$\n$\\angle C = 180^\\circ - 100^\\circ = 80^\\circ$."
+    "explanation": "In a cyclic quadrilateral, opposite angles are supplementary (add up to $180^\\circ$).\n$\\angle C = 180^\\circ - \\angle A = 180^\\circ - 100^\\circ = 80^\\circ$."
   },
   {
     "question": "If $\\sin^2 A - \\cos^2 A = \\frac{1}{4}$, find the value of $\\cos^2 A$.",
@@ -1497,7 +1497,7 @@ ssc_cgl_13_sep_s1 : [
       "$\\frac{5}{8}$"
     ],
     "correctAnswer": "$\\frac{3}{8}$",
-    "explanation": "Use the identity $\\sin^2 A = 1 - \\cos^2 A$. Substitute this into the given equation: \n$(1 - \\cos^2 A) - \\cos^2 A = \\frac{1}{4}$\n$1 - 2\\cos^2 A = \\frac{1}{4}$\n$1 - \\frac{1}{4} = 2\\cos^2 A$\n$\\frac{3}{4} = 2\\cos^2 A$\n$\\cos^2 A = \\frac{3}{4 \\times 2} = \\frac{3}{8}$."
+    "explanation": "Use the identity $\\sin^2 A = 1 - \\cos^2 A$. Substitute into the equation:\n$(1 - \\cos^2 A) - \\cos^2 A = \\frac{1}{4}$\n$1 - 2\\cos^2 A = \\frac{1}{4}$\n$2\\cos^2 A = 1 - \\frac{1}{4} = \\frac{3}{4}$\n$\\cos^2 A = \\frac{3}{8}$"
   }
 ]
 };
