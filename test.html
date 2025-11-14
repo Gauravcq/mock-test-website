@@ -1,82 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Math Mock Test</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CGL Mock Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+    /* --- NEW COLOR SCHEME: Answered=GREEN, Unanswered=RED, Marked=PURPLE --- */
+    :root {
+        --primary-blue: #007BFF;
+        --primary-dark: #34495e;
+        --secondary-light: #f4f6f9;
+        --border-light: #e0e6ed;
+        
+        /* CUSTOM STATUS COLORS */
+        --answered: #28A745; /* GREEN: As specified in the last input */
+        --not-answered: #dc3545; /* RED: Used for Not Answered */
+        --marked-review: #9C27B0; /* PURPLE: Suitable color for Marked for Review */
+        --not-visited: #e0e6ed; /* Light Gray for Not Visited/Unanswered */
+        --current: #2196F3; /* Blue ring for Current Q */
+        
+        --text-main: #333;
+        --bg-page: #f9f9f9;
+        --bg-white: #ffffff;
+        --header-bg: #4A00E0; /* Darker Purple for Header */
+        --header-text: #ffffff;
+        
+        /* Review Page Specific Colors */
+        --correct-review: #d4edda;
+        --incorrect-review: #f8d7da;
+        --user-pick-indicator: #007bff;
+    }
+    /* Base Reset & Typography */
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-page);
+        color: var(--text-main);
+        height: 100vh;
+        overflow: hidden; 
+    }
+
+    /* --- Quiz Container (Main Layout) --- */
+    .quiz-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    /* Header Bar */
+    .quiz-header {
+        background-color: var(--header-bg);
+        color: var(--header-text);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .header-left h1 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+    .header-center .header-btn {
+        background: none; border: 1px solid rgba(255, 255, 255, 0.5); color: var(--header-text);
+        padding: 8px 15px; margin: 0 5px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s;
+    }
+    .header-center .header-btn:hover, .header-center .header-btn.active {
+        background-color: rgba(255, 255, 255, 0.1); border-color: var(--header-text);
+    }
+    .header-right { display: flex; align-items: center; gap: 15px; }
+    .timer-display {
+        font-size: 1.1rem; font-weight: 600; background-color: #5d07ff; 
+        padding: 6px 12px; border-radius: 4px;
+    }
+
+    /* Main Wrapper - Question (LEFT) and Palette (RIGHT) */
+    .main-content-wrapper {
+        display: flex;
+        flex-grow: 1;
+        height: calc(100% - 60px); 
+    }
+
+    /* --- Main Question Area (LEFT) --- */
+    .question-area-main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-white);
+        border-right: 1px solid var(--border-light);
+    }
+    .question-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .question-header h2 { font-size: 1.2rem; margin: 0; font-weight: 600; }
+    .language-select {
+        padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 1rem;
+    }
+    .question-content { flex-grow: 1; padding: 20px; overflow-y: auto; }
+    .question-text { font-size: 1.1rem; line-height: 1.6; font-weight: 500; margin-bottom: 20px; }
+    .options-container { display: flex; flex-direction: column; gap: 10px; }
+    .option {
+        display: block; background-color: var(--secondary-light); padding: 12px;
+        border-radius: 6px; border: 1px solid transparent; cursor: pointer; transition: all 0.2s; font-weight: 500;
+    }
+    .option:hover { border-color: var(--primary-blue); background-color: #eaf3ff; }
+    .option input[type="radio"] { margin-right: 10px; }
+    .option input[type="radio"]:checked + span { font-weight: 700; color: var(--primary-blue); }
+
+    /* Footer Navigation */
+    .question-footer {
+        padding: 15px 20px; border-top: 1px solid var(--border-light);
+        display: flex; justify-content: space-between; background-color: #f7f7f7;
+    }
+    .left-btns, .right-btns { display: flex; gap: 15px; }
+    .btn {
+        padding: 12px 25px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;
+    }
+    .btn.primary { background-color: var(--primary-blue); color: white; }
+    .btn.primary:hover { background-color: #0069d9; }
+    .btn.secondary { background-color: #6c757d; color: white; }
+    .btn.secondary:hover { background-color: #5a6268; }
+
+    /* --- Right Sidebar (Question Palette) --- */
+    .right-sidebar {
+        width: 280px;
+        background-color: var(--secondary-light);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .sidebar-info p { font-size: 0.9rem; font-weight: 500; margin: 5px 0; }
+    
+    /* Palette Legend */
+    .palette-legend {
+        display: flex; flex-wrap: wrap; gap: 10px;
+        padding: 10px 0; border-top: 1px solid var(--border-light);
+        border-bottom: 1px solid var(--border-light); margin-bottom: 15px;
+    }
+    .legend-item { font-size: 0.8rem; display: flex; align-items: center; }
+    .legend-box {
+        display: inline-block; width: 14px; height: 14px;
+        border-radius: 3px; margin-right: 5px; border: 1px solid #ccc;
+    }
+    
+    /* Palette Status Colors (Legend Boxes) */
+    .legend-box.answered { background-color: var(--answered); border-color: var(--answered); }
+    .legend-box.not-answered { background-color: var(--not-answered); border-color: var(--not-answered); }
+    .legend-box.marked-review { background-color: var(--marked-review); border-color: var(--marked-review); }
+    .legend-box.current { background-color: var(--current); border-color: var(--current); }
+
+
+    /* Palette Grid */
+    .question-palette {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .palette-btn {
+        position: relative; /* CRITICAL for the tick */
+        width: 40px; height: 40px; border-radius: 50%;
+        background-color: var(--bg-white); border: 1px solid var(--border-light);
+        cursor: pointer; font-weight: 600; transition: all 0.15s;
+        color: var(--text-main); /* Default text color */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .palette-btn:hover { border-color: var(--current); }
+    
+    /* --- PALETTE BUTTON STATUS STYLING --- */
+    
+    /* Not Visited (Default/Start) - Light Gray */
+    .palette-btn.not-visited { background-color: var(--not-visited); color: var(--text-main); }
+    
+    /* Not Answered (Explicitly RED as requested) */
+    .palette-btn.not-answered { background-color: var(--not-answered); color: white; border-color: var(--not-answered); }
+    
+    /* Answered (Explicitly GREEN as requested) */
+    .palette-btn.answered { background-color: var(--answered); color: white; border-color: var(--answered); }
+    
+    /* Marked for Review (Unanswered) - PURPLE */
+    .palette-btn.marked-review { 
+        background-color: var(--marked-review); 
+        color: white; 
+        border-color: var(--marked-review); 
+    }
+    
+    /* Answered & Marked for Review (Green BG + Purple Border + Green Tick) */
+    .palette-btn.answered-marked-review { 
+        background-color: var(--answered); /* GREEN background for answered */
+        color: white; 
+        border: 3px solid var(--marked-review); /* PURPLE border for marked status */
+    }
+
+    /* Current Question Border */
+    .palette-btn.current { 
+        box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5); 
+        border-color: var(--current) !important; 
+    }
+
+    /* Green Tick Icon Style (Visible only when answered and marked for review) */
+    .palette-btn::after {
+        content: '✓'; /* Unicode tick mark */
+        position: absolute;
+        top: -5px; 
+        right: -5px; 
+        font-size: 1.2rem;
+        color: #28a745; /* Bright Green color for the tick */
+        font-weight: 900;
+        display: none;
+        background-color: white;
+        border-radius: 50%;
+        padding: 0 2px;
+        line-height: 1.2;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Show the tick for Answered & Marked for Review */
+    .palette-btn.answered-marked-review::after {
+        display: block; 
+    }
+
+    /* Sidebar Actions */
+    .sidebar-actions {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .sidebar-btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .sidebar-btn.primary { background-color: var(--primary-blue); color: white; border: none; }
+    .sidebar-btn.tertiary { background-color: #f44336; color: white; border: none; }
+
+    /* Modals */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;
+    }
+    .modal-content {
+        background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        max-width: 500px; width: 90%; text-align: center;
+    }
+    .modal-content h2 { color: var(--primary-blue); }
+    .modal-actions { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
+
+    .hidden { display: none !important; }
+
+    /* ---------------------------------------------------- */
+    /* --- Result Summary Page Styling (Overview) - UPDATED --- */
+    /* ---------------------------------------------------- */
+    .result-container {
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: var(--bg-white);
+        min-height: 100vh;
+        overflow-y: auto; /* Allow scrolling if content exceeds height */
+    }
+    .result-heading {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 20px;
+    }
+    .results-header-nav {
+        display: flex;
+        border-bottom: 2px solid var(--border-light);
+        margin-bottom: 30px;
+    }
+    .results-header-nav button, .results-header-nav a { 
+        background: none;
+        border: none;
+        padding: 15px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-main);
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        text-decoration: none;
+    }
+    .results-header-nav button.active, .results-header-nav a.active {
+        color: var(--primary-blue);
+        border-bottom-color: var(--primary-blue);
+    }
+    
+    /* --- KEY CHANGE: Flexbox for main content area (Buttons on left, Stats on right) --- */
+    .result-summary-content-wrapper {
+        display: flex;
+        gap: 30px;
+        padding-top: 20px;
+        align-items: flex-start;
+    }
+
+    /* Area for Test Details (Shift 1, Total Questions, Max Marks) and Buttons */
+    /* This replaces #review-button-area to be more descriptive */
+    .test-info-and-actions {
+        width: 250px; /* Aligned with original #review-button-area width */
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .test-details p {
+        margin: 5px 0;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .action-buttons .btn {
+        width: 100%;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+    }
+    .action-buttons .btn.review { background-color: var(--primary-blue); color: white; }
+    .action-buttons .btn.go-to-tests { background-color: #6c757d; color: white; }
+
+
+    /* --- Stats Grid Area (Right side) --- */
+    .stats-grid-container {
+        flex-grow: 1; /* Takes remaining space */
+        display: grid;
+        /* Three equal columns for the score cards, matching image structure */
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px; 
+    }
+    
+    .stat-card {
+        background: var(--bg-white); 
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        padding: 20px 10px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    .stat-name {
+        font-size: 0.9rem;
+        color: #6c757d;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+    }
+    /* Chart Area (Chart and Grid below main stats) */
+    .chart-area {
+        grid-column: 1 / -1; /* Makes the chart span all columns of the grid container */
+        padding: 20px;
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        background-color: var(--secondary-light);
+        min-height: 300px;
+        margin-top: 30px; /* Add margin here if you want space above the chart */
+    }
+    /* Card Specific Colors (continued) */
+    .total-score .stat-value { color: #4A00E0; }
+    .correct .stat-value { color: #28a745; } 
+    .incorrect .stat-value { color: #dc3545; } 
+    .unattempted .stat-value { color: #6c757d; } 
+    .time-taken .stat-value { color: #007bff; }
+    .accuracy .stat-value { color: #28a745; } 
+    
+    /* --- Review Page Styling (Question & Solution) --- */
+    .review-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: var(--bg-white);
+        padding: 0 40px; /* Padding for the main content area */
+    }
+    
+    .review-main-content {
+        display: flex;
+        flex-grow: 1;
+        overflow-y: hidden; /* Prevent scrolling on the wrapper */
+    }
+
+    .review-question-area-wrapper {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding-right: 20px;
+    }
+
+    /* Content area that scrolls */
+    #review-question-area {
+        flex-grow: 1;
+        padding: 20px 0;
+        overflow-y: auto;
+    }
+    
+    .review-option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--secondary-light);
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        border: 2px solid transparent;
+    }
+    .review-option-text {
+        display: flex;
+        align-items: center;
+    }
+    .radio-icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .review-option.correct {
+        background-color: var(--correct-review);
+        border-color: var(--answered);
+    }
+    .review-option.correct .radio-icon {
+        background-color: var(--answered);
+        border-color: var(--answered);
+    }
+    .review-option.incorrect {
+        background-color: var(--incorrect-review);
+        border-color: var(--not-answered);
+    }
+    .review-option.incorrect .radio-icon {
+        background-color: var(--not-answered);
+        border-color: var(--not-answered);
+    }
+    .user-pick-indicator {
+        font-weight: 600;
+        color: var(--user-pick-indicator);
+        font-size: 0.9em;
+    }
+    .solution-box {
+        margin-top: 25px;
+        padding: 15px;
+        border-left: 5px solid var(--primary-dark);
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
+    .solution-box h4 {
+        margin-top: 0;
+        color: var(--primary-dark);
+        font-size: 1.1em;
+    }
+
+    /* Review Sidebar (Palette) */
+    .review-sidebar {
+        width: 250px;
+        padding: 20px 0;
+        flex-shrink: 0;
+        border-left: 1px solid var(--border-light);
+        padding-left: 20px;
+        overflow-y: auto;
+    }
+    .review-palette-container h3 {
+        font-size: 1.1em;
+        margin: 0 0 15px 0;
+        font-weight: 600;
+    }
+    
+    /* Review Footer (Navigation) */
+    .review-footer {
+        padding: 15px 0;
+        border-top: 1px solid var(--border-light);
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    /* --- Modals (Existing Styles) --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-content {
+    background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 600px; /* Increased width for better list layout */
+    width: 90%; 
+    text-align: center;
+    display: flex; /* Enable flex for better vertical alignment */
+    flex-direction: column;
+    align-items: center;
+}
+.modal-content h2 { 
+    color: var(--primary-blue);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+.modal-actions { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
+
+/* ------------------------------------------------------------------ */
+/* --- NEW PROFESSIONAL INSTRUCTION LIST STYLING --- */
+/* ------------------------------------------------------------------ */
+.instruction-list {
+    list-style: none; /* Remove default bullets/numbers */
+    padding: 0;
+    margin: 0 0 30px 0;
+    text-align: left;
+    width: 100%;
+    max-width: 450px;
+}
+
+.instruction-list li {
+    background-color: var(--secondary-light); /* Light background for separation */
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-left: 5px solid var(--primary-blue); /* Highlight strip */
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.instruction-list li strong {
+    color: var(--primary-dark); /* Emphasize key data */
+    font-weight: 700;
+}
+
+/* Ensure the button is styled correctly after the list */
+#start-test-btn {
+    margin-top: 10px;
+}
+</style>
 </head>
 <body>
+
+   <div id="instructions-modal" class="modal-overlay">
+    <div class="modal-content">
+        <h2 class="modal-title">Test Instructions</h2>
+        
+        <ul class="instruction-list">
+            <li>
+                <strong>Duration:</strong> The test duration is <strong>25 minutes</strong>.
+            </li>
+            <li>
+                <strong>Scoring:</strong> Each question carries <strong>2 marks</strong>. There is a penalty of <strong>0.5 marks</strong> for each incorrect answer (Negative Marking).
+            </li>
+            <li>
+                <strong>Navigation:</strong> Use the <strong>Question Palette</strong> on the right to navigate questions.
+            </li>
+            <li>
+                <strong>Start:</strong> Click <strong>Start Test</strong> to begin the official timer and access the questions.
+            </li>
+        </ul>
+        <button id="start-test-btn" class="btn primary">Start Test</button>
+    </div>
+</div>
     
-    <div id="instructions-modal" class="modal-overlay">
+    <div id="pause-overlay" class="modal-overlay hidden">
         <div class="modal-content">
-            <h2>Test Instructions</h2>
-            <ul>
-                <li>Total Questions: <strong>25</strong></li>
-                <li>Total Time: <strong>25 Minutes</strong></li>
-                <li>Marking Scheme: <strong>+2</strong> for a correct answer, <strong>-0.5</strong> for an incorrect answer.</li>
-                <li>Use the palette on the right to navigate between questions.</li>
-                <li>Click the pause button (❚❚) in the header to pause the test at any time.</li>
-            </ul>
-            <button id="start-test-btn" class="modal-btn">Start Test</button>
+            <h2>Test Paused</h2>
+            <p>Your time has stopped. Click Resume to continue the test.</p>
+            <button id="resume-btn" class="btn primary">Resume Test</button>
         </div>
     </div>
 
     <div id="submit-summary-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h2>Test Summary</h2>
-            <div id="submission-stats" class="submission-stats"></div>
+            <h2>Confirm Submission</h2>
             <p>Are you sure you want to submit the test?</p>
-            <div class="modal-btn-group">
-                <button id="final-submit-btn" class="modal-btn">Yes, Submit</button>
-                <button id="cancel-submit-btn" class="modal-btn secondary">Go Back</button>
+            <div id="submission-stats" class="summary-stats">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-submit-btn" class="btn secondary">Cancel</button>
+                <button id="final-submit-btn" class="btn primary">Final Submit</button>
             </div>
         </div>
     </div>
-    
-    <div id="quiz-ui" class="hidden">
-        <header class="main-header">
-            <div id="test-main-title" class="logo">🎓 Loading Test...</div>
-            <div class="header-controls">
-                <div id="timer">20:00</div>
-                <button id="pause-btn" title="Pause Test">❚❚</button>
+
+    <div id="quiz-ui" class="quiz-container hidden">
+
+        <header class="quiz-header">
+            <div class="header-left">
+                <h1 id="test-main-title">SSC CGL Mock Test</h1>
+            </div>
+            <div class="header-center">
+            </div>
+            <div class="header-right">
+                <div class="timer-display">
+                    ⏰ Time Left: <span id="timer">25:00</span>
+                </div>
+                <button id="pause-btn" class="header-btn secondary">Pause</button>
             </div>
         </header>
-        <main class="quiz-body">
-            <div class="question-panel">
-                <div class="question-header" id="question-title">Question...</div>
-                <div id="question-area"></div>
-                <div class="action-buttons">
-                    <button id="prev-btn" class="action-btn">Previous</button>
-                    <button id="clear-response-btn" class="action-btn">Clear</button>
-                    <button id="mark-review-btn" class="action-btn">Mark for Review</button>
-                    <button id="next-btn" class="action-btn">Save & Next</button>
-                </div>
-            </div>
-            <aside class="palette-panel">
-                <div class="palette-header">Question Palette</div>
-                <div id="question-palette"></div>
-                <button id="submit-test-btn">Submit Test</button>
-            </aside>
-        </main>
-    </div>
-    
-    <div id="pause-overlay" class="hidden"><h2>Test Paused</h2><button id="resume-btn">Resume Test</button></div>
-    
-    <div id="result-summary-page" class="result-page-container hidden">
-        <div class="result-box-card"> 
-            <div class="result-summary-header">Test Results</div>
-            <div id="result-stats-full" class="result-stats-grid"></div> 
+
+        <div class="main-content-wrapper">
             
-            <div class="result-summary-footer">
-            </div>
+            <main class="question-area-main">
+                <div class="question-header">
+                    <h2 id="question-title">Question 1 of 25</h2>
+                    <select class="language-select">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+                
+                <div id="question-area" class="question-content">
+                    </div>
+
+                <footer class="question-footer">
+                    <div class="left-btns">
+                        <button id="mark-review-btn" class="btn secondary">Mark for Review & Next</button>
+                        <button id="clear-response-btn" class="btn secondary">Clear Response</button>
+                    </div>
+                    <div class="right-btns">
+                        <button id="prev-btn" class="btn primary">Previous</button>
+                        <button id="next-btn" class="btn primary">Save & Next</button>
+                    </div>
+                </footer>
+            </main>
+
+            <aside class="right-sidebar">
+                <div class="sidebar-info">
+                    <p>Candidate: [User Name]</p>
+                    <p>Subject: Quantitative Aptitude</p>
+                </div>
+                <div class="palette-legend">
+                    <span class="legend-item"><span class="legend-box answered"></span> Answered (Green)</span>
+                    <span class="legend-item"><span class="legend-box not-answered"></span> Not Answered (Red)</span>
+                    <span class="legend-item"><span class="legend-box marked-review"></span> Marked for Review (Purple)</span>
+                    <span class="legend-item"><span class="legend-box current"></span> Current Q (Blue)</span>
+                </div>
+                <div id="question-palette" class="question-palette">
+                    </div>
+                <div class="sidebar-actions">
+                    <button id="submit-test-btn" class="sidebar-btn tertiary">Submit Test</button>
+                </div>
+            </aside>
         </div>
     </div>
     
-    <div id="review-page" class="hidden"><div class="question-panel" style="margin: auto;"><div class="question-header" id="review-question-title">Reviewing...</div><div id="review-question-area"></div><div class="action-buttons"><button id="review-prev-btn" class="action-btn">Previous</button><a href="index.html" class="action-btn btn secondary" style="margin-left: auto;">Back to Home</a><button id="review-next-btn" class="action-btn" style="margin-left: 10px;">Next</button></div></div></div>
+    <div id="result-summary-page" class="result-container hidden"> 
+        <h1 class="result-heading">Test Result Summary</h1>
 
+        <div class="results-header-nav">
+            <a class="active">Overview</a>
+            <a>All</a>
+            <a>Correct</a>
+            <a>Incorrect</a>
+            <a>Unattempted</a>
+            <a>Marked For Review</a>
+        </div>
+
+
+        <div class="result-summary-content-wrapper">
+            
+            <div id="review-button-area"></div>
+
+            <div id="stats-cards-area"></div>
+            
+        </div>
+    
+
+    </div>
+
+    <div id="review-page" class="review-container hidden">
+        
+        <h1 class="result-heading">Question Review</h1>
+
+        <div class="results-header-nav">
+            <a class="active">Overview</a>
+            <a>All</a>
+            <a>Correct</a>
+            <a>Incorrect</a>
+            <a>Unattempted</a>
+            <a>Marked For Review</a>
+        </div>
+
+        <div class="review-main-content">
+            
+            <div class="review-question-area-wrapper">
+                 <h2 id="review-question-title" style="margin-top:0;">Reviewing Question 1 of 25</h2>
+                 <div id="review-question-area">
+                    </div>
+                 <footer class="review-footer">
+                    <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                    <button id="review-next-btn" class="btn primary">Next Question</button>
+                </footer>
+            </div>
+            
+            <aside class="review-sidebar">
+                <div class="review-palette-container">
+                    <h3 style="margin-top:0;">Question Palette</h3>
+                    <div id="review-palette" class="question-palette">
+                        </div>
+                </div>
+            </aside>
+            
+        </div>
+        
+    </div>
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>
+
 </body>
 </html>

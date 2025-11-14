@@ -1,30 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* =================================
+ * GLOBAL VARIABLES & RESETS
+ * ================================= */
 :root {
-    /* Branding Colors */
-    --primary-brand: #4A00E0;   /* Deep Purple */
-    --secondary-brand: #8E2DE2; /* Lighter Purple */
-    --action-blue: #007bff;     /* Blue for 'Go to Tests' / 'Not Answered' */
+    /* Light Mode Variables (All end with ;) */
+    --light-bg: #f7f8fc; 
+    --light-card-bg: #ffffff; 
+    --light-text-primary: #1a202c; 
+    --light-text-secondary: #4a5568; 
+    --light-border: #e2e8f0; 
+    --light-shadow: rgba(0, 0, 0, 0.05);
     
-    /* Status Colors */
-    --status-answered: #28a744;     /* Green: Answered */
-    --status-not-answered: #007bff; /* Blue: Not Answered / Not Visited */
-    --status-marked-unanswered: #ffc107; /* Yellow/Orange: Marked for Review (Unanswered) */
-    --status-answered-marked: #ff00ff;   /* Magenta/Pink: Answered & Marked for Review */
-    --status-unvisited: #f8f9fa;        /* Light Grey: Unvisited */
-
-    /* UI Colors */
-    --primary-bg: #f7f8fc;       /* Main Background */
-    --secondary-bg: #ffffff;     /* Card Background */
-    --text-primary: #1a202c;
-    --text-secondary: #4a5568;
-    --border-color: #e2e8f0;
-    --header-height: 65px;
+    /* Dark Mode Variables (All end with ;) */
+    --dark-bg: #1a202c; 
+    --dark-card-bg: #2d3748; 
+    --dark-text-primary: #edf2f7; 
+    --dark-text-secondary: #a0aec0; 
+    --dark-border: #4a5568; 
+    --dark-shadow: rgba(0, 0, 0, 0.2);
+    
+    /* Brand Colors (All end with ;) */
+    --primary-brand: #4A00E0; 
+    --secondary-brand: #8E2DE2; 
+    --accent-blue: #0d6efd;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); color: var(--text-primary); }
-.hidden { display: none !important; }
+/* Universal box-sizing and padding/margin resets */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: var(--primary-bg); 
+    color: var(--text-primary); 
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.hidden { 
+    display: none !important; 
+}
 
 /* --- 1. HEADER (FIXED AND STICKY) --- */
 .main-header {
@@ -40,16 +59,24 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     top: 0;
     z-index: 1000;
 }
-.logo { font-size: 1.4em; font-weight: 800; color: var(--primary-brand); }
-.header-controls { display: flex; align-items: center; gap: 15px; }
+.logo { 
+    font-size: 1.4em; 
+    font-weight: 800; 
+    color: var(--primary-brand); 
+}
+.header-controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+}
 #timer { 
     background-color: #ffebeb; 
-    color: #dc3545;
+    color: var(--status-danger); 
     padding: 6px 12px; 
     border-radius: 4px; 
     font-size: 1.1em; 
     font-weight: 700; 
-    border: 1px solid #dc3545;
+    border: 1px solid var(--status-danger);
 }
 #pause-btn { 
     background-color: var(--text-secondary); 
@@ -70,6 +97,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     margin: auto; 
     gap: 15px; 
     min-height: calc(100vh - var(--header-height) - 30px);
+    align-items: stretch; 
 }
 
 /* Question Panel (Main Area) */
@@ -89,14 +117,23 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     font-weight: 600; 
     display: flex;
     justify-content: space-between;
+    align-items: center; 
 }
 .question-text-area {
     padding: 20px;
     flex-grow: 1;
     overflow-y: auto;
 }
-.question-text { font-size: 1.15em; margin-bottom: 25px; line-height: 1.7; }
-.options-container { display: flex; flex-direction: column; gap: 10px; }
+.question-text { 
+    font-size: 1.15em; 
+    margin-bottom: 25px; 
+    line-height: 1.7; 
+}
+.options-container { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+}
 .option { 
     display: flex; 
     align-items: center; 
@@ -106,9 +143,21 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     cursor: pointer; 
     transition: all 0.2s ease; 
 }
-.option:hover { border-color: var(--primary-brand); background-color: #f7f3ff; }
-.option input[type="radio"] { margin-right: 15px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--primary-brand); }
-.option.selected { border-color: var(--primary-brand); background-color: #eef1ff; }
+.option:hover { 
+    border-color: var(--primary-brand); 
+    background-color: #f7f3ff; 
+}
+.option input[type="radio"] { 
+    margin-right: 15px; 
+    width: 18px; 
+    height: 18px; 
+    flex-shrink: 0; 
+    accent-color: var(--primary-brand); 
+}
+.option.selected { 
+    border-color: var(--primary-brand); 
+    background-color: #eef1ff; 
+}
 
 /* Action Buttons Footer */
 .action-buttons { 
@@ -116,7 +165,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     border-top: 1px solid var(--border-color); 
     background-color: var(--primary-bg);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 10px;
 }
 .action-btn { 
@@ -126,19 +175,21 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     font-weight: 600; 
     cursor: pointer; 
     text-align: center; 
-    border: 1px solid transparent;
+    border: 1px solid transparent; 
     transition: background-color 0.2s;
 }
-.action-btn:nth-child(1), .action-btn:nth-child(2), .action-btn:nth-child(3) {
+/* Default action button style for Previous, Clear, Mark for Review */
+.action-buttons button:not(#next-btn) { 
     background-color: var(--secondary-bg);
     color: var(--text-primary);
-    border-color: var(--border-color);
+    border: 1px solid var(--border-color);
 }
+
 #next-btn { 
     background-color: var(--primary-brand); 
     color: white; 
-    border-color: var(--primary-brand);
-    margin-left: auto;
+    border: 1px solid var(--primary-brand);
+    margin-left: auto; 
     padding: 10px 25px;
 }
 
@@ -204,7 +255,11 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 }
 
 
-.palette-header { font-size: 1.1em; font-weight: 700; margin-bottom: 15px; }
+.palette-header { 
+    font-size: 1.1em; 
+    font-weight: 700; 
+    margin-bottom: 15px; 
+}
 #question-palette { 
     display: grid; 
     grid-template-columns: repeat(5, 1fr);
@@ -213,6 +268,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     padding: 10px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
+    overflow-y: auto;
 }
 .palette-btn { 
     width: 100%; 
@@ -227,30 +283,34 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     align-items: center;
     position: relative;
     color: var(--text-primary);
+    cursor: pointer; 
 }
 
 /* Palette Status Colors */
 .palette-btn.unvisited { 
     background-color: var(--status-unvisited); 
     border-color: var(--border-color);
+    color: var(--text-primary);
 } 
 .palette-btn.not-answered { 
     background-color: var(--status-not-answered); 
     color: white; 
+    border-color: var(--status-not-answered);
 } 
 .palette-btn.answered { 
     background-color: var(--status-answered); 
     color: white; 
+    border-color: var(--status-answered);
 } 
 .palette-btn.marked-unanswered { 
     background-color: var(--status-marked-unanswered); 
     color: var(--text-primary);
-    box-shadow: inset 0 0 0 2px var(--status-marked-unanswered);
+    border-color: var(--status-marked-unanswered);
 } 
 .palette-btn.answered-marked { 
     background-color: var(--status-answered-marked); 
     color: white;
-    box-shadow: inset 0 0 0 2px var(--status-answered);
+    border-color: var(--primary-brand); 
 } 
 .palette-btn.current { 
     border: 3px solid var(--primary-brand); 
@@ -259,7 +319,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 
 #submit-test-btn { 
     width: 100%; 
-    background-color: #dc3545;
+    background-color: var(--status-danger); 
     color: white; 
     padding: 14px; 
     border-radius: 6px; 
@@ -280,12 +340,15 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
         min-height: calc(100vh - var(--header-height) - 40px); 
     }
     .question-panel { flex: 1; min-height: 100%; }
-    .palette-panel { order: 1; min-height: 100%; }
-    .action-buttons { justify-content: space-between; gap: 15px; }
-    .action-btn { flex-grow: 1; }
-    #next-btn { flex-grow: 2; }
+    .palette-panel { order: 2; min-height: 100%; }
+    
+    .hidden-sm { display: flex !important; gap: 10px; } 
+    
+    /* Desktop Action Button Layout */
+    .action-buttons { justify-content: flex-start; gap: 15px; }
+    .action-buttons .action-btn { flex-grow: 0; }
+    .action-buttons #next-btn { flex-grow: 0; }
 }
-
 
 /* --- 5. MODAL STYLES (INSTRUCTIONS/SUMMARY) --- */
 .modal-overlay {
@@ -298,9 +361,23 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     max-width: 700px; width: 100%; text-align: left;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
-.modal-content h2 { font-size: 1.8rem; margin-bottom: 20px; color: var(--primary-brand); text-align: center; }
-.modal-content ul { list-style-type: disc; text-align: left; margin-bottom: 30px; padding-left: 20px; }
-.modal-content ul li { font-size: 1.0rem; margin-bottom: 8px; color: var(--text-secondary); }
+.modal-content h2 { 
+    font-size: 1.8rem; 
+    margin-bottom: 20px; 
+    color: var(--primary-brand); 
+    text-align: center; 
+}
+.modal-content ul { 
+    list-style-type: disc; 
+    text-align: left; 
+    margin-bottom: 30px; 
+    padding-left: 20px; 
+}
+.modal-content ul li { 
+    font-size: 1.0rem; 
+    margin-bottom: 8px; 
+    color: var(--text-secondary); 
+}
 .modal-btn {
     background-color: var(--primary-brand); color: white; padding: 12px 30px; border-radius: 6px;
     border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
@@ -308,24 +385,38 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 }
 .modal-btn:hover { background-color: var(--secondary-brand); }
 .modal-btn:disabled { background-color: #adb5bd; cursor: not-allowed; }
-.submission-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; text-align: left; }
-.submission-stats div { background-color: var(--primary-bg); padding: 15px; border-radius: 8px; font-size: 1.1rem; }
-.submission-stats span { font-weight: 700; float: right; }
-.modal-btn-group { display: flex; justify-content: center; gap: 20px; }
+.submission-stats { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+    margin-bottom: 25px; 
+    text-align: left; 
+}
+.submission-stats div { 
+    background-color: var(--primary-bg); 
+    padding: 15px; 
+    border-radius: 8px; 
+    font-size: 1.1rem; 
+}
+.submission-stats span { 
+    font-weight: 700; 
+}
+.modal-btn-group { 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+}
 .modal-btn.secondary { background: var(--text-secondary); }
 
-/* --- 6. RESULT SUMMARY PAGE STYLES (CLEANED & MERGED) --- */
-
+/* --- 6. RESULT SUMMARY PAGE STYLES --- */
 .result-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px;
-    background-color: #f4f6f9; /* Consistent light background */
+    background-color: #f4f6f9; 
     min-height: 100vh;
 }
-
-/* The main container card for the stats */
 .result-box-card { 
     max-width: 900px; 
     width: 90%;
@@ -335,7 +426,6 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
 }
-
 .result-summary-header {
     font-size: 2em;
     font-weight: 700;
@@ -343,35 +433,6 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     margin-bottom: 30px;
     text-align: center;
 }
-
-/* Top Section: Title, Info, and Action Buttons (Aligned horizontally) */
-.result-summary-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.test-title-info h2 { font-size: 1.8em; color: var(--text-primary); margin: 0; }
-.test-title-info p { color: var(--text-secondary); font-size: 0.9em; margin-top: 5px; }
-
-.result-header-actions {
-    display: flex;
-    gap: 10px;
-}
-
-/* Reusable Action Button Styles for Results Page */
-.action-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-/* Color for Review Test (Primary button) */
 .action-btn.primary {
     background-color: var(--primary-brand);
     color: white;
@@ -379,89 +440,31 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
 .action-btn.primary:hover {
     background-color: var(--secondary-brand);
 }
-
-/* Color for Go to Tests (Secondary/Colorful button) */
 .action-btn.secondary {
-    background-color: var(--action-blue); /* Blue */
+    background-color: var(--action-blue);
     color: white;
 }
 .action-btn.secondary:hover {
     background-color: #0056b3;
 }
 
-/* Divider line between header info and stats */
-.divider {
-    height: 1px;
-    background-color: var(--border-color);
-    margin-bottom: 30px;
-}
-
-
-/* Stats Grid (The Core Card Alignment) */
-#result-stats-full {
-    display: grid;
-    /* 3 columns in large screen, flexible down to 2 or 1 */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-    gap: 20px;
-    margin-bottom: 30px;
-    width: 100%; /* Ensure it fills the card width */
-    /* REMOVED: Background/padding/shadow here as it's meant to hold the cards, not be the card itself */
-}
-
-.stat-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-    border-radius: 8px;
-    text-align: center;
-    background-color: #f7f9fc; /* Light background for individual stats */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.stat-value {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.stat-label {
-    font-size: 1em;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-}
-
-/* Specific Color Coding for Stats */
-.stat-card.total-score .stat-value { color: var(--primary-brand); }
-.stat-card.correct .stat-value { color: var(--status-answered); }
-.stat-card.incorrect .stat-value { color: #dc3545; }
-.stat-card.unattempted .stat-value { color: var(--status-marked-unanswered); }
-.stat-card.time-taken .stat-value { color: #8e44ad; } /* Custom Purple */
-.stat-card.accuracy .stat-value { color: #f39c12; } /* Custom Orange */
-/* --- NEW ALIGNMENT RULES FOR RESULTS PAGE --- */
-
-/* * This new class wraps the two main columns (Info/Buttons on Left, Stats on Right)
- * It goes *inside* .result-box-card and *replaces* the old injection logic.
- */
+/* Result Layout */
 .result-top-row {
     display: flex;
     gap: 30px;
-    align-items: stretch; /* Stretch columns to fill height */
+    align-items: stretch;
     padding: 20px 0;
+    width: 100%; 
 }
-
-/* LEFT COLUMN: Shift Info and Buttons */
 .test-info-column {
-    flex: 1; /* Takes the left space */
+    flex: 1; 
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Push buttons to the bottom/center */
+    justify-content: space-between;
     align-items: flex-start;
-    min-width: 200px; /* Ensure space for the info text */
+    min-width: 200px;
 }
-
 .test-details .shift-info {
     font-size: 2em;
     font-weight: 700;
@@ -472,125 +475,42 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
     font-size: 0.9em;
     color: var(--text-secondary);
 }
-
 .result-header-actions {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
+    flex-direction: column;
     gap: 15px;
     margin-top: 25px;
 }
-
-/* Make the buttons fill the width of the column */
 .result-header-actions .action-btn {
     width: 100%; 
     text-align: center;
 }
-
-/* RIGHT COLUMN: The Stats Grid */
 .stats-grid-column {
-    flex: 2; /* Takes more space than the left column */
+    flex: 2; 
     display: grid;
-    /* 3 columns in large screen, wraps to 2 or 1 as needed */
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
     gap: 15px;
-    /* Add a visual separator (line) between the two columns */
     border-left: 1px solid var(--border-color);
     padding-left: 30px; 
 }
-
-/* The stat cards need light borders to look separate, like in your image */
 .stats-grid-column .stat-card {
-    background-color: var(--secondary-bg); /* White background for separation */
+    background-color: var(--secondary-bg);
     border: 1px solid var(--border-color);
-    box-shadow: none; /* Remove redundant shadow */
-}
-/* --- EXISTING STYLES (KEEP YOUR EXISTING CSS HERE) --- */
-
-/* ... (Your existing CSS rules) ... */
-
-/* --- NEW ALIGNMENT RULES FOR RESULTS PAGE --- */
-
-/* Ensures the modal fully disappears */
-#submit-summary-modal.hidden {
-    display: none !important; 
-}
-
-/* Main container for the results card content (handles the two columns) */
-.result-top-row {
-    display: flex;
-    gap: 30px;
-    align-items: stretch; /* Stretches columns to fill height */
-    padding: 20px 0;
-    width: 100%; /* Ensure it spans the card width */
-}
-
-/* LEFT COLUMN: Shift Info and Action Buttons */
-.test-info-column {
-    flex: 1; /* Takes the left space (e.g., 1/3rd of the area) */
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Pushes buttons to the bottom/center */
-    align-items: flex-start;
-    min-width: 200px;
-}
-
-.test-details .shift-info {
-    font-size: 2em;
-    font-weight: 700;
-    color: var(--text-primary, #333);
-    margin-bottom: 5px;
-}
-.test-details .question-info {
-    font-size: 0.9em;
-    color: var(--text-secondary, #666);
-}
-
-.result-header-actions {
-    display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 15px;
-    margin-top: 25px;
-}
-
-/* Make the buttons fill the width of the column */
-.result-header-actions .action-btn {
-    width: 100%; 
-    text-align: center;
-}
-
-/* RIGHT COLUMN: The Stats Grid */
-.stats-grid-column {
-    flex: 2; /* Takes more space than the left column (e.g., 2/3rds of the area) */
-    display: grid;
-    /* Creates a responsive grid of 3 columns */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    gap: 15px;
-    /* Add a visual separator (line) between the two columns */
-    border-left: 1px solid var(--border-color, #e0e0e0);
-    padding-left: 30px; 
-}
-
-/* Styling for the individual stat cards (Score, Correct, etc.) */
-.stats-grid-column .stat-card {
-    background-color: var(--card-bg, #f9f9f9); /* Use a light background for separation */
-    border: 1px solid var(--border-color, #e0e0e0);
-    padding: 15px;
+    padding: 20px 10px;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Optional subtle shadow */
+    box-shadow: none;
 }
-
+/* Stat Card Styling */
 .stat-card .stat-value {
-    font-size: 2.2em;
+    font-size: 2.5em;
     font-weight: 700;
-    color: var(--primary-color, #5e35b1); /* Use a prominent color */
-    line-height: 1.2;
+    margin-bottom: 5px;
 }
-
 .stat-card .stat-label {
-    font-size: 0.8em;
-    color: var(--text-secondary, #666);
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--text-secondary);
     text-transform: uppercase;
 }
 
@@ -600,11 +520,288 @@ body { font-family: 'Inter', sans-serif; background-color: var(--primary-bg); co
         flex-direction: column;
         gap: 20px;
     }
-
     .stats-grid-column {
         padding-left: 0;
-        border-left: none; /* Remove border on smaller screens */
-        border-top: 1px solid var(--border-color, #e0e0e0);
+        border-left: none; 
+        border-top: 1px solid var(--border-color);
         padding-top: 20px;
+    }
+}/* --- CSS for Result Summary Alignment (Fixes the layout issue) --- */
+
+/* 1. Main container setup (to create two columns) */
+.result-summary-content-wrapper {
+    display: flex; /* Use flexbox for horizontal alignment */
+    gap: 30px; /* Space between the left block and right cards */
+    padding-top: 20px;
+    align-items: flex-start; /* Align contents to the top */
+}
+
+/* 2. Styling the Left Block (Review Button Area) */
+#review-button-area {
+    width: 250px; /* Fixed width for the left column to look like a separate box */
+    flex-shrink: 0;
+    /* You might want to add background/border styles here to match the image_b095ca.png look */
+}
+
+/* 3. Styling the Right Grid container */
+#stats-cards-area {
+    flex-grow: 1; /* Allows the stats area to take up the remaining space */
+}
+
+/* 4. Styling the stats grid structure itself */
+.stats-grid-container {
+    display: grid;
+    /* Creates a grid of columns, each at least 150px wide, filling available space */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 20px;
+}
+
+/* 5. Styling the block buttons (for correct visual appearance) */
+.button-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px; /* Space below the shift details */
+}
+.large-block-btn {
+    padding: 15px 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* 6. Basic card styling (adjust colors/fonts as needed) */
+.stat-card {
+    background: var(--secondary-bg, #ffffff); 
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--primary-color, #5e35b1); /* Example purple color */
+}
+/* --- Result Summary Layout --- */
+
+/* Parent container for the two columns */
+.result-summary-content-wrapper {
+    display: flex; 
+    gap: 30px; 
+    padding-top: 20px;
+    align-items: flex-start; 
+}
+
+/* Left Column: Details & Buttons */
+#review-button-area {
+    /* Set a reasonable width for the details/button column */
+    width: 250px; 
+    flex-shrink: 0;
+}
+
+/* Details text block */
+.shift-details-mini {
+    margin-bottom: 20px;
+}
+.shift-details-mini h3 {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text-primary, #1a202c);
+}
+.shift-details-mini p {
+    font-size: 0.9em;
+    color: var(--text-secondary, #4a5568);
+}
+
+/* Vertical button group styling */
+.button-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.large-block-btn {
+    padding: 15px 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.small-link {
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+/* Right Column: Stats Cards Grid */
+#stats-cards-area {
+    flex-grow: 1; 
+}
+
+.stats-grid-container {
+    display: grid;
+    /* Responsive grid: min 150px wide columns, up to 1fr each */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 20px;
+}
+
+/* Individual Stat Card Styling */
+.stat-card {
+    background: var(--secondary-bg, #ffffff); 
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    padding: 20px 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.stat-label {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--text-secondary, #4a5568);
+}
+
+/* Coloring the values based on status (matching the images) */
+.total-score .stat-value { color: #5e35b1; /* A custom purple/brand color */ }
+.correct .stat-value { color: #28a745; /* Green */ }
+.incorrect .stat-value { color: #dc3545; /* Red */ }
+.unattempted .stat-value { color: #6c757d; /* Grey */ }
+.time-taken .stat-value { color: var(--action-blue, #007bff); }
+.accuracy .stat-value { color: #5e35b1; }
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .result-summary-content-wrapper {
+        flex-direction: column; /* Stacks columns vertically on small screens */
+    }
+    #review-button-area {
+        width: 100%; /* Takes full width */
+        order: 1; /* Puts the buttons/details after the stats on mobile */
+    }
+    #stats-cards-area {
+        order: 2;
+    }
+}
+/* --- Global Variables (Assuming you have these) --- */
+/*
+:root {
+    --primary-brand: #4A00E0;
+    --action-blue: #007bff;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --secondary-bg: #ffffff;
+    --border-color: #e0e0e0;
+}
+*/
+
+/* --- Result Summary Layout --- */
+
+/* Parent container for the two columns */
+.result-summary-content-wrapper {
+    display: flex; 
+    gap: 30px; 
+    padding-top: 20px;
+    align-items: flex-start; 
+}
+
+/* Left Column: Details & Buttons */
+#review-button-area {
+    width: 250px; /* Fixed width for the details/button column */
+    flex-shrink: 0;
+}
+
+/* Details text block */
+.shift-details-mini {
+    margin-bottom: 20px;
+}
+.shift-details-mini h3 {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+.shift-details-mini p {
+    font-size: 0.9em;
+    color: var(--text-secondary, #4a5568);
+}
+
+/* Vertical button group styling */
+.button-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.large-block-btn {
+    padding: 15px 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.small-link {
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+/* Right Column: Stats Cards Grid */
+#stats-cards-area {
+    flex-grow: 1; 
+}
+
+.stats-grid-container {
+    display: grid;
+    /* Responsive grid: min 150px wide columns, up to 1fr each */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 20px;
+}
+
+/* Individual Stat Card Styling */
+.stat-card {
+    background: var(--secondary-bg, #ffffff); 
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    padding: 20px 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.stat-label {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--text-secondary, #4a5568);
+    text-transform: uppercase;
+}
+
+/* Coloring the values */
+.total-score .stat-value, .accuracy .stat-value { color: var(--primary-brand, #5e35b1); }
+.correct .stat-value { color: #28a745; /* Green */ }
+.incorrect .stat-value { color: #dc3545; /* Red */ }
+.unattempted .stat-value { color: #6c757d; /* Grey */ }
+.time-taken .stat-value { color: var(--action-blue, #007bff); }
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .result-summary-content-wrapper {
+        flex-direction: column; /* Stacks columns vertically on small screens */
+    }
+    #review-button-area {
+        width: 100%; /* Takes full width */
+        order: 1; /* Puts the buttons/details first */
+    }
+    #stats-cards-area {
+        order: 2;
     }
 }

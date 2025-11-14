@@ -3,23 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CGL Mock Tests</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Mock-Axis | SSC CGL Mock Tests</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --light-bg: #f7f8fc; --light-card-bg: #ffffff; --light-text-primary: #1a202c; --light-text-secondary: #4a5568; --light-border: #e2e8f0; --light-shadow: rgba(0, 0, 0, 0.05);
-            --dark-bg: #1a202c; --dark-card-bg: #2d3748; --dark-text-primary: #edf2f7; --dark-text-secondary: #a0aec0; --dark-border: #4a5568; --dark-shadow: rgba(0, 0, 0, 0.2);
-            --primary-brand: #4A00E0; --secondary-brand: #8E2DE2; --accent-blue: #0d6efd;
+            --light-bg: #f7f8fc; 
+            --light-card-bg: #ffffff; 
+            --light-text-primary: #1a202c; 
+            --light-text-secondary: #4a5568; 
+            --light-border: #e2e8f0; 
+            --light-shadow: rgba(0, 0, 0, 0.05);
+            --dark-bg: #1a202c; 
+            --dark-card-bg: #2d3748; 
+            --dark-text-primary: #edf2f7; 
+            --dark-text-secondary: #a0aec0; 
+            --dark-border: #4a5568; 
+            --dark-shadow: rgba(0, 0, 0, 0.2);
+            --primary-brand: #4A00E0; 
+            --secondary-brand: #8E2DE2; 
+            --accent-blue: #0d6efd;
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); color: var(--light-text-primary); margin: 0; padding: 40px 15px; transition: background-color 0.3s, color 0.3s; }
-        body.dark-mode { background-color: var(--dark-bg); color: var(--dark-text-primary); }
-        .main-container { max-width: 1200px; margin: 0 auto; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px; padding: 0 10px; }
-        .header-title-section { text-align: center; width: 100%; margin-bottom: 20px; }
-        .header-title-section h1 { font-size: 2.5em; font-weight: 700; margin-bottom: 8px; }
-        .header-title-section .sub-heading { font-size: 1.1em; color: var(--light-text-secondary); margin: 0; }
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--light-bg); 
+            color: var(--light-text-primary); 
+            margin: 0; 
+            padding: 0 15px 40px; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        body.dark-mode { 
+            background-color: var(--dark-bg); 
+            color: var(--dark-text-primary); 
+        }
+        /* --- TOP NAV BAR --- */
+        .top-nav {
+            background-color: var(--light-card-bg);
+            border-bottom: 1px solid var(--light-border);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+        body.dark-mode .top-nav {
+            background-color: var(--dark-card-bg);
+            border-bottom-color: var(--dark-border);
+        }
+        .brand-logo {
+            font-size: 1.8rem;
+            font-weight: 800; 
+            color: var(--primary-brand);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .main-container { max-width: 1200px; margin: 40px auto 0; }
+        
+        /* --- HEADER & THEME SWITCH --- */
+        .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; padding: 0 10px; }
+        .header-title-section { text-align: center; width: 100%; margin-bottom: 10px; }
+        .header-title-section h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; }
+        .header-title-section .sub-heading { font-size: 1.1rem; color: var(--light-text-secondary); margin: 0; }
         body.dark-mode .header-title-section .sub-heading { color: var(--dark-text-secondary); }
-        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; position: absolute; top: 20px; right: 20px; }
+        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; z-index: 10; }
         .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; }
         .theme-switch input { display: none; }
         .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
@@ -29,51 +78,104 @@
         .slider.round { border-radius: 34px; }
         .slider.round:before { border-radius: 50%; }
         .theme-switch-wrapper span { font-weight: 500; font-size: 1.2rem; }
+        
+        /* --- TABS --- */
         .tabs-container { display: flex; gap: 5px; margin-bottom: 25px; border-bottom: 2px solid var(--light-border); overflow-x: auto; }
         body.dark-mode .tabs-container { border-bottom-color: var(--dark-border); }
-        .tab { padding: 12px 20px; cursor: pointer; font-weight: 600; font-size: 1em; color: var(--light-text-secondary); border-bottom: 3px solid transparent; transition: all 0.2s ease; white-space: nowrap; }
+        .tab { padding: 12px 20px; cursor: pointer; font-weight: 600; font-size: 1rem; color: var(--light-text-secondary); border-bottom: 3px solid transparent; transition: all 0.2s ease; white-space: nowrap; }
         body.dark-mode .tab { color: var(--dark-text-secondary); }
         .tab.active { color: var(--primary-brand); border-bottom-color: var(--primary-brand); }
         body.dark-mode .tab.active { color: #c4b5fd; border-bottom-color: #c4b5fd; }
-        .test-grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .test-card { position: relative; overflow: hidden; background-color: var(--light-card-bg); border: 1px solid var(--light-border); border-radius: 12px; box-shadow: 0 4px 6px var(--light-shadow); padding: 25px; display: flex; flex-direction: column; text-decoration: none; color: var(--light-text-primary); transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, border-color 0.3s; align-items: center; }
+        
+        /* --- GRID & CARDS --- */
+        @keyframes card-fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .test-grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; 
+            transition: opacity 0.2s ease-in-out; /* Added for tab switching fade */
+        }
+        .test-card { 
+            position: relative; 
+            overflow: hidden; 
+            background-color: var(--light-card-bg); 
+            border: 1px solid var(--light-border); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px var(--light-shadow); 
+            padding: 25px; 
+            display: flex; 
+            flex-direction: column; 
+            color: var(--light-text-primary); 
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, border-color 0.3s; 
+            align-items: center; 
+            animation: card-fade-in 0.5s ease-out forwards;
+            opacity: 0; 
+        }
         body.dark-mode .test-card { background-color: var(--dark-card-bg); border-color: var(--dark-border); box-shadow: 0 4px 6px var(--dark-shadow); color: var(--dark-text-primary); }
-        .test-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px var(--light-shadow); }
+        .test-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(74, 0, 224, 0.15); }
         body.dark-mode .test-card:hover { box-shadow: 0 10px 20px var(--dark-shadow); }
-        /* NOTE: This position is crucial for the badge to show correctly on the card corner */
-        .new-badge { position: absolute; top: -1px; right: -1px; background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; padding: 5px 15px; font-size: 0.8em; font-weight: 700; border-bottom-left-radius: 12px; }
+        .new-badge { position: absolute; top: 0; right: 0; background: linear-gradient(135deg, #ff8c00, #ff4b2b); color: white; padding: 5px 15px; font-size: 0.8rem; font-weight: 700; border-bottom-left-radius: 12px; border-top-right-radius: 12px; }
         .card-title, .test-card hr, .card-stats { width: 100%; }
-        .card-title { font-size: 1.1em; font-weight: 700; margin-bottom: 15px; text-align: center; }
+        .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; text-align: center; color: var(--primary-brand); }
         .test-card hr { border: 0; border-top: 1px solid var(--light-border); margin-bottom: 20px; transition: border-color 0.3s; }
         body.dark-mode .test-card hr { border-top-color: var(--dark-border); }
         .card-stats { display: flex; justify-content: space-around; text-align: center; margin-bottom: 25px; }
-        .stat-item .value { font-size: 1.6em; font-weight: 700; }
-        .stat-item .label { font-size: .75em; color: var(--light-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s; }
+        .stat-item .value { font-size: 1.8rem; font-weight: 800; color: var(--light-text-primary); }
+        body.dark-mode .stat-item .value { color: var(--dark-text-primary); }
+        .stat-item .label { font-size: .75rem; color: var(--light-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s; }
         body.dark-mode .stat-item .label { color: var(--dark-text-secondary); }
-        .attempt-btn { background: linear-gradient(45deg, var(--primary-brand), var(--secondary-brand)); color: white; text-align: center; padding: 14px 70px; border-radius: 50px; font-weight: 600; font-size: 1em; margin-top: auto; transition: all 0.2s; white-space: nowrap; box-shadow: 0 4px 15px rgba(74, 0, 224, 0.2); }
-        .test-card:hover .attempt-btn { transform: scale(1.05); box-shadow: 0 6px 20px rgba(74, 0, 224, 0.3); }
-        @media (min-width: 768px) { .header-title-section h1 { font-size: 2.8em; } .tab { padding: 15px 25px; font-size: 1.1em; } }
+        
+        /* --- ATTEMPT BUTTON (Button element, not a div) --- */
+        .attempt-btn { 
+            background: linear-gradient(45deg, var(--primary-brand), var(--secondary-brand)); 
+            color: white; 
+            text-align: center; 
+            padding: 14px 70px; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 1rem; 
+            margin-top: auto; 
+            transition: all 0.2s; 
+            white-space: nowrap; 
+            box-shadow: 0 4px 15px rgba(74, 0, 224, 0.4); 
+            width: 100%; 
+            max-width: 250px; 
+            border: none; /* Crucial: ensures it looks like a button */
+            cursor: pointer;
+        }
+        .test-card:hover .attempt-btn { transform: scale(1.02); box-shadow: 0 6px 20px rgba(74, 0, 224, 0.6); }
+        
+        @media (min-width: 768px) { .header-title-section h1 { font-size: 2.8rem; } .tab { padding: 15px 25px; font-size: 1.1rem; } }
     </style>
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="#" class="brand-logo">MOCK-AXIS</a>
+        <div class="theme-switch-wrapper">
+            <span>☀️</span>
+            <label class="theme-switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label>
+            <span>🌙</span>
+        </div>
+    </nav>
+
     <div class="main-container">
         <div class="header-container">
             <div class="header-title-section">
                 <h1 id="main-title">Assess Your Preparation: Start a Test Now</h1>
-                <p class="sub-heading">Select a subject and choose a test to begin your preparation.</p>
-            </div>
-            <div class="theme-switch-wrapper">
-                <span>☀️</span>
-                <label class="theme-switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label>
-                <span>🌙</span>
+                <p class="sub-heading">Assess Your Preparation: Start a Test Now</p>
             </div>
         </div>
+        
         <div class="tabs-container">
             <div class="tab active" data-subject="Maths">Maths</div>
             <div class="tab" data-subject="Reasoning">Reasoning</div>
         </div>
         <div id="test-grid-container" class="test-grid-container"></div>
     </div>
+    
     <script src="js/tests-list.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -83,37 +185,73 @@
             const themeToggle = document.getElementById('theme-toggle');
 
             // --- DARK MODE ---
-            function applyTheme(theme) { document.body.classList.toggle('dark-mode', theme === 'dark'); themeToggle.checked = theme === 'dark'; }
-            themeToggle.addEventListener('change', () => { const newTheme = themeToggle.checked ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
-            const savedTheme = localStorage.getItem('theme') || 'light'; applyTheme(savedTheme);
+            function applyTheme(theme) { 
+                document.body.classList.toggle('dark-mode', theme === 'dark'); 
+                themeToggle.checked = theme === 'dark'; 
+            }
+            themeToggle.addEventListener('change', () => { 
+                const newTheme = themeToggle.checked ? 'dark' : 'light'; 
+                localStorage.setItem('theme', newTheme); 
+                applyTheme(newTheme); 
+            });
+            const savedTheme = localStorage.getItem('theme') || 'light'; 
+            applyTheme(savedTheme);
 
-            // --- TEST DISPLAY ---
-            if (typeof ALL_TESTS !== 'undefined') { mainTitle.innerHTML = `Explore <strong>${ALL_TESTS.length}</strong> Available Mock Tests`; }
+            // --- TEST DISPLAY LOGIC ---
+            if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
+                mainTitle.innerHTML = `Tests are currently **Unavailable**`;
+                gridContainer.innerHTML = '<p style="text-align:center; padding: 40px; color: #dc3545; font-size: 1.2rem; font-weight: 600;">\n\nERROR: The file **js/tests-list.js** is missing, empty, or has syntax errors.\n\n</p>';
+                return;
+            }
             
+            mainTitle.innerHTML = `Explore <strong>${ALL_TESTS.length}</strong> Available Mock Tests`;
+            
+            // CORRECTED: The test-card is now a DIV, and the link wraps only the button logic.
+            function generateCardHTML(test) {
+                const fullTitle = `${test.date} ${test.title}`;
+                const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
+                const questions = test.questions || 25;
+                const time = test.time || 25;
+
+                return `
+                    <div class="test-card">
+                        ${newBadge} 
+                        <div class="card-title">${fullTitle}</div>
+                        <hr>
+                        <div class="card-stats">
+                            <div class="stat-item"><div class="value">${questions}</div><div class="label">Questions</div></div>
+                            <div class="stat-item"><div class="value">${questions * 2}</div><div class="label">Marks</div></div>
+                            <div class="stat-item"><div class="value">${time}</div><div class="label">Minutes</div></div>
+                        </div>
+                        
+                        <a href="test.html?testId=${test.id}" class="attempt-btn">Attempt</a>
+                    </div>`;
+            }
+
+            function animateCards() {
+                const cards = gridContainer.querySelectorAll('.test-card');
+                cards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+            }
+
             function displayTests(subject) {
-                if (typeof ALL_TESTS === 'undefined') { gridContainer.innerHTML = "<p>Error: Could not load tests-list.js.</p>"; return; }
                 const filteredTests = ALL_TESTS.filter(test => test.subject === subject);
+                
+                gridContainer.style.opacity = 0;
                 
                 if (filteredTests.length > 0) {
                     gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
-                } 
-            }
-
-            function generateCardHTML(test) { // Removed 'index' argument
-                const fullTitle = `${test.date} ${test.title}`;
-                // ⭐ ADDED: Conditional NEW badge
-                const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
-
-                return `
-                    <a href="test.html?id=${test.id}" class="test-card">
-                        ${newBadge} <div class="card-title">${fullTitle}</div><hr>
-                        <div class="card-stats">
-                            <div class="stat-item"><div class="value">25</div><div class="label">Questions</div></div>
-                            <div class="stat-item"><div class="value">50</div><div class="label">Marks</div></div>
-                            <div class="stat-item"><div class="value">25</div><div class="label">Minutes</div></div>
-                        </div>
-                        <div class="attempt-btn">Attempt</div>
-                    </a>`;
+                    
+                    setTimeout(() => {
+                        gridContainer.style.opacity = 1;
+                        animateCards();
+                    }, 50); 
+                    
+                } else {
+                    gridContainer.innerHTML = `<p style="text-align:center; padding: 40px; color: var(--light-text-secondary);">No tests available for **${subject}** yet.</p>`;
+                    gridContainer.style.opacity = 1; 
+                }
             }
 
             tabs.forEach(tab => {
@@ -123,6 +261,7 @@
                     displayTests(tab.dataset.subject);
                 });
             });
+            
             displayTests(document.querySelector('.tab.active').dataset.subject);
         });
     </script>
