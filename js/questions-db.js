@@ -1806,5 +1806,274 @@ ssc_cgl_13_sep_s3 : [
   }
 ],
 
+ssc_cgl_13_sep_s1 : [
 
+[
+  {
+    "question": "Select the most appropriate synonym of the given word: PERFIDIOUS",
+    "options": [
+      "Honest",
+      "Faithful",
+      "Treacherous",
+      "Loyal"
+    ],
+    "correctAnswer": "Treacherous",
+    "explanation": "The word **Perfidy** means 'the state of being faithless or disloyal,' so its most appropriate synonym is **Treacherous** (betraying trust)."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: Hobson's choice",
+    "options": [
+      "A dilemma between two evils",
+      "A free and fair decision",
+      "No real choice at all",
+      "A selection made under duress"
+    ],
+    "correctAnswer": "No real choice at all",
+    "explanation": "A **Hobson's choice** is an apparently free choice when there is actually only one thing offered, or nothing at all."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. Perfidious",
+    "options": [
+      "Betraying",
+      "Faithless",
+      "Loyal",
+      "Treacherous"
+    ],
+    "correctAnswer": "Loyal",
+    "explanation": "The antonym of **Perfidious** (treacherous/faithless) is **Loyal** (faithful/committed)."
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": [
+      "Vicereine",
+      "Floccinaucinihilipilification",
+      "Defenestrate",
+      "Quintessance"
+    ],
+    "correctAnswer": "Quintessance",
+    "explanation": "The correct spelling of the word is **Quintessence** (the perfect example of a quality or class)."
+  },
+  {
+    "question": "Spot the correct spelling of a CSF-shunt procedure.",
+    "options": [
+      "Ventriculoperitoneal",
+      "Ventriculoperitonal",
+      "Ventriculaperitoneal",
+      "Ventriculoperetoneal"
+    ],
+    "correctAnswer": "Ventriculoperitoneal",
+    "explanation": "The correct spelling of the neurosurgical term is **Ventriculoperitoneal** (referring to the ventricles of the brain and the peritoneal cavity)."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'An official reprimand or strong criticism'.",
+    "options": [
+      "Accusation",
+      "Denunciation",
+      "Censure",
+      "Indictment"
+    ],
+    "correctAnswer": "Censure",
+    "explanation": "**Censure** means 'formal strong disapproval or criticism'."
+  },
+  {
+    "question": "Select the correct option: The startup scaled so rapidly that its infrastructure could ☐ keep pace.",
+    "options": [
+      "barely",
+      "merely",
+      "scarcely",
+      "all but"
+    ],
+    "correctAnswer": "barely",
+    "explanation": "The context implies the infrastructure was almost unable to handle the pace. **Barely** means 'only just; almost not'."
+  },
+  {
+    "question": "Select the correct option: Rare though the phenomenon is, it can occur ☐ prolonged drought conditions.",
+    "options": [
+      "towards",
+      "amid",
+      "among",
+      "under"
+    ],
+    "correctAnswer": "under",
+    "explanation": "**Under** is the correct preposition to indicate a circumstance, state, or condition (e.g., 'under stress', 'under investigation')."
+  },
+  {
+    "question": "Select the correct option: While the proposal appeared pragmatic on paper, its implementation proved ☐ complicated than expected.",
+    "options": [
+      "less",
+      "more",
+      "much",
+      "rather"
+    ],
+    "correctAnswer": "more",
+    "explanation": "The word **than** indicates a comparison, requiring the comparative adverb **more** to precede the adjective 'complicated'."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: That the report failed to address the root causes (1)/ of the community unrest were surprising (2)/ given the exhaustive data (3)/ compiled over several months. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(2)",
+    "explanation": "The subject of the verb is the singular noun phrase '**That the report failed to address the root causes**', which requires the singular verb **was**, not *were*. The correction is '...unrest **was** surprising'."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: What renders the draft legislation particularly contentious is not its proposed realignment of fiscal powers per se, (1)/ but that it presumes, without empirical substantiation, (2)/ a fiscal equivalence among states whose developmental baselines are (3)/ incommensurable by any normative metric. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(1)",
+    "explanation": "The correlative conjunction pair 'not... but' requires parallel structure. The correction is needed to parallel the 'but that' clause in (2). Option (1) should likely be '**not that** it proposes a realignment...' or changed entirely to match the noun phrase 'fiscal powers per se' with the rest of the sentence."
+  },
+  {
+    "question": "Change the following from active to passive: They have been neglecting maintenance of the archives for years.",
+    "options": [
+      "Maintenance of the archives had been neglected by them for years.",
+      "Maintenance of the archives is being neglected by them for years.",
+      "Maintenance of the archives was being neglected by them for years.",
+      "Maintenance of the archives has been being neglected by them for years."
+    ],
+    "correctAnswer": "Maintenance of the archives has been being neglected by them for years.",
+    "explanation": "The active voice is in the **Present Perfect Continuous** tense (have been neglecting). The passive structure is **has/have been being + Past Participle** (neglected)."
+  },
+  {
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: It was being suggested by multiple sources that the operation had been compromised internally.",
+    "options": [
+      "Multiple sources suggested the operation was compromised internally.",
+      "The operation was compromised, multiple sources suggested.",
+      "The sources were suggesting an operation compromise.",
+      "The operation had compromised multiple internal sources."
+    ],
+    "correctAnswer": "The sources were suggesting an operation compromise.",
+    "explanation": "The passive voice sentence is in the **Past Continuous** tense (was being suggested). The corresponding active voice must also be in the Past Continuous tense: 'Multiple sources **were suggesting**...'"
+  },
+  {
+    "question": "According to the passage, how is wisdom primarily acquired?",
+    "options": [
+      "Through textbooks",
+      "Through emotional detachment",
+      "Through experience and reflection",
+      "Through algorithmic thinking"
+    ],
+    "correctAnswer": "Through experience and reflection",
+    "explanation": "The passage explicitly states that wisdom is 'earned through trial, failure, **reflection**, and a nuanced understanding of human nature.'"
+  },
+  {
+    "question": "What does the author mean by \"wisdom enriches the soul\"?",
+    "options": [
+      "It enhances academic success",
+      "It fosters deeper moral insight",
+      "It improves verbal expression",
+      "It sharpens mathematical skills"
+    ],
+    "correctAnswer": "It fosters deeper moral insight",
+    "explanation": "The passage contrasts education equipping the 'mind' with wisdom enriching the 'soul,' stating that wisdom 'manifests in humility, **ethical consistency**' and 'in consistently choosing to do' what is right."
+  },
+  {
+    "question": "Who, according to the author, can be wise despite lacking formal education?",
+    "options": [
+      "Scientists",
+      "School children",
+      "Elders and artisans",
+      "Technocrats"
+    ],
+    "correctAnswer": "Elders and artisans",
+    "explanation": "The passage states: 'Conversely, many wise individuals-farmers, **artisans, elders**-may not possess formal education...'"
+  },
+  {
+    "question": "What is the central contrast drawn in the passage?",
+    "options": [
+      "Education vs. career",
+      "Intelligence vs. memory",
+      "Reading vs. writing",
+      "Formal learning vs. applied wisdom"
+    ],
+    "correctAnswer": "Formal learning vs. applied wisdom",
+    "explanation": "The entire passage discusses the fundamental divergence between **Education** (formal acquisition) and **wisdom** (judicious application/lived realities)."
+  },
+  {
+    "question": "According to the author, why has the gap between education and wisdom widened in recent times?",
+    "options": [
+      "Because wisdom is no longer valued",
+      "Because rote learning and standardized testing are prioritized over critical thinking and moral reasoning",
+      "Because policy theory learning is not valued",
+      "Because rote learning and algorithmic thinking"
+    ],
+    "correctAnswer": "Because rote learning and standardized testing are prioritized over critical thinking and moral reasoning",
+    "explanation": "The passage states, 'Educational institutions often prioritize **rote memorization and standardized testing over critical thinking and moral reasoning**,' widening the schism."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: She has the reputation to be a kind woman.",
+    "options": [
+      "of being a kind woman",
+      "of a kind woman",
+      "being a kind woman",
+      "to be the kind woman"
+    ],
+    "correctAnswer": "of being a kind woman",
+    "explanation": "The correct idiom uses the preposition **of** or **for**, followed by a gerund: 'reputation **of being**' or 'reputation **for being**' a kind woman."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: The doctor advised him to avoid eating sweets and doing exercise regularly.",
+    "options": [
+      "avoiding sweets and doing regularly exercise",
+      "to avoid sweets and exercise regularly",
+      "avoid eating sweets and to exercise regularly",
+      "to not eat sweets and to exercise"
+    ],
+    "correctAnswer": "to avoid sweets and exercise regularly",
+    "explanation": "The phrase requires parallel structure: the advice is 'to avoid [noun phrase]' and '[verb/noun] regularly.' This option corrects the awkward mix of gerunds and infinitives while making 'exercise' a noun, maintaining parallelism with 'sweets'."
+  },
+  {
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech. Direct Speech: He asked me, \"Have you done your homework?\"",
+    "options": [
+      "He asked me if I have done my homework.",
+      "He asked me if I had done my homework.",
+      "He asked me whether I have done my homework.",
+      "He asked me whether I had done my homework."
+    ],
+    "correctAnswer": "He asked me whether I had done my homework.",
+    "explanation": "The reporting verb is past (**asked**). Direct speech Present Perfect (**Have done**) changes to Indirect speech Past Perfect (**had done**). The question also requires 'if' or 'whether'."
+  },
+  {
+    "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. Indirect Speech: He said that he would join the meeting after lunch.",
+    "options": [
+      "\"I will join the meeting after lunch,\" he said.",
+      "\"I would join the meeting after lunch,\" he said.",
+      "\"I shall join the meeting after lunch,\" he said.",
+      "\"I can join the meeting after lunch,\" he said."
+    ],
+    "correctAnswer": "\"I will join the meeting after lunch,\" he said.",
+    "explanation": "The 'would' in indirect speech (future in the past) reverts to its original form, **will**, in direct speech."
+  },
+  {
+    "question": "Rearrange the following sentences in correct order to make a logical passage: 1. A media strategy was framed based on outreach results. 2. Demographic metrics were tracked from campaign dashboards. 3. User interactions were collected across platforms. 4. Analysts segmented users by age and behavior.",
+    "options": [
+      "2-3-1-4",
+      "3-2-1-4",
+      "3-2-4-1",
+      "4-1-3-2"
+    ],
+    "correctAnswer": "3-2-4-1",
+    "explanation": "The logical order is: **Data Collection** (3) $\rightarrow$ **Data Tracking** (2) $\rightarrow$ **Data Analysis/Segmentation** (4) $\rightarrow$ **Strategy/Result** (1)."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph: 1. It is a process that involves the systematic and objective investigation of a subject... 2. Research is a foundational pillar of academic and scientific progress. 3. This can be either theoretical... or applied... 4. The findings of this investigation are then documented and peer-reviewed...",
+    "options": [
+      "1-2-3-4",
+      "1-3-4-2",
+      "2-4-3-1",
+      "2-1-3-4"
+    ],
+    "correctAnswer": "2-1-3-4",
+    "explanation": "The logical order is: **Introduction/Topic** (2) $\rightarrow$ **Definition** (1, using 'It') $\rightarrow$ **Classification** (3, using 'This') $\rightarrow$ **Conclusion/Next Step** (4, referring to 'The findings')."
+  }
+],
+
+]
 };
