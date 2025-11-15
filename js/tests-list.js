@@ -70,9 +70,9 @@ const ALL_TESTS = [
         subject: "Reasoning",
         isNew: true // ⭐ ADDED: Mark the Reasoning test as new
     },
-
+// --- English Tests (NEWLY ADDED) ---
      {
-        id: "ssc_cgl_12_sep_s1-e", // New unique ID for Reasoning Shift 1
+        id: "ssc_cgl_eng_12_sep_s1", // New unique ID for english Shift 1
         date: "12 Sep",
         title: "Shift 1",
         subject: "English",

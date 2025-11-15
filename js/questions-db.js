@@ -1804,11 +1804,8 @@ ssc_cgl_13_sep_s3 : [
     "correctAnswer": "1:1",
     "explanation": "Area ratio = (135°/360°) : (3π/4/2π) = 1 : 1."
   }
-],
-
-ssc_cgl_12_sep_s1 : [
-
-[
+],      
+ssc_cgl_eng_12_sep_s1 : [
   {
     "question": "Select the most appropriate synonym of the given word: PERFIDIOUS",
     "options": [
@@ -2072,8 +2069,6 @@ ssc_cgl_12_sep_s1 : [
     ],
     "correctAnswer": "2-1-3-4",
     "explanation": "The logical order is: **Introduction/Topic** (2) $\rightarrow$ **Definition** (1, using 'It') $\rightarrow$ **Classification** (3, using 'This') $\rightarrow$ **Conclusion/Next Step** (4, referring to 'The findings')."
-  }
+  },
 ],
-
-]
-};
+}
