@@ -749,6 +749,21 @@
         }
         /* Review Page Adjustments - END OF FIXES */
     }
+    .go-back-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #6c757d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    transition: 0.2s;
+}
+.go-back-btn:hover {
+    background: #5a6268;
+}
+
 </style>
 </head>
 <body>
@@ -860,7 +875,8 @@
             </aside>
         </div>
     </div> <div id="result-summary-page" class="result-container hidden"> 
-        <h1 class="result-heading">Test Result Summary</h1>
+        <a href="index.html" class="go-back-btn">⬅ Go Back to Tests</a>
+    <h1 class="result-heading">Test Result Summary</h1>
 
         <div class="results-header-nav">
             <a class="active">Overview</a>
