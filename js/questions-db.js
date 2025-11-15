@@ -1387,7 +1387,7 @@ ssc_cgl_13_sep_s1 : [
       "7:00 AM"
     ],
     "correctAnswer": "6:30 AM",
-    "explanation": "Relative Speed = $5 + 7 = 12$ km/h.\nTime for 1st meeting = $\\frac{1.2 \\text{ km}}{12 \\text{ km/h}} = 0.1$ hours.\nTime for 5th meeting = $5 \\times 0.1 = 0.5$ hours (30 minutes).\nMeeting time = 6:00 AM + 30 minutes = 6:30 AM."
+    "explanation": "Relative Speed = 5 + 7 = 12 km/h.\nTime for 1st meeting = $\\frac{1.2 \\text{ km}}{12 \\text{ km/h}} = 0.1$ hours.\nTime for 5th meeting = $5 \\times 0.1 = 0.5$ hours (30 minutes).\nMeeting time = 6:00 AM + 30 minutes = 6:30 AM."
   },
   {
     "question": "The area of a sector of a circle with radius 7 cm and central angle 90o circle is ?",
@@ -1445,7 +1445,7 @@ ssc_cgl_13_sep_s1 : [
     "explanation": "Using the co-function identity $\\sin(90^\\circ - x) = \\cos x$. The equation becomes $\\cos x = \\cos(2x)$.\nFor the equation to be true, $x = 2x$, which simplifies to $x = 0^\\circ$."
   },
   {
-    "question": "\<img src='../images/x.png' alt='Question 21' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/x.png' alt='Question 21' style='max-width: 100%; height: auto;'>",
     "options": [
       "1",
       "7",
@@ -1499,5 +1499,158 @@ ssc_cgl_13_sep_s1 : [
     "correctAnswer": "3/8",
     "explanation": "Use the identity $\\sin^2 A = 1 - \\cos^2 A$. Substitute into the equation:\n$(1 - \\cos^2 A) - \\cos^2 A = \\frac{1}{4}$\n$1 - 2\\cos^2 A = \\frac{1}{4}$\n$2\\cos^2 A = 1 - \\frac{1}{4} = \\frac{3}{4}$\n$\\cos^2 A = \\frac{3}{8}$"
   }
-]
+],
+ssc_cgl_13_sep_s2 : [
+  {
+    "question": "What is the value of 4+44+444+4444+44444?",
+    "options": ["49380", "42300", "41300", "45000"],
+    "correctAnswer": "49380",
+    "explanation": "4 + 44 + 444 + 4444 + 44444 = 49380."
+  },
+  {
+    "question": "<img src='../images/q52.png' alt='Question 03' style='max-width: 100%; height: auto;'>",
+    "options": ["2.25", "2.1", "2.35", "2.5"],
+    "correctAnswer": "2.25",
+    "explanation": "1 2/5 = 1.4, 1 3/4 = 1.75 → (1.4 + 2.6) - 1.75 = 4 - 1.75 = 2.25."
+  },
+  {
+    "question": "<img src='../images/q53.png' alt='Question 03' style='max-width: 100%; height: auto;'>",
+    "options": ["5", "3", "2", "0"],
+    "correctAnswer": "5",
+    "explanation": "The expression telescopes and simplifies to 5."
+  },
+  {
+    "question": "<img src='../images/q00.png' alt='Question 04' style='max-width: 100%; height: auto;'>",
+    "options": ["6:7", "7:5", "7:6", "5:7"],
+    "correctAnswer": "7:6",
+    "explanation": "Football = 25 + 45 = 70; Basketball = 25 + 35 = 60 → Ratio = 70:60 = 7:6."
+  },
+  {
+    "question": "Tina and Meera invested and changed capital after 6 months. What is their profit-sharing ratio after 1 year?",
+    "options": ["9:10", "5:6", "7:4", "2:3"],
+    "correctAnswer": "9:10",
+    "explanation": "Using time-weighted capital method, ratio = 9:10."
+  },
+  {
+    "question": "A invests ₹20,000 and B invests ₹30,000. A receives extra 20% for management and total profit is ₹60,000. What is A's share?",
+    "options": ["51,200", "41,200", "31,200", "21,200"],
+    "correctAnswer": "31,200",
+    "explanation": "Effective ratios give A’s share = ₹31,200."
+  },
+  {
+    "question": "A batsman's average is 44 for some innings. After scoring 132 next innings, average becomes 48. How many innings he played earlier?",
+    "options": ["21", "22", "23", "24"],
+    "correctAnswer": "21",
+    "explanation": "Let n be innings: (44n + 132)/(n+1) = 48 → n = 21."
+  },
+  {
+    "question": "The average of 13 numbers is 70. The average of the first five numbers is 60. The average of the next five numbers is 25% higher than the average of the first five numbers. The 11th number is 6 less than the 13th number, and the 12th number is 4 greater than the 13th number, What is the average of the 11th and 12th numbers?",
+    "options": ["78", "77", "76", "74"],
+    "correctAnswer": "78",
+    "explanation": "Using total sum constraints, average of 11th and 12th = 78."
+  },
+  {
+    "question": "In an election, 80% of eligible voters cast their votes. Of these votes, 5% were declared invalid. If a winning candidate received 11,400 votes, which accounted for 60% of the total valid votes, what was the total number of eligible voters enrolled in that election?",
+    "options": ["20,000", "22,500", "25,000", "27,500"],
+    "correctAnswer": "25,000",
+    "explanation": "Valid votes = 11400/0.60 = 19000; Total votes = 19000/0.95 = 20000; Eligible = 20000/0.80 = 25000."
+  },
+  {
+    "question": "The compound interest on a sum at 18 % p.a. for 1  1/2 years, compounded yearly, is ₹2 862. Find the principal. ",
+    "options": ["₹10,000", "₹8,000", "₹2,000", "₹4,000"],
+    "correctAnswer": "₹10,000",
+    "explanation": "CI = P[(1.18)^2 – 1] = 2862 → P = 10000."
+  },
+  {
+    "question": "If the compound interest on a certain sum at 16 2/3% per annum for 3 years is ₹1270, find the simple interest on the same sum at the same rate and for the same period.",
+    "options": ["₹1080", "₹1000", "₹1500", "₹2000"],
+    "correctAnswer": "₹1080",
+    "explanation": "From CI, principal found; SI = P × r × t = 1080."
+  },
+  {
+    "question": "A tea seller bought 15 kg of Darjeeling tea at [300 per kg and 25 kg of Assam tea at #240 per kg. He mixed them together. Due to a slight drop in market prices, he had to sell the entire mixture at 260 per kg. Calculate his total profit or loss.",
+    "options": ["Loss of ₹100", "Profit of ₹100", "Profit of ₹200"],
+    "correctAnswer": "Loss of ₹100",
+    "explanation": "Total CP = 300×15 + 240×25 = 10,500; SP = 260×40 = 10,400 → Loss = 100."
+  },
+  {
+    "question": "<img src='../images/q001.png' alt='Question 13' style='max-width: 100%; height: auto;'>",
+    "options": ["loss of 8.88%", "profit of 8.88%", "profit of 10.88%", "loss of 10.88%"],
+    "correctAnswer": "profit of 8.88%",
+    "explanation": "Using CP–SP ratios, total profit ≈ 8.88%."
+  },
+  {
+    "question": "A 75-liter mixture contains milk and water in the ratio 3:2. If 15 liters of this mixture are removed and replaced with 10 liters of puremilk, what is the new ratio of milk to water in the mixture ?",
+    "options": ["11:7", "23:12", "17:11", "19:12"],
+    "correctAnswer": "23:12",
+    "explanation": "Final milk = 45.5; water = 23.5 → ratio 23:12 approx."
+  },
+  {
+    "question": "A wholesaler buys a batch of ceiling fans at a 50% markup over the factory's base cost ₹c. He then allows a 20% trade discount to the retailer. The retailer applies a 40% markup on his cost and offers a flat 10% discount to customers on the printed price. If a customer finally pays ₹18,144, what is the original base cost ₹C of one ceiling fan from the factory?",
+    "options": ["₹12,000", "11,500", "₹10,800", "10,000"],
+    "correctAnswer": "₹12,000",
+    "explanation": "Reverse calculation gives base cost = 12,000."
+  },
+  {
+    "question": "A can lay railway track between two specified stations in 16 days, while B can complete the same task in 12 days. When C assists them, they manage to finish the job in just 4 days. How long would it take for C to complete the job on their own?",
+    "options": ["8 days", "9 days", "9 3/5 days", "10 days"],
+    "correctAnswer": "9 3/5 days",
+    "explanation": "C's rate = 1/4 − (1/16 + 1/12) = 5/48 → time = 48/5 = 9.6 days."
+  },
+  {
+    "question": "Three rice varieties costing ₹40/kg and ₹50/kg, mixed in ratio 2:3:5. If the resulting Mixture sold at ₹55 with 10% profit. Find third variety price.",
+    "options": ["₹52.50", "57.50", "₹54.00", "₹62.50"],
+    "correctAnswer": "54.00",
+    "explanation": "Mixture CP = 55/1.10 = 50. Weighted average → third price = 54.00."
+  },
+  {
+    "question": "A can build up a wall in 8 days while B can break it in 3 days. A has worked for 4 days and then B joined to work with A for another 2days only. In how many days will A alone build up the remaining part of the wall?",
+    "options": ["7 1/3 days", "8 2/5 days", "9 1/5 days", "5 1/2 days"],
+    "correctAnswer": "7 1/3 days",
+    "explanation": "Remaining work after interactions → A needs 25/3 days = 8⅓."
+  },
+  {
+    "question": "An airplane travels a specific distance at a speed of 240 km/h over the course of 5hours. To cover the same distance in just 1 hour, it needs to fly at a speed of: ",
+    "options": ["1200 km/h", "1500 km/h", "1400 km/h", "1600 km/h"],
+    "correctAnswer": "1200 km/h",
+    "explanation": "Distance = 240×5 = 1200 km → required speed = 1200 km/h."
+  },
+  {
+    "question": "A person travels from city A to city B. If he travels at a speed of 50 km/h, he arrives 1 hour early. If he travels at a speed of 30 km/h,he arrives 1 hour late. What is the distance (in km) between city A and city B?" ,
+    "options": ["150 km", "120 km", "200 km", "180 km"],
+    "correctAnswer": "150 km",
+    "explanation": "Distance = speed × time → solving gives 150 km."
+  },
+  {
+    "question": "A ring-shaped metallic sheet has outer and inner radii 10 cm and 6 cm. What percentage of the full circle’s area is the ring? ",
+    "options": ["36%", "48%", "64%", "76%"],
+    "correctAnswer": "64%",
+    "explanation": "Area ratio = (10² − 6²)/10² = 64/100 = 64%."
+  },
+  {
+    "question": "A circular pond is surrounded by a path 2 m wide. If the total area (pond + path) is 616 m® and the pond area is 452.16 m?, what is the radius of the pond?",
+    "options": ["10 m", "11 m", "12 m", "13 m"],
+    "correctAnswer": "12 m",
+    "explanation": "πr² = 452.16 → r = 12 m."
+  },
+  {
+    "question": "The ratio of the circumferences of two circular flower beds is 3:5. If the smaller flower bed has a radius of 9 m, what is the radius of the larger flower bed?",
+    "options": ["15 m", "17 m", "19 m", "21 m"],
+    "correctAnswer": "15 m",
+    "explanation": "Radii proportional to circumference → 9 × (5/3) = 15."
+  },
+  {
+    "question": "Equation of line through (0,3) with slope –1?",
+    "options": ["y = -x + 3", "y = x - 3", "y = -x - 3", "y = x + 3"],
+    "correctAnswer": "y = -x + 3",
+    "explanation": "Using y = mx + c where c = 3, m = -1."
+  },
+  {
+    "question": "<img src='../images/q77.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
+    "options": ["25", "24", "26", "23"],
+    "correctAnswer": "23",
+    "explanation": "(x + 1/x)² = x² + 1/x² + 2 = 25 → x² + 1/x² = 23."
+  }
+],
+
 };
