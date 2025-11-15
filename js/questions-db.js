@@ -1884,7 +1884,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The context implies the infrastructure was almost unable to handle the pace. **Barely** means 'only just; almost not'."
   },
   {
-    "question": "Select the correct option: Rare though the phenomenon is, it can occur ☐ prolonged drought conditions.",
+    "question": "Select the correct option: Rare though the phenomenon is, it can occur __ prolonged drought conditions.",
     "options": [
       "towards",
       "amid",
@@ -1895,7 +1895,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "**Under** is the correct preposition to indicate a circumstance, state, or condition (e.g., 'under stress', 'under investigation')."
   },
   {
-    "question": "Select the correct option: While the proposal appeared pragmatic on paper, its implementation proved ☐ complicated than expected.",
+    "question": "Select the correct option: While the proposal appeared pragmatic on paper, its implementation proved __ complicated than expected.",
     "options": [
       "less",
       "more",
@@ -1950,7 +1950,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The passive voice sentence is in the **Past Continuous** tense (was being suggested). The corresponding active voice must also be in the Past Continuous tense: 'Multiple sources **were suggesting**...'"
   },
   {
-    "question": "According to the passage, how is wisdom primarily acquired?",
+    "question": "While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenientAccording to the passage, how is wisdom primarily acquired?",
     "options": [
       "Through textbooks",
       "Through emotional detachment",
