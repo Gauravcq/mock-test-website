@@ -1806,7 +1806,7 @@ ssc_cgl_13_sep_s3 : [
   }
 ],
 
-ssc_cgl_13_sep_s1 : [
+ssc_cgl_12_sep_s1 : [
 
 [
   {
