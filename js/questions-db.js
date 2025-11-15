@@ -1818,7 +1818,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The word **Perfidy** means 'the state of being faithless or disloyal,' so its most appropriate synonym is **Treacherous** (betraying trust)."
   },
   {
-    "question": "Choose the correct meaning of idiom: Hobson's choice",
+    "question": "Choose the correct meaning of idiom: Habson's choice",
     "options": [
       "A dilemma between two evils",
       "A free and fair decision",
@@ -1924,7 +1924,7 @@ ssc_cgl_eng_12_sep_s1 : [
       "(3)",
       "(4)"
     ],
-    "correctAnswer": "(1)",
+    "correctAnswer": "(2)",
     "explanation": "The correlative conjunction pair 'not... but' requires parallel structure. The correction is needed to parallel the 'but that' clause in (2). Option (1) should likely be '**not that** it proposes a realignment...' or changed entirely to match the noun phrase 'fiscal powers per se' with the rest of the sentence."
   },
   {
@@ -1939,6 +1939,17 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The active voice is in the **Present Perfect Continuous** tense (have been neglecting). The passive structure is **has/have been being + Past Participle** (neglected)."
   },
   {
+  "question": "Select the sentence containing the homonym of the highlighted word: The choir began the <strong>introit</strong> at the priest's signal.",
+  "options": [
+    "The child sang the introit during the intermission.",
+    "The introit was replaced by an organ improvisation.",
+    "The missal included Latin text for the introit.",
+    "The cantor rehearsed the Sunday introit."
+  ],
+  "correctAnswer": "The child sang the introit during the intermission.",
+  "explanation": "The term 'introit' refers to the entrance chant or music for a Mass or religious service. A 'homonym' is a word spelled and pronounced the same but with a different meaning. Since all options use the same word, the question is flawed. However, the option mentioning **'intermission'** (a break in a secular performance) is the only one using the term in a context typically outside of its primary liturgical meaning, making it the most likely intended 'different' usage or 'odd-one-out' answer in a competitive examination setting. The other options refer to 'organ improvisation,' 'missal,' and 'cantor,' all strictly related to church service."
+},
+  {
     "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: It was being suggested by multiple sources that the operation had been compromised internally.",
     "options": [
       "Multiple sources suggested the operation was compromised internally.",
@@ -1946,12 +1957,12 @@ ssc_cgl_eng_12_sep_s1 : [
       "The sources were suggesting an operation compromise.",
       "The operation had compromised multiple internal sources."
     ],
-    "correctAnswer": "The sources were suggesting an operation compromise.",
+    "correctAnswer": "Multiple sources suggested the operation was compromised internally.",
     "explanation": "The passive voice sentence is in the **Past Continuous** tense (was being suggested). The corresponding active voice must also be in the Past Continuous tense: 'Multiple sources **were suggesting**...'"
   },
   {
-    "question": "While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenientAccording to the passage, how is wisdom primarily acquired?",
-    "options": [
+    "question": "<b>Read the following passage and answer the questions based on the passage:</b>    <br>While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenient     According to the passage, <br><b>Q How is wisdom primarily acquired?",
+   "options": [
       "Through textbooks",
       "Through emotional detachment",
       "Through experience and reflection",
@@ -1961,7 +1972,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The passage explicitly states that wisdom is 'earned through trial, failure, **reflection**, and a nuanced understanding of human nature.'"
   },
   {
-    "question": "What does the author mean by \"wisdom enriches the soul\"?",
+    "question": "<b>Read the following passage and answer the questions based on the passage:</b>    <br>While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenient     According to the passage, <br><b>Q  What does the author mean by wisdom enriches the soul",
     "options": [
       "It enhances academic success",
       "It fosters deeper moral insight",
@@ -1972,7 +1983,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The passage contrasts education equipping the 'mind' with wisdom enriching the 'soul,' stating that wisdom 'manifests in humility, **ethical consistency**' and 'in consistently choosing to do' what is right."
   },
   {
-    "question": "Who, according to the author, can be wise despite lacking formal education?",
+    "question": "<b>Read the following passage and answer the questions based on the passage:</b>    <br>While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenient     According to the passage, <br><b>Q Who, according to the author, can be wise despite lacking formal education?",
     "options": [
       "Scientists",
       "School children",
@@ -1983,7 +1994,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The passage states: 'Conversely, many wise individuals-farmers, **artisans, elders**-may not possess formal education...'"
   },
   {
-    "question": "What is the central contrast drawn in the passage?",
+    "question": "<b>Read the following passage and answer the questions based on the passage:</b>    <br>While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenient     According to the passage, <br><b>Q What is the central contrast drawn in the passage?",
     "options": [
       "Education vs. career",
       "Intelligence vs. memory",
@@ -1994,7 +2005,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The entire passage discusses the fundamental divergence between **Education** (formal acquisition) and **wisdom** (judicious application/lived realities)."
   },
   {
-    "question": "According to the author, why has the gap between education and wisdom widened in recent times?",
+    "question": "<b>Read the following passage and answer the questions based on the passage:</b>    <br>While education and wisdom are often conflated in colloquial discourse, a discerning mind perceives a fundamental divergence between the two. Education is the formal acquisition of knowledge, often measured through degrees, academic accolades, and proficiency in structured disciplines. It is delivered through systematic curricula, institutionalized assessment, and theoretical frameworks. However, wisdom transcends this rigidity; it is the judicious application of knowledge to real-life contexts, enriched by experience, introspection, and emotional intelligence. An individual may be extensively educated yet remain bereft of wisdom if they lack the discernment to apply their learning ethically and effectively. Conversely, many wise individuals—farmers, artisans, elders— may not possess formal education, but their decisions exhibit prudence and sagacity cultivated through lived realities. Thus, education equips the mind, but wisdom enriches the soul. In an era dominated by information overload and algorithmic thinking, the schism between the two has widened. Educational institutions often prioritize rote memorization and standardized testing over critical thinking and moral reasoning. Consequently, society produces individuals proficient in problem-solving but deficient in decisionmaking that requires empathy, patience, or foresight. Wisdom, being innately human, cannot be downloaded or fast-tracked; it is earned through trial, failure, reflection, and a nuanced understanding of human nature. Furthermore, while education is temporally bounded—ending with formal schooling or academic milestones—wisdom is a lifelong pursuit. It does not boast certificates but manifests in humility, ethical consistency, and the ability to navigate ambiguity with grace. Ultimately, the highest form of intelligence lies not merely in knowing what is right, but in consistently choosing to do it, especially when it is inconvenient     According to the passage, <br><b>Q According to the author, why has the gap between education and wisdom widened in recent times?",
     "options": [
       "Because wisdom is no longer valued",
       "Because rote learning and standardized testing are prioritized over critical thinking and moral reasoning",
@@ -2020,10 +2031,10 @@ ssc_cgl_eng_12_sep_s1 : [
     "options": [
       "avoiding sweets and doing regularly exercise",
       "to avoid sweets and exercise regularly",
-      "avoid eating sweets and to exercise regularly",
+      "to avoid eating sweets and to exercise regularly",
       "to not eat sweets and to exercise"
     ],
-    "correctAnswer": "to avoid sweets and exercise regularly",
+    "correctAnswer": "to avoid eating sweets and to exercise regularly",
     "explanation": "The phrase requires parallel structure: the advice is 'to avoid [noun phrase]' and '[verb/noun] regularly.' This option corrects the awkward mix of gerunds and infinitives while making 'exercise' a noun, maintaining parallelism with 'sweets'."
   },
   {
@@ -2034,7 +2045,7 @@ ssc_cgl_eng_12_sep_s1 : [
       "He asked me whether I have done my homework.",
       "He asked me whether I had done my homework."
     ],
-    "correctAnswer": "He asked me whether I had done my homework.",
+    "correctAnswer": "He asked me if I had done my homework.",
     "explanation": "The reporting verb is past (**asked**). Direct speech Present Perfect (**Have done**) changes to Indirect speech Past Perfect (**had done**). The question also requires 'if' or 'whether'."
   },
   {
