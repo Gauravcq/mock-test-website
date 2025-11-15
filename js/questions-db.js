@@ -1657,7 +1657,7 @@ ssc_cgl_13_sep_s3 : [
     "question": "If B is 25% more than A, and C is 20% more than B, then what is A: C?",
     "options": ["3:2", "2:3", "5:4", "4:5"],
     "correctAnswer": "2:3",
-    "explanation": "Let A = 100 → B = 125 → C = 150 → ratio A:C = 100:150 = 2:3. The equivalent option is 3:4."
+    "explanation": "Let A = 100 → B = 125 → C = 150 → ratio A:C = 100:150 = 2:3"
   },
   {
     "question": "A machine fills 0.375 liters of water every second. How much does it fill in 8 seconds?",
