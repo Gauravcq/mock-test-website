@@ -174,7 +174,23 @@
             cursor: pointer;
             text-decoration: none; /* Make it look like a link */
         }
+/* --- TOP NAV BAR (Modified CSS) --- */
+.top-nav {
+    background-color: var(--light-card-bg);
+    border-bottom: 1px solid var(--light-border);
+    padding: 15px 30px;
+    display: flex; /* Keeps elements side-by-side */
+    /* This will push the logo to the left and the theme toggle to the right */
+    justify-content: space-between; 
+    align-items: center; /* Vertically centers items */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
 
+/* No changes needed for .theme-switch-wrapper unless you want to offset it */
+/* The current CSS correctly places the toggle and sun/moon icons in line. */
         .test-card:hover .attempt-btn { transform: scale(1.02); box-shadow: 0 6px 20px rgba(74, 0, 224, 0.6); }
         
         @media (min-width: 768px) { .header-title-section h1 { font-size: 2.8rem; } .tab { padding: 15px 25px; font-size: 1.1rem; } }
@@ -184,15 +200,15 @@
     <nav class="top-nav">
         <a href="#" class="brand-logo">MOCK-AXIS</a>
 
-        <div class="theme-switch-wrapper">
-            <span>☀️</span>
-            <label class="theme-switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label>
-            <span>🌙</span>
-        </div>
-        
-        <div style="width: 50px; visibility: hidden;"></div> 
+        <nav class="top-nav">
+    <a href="#" class="brand-logo">MOCK-AXIS</a>
 
-    </nav>
+    <div class="theme-switch-wrapper">
+        <span>☀️</span>
+        <label class="theme-switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label>
+        <span>🌙</span>
+    </div>
+</nav>
 
     <div class="main-container">
         <div class="header-container">
