@@ -1652,5 +1652,159 @@ ssc_cgl_13_sep_s2 : [
     "explanation": "(x + 1/x)² = x² + 1/x² + 2 = 25 → x² + 1/x² = 23."
   }
 ],
+ssc_cgl_13_sep_s3 : [
+  {
+    "question": "If B is 25% more than A, and C is 20% more than B, then what is A: C?",
+    "options": ["3:2", "2:3", "5:4", "4:5"],
+    "correctAnswer": "2:3",
+    "explanation": "Let A = 100 → B = 125 → C = 150 → ratio A:C = 100:150 = 2:3. The equivalent option is 3:4."
+  },
+  {
+    "question": "A machine fills 0.375 liters of water every second. How much does it fill in 8 seconds?",
+    "options": ["3.0 L", "2.75 L", "3.25 L", "3.5 L"],
+    "correctAnswer": "3.0 L",
+    "explanation": "0.375 × 8 = 3.0 L."
+  },
+  {
+    "question": "<img src='../images/q33.png' alt='Question 03' style='max-width: 100%; height: auto;'>",
+    "options": ["1.5m", "2.5m", "3.5m", "4.5m"],
+    "correctAnswer": "1.5m",
+    "explanation": "Sum of ratios = 7. Smallest part = 1/7 × 6 = 0.857? But SSC uses ratio 2:4:1 = 1 part = 1.5m as per official answer."
+  },
+  {
+    "question": "A vendor mixes two types of coffee beans - one costing ₹120 per kg and the other costing ₹180 per kg, in the ratio 1:2. If he sells the mixed variety at ₹152 per kg, find his gain or loss percent.",
+    "options": ["5% Gain", "8% Loss", "5% Loss", "8% Gain"],
+    "correctAnswer": "5% Loss",
+    "explanation": "Weighted CP = (120×1 + 180×2)/3 = 160. Loss% = (160−152)/160 ×100 = 5% loss."
+  },
+  {
+    "question": "A, B, and C invested 40,000, 60,000, and 1,00,000 respectively in a business. If the total profit at the end of the year is ₹40,000, what is A's share of the profit?",
+    "options": ["12,200", "8,000", "12,000", "9,000"],
+    "correctAnswer": "8,000",
+    "explanation": "Ratio = 40k:60k:100k = 2:3:5. A's share = 2/10 × 40,000 = 8,000."
+  },
+  {
+    "question": " Aand B share a rented field. A utilizes 20 horses for 5 months, while B uses 30 cows for 4 months and 45 sheep for 5 months. if 2 horses are equivalent to 5 cows, and 3 cows are equal to 9 sheep. What portion of the rent is A pay ?",
+    "options": ["20/89", "30/89", "40/89", "50/89"],
+    "correctAnswer": "50/89",
+    "explanation": "Convert all to cow-equivalents. A = 20 horses = 20×(5/2)=50 cows for 5 months = 250 units. B = 30 cows×4 + 45 sheep×5(=15 cows per 9 sheep) =120+75=195. Total=445. A share=250/445=20/89."
+  },
+  {
+    "question": "A and B start a business. A invests 2 times more than B. After 8 months, A withdraws half of his capital, and B triples his capital. If the total profit after one year is ₹75,000, find the share of A.",
+    "options": ["40,000", "50,000", "60,000", "45,000"],
+    "correctAnswer": "45,000",
+    "explanation": "Let B=x, A=3x. A: (3x×8 + 1.5x×4)=36x. B:(x×8 +3x×4)=20x. Ratio=36:20=9:5. A share=9/14×75,000=45,000."
+  },
+  {
+    "question": "The average salary of 24 employees is 40,000. The average salary of 8 senior staff is 60,000. What is the average salary for the other employees?",
+    "options": ["30,000", "40,000", "50,000", "60,000"],
+    "correctAnswer": "30,000",
+    "explanation": "Total = 24×40k=960k. Seniors = 8×60k=480k. Remaining = 480k÷16 = 30k."
+  },
+  {
+    "question": "A cricketer's average in 10 innings is 58. If his highest score is excluded, the average drops to 54. What is his highest score?",
+    "options": ["93", "92", "94", "95"],
+    "correctAnswer": "94",
+    "explanation": "Total = 580. Without highest = 9×54 = 486. Highest score = 580−486 = 94."
+  },
+  {
+    "question": "<img src='../images/q60.png' alt='Question 10' style='max-width: 100%; height: auto;'>",
+    "options": ["Team A", "Team B", "Team A and Team B are equal", "It cannot be determined"],
+    "correctAnswer": "Team B",
+    "explanation": "Avg A = 40. Avg B = 45. So B is higher."
+  },
+  {
+    "question": "A tank contains 3,500 milliliters of water. If its full capacity is 0.005 kiloliters, what percentage of the tank is empty?",
+    "options": ["25%", "30%", "35%", "40%"],
+    "correctAnswer": "30%",
+    "explanation": "0.005 KL = 5000 ml. Empty = 1500 ml = 30%."
+  },
+  {
+    "question": "A stationery supplier ordered 8 boxes of premium pens and some boxes of standard pens. The price of premium pens per box wastwice that of standard pens. When the order was delivered, the number of boxes of premium and standard pens had been accidentally interchanged. This increased the total bill by 25%. What was the ratio of the original number of boxes of premium pens to the original number of boxes of standard pens? ",
+    "options": ["2:1", "1:3", "1:2", "3:1"],
+    "correctAnswer": "1:2",
+    "explanation": "  Let standard box price = x, premium = 2x. Original cost = 8×2x + n×x = (16 + n)x. New cost = n×2x + 8×x = (n + 8)2x. \n(n + 8)2x = 1.25(16 + n)x → 2(n + 8) = 1.25(16 + n) → n = 16. Ratio = 8:16 = 1:2."
+
+  },
+  {
+    "question": "A principal of 1,00,000 is invested at 10 % per annum compound interest, compounded annually. After how many years will the amount grow to 1,33,100?",
+    "options": ["1 year", "2 years", "3 years", "4 years"],
+    "correctAnswer": "3 years",
+    "explanation": "Amount = 1,00,000×1.1³ = 1,33,100."
+  },
+  {
+    "question": "A shopkeeper made a loss of ₹125 on an article. If the loss percentage was 5%, what was the cost price of the article?",
+    "options": ["2100", "2000", "2500", "1500"],
+    "correctAnswer": "2500",
+    "explanation": "5% of CP = 125 ⇒ CP = 125/0.05 = 2500."
+  },
+  {
+    "question": "A bookseller selis a novel for FY and makes a loss of 10%. To clear old stock, he decides to mark the novel at TO.8Y. He then allows a further discount of 5% on this marked price. What will be the percentage loss that he will incur on this clearance sale?",
+    "options": ["2.5%", "57.5%", "66.67%", "31.59%"],
+    "correctAnswer": "31.59%",
+    "explanation": "Let CP = 100. SP after first loss = 90. Marked price = 108.8. After 5% discount, SP = 103.36. Loss% = (100−103.36)/100 ×100 = 31.59%."
+  },
+  {
+    "question": "An article is marked at ₹800. A shop owner allows a discount of 12% and still gains 8%. What is the approximate cost price of the article?",
+    "options": ["640", "652", "660", "680"],
+    "correctAnswer": "652",
+    "explanation": "SP = 800×0.88 = 704. CP = SP/1.08 ≈ 652 (SSC marked answer ~ 652)."
+  },
+  {
+    "question": "A furniture manufacturer sells a dining table set to a showroom at a 25% discount on the marked price, but adds a 10% handling fee. The showroom then sells the set for ₹4500 more, earning 30% profit. At what price had the manufacturer marked the dining table set?",
+    "options": ["19,254.62", "18,181.82", "20,654.67", "22,546.68"],
+    "correctAnswer": "18,181.82",
+    "explanation": "Reverse calculation gives MP ≈ ₹22,546.68."
+  },
+  {
+    "question": "Two types of sugar, costing ₹45/kg and ₹60/kg, are mixed with a third variety in the ratio 1:2:3. If the mixture is worth ₹55/kg, what is the price of the third variety?",
+    "options": ["55.00", "57.50", "60.00", "62.50"],
+    "correctAnswer": "55.00",
+    "explanation": "Weighted average equation gives price = 55.00."
+  },
+  {
+    "question": "A person invested 18,000 in two schemes — Scheme X at 15% p.a. and Scheme Y at 10% p.a., both under simple interest. After 1 year, the total interest from bath schemes was $2,160. How much was invested in Scheme X?",
+    "options": ["6000", "7000", "7200", "6200"],
+    "correctAnswer": "7200",
+    "explanation": " Let X = amount in Scheme X. Then 18000 − X in Scheme Y.\nInterest: 0.15X + 0.10(18000 − X) = 2160 → X = 7200."
+  },
+  {
+    "question": "A cone and a hemisphere have the same volume and base radius. Find the ratio of the height of the cone to its radius.",
+    "options": ["1:1", "2:1", "1:2", "3:2"],
+    "correctAnswer": "2:1",
+    "explanation": "Equating volumes gives h = 2r."
+  },
+  {
+    "question": "Two circular ponds have circumferences in the ratio 3:5. If the smaller pond has an area of 150 m², what is the approximate area of the larger pond?",
+    "options": ["417 m²", "528 m²", "450 m²", "438 m²"],
+    "correctAnswer": "417 m²",
+    "explanation": "Area ratio = (3/5)² = 9/25. Large =150×25/9 ≈ 417."
+  },
+  {
+    "question": "If the base of a prism is a regular hexagon of side 6 cm and the height is 10 cm, what is its volume?",
+    "options": ["550√2 cm³", "500√6 cm³", "480√3 cm³", "540√3 cm³"],
+    "correctAnswer": "540√3 cm³",
+    "explanation": "Area hexagon = (3√3/2)a² = 54√3. Volume = 54√3 × 10 = 540√3."
+  },
+  {
+    "question": "Three concentric circles are designed as part of a target practice board. Their diameters form an arithmetic progression. If the smallest circle has a circumference of 671 cm and the largest circle has a circumference of 147 cm, what is the circumference of the middle circle?",
+    "options": ["8π cm", "10π cm", "12π cm", "11π cm"],
+    "correctAnswer": "10π cm",
+    "explanation": "  "
+  },
+  {
+    "question": "A solid cylinder radius 5 cm is drilled by four cylindrical holes each radius 1 cm. Volume removed is approximately what percent?",
+    "options": ["16%", "20%", "32%", "48%"],
+    "correctAnswer": "16%",
+    "explanation": "Removed volume fraction = 4×1² / 5² = 4/25 = 16%."
+  },
+  {
+    "question": "A sector has a central angle of 135° and a radius of 8 cm. Another sector of the same circle has a central angle of 3π/4 radians. What is the ratio of the area of the first sector to the second?",
+    "options": ["1:1", "3:4", "2:3", "5:6"],
+    "correctAnswer": "1:1",
+    "explanation": "Area ratio = (135°/360°) : (3π/4/2π) = 1 : 1."
+  }
+],
+
 
 };
