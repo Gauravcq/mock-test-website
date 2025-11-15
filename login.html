@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:Inter,Arial;background:#f5f7fb;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+    .card{width:360px;background:#fff;padding:22px;border-radius:12px;box-shadow:0 8px 30px rgba(20,20,50,.06)}
+    h2{color:#6a0eff;margin:0 0 14px;font-size:20px;text-align:center}
+    input{width:100%;padding:10px 12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:15px}
+    .btn{width:100%;padding:12px;background:#6a0eff;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:12px}
+    .link{display:block;text-align:center;margin-top:10px;color:#6a0eff;text-decoration:none}
+    .small{font-size:13px;color:#666;margin-top:8px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome back</h2>
+
+    <input id="email" placeholder="Email" type="email" />
+    <input id="password" placeholder="Password" type="password" />
+
+    <button class="btn" id="loginBtn">Login</button>
+
+    <a class="link" href="signup.html">Create an account</a>
+    <p class="small">Local-only auth for demo. No server involved.</p>
+  </div>
+
+<script>
+document.getElementById('loginBtn').addEventListener('click', () => {
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) {
+    alert('Please enter email and password.');
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem('mock-users') || '[]');
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    alert('Invalid email or password.');
+    return;
+  }
+
+  // set current user session
+  localStorage.setItem('mock-current-user', JSON.stringify(user));
+  localStorage.setItem('isLoggedIn', 'true');
+
+  window.location.href = 'index.html';
+});
+</script>
+</body>
+</html>

@@ -539,6 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } 
             }); 
         }
+ 
+
 
         // --- UPDATED saveCurrentAnswer LOGIC ---
         function saveCurrentAnswer() { 
