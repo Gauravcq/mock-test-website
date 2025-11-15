@@ -30,14 +30,28 @@
   </div>
 
 <script>
-document.getElementById('signupBtn').addEventListener('click', () => {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim().toLowerCase();
-  const mobile = document.getElementById('mobile').value.trim();
-  const password = document.getElementById('password').value;
-  // Password strong check
-const pass = password;
-const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+document.getElementById("signupBtn").addEventListener("click", async () => {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
+        const user = userCredential.user;
+
+        // Save profile name
+        await user.updateProfile({ displayName: name });
+
+        // Email verification
+        await user.sendEmailVerification();
+
+        alert("Signup successful! Verify your email before login.");
+        window.location.href = "login.html";
+    } catch (error) {
+        alert(error.message);
+    }
+});
+
 
 if (!strongRegex.test(pass)) {
     alert(
@@ -92,7 +106,24 @@ if (mobile && users.some(u => u.mobile === mobile)) {
 
   alert('Account created & logged in!');
   window.location.href = 'index.html';
-});
+
 </script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyClbSEJiunP7-emnxL4u4yfP6oP_3zEoZQ",
+  authDomain: "mock-test-app-2c7b2.firebaseapp.com",
+  projectId: "mock-test-app-2c7b2",
+  storageBucket: "mock-test-app-2c7b2.firebasestorage.app",
+  messagingSenderId: "123089913570",
+  appId: "1:123089913570:web:aac2a335973d67049280bb",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+
 </body>
 </html>
