@@ -1,8 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSC CGL Mock Test</title>
@@ -44,9 +42,6 @@
         padding: 0;
         background-color: var(--bg-page);
         color: var(--text-main);
-        /* * FIX: Removed height: 100vh; overflow: hidden;
-        * to allow the main layout to scroll naturally, especially on mobile.
-        */
         min-height: 100vh;
         overflow-y: auto; 
     }
@@ -87,7 +82,6 @@
     .main-content-wrapper {
         display: flex;
         flex-grow: 1;
-        /* FIX: Use flex-grow instead of calc height for vertical space management */
         min-height: 0; 
     }
 
@@ -144,7 +138,7 @@
     .btn.secondary:hover { background-color: #5a6268; }
     .btn.tertiary { background-color: #f44336; color: white; border: none; }
 
-    /* --- NEW: Submit Button Wrapper (Hidden on Desktop) --- */
+    /* NEW: Submit Button Wrapper (Hidden on Desktop) */
     .submit-btn-wrapper {
         display: none; /* Hidden on desktop by default */
     }
@@ -319,13 +313,11 @@
         display: flex;
         border-bottom: 2px solid var(--border-light);
         margin-bottom: 30px;
-        /* --- START OF MOBILE FIX --- */
         overflow-x: auto; /* Allow horizontal scroll for tabs */
         flex-wrap: nowrap;
         white-space: nowrap;
         padding-bottom: 5px;
         justify-content: flex-start;
-        /* --- END OF MOBILE FIX --- */
     }
     .results-header-nav button, .results-header-nav a { 
         background: none;
@@ -613,7 +605,6 @@
         .question-area-main {
             border-right: none;
             border-bottom: 1px solid var(--border-light);
-            /* FIX: Question content area goes first */
             order: 1; 
         }
         .question-content {
@@ -624,7 +615,6 @@
         /* Palette/Sidebar */
         .right-sidebar {
             width: 100%; /* Full width */
-            /* FIX: Palette goes second (to the bottom) */
             order: 2; 
             padding: 15px 20px;
             height: auto;
@@ -876,7 +866,9 @@
                 </div>
             </aside>
         </div>
-    </div> <div id="result-summary-page" class="result-container hidden"> 
+    </div> 
+    
+    <div id="result-summary-page" class="result-container hidden"> 
         <a href="index.html" class="go-back-btn">⬅ Go Back to Tests</a>
     <h1 class="result-heading">Test Result Summary</h1>
 
@@ -897,7 +889,9 @@
             <div id="stats-cards-area"></div>
             
         </div>
-    </div> <div id="review-page" class="review-container hidden">
+    </div> 
+    
+    <div id="review-page" class="review-container hidden">
         
         <h1 class="result-heading">Question Review</h1>
 
@@ -913,20 +907,20 @@
         <div class="review-main-content">
             
             <div class="review-question-area-wrapper">
-                           <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
-                           <div id="review-question-area">
-                               </div>
-                           <footer class="review-footer">
-                               <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                               <button id="review-next-btn" class="btn primary">Next Question</button>
-                           </footer>
+                   <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
+                   <div id="review-question-area">
+                           </div>
+                   <footer class="review-footer">
+                       <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                       <button id="review-next-btn" class="btn primary">Next Question</button>
+                   </footer>
             </div>
             
             <aside class="review-sidebar">
                 <div class="review-palette-container">
                     <h3 style="margin-top:0;">Question Palette</h3>
                     <div id="review-palette" class="question-palette">
-                               </div>
+                           </div>
                 </div>
             </aside>
             
@@ -936,22 +930,5 @@
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
-
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyClbSEJiunP7-emnxL4u4yfP6oP_3zEoZQ",
-  authDomain: "mock-test-app-2c7b2.firebaseapp.com",
-  projectId: "mock-test-app-2c7b2",
-  storageBucket: "mock-test-app-2c7b2.firebasestorage.app",
-  messagingSenderId: "123089913570",
-  appId: "1:123089913570:web:aac2a335973d67049280bb",
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-</script>
-
 </body>
 </html>

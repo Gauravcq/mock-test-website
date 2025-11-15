@@ -99,31 +99,31 @@
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 20px; 
-            transition: opacity 0.2s ease-in-out; /* Added for tab switching fade */
+            transition: opacity 0.2s ease-in-out; 
         }
         .help-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 55px;
-    height: 55px;
-    background: #6a0eff;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    cursor: pointer;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
-    transition: 0.25s;
-    z-index: 999;
-}
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background: #6a0eff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+            transition: 0.25s;
+            z-index: 999;
+        }
 
-.help-btn:hover {
-    transform: scale(1.08);
-    background: #5800dd;
-}
+        .help-btn:hover {
+            transform: scale(1.08);
+            background: #5800dd;
+        }
 
         .test-card { 
             position: relative; 
@@ -170,57 +170,10 @@
             box-shadow: 0 4px 15px rgba(74, 0, 224, 0.4); 
             width: 100%; 
             max-width: 250px; 
-            border: none; /* Crucial: ensures it looks like a button */
+            border: none; 
             cursor: pointer;
+            text-decoration: none; /* Make it look like a link */
         }
-       .profile-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.profile-trigger {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.profile-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
-
-.profile-menu {
-    position: absolute;
-    right: 0;
-    top: 45px;
-    background: white;
-    width: 180px;
-    padding: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    display: none;         /* IMPORTANT */
-    z-index: 99999;        /* IMPORTANT */
-}
-
-.profile-menu a {
-    padding: 12px 15px;
-    display: block;
-    text-decoration: none;
-    color: #333;
-}
-
-.profile-menu a:hover {
-    background: #f0f0f0;
-}
-
-.logout {
-    color: red !important;
-}
-
-
-
 
         .test-card:hover .attempt-btn { transform: scale(1.02); box-shadow: 0 6px 20px rgba(74, 0, 224, 0.6); }
         
@@ -231,29 +184,13 @@
     <nav class="top-nav">
         <a href="#" class="brand-logo">MOCK-AXIS</a>
 
-
         <div class="theme-switch-wrapper">
             <span>☀️</span>
             <label class="theme-switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label>
             <span>🌙</span>
         </div>
-        <div class="profile-dropdown">
-    <div class="profile-trigger" id="profileTrigger">
-        <img src="avatar.png" class="profile-avatar">
-        <span id="profileName">Loading...</span>
-    </div>
-
-    <div class="profile-menu" id="profileMenu">
-        <a href="my-profile.html">My Profile</a>
-        <a href="#">My Tests</a>
-        <a href="#">Statistics</a>
-        <a href="#">Settings</a>
         
-        <a href="#" class="logout">Logout</a>
-    </div>
-</div>
-
-</div>
+        <div style="width: 50px; visibility: hidden;"></div> 
 
     </nav>
 
@@ -295,28 +232,22 @@
             applyTheme(savedTheme);
 
             // --- TEST DISPLAY LOGIC ---
+            // Check if the external data file (tests-list.js) is loaded
             if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
                 mainTitle.innerHTML = `Tests are currently **Unavailable**`;
                 gridContainer.innerHTML = '<p style="text-align:center; padding: 40px; color: #dc3545; font-size: 1.2rem; font-weight: 600;">\n\nERROR: The file **js/tests-list.js** is missing, empty, or has syntax errors.\n\n</p>';
                 return;
             }
-            document.querySelector(".profile-trigger").onclick = () => {
-    document.querySelector(".profile-menu").style.display =
-        document.querySelector(".profile-menu").style.display === "block"
-        ? "none" 
-        : "block";
-};
-
             
             mainTitle.innerHTML = `Explore <strong>${ALL_TESTS.length}</strong> Available Mock Tests`;
             
-            // CORRECTED: The test-card is now a DIV, and the link wraps only the button logic.
             function generateCardHTML(test) {
                 const fullTitle = `${test.date} ${test.title}`;
                 const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
                 const questions = test.questions || 25;
                 const time = test.time || 25;
 
+                // The attempt button links directly to the test.html page
                 return `
                     <div class="test-card">
                         ${newBadge} 
@@ -366,60 +297,10 @@
                 });
             });
             
+            // Initial load of tests
             displayTests(document.querySelector('.tab.active').dataset.subject);
         });
-               document.querySelector(".profile-trigger").onclick = () => {
-    document.querySelector(".profile-menu").classList.toggle("open");
-};
-
     </script>
     <div class="help-btn">💬</div>
-    <script>
-let user = JSON.parse(localStorage.getItem("mock-user"));
-let loggedIn = localStorage.getItem("isLoggedIn");
-
-// Step 1: Redirect if not logged in
-if (!loggedIn || !user) {
-    window.location.href = "login.html";
-}
-
-// Step 2: After checking login, then update username
-document.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector(".profile-trigger span")) {
-        document.querySelector(".profile-trigger span").textContent = user.name + " ▾";
-    }
-});
-
-// Step 3:logout
-document.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector(".logout")) {
-        document.querySelector(".logout").onclick = () => {
-            localStorage.removeItem("isLoggedIn");
-            window.location.href = "login.html";
-        };
-    }
-});
-auth.signOut().then(() => {
-    window.location.href = "login.html";
-});
-</script>
-
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
-
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyClbSEJiunP7-emnxL4u4yfP6oP_3zEoZQ",
-  authDomain: "mock-test-app-2c7b2.firebaseapp.com",
-  projectId: "mock-test-app-2c7b2",
-  storageBucket: "mock-test-app-2c7b2.firebasestorage.app",
-  messagingSenderId: "123089913570",
-  appId: "1:123089913570:web:aac2a335973d67049280bb",
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-</script>
-
 </body>
 </html>
