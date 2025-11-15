@@ -1873,7 +1873,7 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "**Censure** means 'formal strong disapproval or criticism'."
   },
   {
-    "question": "Select the correct option: The startup scaled so rapidly that its infrastructure could ☐ keep pace.",
+    "question": "Select the correct option: The startup scaled so rapidly that its infrastructure could __ keep pace.",
     "options": [
       "barely",
       "merely",
