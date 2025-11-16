@@ -1526,7 +1526,7 @@ ssc_cgl_13_sep_s2 : [
     "explanation": "Football = 25 + 45 = 70; Basketball = 25 + 35 = 60 → Ratio = 70:60 = 7:6."
   },
   {
-    "question": "Tina and Meera invested and changed capital after 6 months. What is their profit-sharing ratio after 1 year?",
+    "question": "<img src='../images/neww.png' alt='Question 05' style='max-width: 100%; height: auto;'>",
     "options": ["9:10", "5:6", "7:4", "2:3"],
     "correctAnswer": "9:10",
     "explanation": "Using time-weighted capital method, ratio = 9:10."
