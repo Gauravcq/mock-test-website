@@ -1178,18 +1178,18 @@ const QUESTIONS_DATABASE = {
     "explanation": "Since P is the maternal uncle of Q, Q's mother is P's sister. Therefore, Q is the child of P's sister, meaning Q is the **Niece or Nephew** of P's sister."
   },
   {
-    "question": "After interchanging + & $\\times$ and 3 & 9, which of the following equations will hold true?",
+    "question": "After interchanging + & x and 3 & 9, which of the following equations will hold true?",
     "options": [
-      "(3+5) \\times 9 = 48",
-      "(9+2) \\times 3 = 10",
-      "(3+7) \\times 9 = 60",
-      "(9+1) \\times 3 = 15"
+      "(3+5) x 9 = 48",
+      "(9+2) x 3 = 10",
+      "(3+7) x 9 = 60",
+      "(9+1) x 3 = 15"
     ],
     "correctAnswer": "$(3+5) \\times 9 = 48$",
     "explanation": "Test the correct option by applying the interchanges:\n- Original: $(3+5) \\times 9 = 48$\n- Interchanged: $(9 \\times 5) + 3 = 48$\n- Calculation: $45 + 3 = 48$. This equation holds **true**."
   },
   {
-    "question": "If $a \\% b = 37$, where $a \\% b = a + 2b$, what is the value of a and b?",
+    "question": "If a % b = 37, where a % b = a + 2b, what is the value of a and b?",
     "options": [
       "25,5",
       "27,5",
@@ -1200,7 +1200,7 @@ const QUESTIONS_DATABASE = {
     "explanation": "The operation is $a + 2b = 37$. Test the correct option:\n- $a=27, b=5$: $27 + 2(5) = 27 + 10 = \\mathbf{37}$. This is correct."
   },
   {
-    "question": "If $+=\\times, - = +, \\times = \\div$; then $10+2-4 \\times 2 = ?$",
+    "question": "If + = x, - = +, x = ÷; then 10+2-4 x 2 = ?",
     "options": [
       "10",
       "19",
