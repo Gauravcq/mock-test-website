@@ -2084,7 +2084,7 @@ ssc_cgl_eng_12_sep_s1 : [
 ],
 ssc_cgl_14_sep_s1 : [
   {
-    "question": "<img src='../images/Q51.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/Q11.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
       "2.4",
       "2.5",
@@ -2095,25 +2095,25 @@ ssc_cgl_14_sep_s1 : [
     "explanation" : "To find the average speed for the entire journey, we use the formula: Average Speed = Total Distance / Total Time. Let the distance for each part of the journey be 'd'.\n\nTime for first part = d/3 hours\nTime for second part = d/4 hours\n\nTotal Distance = 2d\nTotal Time = (d/3) + (d/4) = (4d + 3d)/12 = 7d/12 hours\n\nAverage Speed = 2d / (7d/12) = 2d * (12/7d) = 24/7 ≈ 3.43 km/h.\n\nHowever, since the options provided are different, we need to re-evaluate the calculation. The correct average speed is calculated as follows:\n\nAverage Speed = Total Distance / Total Time = 2d / (d/3 + d/4) = 2d / (7d/12) = 24/7 ≈ 3.43 km/h.\n\nThe closest option to this calculation is 2.16 km/h."
   },
   {
-    "question": "<img src='../images/Q522.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/Q522.png' alt='Question 02' style='max-width: 100%; height: auto;'>",
     "options": ["0.027","0.009","0.729","0.037"],
     "correctAnswer": "0.037",
     "explanation": ""
   },
   {
-    "question": "<img src='../images/Q5333.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/Q5333.png' alt='Question 03' style='max-width: 100%; height: auto;'>",
     "options": ["25:26","1:1","26:25","25:25"],
     "correctAnswer": "1:1",
     "explanation": ""
   },
   {
-    "question": "Q.No: 03 A, B, and C invest ₹40,000, ₹60,000, and ₹80,000. What is B’s share in ₹55,000 profit?",
+    "question": "Q.No: 04 A, B, and C invest ₹40,000, ₹60,000, and ₹80,000. What is B’s share in ₹55,000 profit?",
     "options": ["18,333.33","20,333.33","21,333.33","22,333.33"],
     "correctAnswer": "18,333.33",
     "explanation": ""
   },
   {
-    "question": "Q.No: 04 A and B invest ₹60,000 and ₹90,000. Profit after 1 year (including 10% SI) is ₹25,000. What is A’s share?",
+    "question": "Q.No: 05 A and B invest ₹60,000 and ₹90,000. Profit after 1 year (including 10% SI) is ₹25,000. What is A’s share?",
     "options": ["7,000","10,500","10,000","8,500"],
     "correctAnswer": "",
     "explanation": ""
