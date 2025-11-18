@@ -2084,7 +2084,7 @@ ssc_cgl_eng_12_sep_s1 : [
 ],
 ssc_cgl_14_sep_s1 : [
   {
-    "question": "<img src='../images/Q522.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/Q51.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
       "2.4",
       "2.5",
@@ -2095,268 +2095,148 @@ ssc_cgl_14_sep_s1 : [
     "explanation" : "To find the average speed for the entire journey, we use the formula: Average Speed = Total Distance / Total Time. Let the distance for each part of the journey be 'd'.\n\nTime for first part = d/3 hours\nTime for second part = d/4 hours\n\nTotal Distance = 2d\nTotal Time = (d/3) + (d/4) = (4d + 3d)/12 = 7d/12 hours\n\nAverage Speed = 2d / (7d/12) = 2d * (12/7d) = 24/7 ≈ 3.43 km/h.\n\nHowever, since the options provided are different, we need to re-evaluate the calculation. The correct average speed is calculated as follows:\n\nAverage Speed = Total Distance / Total Time = 2d / (d/3 + d/4) = 2d / (7d/12) = 24/7 ≈ 3.43 km/h.\n\nThe closest option to this calculation is 2.16 km/h."
   },
   {
-    "Q.No": "52",
-    "Question Text (English)": "What is the value of (0.3 x 0.3 x 0.3 + 0.09 x 0.09 x 0.09) / (0.1 x 0.1 x 0.1 + 0.03 x 0.03 x 0.03)?",
-    "Options": [
-      "0.027",
-      "0.009",
-      "0.729",
-      "27"
-    ],
-    "Correct Answer (Calculated)": "27"
+    "question": "<img src='../images/Q522.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "options": ["0.027","0.009","0.729","0.037"],
+    "correctAnswer": "0.037",
+    "explanation": ""
   },
   {
-    "Q.No": "53",
-    "Question Text (English)": "The number of students in two sections A and B having different heights is shown in the table below (1.55m: A=5, B=4; 1.60m: A=9, B=8; 1.62m: A=11, B=13; 1.65m: A=14, B=10; 1.67m: A=12, B=15; 1.70m: A=10, B=10). What is the ratio of the number of students in Section A whose height is less than 1.65 m to the number of students in Section B whose height is less than 1.65 m?",
-    "Options": [
-      "25:26",
-      "1:1",
-      "26:25",
-      "25:25"
-    ],
-    "Correct Answer (Calculated)": "1:1"
+    "question": "<img src='../images/Q5333.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "options": ["25:26","1:1","26:25","25:25"],
+    "correctAnswer": "1:1",
+    "explanation": ""
   },
   {
-    "Q.No": "54",
-    "Question Text (English)": "A, B and C invested Rs. 40,000, Rs. 60,000 and Rs. 80,000 respectively in a business for one year. At the end of the year, if the profit earned is Rs. 55,000, what is the share of B?",
-    "Options": [
-      "Rs. 18,333.33",
-      "Rs. 20,333.33",
-      "Rs. 21,333.33",
-      "Rs. 22,333.33"
-    ],
-    "Correct Answer (Calculated)": "Rs. 18,333.33"
+    "question": "Q.No: 03 A, B, and C invest ₹40,000, ₹60,000, and ₹80,000. What is B’s share in ₹55,000 profit?",
+    "options": ["18,333.33","20,333.33","21,333.33","22,333.33"],
+    "correctAnswer": "18,333.33",
+    "explanation": ""
   },
   {
-    "Q.No": "55",
-    "Question Text (English)": "A and B invested Rs. 60,000 and Rs. 90,000 in a partnership. It was decided that 10% of the total profit would be paid as simple interest on the capital to each partner, and the remaining profit would be divided in the ratio of their capital. If the total profit is Rs. 25,000, what is A's share?",
-    "Options": [
-      "Rs. 7,000",
-      "Rs. 10,500",
-      "Rs. 10,000",
-      "Rs. 8,500"
-    ],
-    "Correct Answer (Calculated)": "Rs. 10,000"
+    "question": "Q.No: 04 A and B invest ₹60,000 and ₹90,000. Profit after 1 year (including 10% SI) is ₹25,000. What is A’s share?",
+    "options": ["7,000","10,500","10,000","8,500"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "56",
-    "Question Text (English)": "The table shows the units sold by three salesmen A, B, and C over three months. (A: 100, 120, 110. B: 80, 100, 90. C: 150, 160, 155). Which salesman had the highest average units sold?",
-    "Options": [
-      "A & C both",
-      "B",
-      "A",
-      "C"
-    ],
-    "Correct Answer (Calculated)": "C"
+    "question": "Q.No: 56 Which product had the highest average units sold?",
+    "options": ["A & C both","B","A","C"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "57",
-    "Question Text (English)": "Three numbers x, y, z are such that (x+y)/2 + z = 180, (y+z)/2 + x = 168, and (x+z)/2 + y = 150. What is the average of x, y, and z?",
-    "Options": [
-      "83",
-      "84",
-      "85",
-      "86"
-    ],
-    "Correct Answer (Calculated)": "83"
+    "question": "Q.No: 57 Three numbers are such that when the average of any two is added to the third, results obtained are 180, 168, and 150. Find the average of original numbers.",
+    "options": ["83","84","85","86"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "58",
-    "Question Text (English)": "A school organized a field trip for 100 students and 10 chaperones. Each student was given items equal to 15% of the total number of students. Each chaperone was given items equal to 25% of the total number of students. What is the total number of items distributed?",
-    "Options": [
-      "1750",
-      "2000",
-      "2250",
-      "2500"
-    ],
-    "Correct Answer (Calculated)": "1750"
+    "question": "Q.No: 58 How many snack items were distributed?",
+    "options": ["1750","2000","2250","2500"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "59",
-    "Question Text (English)": "Find the Compound Interest on Rs. 10,000 at 10% per annum for 2 years 6 months, compounded annually.",
-    "Options": [
-      "2,000",
-      "2,705",
-      "2,700",
-      "2,500"
-    ],
-    "Correct Answer (Calculated)": "2,705"
+    "question": "Q.No: 59 Find compound interest on ₹10,000 at 10% for 2 years 6 months (compounded annually).",
+    "options": ["2,000","2,705","2,700","2,500"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "60",
-    "Question Text (English)": "An amount invested at 12% Compound Interest per annum (compounded annually) amounts to Rs. 3,136 in 2 years. What is 140% of the amount invested?",
-    "Options": [
-      "Rs. 3,600",
-      "Rs. 3,800",
-      "Rs. 3,500",
-      "Rs. 3,000"
-    ],
-    "Correct Answer (Calculated)": "Rs. 3,500"
+    "question": "Q.No: 60 A certain amount becomes ₹3,136 in 2 years at 12% CI. What is 140% of principal?",
+    "options": ["3,600","3,800","3,500","3,000"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "61",
-    "Question Text (English)": "Pulses 1 was bought at Rs. 72/kg and sold at a 20% profit. Pulses 2 was bought at Rs. 60/kg and sold at a 25% profit. They were mixed in the ratio 2:1 (Pulses 1: Pulses 2) and sold at Rs. 70/kg. What is the overall profit or loss percentage?",
-    "Options": [
-      "Profit of 50%",
-      "Loss of 25%",
-      "Profit of 25%",
-      "Loss of 50%"
-    ],
-    "Correct Answer (Calculated)": "Profit of 25%"
+    "question": "Q.No: 61 Two pulses mixed in ratio 2:1 and sold at ₹70/kg. What is profit/loss percentage?",
+    "options": ["Profit of 50%","Loss of 25%","Profit of 25%","Loss of 50%"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "62",
-    "Question Text (English)": "The selling prices of three dresses D1, D2, and D3 are in the ratio 5:6:7. D1 is sold at 20% profit, D2 at 10% loss, and D3 at 30% profit. What is the approximate total profit or loss percentage?",
-    "Options": [
-      "profit of 12.25%",
-      "loss of 10.98%",
-      "profit of 10.98%",
-      "loss of 12.25%"
-    ],
-    "Correct Answer (Calculated)": "profit of 10.98%"
+    "question": "Q.No: 62 Dresses D1, D2, D3 sold in ratio 5:6:7 with profits 20%, −10%, 30%. Find total profit/loss percentage.",
+    "options": ["Profit of 12.25%","Loss of 10.98%","Profit of 10.98%","Loss of 12.25%"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "63",
-    "Question Text (English)": "A wholesaler marks up an item by 60%. A retailer gives a 15% discount on the marked price. The retailer then marks up the item by 25% above his purchase price and offers a festival discount of 10%. If the final selling price is Rs. 14,490, what was the original cost price (CP)?",
-    "Options": [
-      "Rs. 9,471",
-      "Rs. 9,500",
-      "Rs. 10,000",
-      "Rs. 10,500"
-    ],
-    "Correct Answer (Calculated)": "Rs. 9,471"
+    "question": "Q.No: 63 A wholesaler marks up by 60%, gives 15% discount; retailer marks up by 25%, gives 10% discount. Customer pays ₹14,490. Find original cost price.",
+    "options": ["₹9,471","₹9,500","₹10,000","₹10,500"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "64",
-    "Question Text (English)": "A 60 litre solution contains 20% water. How much alcohol must be added to the solution to make the percentage of water 15%?",
-    "Options": [
-      "10 litres",
-      "20 litres",
-      "30 litres",
-      "40 litres"
-    ],
-    "Correct Answer (Calculated)": "20 litres"
+    "question": "Q.No: 64 A 60-litre solution has 20% water. How many litres alcohol added to make water 15%?",
+    "options": ["10 litres","20 litres","30 litres","40 litres"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "65",
-    "Question Text (English)": "A triangle ABC has sides a, b, c. If a^2 + b^2 + c^2 = ab + bc + ca, what type of triangle is it?",
-    "Options": [
-      "Isosceles",
-      "Right-angled",
-      "Equilateral",
-      "Scalene"
-    ],
-    "Correct Answer (Calculated)": "Equilateral"
+    "question": "Q.No: 65 A can do work in 8 days, B in 12 days. They work together 3 days. What part is left?",
+    "options": ["5/8","1/4","7/8","3/8"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "66",
-    "Question Text (English)": "If sin^2(theta) = 3/4, what is the value of sin(3theta)?",
-    "Options": [
-      "1",
-      "0",
-      "1/sqrt(2)",
-      "sqrt(3)/2"
-    ],
-    "Correct Answer (Calculated)": "0"
+    "question": "Q.No: 66 Grocer mixes 40 kg at ₹65/kg with another variety at ₹80/kg. Sells mixture at ₹75/kg with 10% profit. Find quantity of second variety.",
+    "options": ["25.98 kg","10.77 kg","35 kg","40 kg"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "67",
-    "Question Text (English)": "If x^2 + 1/x^2 = 7, where x > 0, what is the value of x^3 + 1/x^3?",
-    "Options": [
-      "18",
-      "22",
-      "33",
-      "36"
-    ],
-    "Correct Answer (Calculated)": "18"
+    "question": "Q.No: 67 A & B together: 12 days, B & C: 16 days. A works 5 days, B works 7 days, C finishes in 13 days. Find C alone time.",
+    "options": ["24 days","16 days","20 days","18 days"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "68",
-    "Question Text (English)": "If sin(theta) + cos(theta) = sqrt(2), what is the value of cot(theta)?",
-    "Options": [
-      "sqrt(2)",
-      "0",
-      "sqrt(3)",
-      "1"
-    ],
-    "Correct Answer (Calculated)": "1"
+    "question": "Q.No: 68 Cyclist travels in 4 hours at 20 km/h. To complete in 2.5 hours, how much speed increase?",
+    "options": ["12 km/h","10 km/h","15 km/h","8 km/h"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "9",
-    "Question Text (English)": "The sides of a triangle are 5 cm, 12 cm, and 13 cm. What is the area of the largest circle that can be inscribed in the triangle (in sq cm)?",
-    "Options": [
-      "3 pi",
-      "4 pi",
-      "9 pi",
-      "16 pi"
-    ],
-    "Correct Answer (Calculated)": "4 pi"
+    "question": "Q.No: 69 Two trains from A at 6:00 am (60 km/h) and from B at 8:00 am (90 km/h). Distance 540 km. Find meeting time.",
+    "options": ["9:48 AM","10:48 AM","11:45 AM","12:45 PM"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "20",
-    "Question Text (English)": "In a circle, angle C and angle D are angles in a major arc subtended by the same chord. If angle C = 40 degrees, what is angle D?",
-    "Options": [
-      "50 degrees",
-      "40 degrees",
-      "140 degrees",
-      "100 degrees"
-    ],
-    "Correct Answer (Calculated)": "40 degrees"
+    "question": "Q.No: 70 Circular garden diameter 10 m + 1 m path. Find % increase in area.",
+    "options": ["18%","20%","44%","54%"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "21",
-    "Question Text (English)": "Two trains (Train A and Train B) are traveling in opposite directions at 60 km/h and 40 km/h respectively. Train A is 100 m long and Train B is 150 m long. How long will it take for them to completely cross each other?",
-    "Options": [
-      "5 sec",
-      "7.5 sec",
-      "9 sec",
-      "10 sec"
-    ],
-    "Correct Answer (Calculated)": "9 sec"
+    "question": "Q.No: 71 A sector of radius 14 cm has area 154 cm². Find angle.",
+    "options": ["90°","120°","150°","180°"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "22",
-    "Question Text (English)": "The length of a rectangle is 20% more than its breadth. If the area of the rectangle is 240 sq cm, what is the perimeter of the rectangle?",
-    "Options": [
-      "56 cm",
-      "60 cm",
-      "66 cm",
-      "68 cm"
-    ],
-    "Correct Answer (Calculated)": "66 cm"
+    "question": "Q.No: 72 Circular signboard radius 2 m. Painting cost ₹60/m²; 10% unpainted. Find total cost.",
+    "options": ["₹658.2","₹678.6","₹630.4","₹681.9"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "23",
-    "Question Text (English)": "If x - y = 14 and xy = 42, what is the value of x^3 - y^3?",
-    "Options": [
-      "4732",
-      "4734",
-      "4736",
-      "4738"
-    ],
-    "Correct Answer (Calculated)": "4732"
+    "question": "Q.No: 73 Find y-intercept of 4x + 5y = 20",
+    "options": ["4","-4","5","-5"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "24",
-    "Question Text (English)": "A train covers a certain distance in 1 hour at a speed of 100 km/h. To cover the same distance in 40 minutes, by how much should its speed be increased (in km/h)?",
-    "Options": [
-      "40 km/h",
-      "50 km/h",
-      "60 km/h",
-      "75 km/h"
-    ],
-    "Correct Answer (Calculated)": "50 km/h"
+    "question": "Q.No: 74 Given x + 1/x = 4, find x³ + 1/x³",
+    "options": ["55","57","52","50"],
+    "correctAnswer": "",
+    "explanation": ""
   },
   {
-    "Q.No": "25",
-    "Question Text (English)": "The measure of one angle of a parallelogram is 75 degrees. What is the measure of the largest angle of the parallelogram?",
-    "Options": [
-      "105 degrees",
-      "75 degrees",
-      "115 degrees",
-      "135 degrees"
-    ],
-    "Correct Answer (Calculated)": "105 degrees"
-  }
+    "question": "Q.No: 75 0.1 + 0.01 + 0.001 = ?",
+    "options": ["0.123","0.111","0.121","0.211"],
+    "correctAnswer": "",
+    "explanation": ""
+  },
 ],
 } 
