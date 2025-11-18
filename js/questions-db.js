@@ -2131,19 +2131,19 @@ ssc_cgl_14_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Aschool organized a field trip for 100 students and 10 chaperones. Each student was given a snack pack containing items equal to  15% of the total number of students. Each chaperone received a snack pack with items equal to 25% of the total number of students.  How many snack items were distributed in total? ?",
+    "question": "A school organized a field trip for 100 students and 10 chaperones. Each student was given a snack pack containing items equal to  15% of the total number of students. Each chaperone received a snack pack with items equal to 25% of the total number of students.  How many snack items were distributed in total? ?",
     "options": ["1750","2000","2250","2500"],
     "correctAnswer": "1750",
     "explanation": ""
   },
   {
-    "question": "Q.No: 59 Find compound interest on ₹10,000 at 10% for 2 years 6 months (compounded annually).",
+    "question": " Find compound interest on ₹10,000 at 10% for 2 years 6 months (compounded annually).",
     "options": ["2,000","2,705","2,700","2,500"],
     "correctAnswer": "2,705",
     "explanation": ""
   },
   {
-    "question": "Acertain amount invested at compound interest of 12% per annum, compounded annually, amounts to 3,136 in 2 years. What is  140% of the amount invested? ",
+    "question": "A certain amount invested at compound interest of 12% per annum, compounded annually, amounts to 3,136 in 2 years. What is  140% of the amount invested? ",
     "options": ["3,600","3,800","3,500","3,000"],
     "correctAnswer": "3,500",
     "explanation": ""
