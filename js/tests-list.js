@@ -53,6 +53,13 @@ const ALL_TESTS = [
         subject: "Maths",
         isNew: true // ⭐ ADDED: Mark this test as new
     },
+    {
+        id: "ssc_cgl_14_sep_s2",
+        date: "14 Sep",
+        title: "Shift 2",
+        subject: "Maths",
+        isNew: true // ⭐ ADDED: Mark this test as new
+    },
 
 
     // --- Reasoning Tests (NEWLY ADDED) ---

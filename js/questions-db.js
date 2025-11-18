@@ -2239,4 +2239,157 @@ ssc_cgl_14_sep_s1 : [
     "explanation": ""
   },
 ],
-} 
+ssc_cgl_14_sep_s2 : [
+  {
+    "question": " If M:N = 4:5, N:O = 6:7, and O:P = 9:11, then find N:P.",
+    "options": ["54:77", "45:77", "42:55", "36:63"],
+    "correctAnswer": "54:77",
+    "explanation": ""
+  },
+  {
+    "question": "Q.No: 52 What is the result of 2 1/4 ÷ 0.5?",
+    "options": ["4.25", "4.5", "4.75", "5.25"],
+    "correctAnswer": "4.5",
+    "explanation": ""
+  },
+  {
+    "question": "What should be subtracted from 10, 12, 13, 16 so that the remaining numbers may be proportional?",
+    "options": ["3", "9", "4", "12"],
+    "correctAnswer": "4",
+    "explanation": ""
+  },
+  {
+    "question": "If 45% of a number is 0.9 more than 30% of it, what is the number?",
+    "options": ["6", "9", "12", "15"],
+    "correctAnswer": "6",
+    "explanation": ""
+  },
+  {
+    "question": "ohan started a business with 90,000. After 5 months, Rohan joined with €1,50,000. After another 3 months, Sohan withdrew 30,000. What is the ratio of their profits at the end of the year? ",
+    "options": ["32:35", "15:16", "12:15", "11:12"],
+    "correctAnswer": "32:35",
+    "explanation": ""
+  },
+  {
+    "question": "<img src='../images/horse.png' alt='Question 06' style='max-width: 100%; height: auto;'>",
+    "options": ["2/5", "3/5", "4/5", "1/5"],
+    "correctAnswer": "2/5",
+    "explanation": ""
+  },
+  {
+    "question": "X, Y, and Z started a business with capitals in the ratio 2:3:5. After 3 months, Z withdrew 40% of his capital. After another 3 months, Y withdrew half of his capital. The business continued for a total of 18 months. If total profit is =3,24,000, find the ratio of profit shares of X:Y:Z ? ",
+    "options": ["3:3:5", "3:3:4", "1:2:2", "1:3:1"],
+    "correctAnswer": "3:3:5",
+    "explanation": ""
+  },
+  {
+    "question": "The average age of 40 students in a class is 16 years. When a new student is admitted, the average increases by 0.2 years. What is the age of the new student? ",
+    "options": ["24.2", "20.2", "19.2", "16.2"],
+    "correctAnswer": "24.2",
+    "explanation": ""
+  },
+  {
+    "question": "The monthly average salary for 8 employees plus one supervisor is ₹15,000. If the supervisor earns 25,000, what is the average salary of the 8 employees?",
+    "options": ["14,750", "13,000", "13,750", "13,500"],
+    "correctAnswer": "13,750",
+    "explanation": ""
+  },
+  {
+    "question": "Acompany has 80 employees, of whom 35 % are women. The average monthly salary of the women is 72,000, while that of the men is £68,000. What is the overall average monthly salary (in = 000) of the whole workforce? ",
+    "options": ["70.8", "699.4", "245.4", "69.4"],
+    "correctAnswer": "69.4",
+    "explanation": ""
+  },
+  {
+    "question": "A dress is marked at 3,500. Discount changes from 10% to 15%. How much extra discount does customer get?",
+    "options": ["175", "185", "195", "200"],
+    "correctAnswer": "175",
+    "explanation": ""
+  },
+  {
+    "question": "Rohan ordered 5 kg premium coffee & some ordinary coffee. Premium price/kg = 3 × ordinary. Delivered swapped. Bill increased by 40%. Find ratio of original premium : ordinary coffee.",
+    "options": ["2:4", "2:3", "1:3", "3:4"],
+    "correctAnswer": "",
+    "explanation": ""
+  },
+  {
+    "question": " A certain amount grows to 6400 in 2 yrs and 7040 in 3 yrs. Determine interest rate.",
+    "options": ["10%", "9%", "8%", "11%"],
+    "correctAnswer": "10%",
+    "explanation": ""
+  },
+  {
+    "question": "A bookseller sells 10 pens for 300 but incurs loss equal to cost price of 4 pens. Find loss percent.",
+    "options": ["40%", "70%", "60%", "50%"],
+    "correctAnswer": "40%",
+    "explanation": ""
+  },
+  {
+    "question": "A fruit seller buys three varieties of mangoes. The first variety is bought at 4 for 10, the second at 5 for €12, and the third at 2 for 5. He mixes them in the ratio 2: 3: 1 respectively. If he sells all the mangoes at 3 for €7, what is his approximate gain or loss percentage? ",
+    "options": ["Profit of 4.76%", "Loss of 4.76%", "Loss of 6%", "Profit of 6%"],
+    "correctAnswer": "Loss of 4.76%",
+    "explanation": ""
+  },
+  {
+    "question": "A dealer sets the marked price of a television 20% higher than its cost price. If he gives a discount of 15% and makes a profit of 300, what is the cost price of the television? ",
+    "options": ["10,000", "12,500", "15,000", "18,000"],
+    "correctAnswer": "15,000",
+    "explanation": ""
+  },
+  {
+    "question": "Amerchant marked an article such that its price was 25% above its cost price. He offered two consecutive discounts of 10% and 20% to a buyer. If he incurred a loss of $400, what was the marked price of the article?",
+    "options": ["5000", "2000", "2500", "1080"],
+    "correctAnswer": "5000",
+    "explanation": ""
+  },
+  {
+    "question": "A drum contains a blend of three chemicals: P, Q, and R, in the ratio of 3:5:2. 30 litres of this blend are removed, and then 12 litres of chemical P and 8 litres of chemical Q are poured into the drum. If the resultant quantity of chemical Q is 20 litres more than the resultant quantity of chemical P, what was the initial total quantity of the mixture in the drum (in litres)? ",
+    "options": ["100", "120", "150", "180"],
+    "correctAnswer": "150",
+    "explanation": ""
+  },
+  {
+    "question": "Rahul borrowed a sum of money at simple interest of 5% per annum for the first 3 years, 7% per annum for the next 5 years, and 9% per annum for the period beyond 8 years. If he pays a total of 6800 as interest only at the end of 10 years, how much money did he borrow? ",
+    "options": ["8000", "9000", "10,000", "12,000"],
+    "correctAnswer": "10,000",
+    "explanation": ""
+  },
+  {
+    "question": "A cone is such that area of its base equals to its lateral surface area. If radius = r, find slant height l.",
+    "options": ["r", "2r", "3r", "4r"],
+    "correctAnswer": "",
+    "explanation": ""
+  },
+  {
+    "question": "A square field of side 28 m has a circular pond in the center. If the area of the pond is 616 m*, what is the area of the remaining field?",
+    "options": ["148 m²", "168 m²", "678 m²", "682 m²"],
+    "correctAnswer": "168 m²",
+    "explanation": ""
+  },
+  {
+    "question": "if the Height of right prism increased by 50%, base area remains same. Find % increase in volume.",
+    "options": ["25%", "50%", "75%", "100%"],
+    "correctAnswer": "50%",
+    "explanation": ""
+  },
+  {
+    "question": "A circular decorative wall clock with a radius of 20 cm has a design where a chord connects two points on the circumference. This chord, along with two radii, forms an equilateral triangle at the center of the clock face. The smaller segment created by this chord is painted in a contrasting color. What percentage of the clock's total area does this smaller painted segment represent? (Use π=3.14,√3=1.732)",
+    "options": ["2.88%", "5.6%", "9.08%", "12.5%"],
+    "correctAnswer": "2.88%",
+    "explanation": ""
+  },
+  {
+    "question": "A cylinder (r = 4cm, h = 10cm) is bored through by a hole (r = 2.cm, full height). What percentage of original volume is removed? ",
+    "options": ["25%", "50%", "75%", "37.5%"],
+    "correctAnswer": "25%",
+    "explanation": ""
+  },
+  {
+    "question": "A sector of a circle with a radius of 15 cm has a central angle of 45¢. Another sector of the same circle has a central angle of 7/4 radians. What is the ratio of the area of the first sector to the area of the second sector?",
+    "options": ["1:2", "2:3", "1:1", "3:4"],
+    "correctAnswer": "1:1",
+    "explanation": ""
+  }
+],
+
+}
