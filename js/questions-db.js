@@ -2161,7 +2161,7 @@ ssc_cgl_14_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": " A wholesaler marks up the price of a microwave oven by 60% above its cost price. He gives a 15% trade discount to a retailer. The  retailer, in turn, marks up the price by 25% above his purchase price and offers a 10% festival discount to the customer. If the customer finally pays $14,490 for the microwave, what is the original approximate cost price of the oven to the wholesaler? ",
+    "question": " A wholesaler marks up the price of a microwave oven by 60% above its cost price. He gives a 15% trade discount to a retailer. The  retailer, in turn, marks up the price by 25% above his purchase price and offers a 10% festival discount to the customer. If the customer finally pays ₹14,490 for the microwave, what is the original approximate cost price of the oven to the wholesaler? ",
     "options": ["₹9,471","₹9,500","₹10,000","₹10,500"],
     "correctAnswer": "₹9,471",
     "explanation": ""
