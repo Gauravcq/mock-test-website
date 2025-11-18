@@ -2113,7 +2113,7 @@ ssc_cgl_14_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "A and B invest 60,000 and €90,000 respectively, in a business. After one year, the profit is distributed, including simple interest at  10% per annum on the capital. Total profit, including interest, is $25,000. What is A's share? ",
+    "question": "A and B invest ₹60,000 and ₹90,000 respectively, in a business. After one year, the profit is distributed, including simple interest at  10% per annum on the capital. Total profit, including interest, is $25,000. What is A's share? ",
     "options": ["7,000","10,500","10,000","8,500"],
     "correctAnswer": "10,000",
     "explanation": ""
