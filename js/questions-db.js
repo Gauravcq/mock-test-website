@@ -2265,7 +2265,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "ohan started a business with 90,000. After 5 months, Rohan joined with €1,50,000. After another 3 months, Sohan withdrew 30,000. What is the ratio of their profits at the end of the year? ",
+    "question": "sohan started a business with 90,000. After 5 months, Rohan joined with ₹1,50,000. After another 3 months, Sohan withdrew 30,000. What is the ratio of their profits at the end of the year? ",
     "options": ["32:35", "15:16", "12:15", "11:12"],
     "correctAnswer": "32:35",
     "explanation": ""
@@ -2307,9 +2307,9 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "Rohan ordered 5 kg premium coffee & some ordinary coffee. Premium price/kg = 3 × ordinary. Delivered swapped. Bill increased by 40%. Find ratio of original premium : ordinary coffee.",
-    "options": ["2:4", "2:3", "1:3", "3:4"],
-    "correctAnswer": "",
+    "question": "Rohan ordered 5 kg of premium coffee and some additional kilograms of ordinary coffee. The price of the premium coffee per kg was three times that of the ordinary coffee. When the order was delivered, it was found that the quantities of premium and ordinary coffee had been swapped. This change increased his bill by 40%. Find the ratio of the original quantity of premium coffee to the original quantity of ordinary coffee. ",
+    "options": ["2:1", "1:3", "1:2", "3:1"],
+    "correctAnswer": "1:2",
     "explanation": ""
   },
   {
@@ -2337,7 +2337,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "Amerchant marked an article such that its price was 25% above its cost price. He offered two consecutive discounts of 10% and 20% to a buyer. If he incurred a loss of $400, what was the marked price of the article?",
+    "question": "A merchant marked an article such that its price was 25% above its cost price. He offered two consecutive discounts of 10% and 20% to a buyer. If he incurred a loss of $400, what was the marked price of the article?",
     "options": ["5000", "2000", "2500", "1080"],
     "correctAnswer": "5000",
     "explanation": ""
@@ -2357,7 +2357,7 @@ ssc_cgl_14_sep_s2 : [
   {
     "question": "A cone is such that area of its base equals to its lateral surface area. If radius = r, find slant height l.",
     "options": ["r", "2r", "3r", "4r"],
-    "correctAnswer": "",
+    "correctAnswer": "r",
     "explanation": ""
   },
   {
