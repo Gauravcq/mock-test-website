@@ -2247,7 +2247,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "Q.No: 52 What is the result of 2 1/4 ÷ 0.5?",
+    "question": "What is the result of 2 1/4 ÷ 0.5?",
     "options": ["4.25", "4.5", "4.75", "5.25"],
     "correctAnswer": "4.5",
     "explanation": ""
