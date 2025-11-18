@@ -2084,7 +2084,7 @@ ssc_cgl_eng_12_sep_s1 : [
 ],
 ssc_cgl_14_sep_s1 : [
   {
-    "Question": "<img src='../images/q51.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "Question": "<img src='../images/Q522.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "Options": [
       "2.4",
       "2.5",
@@ -2359,4 +2359,4 @@ ssc_cgl_14_sep_s1 : [
     "Correct Answer (Calculated)": "105 degrees"
   }
 ],
-}
+} 
