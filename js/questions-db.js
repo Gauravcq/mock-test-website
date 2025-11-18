@@ -2107,135 +2107,135 @@ ssc_cgl_14_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Q.No: 04 A, B, and C invest ₹40,000, ₹60,000, and ₹80,000. What is B’s share in ₹55,000 profit?",
+    "question": " A, B, and C invest ₹40,000, ₹60,000, and ₹80,000. What is B’s share in ₹55,000 profit?",
     "options": ["18,333.33","20,333.33","21,333.33","22,333.33"],
     "correctAnswer": "18,333.33",
     "explanation": ""
   },
   {
-    "question": "Q.No: 05 A and B invest ₹60,000 and ₹90,000. Profit after 1 year (including 10% SI) is ₹25,000. What is A’s share?",
+    "question": "A and B invest 60,000 and €90,000 respectively, in a business. After one year, the profit is distributed, including simple interest at  10% per annum on the capital. Total profit, including interest, is $25,000. What is A's share? ",
     "options": ["7,000","10,500","10,000","8,500"],
-    "correctAnswer": "",
+    "correctAnswer": "10,000",
     "explanation": ""
   },
   {
-    "question": "Q.No: 56 Which product had the highest average units sold?",
+    "question": "<img src='../images/012.png' alt='Question 06' style='max-width: 100%; height: auto;'>",
     "options": ["A & C both","B","A","C"],
-    "correctAnswer": "",
+    "correctAnswer": "C",
     "explanation": ""
   },
   {
-    "question": "Q.No: 57 Three numbers are such that when the average of any two is added to the third, results obtained are 180, 168, and 150. Find the average of original numbers.",
+    "question": "Three numbers are such that when the average of any two of them is added to the third, the results obtained are 180, 168, and 150,  respectively. What is the average of the original three numbers?",
     "options": ["83","84","85","86"],
-    "correctAnswer": "",
+    "correctAnswer": "83",
     "explanation": ""
   },
   {
-    "question": "Q.No: 58 How many snack items were distributed?",
+    "question": "Aschool organized a field trip for 100 students and 10 chaperones. Each student was given a snack pack containing items equal to  15% of the total number of students. Each chaperone received a snack pack with items equal to 25% of the total number of students.  How many snack items were distributed in total? ?",
     "options": ["1750","2000","2250","2500"],
-    "correctAnswer": "",
+    "correctAnswer": "1750",
     "explanation": ""
   },
   {
     "question": "Q.No: 59 Find compound interest on ₹10,000 at 10% for 2 years 6 months (compounded annually).",
     "options": ["2,000","2,705","2,700","2,500"],
-    "correctAnswer": "",
+    "correctAnswer": "2,705",
     "explanation": ""
   },
   {
-    "question": "Q.No: 60 A certain amount becomes ₹3,136 in 2 years at 12% CI. What is 140% of principal?",
+    "question": "Acertain amount invested at compound interest of 12% per annum, compounded annually, amounts to 3,136 in 2 years. What is  140% of the amount invested? ",
     "options": ["3,600","3,800","3,500","3,000"],
-    "correctAnswer": "",
+    "correctAnswer": "3,500",
     "explanation": ""
   },
   {
-    "question": "Q.No: 61 Two pulses mixed in ratio 2:1 and sold at ₹70/kg. What is profit/loss percentage?",
+    "question": "One type of pulses is sold for 72 per kg at a 20% profit. Another type is sold for 60 per kg at a 25% profit. If these two varieties are mixed in the ratio of 2:1 (first variety to second variety) and the mixture is sold at €70 per kg, what is the overall profit or loss percentage? ",
     "options": ["Profit of 50%","Loss of 25%","Profit of 25%","Loss of 50%"],
-    "correctAnswer": "",
+    "correctAnswer": "Profit of 25%",
     "explanation": ""
   },
   {
-    "question": "Q.No: 62 Dresses D1, D2, D3 sold in ratio 5:6:7 with profits 20%, −10%, 30%. Find total profit/loss percentage.",
+    "question": " A clothing store sold three dresses, D1, D2, and D3, whose selling prices were in the ratio 5:6:7. They made a profit of 20% on D1, a loss of 10% on D2, and a profit of 30% on D3. What was their approximate total profit or loss percentage for the entire sale? ",
     "options": ["Profit of 12.25%","Loss of 10.98%","Profit of 10.98%","Loss of 12.25%"],
-    "correctAnswer": "",
+    "correctAnswer": "Loss of 10.98%",
     "explanation": ""
   },
   {
-    "question": "Q.No: 63 A wholesaler marks up by 60%, gives 15% discount; retailer marks up by 25%, gives 10% discount. Customer pays ₹14,490. Find original cost price.",
+    "question": " A wholesaler marks up the price of a microwave oven by 60% above its cost price. He gives a 15% trade discount to a retailer. The  retailer, in turn, marks up the price by 25% above his purchase price and offers a 10% festival discount to the customer. If the customer finally pays $14,490 for the microwave, what is the original approximate cost price of the oven to the wholesaler? ",
     "options": ["₹9,471","₹9,500","₹10,000","₹10,500"],
-    "correctAnswer": "",
+    "correctAnswer": "₹9,471",
     "explanation": ""
   },
   {
-    "question": "Q.No: 64 A 60-litre solution has 20% water. How many litres alcohol added to make water 15%?",
+    "question": " A 60-litres solution of alcohol and water has 20% water. How many litres of alcohol must be added to the solution to make the water content 15%? ",
     "options": ["10 litres","20 litres","30 litres","40 litres"],
-    "correctAnswer": "",
+    "correctAnswer": "20 litres",
     "explanation": ""
   },
   {
-    "question": "Q.No: 65 A can do work in 8 days, B in 12 days. They work together 3 days. What part is left?",
+    "question": "A can do work in 8 days, B in 12 days. They work together 3 days. What part of work is left?",
     "options": ["5/8","1/4","7/8","3/8"],
-    "correctAnswer": "",
+    "correctAnswer": "3/8",
     "explanation": ""
   },
   {
-    "question": "Q.No: 66 Grocer mixes 40 kg at ₹65/kg with another variety at ₹80/kg. Sells mixture at ₹75/kg with 10% profit. Find quantity of second variety.",
+    "question": "A grocer mixes 40 kg of lentils costing €65 per kg with a certain quantity of lentils costing 80 per kg. If he sells the mixture at 75 per kg, making a 10% profit, what quantity of the second type of lentils did he mix? ",
     "options": ["25.98 kg","10.77 kg","35 kg","40 kg"],
-    "correctAnswer": "",
+    "correctAnswer": "10.77 kg",
     "explanation": ""
   },
   {
-    "question": "Q.No: 67 A & B together: 12 days, B & C: 16 days. A works 5 days, B works 7 days, C finishes in 13 days. Find C alone time.",
+    "question": " Aand B can complete a task together in 12 days, while B and C can finish it in 16 days. After A works on it for 5 days and B for 7 days, C takes the remaining 13 days to finish the work. How many days would it take for C to complete the work alone? ",
     "options": ["24 days","16 days","20 days","18 days"],
-    "correctAnswer": "",
+    "correctAnswer": "24 days",
     "explanation": ""
   },
   {
-    "question": "Q.No: 68 Cyclist travels in 4 hours at 20 km/h. To complete in 2.5 hours, how much speed increase?",
+    "question": " A cyclist travels from City A to City B at an average speed of 20 km/h and takes 4 hours. If they want to complete the same journey in 2.5 hours, by what amount (in km/h) should they increase their average speed? ",
     "options": ["12 km/h","10 km/h","15 km/h","8 km/h"],
-    "correctAnswer": "",
+    "correctAnswer": "12 km/h",
     "explanation": ""
   },
   {
-    "question": "Q.No: 69 Two trains from A at 6:00 am (60 km/h) and from B at 8:00 am (90 km/h). Distance 540 km. Find meeting time.",
+    "question": " A train leaves Station A at 6:00 AM and travels towards Station B at a constant speed of 60 km/h. Another train leaves Station B at 8:00 AM and travels towards Station A at a constant speed of 90 km/h. The distance between the two stations is 540 km. At what time will the two trains meet?",
     "options": ["9:48 AM","10:48 AM","11:45 AM","12:45 PM"],
-    "correctAnswer": "",
+    "correctAnswer": "10:48 AM",
     "explanation": ""
   },
   {
-    "question": "Q.No: 70 Circular garden diameter 10 m + 1 m path. Find % increase in area.",
+    "question": "A circular garden having a diameter of 10 m is surrounded by a concrete path that is 1 m wide. Calculate the percentage increase in area resulting from the addition of the path. ",
     "options": ["18%","20%","44%","54%"],
-    "correctAnswer": "",
+    "correctAnswer": "44%",
     "explanation": ""
   },
   {
-    "question": "Q.No: 71 A sector of radius 14 cm has area 154 cm². Find angle.",
+    "question": "A sector of radius 14 cm has area 154 cm². Find angle of the sector",
     "options": ["90°","120°","150°","180°"],
-    "correctAnswer": "",
+    "correctAnswer": "90°",
     "explanation": ""
   },
   {
-    "question": "Q.No: 72 Circular signboard radius 2 m. Painting cost ₹60/m²; 10% unpainted. Find total cost.",
+    "question": "circular signboard has a radius of 2 m. If painting costs €60 per m* and 10% of the board is left unpainted, what is the total painting cost? ",
     "options": ["₹658.2","₹678.6","₹630.4","₹681.9"],
-    "correctAnswer": "",
+    "correctAnswer": "₹678.6",
     "explanation": ""
   },
   {
-    "question": "Q.No: 73 Find y-intercept of 4x + 5y = 20",
-    "options": ["4","-4","5","-5"],
-    "correctAnswer": "",
+    "question": "Find y-intercept of 4x + 5y = 20",
+    "options": ["3","4","5","6"],
+    "correctAnswer": "4",
     "explanation": ""
   },
   {
-    "question": "Q.No: 74 Given x + 1/x = 4, find x³ + 1/x³",
+    "question": " Given x + 1/x = 4, find x³ + 1/x³",
     "options": ["55","57","52","50"],
-    "correctAnswer": "",
+    "correctAnswer": "52",
     "explanation": ""
   },
   {
-    "question": "Q.No: 75 0.1 + 0.01 + 0.001 = ?",
+    "question": " 0.1 + 0.01 + 0.001 = ?",
     "options": ["0.123","0.111","0.121","0.211"],
-    "correctAnswer": "",
+    "correctAnswer": "0.111",
     "explanation": ""
   },
 ],
