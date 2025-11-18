@@ -2084,7 +2084,7 @@ ssc_cgl_eng_12_sep_s1 : [
 ],
 ssc_cgl_14_sep_s1 : [
   {
-    "question": "<img src='../images/Q11.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "question": "<img src='../images/011.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
       "2.4",
       "2.5",
