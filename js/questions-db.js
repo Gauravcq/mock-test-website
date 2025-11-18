@@ -2084,14 +2084,14 @@ ssc_cgl_eng_12_sep_s1 : [
 ],
 ssc_cgl_14_sep_s1 : [
   {
-    "Question": "<img src='../images/Q522.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
-    "Options": [
+    "question": "<img src='../images/Q522.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
+    "options": [
       "2.4",
       "2.5",
       "2.16",
-      "2.1",
+      "2.1"
     ],
-    "Correct Answer (Calculated)": "2.16",
+    "Correct Answer": "2.16",
     "explanation" : "To find the average speed for the entire journey, we use the formula: Average Speed = Total Distance / Total Time. Let the distance for each part of the journey be 'd'.\n\nTime for first part = d/3 hours\nTime for second part = d/4 hours\n\nTotal Distance = 2d\nTotal Time = (d/3) + (d/4) = (4d + 3d)/12 = 7d/12 hours\n\nAverage Speed = 2d / (7d/12) = 2d * (12/7d) = 24/7 ≈ 3.43 km/h.\n\nHowever, since the options provided are different, we need to re-evaluate the calculation. The correct average speed is calculated as follows:\n\nAverage Speed = Total Distance / Total Time = 2d / (d/3 + d/4) = 2d / (7d/12) = 24/7 ≈ 3.43 km/h.\n\nThe closest option to this calculation is 2.16 km/h."
   },
   {
