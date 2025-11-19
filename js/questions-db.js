@@ -2372,7 +2372,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The word **NEBULOUS** means unclear, vague, or ill-defined, making **Vague** its closest synonym."
   },
   {
-    "question": "Select the most appropriate antonym of the given word.<b>Erudite</b>",
+    "question": "Select the most appropriate antonym of the given word. <b>Erudite</b>",
     "options": [
       "Scholarly",
       "Uninformed",
@@ -2427,7 +2427,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "**Desuetude** means a state of disuse or inactivity."
   },
   {
-    "question": "Select the correct option: So delicate ___ the negotiations that a single leak could derail them.",
+    "question": "Select the correct option: <br>So delicate ___ the negotiations that a single leak could derail them.",
     "options": [
       "are",
       "were",
@@ -2471,7 +2471,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": ""
   },
   {
-    "question": "Find the part of the sentence that contains an error: The report's emphasis on techno-optimism, while commendable, (1)/ overlook the structural inequities (2)/ that persist in data accessibility and digital literacy (3)/ across demographic and regional divides. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>The report's emphasis on techno-optimism, while commendable, (1)/ overlook the structural inequities (2)/ that persist in data accessibility and digital literacy (3)/ across demographic and regional divides. (4)",
     "options": [
       "(1)",
       "(2)",
