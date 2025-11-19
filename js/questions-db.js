@@ -2391,5 +2391,157 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   }
 ],
+ssc_cgl_14_sep_s3 :[
+  {
+    "question": "If a = √7 - √3, and b = √5 - √2, then which of the following is true?",
+    "options": ["a = b", "a < b", "a > b", "Cannot be determined"],
+    "correctAnswer": "a > b",
+    "explanation": ""
+  },
+  {
+    "question": "<img src='../images/q916.png' alt='Question 02' style='max-width: 100%; height: auto;'>",
+    "options": ["5", "6", "3", "2"],
+    "correctAnswer": "3",
+    "explanation": ""
+  },
+  {
+    "question": "The number of red, blue, and green marbles in a bag is in the ratio 3: 4: 6. If 20 red marbles, 15 blue marbles, and an unknown number of green marbles are added to the bag, the ratio of red, blue, and green marbles becomes 4 : 5: 7. Determine the number of green marbles added.",
+    "options": ["3", "5", "7", "9"],
+    "correctAnswer": "5",
+    "explanation": ""
+  },
+  {
+    "question": "A invests ₹25,000 for 12 months, B invests ₹50,000 for 6 months. What is A's share of ₹30,000 profit?",
+    "options": ["₹10,000", "₹12,000", "₹15,000", "₹18,000"],
+    "correctAnswer": "15,000",
+    "explanation": ""
+  },
+  {
+    "question": "Aand B start a business with capitals in the ratio 5:3. After 6 months, A withdraws ₹710,000 and B doubles his investment. if the initial investment of A was ₹50,000, and the total profit after 1 year is 84,000, find the profit share of A. ",
+    "options": ["₹42,000", "₹50,000", "₹60,000", "₹45,000"],
+    "correctAnswer": "42,000",
+    "explanation": ""
+  },
+  {
+    "question": "What is the average of all 3-digit numbers divisible by 23?",
+    "options": ["752", "552", "652", "452"],
+    "correctAnswer": "552",
+    "explanation": ""
+  },
+  {
+    "question": "Two containers of the same volume are 40% and 50% full of water, respectively. They are then filled completely with milk. If the contents of both containers are mixed in a larger vessel, what is the percentage of milk in the final mixture?",
+    "options": ["45%", "50%", "55%", "60%"],
+    "correctAnswer": "55%",
+    "explanation": ""
+  },
+  {
+    "question": "A Stationery shop ordered 6 dozen red pens and some additional dozen blue pens. The price of the red pens per dozen was threetimes that of the blue ones. When the order was delivered, it was found that the number of dozens of the two colours had been interchanged. This increased the bill by 40%. Find the ratio of the number of dozens of red pens to the number of dozens of blue pens in the original order.",
+    "options": ["1:1", "1:2", "2:3", "3:4"],
+    "correctAnswer": "1:2",
+    "explanation": ""
+  },
+  {
+    "question": "A flower vendor bought 200 flowers for ₹800. 20 flowers withered and became unsellable. At what price per flower should he sell the remaining flowers to earn a profit of 30% on his total cost?",
+    "options": ["₹7.85", "₹6.54", "₹5.78", "₹3.82"],
+    "correctAnswer": "₹5.78",
+    "explanation": ""
+  },
+  {
+    "question": " A furniture store sells a dining table for €Z, making a 25% profit. During a festive season, they increase the marked price of the same table to 1.6Z. They then offer a special discount of 20% on this increased marked price. What will be the percentage profit made by the store during the festive season?",
+    "options": ["26%", "56%", "62%", "60%"],
+    "correctAnswer": "60%",
+    "explanation": ""
+  },
+  {
+    "question": "A solution consists acid and water in the ratio 5:3. If 4 litres of water is added, the new ratio becomes 5:4. What is the original quantity of acid in the solution? ",
+    "options": ["20 litres", "25 litres", "30 litres", "35 litres"],
+    "correctAnswer": "20 litres",
+    "explanation": ""
+  },
+  {
+    "question": "A alone can complete a job in 12 days and B alone in 18 days. A and B agree to do the work for ₹7,200. With C's help they finish it in 5 days. How much should C be paid?",
+    "options": ["₹2,200", "₹2,400", "₹2,600", "₹2,800"],
+    "correctAnswer": "₹2,200",
+    "explanation": ""
+  },
+  {
+    "question": "A tank has a mixture of solutions A, B, and C in the respective ratio of 7:8:5. 40 litres of this mixture is drained out, and subsequently, 15 litres of solution A and 5 litres of solution C are added to the tank. If the resultant quantity of solution A is 25 litres less than the resultant quantity of solution B, what was the initial quantity of mixture in the tank (in litres)?",
+    "options": ["840", "240", "890", "320"],
+    "correctAnswer": "840",
+    "explanation": ""
+  },
+  {
+    "question": "The ratio of the time taken by A and B to complete a task is 3 : 2. If B can complete the task alone in 18 hours, how many hours willthey take to complete the task if they work together? ",
+    "options": ["12 hours", "10.8 hours", "9.8 hours", "10 hours"],
+    "correctAnswer": "10.8 hours",
+    "explanation": ""
+  },
+  {
+    "question": "Three friends, X, Y, and Z, are cycling on a circular track with a circumference of 2 km. They all start from the same point at 9:00 a.m. and travel in the same direction with speeds of 10 km/h, 12 km/h, and 15 km/h respectively. How many times will all three of them meet at the starting point if they continue cycling until 1:00 p.m.?",
+    "options": ["1 time", "2 times", "3 times", "4 times"],
+    "correctAnswer": "3 times",
+    "explanation": ""
+  },
+  {
+    "question": "A circular path of 3 m width runs around a circular park with radius 8 m. What is the area of the path? ",
+    "options": ["179.07 m²", "131.09 m²", "138.02 m²", "144.05 m²"],
+    "correctAnswer": "179.07 m²",
+    "explanation": ""
+  },
+  {
+    "question": "<img src='../images/q931.png' alt='Question 17' style='max-width: 100%; height: auto;'>",
+    "options": ["-4", "4", "-1/4", "1/4"],
+    "correctAnswer": "-4",
+    "explanation": ""
+  },
+  {
+    "question": "Convert 2.5 radians to degrees.",
+    "options": ["130°", "143.24°", "180°", "200.56°"],
+    "correctAnswer": "143.24°",
+    "explanation": ""
+  },
+  {
+    "question": "A sector of a circle having a radius of 10 cm and has a central angle of z radians. What is the area of the sector?",
+    "options": ["26.18 cm²", "8.33 cm²", "10.47 cm²", "12.5 cm²"],
+    "correctAnswer": "26.18 cm²",
+    "explanation": ""
+  },
+  {
+    "question": "If tan A = cot(2A − 30°), then what is the value of A?",
+    "options": ["30°", "25°", "18°", "40°"],
+    "correctAnswer": "40°",
+    "explanation": ""
+  },
+  {
+    "question": "In similar triangles, the ratio of corresponding altitudes is 2:5. What is the ratio of their areas?",
+    "options": ["2:5", "4:25", "2:25", "5:2"],
+    "correctAnswer": "4:25",
+    "explanation": ""
+  },
+  {
+    "question": "<img src='../images/q935.png' alt='Question 72' style='max-width: 100%; height: auto;'>",
+    "options": ["13", "12", "14", "15"],
+    "correctAnswer": "12",
+    "explanation": ""
+  },
+  {
+    "question": "Simplify: √50 + √18  − √8",
+    "options": ["7√2 ", "6√2", "5√2", "8√2"],
+    "correctAnswer": "6√2",
+    "explanation": ""
+  },
+  {
+    "question": "The diameter of a circle measures 25 cm. What is the maximum length of a chord in this circle?",
+    "options": ["12 cm", "25 cm", "50 cm", "100 cm"],
+    "correctAnswer": "25 cm",
+    "explanation": ""
+  },
+  {
+    "question": "if sinA + cosA = √2 sinA, then what is the value of tanA?",
+    "options": ["√2", "1", "√2+1", "√2−1"],
+    "correctAnswer": "√2+1",
+    "explanation": ""
+  },
+]
 
 }
