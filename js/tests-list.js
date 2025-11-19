@@ -806,27 +806,7 @@ const ALL_TESTS = [
         subject: "English",
         isNew: true // ⭐ ADDED: Mark the Reasoning test as new
     },
-  {
-    id: "ssc_cgl_eng_17_sep_s1",
-    date: "17 Sep",
-    title: "Shift 1",
-    subject: "English",
-    isNew: true
-  },
-  {
-    id: "ssc_cgl_eng_17_sep_s2",
-    date: "17 Sep",
-    title: "Shift 2",
-    subject: "English",
-    isNew: true
-  },
-  {
-    id: "ssc_cgl_eng_17_sep_s3",
-    date: "17 Sep",
-    title: "Shift 3",
-    subject: "English",
-    isNew: true
-  },
+  
   {
     id: "ssc_cgl_eng_18_sep_s1",
     date: "18 Sep",
