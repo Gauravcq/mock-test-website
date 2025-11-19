@@ -2295,7 +2295,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "Acompany has 80 employees, of whom 35 % are women. The average monthly salary of the women is 72,000, while that of the men is £68,000. What is the overall average monthly salary (in = 000) of the whole workforce? ",
+    "question": "A company has 80 employees, of whom 35 % are women. The average monthly salary of the women is 72,000, while that of the men is ₹68,000. What is the overall average monthly salary (in = 000) of the whole workforce? ",
     "options": ["70.8", "699.4", "245.4", "69.4"],
     "correctAnswer": "69.4",
     "explanation": ""
@@ -2337,7 +2337,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "A merchant marked an article such that its price was 25% above its cost price. He offered two consecutive discounts of 10% and 20% to a buyer. If he incurred a loss of $400, what was the marked price of the article?",
+    "question": "A merchant marked an article such that its price was 25% above its cost price. He offered two consecutive discounts of 10% and 20% to a buyer. If he incurred a loss of ₹400, what was the marked price of the article?",
     "options": ["5000", "2000", "2500", "1080"],
     "correctAnswer": "5000",
     "explanation": ""
@@ -2361,7 +2361,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "A square field of side 28 m has a circular pond in the center. If the area of the pond is 616 m*, what is the area of the remaining field?",
+    "question": "A square field of side 28 m has a circular pond in the center. If the area of the pond is 616 m², what is the area of the remaining field?",
     "options": ["148 m²", "168 m²", "678 m²", "682 m²"],
     "correctAnswer": "168 m²",
     "explanation": ""
@@ -2385,7 +2385,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   },
   {
-    "question": "A sector of a circle with a radius of 15 cm has a central angle of 45¢. Another sector of the same circle has a central angle of 7/4 radians. What is the ratio of the area of the first sector to the area of the second sector?",
+    "question": "A sector of a circle with a radius of 15 cm has a central angle of 45°. Another sector of the same circle has a central angle of 7/4 radians. What is the ratio of the area of the first sector to the area of the second sector?",
     "options": ["1:2", "2:3", "1:1", "3:4"],
     "correctAnswer": "1:1",
     "explanation": ""
