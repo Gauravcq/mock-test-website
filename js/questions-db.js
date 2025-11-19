@@ -2372,7 +2372,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The word **NEBULOUS** means unclear, vague, or ill-defined, making **Vague** its closest synonym."
   },
   {
-    "question": "Select the most appropriate antonym of the given word. **Erudite**",
+    "question": "Select the most appropriate antonym of the given word.<b>Erudite</b>",
     "options": [
       "Scholarly",
       "Uninformed",
@@ -2383,7 +2383,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "**Erudite** means having or showing great knowledge or learning. Its antonym is **Uninformed**."
   },
   {
-    "question": "Choose the correct meaning of idiom: **Fly off the handle**",
+    "question": "Choose the correct meaning of idiom: <b>Fly off the handle</b>",
     "options": [
       "To escape quietly",
       "To disappear quickly",
@@ -2394,7 +2394,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The idiom **Fly off the handle** means to lose one's temper and become suddenly and intensely angry."
   },
   {
-    "question": "Select the most appropriate antonym of the given word. **Encomium**",
+    "question": "Select the most appropriate antonym of the given word. <b>Encomium</b>",
     "options": [
       "Panegyric",
       "Praise",
@@ -2405,7 +2405,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "**Encomium** means a formal expression of high praise. Its antonym is **Castigation**, which means severe criticism or punishment."
   },
   {
-    "question": "Spot the correct spelling of a chromosomal 'three copies' term.",
+    "question": "Spot the <b>correct spelling</b> of a chromosomal 'three copies' term.",
     "options": [
       "Trisomie",
       "Trissomy",
@@ -2416,7 +2416,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "**Trisomy** is the correct spelling for a genetic condition where there are three copies of a particular chromosome."
   },
   {
-    "question": "Choose the correct one-word substitute for: 'A state of disuse or inactivity'.",
+    "question": "Choose the correct <b>one-word substitute<b/> for: 'A state of disuse or inactivity'.",
     "options": [
       "Hiatus",
       "Oblivion",
@@ -2427,7 +2427,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "**Desuetude** means a state of disuse or inactivity."
   },
   {
-    "question": "Select the correct option: So delicate $\square$ the negotiations that a single leak could derail them.",
+    "question": "Select the correct option: So delicate ___ the negotiations that a single leak could derail them.",
     "options": [
       "are",
       "were",
