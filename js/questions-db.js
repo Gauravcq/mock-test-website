@@ -2359,6 +2359,283 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The logical sequence is: sentence two presents the main problem and goal, sentence one introduces the 'key strategy' to meet that goal, sentence three describes the benefit of 'This shift', and sentence four introduces a second measure using the transition word 'Additionally'."
   }
 ],
+ssc_cgl_eng_12_sep_s3 :[
+  {
+    "question": "Select the most appropriate synonym of the given word: NEBULOUS",
+    "options": [
+      "Vague",
+      "Precise",
+      "Obvious",
+      "Clear"
+    ],
+    "correctAnswer": "Vague",
+    "explanation": "The word **NEBULOUS** means unclear, vague, or ill-defined, making **Vague** its closest synonym."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. **Erudite**",
+    "options": [
+      "Scholarly",
+      "Uninformed",
+      "Learned",
+      "Intellectual"
+    ],
+    "correctAnswer": "Uninformed",
+    "explanation": "**Erudite** means having or showing great knowledge or learning. Its antonym is **Uninformed**."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: **Fly off the handle**",
+    "options": [
+      "To escape quietly",
+      "To disappear quickly",
+      "To become suddenly angry",
+      "To handle a situation smartly"
+    ],
+    "correctAnswer": "To become suddenly angry",
+    "explanation": "The idiom **Fly off the handle** means to lose one's temper and become suddenly and intensely angry."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. **Encomium**",
+    "options": [
+      "Panegyric",
+      "Praise",
+      "Castigation",
+      "Tribute"
+    ],
+    "correctAnswer": "Castigation",
+    "explanation": "**Encomium** means a formal expression of high praise. Its antonym is **Castigation**, which means severe criticism or punishment."
+  },
+  {
+    "question": "Spot the correct spelling of a chromosomal 'three copies' term.",
+    "options": [
+      "Trisomie",
+      "Trissomy",
+      "Trisomy",
+      "Trissomie"
+    ],
+    "correctAnswer": "Trisomy",
+    "explanation": "**Trisomy** is the correct spelling for a genetic condition where there are three copies of a particular chromosome."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A state of disuse or inactivity'.",
+    "options": [
+      "Hiatus",
+      "Oblivion",
+      "Interregnum",
+      "Desuetude"
+    ],
+    "correctAnswer": "Desuetude",
+    "explanation": "**Desuetude** means a state of disuse or inactivity."
+  },
+  {
+    "question": "Select the correct option: So delicate $\square$ the negotiations that a single leak could derail them.",
+    "options": [
+      "are",
+      "were",
+      "is",
+      "was"
+    ],
+    "correctAnswer": "were",
+    "explanation": "The subject **negotiations** is plural, and the context requires a plural verb. The verb **were** is the correct plural past tense for this inverted structure."
+  },
+  {
+    "question": "Select the correct option: Her interpretation was $\square$ than insightful; it bordered on the revelatory.",
+    "options": [
+      "less",
+      "more",
+      "other",
+      "rather"
+    ],
+    "correctAnswer": "more",
+    "explanation": "The comparison indicated by **than** and the clause 'it bordered on the revelatory' suggests the interpretation was superior to merely insightful, making **more** the correct comparative word."
+  },
+  {
+    "question": "Select the correct option: The reforms, while ostensibly motivated by economic exigencies, were in effect a veiled attempt to $\square$ dissent under the guise of austerity.",
+    "options": [
+      "quell",
+      "swell",
+      "rebut",
+      "impugn"
+    ],
+    "correctAnswer": "quell",
+    "explanation": "The verb **quell**, meaning to suppress or put an end to something, is the most suitable verb to describe the action of stopping dissent."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: The more senior the position was (1)/ the more urgent became the need (2)/ for discretion, decorum, and (3)/ refraining from premature disclosure. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(1)",
+    "explanation": "The use of the verb **was** in part one makes the 'The more, the more' structure awkward and non-parallel with the second clause. The verb is often omitted for better flow."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: The report's emphasis on techno-optimism, while commendable, (1)/ overlook the structural inequities (2)/ that persist in data accessibility and digital literacy (3)/ across demographic and regional divides. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(2)",
+    "explanation": "The subject of the main clause is the singular noun **emphasis**, which requires the singular verb form **overlooks** instead of the plural form **overlook**. The error is in part two."
+  },
+  {
+    "question": "Change the following from active to passive: Why did the editor overlook the substantial stylistic anomalies?",
+    "options": [
+      "Why have the substantial stylistic anomalies been overlooked by the editor?",
+      "Why are the substantial stylistic anomalies being overlooked by the editor?",
+      "Why did the substantial stylistic anomalies be overlooked by the editor?",
+      "Why were the substantial stylistic anomalies overlooked by the editor?"
+    ],
+    "correctAnswer": "Why were the substantial stylistic anomalies overlooked by the editor?",
+    "explanation": "The Simple Past active voice is converted to the passive voice using the auxiliary verb **were** followed by the past participle **overlooked**."
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The historian referenced a **bailey** in Norman military architecture.",
+    "options": [
+      "The shepherd gathered his sheep in the bailey.",
+      "The bailey was reinforced with wooden palisades.",
+      "The outer bailey surrounded the motte.",
+      "The king's guard patrolled the lower bailey."
+    ],
+    "correctAnswer": "The shepherd gathered his sheep in the bailey.",
+    "explanation": "**Bailey** in the question refers to the outer wall or courtyard of a castle. While all options use the word in a similar context of an enclosed area, this option suggests a non-military application, which distinguishes it from the others."
+  },
+  {
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: It has been alleged that confidential data was being leaked by insiders within the firm.",
+    "options": [
+      "Insiders were leaking confidential data within the firm.",
+      "Confidential data had been leaked by insiders, it is alleged.",
+      "Insiders have allegedly been leaking confidential data within the firm.",
+      "The firm was allegedly leaking insider data."
+    ],
+    "correctAnswer": "Insiders have allegedly been leaking confidential data within the firm.",
+    "explanation": "The passive structure is correctly converted to active voice by making **Insiders** the subject of the action and using the appropriate tense: **have allegedly been leaking**."
+  },
+  {
+    "question": "What is the central idea of groupthink as discussed in the passage?",
+    "options": [
+      "Collaborative brainstorming",
+      "Valuing consensus over critique",
+      "Trusting only experts",
+      "Promoting decentralization"
+    ],
+    "correctAnswer": "Valuing consensus over critique",
+    "explanation": "The passage defines groupthink as the desire for unanimity that **overrides the motivation to appraise alternative viewpoints critically**."
+  },
+  {
+    "question": "According to the passage, what evolutionary trait contributes to social conformity?",
+    "options": [
+      "Hunger for dominance",
+      "Need for speed",
+      "Instinct for tribal survival",
+      "Desire for luxury"
+    ],
+    "correctAnswer": "Instinct for tribal survival",
+    "explanation": "The passage states that the roots of group conformity lie in our **evolutionary inclination toward tribal belonging**."
+  },
+  {
+    "question": "Which event is cited as a real-world consequence of groupthink?",
+    "options": [
+      "Cold War treaty signing",
+      "Challenger disaster",
+      "Brexit vote",
+      "The Dot-com crash"
+    ],
+    "correctAnswer": "Challenger disaster",
+    "explanation": "The passage explicitly cites the **Challenger space shuttle disaster** as a textbook example of a decision marred by groupthink."
+  },
+  {
+    "question": "How does digital media reinforce conformity, according to the passage?",
+    "options": [
+      "By removing controversial content",
+      "By presenting data in charts",
+      "Through curated echo chambers",
+      "By enabling anonymous posts"
+    ],
+    "correctAnswer": "Through curated echo chambers",
+    "explanation": "The passage says that algorithms reinforce conformity by curating information bubbles, which are referred to as **digital echo chambers**."
+  },
+  {
+    "question": "What is suggested as a solution to groupthink and conformity?",
+    "options": [
+      "Fostering group memory",
+      "Accepting all opinions",
+      "Encouraging constructive dissent",
+      "Experimenting with all avenues"
+    ],
+    "correctAnswer": "Encouraging constructive dissent",
+    "explanation": "The passage states that the remedy lies in **institutionalizing dissent** and promoting a culture where counterarguments are respected."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: She insisted **me to take the medicine**.",
+    "options": [
+      "that I take the medicine",
+      "on my taking the medicine",
+      "that I took the medicine",
+      "I take the medicine by her"
+    ],
+    "correctAnswer": "that I take the medicine",
+    "explanation": "The verb **insisted** is followed by a **that** clause using the subjunctive mood, which is the base form of the verb, or by a gerund phrase using the preposition **on**."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: No one knows **where is he hiding**.",
+    "options": [
+      "Where have he hid",
+      "Where he has hiding",
+      "Where he is hiding",
+      "Where he is hid"
+    ],
+    "correctAnswer": "Where he is hiding",
+    "explanation": "In an indirect question or dependent clause, the standard subject-verb order must be used, which is **he is hiding**, not the inverted question form **is he hiding**."
+  },
+  {
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech: He said, 'I am not feeling well.'",
+    "options": [
+      "He said that he is not feeling well.",
+      "He said that he was not feeling well.",
+      "He said that he had not feel well.",
+      "He said he not feeling well."
+    ],
+    "correctAnswer": "He said that he was not feeling well.",
+    "explanation": "The Simple Present Continuous tense **I am not feeling** changes to the Past Continuous tense **he was not feeling** in indirect speech."
+  },
+  {
+    "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech: The manager told the staff that deadlines must be followed strictly.",
+    "options": [
+      "\"Deadline must be followed strictly,\" said the manager.",
+      "\"You shall follow deadlines strictly,\" said the manager.",
+      "\"Follow deadlines strictly,\" the manager said.",
+      "\"Deadline has to be followed,\" said the manager."
+    ],
+    "correctAnswer": "\"Deadline must be followed strictly,\" said the manager.",
+    "explanation": "The modal verb **must** used to express strong necessity in indirect speech often remains **must** in its direct speech equivalent, or may represent an imperative command."
+  },
+  {
+    "question": "Rearrange the following sentences in correct order to make a logical passage: 1. The team analyzed the survey data. 2. Insights were used to improve the customer experience. 3. A targeted marketing campaign was created. 4. The data was collected through various channels.",
+    "options": [
+      "1, 2, 3, 4",
+      "2, 1, 3, 4",
+      "4, 1, 3, 2",
+      "4, 1, 2, 3"
+    ],
+    "correctAnswer": "4, 1, 3, 2",
+    "explanation": "The correct sequence follows a logical process: **4** (Data Collection) $\to$ **1** (Data Analysis) $\to$ **3** (Action: Campaign Creation) $\to$ **2** (Result/Outcome: Improvement)."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph: 1. These factors include the amount of sunlight received, the composition of the atmosphere, and the Earth's orbit. 2. The long-term variations in Earth's climate are influenced by a complex interplay of natural and anthropogenic factors. 3. The most significant anthropogenic factor is the emission of greenhouse gases from industrial activities. 4. Together, these elements determine the planet's overall energy balance, and consequently, its average temperature.",
+    "options": [
+      "2, 1, 4, 3",
+      "1, 2, 3, 4",
+      "2, 4, 1, 3",
+      "4, 3, 2, 1"
+    ],
+    "correctAnswer": "2, 1, 4, 3",
+    "explanation": "The flow is: **2** (General introduction to factors) $\to$ **1** (Definition of 'These factors', focusing on natural ones) $\to$ **4** (The effect of 'Together, these elements') $\to$ **3** (Introduction of the 'most significant anthropogenic factor')."
+  }
+],
 ssc_cgl_14_sep_s1 : [
   {
     "question": "<img src='../images/011.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
@@ -2668,6 +2945,7 @@ ssc_cgl_14_sep_s2 : [
     "explanation": ""
   }
 ],
+
 ssc_cgl_14_sep_s3 :[
   {
     "question": "If a = √7 - √3, and b = √5 - √2, then which of the following is true?",
