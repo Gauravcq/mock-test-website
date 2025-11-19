@@ -2434,11 +2434,11 @@ ssc_cgl_eng_12_sep_s3 :[
       "is",
       "was"
     ],
-    "correctAnswer": "were",
-    "explanation": "The subject **negotiations** is plural, and the context requires a plural verb. The verb **were** is the correct plural past tense for this inverted structure."
+    "correctAnswer": "was",
+    "explanation": ""
   },
   {
-    "question": "Select the correct option: Her interpretation was $\square$ than insightful; it bordered on the revelatory.",
+    "question": "Select the correct option: <br> Her interpretation was __ than insightful; it bordered on the revelatory.",
     "options": [
       "less",
       "more",
@@ -2449,7 +2449,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The comparison indicated by **than** and the clause 'it bordered on the revelatory' suggests the interpretation was superior to merely insightful, making **more** the correct comparative word."
   },
   {
-    "question": "Select the correct option: The reforms, while ostensibly motivated by economic exigencies, were in effect a veiled attempt to $\square$ dissent under the guise of austerity.",
+    "question": "Select the correct option: <br>The reforms, while ostensibly motivated by economic exigencies, were in effect a veiled attempt to __ dissent under the guise of austerity.",
     "options": [
       "quell",
       "swell",
@@ -2460,15 +2460,15 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The verb **quell**, meaning to suppress or put an end to something, is the most suitable verb to describe the action of stopping dissent."
   },
   {
-    "question": "Find the part of the sentence that contains an error: The more senior the position was (1)/ the more urgent became the need (2)/ for discretion, decorum, and (3)/ refraining from premature disclosure. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>The more senior the position was (1)/ the more urgent became the need (2)/ for discretion, decorum, and (3)/ refraining from premature disclosure. (4)",
     "options": [
       "(1)",
       "(2)",
       "(3)",
       "(4)"
     ],
-    "correctAnswer": "(1)",
-    "explanation": "The use of the verb **was** in part one makes the 'The more, the more' structure awkward and non-parallel with the second clause. The verb is often omitted for better flow."
+    "correctAnswer": "(4)",
+    "explanation": ""
   },
   {
     "question": "Find the part of the sentence that contains an error: The report's emphasis on techno-optimism, while commendable, (1)/ overlook the structural inequities (2)/ that persist in data accessibility and digital literacy (3)/ across demographic and regional divides. (4)",
@@ -2493,7 +2493,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The Simple Past active voice is converted to the passive voice using the auxiliary verb **were** followed by the past participle **overlooked**."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The historian referenced a **bailey** in Norman military architecture.",
+    "question": "Select the sentence containing the homonym of the highlighted word: The historian referenced a <b><b>bailey</b></b> in Norman military architecture.",
     "options": [
       "The shepherd gathered his sheep in the bailey.",
       "The bailey was reinforced with wooden palisades.",
@@ -2515,7 +2515,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The passive structure is correctly converted to active voice by making **Insiders** the subject of the action and using the appropriate tense: **have allegedly been leaking**."
   },
   {
-    "question": "What is the central idea of groupthink as discussed in the passage?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>Group thinking, often referred to as groupthink, is a psychological phenomenon wherein the desire for unanimity within a group overrides the motivation to appraise alternative viewpoints critically. It frequently leads to flawed decision-making because dissent is either internally suppressed or socially penalized. Social conformity, its close ally, describes the act of aligning one's beliefs or behaviours with those of a majority, often subconsciously, in pursuit of acceptance or avoidance of conflict. In tightly knit groups— such as corporate boards, political committees, or academic panels—individual members may refrain from expressing contrarian ideas, fearing ostracization or reputational risk. Over time, this collective homogeneity breeds intellectual stagnation, reducing innovation and enhancing vulnerability to strategic errors. The infamous Bay of Pigs invasion and the Challenger space shuttle disaster are frequently cited as textbook examples of decisions marred by groupthink. Psychologically, the roots of group conformity lie in our evolutionary inclination toward tribal belonging, where deviation was historically associated with survival risk. In modern society, the same instinct manifests through peer pressure, organizational culture, and digital echo chambers. Algorithms reinforce conformity by curating information bubbles that validate existing biases while filtering out divergent thought. However, the remedy to such cognitive myopia lies in institutionalizing dissent. Constructive disagreement, when encouraged within teams or communities acts as an intellectual safeguard against tunnel vision. Promoting a culture where counterarguments are respected rather than reprimanded can lead to more robust, balanced, and resilient decision-making. In an age dominated by viral trends, polarized discourse, and performative alignment, the courage to question consensus is both rare and essential. True progress emerges not from blind allegiance to majority norms, but from critical inquiry and the audacity to challenge the comfortable.<br>what is the central idea of groupthink as discussed in the passage?  ",
     "options": [
       "Collaborative brainstorming",
       "Valuing consensus over critique",
@@ -2526,7 +2526,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The passage defines groupthink as the desire for unanimity that **overrides the motivation to appraise alternative viewpoints critically**."
   },
   {
-    "question": "According to the passage, what evolutionary trait contributes to social conformity?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>Group thinking, often referred to as groupthink, is a psychological phenomenon wherein the desire for unanimity within a group overrides the motivation to appraise alternative viewpoints critically. It frequently leads to flawed decision-making because dissent is either internally suppressed or socially penalized. Social conformity, its close ally, describes the act of aligning one's beliefs or behaviours with those of a majority, often subconsciously, in pursuit of acceptance or avoidance of conflict. In tightly knit groups— such as corporate boards, political committees, or academic panels—individual members may refrain from expressing contrarian ideas, fearing ostracization or reputational risk. Over time, this collective homogeneity breeds intellectual stagnation, reducing innovation and enhancing vulnerability to strategic errors. The infamous Bay of Pigs invasion and the Challenger space shuttle disaster are frequently cited as textbook examples of decisions marred by groupthink. Psychologically, the roots of group conformity lie in our evolutionary inclination toward tribal belonging, where deviation was historically associated with survival risk. In modern society, the same instinct manifests through peer pressure, organizational culture, and digital echo chambers. Algorithms reinforce conformity by curating information bubbles that validate existing biases while filtering out divergent thought. However, the remedy to such cognitive myopia lies in institutionalizing dissent. Constructive disagreement, when encouraged within teams or communities acts as an intellectual safeguard against tunnel vision. Promoting a culture where counterarguments are respected rather than reprimanded can lead to more robust, balanced, and resilient decision-making. In an age dominated by viral trends, polarized discourse, and performative alignment, the courage to question consensus is both rare and essential. True progress emerges not from blind allegiance to majority norms, but from critical inquiry and the audacity to challenge the comfortable.<br>According to the passage, what evolutionary trait contributes to social conformity?",
     "options": [
       "Hunger for dominance",
       "Need for speed",
@@ -2537,7 +2537,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The passage states that the roots of group conformity lie in our **evolutionary inclination toward tribal belonging**."
   },
   {
-    "question": "Which event is cited as a real-world consequence of groupthink?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>Group thinking, often referred to as groupthink, is a psychological phenomenon wherein the desire for unanimity within a group overrides the motivation to appraise alternative viewpoints critically. It frequently leads to flawed decision-making because dissent is either internally suppressed or socially penalized. Social conformity, its close ally, describes the act of aligning one's beliefs or behaviours with those of a majority, often subconsciously, in pursuit of acceptance or avoidance of conflict. In tightly knit groups— such as corporate boards, political committees, or academic panels—individual members may refrain from expressing contrarian ideas, fearing ostracization or reputational risk. Over time, this collective homogeneity breeds intellectual stagnation, reducing innovation and enhancing vulnerability to strategic errors. The infamous Bay of Pigs invasion and the Challenger space shuttle disaster are frequently cited as textbook examples of decisions marred by groupthink. Psychologically, the roots of group conformity lie in our evolutionary inclination toward tribal belonging, where deviation was historically associated with survival risk. In modern society, the same instinct manifests through peer pressure, organizational culture, and digital echo chambers. Algorithms reinforce conformity by curating information bubbles that validate existing biases while filtering out divergent thought. However, the remedy to such cognitive myopia lies in institutionalizing dissent. Constructive disagreement, when encouraged within teams or communities acts as an intellectual safeguard against tunnel vision. Promoting a culture where counterarguments are respected rather than reprimanded can lead to more robust, balanced, and resilient decision-making. In an age dominated by viral trends, polarized discourse, and performative alignment, the courage to question consensus is both rare and essential. True progress emerges not from blind allegiance to majority norms, but from critical inquiry and the audacity to challenge the comfortable.<br>Which event is cited as a real-world consequence of groupthink?   ",
     "options": [
       "Cold War treaty signing",
       "Challenger disaster",
@@ -2548,7 +2548,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The passage explicitly cites the **Challenger space shuttle disaster** as a textbook example of a decision marred by groupthink."
   },
   {
-    "question": "How does digital media reinforce conformity, according to the passage?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>Group thinking, often referred to as groupthink, is a psychological phenomenon wherein the desire for unanimity within a group overrides the motivation to appraise alternative viewpoints critically. It frequently leads to flawed decision-making because dissent is either internally suppressed or socially penalized. Social conformity, its close ally, describes the act of aligning one's beliefs or behaviours with those of a majority, often subconsciously, in pursuit of acceptance or avoidance of conflict. In tightly knit groups— such as corporate boards, political committees, or academic panels—individual members may refrain from expressing contrarian ideas, fearing ostracization or reputational risk. Over time, this collective homogeneity breeds intellectual stagnation, reducing innovation and enhancing vulnerability to strategic errors. The infamous Bay of Pigs invasion and the Challenger space shuttle disaster are frequently cited as textbook examples of decisions marred by groupthink. Psychologically, the roots of group conformity lie in our evolutionary inclination toward tribal belonging, where deviation was historically associated with survival risk. In modern society, the same instinct manifests through peer pressure, organizational culture, and digital echo chambers. Algorithms reinforce conformity by curating information bubbles that validate existing biases while filtering out divergent thought. However, the remedy to such cognitive myopia lies in institutionalizing dissent. Constructive disagreement, when encouraged within teams or communities acts as an intellectual safeguard against tunnel vision. Promoting a culture where counterarguments are respected rather than reprimanded can lead to more robust, balanced, and resilient decision-making. In an age dominated by viral trends, polarized discourse, and performative alignment, the courage to question consensus is both rare and essential. True progress emerges not from blind allegiance to majority norms, but from critical inquiry and the audacity to challenge the comfortable.<br>How does digital media reinforce conformity, according to the passage? ",
     "options": [
       "By removing controversial content",
       "By presenting data in charts",
@@ -2559,7 +2559,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The passage says that algorithms reinforce conformity by curating information bubbles, which are referred to as **digital echo chambers**."
   },
   {
-    "question": "What is suggested as a solution to groupthink and conformity?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>Group thinking, often referred to as groupthink, is a psychological phenomenon wherein the desire for unanimity within a group overrides the motivation to appraise alternative viewpoints critically. It frequently leads to flawed decision-making because dissent is either internally suppressed or socially penalized. Social conformity, its close ally, describes the act of aligning one's beliefs or behaviours with those of a majority, often subconsciously, in pursuit of acceptance or avoidance of conflict. In tightly knit groups— such as corporate boards, political committees, or academic panels—individual members may refrain from expressing contrarian ideas, fearing ostracization or reputational risk. Over time, this collective homogeneity breeds intellectual stagnation, reducing innovation and enhancing vulnerability to strategic errors. The infamous Bay of Pigs invasion and the Challenger space shuttle disaster are frequently cited as textbook examples of decisions marred by groupthink. Psychologically, the roots of group conformity lie in our evolutionary inclination toward tribal belonging, where deviation was historically associated with survival risk. In modern society, the same instinct manifests through peer pressure, organizational culture, and digital echo chambers. Algorithms reinforce conformity by curating information bubbles that validate existing biases while filtering out divergent thought. However, the remedy to such cognitive myopia lies in institutionalizing dissent. Constructive disagreement, when encouraged within teams or communities acts as an intellectual safeguard against tunnel vision. Promoting a culture where counterarguments are respected rather than reprimanded can lead to more robust, balanced, and resilient decision-making. In an age dominated by viral trends, polarized discourse, and performative alignment, the courage to question consensus is both rare and essential. True progress emerges not from blind allegiance to majority norms, but from critical inquiry and the audacity to challenge the comfortable.<br>What is suggested as a solution to groupthink and conformity?   ",
     "options": [
       "Fostering group memory",
       "Accepting all opinions",
@@ -2570,7 +2570,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The passage states that the remedy lies in **institutionalizing dissent** and promoting a culture where counterarguments are respected."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: She insisted **me to take the medicine**.",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: <br>She insisted <b><b>me to take the medicine.",
     "options": [
       "that I take the medicine",
       "on my taking the medicine",
@@ -2581,7 +2581,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The verb **insisted** is followed by a **that** clause using the subjunctive mood, which is the base form of the verb, or by a gerund phrase using the preposition **on**."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: No one knows **where is he hiding**.",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: <br>No one knows <b><b>where is he hiding.",
     "options": [
       "Where have he hid",
       "Where he has hiding",
@@ -2592,7 +2592,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "In an indirect question or dependent clause, the standard subject-verb order must be used, which is **he is hiding**, not the inverted question form **is he hiding**."
   },
   {
-    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech: He said, 'I am not feeling well.'",
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech: <br> He said, 'I am not feeling well.'",
     "options": [
       "He said that he is not feeling well.",
       "He said that he was not feeling well.",
@@ -2605,16 +2605,16 @@ ssc_cgl_eng_12_sep_s3 :[
   {
     "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech: The manager told the staff that deadlines must be followed strictly.",
     "options": [
-      "\"Deadline must be followed strictly,\" said the manager.",
-      "\"You shall follow deadlines strictly,\" said the manager.",
-      "\"Follow deadlines strictly,\" the manager said.",
-      "\"Deadline has to be followed,\" said the manager."
+      "“Deadlines must be followed strictly,” said the manager.",
+      "“You should follow deadlines strictly,” said the manager. ",
+      "“Follow deadlines strictly,” the manager said. ",
+      "“Deadlines are to be followed,” said the manager. "
     ],
-    "correctAnswer": "\"Deadline must be followed strictly,\" said the manager.",
+    "correctAnswer": "“Deadlines must be followed strictly,” said the manager. said the manager.",
     "explanation": "The modal verb **must** used to express strong necessity in indirect speech often remains **must** in its direct speech equivalent, or may represent an imperative command."
   },
   {
-    "question": "Rearrange the following sentences in correct order to make a logical passage: 1. The team analyzed the survey data. 2. Insights were used to improve the customer experience. 3. A targeted marketing campaign was created. 4. The data was collected through various channels.",
+    "question": "Rearrange the following sentences in correct order to make a logical passage:<br>1. The team analyzed the survey data.<br>2. Insights were used to improve the customer experience. <br>3. A targeted marketing campaign was created. <br>4. The data was collected through various channels.",
     "options": [
       "1, 2, 3, 4",
       "2, 1, 3, 4",
@@ -2625,7 +2625,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The correct sequence follows a logical process: **4** (Data Collection) $\to$ **1** (Data Analysis) $\to$ **3** (Action: Campaign Creation) $\to$ **2** (Result/Outcome: Improvement)."
   },
   {
-    "question": "Rearrange the following sentences to form a coherent paragraph: 1. These factors include the amount of sunlight received, the composition of the atmosphere, and the Earth's orbit. 2. The long-term variations in Earth's climate are influenced by a complex interplay of natural and anthropogenic factors. 3. The most significant anthropogenic factor is the emission of greenhouse gases from industrial activities. 4. Together, these elements determine the planet's overall energy balance, and consequently, its average temperature.",
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br>1. These factors include the amount of sunlight received, the composition of the atmosphere, and the Earth's orbit. <br>2. The long-term variations in Earth's climate are influenced by a complex interplay of natural and anthropogenic factors. <br>3. The most significant anthropogenic factor is the emission of greenhouse gases from industrial activities. <br>4. Together, these elements determine the planet's overall energy balance, and consequently, its average temperature.",
     "options": [
       "2, 1, 4, 3",
       "1, 2, 3, 4",
