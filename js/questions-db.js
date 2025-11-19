@@ -2092,10 +2092,10 @@ ssc_cgl_eng_12_sep_s2 : [
       "Support"
     ],
     "correctAnswer": "Renounce",
-    "explanation": "The word **ABNEGATE** means to deny or surrender a right, pleasure, or principle; its most appropriate synonym is **Renounce**."
+    "explanation": "The word ABNEGATE means to deny or surrender a right, pleasure, or principle; its most appropriate synonym is **Renounce**."
   },
   {
-    "question": "Choose the correct meaning of idiom: **Move heaven and earth**",
+    "question": "Choose the correct meaning of idiom: Move heaven and earth",
     "options": [
       "To relocate frequently",
       "To work tirelessly to achieve something",
@@ -2103,10 +2103,10 @@ ssc_cgl_eng_12_sep_s2 : [
       "To follow blindly"
     ],
     "correctAnswer": "To work tirelessly to achieve something",
-    "explanation": "The idiom **Move heaven and earth** means to make every possible effort to achieve a goal."
+    "explanation": "The idiom Move heaven and earth means to make every possible effort to achieve a goal."
   },
   {
-    "question": "Select the most appropriate antonym of the given word. **Puissant**",
+    "question": "Select the most appropriate antonym of the given word. Puissant",
     "options": [
       "Feeble",
       "Robust",
@@ -2114,7 +2114,7 @@ ssc_cgl_eng_12_sep_s2 : [
       "Strong"
     ],
     "correctAnswer": "Feeble",
-    "explanation": "**Puissant** means having great power or influence, such as powerful or strong. Its antonym is **Feeble**, which means lacking physical strength or vigor, or weak."
+    "explanation": "Puissant means having great power or influence, such as powerful or strong. Its antonym is **Feeble**, which means lacking physical strength or vigor, or weak."
   },
   {
     "question": "Identify the misspelt word",
@@ -2125,7 +2125,7 @@ ssc_cgl_eng_12_sep_s2 : [
       "Assassinate"
     ],
     "correctAnswer": "Priviledge",
-    "explanation": "The correct spelling of the word is **Privilege**."
+    "explanation": "The correct spelling of the word is Privilege."
   },
   {
     "question": "Spot the correct spelling of a drug-effect psychology field.",
@@ -2150,7 +2150,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "An **Ascetic** is a person who practices severe self-discipline and abstention from all forms of indulgence, typically for religious reasons."
   },
   {
-    "question": "Select the correct option: Neither the principal investigator $\square$ the co-authors anticipated the backlash.",
+    "question": "Select the correct option: Neither the principal investigator __ the co-authors anticipated the backlash.",
     "options": [
       "nor",
       "or",
@@ -2161,7 +2161,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The correlative conjunction pair is **Neither...nor**."
   },
   {
-    "question": "Select the correct option: The board will convene next Friday, $\square$ final approval is expected.",
+    "question": "Select the correct option: The board will convene next Friday,  __ final approval is expected.",
     "options": [
       "at which",
       "on which",
@@ -2172,7 +2172,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "**When** is the most idiomatic relative adverb to refer to the time next Friday at which the approval is expected."
   },
   {
-    "question": "Select the correct option: Nothing short of a paradigm shift will $\square$ the entrenched bureaucratic inertia.",
+    "question": "Select the correct option: Nothing short of a paradigm shift will  __ the entrenched bureaucratic inertia.",
     "options": [
       "persuade",
       "dislodge",
@@ -2183,7 +2183,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The verb **dislodge**, which means to forcefully remove, is the most suitable verb to describe the action of overcoming entrenched bureaucratic inertia."
   },
   {
-    "question": "Find the part of the sentence that contains an error: Much of what appears to be coordination (1)/ among the regulatory bodies and private stakeholders (2)/ are, in fact, coincidental overlaps (3)/ caused by differing mandates. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>Much of what appears to be coordination (1)/ among the regulatory bodies and private stakeholders (2)/ are, in fact, coincidental overlaps (3)/ caused by differing mandates. (4)",
     "options": [
       "(1)",
       "(2)",
@@ -2194,7 +2194,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The subject of the sentence is the singular pronoun **Much**, which requires the singular verb **is** instead of the plural **are**. The error is in part three."
   },
   {
-    "question": "Find the part of the sentence that contains an error: That the framework lacks provisions for backward compatibility (1)/ is less problematic than the assumption (2)/ that all peripheral institutions will, without coercion, (3)/ adheres to the central directive as framed. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>That the framework lacks provisions for backward compatibility (1)/ is less problematic than the assumption (2)/ that all peripheral institutions will, without coercion, (3)/ adheres to the central directive as framed. (4)",
     "options": [
       "(1)",
       "(2)",
@@ -2216,7 +2216,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The passive voice structure for a modal verb 'can' is **Modal plus be plus Past Participle**, resulting in 'can seldom be accessed'."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The prince's **gules** dominated the family coat of arms.",
+    "question": "Select the sentence containing the homonym of the highlighted word: <br>The prince's <b>gules<b> dominated the family coat of arms.",
     "options": [
       "The tapestry featured gules and argent prominently.",
       "The chef prepared a sauce of deep gules and cumin.",
@@ -2227,7 +2227,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "**Gules** is a heraldic term for the color red. Since a true homonym like 'gull's' is not listed, the best option is one that uses the word in a non-heraldic context as a synonym for red."
   },
   {
-    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: The package is delivered to the office every morning.",
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: <br>The package is delivered to the office every morning.",
     "options": [
       "The office delivers the package every morning.",
       "Someone delivers the package to the office every morning.",
@@ -2238,7 +2238,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "Since the active subject, the person or entity doing the delivering, is not mentioned in the passive voice sentence, an indefinite pronoun like **Someone** must be introduced to form the active voice."
   },
   {
-    "question": "What primary democratic function does social media serve, as per the passage?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>The proliferation of social media has fundamentally transformed the democratic landscape, acting both as a catalyst for civic engagement and a conduit for manipulation. Platforms like Twitter, Facebook, and Instagram, once relegated to the domain of personal expression, now serve as powerful instruments of political discourse, enabling citizens to articulate opinions, mobilize for causes, and scrutinize authority in real-time. At its core, democracy thrives on the free flow of information, and social media ostensibly democratizes this process by dismantling traditional gatekeeping. Political leaders communicate directly with constituents, bypassing editorial filters, while grassroots movements harness virality to amplify marginalized voices. During critical events—be it elections, protests, or legislative debates—social media acts as a digital agora, fostering participatory dialogue that was once confined to town halls or print columns. However, this unprecedented openness is double-edged. The same platforms that disseminate truth can also propagate misinformation, polarize public opinion, and algorithmically reinforce ideological silos. Electoral interference through fake accounts, coordinated trolling, and the spread of disinformation campaigns have threatened electoral integrity in several democracies. Moreover, emotionally charged content, optimized for engagement rather than accuracy, often eclipses nuanced debate, reducing political discourse to a cacophony of outrage. The role of social media in democracy, therefore, is contingent not just on its technological architecture, but on the ethical frameworks governing its use. Regulatory oversight, media literacy, and algorithmic transparency are essential to harness its democratic potential while mitigating its subversive tendencies. In essence, social media is neither inherently virtuous nor inherently corrosive—it is a mirror of societal intent. Whether it becomes a pillar of democratic resilience or a tool of populist distortion depends largely on how it is wielded by citizens, institutions, and platforms alike<br><br>What primary democratic function does social media serve, as per the passage?",
     "options": [
       "Promoting entertainment",
       "Replacing newspapers",
@@ -2249,7 +2249,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The passage states, 'At its core, democracy thrives on the **free flow of information**, and social media ostensibly democratizes this process...'"
   },
   {
-    "question": "What makes social media a double-edged tool in democratic societies?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>The proliferation of social media has fundamentally transformed the democratic landscape, acting both as a catalyst for civic engagement and a conduit for manipulation. Platforms like Twitter, Facebook, and Instagram, once relegated to the domain of personal expression, now serve as powerful instruments of political discourse, enabling citizens to articulate opinions, mobilize for causes, and scrutinize authority in real-time. At its core, democracy thrives on the free flow of information, and social media ostensibly democratizes this process by dismantling traditional gatekeeping. Political leaders communicate directly with constituents, bypassing editorial filters, while grassroots movements harness virality to amplify marginalized voices. During critical events—be it elections, protests, or legislative debates—social media acts as a digital agora, fostering participatory dialogue that was once confined to town halls or print columns. However, this unprecedented openness is double-edged. The same platforms that disseminate truth can also propagate misinformation, polarize public opinion, and algorithmically reinforce ideological silos. Electoral interference through fake accounts, coordinated trolling, and the spread of disinformation campaigns have threatened electoral integrity in several democracies. Moreover, emotionally charged content, optimized for engagement rather than accuracy, often eclipses nuanced debate, reducing political discourse to a cacophony of outrage. The role of social media in democracy, therefore, is contingent not just on its technological architecture, but on the ethical frameworks governing its use. Regulatory oversight, media literacy, and algorithmic transparency are essential to harness its democratic potential while mitigating its subversive tendencies. In essence, social media is neither inherently virtuous nor inherently corrosive—it is a mirror of societal intent. Whether it becomes a pillar of democratic resilience or a tool of populist distortion depends largely on how it is wielded by citizens, institutions, and platforms alike<br><br>What makes social media a double-edged tool in democratic societies?",
     "options": [
       "Its affordability",
       "Its visual design",
@@ -2260,7 +2260,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The passage highlights that 'The same platforms that disseminate **truth** can also propagate **misinformation**...'"
   },
   {
-    "question": "According to the paragraph, which element amplifies marginalized voices through social media?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>The proliferation of social media has fundamentally transformed the democratic landscape, acting both as a catalyst for civic engagement and a conduit for manipulation. Platforms like Twitter, Facebook, and Instagram, once relegated to the domain of personal expression, now serve as powerful instruments of political discourse, enabling citizens to articulate opinions, mobilize for causes, and scrutinize authority in real-time. At its core, democracy thrives on the free flow of information, and social media ostensibly democratizes this process by dismantling traditional gatekeeping. Political leaders communicate directly with constituents, bypassing editorial filters, while grassroots movements harness virality to amplify marginalized voices. During critical events—be it elections, protests, or legislative debates—social media acts as a digital agora, fostering participatory dialogue that was once confined to town halls or print columns. However, this unprecedented openness is double-edged. The same platforms that disseminate truth can also propagate misinformation, polarize public opinion, and algorithmically reinforce ideological silos. Electoral interference through fake accounts, coordinated trolling, and the spread of disinformation campaigns have threatened electoral integrity in several democracies. Moreover, emotionally charged content, optimized for engagement rather than accuracy, often eclipses nuanced debate, reducing political discourse to a cacophony of outrage. The role of social media in democracy, therefore, is contingent not just on its technological architecture, but on the ethical frameworks governing its use. Regulatory oversight, media literacy, and algorithmic transparency are essential to harness its democratic potential while mitigating its subversive tendencies. In essence, social media is neither inherently virtuous nor inherently corrosive—it is a mirror of societal intent. Whether it becomes a pillar of democratic resilience or a tool of populist distortion depends largely on how it is wielded by citizens, institutions, and platforms alike<br><br>According to the paragraph, which element amplifies marginalized voices through social media? ",
     "options": [
       "Editorial boards",
       "Gatekeeping journalism",
@@ -2271,7 +2271,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The passage states that '...grassroots movements harness **virality to amplify marginalized voices**.'"
   },
   {
-    "question": "What does the author suggest as a critical solution to social media misuse in democracies?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>The proliferation of social media has fundamentally transformed the democratic landscape, acting both as a catalyst for civic engagement and a conduit for manipulation. Platforms like Twitter, Facebook, and Instagram, once relegated to the domain of personal expression, now serve as powerful instruments of political discourse, enabling citizens to articulate opinions, mobilize for causes, and scrutinize authority in real-time. At its core, democracy thrives on the free flow of information, and social media ostensibly democratizes this process by dismantling traditional gatekeeping. Political leaders communicate directly with constituents, bypassing editorial filters, while grassroots movements harness virality to amplify marginalized voices. During critical events—be it elections, protests, or legislative debates—social media acts as a digital agora, fostering participatory dialogue that was once confined to town halls or print columns. However, this unprecedented openness is double-edged. The same platforms that disseminate truth can also propagate misinformation, polarize public opinion, and algorithmically reinforce ideological silos. Electoral interference through fake accounts, coordinated trolling, and the spread of disinformation campaigns have threatened electoral integrity in several democracies. Moreover, emotionally charged content, optimized for engagement rather than accuracy, often eclipses nuanced debate, reducing political discourse to a cacophony of outrage. The role of social media in democracy, therefore, is contingent not just on its technological architecture, but on the ethical frameworks governing its use. Regulatory oversight, media literacy, and algorithmic transparency are essential to harness its democratic potential while mitigating its subversive tendencies. In essence, social media is neither inherently virtuous nor inherently corrosive—it is a mirror of societal intent. Whether it becomes a pillar of democratic resilience or a tool of populist distortion depends largely on how it is wielded by citizens, institutions, and platforms alike<br><br>What does the author suggest as a critical solution to social media misuse in democracies?  ",
     "options": [
       "Enhanced meme culture",
       "Legalizing all content",
@@ -2282,7 +2282,18 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The passage explicitly lists 'Regulatory oversight, **media literacy, and algorithmic transparency** are essential...'"
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: No sooner had I reached the station **when the train departed**",
+    "question": "Read the following passage and answer the questions based on the passage : <br>The proliferation of social media has fundamentally transformed the democratic landscape, acting both as a catalyst for civic engagement and a conduit for manipulation. Platforms like Twitter, Facebook, and Instagram, once relegated to the domain of personal expression, now serve as powerful instruments of political discourse, enabling citizens to articulate opinions, mobilize for causes, and scrutinize authority in real-time. At its core, democracy thrives on the free flow of information, and social media ostensibly democratizes this process by dismantling traditional gatekeeping. Political leaders communicate directly with constituents, bypassing editorial filters, while grassroots movements harness virality to amplify marginalized voices. During critical events—be it elections, protests, or legislative debates—social media acts as a digital agora, fostering participatory dialogue that was once confined to town halls or print columns. However, this unprecedented openness is double-edged. The same platforms that disseminate truth can also propagate misinformation, polarize public opinion, and algorithmically reinforce ideological silos. Electoral interference through fake accounts, coordinated trolling, and the spread of disinformation campaigns have threatened electoral integrity in several democracies. Moreover, emotionally charged content, optimized for engagement rather than accuracy, often eclipses nuanced debate, reducing political discourse to a cacophony of outrage. The role of social media in democracy, therefore, is contingent not just on its technological architecture, but on the ethical frameworks governing its use. Regulatory oversight, media literacy, and algorithmic transparency are essential to harness its democratic potential while mitigating its subversive tendencies. In essence, social media is neither inherently virtuous nor inherently corrosive—it is a mirror of societal intent. Whether it becomes a pillar of democratic resilience or a tool of populist distortion depends largely on how it is wielded by citizens, institutions, and platforms alike<br><br>In the author's view, what determines whether social media supports or undermines democracy ",
+    "options": [
+      "Political advertisements ",
+      "How platforms are funded ",
+      "Societal intent and ethical usage",
+      "Popularity of influencers "
+    ],
+    "correctAnswer": "Societal intent and ethical usage",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: <br>No sooner had I reached the station <b><b>when the train departed</b></b>",
     "options": [
       "than the train departed",
       "When the train had departed",
@@ -2293,7 +2304,7 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The correlative conjunction used with **No sooner** is always **than**."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: The manager **asked to the clerk to submit the report**",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence:<br> The manager <b><b>asked to the clerk to submit the report</b></b> ",
     "options": [
       "asked the clerk to submit the report",
       "requested the clerk about the report",
@@ -2304,36 +2315,36 @@ ssc_cgl_eng_12_sep_s2 : [
     "explanation": "The verb **asked**, in the sense of instructed or requested, is transitive and does not require the preposition 'to' before the direct object 'the clerk'."
   },
   {
-    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech: She said, 'I saw him last night.'",
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech: <br> She said, 'I saw him last night.'",
     "options": [
-      "She said that she had seen him the previous night.",
-      "She said that she has seen him last night.",
-      "She said that she was seeing him last night.",
-      "She said that she had saw him the previous night."
+      "She said she had seen him the previous night.",
+      "She said she has seen him last night.",
+      "She said she was seeing him last night.",
+      "She said she had saw him the previous night."
     ],
-    "correctAnswer": "She said that she had seen him the previous night.",
+    "correctAnswer": "She said she had seen him the previous night.",
     "explanation": "When converting to Indirect Speech, **Simple Past** 'I saw' changes to **Past Perfect** 'she had seen' and the time expression **last night** changes to **the previous night**."
   },
   {
     "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech: The librarian said that silence must be maintained in the library.",
     "options": [
-      "\"Silence should be maintained in the library,\" said the librarian.",
-      "\"You will maintain silence in the library,\" the librarian said.",
-      "\"Maintain silence in the library,\" said the librarian.",
-      "\"Will you maintain silence in the library?\" asked the librarian."
+      "“Silence should be maintained in the library,” said the librarian.", 
+      "“You will maintain silence in the library,” the librarian said. ",
+      "“Maintain silence in the library,” said the librarian.",
+      "“Must you maintain silence in the library?” asked the librarian. "
     ],
-    "correctAnswer": "\"Maintain silence in the library,\" said the librarian.",
+    "correctAnswer": "“Maintain silence in the library,” said the librarian.",
     "explanation": "The use of 'must be maintained' in indirect speech usually derives from an imperative command or a direct order in the direct speech."
   },
   {
-    "question": "Rearrange the following sentences to form a coherent paragraph: 1. Consequently, effective communication hinges on more than just the words we choose. 2. Non-verbal cues, such as tone of voice, facial expressions, and body language, can convey more meaning than the verbal message itself. 3. Communication is a complex process involving the exchange of information, ideas, and feelings between individuals. 4. It's often the subtle signals that tell us how a message is truly being received or interpreted.",
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br> 1. Consequently, effective communication hinges on more than just the words we choose. 2. Non-verbal cues, such as tone of voice, facial expressions, and body language, can convey more meaning than the verbal message itself. 3. Communication is a complex process involving the exchange of information, ideas, and feelings between individuals. 4. It's often the subtle signals that tell us how a message is truly being received or interpreted.",
     "options": [
-      "3, 2, 4, 1",
-      "3, 4, 2, 1",
+      "3, 2, 1, 4",
+      "2, 4, 1, 3",
       "1, 4, 3, 2",
-      "2, 4, 3, 1"
+      "3, 4, 2, 1"
     ],
-    "correctAnswer": "3, 4, 2, 1",
+    "correctAnswer": "3, 2, 1, 4",
     "explanation": "The logical sequence is: sentence three introduces the topic, sentence four elaborates on the importance of subtle signals, sentence two gives examples of these non-verbal cues, and sentence one provides the conclusion introduced by the word 'Consequently'."
   },
   {
