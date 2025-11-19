@@ -2082,6 +2082,272 @@ ssc_cgl_eng_12_sep_s1 : [
     "explanation": "The logical order is: **Introduction/Topic** (2) $\rightarrow$ **Definition** (1, using 'It') $\rightarrow$ **Classification** (3, using 'This') $\rightarrow$ **Conclusion/Next Step** (4, referring to 'The findings')."
   },
 ],
+ssc_cgl_eng_12_sep_s2 : [
+  {
+    "question": "Select the most appropriate synonym of the given word: ABNEGATE",
+    "options": [
+      "Demand",
+      "Accept",
+      "Renounce",
+      "Support"
+    ],
+    "correctAnswer": "Renounce",
+    "explanation": "The word **ABNEGATE** means to deny or surrender a right, pleasure, or principle; its most appropriate synonym is **Renounce**."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: **Move heaven and earth**",
+    "options": [
+      "To relocate frequently",
+      "To work tirelessly to achieve something",
+      "To stay silent in protest",
+      "To follow blindly"
+    ],
+    "correctAnswer": "To work tirelessly to achieve something",
+    "explanation": "The idiom **Move heaven and earth** means to make every possible effort to achieve a goal."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. **Puissant**",
+    "options": [
+      "Feeble",
+      "Robust",
+      "Powerful",
+      "Strong"
+    ],
+    "correctAnswer": "Feeble",
+    "explanation": "**Puissant** means having great power or influence, such as powerful or strong. Its antonym is **Feeble**, which means lacking physical strength or vigor, or weak."
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": [
+      "Supersede",
+      "Perseverance",
+      "Priviledge",
+      "Assassinate"
+    ],
+    "correctAnswer": "Priviledge",
+    "explanation": "The correct spelling of the word is **Privilege**."
+  },
+  {
+    "question": "Spot the correct spelling of a drug-effect psychology field.",
+    "options": [
+      "Psychopharmacology",
+      "Psychopharmacholog",
+      "Psychopharmeocology",
+      "Psychopharmocology"
+    ],
+    "correctAnswer": "Psychopharmacology",
+    "explanation": "**Psychopharmacology** is the correct spelling for the study of drug effects on the mind and behavior."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A person who abstains from all forms of indulgence'.",
+    "options": [
+      "Ascetic",
+      "Agnostic",
+      "Mystic",
+      "Skeptic"
+    ],
+    "correctAnswer": "Ascetic",
+    "explanation": "An **Ascetic** is a person who practices severe self-discipline and abstention from all forms of indulgence, typically for religious reasons."
+  },
+  {
+    "question": "Select the correct option: Neither the principal investigator $\square$ the co-authors anticipated the backlash.",
+    "options": [
+      "nor",
+      "or",
+      "and",
+      "nor did"
+    ],
+    "correctAnswer": "nor",
+    "explanation": "The correlative conjunction pair is **Neither...nor**."
+  },
+  {
+    "question": "Select the correct option: The board will convene next Friday, $\square$ final approval is expected.",
+    "options": [
+      "at which",
+      "on which",
+      "when",
+      "whereupon"
+    ],
+    "correctAnswer": "when",
+    "explanation": "**When** is the most idiomatic relative adverb to refer to the time next Friday at which the approval is expected."
+  },
+  {
+    "question": "Select the correct option: Nothing short of a paradigm shift will $\square$ the entrenched bureaucratic inertia.",
+    "options": [
+      "persuade",
+      "dislodge",
+      "dissuasion",
+      "disillusion"
+    ],
+    "correctAnswer": "dislodge",
+    "explanation": "The verb **dislodge**, which means to forcefully remove, is the most suitable verb to describe the action of overcoming entrenched bureaucratic inertia."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: Much of what appears to be coordination (1)/ among the regulatory bodies and private stakeholders (2)/ are, in fact, coincidental overlaps (3)/ caused by differing mandates. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(3)",
+    "explanation": "The subject of the sentence is the singular pronoun **Much**, which requires the singular verb **is** instead of the plural **are**. The error is in part three."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: That the framework lacks provisions for backward compatibility (1)/ is less problematic than the assumption (2)/ that all peripheral institutions will, without coercion, (3)/ adheres to the central directive as framed. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(4)",
+    "explanation": "A modal verb **will** must be followed by the base form of the verb, which is **adhere**, not the s-form **adheres**. The error is in part four."
+  },
+  {
+    "question": "Change the following from active to passive: People can seldom access archived manuscripts without clearance.",
+    "options": [
+      "Archived manuscripts can seldom being accessed without clearance.",
+      "Archived manuscripts could seldom be accessed without clearance.",
+      "Archived manuscripts can seldom be accessed without clearance.",
+      "Archived manuscripts are seldom able to be accessed without clearance."
+    ],
+    "correctAnswer": "Archived manuscripts can seldom be accessed without clearance.",
+    "explanation": "The passive voice structure for a modal verb 'can' is **Modal plus be plus Past Participle**, resulting in 'can seldom be accessed'."
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The prince's **gules** dominated the family coat of arms.",
+    "options": [
+      "The tapestry featured gules and argent prominently.",
+      "The chef prepared a sauce of deep gules and cumin.",
+      "The gules border signified martial lineage.",
+      "The herald explained the symbolism of gules to visitors."
+    ],
+    "correctAnswer": "The chef prepared a sauce of deep gules and cumin.",
+    "explanation": "**Gules** is a heraldic term for the color red. Since a true homonym like 'gull's' is not listed, the best option is one that uses the word in a non-heraldic context as a synonym for red."
+  },
+  {
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: The package is delivered to the office every morning.",
+    "options": [
+      "The office delivers the package every morning.",
+      "Someone delivers the package to the office every morning.",
+      "The office has delivered the package every morning.",
+      "The package delivers itself to the office every morning."
+    ],
+    "correctAnswer": "Someone delivers the package to the office every morning.",
+    "explanation": "Since the active subject, the person or entity doing the delivering, is not mentioned in the passive voice sentence, an indefinite pronoun like **Someone** must be introduced to form the active voice."
+  },
+  {
+    "question": "What primary democratic function does social media serve, as per the passage?",
+    "options": [
+      "Promoting entertainment",
+      "Replacing newspapers",
+      "Facilitating free flow of information",
+      "Organizing trade unions"
+    ],
+    "correctAnswer": "Facilitating free flow of information",
+    "explanation": "The passage states, 'At its core, democracy thrives on the **free flow of information**, and social media ostensibly democratizes this process...'"
+  },
+  {
+    "question": "What makes social media a double-edged tool in democratic societies?",
+    "options": [
+      "Its affordability",
+      "Its visual design",
+      "Its ability to spread both truth and misinformation",
+      "Its international reach"
+    ],
+    "correctAnswer": "Its ability to spread both truth and misinformation",
+    "explanation": "The passage highlights that 'The same platforms that disseminate **truth** can also propagate **misinformation**...'"
+  },
+  {
+    "question": "According to the paragraph, which element amplifies marginalized voices through social media?",
+    "options": [
+      "Editorial boards",
+      "Gatekeeping journalism",
+      "Viral reach and grassroots mobilization",
+      "Institutional press"
+    ],
+    "correctAnswer": "Viral reach and grassroots mobilization",
+    "explanation": "The passage states that '...grassroots movements harness **virality to amplify marginalized voices**.'"
+  },
+  {
+    "question": "What does the author suggest as a critical solution to social media misuse in democracies?",
+    "options": [
+      "Enhanced meme culture",
+      "Legalizing all content",
+      "Algorithmic transparency and media literacy",
+      "Global censorship policies"
+    ],
+    "correctAnswer": "Algorithmic transparency and media literacy",
+    "explanation": "The passage explicitly lists 'Regulatory oversight, **media literacy, and algorithmic transparency** are essential...'"
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: No sooner had I reached the station **when the train departed**",
+    "options": [
+      "than the train departed",
+      "When the train had departed",
+      "that the train departed",
+      "which the train departed"
+    ],
+    "correctAnswer": "than the train departed",
+    "explanation": "The correlative conjunction used with **No sooner** is always **than**."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: The manager **asked to the clerk to submit the report**",
+    "options": [
+      "asked the clerk to submit the report",
+      "requested the clerk about the report",
+      "was asked to the clerk to submit the report",
+      "asked the clerk about submitting the report"
+    ],
+    "correctAnswer": "asked the clerk to submit the report",
+    "explanation": "The verb **asked**, in the sense of instructed or requested, is transitive and does not require the preposition 'to' before the direct object 'the clerk'."
+  },
+  {
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech: She said, 'I saw him last night.'",
+    "options": [
+      "She said that she had seen him the previous night.",
+      "She said that she has seen him last night.",
+      "She said that she was seeing him last night.",
+      "She said that she had saw him the previous night."
+    ],
+    "correctAnswer": "She said that she had seen him the previous night.",
+    "explanation": "When converting to Indirect Speech, **Simple Past** 'I saw' changes to **Past Perfect** 'she had seen' and the time expression **last night** changes to **the previous night**."
+  },
+  {
+    "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech: The librarian said that silence must be maintained in the library.",
+    "options": [
+      "\"Silence should be maintained in the library,\" said the librarian.",
+      "\"You will maintain silence in the library,\" the librarian said.",
+      "\"Maintain silence in the library,\" said the librarian.",
+      "\"Will you maintain silence in the library?\" asked the librarian."
+    ],
+    "correctAnswer": "\"Maintain silence in the library,\" said the librarian.",
+    "explanation": "The use of 'must be maintained' in indirect speech usually derives from an imperative command or a direct order in the direct speech."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph: 1. Consequently, effective communication hinges on more than just the words we choose. 2. Non-verbal cues, such as tone of voice, facial expressions, and body language, can convey more meaning than the verbal message itself. 3. Communication is a complex process involving the exchange of information, ideas, and feelings between individuals. 4. It's often the subtle signals that tell us how a message is truly being received or interpreted.",
+    "options": [
+      "3, 2, 4, 1",
+      "3, 4, 2, 1",
+      "1, 4, 3, 2",
+      "2, 4, 3, 1"
+    ],
+    "correctAnswer": "3, 4, 2, 1",
+    "explanation": "The logical sequence is: sentence three introduces the topic, sentence four elaborates on the importance of subtle signals, sentence two gives examples of these non-verbal cues, and sentence one provides the conclusion introduced by the word 'Consequently'."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph: 1. A key strategy is to diversify energy sources, transitioning from fossil fuels to renewable alternatives like solar, wind, and geothermal power. 2. To mitigate the worst effects of climate change, the global community must drastically reduce its reliance on carbon-intensive energy production. 3. This shift not only decreases greenhouse gas emissions but also improves air quality and creates new economic opportunities. 4. Additionally, policies that promote energy efficiency in buildings and transportation can further lower overall energy consumption.",
+    "options": [
+      "2, 1, 3, 4",
+      "2, 3, 1, 4",
+      "1, 2, 3, 4",
+      "2, 4, 3, 1"
+    ],
+    "correctAnswer": "2, 1, 3, 4",
+    "explanation": "The logical sequence is: sentence two presents the main problem and goal, sentence one introduces the 'key strategy' to meet that goal, sentence three describes the benefit of 'This shift', and sentence four introduces a second measure using the transition word 'Additionally'."
+  }
+],
 ssc_cgl_14_sep_s1 : [
   {
     "question": "<img src='../images/011.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
@@ -2447,7 +2713,7 @@ ssc_cgl_14_sep_s3 :[
     "explanation": ""
   },
   {
-    "question": " A furniture store sells a dining table for €Z, making a 25% profit. During a festive season, they increase the marked price of the same table to 1.6Z. They then offer a special discount of 20% on this increased marked price. What will be the percentage profit made by the store during the festive season?",
+    "question": " A furniture store sells a dining table for ₹Z, making a 25% profit. During a festive season, they increase the marked price of the same table to 1.6Z. They then offer a special discount of 20% on this increased marked price. What will be the percentage profit made by the store during the festive season?",
     "options": ["26%", "56%", "62%", "60%"],
     "correctAnswer": "60%",
     "explanation": ""
@@ -2543,5 +2809,6 @@ ssc_cgl_14_sep_s3 :[
     "explanation": ""
   },
 ]
+
 
 }

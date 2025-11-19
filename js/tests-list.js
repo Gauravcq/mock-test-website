@@ -99,6 +99,13 @@ const ALL_TESTS = [
         subject: "English",
         isNew: true // ⭐ ADDED: Mark the Reasoning test as new
     },
+    {
+        id: "ssc_cgl_eng_12_sep_s2", // New unique ID for english Shift 1
+        date: "12 Sep",
+        title: "Shift 2",
+        subject: "English",
+        isNew: true // ⭐ ADDED: Mark the Reasoning test as new
+    },
 
 
 ];
