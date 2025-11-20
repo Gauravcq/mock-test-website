@@ -2636,7 +2636,7 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The flow is: **2** (General introduction to factors) $\to$ **1** (Definition of 'These factors', focusing on natural ones) $\to$ **4** (The effect of 'Together, these elements') $\to$ **3** (Introduction of the 'most significant anthropogenic factor')."
   }
 ],
-ssc_cgl_eng_13sep_s1 : [
+ssc_cgl_eng_13_sep_s1 : [
   {
     "question": "Select the most appropriate synonym of the word: CAUSTIC",
     "options": ["Kind", "Mild", "Gentle", "Sarcastic"],
