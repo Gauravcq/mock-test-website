@@ -3252,7 +3252,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   }
 ],
-  ssc_cgl_eng_14_sep_s1 : [
+   ssc_cgl_eng_14_sep_s1 : [
   {
     "question": "Select the most appropriate synonym of the given word: JUVENILE",
     "options": ["Wise", "Childish", "Mature", "Adult"],
