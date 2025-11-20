@@ -2843,6 +2843,209 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "General → purpose → methods → additional benefits."
   }
 ],
+ssc_cgl_eng_13_sep_s2 :[
+  {
+    "question": "Select the most appropriate synonym of the given word: BIBLIOPHILE",
+    "options": ["Publisher", "Bookkeeper", "Librarian", "Book-lover"],
+    "correctAnswer": "Book-lover",
+    "explanation": "Bibliophile means someone who loves or collects books."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: Has two strings to his bow",
+    "options": [
+      "He is indecisive in crucial matters.",
+      "He has two romantic interests simultaneously.",
+      "He has an additional skill or option to rely on.",
+      "He uses deception to achieve goals."
+    ],
+    "correctAnswer": "He has an additional skill or option to rely on.",
+    "explanation": "The idiom means having another option or skill as backup."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word: Lachrymose",
+    "options": ["Tearful", "Mournful", "Weepy", "Jovial"],
+    "correctAnswer": "Jovial",
+    "explanation": "Lachrymose means tearful. Opposite is cheerful → Jovial."
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": ["Acquiescence", "Bourgeoisie", "Consciencious", "Epitome"],
+    "correctAnswer": "Consciencious",
+    "explanation": "Correct spelling is 'conscientious'."
+  },
+  {
+    "question": "Spot the correct spelling of an electron-transport protein.",
+    "options": ["Cytocrome", "Cytocrhame", "Cytochrome", "Cytohrome"],
+    "correctAnswer": "Cytochrome",
+    "explanation": "Cytochrome is the correct protein spelling."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A state of temporary disuse or suspension’.",
+    "options": ["Intermission", "Recess", "Abeyance", "Dormancy"],
+    "correctAnswer": "Abeyance",
+    "explanation": "Abeyance means temporary suspension."
+  },
+  {
+    "question": "The analyst found the correlation to be ___ marginal to influence policy.",
+    "options": ["too", "so", "as", "very"],
+    "correctAnswer": "too",
+    "explanation": "Too marginal to influence policy → correct usage."
+  },
+  {
+    "question": "Her argument was compelling; ___, it was based on outdated data.",
+    "options": ["otherwise", "conversely", "nevertheless", "subsequently"],
+    "correctAnswer": "subsequently",
+    "explanation": "‘Subsequently’ fits the required contrast after a semicolon."
+  },
+  {
+    "question": "Had it not been for her timely intervention, the discussion might well have ___ into an acrimonious stalemate.",
+    "options": ["evolved", "devolved", "absorbed"],
+    "correctAnswer": "devolved",
+    "explanation": "‘Devolve into’ means to deteriorate into something worse."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: The regulator's decision to postpone the implementation (1) was attributed partly to industry pressure (2) and partly due to legal ambiguity (3) surrounding the recent amendments. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(3)",
+    "explanation": "Parallelism error: ‘partly to’ must pair with ‘partly to’, not ‘due to’."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: That there exists no recourse for citizens (1) if environmental violations are condoned at the ministerial level (2) underline a systemic erosion of (3) constitutional accountability. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(3)",
+    "explanation": "Subject is singular → ‘underlines’, not ‘underline’."
+  },
+  {
+    "question": "Change the following from active to passive: We shall have dispatched the invitations before Friday evening.",
+    "options": [
+      "The invitations shall have dispatched before Friday evening.",
+      "The invitations shall have had been dispatched before Friday evening.",
+      "The invitations shall have be dispatched before Friday evening.",
+      "The invitations shall have been dispatched before Friday evening."
+    ],
+    "correctAnswer": "The invitations shall have been dispatched before Friday evening.",
+    "explanation": "Future perfect passive = shall/will have been + past participle."
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The medieval oriel window projected elegantly from the chapel wall.",
+    "options": [
+      "The priest admired the sunlight filtering through the oriel.",
+      "The duke stood by the oriel gazing at the courtyard.",
+      "The technician adjusted the frequency on the oriel.",
+      "The stained-glass oriel was restored by artisans."
+    ],
+    "correctAnswer": "The stained-glass oriel was restored by artisans.",
+    "explanation": "Correct homonym usage referring to the architectural window."
+  },
+  {
+    "question": "Convert the sentence from passive to active: The photos will be printed by the studio within an hour.",
+    "options": [
+      "The studio prints the photos within an hour.",
+      "The studio will print the photos within an hour.",
+      "The photos printed by the studio soon.",
+      "The studio had printed the photos in an hour."
+    ],
+    "correctAnswer": "The studio will print the photos within an hour.",
+    "explanation": "Active voice places subject first → ‘The studio will print...’"
+  },
+  {
+    "question": "According to the passage, which quality is most crucial for entrepreneurs?",
+    "options": ["Obedience", "Resilience", "Delegation", "Conformity"],
+    "correctAnswer": "Resilience",
+    "explanation": "Passage states entrepreneurs need resilience to navigate uncertainty."
+  },
+  {
+    "question": "Why is employment often psychologically comforting, as per the passage?",
+    "options": [
+      "It allows for flexible innovation",
+      "It eliminates the need for competition",
+      "It provides hierarchy and reduced risk",
+      "It ensures rapid promotions"
+    ],
+    "correctAnswer": "It provides hierarchy and reduced risk",
+    "explanation": "Passage: job stability + structure = psychological comfort."
+  },
+  {
+    "question": "How does the passage describe societal views toward entrepreneurship?",
+    "options": [
+      "Always supportive",
+      "Unanimously dismissive",
+      "Overwhelmingly negative",
+      "Skeptical until proven successful"
+    ],
+    "correctAnswer": "Skeptical until proven successful",
+    "explanation": "Passage states society doubts entrepreneurs until success."
+  },
+  {
+    "question": "What is implied by 'absence of assured income' in the context of entrepreneurship?",
+    "options": [
+      "Entrepreneurs always work voluntarily",
+      "No fixed salary or stable cash flow",
+      "Profits are guaranteed from start",
+      "Income is controlled by the government"
+    ],
+    "correctAnswer": "No fixed salary or stable cash flow",
+    "explanation": "Entrepreneurship involves unpredictable income."
+  },
+  {
+    "question": "What does the word 'dichotomy' in the passage most nearly mean?",
+    "options": [
+      "A shared understanding",
+      "A mutual advantage",
+      "A clear division between two contrasting things",
+      "A repeated pattern"
+    ],
+    "correctAnswer": "A clear division between two contrasting things",
+    "explanation": "Dichotomy = two opposite ideas contrasted."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part: He is looking forward fo meet you soon.",
+    "options": ["to meeting you soon", "for meeting you", "meeting you", "to have met you"],
+    "correctAnswer": "to meeting you soon",
+    "explanation": "'Look forward to' is always followed by a gerund."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: The judge declared the prisoner as guilty.",
+    "options": ["guilty for", "guilty", "as being guilty", "guilty to crime"],
+    "correctAnswer": "as being guilty",
+    "explanation": "Correct formal expression: 'declared as being guilty'."
+  },
+  {
+    "question": "Ravi said, “I like this pen.” (Indirect speech)",
+    "options": [
+      "Ravi said he liked that pen.",
+      "Ravi said he like that pen.",
+      "Ravi said he liked this pen.",
+      "Ravi said he likes that pen."
+    ],
+    "correctAnswer": "Ravi said he liked that pen.",
+    "explanation": "‘This’ → ‘that’, tense shifts to past."
+  },
+  {
+    "question": "The judge said that justice must be served at any cost. (Direct speech)",
+    "options": [
+      "\"Justice should be served at any cost,” said the judge.",
+      "\"Justice must be served at any cost,” the judge said.",
+      "\"We serve justice at any cost,” said the judge.",
+      "\"One must serve justice,” the judge said."
+    ],
+    "correctAnswer": "\"Justice should be served at any cost,” said the judge.",
+    "explanation": "‘Must’ often becomes ‘should’ in direct conversion per key."
+  },
+  {
+    "question": "Rearrange to form a coherent paragraph: (Misinformation passage)",
+    "options": ["2,1,4,3", "3,1,2,4", "1,4,2,3"],
+    "correctAnswer": "1,4,2,3",
+    "explanation": "Starts with issue → fact-check role → method → impact."
+  },
+  {
+    "question": "Rearrange to form a coherent paragraph:",
+    "options": ["2,1,3,4", "1,2,4,3", "4,3,2,1", "3,4,1,2"],
+    "correctAnswer": "2,1,3,4",
+    "explanation": "Definition → investigation → types → review process."
+  }
+],
+
 
 ssc_cgl_14_sep_s1 : [
   {
