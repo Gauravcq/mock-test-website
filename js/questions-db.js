@@ -2636,6 +2636,214 @@ ssc_cgl_eng_12_sep_s3 :[
     "explanation": "The flow is: **2** (General introduction to factors) $\to$ **1** (Definition of 'These factors', focusing on natural ones) $\to$ **4** (The effect of 'Together, these elements') $\to$ **3** (Introduction of the 'most significant anthropogenic factor')."
   }
 ],
+ssc_cgl_eng_13sep_s1 : [
+  {
+    "question": "Select the most appropriate synonym of the word: CAUSTIC",
+    "options": ["Kind", "Mild", "Gentle", "Sarcastic"],
+    "correctAnswer": "Sarcastic",
+    "explanation": "Caustic means harsh or severely sarcastic; hence 'Sarcastic' is the correct synonym."
+  },
+  {
+    "question": "Choose the correct meaning of the idiom: Make no bones about it",
+    "options": ["To hesitate before speaking", "To remain neutral", "To be direct and honest", "To confuse the listener"],
+    "correctAnswer": "To be direct and honest",
+    "explanation": "Make no bones about something means to speak plainly without hesitation."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word: Evanescent",
+    "options": ["Ephemeral", "Transient", "Enduring", "Fleeting"],
+    "correctAnswer": "Enduring",
+    "explanation": "Evanescent means short-lived. Its opposite is 'Enduring'."
+  },
+  {
+    "question": "Identify the misspelt word.",
+    "options": ["Temerarious", "Penitent", "inadvertant", "Penitent"],
+    "correctAnswer": "inadvertant",
+    "explanation": "The correct spelling is 'inadvertent'; hence 'inadvertant' is misspelt."
+  },
+  {
+    "question": "Spot the correct spelling of a rock-bearing metamorphic texture word.",
+    "options": ["Prophyroblastic", "Porphyroblastic", "Porfyrblastic", "Porphyroblastik"],
+    "correctAnswer": "Porphyroblastic",
+    "explanation": "'Porphyroblastic' is the correct geological spelling."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A political system based on the rule of the wealthy'.",
+    "options": ["Oligarchy", "Aristocracy", "Plutocracy", "Meritocracy"],
+    "correctAnswer": "Plutocracy",
+    "explanation": "Plutocracy refers to government by the wealthy."
+  },
+  {
+    "question": "Select the correct option: Only after a decade of fieldwork __ fully grasp the dialect’s nuances.",
+    "options": ["she had", "did she", "had she", "she did"],
+    "correctAnswer": "did she",
+    "explanation": "After negative/limiting expressions, inversion occurs → 'did she fully grasp'."
+  },
+  {
+    "question": "Select the correct option: ‘The professor's remarks were so dense with jargon that they bordered on __.",
+    "options": ["opaque", "opacus", "opalescent", "transparent"],
+    "correctAnswer": "opaque",
+    "explanation": "Opaque means difficult to understand, fitting the context of jargon-heavy remarks."
+  },
+  {
+    "question": "Select the correct option: Her rebuttal, though eloquent, failed to ___ the central issue raised by the opposition.",
+    "options": ["digress", "circumvent", "elude"],
+    "correctAnswer": "elude",
+    "explanation": "Failing to address an issue means it 'eluded' her rebuttal."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: The reforms being recommended by the panel (1) are not only intended to streamline administrative functions (2) but also addressing the asymmetries in resource allocation (3) that have long plagued rural districts. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(3)",
+    "explanation": "Parallelism error: 'to streamline' should pair with 'to address', not 'addressing'."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: What the committee failed to deliberate on adequately (1) were not the policy’s objectives themselves (2) but the political ramifications it (3) might have had if implemented without broader consensus. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(2)",
+    "explanation": "Subject is singular ('What the committee failed...'), so verb should be 'was', not 'were'."
+  },
+  {
+    "question": "Change the following from active to passive: The laboratory will have double-checked the reagents by dawn.",
+    "options": [
+      "The reagents have been double-checked by the laboratory by dawn.",
+      "The reagents will have been double-checked by the laboratory by dawn.",
+      "The reagents will be double-checked by the laboratory by dawn.",
+      "The reagents would have been double-checking by the laboratory by dawn."
+    ],
+    "correctAnswer": "The reagents will have been double-checked by the laboratory by dawn.",
+    "explanation": "Future perfect passive structure: will have been + past participle."
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The fanon rested on the Pope's shoulder during Mass.",
+    "options": [
+      "The theologian lectured on the fanon’s origin in Rome.",
+      "The tailor stitched the edge of the fanen carefully.",
+      "The critic analyzed Fanon’s theory of postcolonial identity.",
+      "The cardinal wore the fanon over his chasuble."
+    ],
+    "correctAnswer": "The cardinal wore the fanon over his chasuble.",
+    "explanation": "‘Fanon’ as a liturgical vestment matches the homonym usage; option 4 fits."
+  },
+  {
+    "question": "Convert the sentence from passive to active: Rare minerals are known to have been secretly extracted from the site by unauthorized workers before the inspection.",
+    "options": [
+      "Unauthorized workers extracted the rare minerals before inspection.",
+      "The site was secretly mined before the inspection.",
+      "Unauthorized workers are known to have secretly extracted rare minerals before inspection.",
+      "The minerals had been extracted prior to inspection."
+    ],
+    "correctAnswer": "Unauthorized workers are known to have secretly extracted rare minerals before inspection.",
+    "explanation": "Maintains the evidential structure 'are known to have…'."
+  },
+  {
+    "question": "What does the phrase 'gnawing dissonance' in the passage most likely refer to?",
+    "options": [
+      "Her hunger due to skipped meals",
+      "Conflict between her inner worth and online ideals",
+      "Her disagreement with her teachers",
+      "Her detachment from academic pressure"
+    ],
+    "correctAnswer": "Conflict between her inner worth and online ideals",
+    "explanation": "‘Dissonance’ refers to inner conflict created by unrealistic beauty standards."
+  },
+  {
+    "question": "How does the passage describe Meera’s psychological decline?",
+    "options": [
+      "Abrupt and confrontational",
+      "Erratic and attention-seeking",
+      "Subtle and inwardly destructive",
+      "Vocal and rebellious"
+    ],
+    "correctAnswer": "Subtle and inwardly destructive",
+    "explanation": "The passage describes a quiet, inward collapse—not dramatic or visible."
+  },
+  {
+    "question": "What concept helped Meera begin recovering emotionally?",
+    "options": [
+      "Narcissistic validation",
+      "Self-image distortion",
+      "Social withdrawal management",
+      "Behavioral conditioning"
+    ],
+    "correctAnswer": "Self-image distortion",
+    "explanation": "Therapy helped her understand distorted self-image; key turning point."
+  },
+  {
+    "question": "Which of the following best captures the central theme of the passage?",
+    "options": [
+      "The influence of peer pressure on teens",
+      "Cosmetic beauty norms and fashion trends",
+      "Hidden psychological battles due to digital aesthetics",
+      "The necessity of academic counseling for teens"
+    ],
+    "correctAnswer": "Hidden psychological battles due to digital aesthetics",
+    "explanation": "The entire passage focuses on silent mental struggles shaped by digital beauty norms."
+  },
+  {
+    "question": "What is the tone of the author at the end of the paragraph?",
+    "options": [
+      "Dismissive and ironic",
+      "Reflective and critical",
+      "Optimistic and celebratory",
+      "Detached and neutral"
+    ],
+    "correctAnswer": "Reflective and critical",
+    "explanation": "The author advocates systemic change—reflective and critical tone."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part: 'I suggested that he goes to the doctor immediately.’",
+    "options": [
+      "go to doctor at once",
+      "should goes to the doctor",
+      "go to the doctor immediately",
+      "should have go to the doctor"
+    ],
+    "correctAnswer": "go to the doctor immediately",
+    "explanation": "Subjunctive mood requires base verb: 'that he go'."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part: ‘I am used to get up early in the morning.’",
+    "options": ["to get up early", "with getting up early", "to getting up early", "for getting up early"],
+    "correctAnswer": "to getting up early",
+    "explanation": "'Used to' is always followed by a gerund: 'used to getting'."
+  },
+  {
+    "question": "Choose the correct indirect speech: She said, 'He doesn’t listen to me.'",
+    "options": [
+      "She said he don’t listen to her.",
+      "She said that he doesn’t listened to her.",
+      "She said that he didn’t listen to her.",
+      "She said that he didn’t listened to her."
+    ],
+    "correctAnswer": "She said that he didn’t listen to her.",
+    "explanation": "Present tense changes to past; verb remains base form after ‘didn’t’."
+  },
+  {
+    "question": "Choose the correct direct speech: The manager informed the employees that the deadline for submission had been extended by two days.",
+    "options": [
+      "You may submit the work two days later than planned,” the manager informed.",
+      "The deadline has been extended by two days,\" said the manager.",
+      "We are extending the submission deadline by two days,” the manager said.",
+      "You must finish it within two extra days,” the manager said."
+    ],
+    "correctAnswer": "The deadline has been extended by two days,\" said the manager.",
+    "explanation": "Past perfect in indirect → present perfect in direct form."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph: 1. These narratives often explore the ethical and social consequences of technological advancement. 2. Science fiction is a genre dealing with futuristic concepts. 3. This makes it a tool for social commentary. 4. While entertaining, the genre serves beyond escapism.",
+    "options": ["2,4,1,3", "1,3,2,4", "4,1,3,2", "2,1,4,3"],
+    "correctAnswer": "2,4,1,3",
+    "explanation": "Definition → purpose → examples → conclusion."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph: 1. This process ensures safety. 2. Food processing transforms raw items. 3. Methods range from simple to complex. 4. Also preserves food.",
+    "options": ["1,2,3,4", "3,1,4,2", "4,2,1,3"],
+    "correctAnswer": "1,2,3,4",
+    "explanation": "General → purpose → methods → additional benefits."
+  }
+],
+
 ssc_cgl_14_sep_s1 : [
   {
     "question": "<img src='../images/011.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
