@@ -326,20 +326,7 @@ const ALL_TESTS = [
     subject: "Maths",
     isNew: true
   },
-  {
-    id: "ssc_cgl_maths_14_oct_s2",
-    date: "14 Oct",
-    title: "Shift 2",
-    subject: "Maths",
-    isNew: true
-  },
-  {
-    id: "ssc_cgl_maths_14_oct_s3",
-    date: "14 Oct",
-    title: "Shift 3",
-    subject: "Maths",
-    isNew: true
-  },
+  
 
 
     // --- Reasoning Tests (NEWLY ADDED) ---
@@ -665,20 +652,7 @@ const ALL_TESTS = [
     subject: "Reasoning",
     isNew: true
   },
-  {
-    id: "ssc_cgl_reasoning_14_oct_s2",
-    date: "14 Oct",
-    title: "Shift 2",
-    subject: "Reasoning",
-    isNew: true
-  },
-  {
-    id: "ssc_cgl_reasoning_14_oct_s3",
-    date: "14 Oct",
-    title: "Shift 3",
-    subject: "Reasoning",
-    isNew: true
-  },
+  
 // --- English Tests (NEWLY ADDED) ---
      {
         id: "ssc_cgl_eng_12_sep_s1", // New unique ID for english Shift 1
@@ -1003,20 +977,7 @@ const ALL_TESTS = [
     subject: "English",
     isNew: true
   },
-  {
-    id: "ssc_cgl_eng_14_oct_s2",
-    date: "14 Oct",
-    title: "Shift 2",
-    subject: "English",
-    isNew: true
-  },
-  {
-    id: "ssc_cgl_eng_14_oct_s3",
-    date: "14 Oct",
-    title: "Shift 3",
-    subject: "English",
-    isNew: true
-  }
+  
 
 
     
