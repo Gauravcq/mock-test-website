@@ -3429,6 +3429,219 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   }
 ],
+"ssc_cgl_eng_14_sep_s3": [
+    {
+      "question": "Select the most appropriate synonym of the given word: CALLOW",
+      "options": ["Ill", "Experienced", "Wise", "Mature"],
+      "correctAnswer": "Ill",
+      "explanation": ""
+    },
+    {
+      "question": "Select the most appropriate antonym of the given word: Placatory",
+      "options": ["Pacifying", "Soothing", "Aes", "Conciliatory"],
+      "correctAnswer": "Aes",
+      "explanation": ""
+    },
+    {
+      "question": "Choose the correct meaning of idiom: Blow hot and cold",
+      "options": [
+        "To change one’s mood or opinion frequently",
+        "To talk boastfully",
+        "To enjoy both success and failure",
+        "To remain consistent in behavior"
+      ],
+      "correctAnswer": "To change one’s mood or opinion frequently",
+      "explanation": ""
+    },
+    {
+      "question": "Select the most appropriate antonym of the given word: Fulsome",
+      "options": ["Overdone", "Sincere", "Excessive", "Lavish"],
+      "correctAnswer": "Sincere",
+      "explanation": ""
+    },
+    {
+      "question": "Spot the correct spelling of body-position sense.",
+      "options": ["Propriozeption", "Propioception", "Proprioception", "Proprioseption"],
+      "correctAnswer": "Proprioception",
+      "explanation": ""
+    },
+    {
+      "question": "Choose the correct one-word substitute for: 'A statement that appears self-contradictory yet may be true’.",
+      "options": ["Axiom", "Maxim", "Paradox", "Irony"],
+      "correctAnswer": "Paradox",
+      "explanation": ""
+    },
+    {
+      "question": "Select the correct option: Scarcely had the satellite deployed ___ it transmitted its first data packet.",
+      "options": ["when", "before", "until", "after"],
+      "correctAnswer": "when",
+      "explanation": ""
+    },
+    {
+      "question": "Select the correct option: ___ having completed the feasibility study, the team requested additional funding.",
+      "options": ["Having", "On", "Upon", "Before"],
+      "correctAnswer": "On",
+      "explanation": ""
+    },
+    {
+      "question": "Select the correct option: It was imperative that the document ___ signed before the close of business.",
+      "options": ["was", "be", "had been", "being"],
+      "correctAnswer": "be",
+      "explanation": ""
+    },
+    {
+      "question": "Find the part of the sentence containing an error: The perception that the guidelines are optional (1)/ rather than compulsory have led (2)/ to widespread inconsistencies (3)/ across state-level implementations. (4)",
+      "options": ["(1)", "(2)", "(3)", "(4)"],
+      "correctAnswer": "(2)",
+      "explanation": ""
+    },
+    {
+      "question": "Change from active to passive: Historians may well reinterpret the artifact after new evidence emerges.",
+      "options": [
+        "The artifact may well be reinterpreted by historians after new evidence emerges.",
+        "The artifact may have been reinterpreted by historians after new evidence emerges.",
+        "The artifact will be reinterpreted well by historians after new evidence emerges.",
+        "The artifact could well be reinterpreting by historians after new evidence emerges."
+      ],
+      "correctAnswer": "The artifact may well be reinterpreted by historians after new evidence emerges.",
+      "explanation": ""
+    },
+    {
+      "question": "Find the part of the sentence containing an error: The fact that dissenting opinions are stifled (1)/ without due institutional safeguards (2)/ reflect a worrying trend (3)/ observed across governance. (4)",
+      "options": ["(1)", "(2)", "(3)", "(4)"],
+      "correctAnswer": "(3)",
+      "explanation": ""
+    },
+    {
+      "question": "Select the sentence containing the homonym of the highlighted word: The tripos system at Cambridge remains a model of academic rigor.",
+      "options": [
+        "The tripos involved oral defense and written modules.",
+        "He broke his tripos into phases.",
+        "The ceremonial tripos stool toppled.",
+        "She passed the natural sciences tripos with distinction.",
+        "The rheme swam rapidly into the estuary."
+      ],
+      "correctAnswer": "The ceremonial tripos stool toppled.",
+      "explanation": ""
+    },
+    {
+      "question": "Convert the sentence from passive to active: The land is believed to have been acquired illegally by the company.",
+      "options": [
+        "The company is believed to have acquired the land illegally.",
+        "The company acquired the land illegally, as believed.",
+        "Someone believed the company acquired land illegally.",
+        "The company had acquired land using forged documents."
+      ],
+      "correctAnswer": "The company is believed to have acquired the land illegally.",
+      "explanation": ""
+    },
+    {
+      "question": "Which of the following captures the essence of Test cricket?",
+      "options": [
+        "It is long and often boring",
+        "It reflects complexity and unpredictability",
+        "It includes emotional elements",
+        "It is nostalgic and traditional"
+      ],
+      "correctAnswer": "It reflects complexity and unpredictability",
+      "explanation": ""
+    },
+    {
+      "question": "Which criticism of ODIs is mentioned?",
+      "options": [
+        "Too long for modern viewers",
+        "Lack of competitiveness",
+        "Loss of depth due to over-commercialization",
+        "Fewer tournaments"
+      ],
+      "correctAnswer": "Loss of depth due to over-commercialization",
+      "explanation": ""
+    },
+    {
+      "question": "How are Test cricket and ODIs contrasted?",
+      "options": [
+        "Tests are faster",
+        "ODIs are for senior fans only",
+        "Tests reward showmanship",
+        "ODIs cater to shorter attention spans"
+      ],
+      "correctAnswer": "ODIs cater to shorter attention spans",
+      "explanation": ""
+    },
+    {
+      "question": "What tone does the author adopt toward preserving Test cricket?",
+      "options": ["Indifferent", "Balanced and critical", "Mocking", "Casual"],
+      "correctAnswer": "Balanced and critical",
+      "explanation": ""
+    },
+    {
+      "question": "What is the central concern raised?",
+      "options": [
+        "Lack of players",
+        "Scheduling issues",
+        "Balancing tradition with commercial interests",
+        "Reducing formats"
+      ],
+      "correctAnswer": "Balancing tradition with commercial interests",
+      "explanation": ""
+    },
+    {
+      "question": "Choose the correct replacement: I was discussing about the issue with him.",
+      "options": [
+        "discussed regarding the issue",
+        "had discussion on issue",
+        "discussing the issue with him",
+        "had been discussing about issue"
+      ],
+      "correctAnswer": "discussing the issue with him",
+      "explanation": ""
+    },
+    {
+      "question": "Choose the correct replacement: You must prevent your brother to do such things.",
+      "options": [
+        "doing such things",
+        "of doing such things",
+        "not to do such things",
+        "doing such things"
+      ],
+      "correctAnswer": "doing such things",
+      "explanation": ""
+    },
+    {
+      "question": "Indirect speech: She said to me, 'Open the window.'",
+      "options": [
+        "She told me open the window.",
+        "She told me to open the window.",
+        "She told me opening the window.",
+        "She said me to open the window."
+      ],
+      "correctAnswer": "She told me to open the window.",
+      "explanation": ""
+    },
+    {
+      "question": "Direct speech: The scientist stated that water boiled at 100°C.",
+      "options": [
+        "\"Water will boil at 100 degrees Celsius,\" said the scientist.",
+        "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
+        "\"Water had boiled at 100 degrees Celsius,\" said the scientist.",
+        "\"Water is boiling at 100 degrees Celsius,\" said the scientist."
+      ],
+      "correctAnswer": "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
+      "explanation": ""
+    },
+    {
+      "question": "Rearrange the sentences (OOP):",
+      "options": ["2,3,1,4", "4,3,2,1", "3,1,4,2", "1,2,3,4"],
+      "correctAnswer": "2,3,1,4",
+      "explanation": ""
+    },
+    {
+      "question": "Rearrange the sentences (Evolution):",
+      "options": ["2,4,3,1", "4,3,1,2", "2,4,3,1", "1,2,4,3"],
+      "correctAnswer": "2,4,3,1",
+      "explanation": ""
+    }
+  ],
 
 
 
