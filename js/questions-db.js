@@ -2843,7 +2843,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "General → purpose → methods → additional benefits."
   }
 ],
-ssc_cgl_eng_13_sep_s2 : [
+ssc_cgl_eng_13_sep_s3 : [
   {
     "question": "Select the most appropriate synonym of the given word: BIBLIOPHILE",
     "options": ["Publisher", "Bookkeeper", "Librarian", "Book-lover"],
