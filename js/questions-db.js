@@ -3045,6 +3045,391 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Definition → investigation → types → review process."
   }
 ],
+  ssc_cgl_eng_13_sep_s3 : [
+  {
+    "question": "Select the most appropriate synonym of the given word: DELETERIOUS",
+    "options": ["Harmful", "Useful", "Comforting", "Helpful"],
+    "correctAnswer": "Harmful",
+    "explanation": ""
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. Cacophony",
+    "options": ["Noise", "Dissonance", "Clamor", "Silence"],
+    "correctAnswer": "Silence",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the correct meaning of idiom: Show the white feather",
+    "options": ["To act cowardly", "To signal for help", "To display courage", "To admit defeat gracefully"],
+    "correctAnswer": "To act cowardly",
+    "explanation": ""
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. Subterfuge",
+    "options": ["Chicanery", "Trickery", "Deception", "Honesty"],
+    "correctAnswer": "Honesty",
+    "explanation": ""
+  },
+  {
+    "question": "Spot the correct spelling of plant-based pollution cleanup.",
+    "options": ["Phytoremediation", "Phytoremydiation", "Phytoremidiation", "Phytremediation"],
+    "correctAnswer": "Phytoremediation",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A professional who prepares maps’.",
+    "options": ["Topographer", "Cartographer", "Geodesist", "Archivist"],
+    "correctAnswer": "Cartographer",
+    "explanation": ""
+  },
+  {
+    "question": "Select the correct option: Each of the datasets __ been anonymized before release.",
+    "options": ["have", "are", "were", "has"],
+    "correctAnswer": "has",
+    "explanation": ""
+  },
+  {
+    "question": "Select the correct option: The curator opted ___ displaying the artifact due to preservation concerns.",
+    "options": ["for", "on", "with", "at"],
+    "correctAnswer": "for",
+    "explanation": ""
+  },
+  {
+    "question": "Select the correct option: Neither the editor nor the contributors __ willing to accept the changes unconditionally.",
+    "options": ["was", "has been", "is", "are"],
+    "correctAnswer": "are",
+    "explanation": ""
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: That none of the representatives found the proposal viable (1)/ is less surprising than the fact (2)/ that neither the chairperson nor the legal counsel (3)/ were briefed beforehand. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(4)",
+    "explanation": ""
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: Neither the projection of growth nor the estimation of deficit trends (1)/ appear to have accounted for the liquidity constraints (2)/ that small-scale enterprises face (3)/ during cyclical downturns in demand. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(1)",
+    "explanation": ""
+  },
+  {
+    "question": "Change the following from active to passive: Will the authorities enforce the revised ordinance promptly?",
+    "options": [
+      "Will the revised ordinance be enforced promptly by the authorities?",
+      "Will the revised ordinance being enforced promptly by the authorities?",
+      "Will the revised ordinance have been enforced promptly by the authorities?",
+      "Will the revised ordinance enforced promptly by the authorities?"
+    ],
+    "correctAnswer": "Will the revised ordinance be enforced promptly by the authorities?",
+    "explanation": ""
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The guards stood in pike formation along the causeway.",
+    "options": [
+      "The angler pulled a large pike from the icy lake.",
+      "The rebel was punished by being placed on the pike.",
+      "The infantry pike split the enemy's front line.",
+      "The pike gleamed beside the veteran's armor."
+    ],
+    "correctAnswer": "The angler pulled a large pike from the icy lake.",
+    "explanation": ""
+  },
+  {
+    "question": "Convert the sentence from passive to active: The package will have been delivered by the courier before 5 PM.",
+    "options": [
+      "The courier will deliver the package before 5 PM.",
+      "The courier had delivered the package before 5 PM.",
+      "The courier has delivered the package before 5 PM.",
+      "The courier will have delivered the package before 5 PM."
+    ],
+    "correctAnswer": "The courier will have delivered the package before 5 PM.",
+    "explanation": ""
+  },
+  {
+    "question": "What was a significant unintended consequence of the CoWIN platform?",
+    "options": [
+      "It slowed down rural internet speed",
+      "It led to underreporting of vaccine data",
+      "It excluded digitally illiterate citizens",
+      "It exposed user data to hackers"
+    ],
+    "correctAnswer": "It excluded digitally illiterate citizens",
+    "explanation": ""
+  },
+  {
+    "question": "Why was vaccine distribution initially skewed in India?",
+    "options": [
+      "Excess production of urban vaccines",
+      "International supply was unreliable",
+      "Rural people refused vaccines",
+      "Urban areas received more due to centralization and logistics"
+    ],
+    "correctAnswer": "Urban areas received more due to centralization and logistics",
+    "explanation": ""
+  },
+  {
+    "question": "What strategy was used to counter misinformation and hesitancy?",
+    "options": [
+      "National censorship of social media",
+      "Use of local influencers and mobile units",
+      "Importing foreign vaccines only",
+      "Restricting rural media access"
+    ],
+    "correctAnswer": "Use of local influencers and mobile units",
+    "explanation": ""
+  },
+  {
+    "question": "Which phrase best summarizes the core theme of the passage?",
+    "options": [
+      "The success of India’s pharma exports",
+      "The risks of vaccine side effects",
+      "India's vaccination strategy under crisis",
+      "Public health and digital inequality interplay"
+    ],
+    "correctAnswer": "Public health and digital inequality interplay",
+    "explanation": ""
+  },
+  {
+    "question": "What is the author's tone toward India’s vaccine campaign?",
+    "options": [
+      "Sarcastic and dismissive",
+      "Analytical yet cautiously optimistic",
+      "Jubilant and uncritical",
+      "Critical and alarmist"
+    ],
+    "correctAnswer": "Analytical yet cautiously optimistic",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the most suitable option: They returned back to home after the event.",
+    "options": [
+      "back to their house",
+      "returned to house",
+      "returned home",
+      "went back to house"
+    ],
+    "correctAnswer": "returned home",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the most suitable option: He was accused for theft.",
+    "options": ["with theft", "by theft", "on theft", "of theft"],
+    "correctAnswer": "of theft",
+    "explanation": ""
+  },
+  {
+    "question": "Indirect speech: He said, “How long have you been waiting?”",
+    "options": [
+      "He asked how long had I been waiting.",
+      "He said how long I was waiting.",
+      "He asked how long I have been waiting.",
+      "He asked how long I had been waiting."
+    ],
+    "correctAnswer": "He asked how long I had been waiting.",
+    "explanation": ""
+  },
+  {
+    "question": "Direct speech: The coach said that the players were improving with each match.",
+    "options": [
+      "“The players are improving with each match,” said the coach.",
+      "“The players were improving with each match,” the coach said.",
+      "“Our players improve with each match,” said the coach.",
+      "“The players had improved with each match,” the coach said."
+    ],
+    "correctAnswer": "“The players are improving with each match,” said the coach.",
+    "explanation": ""
+  },
+  {
+    "question": "Rearrange the sentences to form a coherent paragraph: (Research)",
+    "options": ["1,2,4,3", "4,3,2,1", "3,4,1,2", "2,1,4,3"],
+    "correctAnswer": "2,1,4,3",
+    "explanation": ""
+  },
+  {
+    "question": "Rearrange the sentences to form a coherent paragraph: (Blockchain)",
+    "options": ["2,4,1,3", "4,1,3,2", "2,1,4,3"],
+    "correctAnswer": "2,4,1,3",
+    "explanation": ""
+  }
+],
+  ssc_cgl_eng_14_sep_s1 : [
+  {
+    "question": "Select the most appropriate synonym of the given word: JUVENILE",
+    "options": ["Wise", "Childish", "Mature", "Adult"],
+    "correctAnswer": "Childish",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the correct meaning of idiom: Bury the hatchet",
+    "options": ["To reconcile after a conflict", "To deepen hostility", "To run away", "To forget someone's name"],
+    "correctAnswer": "To reconcile after a conflict",
+    "explanation": ""
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. Extirpate",
+    "options": ["Exterminate", "Uproot", "Eradicate", "Preserve"],
+    "correctAnswer": "Preserve",
+    "explanation": ""
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": ["Camouflage", "Rendezvous", "Indispensible", "Ares"],
+    "correctAnswer": "Indispensible",
+    "explanation": ""
+  },
+  {
+    "question": "Spot the correct spelling of early film base compound.",
+    "options": ["Nitrocellulose", "Nitracellulose", "Nitrocellullose", "Nitracellullose"],
+    "correctAnswer": "Nitrocellulose",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A person who eats excessively or greedily’.",
+    "options": ["Gourmet", "Epicure", "Sybarite", "Glutton"],
+    "correctAnswer": "Glutton",
+    "explanation": ""
+  },
+  {
+    "question": "Select the correct option: The finance minister's statement was laden with caveats, none of __ were explained.",
+    "options": ["them", "which", "whom", "who"],
+    "correctAnswer": "which",
+    "explanation": ""
+  },
+  {
+    "question": "Select the correct option: The philosopher's stance was diametrically __ to the prevailing orthodoxy.",
+    "options": ["adverse", "averse", "converse", "reverse"],
+    "correctAnswer": "converse",
+    "explanation": ""
+  },
+  {
+    "question": "Select the correct option: No sooner ___ the findings published than critics began questioning their legitimacy.",
+    "options": ["was", "had", "were", "have"],
+    "correctAnswer": "had",
+    "explanation": ""
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: The policy aims to neither penalise first-time offenders (1)/ nor those who may have violated norms (2)/ due to systemic ambiguity (3)/ rather than deliberate intent. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(1)",
+    "explanation": ""
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: It was not merely the fragmentation of administrative jurisdictions across sectors (1)/ that disrupted cohesive governance, but the inertia embedded in overlapping regulatory mandates (2)/ which, though designed to safeguard institutional autonomy, (3)/ ends up paralyzing inter-departmental responsiveness altogether. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(4)",
+    "explanation": ""
+  },
+  {
+    "question": "Change from active to passive: The committee had been debating complex amendments when the bell rang.",
+    "options": [
+      "Complex amendments had been being debated by the committee when the bell rang.",
+      "Amendments had been debated by the committee when the bell rang.",
+      "Complex amendments had be being debated by the committee when the bell rang.",
+      "Complex amendments had debated by the committee when the bell rang."
+    ],
+    "correctAnswer": "Complex amendments had been being debated by the committee when the bell rang.",
+    "explanation": ""
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The knight raised his pauldron before mounting.",
+    "options": [
+      "The blacksmith polished the steel pauldron until it gleamed.",
+      "The art historian admired the engraved pauldron.",
+      "The biology student dissected the pauldron of the sea slug.",
+      "The museum displayed a 15th-century Italian pauldron."
+    ],
+    "correctAnswer": "The biology student dissected the pauldron of the sea slug.",
+    "explanation": ""
+  },
+  {
+    "question": "Convert from passive to active: A letter is written to the editor by the citizen every week.",
+    "options": [
+      "The editor writes a letter to the citizen every week.",
+      "A citizen writes a letter to the editor every week.",
+      "The editor wrote a letter every week.",
+      "The citizen has been writing letters to the editor weekly."
+    ],
+    "correctAnswer": "A citizen writes a letter to the editor every week.",
+    "explanation": ""
+  },
+  {
+    "question": "When did India first win an Olympic team gold medal?",
+    "options": ["1900 Paris", "1936 Berlin", "1928 Amsterdam", "1948 London"],
+    "correctAnswer": "1928 Amsterdam",
+    "explanation": ""
+  },
+  {
+    "question": "What major issue plagued India’s Olympic performance post-1980?",
+    "options": ["Limited fan interest", "Over-dependence on cricket", "Systemic inefficiencies in sports", "Lack of global tournaments"],
+    "correctAnswer": "Systemic inefficiencies in sports",
+    "explanation": ""
+  },
+  {
+    "question": "Which initiative is mentioned as a game-changer in recent Olympic preparation?",
+    "options": ["Mission Khel Udaan", "Olympic Gold Hunt", "Fit India Movement", "Target Olympic Podium Scheme (TOPS)"],
+    "correctAnswer": "Target Olympic Podium Scheme (TOPS)",
+    "explanation": ""
+  },
+  {
+    "question": "What recent trend is encouraging in India's Olympic profile?",
+    "options": ["Reduced investment in cricket", "Domination in hockey again", "Rise of multiple sports and women athletes", "Decline of Western dominance"],
+    "correctAnswer": "Rise of multiple sports and women athletes",
+    "explanation": ""
+  },
+  {
+    "question": "What is implied about India’s Olympic aspirations?",
+    "options": ["They rely entirely on foreign coaching", "They aim for consistent participation", "They are growing but need sustained reforms", "They are limited to traditional sports"],
+    "correctAnswer": "They are growing but need sustained reforms",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the most suitable replacement: Had I known about the traffic, I will leave early.",
+    "options": ["have left earlier", "would leave early", "had left earlier", "would left earlier"],
+    "correctAnswer": "have left earlier",
+    "explanation": ""
+  },
+  {
+    "question": "Choose the correct replacement: It is high time you must change your habits.",
+    "options": ["changed your habits", "have changed your habits", "change your habit", "will change the habit"],
+    "correctAnswer": "changed your habits",
+    "explanation": ""
+  },
+  {
+    "question": "Indirect speech: He said, “Do it right now.”",
+    "options": [
+      "He said do it immediately.",
+      "He told to do it now.",
+      "He told me to do it at once.",
+      "He told me do it right now."
+    ],
+    "correctAnswer": "He told me to do it at once.",
+    "explanation": ""
+  },
+  {
+    "question": "Direct speech: The professor remarked that students needed to submit their papers before Friday.",
+    "options": [
+      "“Students need to submit their papers before Friday,” the professor remarked.",
+      "“Students needed to submit their papers before Friday,” said the professor.",
+      "“Submit your papers before Friday,” the professor instructed.",
+      "“You were to submit your papers before Friday,” said the professor."
+    ],
+    "correctAnswer": "“Students need to submit their papers before Friday,” the professor remarked.",
+    "explanation": ""
+  },
+  {
+    "question": "Rearrange the sentences to form a coherent paragraph: (Machine learning)",
+    "options": ["2,4,3,1", "4,3,2,1", "3,4,2,1", "3,4,1,2"],
+    "correctAnswer": "2,4,3,1",
+    "explanation": ""
+  },
+  {
+    "question": "Rearrange the sentences to form a coherent paragraph: (Food processing)",
+    "options": ["2,3,1,4", "1,2,3,4"],
+    "correctAnswer": "2,3,1,4",
+    "explanation": ""
+  }
+],
+
 
 
 ssc_cgl_14_sep_s1 : [
