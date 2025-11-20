@@ -3429,219 +3429,281 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   }
 ],
-"ssc_cgl_eng_14_sep_s3": [
-    {
-      "question": "Select the most appropriate synonym of the given word: CALLOW",
-      "options": ["Ill", "Experienced", "Wise", "Mature"],
-      "correctAnswer": "Ill",
-      "explanation": ""
-    },
-    {
-      "question": "Select the most appropriate antonym of the given word: Placatory",
-      "options": ["Pacifying", "Soothing", "Aes", "Conciliatory"],
-      "correctAnswer": "Aes",
-      "explanation": ""
-    },
-    {
-      "question": "Choose the correct meaning of idiom: Blow hot and cold",
-      "options": [
-        "To change one’s mood or opinion frequently",
-        "To talk boastfully",
-        "To enjoy both success and failure",
-        "To remain consistent in behavior"
-      ],
-      "correctAnswer": "To change one’s mood or opinion frequently",
-      "explanation": ""
-    },
-    {
-      "question": "Select the most appropriate antonym of the given word: Fulsome",
-      "options": ["Overdone", "Sincere", "Excessive", "Lavish"],
-      "correctAnswer": "Sincere",
-      "explanation": ""
-    },
-    {
-      "question": "Spot the correct spelling of body-position sense.",
-      "options": ["Propriozeption", "Propioception", "Proprioception", "Proprioseption"],
-      "correctAnswer": "Proprioception",
-      "explanation": ""
-    },
-    {
-      "question": "Choose the correct one-word substitute for: 'A statement that appears self-contradictory yet may be true’.",
-      "options": ["Axiom", "Maxim", "Paradox", "Irony"],
-      "correctAnswer": "Paradox",
-      "explanation": ""
-    },
-    {
-      "question": "Select the correct option: Scarcely had the satellite deployed ___ it transmitted its first data packet.",
-      "options": ["when", "before", "until", "after"],
-      "correctAnswer": "when",
-      "explanation": ""
-    },
-    {
-      "question": "Select the correct option: ___ having completed the feasibility study, the team requested additional funding.",
-      "options": ["Having", "On", "Upon", "Before"],
-      "correctAnswer": "On",
-      "explanation": ""
-    },
-    {
-      "question": "Select the correct option: It was imperative that the document ___ signed before the close of business.",
-      "options": ["was", "be", "had been", "being"],
-      "correctAnswer": "be",
-      "explanation": ""
-    },
-    {
-      "question": "Find the part of the sentence containing an error: The perception that the guidelines are optional (1)/ rather than compulsory have led (2)/ to widespread inconsistencies (3)/ across state-level implementations. (4)",
-      "options": ["(1)", "(2)", "(3)", "(4)"],
-      "correctAnswer": "(2)",
-      "explanation": ""
-    },
-    {
-      "question": "Change from active to passive: Historians may well reinterpret the artifact after new evidence emerges.",
-      "options": [
-        "The artifact may well be reinterpreted by historians after new evidence emerges.",
-        "The artifact may have been reinterpreted by historians after new evidence emerges.",
-        "The artifact will be reinterpreted well by historians after new evidence emerges.",
-        "The artifact could well be reinterpreting by historians after new evidence emerges."
-      ],
-      "correctAnswer": "The artifact may well be reinterpreted by historians after new evidence emerges.",
-      "explanation": ""
-    },
-    {
-      "question": "Find the part of the sentence containing an error: The fact that dissenting opinions are stifled (1)/ without due institutional safeguards (2)/ reflect a worrying trend (3)/ observed across governance. (4)",
-      "options": ["(1)", "(2)", "(3)", "(4)"],
-      "correctAnswer": "(3)",
-      "explanation": ""
-    },
-    {
-      "question": "Select the sentence containing the homonym of the highlighted word: The tripos system at Cambridge remains a model of academic rigor.",
-      "options": [
-        "The tripos involved oral defense and written modules.",
-        "He broke his tripos into phases.",
-        "The ceremonial tripos stool toppled.",
-        "She passed the natural sciences tripos with distinction.",
-        "The rheme swam rapidly into the estuary."
-      ],
-      "correctAnswer": "The ceremonial tripos stool toppled.",
-      "explanation": ""
-    },
-    {
-      "question": "Convert the sentence from passive to active: The land is believed to have been acquired illegally by the company.",
-      "options": [
-        "The company is believed to have acquired the land illegally.",
-        "The company acquired the land illegally, as believed.",
-        "Someone believed the company acquired land illegally.",
-        "The company had acquired land using forged documents."
-      ],
-      "correctAnswer": "The company is believed to have acquired the land illegally.",
-      "explanation": ""
-    },
-    {
-      "question": "Which of the following captures the essence of Test cricket?",
-      "options": [
-        "It is long and often boring",
-        "It reflects complexity and unpredictability",
-        "It includes emotional elements",
-        "It is nostalgic and traditional"
-      ],
-      "correctAnswer": "It reflects complexity and unpredictability",
-      "explanation": ""
-    },
-    {
-      "question": "Which criticism of ODIs is mentioned?",
-      "options": [
-        "Too long for modern viewers",
-        "Lack of competitiveness",
-        "Loss of depth due to over-commercialization",
-        "Fewer tournaments"
-      ],
-      "correctAnswer": "Loss of depth due to over-commercialization",
-      "explanation": ""
-    },
-    {
-      "question": "How are Test cricket and ODIs contrasted?",
-      "options": [
-        "Tests are faster",
-        "ODIs are for senior fans only",
-        "Tests reward showmanship",
-        "ODIs cater to shorter attention spans"
-      ],
-      "correctAnswer": "ODIs cater to shorter attention spans",
-      "explanation": ""
-    },
-    {
-      "question": "What tone does the author adopt toward preserving Test cricket?",
-      "options": ["Indifferent", "Balanced and critical", "Mocking", "Casual"],
-      "correctAnswer": "Balanced and critical",
-      "explanation": ""
-    },
-    {
-      "question": "What is the central concern raised?",
-      "options": [
-        "Lack of players",
-        "Scheduling issues",
-        "Balancing tradition with commercial interests",
-        "Reducing formats"
-      ],
-      "correctAnswer": "Balancing tradition with commercial interests",
-      "explanation": ""
-    },
-    {
-      "question": "Choose the correct replacement: I was discussing about the issue with him.",
-      "options": [
-        "discussed regarding the issue",
-        "had discussion on issue",
-        "discussing the issue with him",
-        "had been discussing about issue"
-      ],
-      "correctAnswer": "discussing the issue with him",
-      "explanation": ""
-    },
-    {
-      "question": "Choose the correct replacement: You must prevent your brother to do such things.",
-      "options": [
-        "doing such things",
-        "of doing such things",
-        "not to do such things",
-        "doing such things"
-      ],
-      "correctAnswer": "doing such things",
-      "explanation": ""
-    },
-    {
-      "question": "Indirect speech: She said to me, 'Open the window.'",
-      "options": [
-        "She told me open the window.",
-        "She told me to open the window.",
-        "She told me opening the window.",
-        "She said me to open the window."
-      ],
-      "correctAnswer": "She told me to open the window.",
-      "explanation": ""
-    },
-    {
-      "question": "Direct speech: The scientist stated that water boiled at 100°C.",
-      "options": [
-        "\"Water will boil at 100 degrees Celsius,\" said the scientist.",
-        "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
-        "\"Water had boiled at 100 degrees Celsius,\" said the scientist.",
-        "\"Water is boiling at 100 degrees Celsius,\" said the scientist."
-      ],
-      "correctAnswer": "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
-      "explanation": ""
-    },
-    {
-      "question": "Rearrange the sentences (OOP):",
-      "options": ["2,3,1,4", "4,3,2,1", "3,1,4,2", "1,2,3,4"],
-      "correctAnswer": "2,3,1,4",
-      "explanation": ""
-    },
-    {
-      "question": "Rearrange the sentences (Evolution):",
-      "options": ["2,4,3,1", "4,3,1,2", "2,4,3,1", "1,2,4,3"],
-      "correctAnswer": "2,4,3,1",
-      "explanation": ""
-    }
-  ],
+"ssc_cgl_eng_14_sep_s2": [
+      {
+        "question": "Select the most appropriate synonym of the given word: CALLOW",
+        "options": [
+          "Inexperienced",
+          "Experienced",
+          "Wise",
+          "Mature"
+        ],
+        "correctAnswer": "Inexperienced",
+        "explanation": "CALLOW means (of a young person) inexperienced and immature."
+      },
+      {
+        "question": "Select the most appropriate antonym of the given word. Placatory",
+        "options": [
+          "Pacifying",
+          "Soothing",
+          "Aggravating",
+          "Conciliatory"
+        ],
+        "correctAnswer": "Aggravating",
+        "explanation": "Placatory means intended to pacify or calm someone. The opposite, Aggravating, means making a problem worse."
+      },
+      {
+        "question": "Choose the correct meaning of idiom: Blow hot and cold",
+        "options": [
+          "To change one’s mood or opinion frequently",
+          "To talk boastfully",
+          "To enjoy both success and failure",
+          "To remain consistent in behavior"
+        ],
+        "correctAnswer": "To change one’s mood or opinion frequently",
+        "explanation": "To blow hot and cold means to alternate inconsistently between two extremes, such as being favorable one moment and unfavorable the next."
+      },
+      {
+        "question": "Select the most appropriate antonym of the given word. Fulsome",
+        "options": [
+          "Overdone",
+          "Sincere",
+          "Excessive",
+          "Lavish"
+        ],
+        "correctAnswer": "Sincere",
+        "explanation": "Fulsome (especially of praise) means excessive or insincere. The most appropriate antonym is Sincere."
+      },
+      {
+        "question": "Spot the correct spelling of body-position sense.",
+        "options": [
+          "Propriozeption",
+          "Propioception",
+          "Proprioception",
+          "Proprioseption"
+        ],
+        "correctAnswer": "Proprioception",
+        "explanation": "Proprioception is the correct spelling for the sense of self-movement and body position."
+      },
+      {
+        "question": "Choose the correct one-word substitute for: 'A statement that appears self-contradictory yet may be true’.",
+        "options": [
+          "Axiom",
+          "Maxim",
+          "Paradox",
+          "Irony"
+        ],
+        "correctAnswer": "Paradox",
+        "explanation": "A Paradox is a statement that appears to contradict itself but contains a hidden truth."
+      },
+      {
+        "question": "Select the correct option: Scarcely had the satellite deployed ___ it transmitted its first data packet.",
+        "options": [
+          "than",
+          "when",
+          "before",
+          "until"
+        ],
+        "correctAnswer": "when",
+        "explanation": "The correlative conjunction for 'Scarcely' or 'Hardly' is 'when'."
+      },
+      {
+        "question": "Select the correct option: ___ having completed the feasibility study, the team requested additional funding.",
+        "options": [
+          "Having",
+          "On",
+          "Upon",
+          "Despite"
+        ],
+        "correctAnswer": "Having",
+        "explanation": "The perfect participle 'Having completed...' is the correct structure to indicate an action that was finished before the action in the main clause."
+      },
+      {
+        "question": "Select the correct option: It was imperative that the document ___ signed before the close of business.",
+        "options": [
+          "will be",
+          "was",
+          "be",
+          "had been"
+        ],
+        "correctAnswer": "be",
+        "explanation": "The structure 'It is/was imperative that...' requires the **mandative subjunctive** form of the verb, which is the base form ('be') for the passive voice."
+      },
+      {
+        "question": "Find the part of the sentence that contains an error: The perception that the guidelines are optional (1)/ rather than compulsory have led (2)/ to widespread inconsistencies in compliance (3)/ across state-level implementations. (4)",
+        "options": [
+          "(1)",
+          "(2)",
+          "(3)",
+          "(4)"
+        ],
+        "correctAnswer": "(2)",
+        "explanation": "The error is in part (2). The main subject is 'The perception' (singular), which requires the singular verb 'has led' (Subject-Verb Agreement)."
+      },
+      {
+        "question": "Change the following from active to passive: Historians may well reinterpret the artifact after new evidence emerges.",
+        "options": [
+          "The artifact may well be reinterpreted by historians after new evidence emerges.",
+          "The artifact may have been reinterpreted by historians after new evidence emerges.",
+          "The artifact will be reinterpreted well by historians after new evidence emerges.",
+          "The artifact could well be reinterpreting by historians after new evidence emerges."
+        ],
+        "correctAnswer": "The artifact may well be reinterpreted by historians after new evidence emerges.",
+        "explanation": "The passive form of 'Modal + V1' (may reinterpret) is 'Modal + be + V3' (may be reinterpreted)."
+      },
+      {
+        "question": "Find the part of the sentence that contains an error: The fact that dissenting opinions are stifled (1)/ without due institutional safeguards (2)/ reflect a worrying trend in democratic regression (3)/ observed across multiple levels of governance. (4)",
+        "options": [
+          "(1)",
+          "(2)",
+          "(3)",
+          "(4)"
+        ],
+        "correctAnswer": "(3)",
+        "explanation": "The error is in part (3). The main subject is 'The fact' (singular), which requires the singular verb 'reflects', not 'reflect' (Subject-Verb Agreement)."
+      },
+      {
+        "question": "Select the sentence containing the homonym of the highlighted word: The **tripos** system at Cambridge remains a model of academic rigor.",
+        "options": [
+          "The tripos involved oral defense and written modules.",
+          "He broke his tripos into discrete phases of analysis.",
+          "The ceremonial tripos stool toppled during the investiture.",
+          "She passed the natural sciences tripos with distinction."
+        ],
+        "correctAnswer": "The ceremonial tripos stool toppled during the investiture.",
+        "explanation": "The original word 'Tripos' refers to an academic examination. Its homonym is its original meaning: a three-legged stool."
+      },
+      {
+        "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: The land is believed to have been acquired illegally by the company through forged documents.",
+        "options": [
+          "The company is believed to have acquired the land illegally.",
+          "The company acquired the land illegally, as believed.",
+          "Someone believed the company acquired land illegally.",
+          "The company had acquired land using forged documents."
+        ],
+        "correctAnswer": "The company is believed to have acquired the land illegally.",
+        "explanation": "The passive voice 'X is believed to have been acquired by Y' converts to the active voice 'Y is believed to have acquired X'."
+      },
+      {
+        "question": "Read the following passage and answer the questions based on the passage: Which of the following best captures the essence of Test cricket, as described in the passage?",
+        "options": [
+          "It is long and often boring",
+          "It reflects complexity and unpredictability",
+          "It includes domestic and emotional elements",
+          "It is nostalgic and traditional"
+        ],
+        "correctAnswer": "It reflects complexity and unpredictability",
+        "explanation": "The passage describes Test cricket's tempo as mirroring 'the rhythm of real life—unpredictable, slow-burning, and layered,' which reflects complexity and unpredictability."
+      },
+      {
+        "question": "Read the following passage and answer the questions based on the passage: Which of the following is a criticism of ODIs mentioned in the passage?",
+        "options": [
+          "Too long for modern viewers",
+          "Lack of competitiveness",
+          "Loss of depth due to over-commercialization",
+          "Fewer international tournaments"
+        ],
+        "correctAnswer": "Loss of depth due to over-commercialization",
+        "explanation": "The passage explicitly states, 'critics argue that the commercialization of ODIs has come at the expense of depth and nuance.'"
+      },
+      {
+        "question": "Read the following passage and answer the questions based on the passage: How are Test cricket and ODIs contrasted in terms of viewer appeal?",
+        "options": [
+          "Tests are faster and more entertaining",
+          "ODIs are only popular among senior fans",
+          "Tests reward showmanship over skills",
+          "ODIs cater to shorter attention spans"
+        ],
+        "correctAnswer": "ODIs cater to shorter attention spans",
+        "explanation": "The passage states that ODIs appeal to a broader demographic, 'especially in an era of dwindling attention spans and time constraints'."
+      },
+      {
+        "question": "Read the following passage and answer the questions based on the passage: What tone does the author adopt toward the preservation of Test cricket?",
+        "options": [
+          "Indifferent",
+          "Hopeful and critical",
+          "Mocking and dismissive",
+          "Casual and informal"
+        ],
+        "correctAnswer": "Hopeful and critical",
+        "explanation": "The author notes the 'declining audience' (critical) but discusses the 'challenge lies in preserving the sanctity...' (hopeful/concerned)."
+      },
+      {
+        "question": "Read the following passage and answer the questions based on the passage: What is the central concern raised in the passage?",
+        "options": [
+          "Lack of good players for both formats",
+          "Scheduling difficulties between formats",
+          "Balancing tradition with commercial interests",
+          "Reducing cricket formats to two only"
+        ],
+        "correctAnswer": "Balancing tradition with commercial interests",
+        "explanation": "The core issue is 'preserving the sanctity of Test cricket without undermining the accessibility of ODIs—a delicate balance' between tradition and commercial interests."
+      },
+      {
+        "question": "Choose the most suitable option to replace the highlighted part of the sentence: I was discussing about the issue with him.",
+        "options": [
+          "discussed regarding the issue",
+          "had discussion on issue",
+          "discussing the issue with him",
+          "had been discussing about issue"
+        ],
+        "correctAnswer": "discussing the issue with him",
+        "explanation": "The verb 'discuss' is transitive and does not take the preposition 'about'. The correct phrasing is 'discussing the issue with him'."
+      },
+      {
+        "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must prevent your brother to do such things.",
+        "options": [
+          "doing such things",
+          "of doing such things",
+          "not to do such things",
+          "doing such things"
+        ],
+        "correctAnswer": "doing such things",
+        "explanation": "The verb **prevent** is typically followed by an object and the preposition **from** + gerund ('prevent someone *from* doing something'). In the options provided, 'doing such things' is the closest correct structure, implying 'prevent your brother *from* doing such things'."
+      },
+      {
+        "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech. She said to me, “Open the window.”",
+        "options": [
+          "She told me open the window.",
+          "She told me to open the window.",
+          "She told me opening the window.",
+          "She said me to open the window."
+        ],
+        "correctAnswer": "She told me to open the window.",
+        "explanation": "Commands (imperative sentences) in indirect speech use a reporting verb (like 'told') followed by an infinitive clause ('to' + verb)."
+      },
+      {
+        "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. She said that they had already left before she arrived.",
+        "options": [
+          "“They have already left before I arrived,” she said.",
+          "“They already left before I arrived,” she said.",
+          "“They had already left before I arrived,” she said.",
+          "“They left before I had arrived,” she said."
+        ],
+        "correctAnswer": "“They have already left before I arrived,” she said.",
+        "explanation": "The Past Perfect Tense ('had left') in indirect speech converts from the Present Perfect Tense ('have left') in direct speech when the reporting verb is in the past."
+      },
+      {
+        "question": "Rearrange the following sentences to form a coherent paragraph:\n1. This process, known as photosynthesis, is fundamental to life on Earth as it forms the base of most food webs.\n2. Plants, algae, and some bacteria possess a unique ability to convert light energy into chemical energy.\n3. The captured light energy is then used to synthesize glucose molecules from water and carbon dioxide.\n4. It begins with the absorption of photons by chlorophyll pigments within the plant cells.",
+        "options": [
+          "2, 1, 4, 3",
+          "4, 3, 2, 1",
+          "3, 2, 1, 4"
+        ],
+        "correctAnswer": "2, 1, 4, 3",
+        "explanation": "The logical flow introduces the topic (2), names/defines the process (1), describes the start (4), and explains the immediate consequence (3)."
+      },
+      {
+        "question": "Rearrange the following sentences to form a coherent paragraph:\n1. This process, a crucial part of the plant's life cycle, is vital for the continued existence of many plant species.\n2. Pollination is the transfer of pollen from the male part of a flower to the female part.\n3. The transfer can be carried out by various agents, including insects, birds, and wind.\n4. Successful pollination leads to fertilization and the subsequent production of seeds and fruits.",
+        "options": [
+          "2, 3, 4, 1",
+          "3, 4, 1, 2",
+          "1, 2, 3, 4"
+        ],
+        "correctAnswer": "2, 3, 4, 1",
+        "explanation": "The flow is: Definition (2) → Mechanism (3) → Outcome (4) → Importance (1)."
+      }
+    ],
 
 
 
