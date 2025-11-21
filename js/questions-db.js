@@ -2638,26 +2638,26 @@ ssc_cgl_eng_12_sep_s3 :[
 ],
 ssc_cgl_eng_13_sep_s1 : [
   {
-    "question": "Select the most appropriate synonym of the word: CAUSTIC",
+    "question": "Select the most appropriate synonym of the word: <b>CAUSTIC</b>",
     "options": ["Kind", "Mild", "Gentle", "Sarcastic"],
     "correctAnswer": "Sarcastic",
     "explanation": "Caustic means harsh or severely sarcastic; hence 'Sarcastic' is the correct synonym."
   },
   {
-    "question": "Choose the correct meaning of the idiom: Make no bones about it",
+    "question": "Choose the correct meaning of the idiom: <b>Make no bones about it</b>",
     "options": ["To hesitate before speaking", "To remain neutral", "To be direct and honest", "To confuse the listener"],
     "correctAnswer": "To be direct and honest",
     "explanation": "Make no bones about something means to speak plainly without hesitation."
   },
   {
-    "question": "Select the most appropriate antonym of the given word: Evanescent",
+    "question": "Select the most appropriate antonym of the given word:<b> Evanescent</b>",
     "options": ["Ephemeral", "Transient", "Enduring", "Fleeting"],
     "correctAnswer": "Enduring",
     "explanation": "Evanescent means short-lived. Its opposite is 'Enduring'."
   },
   {
     "question": "Identify the misspelt word.",
-    "options": ["Temerarious", "Penitent", "inadvertant", "Penitent"],
+    "options": ["Temerarious", "Avaricious", "inadvertant", "Penitent"],
     "correctAnswer": "inadvertant",
     "explanation": "The correct spelling is 'inadvertent'; hence 'inadvertant' is misspelt."
   },
@@ -2681,30 +2681,30 @@ ssc_cgl_eng_13_sep_s1 : [
   },
   {
     "question": "Select the correct option: ‘The professor's remarks were so dense with jargon that they bordered on __.",
-    "options": ["opaque", "opacus", "opalescent", "transparent"],
+    "options": ["opaque", "opacity", "opalescent", "opacus"],
     "correctAnswer": "opaque",
     "explanation": "Opaque means difficult to understand, fitting the context of jargon-heavy remarks."
   },
   {
     "question": "Select the correct option: Her rebuttal, though eloquent, failed to ___ the central issue raised by the opposition.",
-    "options": ["digress", "circumvent", "elude"],
-    "correctAnswer": "elude",
+    "options": ["address","digress", "circumvent", "elude"],
+    "correctAnswer": "address",
     "explanation": "Failing to address an issue means it 'eluded' her rebuttal."
   },
   {
-    "question": "Find the part of the sentence that contains an error: The reforms being recommended by the panel (1) are not only intended to streamline administrative functions (2) but also addressing the asymmetries in resource allocation (3) that have long plagued rural districts. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>The reforms being recommended by the panel (1) are not only intended to streamline administrative functions (2) but also addressing the asymmetries in resource allocation (3) that have long plagued rural districts. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(3)",
     "explanation": "Parallelism error: 'to streamline' should pair with 'to address', not 'addressing'."
   },
   {
-    "question": "Find the part of the sentence that contains an error: What the committee failed to deliberate on adequately (1) were not the policy’s objectives themselves (2) but the political ramifications it (3) might have had if implemented without broader consensus. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>What the committee failed to deliberate on adequately (1) were not the policy’s objectives themselves (2) but the political ramifications it (3) might have had if implemented without broader consensus. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(2)",
     "explanation": "Subject is singular ('What the committee failed...'), so verb should be 'was', not 'were'."
   },
   {
-    "question": "Change the following from active to passive: The laboratory will have double-checked the reagents by dawn.",
+    "question": "Change the following from active to passive: <br>The laboratory will have double-checked the reagents by dawn.",
     "options": [
       "The reagents have been double-checked by the laboratory by dawn.",
       "The reagents will have been double-checked by the laboratory by dawn.",
@@ -2715,7 +2715,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Future perfect passive structure: will have been + past participle."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The fanon rested on the Pope's shoulder during Mass.",
+    "question": "Select the sentence containing the homonym of the highlighted word: The <b><b>fanon</b></b> rested on the Pope's shoulder during Mass.",
     "options": [
       "The theologian lectured on the fanon’s origin in Rome.",
       "The tailor stitched the edge of the fanen carefully.",
@@ -2726,7 +2726,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "‘Fanon’ as a liturgical vestment matches the homonym usage; option 4 fits."
   },
   {
-    "question": "Convert the sentence from passive to active: Rare minerals are known to have been secretly extracted from the site by unauthorized workers before the inspection.",
+    "question": "Convert the sentence from passive to active:<br> Rare minerals are known to have been secretly extracted from the site by unauthorized workers before the inspection.",
     "options": [
       "Unauthorized workers extracted the rare minerals before inspection.",
       "The site was secretly mined before the inspection.",
@@ -2737,7 +2737,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Maintains the evidential structure 'are known to have…'."
   },
   {
-    "question": "What does the phrase 'gnawing dissonance' in the passage most likely refer to?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>For seventeen-year-old Meera, adolescence was not merely a phase of hormonal transitions and academic aspirations—it became an arena where perception and self-warth collided with insidious intensity. Ina world saturated with curated digital aesthetics and algorithm-driven beauty hierarchies, Meera’s own reflection began to feel less like truth and more like betrayal. Every scroll through her social media feed deepened a qnawing dissonance: batween her authentic self and the Impossible silhouettes idolized online. This wasn't mere teenage insecurity—it manifested asa systematic devaluation of her physical self. Gradually, she adopted punitive behaviors: food became conditional, mirrors became adversaries, and compliments transformed into-cryptic reminders of inadequacy. The subtle descent into dysmorphia was neither loud nor linear. Academically capable-and socially pleasant, Meera wore the mask of normalcy with precision. Yet beneath the practiced smiles was a quiet implosion, She began withdrawing emotionally, rationalizing her distress as vanity, and trivializing her warth. The turning point came not with drama, but with silence—a refusal to eat for days, which led to medical intervention. Therapeutic engagement introduced her to the concept of self-image distortion, and the emotional scaffolding required to rebuild her fractured sense of identity. Through sustained counseling, Meera disentangled societal impositians from intrinsic value. She began to internalize that oeauty is not a monolith dictated by culture but a spectrum shaped by diversity, health, and self-compassion. Meera's narrative is nota singular anomaly but a mitror to a larger epidemic—where teenagers battle unspoken wars behind flawless digital facades. Combating this requires more than awareness} it calls for critical media literacy, empathetic environments,-and systemic redefinition of beauty norms that extend beyond superficial metrics <br>What does the phrase  “gnawing dissonance” inthe passage rvost likely refer to ?",
     "options": [
       "Her hunger due to skipped meals",
       "Conflict between her inner worth and online ideals",
@@ -2748,7 +2748,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "‘Dissonance’ refers to inner conflict created by unrealistic beauty standards."
   },
   {
-    "question": "How does the passage describe Meera’s psychological decline?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>For seventeen-year-old Meera, adolescence was not merely a phase of hormonal transitions and academic aspirations—it became an arena where perception and self-warth collided with insidious intensity. Ina world saturated with curated digital aesthetics and algorithm-driven beauty hierarchies, Meera’s own reflection began to feel less like truth and more like betrayal. Every scroll through her social media feed deepened a qnawing dissonance: batween her authentic self and the Impossible silhouettes idolized online. This wasn't mere teenage insecurity—it manifested asa systematic devaluation of her physical self. Gradually, she adopted punitive behaviors: food became conditional, mirrors became adversaries, and compliments transformed into-cryptic reminders of inadequacy. The subtle descent into dysmorphia was neither loud nor linear. Academically capable-and socially pleasant, Meera wore the mask of normalcy with precision. Yet beneath the practiced smiles was a quiet implosion, She began withdrawing emotionally, rationalizing her distress as vanity, and trivializing her warth. The turning point came not with drama, but with silence—a refusal to eat for days, which led to medical intervention. Therapeutic engagement introduced her to the concept of self-image distortion, and the emotional scaffolding required to rebuild her fractured sense of identity. Through sustained counseling, Meera disentangled societal impositians from intrinsic value. She began to internalize that oeauty is not a monolith dictated by culture but a spectrum shaped by diversity, health, and self-compassion. Meera's narrative is nota singular anomaly but a mitror to a larger epidemic—where teenagers battle unspoken wars behind flawless digital facades. Combating this requires more than awareness} it calls for critical media literacy, empathetic environments,-and systemic redefinition of beauty norms that extend beyond superficial metrics <br>How does the passage describe Meera’s psychological decline?  ?",
     "options": [
       "Abrupt and confrontational",
       "Erratic and attention-seeking",
@@ -2759,7 +2759,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The passage describes a quiet, inward collapse—not dramatic or visible."
   },
   {
-    "question": "What concept helped Meera begin recovering emotionally?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>For seventeen-year-old Meera, adolescence was not merely a phase of hormonal transitions and academic aspirations—it became an arena where perception and self-warth collided with insidious intensity. Ina world saturated with curated digital aesthetics and algorithm-driven beauty hierarchies, Meera’s own reflection began to feel less like truth and more like betrayal. Every scroll through her social media feed deepened a qnawing dissonance: batween her authentic self and the Impossible silhouettes idolized online. This wasn't mere teenage insecurity—it manifested asa systematic devaluation of her physical self. Gradually, she adopted punitive behaviors: food became conditional, mirrors became adversaries, and compliments transformed into-cryptic reminders of inadequacy. The subtle descent into dysmorphia was neither loud nor linear. Academically capable-and socially pleasant, Meera wore the mask of normalcy with precision. Yet beneath the practiced smiles was a quiet implosion, She began withdrawing emotionally, rationalizing her distress as vanity, and trivializing her warth. The turning point came not with drama, but with silence—a refusal to eat for days, which led to medical intervention. Therapeutic engagement introduced her to the concept of self-image distortion, and the emotional scaffolding required to rebuild her fractured sense of identity. Through sustained counseling, Meera disentangled societal impositians from intrinsic value. She began to internalize that oeauty is not a monolith dictated by culture but a spectrum shaped by diversity, health, and self-compassion. Meera's narrative is nota singular anomaly but a mitror to a larger epidemic—where teenagers battle unspoken wars behind flawless digital facades. Combating this requires more than awareness} it calls for critical media literacy, empathetic environments,-and systemic redefinition of beauty norms that extend beyond superficial metrics <br>What concept helped Meera begin recovering emotionally?",
     "options": [
       "Narcissistic validation",
       "Self-image distortion",
@@ -2770,7 +2770,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Therapy helped her understand distorted self-image; key turning point."
   },
   {
-    "question": "Which of the following best captures the central theme of the passage?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>For seventeen-year-old Meera, adolescence was not merely a phase of hormonal transitions and academic aspirations—it became an arena where perception and self-warth collided with insidious intensity. Ina world saturated with curated digital aesthetics and algorithm-driven beauty hierarchies, Meera’s own reflection began to feel less like truth and more like betrayal. Every scroll through her social media feed deepened a qnawing dissonance: batween her authentic self and the Impossible silhouettes idolized online. This wasn't mere teenage insecurity—it manifested asa systematic devaluation of her physical self. Gradually, she adopted punitive behaviors: food became conditional, mirrors became adversaries, and compliments transformed into-cryptic reminders of inadequacy. The subtle descent into dysmorphia was neither loud nor linear. Academically capable-and socially pleasant, Meera wore the mask of normalcy with precision. Yet beneath the practiced smiles was a quiet implosion, She began withdrawing emotionally, rationalizing her distress as vanity, and trivializing her warth. The turning point came not with drama, but with silence—a refusal to eat for days, which led to medical intervention. Therapeutic engagement introduced her to the concept of self-image distortion, and the emotional scaffolding required to rebuild her fractured sense of identity. Through sustained counseling, Meera disentangled societal impositians from intrinsic value. She began to internalize that oeauty is not a monolith dictated by culture but a spectrum shaped by diversity, health, and self-compassion. Meera's narrative is nota singular anomaly but a mitror to a larger epidemic—where teenagers battle unspoken wars behind flawless digital facades. Combating this requires more than awareness} it calls for critical media literacy, empathetic environments,-and systemic redefinition of beauty norms that extend beyond superficial metrics <br>Which of the following best captures the central theme of the passage?",
     "options": [
       "The influence of peer pressure on teens",
       "Cosmetic beauty norms and fashion trends",
@@ -2781,7 +2781,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The entire passage focuses on silent mental struggles shaped by digital beauty norms."
   },
   {
-    "question": "What is the tone of the author at the end of the paragraph?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>For seventeen-year-old Meera, adolescence was not merely a phase of hormonal transitions and academic aspirations—it became an arena where perception and self-warth collided with insidious intensity. Ina world saturated with curated digital aesthetics and algorithm-driven beauty hierarchies, Meera’s own reflection began to feel less like truth and more like betrayal. Every scroll through her social media feed deepened a qnawing dissonance: batween her authentic self and the Impossible silhouettes idolized online. This wasn't mere teenage insecurity—it manifested asa systematic devaluation of her physical self. Gradually, she adopted punitive behaviors: food became conditional, mirrors became adversaries, and compliments transformed into-cryptic reminders of inadequacy. The subtle descent into dysmorphia was neither loud nor linear. Academically capable-and socially pleasant, Meera wore the mask of normalcy with precision. Yet beneath the practiced smiles was a quiet implosion, She began withdrawing emotionally, rationalizing her distress as vanity, and trivializing her warth. The turning point came not with drama, but with silence—a refusal to eat for days, which led to medical intervention. Therapeutic engagement introduced her to the concept of self-image distortion, and the emotional scaffolding required to rebuild her fractured sense of identity. Through sustained counseling, Meera disentangled societal impositians from intrinsic value. She began to internalize that oeauty is not a monolith dictated by culture but a spectrum shaped by diversity, health, and self-compassion. Meera's narrative is nota singular anomaly but a mitror to a larger epidemic—where teenagers battle unspoken wars behind flawless digital facades. Combating this requires more than awareness} it calls for critical media literacy, empathetic environments,-and systemic redefinition of beauty norms that extend beyond superficial metrics <br>What is the tone of the author at the end of the paragraph?",
     "options": [
       "Dismissive and ironic",
       "Reflective and critical",
@@ -2792,7 +2792,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The author advocates systemic change—reflective and critical tone."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part: 'I suggested that he goes to the doctor immediately.’",
+    "question": "Choose the most suitable option to replace the highlighted part: <br>'I suggested that he <b><b>goes to the doctor immediately.’",
     "options": [
       "go to doctor at once",
       "should goes to the doctor",
@@ -2803,13 +2803,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Subjunctive mood requires base verb: 'that he go'."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part: ‘I am used to get up early in the morning.’",
+    "question": "Choose the most suitable option to replace the highlighted part: <br> ‘I am used <b><b>to get up early in the morning.’",
     "options": ["to get up early", "with getting up early", "to getting up early", "for getting up early"],
     "correctAnswer": "to getting up early",
     "explanation": "'Used to' is always followed by a gerund: 'used to getting'."
   },
   {
-    "question": "Choose the correct indirect speech: She said, 'He doesn’t listen to me.'",
+    "question": "Choose the correct indirect speech: <br>She said, “He doesn’t listen to me.”",
     "options": [
       "She said he don’t listen to her.",
       "She said that he doesn’t listened to her.",
@@ -2820,7 +2820,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Present tense changes to past; verb remains base form after ‘didn’t’."
   },
   {
-    "question": "Choose the correct direct speech: The manager informed the employees that the deadline for submission had been extended by two days.",
+    "question": "Choose the correct direct speech: <br>The manager informed the employees that the deadline for submission had been extended by two days.",
     "options": [
       "You may submit the work two days later than planned,” the manager informed.",
       "The deadline has been extended by two days,\" said the manager.",
@@ -2837,10 +2837,10 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Definition → purpose → examples → conclusion."
   },
   {
-    "question": "Rearrange the following sentences to form a coherent paragraph: 1. This process ensures safety. 2. Food processing transforms raw items. 3. Methods range from simple to complex. 4. Also preserves food.",
-    "options": ["1,2,3,4", "3,1,4,2", "4,2,1,3"],
-    "correctAnswer": "1,2,3,4",
-    "explanation": "General → purpose → methods → additional benefits."
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br>1. This process ensures safety. <br>2. Food processing transforms raw items. <br>3. Methods range from simple to complex. <br>4. Also preserves food.",
+    "options": ["1,2,3,4", "2,3,1,4","3,1,4,2", "4,2,1,3"],
+    "correctAnswer": "2,3,1,4",
+    "explanation": ""
   }
 ],
 "ssc_cgl_eng_13_sep_s2" : [
