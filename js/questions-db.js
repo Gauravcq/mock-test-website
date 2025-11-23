@@ -475,154 +475,429 @@ const QUESTIONS_DATABASE = {
 
     ssc_cgl_12_sep_s3 :[
     {
-        "question": "If 60% of A = 0.3 of B = 1/6 of C, find A: B: C.",
-        "options": ["5:10:18", "18:10:5", "6:3:10", "10:5:18"],
+        "question": {
+            "en": "If 60% of A = 0.3 of B = 1/6 of C, find A: B: C.",
+            "hi": "यदि A का 60% = B का 0.3 = C का 1/6 है, तो A: B: C ज्ञात कीजिए।"
+        },
+        "options": [
+            "5:10:18",
+            "18:10:5",
+            "6:3:10",
+            "10:5:18"
+        ],
         "correctAnswer": "5:10:18",
-        "explanation": "Convert all terms to fractions: (3/5)A = (3/10)B = (1/6)C. Let this equal k. A=(5/3)k, B=(10/3)k, C=6k. The ratio A:B:C is (5/3):(10/3):6. Multiply by 3 to get 5:10:18."
+        "explanation": {
+            "en": "Convert all terms to fractions: (3/5)A = (3/10)B = (1/6)C. Let this equal k. A = (5/3)k, B = (10/3)k, C = 6k. The ratio A:B:C is (5/3):(10/3):6. Multiply by 3 to get 5:10:18.",
+            "hi": "सभी पदों को भिन्न में बदलें: (3/5)A = (3/10)B = (1/6)C। मान लीजिए यह k के बराबर है। A = (5/3)k, B = (10/3)k, C = 6k। अनुपात A:B:C है (5/3):(10/3):6। 3 से गुणा करने पर 5:10:18 प्राप्त होता है।"
+        }
     },
     {
-        "question": "A car travels 0.875 km in 1 minute. How far does it travel in 1 hour 45 minutes?",
-        "options": ["91.875 km", "94.576 km", "95.444 km", "92.582 km"],
+        "question": {
+            "en": "A car travels 0.875 km in 1 minute. How far does it travel in 1 hour 45 minutes?",
+            "hi": "एक कार 1 मिनट में 0.875 किमी की दूरी तय करती है। यह 1 घंटा 45 मिनट में कितनी दूर जाएगी?"
+        },
+        "options": [
+            "91.875 km",
+            "94.576 km",
+            "95.444 km",
+            "92.582 km"
+        ],
         "correctAnswer": "91.875 km",
-        "explanation": "Total time = 60 + 45 = 105 minutes. Total distance = speed × time = 0.875 km/min × 105 min = 91.875 km."
+        "explanation": {
+            "en": "Total time = 60 + 45 = 105 minutes. Total distance = speed * time = 0.875 km/min * 105 min = 91.875 km.",
+            "hi": "कुल समय = 60 + 45 = 105 मिनट। कुल दूरी = गति * समय = 0.875 किमी/मिनट * 105 मिनट = 91.875 किमी।"
+        }
     },
     {
-        "question": "Simplify: (1/(7+√2)) + (1/(7-√2)) - (14/(49-2))",
-        "options": ["0", "1", "2", "√2"],
+        "question": {
+            "en": "Simplify: (1/(7+sqrt(2))) + (1/(7-sqrt(2))) - (14/(49-2))",
+            "hi": "सरल कीजिए: (1/(7+वर्गमूल(2))) + (1/(7-वर्गमूल(2))) - (14/(49-2))"
+        },
+        "options": [
+            "0",
+            "1",
+            "2",
+            "sqrt(2)"
+        ],
         "correctAnswer": "0",
-        "explanation": "Combine the first two terms: (7-√2 + 7+√2) / ((7+√2)(7-√2)) = 14 / (49 - 2) = 14/47. The expression becomes 14/47 - 14/47 = 0."
+        "explanation": {
+            "en": "Combine the first two terms: ((7-sqrt(2)) + (7+sqrt(2))) / ((7+sqrt(2))(7-sqrt(2))) = 14 / (49 - 2) = 14/47. The expression becomes 14/47 - 14/47 = 0.",
+            "hi": "पहले दो पदों को मिलाएं: ((7-वर्गमूल(2)) + (7+वर्गमूल(2))) / ((7+वर्गमूल(2))(7-वर्गमूल(2))) = 14 / (49 - 2) = 14/47। व्यंजक 14/47 - 14/47 = 0 बन जाता है।"
+        }
     },
     {
-        "question": "The expenditure of a household on food, clothing, and entertainment is in the ratio 2:4:4. In the coming year, the cost of food is expected to fall by 10%, clothing to rise by 5%, and entertainment to fall by 15%. What is the percent change in the total household expenditure?",
-        "options": ["5% decrease", "6% increase", "6% decrease", "5% increase"],
+        "question": {
+            "en": "The expenditure of a household on food, clothing, and entertainment is in the ratio 2:4:4. In the coming year, the cost of food is expected to fall by 10%, clothing to rise by 5%, and entertainment to fall by 15%. What is the percent change in the total household expenditure?",
+            "hi": "एक परिवार का भोजन, कपड़े और मनोरंजन पर खर्च 2:4:4 के अनुपात में है। अगले वर्ष, भोजन की लागत 10% कम होने, कपड़ों की लागत 5% बढ़ने और मनोरंजन की लागत 15% कम होने की उम्मीद है। कुल घरेलू खर्च में प्रतिशत परिवर्तन क्या है?"
+        },
+        "options": [
+            "5% decrease",
+            "6% increase",
+            "6% decrease",
+            "5% increase"
+        ],
         "correctAnswer": "6% decrease",
-        "explanation": "Let initial total expenditure be 2+4+4=10. New Food: 2*0.9=1.8. New Clothing: 4*1.05=4.2. New Entertainment: 4*0.85=3.4. New Total = 1.8+4.2+3.4 = 9.4. % Change = (9.4-10)/10 * 100% = -6%, a 6% decrease."
+        "explanation": {
+            "en": "Let initial total expenditure be 2+4+4=10. New Food: 2*0.9=1.8. New Clothing: 4*1.05=4.2. New Entertainment: 4*0.85=3.4. New Total = 1.8+4.2+3.4 = 9.4. % Change = (9.4-10)/10 * 100% = -6%, a 6% decrease.",
+            "hi": "मान लीजिए प्रारंभिक कुल व्यय 2+4+4=10 है। नया भोजन खर्च: 2*0.9=1.8। नया कपड़ा खर्च: 4*1.05=4.2। नया मनोरंजन खर्च: 4*0.85=3.4। नया कुल व्यय = 1.8+4.2+3.4 = 9.4। प्रतिशत परिवर्तन = (9.4-10)/10 * 100% = -6%, यानी 6% की कमी।"
+        }
     },
     {
-        "question": "A and B invested 1,20,000 and 1,60,000 respectively. A remained for 10 months and B for 7 months. What is the total profit if B's share is 16,800?",
-        "options": ["34,800", "34,000", "10,000", "10,500"],
+        "question": {
+            "en": "A and B invested 1,20,000 and 1,60,000 respectively. A remained for 10 months and B for 7 months. What is the total profit if B's share is 16,800?",
+            "hi": "A और B ने क्रमशः 1,20,000 और 1,60,000 का निवेश किया। A 10 महीने तक रहा और B 7 महीने तक। यदि B का हिस्सा 16,800 है तो कुल लाभ क्या है?"
+        },
+        "options": [
+            "34,800",
+            "34,000",
+            "10,000",
+            "10,500"
+        ],
         "correctAnswer": "34,800",
-        "explanation": "Profit ratio A:B = (120000 * 10) : (160000 * 7) = 120:112 = 15:14. Total parts = 29. B's share (14 parts) = 16,800. 1 part = 1,200. Total profit (29 parts) = 29 * 1200 = 34,800."
+        "explanation": {
+            "en": "Profit ratio A:B = (120000 * 10) : (160000 * 7) = 120:112 = 15:14. Total parts = 29. B's share (14 parts) = 16,800. 1 part = 1,200. Total profit (29 parts) = 29 * 1200 = 34,800.",
+            "hi": "लाभ का अनुपात A:B = (120000 * 10) : (160000 * 7) = 120:112 = 15:14। कुल भाग = 29। B का हिस्सा (14 भाग) = 16,800। 1 भाग = 1,200। कुल लाभ (29 भाग) = 29 * 1200 = 34,800।"
+        }
     },
     {
-        "question": "Two individuals, A and B, have rented a field. A places 21 horses in the field for 6 months and 15 cows for 2 months. B adds 15 cows for 6 months and 40 sheep for 7.5 months. If 3 horses consume the same amount of food as 5 cows, and 6 cows eat as much as 10 sheep, what portion of the rent should A cover?",
-        "options": ["8/17", "19/17", "16/17", "20/17"],
+        "question": {
+            "en": "Two individuals, A and B, have rented a field. A places 21 horses in the field for 6 months and 15 cows for 2 months. B adds 15 cows for 6 months and 40 sheep for 7.5 months. If 3 horses consume the same amount of food as 5 cows, and 6 cows eat as much as 10 sheep, what portion of the rent should A cover?",
+            "hi": "दो व्यक्तियों, A और B ने एक खेत किराए पर लिया है। A खेत में 21 घोड़ों को 6 महीने के लिए और 15 गायों को 2 महीने के लिए रखता है। B 15 गायों को 6 महीने के लिए और 40 भेड़ों को 7.5 महीने के लिए रखता है। यदि 3 घोड़े उतना ही भोजन खाते हैं जितना 5 गाय, और 6 गाय उतना ही खाती हैं जितना 10 भेड़, तो A को किराए का कितना हिस्सा देना चाहिए?"
+        },
+        "options": [
+            "8/17",
+            "19/17",
+            "16/17",
+            "20/17"
+        ],
         "correctAnswer": "8/17",
-        "explanation": "Equivalence: 1 Horse = 5/3 Cows; 1 Sheep = 3/5 Cows. A's total consumption (Cow-Months): (21*5/3*6) + (15*2) = 240. B's total consumption: (15*6) + (40*3/5*7.5) = 270. Total = 510. A's portion = 240/510 = 8/17."
+        "explanation": {
+            "en": "Equivalence: 1 Horse = 5/3 Cows; 1 Sheep = 3/5 Cows. A's total consumption (Cow-Months): (21*5/3*6) + (15*2) = 240. B's total consumption: (15*6) + (40*3/5*7.5) = 270. Total = 510. A's portion = 240/510 = 8/17.",
+            "hi": "समकक्षता: 1 घोड़ा = 5/3 गाय; 1 भेड़ = 3/5 गाय। A की कुल खपत (गाय-महीने में): (21*5/3*6) + (15*2) = 240। B की कुल खपत: (15*6) + (40*3/5*7.5) = 270। कुल = 510। A का हिस्सा = 240/510 = 8/17।"
+        }
     },
     {
-        "question": "Two individuals, A and B rent a pasture. A uses 16 cows for a duration of 3 months and 20 sheep for 4 months and B uses 30 sheep for 6 months. If 4 cows are equivalent to 8 sheep, determine A's portion of the rent.",
-        "options": ["44/89", "54/89", "64/89", "74/89"],
+        "question": {
+            "en": "Two individuals, A and B rent a pasture. A uses 16 cows for a duration of 3 months and 20 sheep for 4 months and B uses 30 sheep for 6 months. If 4 cows are equivalent to 8 sheep, determine A's portion of the rent.",
+            "hi": "दो व्यक्ति, A और B एक चरागाह किराए पर लेते हैं। A 3 महीने की अवधि के लिए 16 गायों और 4 महीने के लिए 20 भेड़ों का उपयोग करता है और B 6 महीने के लिए 30 भेड़ों का उपयोग करता है। यदि 4 गाय 8 भेड़ों के बराबर हैं, तो किराए में A का हिस्सा ज्ञात कीजिए।"
+        },
+        "options": [
+            "44/89",
+            "54/89",
+            "64/89",
+            "74/89"
+        ],
         "correctAnswer": "44/89",
-        "explanation": "Equivalence: 1 Cow = 2 Sheep. A's Consumption (Cow-Months): (16*3) + (20 * 1/2 * 4) = 48 + 40 = 88. B's Consumption (Cow-Months): (30 * 1/2 * 6) = 90. Total = 178. A's portion = 88/178 = 44/89."
+        "explanation": {
+            "en": "Equivalence: 1 Cow = 2 Sheep. A's Consumption (Cow-Months): (16*3) + (20 * 1/2 * 4) = 48 + 40 = 88. B's Consumption (Cow-Months): (30 * 1/2 * 6) = 90. Total = 178. A's portion = 88/178 = 44/89.",
+            "hi": "समकक्षता: 1 गाय = 2 भेड़। A की खपत (गाय-महीने में): (16*3) + (20 * 1/2 * 4) = 48 + 40 = 88। B की खपत (गाय-महीने में): (30 * 1/2 * 6) = 90। कुल = 178। A का हिस्सा = 88/178 = 44/89।"
+        }
     },
     {
-        "question": "Three groups of students have average ages 18, 20, and 22 respectively. If the number of students in the three groups is in the ratio 2:3:5, what is the overall average age?",
-        "options": ["19.6", "20.6", "15.6", "14.6"],
+        "question": {
+            "en": "Three groups of students have average ages 18, 20, and 22 respectively. If the number of students in the three groups is in the ratio 2:3:5, what is the overall average age?",
+            "hi": "छात्रों के तीन समूहों की औसत आयु क्रमशः 18, 20 और 22 है। यदि तीनों समूहों में छात्रों की संख्या का अनुपात 2:3:5 है, तो कुल मिलाकर औसत आयु क्या है?"
+        },
+        "options": [
+            "19.6",
+            "20.6",
+            "15.6",
+            "14.6"
+        ],
         "correctAnswer": "20.6",
-        "explanation": "Overall Average = [(18*2) + (20*3) + (22*5)] / (2+3+5) = (36+60+110)/10 = 206/10 = 20.6."
+        "explanation": {
+            "en": "Overall Average = [(18*2) + (20*3) + (22*5)] / (2+3+5) = (36+60+110)/10 = 206/10 = 20.6.",
+            "hi": "कुल औसत = [(18*2) + (20*3) + (22*5)] / (2+3+5) = (36+60+110)/10 = 206/10 = 20.6।"
+        }
     },
     {
-        "question": "The average of 11 numbers is 68. If the average of the first five is 63 and the average of the last five is 72, find the 6th number.",
-        "options": ["73", "74", "75", "76"],
+        "question": {
+            "en": "The average of 11 numbers is 68. If the average of the first five is 63 and the average of the last five is 72, find the 6th number.",
+            "hi": "11 संख्याओं का औसत 68 है। यदि पहली पाँच संख्याओं का औसत 63 है और अंतिम पाँच संख्याओं का औसत 72 है, तो छठी संख्या ज्ञात कीजिए।"
+        },
+        "options": [
+            "73",
+            "74",
+            "75",
+            "76"
+        ],
         "correctAnswer": "73",
-        "explanation": "Total sum = 11*68=748. Sum of first five = 5*63=315. Sum of last five = 5*72=360. 6th number = 748 - (315+360) = 748 - 675 = 73."
+        "explanation": {
+            "en": "Total sum = 11*68=748. Sum of first five = 5*63=315. Sum of last five = 5*72=360. 6th number = 748 - (315+360) = 748 - 675 = 73.",
+            "hi": "कुल योग = 11*68=748। पहली पाँच का योग = 5*63=315। अंतिम पाँच का योग = 5*72=360। छठी संख्या = 748 - (315+360) = 748 - 675 = 73।"
+        }
     },
     {
-        "question": "What is the average of all integers between 300 and 450 that are exactly divisible by 13?",
-        "options": ["277", "377", "477", "577"],
+        "question": {
+            "en": "What is the average of all integers between 300 and 450 that are exactly divisible by 13?",
+            "hi": "300 और 450 के बीच की उन सभी पूर्णांकों का औसत क्या है जो 13 से पूर्णतः विभाज्य हैं?"
+        },
+        "options": [
+            "277",
+            "377",
+            "477",
+            "577"
+        ],
         "correctAnswer": "377",
-        "explanation": "The numbers form an AP. First term > 300 is 13*24=312. Last term < 450 is 13*34=442. Average = (First + Last)/2 = (312+442)/2 = 377."
+        "explanation": {
+            "en": "The numbers form an AP. First term > 300 is 13*24=312. Last term < 450 is 13*34=442. Average = (First + Last)/2 = (312+442)/2 = 377.",
+            "hi": "संख्याएँ एक समांतर श्रेणी (AP) बनाती हैं। 300 से बड़ा पहला पद 13*24=312 है। 450 से छोटा अंतिम पद 13*34=442 है। औसत = (पहला + अंतिम)/2 = (312+442)/2 = 377।"
+        }
     },
     {
-        "question": "Evaluate: 12(1/2)% of 560 km + 66(2/3)% of 240 km",
-        "options": ["140 km", "230 km", "320 km", "450 km"],
+        "question": {
+            "en": "Evaluate: 12(1/2)% of 560 km + 66(2/3)% of 240 km",
+            "hi": "मान ज्ञात कीजिए: 560 किमी का 12 1/2% + 240 किमी का 66 2/3%।"
+        },
+        "options": [
+            "140 km",
+            "230 km",
+            "320 km",
+            "450 km"
+        ],
         "correctAnswer": "230 km",
-        "explanation": "12.5% = 1/8 and 66.66% = 2/3. First part: (1/8)*560 = 70 km. Second part: (2/3)*240 = 160 km. Total = 70+160 = 230 km."
+        "explanation": {
+            "en": "12.5% = 1/8 and 66.66% approx 2/3. First part: (1/8)*560 = 70 km. Second part: (2/3)*240 = 160 km. Total = 70+160 = 230 km.",
+            "hi": "12.5% = 1/8 और 66.66% लगभग 2/3। पहला भाग: (1/8)*560 = 70 किमी। दूसरा भाग: (2/3)*240 = 160 किमी। कुल योग = 70+160 = 230 किमी।"
+        }
     },
     {
-        "question": "A vendor sells shirts at 500 each, earning a 2% commission, and ties at 150 each, with a 12% commission. If he sells 3 shirts and 4 ties per day, what will be his total commission earned in 30 days?",
-        "options": ["2850", "3000", "3060", "3200"],
+        "question": {
+            "en": "A vendor sells shirts at 500 each, earning a 2% commission, and ties at 150 each, with a 12% commission. If he sells 3 shirts and 4 ties per day, what will be his total commission earned in 30 days?",
+            "hi": "एक विक्रेता 500 रुपये प्रति शर्ट बेचता है, 2% कमीशन कमाता है, और 150 रुपये प्रति टाई बेचता है, जिस पर 12% कमीशन मिलता है। यदि वह प्रतिदिन 3 शर्ट और 4 टाई बेचता है, तो 30 दिनों में उसकी कुल कमीशन आय क्या होगी?"
+        },
+        "options": [
+            "2850",
+            "3000",
+            "3060",
+            "3200"
+        ],
         "correctAnswer": "3060",
-        "explanation": "Daily commission on shirts: (3*500)*0.02 = 30. Daily commission on ties: (4*150)*0.12 = 72. Total daily commission = 102. Total in 30 days = 102*30 = 3060."
+        "explanation": {
+            "en": "Daily commission on shirts: (3*500)*0.02 = 30. Daily commission on ties: (4*150)*0.12 = 72. Total daily commission = 30 + 72 = 102. Total in 30 days = 102 * 30 = 3060.",
+            "hi": "शर्ट पर दैनिक कमीशन: (3*500)*0.02 = 30। टाई पर दैनिक कमीशन: (4*150)*0.12 = 72। कुल दैनिक कमीशन = 30 + 72 = 102। 30 दिनों में कुल कमीशन = 102 * 30 = 3060।"
+        }
     },
     {
-        "question": "A fruit seller sells apples at a loss of 5% on the cost price but uses a weight that is 20% less than the actual weight. Find his total profit percentage.",
-        "options": ["20.62%", "19.25%", "16.28%", "18.75%"],
+        "question": {
+            "en": "A fruit seller sells apples at a loss of 5% on the cost price but uses a weight that is 20% less than the actual weight. Find his total profit percentage.",
+            "hi": "एक फल विक्रेता सेब को क्रय मूल्य पर 5% की हानि पर बेचता है लेकिन वास्तविक वजन से 20% कम वजन का उपयोग करता है। उसका कुल लाभ प्रतिशत ज्ञात कीजिए।"
+        },
+        "options": [
+            "20.62%",
+            "19.25%",
+            "16.28%",
+            "18.75%"
+        ],
         "correctAnswer": "18.75%",
-        "explanation": "Let CP of 1000g be 100. He sells 800g (costing 80) for 95 (5% loss on 100). Profit = 95 - 80 = 15. Profit % = (15/80)*100 = 18.75%."
+        "explanation": {
+            "en": "Let CP of 1000g be 100. He sells 800g (costing 80) for 95 (5% loss on 100). Profit = 95 - 80 = 15. Profit % = (15/80) * 100 = 18.75%.",
+            "hi": "मान लीजिए 1000 ग्राम का क्रय मूल्य (CP) 100 है। वह 800 ग्राम (जिसका CP 80 है) को 95 में बेचता है (100 पर 5% की हानि)। लाभ = 95 - 80 = 15। लाभ % = (15/80) * 100 = 18.75%।"
+        }
     },
     {
-        "question": "The profit made on an item sold for 2200 is equal to the loss incurred when it is sold for 1800. What will be the profit or loss percentage if the item is sold for 2050?",
-        "options": ["Profit of 2.25%", "Loss of 3.5%", "Profit of 2.5%", "Loss of 4.25%"],
+        "question": {
+            "en": "The profit made on an item sold for 2200 is equal to the loss incurred when it is sold for 1800. What will be the profit or loss percentage if the item is sold for 2050?",
+            "hi": "एक वस्तु को 2200 में बेचने पर होने वाला लाभ, उसे 1800 में बेचने पर हुई हानि के बराबर है। यदि वस्तु को 2050 में बेचा जाए तो लाभ या हानि प्रतिशत क्या होगा?"
+        },
+        "options": [
+            "Profit of 2.25%",
+            "Loss of 3.5%",
+            "Profit of 2.5%",
+            "Loss of 4.25%"
+        ],
         "correctAnswer": "Profit of 2.5%",
-        "explanation": "Cost Price (CP) = (2200 + 1800)/2 = 2000. If sold for 2050, profit = 50. Profit % = (50/2000)*100 = 2.5%."
+        "explanation": {
+            "en": "Cost Price (CP) = (2200 + 1800)/2 = 2000. If sold for 2050, profit = 50. Profit % = (50/2000) * 100 = 2.5%.",
+            "hi": "क्रय मूल्य (CP) = (2200 + 1800)/2 = 2000। यदि इसे 2050 में बेचा जाए, तो लाभ = 50। लाभ % = (50/2000) * 100 = 2.5%।"
+        }
     },
     {
-        "question": "A mobile phone retailer sells a phone for P and earns a profit of 20%. For a special festive offer, he marks the same phone at 1.5P. At the offer, he provides a discount of 10%. What will be the percentage profit that he will make during the festive offer?",
-        "options": ["26%", "56%", "62%", "60%"],
+        "question": {
+            "en": "A mobile phone retailer sells a phone for P and earns a profit of 20%. For a special festive offer, he marks the same phone at 1.5P. At the offer, he provides a discount of 10%. What will be the percentage profit that he will make during the festive offer?",
+            "hi": "एक मोबाइल फोन विक्रेता एक फोन P में बेचता है और 20% लाभ कमाता है। एक विशेष त्योहारी पेशकश के लिए, वह उसी फोन पर 1.5P अंकित करता है। इस पेशकश पर, वह 10% की छूट देता है। त्योहारी पेशकश के दौरान उसे कितना प्रतिशत लाभ होगा?"
+        },
+        "options": [
+            "26%",
+            "56%",
+            "62%",
+            "60%"
+        ],
         "correctAnswer": "62%",
-        "explanation": "Let original CP = 100. Then P = 120. New Marked Price = 1.5 * 120 = 180. New SP after 10% discount = 180 * 0.90 = 162. New Profit = 162 - 100 = 62. Profit % = 62%."
+        "explanation": {
+            "en": "Let original CP = 100. Then P = 120. New Marked Price = 1.5 * 120 = 180. New SP after 10% discount = 180 * 0.90 = 162. New Profit = 162 - 100 = 62. Profit % = 62%.",
+            "hi": "मान लीजिए मूल क्रय मूल्य (CP) = 100। तब P = 120। नया अंकित मूल्य (MP) = 1.5 * 120 = 180। 10% छूट के बाद नया विक्रय मूल्य (SP) = 180 * 0.90 = 162। नया लाभ = 162 - 100 = 62। लाभ % = 62%।"
+        }
     },
     {
-        "question": "A shopkeeper marked an item 25% above its cost price. During a sale, he offered a discount of 10%. What was his profit percentage?",
-        "options": ["10%", "12.50%", "15%", "17.5%"],
+        "question": {
+            "en": "A shopkeeper marked an item 25% above its cost price. During a sale, he offered a discount of 10%. What was his profit percentage?",
+            "hi": "एक दुकानदार ने एक वस्तु पर उसके क्रय मूल्य से 25% अधिक अंकित किया। बिक्री के दौरान, उसने 10% की छूट दी। उसका लाभ प्रतिशत क्या था?"
+        },
+        "options": [
+            "10%",
+            "12.50%",
+            "15%",
+            "17.5%"
+        ],
         "correctAnswer": "12.50%",
-        "explanation": "Use successive percentage formula: A+B+(A*B)/100. Profit % = 25 - 10 + (25*-10)/100 = 15 - 2.5 = 12.5%."
+        "explanation": {
+            "en": "Use successive percentage formula: A+B+(A*B)/100. Profit % = 25 - 10 + (25*-10)/100 = 15 - 2.5 = 12.5%.",
+            "hi": "सकल प्रतिशत परिवर्तन सूत्र का उपयोग करें: A+B+(A*B)/100। लाभ % = 25 - 10 + (25 * -10)/100 = 15 - 2.5 = 12.5%।"
+        }
     },
     {
-        "question": "A shopkeeper marks his goods at 60% above the cost price. He allows a discount of 25% on the marked price. If he also gives an additional cash discount of 150, and still makes a profit of 14% on the cost price, what is the cost price of the goods?",
-        "options": ["2000", "2500", "3000", "3500"],
+        "question": {
+            "en": "A shopkeeper marks his goods at 60% above the cost price. He allows a discount of 25% on the marked price. If he also gives an additional cash discount of 150, and still makes a profit of 14% on the cost price, what is the cost price of the goods?",
+            "hi": "एक दुकानदार अपनी वस्तुओं पर क्रय मूल्य से 60% अधिक अंकित करता है। वह अंकित मूल्य पर 25% की छूट देता है। यदि वह 150 रुपये की अतिरिक्त नकद छूट भी देता है, और फिर भी क्रय मूल्य पर 14% का लाभ कमाता है, तो वस्तुओं का क्रय मूल्य क्या है?"
+        },
+        "options": [
+            "2000",
+            "2500",
+            "3000",
+            "3500"
+        ],
         "correctAnswer": "2500",
-        "explanation": "Let CP=x. MP=1.6x. SP before cash discount = 1.6x*0.75=1.2x. Final SP = 1.2x-150. Profit is 14%, so Final SP = 1.14x. Equating: 1.2x-150 = 1.14x -> 0.06x=150 -> x=2500."
+        "explanation": {
+            "en": "Let CP=x. MP=1.6x. SP before cash discount = 1.6x*0.75=1.2x. Final SP = 1.2x-150. Profit is 14%, so Final SP = 1.14x. Equating: 1.2x-150 = 1.14x -> 0.06x=150 -> x=2500.",
+            "hi": "मान लीजिए CP=x। MP=1.6x। नकद छूट से पहले SP = 1.6x * 0.75 = 1.2x। अंतिम SP = 1.2x - 150। लाभ 14% है, इसलिए अंतिम SP = 1.14x। समीकरण बनाने पर: 1.2x - 150 = 1.14x -> 0.06x = 150 -> x = 2500।"
+        }
     },
     {
-        "question": "How many approximate kgs of sugar costing 45 per kg must be mixed with 25 kg of sugar costing 32 per kg so that a 15% gain may be obtained by selling the mixture at 43.70 per kg?",
-        "options": ["15 kg", "25 kg", "21 kg", "18 kg"],
+        "question": {
+            "en": "How many approximate kgs of sugar costing 45 per kg must be mixed with 25 kg of sugar costing 32 per kg so that a 15% gain may be obtained by selling the mixture at 43.70 per kg?",
+            "hi": "45 रुपये प्रति किलोग्राम वाली लगभग कितनी चीनी को 32 रुपये प्रति किलोग्राम वाली 25 किलोग्राम चीनी के साथ मिलाया जाना चाहिए ताकि मिश्रण को 43.70 रुपये प्रति किलोग्राम पर बेचने पर 15% का लाभ प्राप्त हो सके?"
+        },
+        "options": [
+            "15 kg",
+            "25 kg",
+            "21 kg",
+            "18 kg"
+        ],
         "correctAnswer": "21 kg",
-        "explanation": "CP of mixture = 43.70/1.15 = 38/kg. Using Alligation: (45-38):(38-32) = 7:6. This is the inverse ratio of quantities. Q1/25 = 6/7 -> Q1 = 150/7 ≈ 21.43 kg. Approx 21 kg."
+        "explanation": {
+            "en": "CP of mixture = 43.70/1.15 = 38/kg. Using Alligation: (45-38):(38-32) = 7:6. This is the inverse ratio of quantities. Q1/25 = 6/7 -> Q1 = 150/7 approx 21.43 kg. Approx 21 kg.",
+            "hi": "मिश्रण का CP = 43.70/1.15 = 38 रुपये/किग्रा। मिश्रण नियम (Alligation) का उपयोग करने पर: (45-38) : (38-32) = 7:6। यह मात्राओं का विपरीत अनुपात है। Q1/25 = 6/7 -> Q1 = 150/7 लगभग 21.43 किग्रा। लगभग 21 किग्रा।"
+        }
     },
     {
-        "question": "A right circular cone with radius 7 cm and height 24 cm. Find its slant height, l.",
-        "options": ["25cm", "30cm", "35cm", "40cm"],
+        "question": {
+            "en": "A right circular cone with radius 7 cm and height 24 cm. Find its slant height, l.",
+            "hi": "एक लम्ब वृत्तीय शंकु की त्रिज्या 7 सेमी और ऊँचाई 24 सेमी है। इसकी तिर्यक ऊँचाई, l ज्ञात कीजिए।"
+        },
+        "options": [
+            "25cm",
+            "30cm",
+            "35cm",
+            "40cm"
+        ],
         "correctAnswer": "25cm",
-        "explanation": "By Pythagorean theorem, slant height l² = r² + h². Given r=7, h=24. l² = 7² + 24² = 49 + 576 = 625. l = √625 = 25 cm. (7, 24, 25 is a Pythagorean triple)."
+        "explanation": {
+            "en": "By Pythagorean theorem, slant height l^2 = r^2 + h^2. Given r=7, h=24. l^2 = 7^2 + 24^2 = 49 + 576 = 625. l = sqrt(625) = 25 cm. (7, 24, 25 is a Pythagorean triple).",
+            "hi": "पाइथागोरस प्रमेय द्वारा, तिर्यक ऊँचाई l^2 = r^2 + h^2। दिया गया r=7, h=24। l^2 = 7^2 + 24^2 = 49 + 576 = 625। l = वर्गमूल(625) = 25 सेमी। (7, 24, 25 एक पाइथागोरस त्रिक है।)"
+        }
     },
     {
-        "question": "A lent 5000 to B for a duration of 2 years and 3000 to C for a period of 4 years, both at the same simple interest rate. In total, he received 2200 as interest. What is the rate of interest per annum?",
-        "options": ["10%", "12%", "15%", "17%"],
+        "question": {
+            "en": "A lent 5000 to B for a duration of 2 years and 3000 to C for a period of 4 years, both at the same simple interest rate. In total, he received 2200 as interest. What is the rate of interest per annum?",
+            "hi": "A ने B को 2 वर्षों की अवधि के लिए 5000 और C को 4 वर्षों की अवधि के लिए 3000, दोनों को समान साधारण ब्याज दर पर उधार दिया। कुल मिलाकर, उसे ब्याज के रूप में 2200 प्राप्त हुए। प्रति वर्ष ब्याज दर क्या है?"
+        },
+        "options": [
+            "10%",
+            "12%",
+            "15%",
+            "17%"
+        ],
         "correctAnswer": "10%",
-        "explanation": "Let rate=R. Total Interest=2200 = (5000*R*2)/100 + (3000*R*4)/100 = 100R + 120R = 220R. R = 2200/220 = 10%."
+        "explanation": {
+            "en": "Let rate=R. Total Interest=2200 = (5000 * R * 2)/100 + (3000 * R * 4)/100 = 100R + 120R = 220R. R = 2200/220 = 10%.",
+            "hi": "मान लीजिए दर=R। कुल ब्याज = 2200 = (5000 * R * 2)/100 + (3000 * R * 4)/100 = 100R + 120R = 220R। R = 2200/220 = 10%।"
+        }
     },
     {
-        "question": "A triangular prism has a base area of 25 cm². If the height is increased by 20%, what is the new volume (original height was 10 cm)?",
-        "options": ["250 cm³", "275 cm³", "300 cm³", "225 cm³"],
+        "question": {
+            "en": "A triangular prism has a base area of 25 cm². If the height is increased by 20%, what is the new volume (original height was 10 cm)?",
+            "hi": "एक त्रिकोणीय प्रिज्म के आधार का क्षेत्रफल 25 वर्ग सेमी है। यदि ऊँचाई 20% बढ़ा दी जाती है, तो नया आयतन क्या होगा (मूल ऊँचाई 10 सेमी थी)?"
+        },
+        "options": [
+            "250 cm³",
+            "275 cm³",
+            "300 cm³",
+            "225 cm³"
+        ],
         "correctAnswer": "300 cm³",
-        "explanation": "Original height = 10 cm. New height = 10 * 1.20 = 12 cm. New Volume = Base Area × New Height = 25 cm² × 12 cm = 300 cm³."
+        "explanation": {
+            "en": "Original height = 10 cm. New height = 10 * 1.20 = 12 cm. New Volume = Base Area * New Height = 25 cm² * 12 cm = 300 cm³.",
+            "hi": "मूल ऊँचाई = 10 सेमी। नई ऊँचाई = 10 * 1.20 = 12 सेमी। नया आयतन = आधार का क्षेत्रफल * नई ऊँचाई = 25 वर्ग सेमी * 12 सेमी = 300 घन सेमी।"
+        }
     },
     {
-        "question": "A circular disc's radius is decreased by 10%. What is the percentage decrease in its area?",
-        "options": ["10%", "19%", "18%", "15%"],
+        "question": {
+            "en": "A circular disc's radius is decreased by 10%. What is the percentage decrease in its area?",
+            "hi": "एक वृत्ताकार डिस्क की त्रिज्या 10% कम कर दी जाती है। इसके क्षेत्रफल में प्रतिशत कमी क्या है?"
+        },
+        "options": [
+            "10%",
+            "19%",
+            "18%",
+            "15%"
+        ],
         "correctAnswer": "19%",
-        "explanation": "Use successive percentage formula: A+B+(A*B)/100. For radius decrease, A=B=-10. Change = -10-10+(-10*-10)/100 = -20+1 = -19%. Area decreases by 19%."
+        "explanation": {
+            "en": "Use successive percentage formula: A+B+(A*B)/100. For radius decrease, A=B=-10. Change = -10-10+(-10*-10)/100 = -20+1 = -19%. Area decreases by 19%.",
+            "hi": "सकल प्रतिशत परिवर्तन सूत्र का उपयोग करें: A+B+(A*B)/100। त्रिज्या में कमी के लिए, A=B=-10। परिवर्तन = -10-10+(-10 * -10)/100 = -20+1 = -19%। क्षेत्रफल में 19% की कमी आती है।"
+        }
     },
     {
-        "question": "A builder has 100 m of fencing wire. What is the approximate ratio of the area of the largest possible circular garden to the area of the largest possible square garden he can enclose?",
-        "options": ["1:1", "1.1:1", "1.27:1", "1.57:1"],
+        "question": {
+            "en": "A builder has 100 m of fencing wire. What is the approximate ratio of the area of the largest possible circular garden to the area of the largest possible square garden he can enclose?",
+            "hi": "एक बिल्डर के पास 100 मीटर की बाड़ लगाने का तार है। सबसे बड़े संभव वृत्ताकार उद्यान के क्षेत्रफल का, सबसे बड़े संभव वर्गाकार उद्यान के क्षेत्रफल से अनुमानित अनुपात क्या है जिसे वह घेर सकता है?"
+        },
+        "options": [
+            "1:1",
+            "1.1:1",
+            "1.27:1",
+            "1.57:1"
+        ],
         "correctAnswer": "1.27:1",
-        "explanation": "Perimeter=100m. For square, side=25m, Area=625m². For circle, 2πr=100, r=50/π. Area=π(50/π)²=2500/π. Ratio = (2500/π)/625 = 4/π ≈ 4/3.14 ≈ 1.27. Ratio is 1.27:1."
+        "explanation": {
+            "en": "Perimeter=100 m. For square, side=25 m, Area=625 m^2. For circle, 2*pi*r=100, r=50/pi. Area=pi*(50/pi)^2=2500/pi. Ratio = (2500/pi)/625 = 4/pi approx 4/3.14 approx 1.27. Ratio is 1.27:1.",
+            "hi": "परिधि=100 मीटर। वर्ग के लिए, भुजा=25 मीटर, क्षेत्रफल=625 वर्ग मीटर। वृत्त के लिए, 2*pi*r = 100, r=50/pi। क्षेत्रफल = pi*(50/pi)^2 = 2500/pi। अनुपात = (2500/pi)/625 = 4/pi लगभग 4/3.14 लगभग 1.27। अनुपात 1.27:1 है।"
+        }
     },
     {
-        "question": "A vertical cylindrical container is filled with oil. A solid hemispherical stone of radius 7 cm is immersed completely, and the oil level rises by 3 cm. What is the radius of the cylinder?",
-        "options": ["6.29 cm", "7.43 cm", "8.73 cm", "11.41 cm"],
+        "question": {
+            "en": "A vertical cylindrical container is filled with oil. A solid hemispherical stone of radius 7 cm is immersed completely, and the oil level rises by 3 cm. What is the radius of the cylinder?",
+            "hi": "एक ऊर्ध्वाधर बेलनाकार कंटेनर तेल से भरा है। 7 सेमी त्रिज्या का एक ठोस अर्धगोलाकार पत्थर पूरी तरह से डुबोया जाता है, और तेल का स्तर 3 सेमी बढ़ जाता है। सिलेंडर की त्रिज्या क्या है?"
+        },
+        "options": [
+            "6.29 cm",
+            "7.43 cm",
+            "8.73 cm",
+            "11.41 cm"
+        ],
         "correctAnswer": "8.73 cm",
-        "explanation": "Volume of displaced oil = Volume of hemisphere. πR²h = (2/3)πr³. πR²(3) = (2/3)π(7)³. 3R² = (2/3)(343). R² = 686/9. R = √(686)/3 ≈ 8.73 cm."
+        "explanation": {
+            "en": "Volume of displaced oil = Volume of hemisphere. pi*R^2*h = (2/3)*pi*r^3. pi*R^2*(3) = (2/3)*pi*(7)^3. 3*R^2 = (2/3)*(343). R^2 = 686/9. R = sqrt(686)/3 approx 8.73 cm.",
+            "hi": "विस्थापित तेल का आयतन = अर्धगोले का आयतन। pi*R^2*h = (2/3)*pi*r^3। pi*R^2*(3) = (2/3)*pi*(7)^3। 3*R^2 = (2/3)*(343)। R^2 = 686/9। R = वर्गमूल(686)/3 लगभग 8.73 सेमी।"
+        }
     },
     {
-        "question": "A sector of a circle has a central angle of 120° and a radius of 7 cm. Another sector of the same circle has a central angle of (2π/3) radians. What is the ratio of the area of the first sector to the area of the second sector?",
-        "options": ["3:5", "2:3", "1:1", "4:5"],
+        "question": {
+            "en": "A sector of a circle has a central angle of 120° and a radius of 7 cm. Another sector of the same circle has a central angle of (2*pi/3) radians. What is the ratio of the area of the first sector to the area of the second sector?",
+            "hi": "एक वृत्त के त्रिज्यखंड का केंद्रीय कोण 120° और त्रिज्या 7 सेमी है। उसी वृत्त के दूसरे त्रिज्यखंड का केंद्रीय कोण (2*pi/3) रेडियन है। पहले त्रिज्यखंड के क्षेत्रफल का दूसरे त्रिज्यखंड के क्षेत्रफल से अनुपात क्या है?"
+        },
+        "options": [
+            "3:5",
+            "2:3",
+            "1:1",
+            "4:5"
+        ],
         "correctAnswer": "1:1",
-        "explanation": "Convert angles to same unit: 120° = 120*(π/180) = (2π/3) radians. Since the radii and central angles are identical, the areas are equal. The ratio is 1:1."
+        "explanation": {
+            "en": "Convert angles to same unit: 120° = 120 * (pi/180) = (2*pi/3) radians. Since the radii and central angles are identical, the areas are equal. The ratio is 1:1.",
+            "hi": "कोणों को समान इकाई में बदलें: 120° = 120 * (pi/180) = (2*pi/3) रेडियन। चूंकि त्रिज्या और केंद्रीय कोण समान हैं, इसलिए क्षेत्रफल बराबर हैं। अनुपात 1:1 है।"
+        }
     }
 ],
 
