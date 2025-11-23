@@ -25,11 +25,17 @@ const QUESTIONS_DATABASE = {
             explanation: "FILL IN EXPLANATION"
         },
         {
-            question: "<img src='../images/q4.png' alt='Question 4' style='max-width: 100%; height: auto;'>",
-            options: ["11:12", "12:11", "7:6", "6:7"],
-            correctAnswer: "12:11",
-            explanation: "FILL IN EXPLANATION"
+        "question": {
+            "en": "<img src='../images/q4.png' alt='Question 3' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/qhi.png' alt='Question 3' style='max-width: 100%; height: auto;'>?"
         },
+        "options": ["11:12", "12:11", "7:6", "6:7"],
+        "correctAnswer": "12:11",
+        "explanation": {
+            "en": "Step-by-Step CalculationFind the total number of people proficient in Python.This includes those proficient in Python and Java PLUS those proficient in Python only.Total Python Proficient $= (\text{Proficient in Python and Java}) + (\text{Proficient in Python only})$Total Python Proficient $= 50 + 70 = **120**$Find the total number of people proficient in Java.This includes those proficient in Python and Java PLUS those proficient in Java only.Total Java Proficient $= (\text{Proficient in Python and Java}) + (\text{Proficient in Java only})$Total Java Proficient $= 50 + 60 = **110**$Determine the required ratio.The required ratio is: (Total Python Proficient) : (Total Java Proficient)Ratio $= 120 : 110$Simplify the ratio.Divide both sides by the greatest common divisor, which is 10.Ratio $= \frac{120}{10} : \frac{110}{10} = **12 : 11**$The correct option is 12:11.",
+            "hi": "चरण-दर-चरण गणनापायथन (Python) में कुशल लोगों की कुल संख्या ज्ञात करें।इसमें वे लोग शामिल हैं जो पायथन और जावा (Python and Java) में कुशल हैं और वे लोग जो केवल पायथन (Python only) में कुशल हैं।पायथन में कुल कुशल $= (\text{पायथन और जावा में कुशल}) + (\text{केवल पायथन में कुशल})$पायथन में कुल कुशल $= 50 + 70 = **120**$जावा (Java) में कुशल लोगों की कुल संख्या ज्ञात करें।इसमें वे लोग शामिल हैं जो पायथन और जावा (Python and Java) में कुशल हैं और वे लोग जो केवल जावा (Java only) में कुशल हैं।जावा में कुल कुशल $= (\text{पायथन और जावा में कुशल}) + (\text{केवल जावा में कुशल})$जावा में कुल कुशल $= 50 + 60 = **110**$वांछित अनुपात (Ratio) निर्धारित करें।वांछित अनुपात है: (पायथन में कुल कुशल) : (जावा में कुल कुशल)अनुपात $= 120 : 110$अनुपात को सरल (Simplify) करें।दोनों पक्षों को 10 (सबसे बड़े समान भाजक) से भाग दें।अनुपात $= \frac{120}{10} : \frac{110}{10} = **12 : 11**$सही विकल्प 12:11 है।",
+        }
+    },
         {
             question: "<img src='../images/q5.png' alt='Question 5' style='max-width: 100%; height: auto;'>",
             options: ["\u20b926,500", "\u20b926,000", "\u20b926,200", "\u20b926,250"],
