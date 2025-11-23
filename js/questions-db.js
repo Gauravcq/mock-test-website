@@ -783,7 +783,7 @@ const QUESTIONS_DATABASE = {
     {
         "question": {
             "en": "A right circular cone with radius 7 cm and height 24 cm. Find its slant height, l.",
-            "hi": "एक लम्ब वृत्तीय शंकु की त्रिज्या 7 सेमी और ऊँचाई 24 सेमी है। इसकी तिर्यक ऊँचाई, l ज्ञात कीजिए।"
+            "hi": "एक लम्ब वृत्तीय शंकु की त्रिज्या 7 सेमी और ऊँचाई 24 सेमी है। तिर्यक ऊँचाई ज्ञात कीजिए।"
         },
         "options": [
             "25cm",
@@ -851,7 +851,7 @@ const QUESTIONS_DATABASE = {
     {
         "question": {
             "en": "<img src='../images/zz.png' alt='Question 23' style='max-width: 100%; height: auto;'>",
-            "hi": "<img src='../images/zz.png' alt='Question 11' style='max-width: 100%; height: auto;'>"
+            "hi": "<img src='../images/ii.png' alt='Question 11' style='max-width: 100%; height: auto;'>"
         },
         "options": [
             "1:1",
