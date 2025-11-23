@@ -162,159 +162,308 @@ const QUESTIONS_DATABASE = {
    // File: js/questions-db.js (Corrected Shift 2 Block)
 // ... (Lines 1-76 are unchanged for ssc_cgl_12_sep_s1) ...
 
-    // This section contains the detailed questions from your nested block, assigned to 'ssc_cgl_12_sep_s2'.
-    "ssc_cgl_12_sep_s2": [
-        {
-            "question": "Let x = \u221a3 + \u221a5 and y = \u221a8 + \u221a2. Which is greater?",
-            "options": ["x = y", "x < y", "x > y", "Cannot be determined"],
-            "correctAnswer": "x < y", // FIXED: Changed "correct answer" to "correctAnswer"
-            "explanation": "Compare the squares:\nx\u00b2 = (\u221a3 + \u221a5)\u00b2 = 8 + 2\u221a15 = 8 + \u221a60 (approx 15.75)\ny\u00b2 = (\u221a8 + \u221a2)\u00b2 = 10 + 2\u221a16 = 10 + 8 = 18\nSince x\u00b2 < y\u00b2, and both x and y are positive, then x < y."
+"ssc_cgl_12_sep_s2": [
+    {
+        "question": {
+            "en": "Let x = \u221a3 + \u221a5 and y = \u221a8 + \u221a2. Which is greater?",
+            "hi": "मान लीजिए x = \u221a3 + \u221a5 और y = \u221a8 + \u221a2 है। इनमें से कौन बड़ा है?"
         },
-        {
-            "question": "The number of red, blue, and green marbles in a bag is in the ratio 3 : 4 : 6. If 20 red marbles, 15 blue marbles, and an unknown number of green marbles are added to the bag, the ratio of red, blue, and green marbles becomes 4 : 5 : 7. Determine the number of green marbles added.",
-            "options": ["3", "5", "7", "9"],
-            "correctAnswer": "5", // FIXED
-            "explanation": "Let initial marbles be 3k, 4k, 6k. New ratio: (3k + 20) : (4k + 15) = 4 : 5. Solving this gives k=40. The common factor for the final ratio (4:5:7) is x. 4x = 3k+20 = 140, so x=35. Final green marbles = 7x = 7*35 = 245. Initial green marbles = 6k = 6*40 = 240. Green marbles added = 245 - 240 = 5."
-        },
-        {
-            "question": "<img src='../images/q3 s2.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
-            "options": ["67/29", "41/17", "45/19", "47/20"],
-            "correctAnswer": "67/29", // FIXED
-            "explanation": "The mathematically correct value is 127/55 (\u2248 2.309). Assuming a typo in the complex fraction and based on typical test patterns, we select 47/20 (2.35) as the closest intended simple option for this type of problem."
-        },
-        {
-            "question": "A and B invest \u20b940,000 and \u20b960,000 respectively in a business. What is A's share in a profit of \u20b950,000?",
-            "options": ["\u20b915,000", "\u20b920,000", "\u20b925,000", "\u20b930,000"],
-            "correctAnswer": "\u20b920,000", // FIXED
-            "explanation": "The investment ratio A:B is 40,000 : 60,000 = 2:3. Total ratio parts = 5. A's share = (2/5) * \u20b950,000 = \u20b920,000."
-        },
-        {
-            "question": "A and B contribute to a business investment in the ratio 3:5. They earn a profit of \u20b964,000. A is a working partner and receives 10% of the profit extra. What is A's total share?",
-            "options": ["\u20b926,500", "\u20b928,000", "\u20b938,500", "\u20b936,000"],
-            "correctAnswer": "\u20b928,000", // FIXED
-            "explanation": "1. A's Commission: 10% of \u20b964,000 = \u20b96,400. \n2. Remaining Profit: \u20b964,000 - \u20b96,400 = \u20b957,600. \n3. A's Share (3/8): (3/8) * \u20b957,600 = \u20b921,600. \n4. A's Total Share: \u20b96,400 + \u20b921,600 = \u20b928,000."
-        },
-        {
-            "question": "In a team of 75 employees, the average monthly sales per employee is \u20b91.8 lakh. If 30 junior employees average \u20b91.2 lakh each, what is the average monthly sales figure (in \u20b9 lakh) for the senior employees?",
-            "options": ["\u20b94.2 lakh", "\u20b92.2 lakh", "\u20b92.8 lakh", "\u20b92.7 lakh"],
-            "correctAnswer": "\u20b92.2 lakh", // FIXED
-            "explanation": "Total Sales = 75 * 1.8 = 135 lakh. Junior Sales = 30 * 1.2 = 36 lakh. Senior Sales = 135 - 36 = 99 lakh. Senior Employees = 75 - 30 = 45. Senior Average = 99 / 45 = 2.2 lakh."
-        },
-        {
-            "question": "The price of petrol shot up by 5%. Before the hike, the price was \u20b982 per litre. A man travels 3045 km every month and his car gives a mileage of 15 km per litre. What is the increase in the monthly expenditure (to the nearest \u20b9) on the man's travel due to the hike in the petrol prices?",
-            "options": ["\u20b9820", "\u20b9832", "\u20b9845", "\u20b9850"],
-            "correctAnswer": "\u20b9832", // FIXED
-            "explanation": "Monthly Consumption = 3045 km / 15 km/l = 203 litres. Increase in price per litre = 5% of \u20b982 = \u20b94.1. Total increase in expenditure = 203 * \u20b94.1 = \u20b9832.3. To the nearest \u20b9, this is \u20b9832."
-        },
-        {
-            "question": "A company placed an order for 20 high-end laptops and some quantity of standard desktops. The price of a high-end laptop was 5 times that of a standard desktop. Due to a mistake, the number of laptops and desktops was interchanged in the delivery. This caused the total bill to increase by 80%. What was the ratio of the number of high-end laptops to standard desktops in the original order?",
-            "options": ["1:2", "2:1", "5:2", "2:5"],
-            "correctAnswer": "2:5", // FIXED
-            "explanation": "Let $L=20$ and $D=x$. $P_L=5P_D$. $B_{orig} = P_D(100+x)$. $B_{new} = P_D(5x+20)$. Since $B_{new}=1.8 B_{orig}$: $5x+20 = 1.8(100+x)$. Solving for $x$ gives $x=50$. Original ratio $L:D = 20:50 = 2:5$."
-        },
-        {
-            "question": "Find the compound interest on \u20b98,000 at 12% per annum for 3 years 4 months, compounded annually.",
-            "options": ["\u20b93,000", "\u20b94,000", "\u20b93,689", "\u20b93,600"],
-            "correctAnswer": "\u20b93,689", // FIXED
-            "explanation": "Amount after 3 years: $A_3 = 8000(1.12)^3 = \u20b911,239.42$. SI for remaining 4 months: $11239.42 \times 0.12 \times (1/3) = \u20b9449.58$. Total amount = \u20b911,689. CI = \u20b911,689 - \u20b98,000 = \u20b93,689."
-        },
-        {
-            "question": "A candy shop owner buys three kinds of candies: red, blue, and green. Red candies are purchased at 3 for \u20b915, blue candies at 4 for \u20b918, and green candies at 5 for \u20b922. He mixes them in the ratio 1:1:2. He sells all the mixed candies at 2 for \u20b910. What is his approximate gain or loss percentage?",
-            "options": ["Loss of 9.2%", "Profit of 9.29%", "Profit of 10%", "Loss of 10%"],
-            "correctAnswer": "Profit of 9.29%", // FIXED
-            "explanation": "CP per R, B, G candy: \u20b95, \u20b94.5, \u20b94.4. Total CP for 4 candies (1:1:2 mix): $5 + 4.5 + 2(4.4) = \u20b918.3$. Average CP = \u20b918.3/4 = \u20b94.575. SP per candy = \u20b910/2 = \u20b95. Profit % = ((5 - 4.575) / 4.575) * 100 \u2248 9.29\% Profit."
-        },
-        {
-            "question": "The ratio of boys to girls in a school is 7:5. If 20 more girls join the school, the new ratio of boys to girls becomes 7:6. What is the total number of students in the school initially?",
-            "options": ["200", "240", "300", "360"],
-            "correctAnswer": "240", // FIXED
-            "explanation": "Initial $B=7x, G=5x$. New ratio: $7x / (5x + 20) = 7 / 6$. $42x = 35x + 140 \implies 7x = 140 \implies x = 20$. Initial total students = $12x = 12 \times 20 = 240$."
-        },
-        {
-            "question": "A, B, and C are capable of completing a job in 30, 45, and 90 days, respectively. A works every day, while B and C join A every fifth day. How long will it take to finish the task?",
-            "options": ["25 days", "18 days", "16 days", "12 days"],
-            "correctAnswer": "25 days", // FIXED
-            "explanation": "Total Work = 90 units. Efficiencies $E_A=3, E_B=2, E_C=1$. Work in a 5-day cycle: Days 1-4 (A only) = $4 \times 3 = 12$ units. Day 5 (A+B+C) = $3+2+1=6$ units. Total work in 5 days = 18 units. Total time = $90 / 18 = 5$ cycles. $5 \times 5 = 25$ days."
-        },
-        {
-            "question": "A 100-litre solution contains acid and water in the ratio 3:2. Some quantity of this solution is removed and replaced with pure acid. If the final ratio of acid to water becomes 7:3, how many litres of solution were replaced?",
-            "options": ["35 litres", "25 litres", "50 litres", "20 litres"],
-            "correctAnswer": "25 litres", // FIXED
-            "explanation": "Initial Water = 40 litres. Final Water (for 7:3 ratio in 100L) = 30 litres. Let $x$ be the amount replaced. Water removed = $(2/5)x$. Remaining Water = $40 - (2/5)x$. Since pure acid is added, this must equal the final water: $40 - (2/5)x = 30 \implies (2/5)x = 10 \implies x = 25$ litres."
-        },
-        {
-            "question": "The ratio of the efficiencies of two workers, P and Q, is 5:2. If P can complete a project in 12 days, how many days will Q take to complete the same project alone?",
-            "options": ["24 days", "30 days", "35 days", "40 days"],
-            "correctAnswer": "30 days", // FIXED
-            "explanation": "Time is inversely proportional to Efficiency. $T_P:T_Q = E_Q:E_P = 2:5$. Since $T_P = 12$ days, $2$ parts $= 12 \implies 1$ part $= 6$ days. $T_Q = 5$ parts $= 5 \times 6 = 30$ days."
-        },
-        {
-            "question": "A car starts from point P on a circular track and an SUV starts from point Q, which is 600 meters ahead of P in the direction of motion. The car's speed is 15 m/s, and the SUV's speed is 10 m/s. The circumference of the track is 1.5 km. How much distance will the car have traveled when it first overtakes the SUV?",
-            "options": ["900 m", "1200 m", "1500 m", "1800 m"],
-            "correctAnswer": "1800 m", // FIXED
-            "explanation": "Relative speed = $15 - 10 = 5$ m/s. Initial gap = 600 m. Time to overtake = $600 / 5 = 120$ seconds. Distance travelled by Car = Speed * Time = $15 \text{ m/s} \times 120 \text{ s} = 1800$ meters."
-        },
-        {
-            "question": "A circular park having a radius of 14 m. If a 1.5 m wide path is built around it, what is the approximate area of the path?",
-            "options": ["139 m\u00b2", "135 m\u00b2", "142 m\u00b2", "150 m\u00b2"],
-            "correctAnswer": "139 m\u00b2", // FIXED
-            "explanation": "Inner radius $r=14$ m. Outer radius $R = 14 + 1.5 = 15.5$ m. Area of Path = $\pi (R^2 - r^2) = \pi (240.25 - 196) = 44.25\pi$. Using $\pi \approx 22/7$, Area $\approx 139.097 \text{ m}^2$, which is $139 \text{ m}^2$ (approx)."
-        },
-        {
-            "question": "What is 5\u03c0/4 radians in degrees?",
-            "options": ["225\u00b0", "180\u00b0", "240\u00b0", "360\u00b0"],
-            "correctAnswer": "225\u00b0", // FIXED
-            "explanation": "Conversion factor: $180^{\circ}/\pi$. Degrees $= (5\pi/4) \times (180^{\circ}/\pi) = (5/4) \times 180^{\circ} = 5 \times 45^{\circ} = 225^{\circ}$."
-        },
-        {
-            "question": "The line y = -x + 4 passes through which of the following points?",
-            "options": ["(2, 2)", "(5, 4)", "(1, 2)", "(3, 6)"],
-            "correctAnswer": "(2, 2)", // FIXED
-            "explanation": "Substitute the point (2, 2) into the equation: $y = -x + 4 \implies 2 = -2 + 4 \implies 2 = 2$. The equation is satisfied."
-        },
-        {
-            "question": "What is the central angle of a sector with an arc length of 10 cm in a circle of radius 5 cm?",
-            "options": ["6 radians", "3 radians", "2 radians", "4 radians"],
-            "correctAnswer": "2 radians", // FIXED
-            "explanation": "The formula for arc length is $l = r\theta$, where $\theta$ is in radians. $\theta = l/r = 10 \text{ cm} / 5 \text{ cm} = 2$ radians."
-        },
-        {
-            "question": "If tan(90\u00b0 - A) = \u221a3, what is sin A?",
-            "options": ["1/2", "\u221a3/2", "\u221a2/2", "3/4"],
-            "correctAnswer": "1/2", // FIXED
-            "explanation": "Using the identity $\tan(90^{\circ} - A) = \cot A$, we have $\cot A = \sqrt{3}$. This means $A = 30^{\circ}$. Therefore, $\sin A = \sin 30^{\circ} = 1/2$."
-        },
-        {
-            "question": "If x = \u221a7, determine the value of x + 1/x.",
-            "options": ["8\u221a7/7", "7\u221a7/8", "7\u221a7/9", "9\u221a7/7"],
-            "correctAnswer": "8\u221a7/7", // FIXED
-            "explanation": "$x + 1/x = \sqrt{7} + 1/\sqrt{7} = \sqrt{7} + \sqrt{7}/7$. Combining terms: $(7\sqrt{7} + \sqrt{7}) / 7 = 8\sqrt{7}/7$."
-        },
-        {
-            "question": "Two triangles are similar with sides in the ratio 3:5. What is the ratio of their areas?",
-            "options": ["3:5", "5:3", "9:25", "25:9"],
-            "correctAnswer": "9:25", // FIXED
-            "explanation": "For similar triangles, the ratio of their areas is the square of the ratio of their corresponding sides. Ratio of areas $= 3^2 : 5^2 = 9:25$."
-        },
-        {
-            "question": "If x = \u221a((2+\u221a3)/(2-\u221a3)), then determine the value of x\u00b2 + x - 9.",
-            "options": ["3\u221a3", "5\u221a3", "7\u221a3", "9\u221a3"],
-            "correctAnswer": "5\u221a3", // FIXED
-            "explanation": "Rationalizing $x^2$: $x^2 = 7 + 4\sqrt{3}$. Simplifying $x$: $x = \sqrt{7 + 4\sqrt{3}} = 2 + \sqrt{3}$. $x^2 + x - 9 = (7 + 4\sqrt{3}) + (2 + \sqrt{3}) - 9 = (7 + 2 - 9) + (4\sqrt{3} + \sqrt{3}) = 0 + 5\sqrt{3}$."
-        },
-        {
-            "question": "The angles of a cyclic quadrilateral are in the ratio 1:2:3:4. What is the measure of the smallest angle?",
-            "options": ["36\u00b0", "72\u00b0", "108\u00b0", "144\u00b0"],
-            "correctAnswer": "36\u00b0", // FIXED
-            "explanation": "Sum of angles is $360^{\circ}$. $x + 2x + 3x + 4x = 360^{\circ} \implies 10x = 360^{\circ} \implies x = 36^{\circ}$. The smallest angle is $x = 36^{\circ}$."
-        },
-        {
-            "question": "If sec A = 13/5 and A is acute, find sin A.",
-            "options": ["5/13", "12/13", "13/12", "13/5"],
-            "correctAnswer": "12/13", // FIXED
-            "explanation": "In a right triangle, $\sec A = \text{Hypotenuse}/\text{Adjacent} = 13/5$. Using Pythagoras, Opposite side = $\sqrt{13^2 - 5^2} = \sqrt{144} = 12$. $\sin A = \text{Opposite}/\text{Hypotenuse} = 12/13$."
+        "options": ["x = y", "x < y", "x > y", "Cannot be determined"],
+        "correctAnswer": "x < y",
+        "explanation": {
+            "en": "Compare the squares:\nx\u00b2 = (\u221a3 + \u221a5)\u00b2 = 8 + 2\u221a15 = 8 + \u221a60 (approx 15.75)\ny\u00b2 = (\u221a8 + \u221a2)\u00b2 = 10 + 2\u221a16 = 10 + 8 = 18\nSince x\u00b2 < y\u00b2, and both x and y are positive, then x < y.",
+            "hi": "वर्गों (Squares) की तुलना करें:\nx\u00b2 = (\u221a3 + \u221a5)\u00b2 = 8 + 2\u221a15 = 8 + \u221a60 (लगभग 15.75)\ny\u00b2 = (\u221a8 + \u221a2)\u00b2 = 10 + 2\u221a16 = 10 + 8 = 18\nचूंकि x\u00b2 < y\u00b2, और x तथा y दोनों धनात्मक हैं, इसलिए x < y."
         }
-    ],
+    },
+    {
+        "question": {
+            "en": "The number of red, blue, and green marbles in a bag is in the ratio 3 : 4 : 6. If 20 red marbles, 15 blue marbles, and an unknown number of green marbles are added to the bag, the ratio of red, blue, and green marbles becomes 4 : 5 : 7. Determine the number of green marbles added.",
+            "hi": "एक थैले में लाल, नीले और हरे कंचों की संख्या का अनुपात 3 : 4 : 6 है। यदि थैले में 20 लाल कंचे, 15 नीले कंचे और कुछ अज्ञात संख्या में हरे कंचे मिलाए जाते हैं, तो लाल, नीले और हरे कंचों का अनुपात 4 : 5 : 7 हो जाता है। मिलाए गए हरे कंचों की संख्या ज्ञात कीजिए।"
+        },
+        "options": ["3", "5", "7", "9"],
+        "correctAnswer": "5",
+        "explanation": {
+            "en": "Let initial marbles be 3k, 4k, 6k. New ratio: (3k + 20) : (4k + 15) = 4 : 5. Solving this gives k=40. The common factor for the final ratio (4:5:7) is x. 4x = 3k+20 = 140, so x=35. Final green marbles = 7x = 7*35 = 245. Initial green marbles = 6k = 6*40 = 240. Green marbles added = 245 - 240 = 5.",
+            "hi": "माना कंचों की प्रारंभिक संख्या 3k, 4k, 6k है। नया अनुपात: (3k + 20) : (4k + 15) = 4 : 5। इसे हल करने पर k=40 मिलता है। अंतिम अनुपात (4:5:7) के लिए उभयनिष्ठ गुणनखंड x है। 4x = 3k+20 = 140, इसलिए x=35। अंतिम हरे कंचे = 7x = 7*35 = 245। प्रारंभिक हरे कंचे = 6k = 6*40 = 240। मिलाए गए हरे कंचे = 245 - 240 = 5।"
+        }
+    },
+    {
+        "question": {
+            "en": "<img src='../images/q3 s2.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/q3 s2.png' alt='Question 25' style='max-width: 100%; height: auto;'>"
+        },
+        "options": ["67/29", "41/17", "45/19", "47/20"],
+        "correctAnswer": "67/29",
+        "explanation": {
+            "en": "The mathematically correct value is 127/55 (\u2248 2.309). Assuming a typo in the complex fraction and based on typical test patterns, we select 47/20 (2.35) as the closest intended simple option for this type of problem.",
+            "hi": "गणितीय रूप से सही मान 127/55 (\u2248 2.309) है। यह मानते हुए कि प्रश्न में कोई त्रुटि है और परीक्षा के पैटर्न के आधार पर, हम इस प्रकार की समस्या के लिए निकटतम विकल्प के रूप में 47/20 (2.35) का चयन करते हैं।"
+        }
+    },
+    {
+        "question": {
+            "en": "A and B invest \u20b940,000 and \u20b960,000 respectively in a business. What is A's share in a profit of \u20b950,000?",
+            "hi": "A और B एक व्यवसाय में क्रमशः \u20b940,000 और \u20b960,000 का निवेश करते हैं। \u20b950,000 के लाभ में A का हिस्सा क्या है?"
+        },
+        "options": ["\u20b915,000", "\u20b920,000", "\u20b925,000", "\u20b930,000"],
+        "correctAnswer": "\u20b920,000",
+        "explanation": {
+            "en": "The investment ratio A:B is 40,000 : 60,000 = 2:3. Total ratio parts = 5. A's share = (2/5) * \u20b950,000 = \u20b920,000.",
+            "hi": "निवेश का अनुपात A:B = 40,000 : 60,000 = 2:3 है। कुल अनुपात भाग = 5। A का हिस्सा = (2/5) * \u20b950,000 = \u20b920,000।"
+        }
+    },
+    {
+        "question": {
+            "en": "A and B contribute to a business investment in the ratio 3:5. They earn a profit of \u20b964,000. A is a working partner and receives 10% of the profit extra. What is A's total share?",
+            "hi": "A और B एक व्यावसायिक निवेश में 3:5 के अनुपात में योगदान करते हैं। वे \u20b964,000 का लाभ कमाते हैं। A एक सक्रिय भागीदार (working partner) है और लाभ का 10% अतिरिक्त प्राप्त करता है। A का कुल हिस्सा क्या है?"
+        },
+        "options": ["\u20b926,500", "\u20b928,000", "\u20b938,500", "\u20b936,000"],
+        "correctAnswer": "\u20b928,000",
+        "explanation": {
+            "en": "1. A's Commission: 10% of \u20b964,000 = \u20b96,400. \n2. Remaining Profit: \u20b964,000 - \u20b96,400 = \u20b957,600. \n3. A's Share (3/8): (3/8) * \u20b957,600 = \u20b921,600. \n4. A's Total Share: \u20b96,400 + \u20b921,600 = \u20b928,000.",
+            "hi": "1. A का कमीशन: \u20b964,000 का 10% = \u20b96,400। \n2. शेष लाभ: \u20b964,000 - \u20b96,400 = \u20b957,600। \n3. A का हिस्सा (3/8): (3/8) * \u20b957,600 = \u20b921,600। \n4. A का कुल हिस्सा: \u20b96,400 + \u20b921,600 = \u20b928,000।"
+        }
+    },
+    {
+        "question": {
+            "en": "In a team of 75 employees, the average monthly sales per employee is \u20b91.8 lakh. If 30 junior employees average \u20b91.2 lakh each, what is the average monthly sales figure (in \u20b9 lakh) for the senior employees?",
+            "hi": "75 कर्मचारियों की एक टीम में, प्रति कर्मचारी औसत मासिक बिक्री \u20b91.8 लाख है। यदि 30 जूनियर कर्मचारियों का औसत \u20b91.2 लाख है, तो वरिष्ठ (senior) कर्मचारियों के लिए औसत मासिक बिक्री का आंकड़ा (\u20b9 लाख में) क्या है?"
+        },
+        "options": ["\u20b94.2 lakh", "\u20b92.2 lakh", "\u20b92.8 lakh", "\u20b92.7 lakh"],
+        "correctAnswer": "\u20b92.2 lakh",
+        "explanation": {
+            "en": "Total Sales = 75 * 1.8 = 135 lakh. Junior Sales = 30 * 1.2 = 36 lakh. Senior Sales = 135 - 36 = 99 lakh. Senior Employees = 75 - 30 = 45. Senior Average = 99 / 45 = 2.2 lakh.",
+            "hi": "कुल बिक्री = 75 * 1.8 = 135 लाख। जूनियर की बिक्री = 30 * 1.2 = 36 लाख। वरिष्ठ कर्मचारियों की बिक्री = 135 - 36 = 99 लाख। वरिष्ठ कर्मचारी = 75 - 30 = 45। वरिष्ठ औसत = 99 / 45 = 2.2 लाख।"
+        }
+    },
+    {
+        "question": {
+            "en": "The price of petrol shot up by 5%. Before the hike, the price was \u20b982 per litre. A man travels 3045 km every month and his car gives a mileage of 15 km per litre. What is the increase in the monthly expenditure (to the nearest \u20b9) on the man's travel due to the hike in the petrol prices?",
+            "hi": "पेट्रोल की कीमत में 5% की बढ़ोतरी हुई। बढ़ोतरी से पहले कीमत \u20b982 प्रति लीटर थी। एक आदमी हर महीने 3045 किमी की यात्रा करता है और उसकी कार 15 किमी प्रति लीटर का माइलेज देती है। पेट्रोल की कीमतों में बढ़ोतरी के कारण आदमी के यात्रा पर मासिक खर्च में कितनी वृद्धि (\u20b9 के निकटतम) हुई है?"
+        },
+        "options": ["\u20b9820", "\u20b9832", "\u20b9845", "\u20b9850"],
+        "correctAnswer": "\u20b9832",
+        "explanation": {
+            "en": "Monthly Consumption = 3045 km / 15 km/l = 203 litres. Increase in price per litre = 5% of \u20b982 = \u20b94.1. Total increase in expenditure = 203 * \u20b94.1 = \u20b9832.3. To the nearest \u20b9, this is \u20b9832.",
+            "hi": "मासिक खपत = 3045 किमी / 15 किमी/ली = 203 लीटर। प्रति लीटर मूल्य में वृद्धि = \u20b982 का 5% = \u20b94.1। व्यय में कुल वृद्धि = 203 * \u20b94.1 = \u20b9832.3। \u20b9 के निकटतम, यह \u20b9832 है।"
+        }
+    },
+    {
+        "question": {
+            "en": "A company placed an order for 20 high-end laptops and some quantity of standard desktops. The price of a high-end laptop was 5 times that of a standard desktop. Due to a mistake, the number of laptops and desktops was interchanged in the delivery. This caused the total bill to increase by 80%. What was the ratio of the number of high-end laptops to standard desktops in the original order?",
+            "hi": "एक कंपनी ने 20 हाई-एंड लैपटॉप और कुछ मात्रा में स्टैंडर्ड डेस्कटॉप का ऑर्डर दिया। हाई-एंड लैपटॉप की कीमत स्टैंडर्ड डेस्कटॉप से 5 गुना थी। गलती के कारण, डिलीवरी में लैपटॉप और डेस्कटॉप की संख्या बदल गई। इससे कुल बिल में 80% की वृद्धि हो गई। मूल ऑर्डर में हाई-एंड लैपटॉप और स्टैंडर्ड डेस्कटॉप की संख्या का अनुपात क्या था?"
+        },
+        "options": ["1:2", "2:1", "5:2", "2:5"],
+        "correctAnswer": "2:5",
+        "explanation": {
+            "en": "Let L=20 and D=x. Price_L=5 * Price_D. Original Bill = Price_D(100+x). New Bill = Price_D(5x+20). Since New Bill = 1.8 * Original Bill: 5x+20 = 1.8(100+x). Solving for x gives x=50. Original ratio L:D = 20:50 = 2:5.",
+            "hi": "माना L=20 और D=x। Price_L=5 * Price_D। मूल बिल = Price_D(100+x)। नया बिल = Price_D(5x+20)। चूंकि नया बिल = 1.8 * मूल बिल: 5x+20 = 1.8(100+x)। x के लिए हल करने पर x=50 मिलता है। मूल अनुपात L:D = 20:50 = 2:5।"
+        }
+    },
+    {
+        "question": {
+            "en": "Find the compound interest on \u20b98,000 at 12% per annum for 3 years 4 months, compounded annually.",
+            "hi": "\u20b98,000 पर 12% प्रति वर्ष की दर से 3 वर्ष 4 महीने का चक्रवृद्धि ब्याज ज्ञात कीजिए, जो वार्षिक रूप से संयोजित होता है।"
+        },
+        "options": ["\u20b93,000", "\u20b94,000", "\u20b93,689", "\u20b93,600"],
+        "correctAnswer": "\u20b93,689",
+        "explanation": {
+            "en": "Amount after 3 years: A_3 = 8000(1.12)^3 = \u20b911,239.42. SI for remaining 4 months: 11239.42 * 0.12 * (1/3) = \u20b9449.58. Total amount = \u20b911,689. CI = \u20b911,689 - \u20b98,000 = \u20b93,689.",
+            "hi": "3 साल बाद राशि: A_3 = 8000(1.12)^3 = \u20b911,239.42। शेष 4 महीनों के लिए साधारण ब्याज: 11239.42 * 0.12 * (1/3) = \u20b9449.58। कुल राशि = \u20b911,689। चक्रवृद्धि ब्याज (CI) = \u20b911,689 - \u20b98,000 = \u20b93,689।"
+        }
+    },
+    {
+        "question": {
+            "en": "A candy shop owner buys three kinds of candies: red, blue, and green. Red candies are purchased at 3 for \u20b915, blue candies at 4 for \u20b918, and green candies at 5 for \u20b922. He mixes them in the ratio 1:1:2. He sells all the mixed candies at 2 for \u20b910. What is his approximate gain or loss percentage?",
+            "hi": "एक कैंडी की दुकान का मालिक तीन तरह की कैंडी खरीदता है: लाल, नीली और हरी। लाल कैंडी \u20b915 में 3, नीली कैंडी \u20b918 में 4, और हरी कैंडी \u20b922 में 5 के भाव से खरीदी जाती है। वह उन्हें 1:1:2 के अनुपात में मिलाता है। वह सभी मिश्रित कैंडीज को \u20b910 में 2 के भाव से बेचता है। उसका अनुमानित लाभ या हानि प्रतिशत क्या है?"
+        },
+        "options": ["Loss of 9.2%", "Profit of 9.29%", "Profit of 10%", "Loss of 10%"],
+        "correctAnswer": "Profit of 9.29%",
+        "explanation": {
+            "en": "CP per R, B, G candy: \u20b95, \u20b94.5, \u20b94.4. Total CP for 4 candies (1:1:2 mix): 5 + 4.5 + 2(4.4) = \u20b918.3. Average CP = \u20b918.3/4 = \u20b94.575. SP per candy = \u20b910/2 = \u20b95. Profit % = ((5 - 4.575) / 4.575) * 100 = 9.29% Profit.",
+            "hi": "प्रति R, B, G कैंडी का क्रय मूल्य (CP): \u20b95, \u20b94.5, \u20b94.4। 4 कैंडीज के लिए कुल CP (1:1:2 मिश्रण): 5 + 4.5 + 2(4.4) = \u20b918.3। औसत CP = \u20b918.3/4 = \u20b94.575। प्रति कैंडी विक्रय मूल्य (SP) = \u20b910/2 = \u20b95। लाभ % = ((5 - 4.575) / 4.575) * 100 = 9.29% लाभ।"
+        }
+    },
+    {
+        "question": {
+            "en": "The ratio of boys to girls in a school is 7:5. If 20 more girls join the school, the new ratio of boys to girls becomes 7:6. What is the total number of students in the school initially?",
+            "hi": "एक स्कूल में लड़कों और लड़कियों का अनुपात 7:5 है। यदि 20 और लड़कियां स्कूल में शामिल हो जाती हैं, तो लड़कों और लड़कियों का नया अनुपात 7:6 हो जाता है। शुरुआत में स्कूल में छात्रों की कुल संख्या कितनी थी?"
+        },
+        "options": ["200", "240", "300", "360"],
+        "correctAnswer": "240",
+        "explanation": {
+            "en": "Initial B=7x, G=5x. New ratio: 7x / (5x + 20) = 7 / 6. 42x = 35x + 140 => 7x = 140 => x = 20. Initial total students = 12x = 12 * 20 = 240.",
+            "hi": "प्रारंभिक B=7x, G=5x। नया अनुपात: 7x / (5x + 20) = 7 / 6. 42x = 35x + 140 => 7x = 140 => x = 20। प्रारंभिक कुल छात्र = 12x = 12 * 20 = 240।"
+        }
+    },
+    {
+        "question": {
+            "en": "A, B, and C are capable of completing a job in 30, 45, and 90 days, respectively. A works every day, while B and C join A every fifth day. How long will it take to finish the task?",
+            "hi": "A, B और C एक काम को क्रमशः 30, 45 और 90 दिनों में पूरा कर सकते हैं। A प्रतिदिन कार्य करता है, जबकि B और C प्रत्येक पांचवें दिन A के साथ जुड़ते हैं। कार्य पूरा करने में कितना समय लगेगा?"
+        },
+        "options": ["25 days", "18 days", "16 days", "12 days"],
+        "correctAnswer": "25 days",
+        "explanation": {
+            "en": "Total Work = 90 units. Efficiencies E_A=3, E_B=2, E_C=1. Work in a 5-day cycle: Days 1-4 (A only) = 4 * 3 = 12 units. Day 5 (A+B+C) = 3+2+1=6 units. Total work in 5 days = 18 units. Total time = 90 / 18 = 5 cycles. 5 * 5 = 25 days.",
+            "hi": "कुल कार्य = 90 इकाइयाँ। कार्यक्षमता E_A=3, E_B=2, E_C=1। 5-दिन के चक्र में कार्य: दिन 1-4 (केवल A) = 4 * 3 = 12 इकाइयाँ। दिन 5 (A+B+C) = 3+2+1=6 इकाइयाँ। 5 दिनों में कुल कार्य = 18 इकाइयाँ। कुल समय = 90 / 18 = 5 चक्र। 5 * 5 = 25 दिन।"
+        }
+    },
+    {
+        "question": {
+            "en": "A 100-litre solution contains acid and water in the ratio 3:2. Some quantity of this solution is removed and replaced with pure acid. If the final ratio of acid to water becomes 7:3, how many litres of solution were replaced?",
+            "hi": "100 लीटर के घोल में एसिड और पानी का अनुपात 3:2 है। इस घोल की कुछ मात्रा निकाल ली जाती है और उसे शुद्ध एसिड से बदल दिया जाता है। यदि एसिड और पानी का अंतिम अनुपात 7:3 हो जाता है, तो कितने लीटर घोल बदला गया?"
+        },
+        "options": ["35 litres", "25 litres", "50 litres", "20 litres"],
+        "correctAnswer": "25 litres",
+        "explanation": {
+            "en": "Initial Water = 40 litres. Final Water (for 7:3 ratio in 100L) = 30 litres. Let x be the amount replaced. Water removed = (2/5)x. Remaining Water = 40 - (2/5)x. Since pure acid is added, this must equal the final water: 40 - (2/5)x = 30 => (2/5)x = 10 => x = 25 litres.",
+            "hi": "प्रारंभिक पानी = 40 लीटर। अंतिम पानी (100L में 7:3 अनुपात के लिए) = 30 लीटर। माना बदली गई मात्रा x है। निकाला गया पानी = (2/5)x। शेष पानी = 40 - (2/5)x। चूंकि शुद्ध एसिड मिलाया जाता है, यह अंतिम पानी के बराबर होना चाहिए: 40 - (2/5)x = 30 => (2/5)x = 10 => x = 25 लीटर।"
+        }
+    },
+    {
+        "question": {
+            "en": "The ratio of the efficiencies of two workers, P and Q, is 5:2. If P can complete a project in 12 days, how many days will Q take to complete the same project alone?",
+            "hi": "दो श्रमिकों, P और Q की कार्यक्षमता का अनुपात 5:2 है। यदि P किसी प्रोजेक्ट को 12 दिनों में पूरा कर सकता है, तो Q अकेले उसी प्रोजेक्ट को कितने दिनों में पूरा करेगा?"
+        },
+        "options": ["24 days", "30 days", "35 days", "40 days"],
+        "correctAnswer": "30 days",
+        "explanation": {
+            "en": "Time is inversely proportional to Efficiency. T_P : T_Q = E_Q : E_P = 2:5. Since T_P = 12 days, 2 parts = 12 => 1 part = 6 days. T_Q = 5 parts = 5 * 6 = 30 days.",
+            "hi": "समय कार्यक्षमता के व्युत्क्रमानुपाती होता है। T_P : T_Q = E_Q : E_P = 2:5। चूंकि T_P = 12 दिन है, 2 भाग = 12 => 1 भाग = 6 दिन। T_Q = 5 भाग = 5 * 6 = 30 दिन।"
+        }
+    },
+    {
+        "question": {
+            "en": "A car starts from point P on a circular track and an SUV starts from point Q, which is 600 meters ahead of P in the direction of motion. The car's speed is 15 m/s, and the SUV's speed is 10 m/s. The circumference of the track is 1.5 km. How much distance will the car have traveled when it first overtakes the SUV?",
+            "hi": "एक कार वृत्ताकार पथ पर बिंदु P से चलना शुरू करती है और एक SUV बिंदु Q से शुरू करती है, जो गति की दिशा में P से 600 मीटर आगे है। कार की गति 15 m/s है, और SUV की गति 10 m/s है। ट्रैक की परिधि 1.5 किमी है। जब कार पहली बार SUV को ओवरटेक करेगी, तब तक वह कितनी दूरी तय कर चुकी होगी?"
+        },
+        "options": ["900 m", "1200 m", "1500 m", "1800 m"],
+        "correctAnswer": "1800 m",
+        "explanation": {
+            "en": "Relative speed = 15 - 10 = 5 m/s. Initial gap = 600 m. Time to overtake = 600 / 5 = 120 seconds. Distance travelled by Car = Speed * Time = 15 m/s * 120 s = 1800 meters.",
+            "hi": "सापेक्ष गति = 15 - 10 = 5 m/s। प्रारंभिक अंतर = 600 मीटर। ओवरटेक करने का समय = 600 / 5 = 120 सेकंड। कार द्वारा तय की गई दूरी = गति * समय = 15 m/s * 120 s = 1800 मीटर।"
+        }
+    },
+    {
+        "question": {
+            "en": "A circular park having a radius of 14 m. If a 1.5 m wide path is built around it, what is the approximate area of the path?",
+            "hi": "एक वृत्ताकार पार्क जिसकी त्रिज्या 14 मीटर है। यदि इसके चारों ओर 1.5 मीटर चौड़ा रास्ता बनाया जाता है, तो रास्ते का अनुमानित क्षेत्रफल क्या है?"
+        },
+        "options": ["139 m\u00b2", "135 m\u00b2", "142 m\u00b2", "150 m\u00b2"],
+        "correctAnswer": "139 m\u00b2",
+        "explanation": {
+            "en": "Inner radius r=14 m. Outer radius R = 14 + 1.5 = 15.5 m. Area of Path = \u03c0 (R\u00b2 - r\u00b2) = \u03c0 (240.25 - 196) = 44.25\u03c0. Using \u03c0 \u2248 22/7, Area \u2248 139.097 m\u00b2, which is 139 m\u00b2 (approx).",
+            "hi": "आंतरिक त्रिज्या r=14 मी। बाहरी त्रिज्या R = 14 + 1.5 = 15.5 मी। रास्ते का क्षेत्रफल = \u03c0 (R\u00b2 - r\u00b2) = \u03c0 (240.25 - 196) = 44.25\u03c0। \u03c0 \u2248 22/7 का उपयोग करने पर, क्षेत्रफल \u2248 139.097 m\u00b2, जो लगभग 139 m\u00b2 है।"
+        }
+    },
+    {
+        "question": {
+            "en": "What is 5\u03c0/4 radians in degrees?",
+            "hi": "5\u03c0/4 रेडियन डिग्री में कितना है?"
+        },
+        "options": ["225\u00b0", "180\u00b0", "240\u00b0", "360\u00b0"],
+        "correctAnswer": "225\u00b0",
+        "explanation": {
+            "en": "Conversion factor: 180\u00b0/\u03c0. Degrees = (5\u03c0/4) * (180\u00b0/\u03c0) = (5/4) * 180\u00b0 = 5 * 45\u00b0 = 225\u00b0.",
+            "hi": "रूपांतरण कारक: 180\u00b0/\u03c0। डिग्री = (5\u03c0/4) * (180\u00b0/\u03c0) = (5/4) * 180\u00b0 = 5 * 45\u00b0 = 225\u00b0."
+        }
+    },
+    {
+        "question": {
+            "en": "The line y = -x + 4 passes through which of the following points?",
+            "hi": "रेखा y = -x + 4 निम्नलिखित में से किस बिंदु से गुजरती है?"
+        },
+        "options": ["(2, 2)", "(5, 4)", "(1, 2)", "(3, 6)"],
+        "correctAnswer": "(2, 2)",
+        "explanation": {
+            "en": "Substitute the point (2, 2) into the equation: y = -x + 4 => 2 = -2 + 4 => 2 = 2. The equation is satisfied.",
+            "hi": "समीकरण में बिंदु (2, 2) रखें: y = -x + 4 => 2 = -2 + 4 => 2 = 2. समीकरण संतुष्ट होता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "What is the central angle of a sector with an arc length of 10 cm in a circle of radius 5 cm?",
+            "hi": "5 सेमी त्रिज्या वाले वृत्त में 10 सेमी चाप लंबाई वाले त्रिज्यखंड (sector) का केंद्रीय कोण क्या है?"
+        },
+        "options": ["6 radians", "3 radians", "2 radians", "4 radians"],
+        "correctAnswer": "2 radians",
+        "explanation": {
+            "en": "The formula for arc length is l = r\u03b8, where \u03b8 is in radians. \u03b8 = l/r = 10 cm / 5 cm = 2 radians.",
+            "hi": "चाप की लंबाई का सूत्र l = r\u03b8 है, जहाँ \u03b8 रेडियन में है। \u03b8 = l/r = 10 cm / 5 cm = 2 रेडियन।"
+        }
+    },
+    {
+        "question": {
+            "en": "If tan(90\u00b0 - A) = \u221a3, what is sin A?",
+            "hi": "यदि tan(90\u00b0 - A) = \u221a3 है, तो sin A का मान क्या है?"
+        },
+        "options": ["1/2", "\u221a3/2", "\u221a2/2", "3/4"],
+        "correctAnswer": "1/2",
+        "explanation": {
+            "en": "Using the identity tan(90\u00b0 - A) = cot A, we have cot A = \u221a3. This means A = 30\u00b0. Therefore, sin A = sin 30\u00b0 = 1/2.",
+            "hi": "सर्वसमिका tan(90\u00b0 - A) = cot A का उपयोग करने पर, cot A = \u221a3। इसका अर्थ है A = 30\u00b0। इसलिए, sin A = sin 30\u00b0 = 1/2।"
+        }
+    },
+    {
+        "question": {
+            "en": "If x = \u221a7, determine the value of x + 1/x.",
+            "hi": "यदि x = \u221a7 है, तो x + 1/x का मान ज्ञात कीजिए।"
+        },
+        "options": ["8\u221a7/7", "7\u221a7/8", "7\u221a7/9", "9\u221a7/7"],
+        "correctAnswer": "8\u221a7/7",
+        "explanation": {
+            "en": "x + 1/x = \u221a7 + 1/\u221a7 = \u221a7 + \u221a7/7. Combining terms: (7\u221a7 + \u221a7) / 7 = 8\u221a7/7.",
+            "hi": "x + 1/x = \u221a7 + 1/\u221a7 = \u221a7 + \u221a7/7। पदों को जोड़ने पर: (7\u221a7 + \u221a7) / 7 = 8\u221a7/7।"
+        }
+    },
+    {
+        "question": {
+            "en": "Two triangles are similar with sides in the ratio 3:5. What is the ratio of their areas?",
+            "hi": "दो त्रिभुज समरूप हैं और उनकी भुजाओं का अनुपात 3:5 है। उनके क्षेत्रफलों का अनुपात क्या है?"
+        },
+        "options": ["3:5", "5:3", "9:25", "25:9"],
+        "correctAnswer": "9:25",
+        "explanation": {
+            "en": "For similar triangles, the ratio of their areas is the square of the ratio of their corresponding sides. Ratio of areas = 3\u00b2 : 5\u00b2 = 9:25.",
+            "hi": "समरूप त्रिभुजों के लिए, उनके क्षेत्रफलों का अनुपात उनकी संगत भुजाओं के अनुपात का वर्ग होता है। क्षेत्रफलों का अनुपात = 3\u00b2 : 5\u00b2 = 9:25।"
+        }
+    },
+    {
+        "question": {
+            "en": "If x = \u221a((2+\u221a3)/(2-\u221a3)), then determine the value of x\u00b2 + x - 9.",
+            "hi": "यदि x = \u221a((2+\u221a3)/(2-\u221a3)) है, तो x\u00b2 + x - 9 का मान ज्ञात कीजिए।"
+        },
+        "options": ["3\u221a3", "5\u221a3", "7\u221a3", "9\u221a3"],
+        "correctAnswer": "5\u221a3",
+        "explanation": {
+            "en": "Rationalizing x\u00b2: x\u00b2 = 7 + 4\u221a3. Simplifying x: x = \u221a(7 + 4\u221a3) = 2 + \u221a3. x\u00b2 + x - 9 = (7 + 4\u221a3) + (2 + \u221a3) - 9 = (7 + 2 - 9) + (4\u221a3 + \u221a3) = 0 + 5\u221a3.",
+            "hi": "x\u00b2 का परिमेयकरण: x\u00b2 = 7 + 4\u221a3. x को सरल करने पर: x = \u221a(7 + 4\u221a3) = 2 + \u221a3. x\u00b2 + x - 9 = (7 + 4\u221a3) + (2 + \u221a3) - 9 = (7 + 2 - 9) + (4\u221a3 + \u221a3) = 0 + 5\u221a3."
+        }
+    },
+    {
+        "question": {
+            "en": "The angles of a cyclic quadrilateral are in the ratio 1:2:3:4. What is the measure of the smallest angle?",
+            "hi": "एक चक्रीय चतुर्भुज के कोण 1:2:3:4 के अनुपात में हैं। सबसे छोटे कोण का माप क्या है?"
+        },
+        "options": ["36\u00b0", "72\u00b0", "108\u00b0", "144\u00b0"],
+        "correctAnswer": "36\u00b0",
+        "explanation": {
+            "en": "Sum of angles is 360\u00b0. x + 2x + 3x + 4x = 360\u00b0 => 10x = 360\u00b0 => x = 36\u00b0. The smallest angle is x = 36\u00b0.",
+            "hi": "कोणों का योग 360\u00b0 होता है। x + 2x + 3x + 4x = 360\u00b0 => 10x = 360\u00b0 => x = 36\u00b0। सबसे छोटा कोण x = 36\u00b0 है।"
+        }
+    },
+    {
+        "question": {
+            "en": "If sec A = 13/5 and A is acute, find sin A.",
+            "hi": "यदि sec A = 13/5 और A न्यूनकोण है, तो sin A ज्ञात कीजिए।"
+        },
+        "options": ["5/13", "12/13", "13/12", "13/5"],
+        "correctAnswer": "12/13",
+        "explanation": {
+            "en": "In a right triangle, sec A = Hypotenuse/Adjacent = 13/5. Using Pythagoras, Opposite side = \u221a(13\u00b2 - 5\u00b2) = \u221a144 = 12. sin A = Opposite/Hypotenuse = 12/13.",
+            "hi": "एक समकोण त्रिभुज में, sec A = कर्ण/आधार = 13/5। पाइथागोरस का उपयोग करके, लंब = \u221a(13\u00b2 - 5\u00b2) = \u221a144 = 12. sin A = लंब/कर्ण = 12/13."
+        }
+    }
+],
 
 // ... (Rest of the file is unchanged) ...
 
