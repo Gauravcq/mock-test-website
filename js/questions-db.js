@@ -27,7 +27,7 @@ const QUESTIONS_DATABASE = {
         {
         "question": {
             "en": "<img src='../images/q4.png' alt='Question 3' style='max-width: 100%; height: auto;'>",
-            "hi": "<img src='../images/qhi.png' alt='Question 3' style='max-width: 100%; height: auto;'>?"
+            "hi": "<img src='../images/qhi.png' alt='Question 3' style='max-width: 100%; height: auto;'>"
         },
         "options": ["11:12", "12:11", "7:6", "6:7"],
         "correctAnswer": "12:11",
