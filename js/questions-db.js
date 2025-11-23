@@ -510,8 +510,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Simplify: (1/(7+sqrt(2))) + (1/(7-sqrt(2))) - (14/(49-2))",
-            "hi": "सरल कीजिए: (1/(7+वर्गमूल(2))) + (1/(7-वर्गमूल(2))) - (14/(49-2))"
+            "en": "<img src='../images/sp.png' alt='Question 3' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/sp.png' alt='Question 3' style='max-width: 100%; height: auto;'>"
         },
         "options": [
             "0",
@@ -646,8 +646,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Evaluate: 12(1/2)% of 560 km + 66(2/3)% of 240 km",
-            "hi": "मान ज्ञात कीजिए: 560 किमी का 12 1/2% + 240 किमी का 66 2/3%।"
+            "en": "<img src='../images/ps.png' alt='Question 11' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/ps.png' alt='Question 11' style='max-width: 100%; height: auto;'>"
         },
         "options": [
             "140 km",
@@ -850,8 +850,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "A builder has 100 m of fencing wire. What is the approximate ratio of the area of the largest possible circular garden to the area of the largest possible square garden he can enclose?",
-            "hi": "एक बिल्डर के पास 100 मीटर की बाड़ लगाने का तार है। सबसे बड़े संभव वृत्ताकार उद्यान के क्षेत्रफल का, सबसे बड़े संभव वर्गाकार उद्यान के क्षेत्रफल से अनुमानित अनुपात क्या है जिसे वह घेर सकता है?"
+            "en": "<img src='../images/zz.png' alt='Question 23' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/zz.png' alt='Question 11' style='max-width: 100%; height: auto;'>"
         },
         "options": [
             "1:1",
@@ -884,8 +884,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "A sector of a circle has a central angle of 120° and a radius of 7 cm. Another sector of the same circle has a central angle of (2*pi/3) radians. What is the ratio of the area of the first sector to the area of the second sector?",
-            "hi": "एक वृत्त के त्रिज्यखंड का केंद्रीय कोण 120° और त्रिज्या 7 सेमी है। उसी वृत्त के दूसरे त्रिज्यखंड का केंद्रीय कोण (2*pi/3) रेडियन है। पहले त्रिज्यखंड के क्षेत्रफल का दूसरे त्रिज्यखंड के क्षेत्रफल से अनुपात क्या है?"
+            "en": "A sector of a circle has a central angle of 120° and a radius of 7 cm. Another sector of the same circle has a central angle of (2π/3) radians. What is the ratio of the area of the first sector to the area of the second sector?",
+            "hi": "एक वृत्त के त्रिज्यखंड का केंद्रीय कोण 120° और त्रिज्या 7 सेमी है। उसी वृत्त के दूसरे त्रिज्यखंड का केंद्रीय कोण (2π/3) रेडियन है। पहले त्रिज्यखंड के क्षेत्रफल का दूसरे त्रिज्यखंड के क्षेत्रफल से अनुपात क्या है?"
         },
         "options": [
             "3:5",
