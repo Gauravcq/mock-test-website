@@ -566,30 +566,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-// --- Search Functionality ---
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('test-search-input');
-    
-    if(searchInput) {
-        searchInput.addEventListener('input', function(e) {
-            const searchText = e.target.value.toLowerCase();
-            const testCards = document.querySelectorAll('.test-card'); // Aapki card class ka naam check kar lena
 
-            testCards.forEach(card => {
-                // Card ke title (Ex: 12 Sep Shift 1) ko read karega
-                const titleElement = card.querySelector('h3') || card.querySelector('.card-title'); 
-                
-                if(titleElement) {
-                    const titleText = titleElement.textContent.toLowerCase();
-                    
-                    // Agar match hua to dikhao, nahi to chupao
-                    if(titleText.includes(searchText)) {
-                        card.style.display = "block"; // Ya "flex" agar flex use kiya hai
-                    } else {
-                        card.style.display = "none";
-                    }
-                }
-            });
-        });
-    }
-});
