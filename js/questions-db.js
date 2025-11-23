@@ -473,7 +473,7 @@ const QUESTIONS_DATABASE = {
 
 // ... (Rest of the file is unchanged) ...
 
-    ssc_cgl_12_sep_s3 : [
+    ssc_cgl_12_sep_s3 :[
     {
         "question": "If 60% of A = 0.3 of B = 1/6 of C, find A: B: C.",
         "options": ["5:10:18", "18:10:5", "6:3:10", "10:5:18"],
@@ -499,10 +499,10 @@ const QUESTIONS_DATABASE = {
         "explanation": "Let initial total expenditure be 2+4+4=10. New Food: 2*0.9=1.8. New Clothing: 4*1.05=4.2. New Entertainment: 4*0.85=3.4. New Total = 1.8+4.2+3.4 = 9.4. % Change = (9.4-10)/10 * 100% = -6%, a 6% decrease."
     },
     {
-        "question": "A and B invested \u20b91,20,000 and \u20b91,60,000 respectively. A remained for 10 months and B for 7 months. What is the total profit if B's share is \u20b916,800?",
-        "options": ["\u20b934,800", "\u20b934,000", "\u20b910,000", "\u20b910,500"],
-        "correctAnswer": "\u20b934,800",
-        "explanation": "Profit ratio A:B = (120000 * 10) : (160000 * 7) = 120:112 = 15:14. Total parts = 29. B's share (14 parts) = \u20b916,800. 1 part = \u20b91,200. Total profit (29 parts) = 29 * 1200 = \u20b934,800."
+        "question": "A and B invested 1,20,000 and 1,60,000 respectively. A remained for 10 months and B for 7 months. What is the total profit if B's share is 16,800?",
+        "options": ["34,800", "34,000", "10,000", "10,500"],
+        "correctAnswer": "34,800",
+        "explanation": "Profit ratio A:B = (120000 * 10) : (160000 * 7) = 120:112 = 15:14. Total parts = 29. B's share (14 parts) = 16,800. 1 part = 1,200. Total profit (29 parts) = 29 * 1200 = 34,800."
     },
     {
         "question": "Two individuals, A and B, have rented a field. A places 21 horses in the field for 6 months and 15 cows for 2 months. B adds 15 cows for 6 months and 40 sheep for 7.5 months. If 3 horses consume the same amount of food as 5 cows, and 6 cows eat as much as 10 sheep, what portion of the rent should A cover?",
@@ -541,22 +541,22 @@ const QUESTIONS_DATABASE = {
         "explanation": "12.5% = 1/8 and 66.66% = 2/3. First part: (1/8)*560 = 70 km. Second part: (2/3)*240 = 160 km. Total = 70+160 = 230 km."
     },
     {
-        "question": "A vendor sells shirts at \u20b9500 each, earning a 2% commission, and ties at \u20b9150 each, with a 12% commission. If he sells 3 shirts and 4 ties per day, what will be his total commission earned in 30 days?",
-        "options": ["\u20b92850", "\u20b93000", "\u20b93060", "\u20b93200"],
-        "correctAnswer": "\u20b93060",
-        "explanation": "Daily commission on shirts: (3*500)*0.02 = \u20b930. Daily commission on ties: (4*150)*0.12 = \u20b972. Total daily commission = \u20b9102. Total in 30 days = 102*30 = \u20b93060."
+        "question": "A vendor sells shirts at 500 each, earning a 2% commission, and ties at 150 each, with a 12% commission. If he sells 3 shirts and 4 ties per day, what will be his total commission earned in 30 days?",
+        "options": ["2850", "3000", "3060", "3200"],
+        "correctAnswer": "3060",
+        "explanation": "Daily commission on shirts: (3*500)*0.02 = 30. Daily commission on ties: (4*150)*0.12 = 72. Total daily commission = 102. Total in 30 days = 102*30 = 3060."
     },
     {
         "question": "A fruit seller sells apples at a loss of 5% on the cost price but uses a weight that is 20% less than the actual weight. Find his total profit percentage.",
         "options": ["20.62%", "19.25%", "16.28%", "18.75%"],
         "correctAnswer": "18.75%",
-        "explanation": "Let CP of 1000g be \u20b9100. He sells 800g (costing \u20b980) for \u20b995 (5% loss on \u20b9100). Profit = 95 - 80 = \u20b915. Profit % = (15/80)*100 = 18.75%."
+        "explanation": "Let CP of 1000g be 100. He sells 800g (costing 80) for 95 (5% loss on 100). Profit = 95 - 80 = 15. Profit % = (15/80)*100 = 18.75%."
     },
     {
-        "question": "The profit made on an item sold for \u20b92200 is equal to the loss incurred when it is sold for \u20b91800. What will be the profit or loss percentage if the item is sold for \u20b92050?",
+        "question": "The profit made on an item sold for 2200 is equal to the loss incurred when it is sold for 1800. What will be the profit or loss percentage if the item is sold for 2050?",
         "options": ["Profit of 2.25%", "Loss of 3.5%", "Profit of 2.5%", "Loss of 4.25%"],
         "correctAnswer": "Profit of 2.5%",
-        "explanation": "Cost Price (CP) = (2200 + 1800)/2 = \u20b92000. If sold for \u20b92050, profit = \u20b950. Profit % = (50/2000)*100 = 2.5%."
+        "explanation": "Cost Price (CP) = (2200 + 1800)/2 = 2000. If sold for 2050, profit = 50. Profit % = (50/2000)*100 = 2.5%."
     },
     {
         "question": "A mobile phone retailer sells a phone for P and earns a profit of 20%. For a special festive offer, he marks the same phone at 1.5P. At the offer, he provides a discount of 10%. What will be the percentage profit that he will make during the festive offer?",
@@ -571,58 +571,58 @@ const QUESTIONS_DATABASE = {
         "explanation": "Use successive percentage formula: A+B+(A*B)/100. Profit % = 25 - 10 + (25*-10)/100 = 15 - 2.5 = 12.5%."
     },
     {
-        "question": "A shopkeeper marks his goods at 60% above the cost price. He allows a discount of 25% on the marked price. If he also gives an additional cash discount of \u20b9150, and still makes a profit of 14% on the cost price, what is the cost price of the goods?",
-        "options": ["\u20b92000", "\u20b92500", "\u20b93000", "\u20b93500"],
-        "correctAnswer": "\u20b92500",
-        "explanation": "Let CP=x. MP=1.6x. SP before cash discount = 1.6x*0.75=1.2x. Final SP = 1.2x-150. Profit is 14%, so Final SP = 1.14x. Equating: 1.2x-150 = 1.14x \u21d2 0.06x=150 \u21d2 x=\u20b92500."
+        "question": "A shopkeeper marks his goods at 60% above the cost price. He allows a discount of 25% on the marked price. If he also gives an additional cash discount of 150, and still makes a profit of 14% on the cost price, what is the cost price of the goods?",
+        "options": ["2000", "2500", "3000", "3500"],
+        "correctAnswer": "2500",
+        "explanation": "Let CP=x. MP=1.6x. SP before cash discount = 1.6x*0.75=1.2x. Final SP = 1.2x-150. Profit is 14%, so Final SP = 1.14x. Equating: 1.2x-150 = 1.14x -> 0.06x=150 -> x=2500."
     },
     {
-        "question": "How many approximate kgs of sugar costing \u20b945 per kg must be mixed with 25 kg of sugar costing \u20b932 per kg so that a 15% gain may be obtained by selling the mixture at \u20b943.70 per kg?",
+        "question": "How many approximate kgs of sugar costing 45 per kg must be mixed with 25 kg of sugar costing 32 per kg so that a 15% gain may be obtained by selling the mixture at 43.70 per kg?",
         "options": ["15 kg", "25 kg", "21 kg", "18 kg"],
         "correctAnswer": "21 kg",
-        "explanation": "CP of mixture = 43.70/1.15 = \u20b938/kg. Using Alligation: (45-38):(38-32) = 7:6. This is the inverse ratio of quantities. Q1:Q2=6:7. Q1/25 = 6/7 \u21d2 Q1 = 150/7 \u2248 21.43 kg. Approx 21 kg."
+        "explanation": "CP of mixture = 43.70/1.15 = 38/kg. Using Alligation: (45-38):(38-32) = 7:6. This is the inverse ratio of quantities. Q1/25 = 6/7 -> Q1 = 150/7 ≈ 21.43 kg. Approx 21 kg."
     },
     {
-        "question": "<img src='../images/q26.png' alt='A right circular cone with radius 7 cm and height 24 cm.'>",
+        "question": "A right circular cone with radius 7 cm and height 24 cm. Find its slant height, l.",
         "options": ["25cm", "30cm", "35cm", "40cm"],
         "correctAnswer": "25cm",
-        "explanation": "By Pythagorean theorem, slant height l\u00b2 = r\u00b2 + h\u00b2. Given r=7, h=24. l\u00b2 = 7\u00b2 + 24\u00b2 = 49 + 576 = 625. l = \u221a625 = 25 cm. (7, 24, 25 is a Pythagorean triple)."
+        "explanation": "By Pythagorean theorem, slant height l² = r² + h². Given r=7, h=24. l² = 7² + 24² = 49 + 576 = 625. l = √625 = 25 cm. (7, 24, 25 is a Pythagorean triple)."
     },
     {
-        "question": "A lent \u20b95000 to B for a duration of 2 years and \u20b93000 to C for a period of 4 years, both at the same simple interest rate. In total, he received \u20b92200 as interest. What is the rate of interest per annum?",
+        "question": "A lent 5000 to B for a duration of 2 years and 3000 to C for a period of 4 years, both at the same simple interest rate. In total, he received 2200 as interest. What is the rate of interest per annum?",
         "options": ["10%", "12%", "15%", "17%"],
         "correctAnswer": "10%",
-        "explanation": "Let rate=R. Total Interest=2200 = (5000*R*2)/100 + (3000*R*4)/100 = 100R + 120R = 220R. R = 2200/220 = 10%. "
+        "explanation": "Let rate=R. Total Interest=2200 = (5000*R*2)/100 + (3000*R*4)/100 = 100R + 120R = 220R. R = 2200/220 = 10%."
     },
     {
-        "question": "A triangular prism has a base area of 25 cm\u00b2. If the height is increased by 20%, what is the new volume (original height was 10 cm)?",
-        "options": ["250 cm\u00b3", "275 cm\u00b3", "300 cm\u00b3", "225 cm\u00b3"],
-        "correctAnswer": "300 cm\u00b3",
-        "explanation": "Original height = 10 cm. New height = 10 * 1.20 = 12 cm. New Volume = Base Area \u00d7 New Height = 25 cm\u00b2 \u00d7 12 cm = 300 cm\u00b3."
+        "question": "A triangular prism has a base area of 25 cm². If the height is increased by 20%, what is the new volume (original height was 10 cm)?",
+        "options": ["250 cm³", "275 cm³", "300 cm³", "225 cm³"],
+        "correctAnswer": "300 cm³",
+        "explanation": "Original height = 10 cm. New height = 10 * 1.20 = 12 cm. New Volume = Base Area × New Height = 25 cm² × 12 cm = 300 cm³."
     },
     {
         "question": "A circular disc's radius is decreased by 10%. What is the percentage decrease in its area?",
         "options": ["10%", "19%", "18%", "15%"],
         "correctAnswer": "19%",
-        "explanation": "Use successive percentage formula for decrease: x+y+(xy/100). For radius decrease, x=y=-10. Change = -10-10+(-10*-10)/100 = -20+1 = -19%. Area decreases by 19%."
+        "explanation": "Use successive percentage formula: A+B+(A*B)/100. For radius decrease, A=B=-10. Change = -10-10+(-10*-10)/100 = -20+1 = -19%. Area decreases by 19%."
     },
     {
         "question": "A builder has 100 m of fencing wire. What is the approximate ratio of the area of the largest possible circular garden to the area of the largest possible square garden he can enclose?",
         "options": ["1:1", "1.1:1", "1.27:1", "1.57:1"],
         "correctAnswer": "1.27:1",
-        "explanation": "Perimeter=100m. For square, side=25m, Area=625m\u00b2. For circle, 2πr=100, r=50/π. Area=π(50/π)\u00b2=2500/π. Ratio = (2500/π)/625 = 4/π \u2248 4/3.14 \u2248 1.27. Ratio is 1.27:1."
+        "explanation": "Perimeter=100m. For square, side=25m, Area=625m². For circle, 2πr=100, r=50/π. Area=π(50/π)²=2500/π. Ratio = (2500/π)/625 = 4/π ≈ 4/3.14 ≈ 1.27. Ratio is 1.27:1."
     },
     {
         "question": "A vertical cylindrical container is filled with oil. A solid hemispherical stone of radius 7 cm is immersed completely, and the oil level rises by 3 cm. What is the radius of the cylinder?",
         "options": ["6.29 cm", "7.43 cm", "8.73 cm", "11.41 cm"],
         "correctAnswer": "8.73 cm",
-        "explanation": "Volume of displaced oil = Volume of hemisphere. πR\u00b2h = (2/3)πr\u00b3. πR\u00b2(3) = (2/3)π(7)\u00b3. 3R\u00b2 = (2/3)(343). R\u00b2 = 686/9. R = \u221a(686)/3 \u2248 8.73 cm."
+        "explanation": "Volume of displaced oil = Volume of hemisphere. πR²h = (2/3)πr³. πR²(3) = (2/3)π(7)³. 3R² = (2/3)(343). R² = 686/9. R = √(686)/3 ≈ 8.73 cm."
     },
     {
-        "question": "A sector of a circle has a central angle of 120\u00b0 and a radius of 7 cm. Another sector of the same circle has a central angle of (2π/3) radians. What is the ratio of the area of the first sector to the area of the second sector?",
+        "question": "A sector of a circle has a central angle of 120° and a radius of 7 cm. Another sector of the same circle has a central angle of (2π/3) radians. What is the ratio of the area of the first sector to the area of the second sector?",
         "options": ["3:5", "2:3", "1:1", "4:5"],
         "correctAnswer": "1:1",
-        "explanation": "Convert angles to same unit: 120\u00b0 = 120*(π/180) = (2π/3) radians. Since the radii and central angles are identical, the areas are equal. The ratio is 1:1."
+        "explanation": "Convert angles to same unit: 120° = 120*(π/180) = (2π/3) radians. Since the radii and central angles are identical, the areas are equal. The ratio is 1:1."
     }
 ],
 
