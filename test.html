@@ -805,19 +805,32 @@
 
     <div id="quiz-ui" class="quiz-container hidden">
 
-        <header class="quiz-header">
-            <div class="header-left">
-                <h1 id="test-main-title">SSC CGL Mock Test</h1>
-            </div>
-            <div class="header-center">
-            </div>
-            <div class="header-right">
-                <div class="timer-display">
-                    ⏰ Time Left: <span id="timer">25:00</span>
-                </div>
-                <button id="pause-btn" class="header-btn secondary">Pause</button>
-            </div>
-        </header>
+       <header class="quiz-header">
+    <div class="header-left">
+        <h1 id="test-main-title">SSC CGL Mock Test</h1>
+    </div>
+    
+    <div class="header-center">
+        <!-- Added Language Selector (Required by your JS) -->
+        <div class="language-wrapper">
+            <label for="lang-select">Lang:</label>
+            <select id="lang-select" class="language-select">
+                <option value="en" selected>English</option>
+                <option value="hi">Hindi</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="timer-display">
+            <span class="timer-icon">⏰</span>
+            <!-- ID 'timer' is updated by JS to show "Subject: 00:00" -->
+            <span id="timer" class="timer-text">--:--</span>
+        </div>
+        <button id="pause-btn" class="header-btn secondary">Pause</button>
+    </div>
+</header>
+        
 
         <div class="main-content-wrapper">
             
