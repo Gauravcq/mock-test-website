@@ -3683,75 +3683,76 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The logical flow is: **2** (Introduces the main topic: Blockchain/Distributed Ledger). **4** (Explains how the 'distributed ledger' from 2 functions). **1** (Identifies the key component of the network/distribution mentioned in 4: the P2P network). **3** (Explains the result/benefit of the 'decentralized structure' mentioned in 1). The most coherent order is **2, 4, 1, 3**."
   }
 ],
-"ssc_cgl_eng_14_sep_s1" : [
+"ssc_cgl_eng_14_sep_s1" : 
+  [
   {
-    "question": "Select the most appropriate synonym of the given word: JUVENILE",
+    "question": "Select the most appropriate synonym of the given word: <b>JUVENILE",
     "options": ["Wise", "Childish", "Mature", "Adult"],
     "correctAnswer": "Childish",
-    "explanation": ""
+    "explanation": "The word **juvenile** means relating to or characteristic of a child; immature. Therefore, **Childish** is the most appropriate synonym."
   },
   {
-    "question": "Choose the correct meaning of idiom: Bury the hatchet",
+    "question": "Choose the correct meaning of idiom: <br><b>Bury the hatchet",
     "options": ["To reconcile after a conflict", "To deepen hostility", "To run away", "To forget someone's name"],
     "correctAnswer": "To reconcile after a conflict",
-    "explanation": ""
+    "explanation": "The idiom **Bury the hatchet** means to end a quarrel or conflict and make peace. The origin relates to Native American custom of burying weapons upon making peace."
   },
   {
-    "question": "Select the most appropriate antonym of the given word. Extirpate",
+    "question": "Select the most appropriate antonym of the given word. <b>Extirpate",
     "options": ["Exterminate", "Uproot", "Eradicate", "Preserve"],
     "correctAnswer": "Preserve",
-    "explanation": ""
+    "explanation": "**Extirpate** means to root out and destroy completely. The antonym, or opposite action, is **Preserve**, meaning to maintain something in its original or existing state."
   },
   {
     "question": "Identify the misspelt word",
     "options": ["Camouflage", "Rendezvous", "Indispensible", "Ares"],
     "correctAnswer": "Indispensible",
-    "explanation": ""
+    "explanation": "The correctly spelled word is **Indispensable**, meaning absolutely necessary. The given spelling, **Indispensible**, is incorrect."
   },
   {
-    "question": "Spot the correct spelling of early film base compound.",
+    "question": "Spot the <B>correct spelling</b> of early film base compound.",
     "options": ["Nitrocellulose", "Nitracellulose", "Nitrocellullose", "Nitracellullose"],
     "correctAnswer": "Nitrocellulose",
-    "explanation": ""
+    "explanation": "The correct spelling for the compound used historically as an early film base and explosive is **Nitrocellulose**."
   },
   {
-    "question": "Choose the correct one-word substitute for: 'A person who eats excessively or greedily’.",
+    "question": "Choose the correct <b>one-word substitute</b> for: 'A person who eats excessively or greedily’.",
     "options": ["Gourmet", "Epicure", "Sybarite", "Glutton"],
     "correctAnswer": "Glutton",
-    "explanation": ""
+    "explanation": "A **Glutton** is defined as an excessively greedy eater."
   },
   {
-    "question": "Select the correct option: The finance minister's statement was laden with caveats, none of __ were explained.",
+    "question": "Select the correct option: <br>The finance minister's statement was laden with caveats, none of __ were explained.",
     "options": ["them", "which", "whom", "who"],
     "correctAnswer": "which",
-    "explanation": ""
+    "explanation": "We use the relative pronoun **which** to refer to things (the caveats) in a non-defining clause. **Whom** is used for people, and **them** would create a run-on sentence."
   },
   {
     "question": "Select the correct option: The philosopher's stance was diametrically __ to the prevailing orthodoxy.",
-    "options": ["adverse", "averse", "converse", "reverse"],
-    "correctAnswer": "converse",
-    "explanation": ""
+    "options": ["adverse", "averse", "opposed", "converse"],
+    "correctAnswer": "opposed",
+    "explanation": "The structure **diametrically opposed to** is the correct phrase, meaning completely contrary or contrary to the exact opposite. **Averse** means having a strong dislike of something."
   },
   {
-    "question": "Select the correct option: No sooner ___ the findings published than critics began questioning their legitimacy.",
+    "question": "Select the correct option: <br>No sooner ___ the findings published than critics began questioning their legitimacy.",
     "options": ["was", "had", "were", "have"],
     "correctAnswer": "had",
-    "explanation": ""
+    "explanation": "The inverted structure **No sooner... than** requires the past perfect tense (**had** + subject + Past Participle) to describe the first action (publishing the findings). The complete structure is **No sooner had the findings been published than...** (where 'been' is implied or part of the V3 verb form)."
   },
   {
-    "question": "Find the part of the sentence that contains an error: The policy aims to neither penalise first-time offenders (1)/ nor those who may have violated norms (2)/ due to systemic ambiguity (3)/ rather than deliberate intent. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>The policy aims to neither penalise first-time offenders (1)/ nor those who may have violated norms (2)/ due to systemic ambiguity (3)/ rather than deliberate intent. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(1)",
-    "explanation": ""
+    "explanation": "The error is in part **(1)** due to incorrect placement of the correlative conjunction **neither... nor**. **Neither** should be placed immediately before the element it modifies (the verb 'penalise'), but the structure should be parallel. The intended comparison is between 'first-time offenders' and 'those who may have violated norms'. To fix this, **neither** should be moved to parallel **nor**: The policy aims to penalise **neither** first-time offenders **nor** those who..."
   },
   {
-    "question": "Find the part of the sentence that contains an error: It was not merely the fragmentation of administrative jurisdictions across sectors (1)/ that disrupted cohesive governance, but the inertia embedded in overlapping regulatory mandates (2)/ which, though designed to safeguard institutional autonomy, (3)/ ends up paralyzing inter-departmental responsiveness altogether. (4)",
+    "question": "Find the part of the sentence that contains an error:<br> It was not merely the fragmentation of administrative jurisdictions across sectors (1)/ that disrupted cohesive governance, but the inertia embedded in overlapping regulatory mandates (2)/ which, though designed to safeguard institutional autonomy, (3)/ ends up paralyzing inter-departmental responsiveness altogether. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(4)",
-    "explanation": ""
+    "explanation": "The error is in part **(4)**, specifically the verb **ends up**. The subject of this clause is the relative pronoun **which** (in part 3), which refers back to the plural noun phrase **overlapping regulatory mandates** (in part 2). Therefore, the plural verb form **end up** should be used instead of the singular form *ends up*."
   },
   {
-    "question": "Change from active to passive: The committee had been debating complex amendments when the bell rang.",
+    "question": "Change from active to passive:<br> The committee had been debating complex amendments when the bell rang.",
     "options": [
       "Complex amendments had been being debated by the committee when the bell rang.",
       "Amendments had been debated by the committee when the bell rang.",
@@ -3759,10 +3760,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "Complex amendments had debated by the committee when the bell rang."
     ],
     "correctAnswer": "Complex amendments had been being debated by the committee when the bell rang.",
-    "explanation": ""
+    "explanation": "The original sentence is in the Past Perfect Continuous tense (Active: *Subject + had been + V-ing + Object*). The passive voice structure for this tense is: *Object + had been being + V3 + by + Subject*. The correct conversion is **Complex amendments had been being debated by the committee when the bell rang.**"
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The knight raised his pauldron before mounting.",
+    "question": "Select the sentence containing the homonym of the highlighted word: <br>The knight raised his <b><b>pauldron</b></b> before mounting.",
     "options": [
       "The blacksmith polished the steel pauldron until it gleamed.",
       "The art historian admired the engraved pauldron.",
@@ -3770,63 +3771,63 @@ ssc_cgl_eng_13_sep_s1 : [
       "The museum displayed a 15th-century Italian pauldron."
     ],
     "correctAnswer": "The biology student dissected the pauldron of the sea slug.",
-    "explanation": ""
+    "explanation": "A **homonym** is a word spelled and pronounced the same but with a different meaning. The highlighted word **pauldron** in the main sentence refers to a piece of **shoulder armor** (a part of a suit of armor). The sentence **The biology student dissected the pauldron of the sea slug** uses **pauldron** (or pallium) to refer to a **biological structure** (the mantle of a mollusc), making it the correct homonym."
   },
   {
-    "question": "Convert from passive to active: A letter is written to the editor by the citizen every week.",
+    "question": "Convert from passive to active: <br>A letter is written to the editor by the citizen every week.",
     "options": [
       "The editor writes a letter to the citizen every week.",
-      "A citizen writes a letter to the editor every week.",
+      "The citizen writes a letter to the editor every week.",
       "The editor wrote a letter every week.",
       "The citizen has been writing letters to the editor weekly."
     ],
-    "correctAnswer": "A citizen writes a letter to the editor every week.",
-    "explanation": ""
+    "correctAnswer": "The citizen writes a letter to the editor every week.",
+    "explanation": "The original sentence is in the Simple Present Passive tense (*Object + is/am/are + V3 + by + Subject*). The active voice structure for this tense is: *Subject + V1 (or Vs/es) + Object*. The active subject is **the citizen**. The correct conversion is **The citizen writes a letter to the editor every week.**"
   },
   {
-    "question": "When did India first win an Olympic team gold medal?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s tryst with the Olympic Games began in 1900, when Norman Pritchard, a British-Indian athlete, clinched two silver medals in athletics. However, it wasn’t until the 1928 Amsterdam Olympics that India emerged as a formidable force in hockey, winning its first team gold. What followed was a golden era, where the Indian men’s hockey team dominated the Olympic arena with eight gold medals between 1928 and 1980—an unmatched legacy. Despite this early excellence, India’s Olympic journey has been riddled with inconsistencies. Post-1980, a conspicuous medal drought gripped the nation, exposing systemic inefficiencies: lack of infrastructure, inadequate training, and minimal grassroots scouting. Athletes often relied more on personal resilience than institutional support to achieve global recognition. The 21st century, however, has ushered ina phase of cautious optimism. With the establishment of bodies like the Target Olympic Podium Scheme (TOPS) and increased corporate sponsorship, Indian athletes now enjoy improved access to international-level coaching, nutrition, and psychological training. The medal tallies, though modest, have seen an upward trend—symbolized by Neeraj Chopra's historic gold in javelin at Tokyo 2020. What’s most heartening is the diversification of sports. No longer confined to hockey and wrestling, India is now making strides in disciplines like badminton, shooting, boxing, and athletics. Equally noteworthy is the rising representation and success of Indian women athletes, who have frequently been the torchbearers in recent Olympic outings. Yet, challenges remain. The transition from potential to podium demands long-term investment, scientific sports management, and societal encouragement that transcends cricket-centric fandom. While India’s Olympic identity is still evolving, the collective ambition is clearer than ever: to transform from a participant nation into a sporting powerhouse. <br><br><b>When did India first win an Olympic team gold medal?",
     "options": ["1900 Paris", "1936 Berlin", "1928 Amsterdam", "1948 London"],
     "correctAnswer": "1928 Amsterdam",
-    "explanation": ""
+    "explanation": "The passage states: **However, it wasn’t until the 1928 Amsterdam Olympics that India emerged as a formidable force in hockey, winning its first team gold.**"
   },
   {
-    "question": "What major issue plagued India’s Olympic performance post-1980?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s tryst with the Olympic Games began in 1900, when Norman Pritchard, a British-Indian athlete, clinched two silver medals in athletics. However, it wasn’t until the 1928 Amsterdam Olympics that India emerged as a formidable force in hockey, winning its first team gold. What followed was a golden era, where the Indian men’s hockey team dominated the Olympic arena with eight gold medals between 1928 and 1980—an unmatched legacy. Despite this early excellence, India’s Olympic journey has been riddled with inconsistencies. Post-1980, a conspicuous medal drought gripped the nation, exposing systemic inefficiencies: lack of infrastructure, inadequate training, and minimal grassroots scouting. Athletes often relied more on personal resilience than institutional support to achieve global recognition. The 21st century, however, has ushered ina phase of cautious optimism. With the establishment of bodies like the Target Olympic Podium Scheme (TOPS) and increased corporate sponsorship, Indian athletes now enjoy improved access to international-level coaching, nutrition, and psychological training. The medal tallies, though modest, have seen an upward trend—symbolized by Neeraj Chopra's historic gold in javelin at Tokyo 2020. What’s most heartening is the diversification of sports. No longer confined to hockey and wrestling, India is now making strides in disciplines like badminton, shooting, boxing, and athletics. Equally noteworthy is the rising representation and success of Indian women athletes, who have frequently been the torchbearers in recent Olympic outings. Yet, challenges remain. The transition from potential to podium demands long-term investment, scientific sports management, and societal encouragement that transcends cricket-centric fandom. While India’s Olympic identity is still evolving, the collective ambition is clearer than ever: to transform from a participant nation into a sporting powerhouse. <br><br><b>What major issue plagued India’s Olympic performance post-1980?",
     "options": ["Limited fan interest", "Over-dependence on cricket", "Systemic inefficiencies in sports", "Lack of global tournaments"],
     "correctAnswer": "Systemic inefficiencies in sports",
-    "explanation": ""
+    "explanation": "The passage notes that the post-1980 medal drought exposed **systemic inefficiencies: lack of infrastructure, inadequate training, and minimal grassroots scouting.**"
   },
   {
-    "question": "Which initiative is mentioned as a game-changer in recent Olympic preparation?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s tryst with the Olympic Games began in 1900, when Norman Pritchard, a British-Indian athlete, clinched two silver medals in athletics. However, it wasn’t until the 1928 Amsterdam Olympics that India emerged as a formidable force in hockey, winning its first team gold. What followed was a golden era, where the Indian men’s hockey team dominated the Olympic arena with eight gold medals between 1928 and 1980—an unmatched legacy. Despite this early excellence, India’s Olympic journey has been riddled with inconsistencies. Post-1980, a conspicuous medal drought gripped the nation, exposing systemic inefficiencies: lack of infrastructure, inadequate training, and minimal grassroots scouting. Athletes often relied more on personal resilience than institutional support to achieve global recognition. The 21st century, however, has ushered ina phase of cautious optimism. With the establishment of bodies like the Target Olympic Podium Scheme (TOPS) and increased corporate sponsorship, Indian athletes now enjoy improved access to international-level coaching, nutrition, and psychological training. The medal tallies, though modest, have seen an upward trend—symbolized by Neeraj Chopra's historic gold in javelin at Tokyo 2020. What’s most heartening is the diversification of sports. No longer confined to hockey and wrestling, India is now making strides in disciplines like badminton, shooting, boxing, and athletics. Equally noteworthy is the rising representation and success of Indian women athletes, who have frequently been the torchbearers in recent Olympic outings. Yet, challenges remain. The transition from potential to podium demands long-term investment, scientific sports management, and societal encouragement that transcends cricket-centric fandom. While India’s Olympic identity is still evolving, the collective ambition is clearer than ever: to transform from a participant nation into a sporting powerhouse. <br><br><b>Which initiative is mentioned as a game-changer in recent Olympic preparation?",
     "options": ["Mission Khel Udaan", "Olympic Gold Hunt", "Fit India Movement", "Target Olympic Podium Scheme (TOPS)"],
     "correctAnswer": "Target Olympic Podium Scheme (TOPS)",
-    "explanation": ""
+    "explanation": "The passage states that the **establishment of bodies like the Target Olympic Podium Scheme (TOPS)** has led to improved access to coaching, nutrition, and psychological training."
   },
   {
-    "question": "What recent trend is encouraging in India's Olympic profile?",
-    "options": ["Reduced investment in cricket", "Domination in hockey again", "Rise of multiple sports and women athletes", "Decline of Western dominance"],
-    "correctAnswer": "Rise of multiple sports and women athletes",
-    "explanation": ""
+    "question": "Read the following passage and answer the questions based on the passage: India’s tryst with the Olympic Games began in 1900, when Norman Pritchard, a British-Indian athlete, clinched two silver medals in athletics. However, it wasn’t until the 1928 Amsterdam Olympics that India emerged as a formidable force in hockey, winning its first team gold. What followed was a golden era, where the Indian men’s hockey team dominated the Olympic arena with eight gold medals between 1928 and 1980—an unmatched legacy. Despite this early excellence, India’s Olympic journey has been riddled with inconsistencies. Post-1980, a conspicuous medal drought gripped the nation, exposing systemic inefficiencies: lack of infrastructure, inadequate training, and minimal grassroots scouting. Athletes often relied more on personal resilience than institutional support to achieve global recognition. The 21st century, however, has ushered ina phase of cautious optimism. With the establishment of bodies like the Target Olympic Podium Scheme (TOPS) and increased corporate sponsorship, Indian athletes now enjoy improved access to international-level coaching, nutrition, and psychological training. The medal tallies, though modest, have seen an upward trend—symbolized by Neeraj Chopra's historic gold in javelin at Tokyo 2020. What’s most heartening is the diversification of sports. No longer confined to hockey and wrestling, India is now making strides in disciplines like badminton, shooting, boxing, and athletics. Equally noteworthy is the rising representation and success of Indian women athletes, who have frequently been the torchbearers in recent Olympic outings. Yet, challenges remain. The transition from potential to podium demands long-term investment, scientific sports management, and societal encouragement that transcends cricket-centric fandom. While India’s Olympic identity is still evolving, the collective ambition is clearer than ever: to transform from a participant nation into a sporting powerhouse. <br><br><b>What recent trend is encouraging in India's Olympic profile?",
+    "options": ["Reduced investment in cricket", "Domination in hockey again", "Emergence of multiple sports and women athletes", "Decline of Western dominance"],
+    "correctAnswer": "Emergence of multiple sports and women athletes",
+    "explanation": "The passage mentions: **What’s most heartening is the diversification of sports... Equally noteworthy is the rising representation and success of Indian women athletes.** This covers the correct answer."
   },
   {
-    "question": "What is implied about India’s Olympic aspirations?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s tryst with the Olympic Games began in 1900, when Norman Pritchard, a British-Indian athlete, clinched two silver medals in athletics. However, it wasn’t until the 1928 Amsterdam Olympics that India emerged as a formidable force in hockey, winning its first team gold. What followed was a golden era, where the Indian men’s hockey team dominated the Olympic arena with eight gold medals between 1928 and 1980—an unmatched legacy. Despite this early excellence, India’s Olympic journey has been riddled with inconsistencies. Post-1980, a conspicuous medal drought gripped the nation, exposing systemic inefficiencies: lack of infrastructure, inadequate training, and minimal grassroots scouting. Athletes often relied more on personal resilience than institutional support to achieve global recognition. The 21st century, however, has ushered ina phase of cautious optimism. With the establishment of bodies like the Target Olympic Podium Scheme (TOPS) and increased corporate sponsorship, Indian athletes now enjoy improved access to international-level coaching, nutrition, and psychological training. The medal tallies, though modest, have seen an upward trend—symbolized by Neeraj Chopra's historic gold in javelin at Tokyo 2020. What’s most heartening is the diversification of sports. No longer confined to hockey and wrestling, India is now making strides in disciplines like badminton, shooting, boxing, and athletics. Equally noteworthy is the rising representation and success of Indian women athletes, who have frequently been the torchbearers in recent Olympic outings. Yet, challenges remain. The transition from potential to podium demands long-term investment, scientific sports management, and societal encouragement that transcends cricket-centric fandom. While India’s Olympic identity is still evolving, the collective ambition is clearer than ever: to transform from a participant nation into a sporting powerhouse. <br><br><b>What is implied about India’s Olympic aspirations?",
     "options": ["They rely entirely on foreign coaching", "They aim for consistent participation", "They are growing but need sustained reforms", "They are limited to traditional sports"],
     "correctAnswer": "They are growing but need sustained reforms",
-    "explanation": ""
+    "explanation": "The passage notes that the 21st century has brought **cautious optimism** and **an upward trend** in medals, but immediately follows with: **Yet, challenges remain. The transition from potential to podium demands long-term investment, scientific sports management, and societal encouragement.** This implies that the aspirations are growing but still need sustained reforms and investment."
   },
   {
-    "question": "Choose the most suitable replacement: Had I known about the traffic, I will leave early.",
-    "options": ["have left earlier", "would leave early", "had left earlier", "would left earlier"],
-    "correctAnswer": "have left earlier",
-    "explanation": ""
+    "question": "Choose the most suitable replacement: Had I known about the traffic, I <b><b>will leave early.",
+    "options": ["would have left earlier", "would leave early", "had left earlier", "would left earlier"],
+    "correctAnswer": "would have left earlier",
+    "explanation": "This is a sentence structure for the **Third Conditional** (imaginary past situation). The structure is: *If + Past Perfect (Had I known...), Subject + would have + Past Participle (would have left)*. The correct form is **would have left earlier**."
   },
   {
-    "question": "Choose the correct replacement: It is high time you must change your habits.",
+    "question": "Choose the correct replacement: It is high time you <b><b>must change your habits.",
     "options": ["changed your habits", "have changed your habits", "change your habit", "will change the habit"],
     "correctAnswer": "changed your habits",
-    "explanation": ""
+    "explanation": "The idiom **It is high time** (or *It is time*) is an expression used to suggest that something should have been done already. It is generally followed by the **Past Simple** tense (V2) to express that the action is overdue. The correct phrase is **changed your habits**."
   },
   {
-    "question": "Indirect speech: He said, “Do it right now.”",
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.  <br>He said, “Do it right now.”",
     "options": [
       "He said do it immediately.",
       "He told to do it now.",
@@ -3834,10 +3835,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "He told me do it right now."
     ],
     "correctAnswer": "He told me to do it at once.",
-    "explanation": ""
+    "explanation": "This is an imperative sentence in Direct Speech. In Indirect Speech, the reporting verb changes to an order/instruction verb (*told*, *ordered*, *instructed*) followed by **to + V1**. **Now** changes to **then** or **at once** / **immediately**; **right now** changes to **at once** / **immediately**. The correct conversion is **He told me to do it at once.**"
   },
   {
-    "question": "Direct speech: The professor remarked that students needed to submit their papers before Friday.",
+    "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. : The professor remarked that students needed to submit their papers before Friday.",
     "options": [
       "“Students need to submit their papers before Friday,” the professor remarked.",
       "“Students needed to submit their papers before Friday,” said the professor.",
@@ -3845,19 +3846,19 @@ ssc_cgl_eng_13_sep_s1 : [
       "“You were to submit your papers before Friday,” said the professor."
     ],
     "correctAnswer": "“Students need to submit their papers before Friday,” the professor remarked.",
-    "explanation": ""
+    "explanation": "The Indirect Speech sentence uses **needed to submit** (Past Simple of the verb 'need'). When converting back to Direct Speech, this shifts to **need to submit** (Simple Present). The corresponding direct speech is **“Students need to submit their papers before Friday,” the professor remarked.**"
   },
   {
-    "question": "Rearrange the sentences to form a coherent paragraph: (Machine learning)",
+    "question": "Rearrange the sentences to form a coherent paragraph: <br>1. This makes them ideal for tasks like image recognition, natural language processing, and medical diagnostics. 2. Machine learning is a subset of artificial intelligence that focuses on the creation of algorithms that can learn from data without explicit programming. 3. The algorithm improves its performance by analyzing vast amounts of input data and identifying underlying patterns. 4. Instead of being given a set of rules, a machine learning model is trained on examples. ",
     "options": ["2,4,3,1", "4,3,2,1", "3,4,2,1", "3,4,1,2"],
     "correctAnswer": "2,4,3,1",
-    "explanation": ""
+    "explanation": "The logical flow is: **2** (Introduces the main topic: Machine Learning). **4** (Explains the methodology: how an ML model is trained). **3** (Explains the mechanism of learning/improvement mentioned in 4: the algorithm improves by analyzing data). **1** (Provides the result and application of this technology mentioned in 3). The most coherent order is **2, 4, 3, 1**."
   },
   {
-    "question": "Rearrange the sentences to form a coherent paragraph: (Food processing)",
-    "options": ["2,3,1,4", "1,2,3,4"],
+    "question": "Rearrange the sentences to form a coherent paragraph: <br>1. The primary purpose of this process is to ensure that the food we eat is safe and does not contain harmful bacteria or other contaminants. <br>2. Food processing is a series of methods used to transform raw ingredients into consumable products. <br>3. These methods can range from simple actions like cutting and grinding to more complex procedures such as pasteurization and fermentation. <br>4, Furthermore, it also helps to preserve food, extend its shelf life, and enhance its nutritional value. ",
+    "options": ["2,3,1,4", "1,2,3,4","3,2,4,1","1,2,4,3"],
     "correctAnswer": "2,3,1,4",
-    "explanation": ""
+    "explanation": "The logical flow is: **2** (Introduces the main topic: Food processing). **3** (Expands on the 'methods' mentioned in 2, providing examples). **1** (States the 'primary purpose' of the process). **4** (Introduces an additional benefit using the transition word 'Furthermore'). The most coherent order is **2, 3, 1, 4**."
   }
 ],
 "ssc_cgl_eng_14_sep_s2": [
