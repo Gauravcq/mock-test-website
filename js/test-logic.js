@@ -10,22 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!testInfo) { document.body.innerHTML = "<h1>Error: Test with ID " + testId + " not found.</h1>"; return; }
     if (typeof QUESTIONS_DATABASE === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: QUESTIONS_DATABASE not found.</h1>"; return; }
     
-    // Get questions
+
+   
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
 
-    // --- SECTION MAPPING LOGIC (New) ---
-    // Ensure every question has a 'subject'. If your DB has it, this loop just standardizes casing.
-    // If not, it attempts to guess or defaults to General.
+    // --- BETTER SECTION MAPPING LOGIC ---
     questions = questions.map(q => {
-        let subj = q.subject || q.section || "Time Left";
-        // Normalize subject names to match your specific timer requirements
-        let s = subj.toLowerCase();
-        if (s.includes('math') || s.includes('quant')) subj = "Maths";
-        else if (s.includes('reasoning') || s.includes('logic')) subj = "Reasoning";
-        else if (s.includes('eng')) subj = "English";
-        return { ...q, subject: subj };
+        // 1. Try to find the subject from various common property names
+        let rawSubject = q.subject || q.section || q.category || "Unknown";
+        let s = rawSubject.toLowerCase();
+        let finalSubject = "General"; // Default
+
+        // 2. Map variations to your specific Timer Keys
+        if (s.includes('math') || s.includes('quant') || s.includes('numerical')) {
+            finalSubject = "Maths";
+        } else if (s.includes('reasoning') || s.includes('logic') || s.includes('intelligence')) {
+            finalSubject = "Reasoning";
+        } else if (s.includes('eng') || s.includes('verbal')) {
+            finalSubject = "English";
+        } else if (s.includes('awareness') || s.includes('gk') || s.includes('current') || s.includes('studies')) {
+            finalSubject = "GS"; // General Awareness
+        }
+
+        return { ...q, subject: finalSubject };
     });
+
+    // DEBUG: Check what subjects were found
+    console.log("Detected Subjects:", [...new Set(questions.map(q => q.subject))]);
 
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
@@ -174,27 +186,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================
     //  UPDATED INITIALIZE QUIZ WITH SECTIONAL TIMING
     // ==========================================================
-    function initializeQuiz(questions, testInfo) {
-        let currentQuestionIndex = 0; 
-        let timerInterval;
-        let isPaused = false;
-        
+        function initializeQuiz(questions, testInfo) {
+        // ... (variables)
+
         // 1. DEFINE SECTION DURATIONS
         const sectionDurations = {
             "Maths": 25,
             "Reasoning": 20,
             "English": 15,
+            "GS": 10,       // Added GS (General Awareness) usually takes less time
+            "General": 20   // Fallback if nothing matches
         };
         
         // 2. INITIALIZE TIMER BANKS
-        // Create an object to track seconds remaining for each subject found in questions
         let sectionTimeRemaining = {};
-        let totalInitialTime = 0; // For calculating total time taken later
+        let totalInitialTime = 0; 
         
-        // Fill the banks based on your config, default to 20 if subject not in list
         const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
+        
         uniqueSubjects.forEach(subj => {
-            const minutes = sectionDurations[subj] || 20; // Default 20 mins if not in list
+            // Check if the subject exists in our list, otherwise default to 20
+            const minutes = sectionDurations[subj] ? sectionDurations[subj] : 20;
+            
+            console.log(`Setting timer for ${subj}: ${minutes} minutes`); // Debug log
+            
             sectionTimeRemaining[subj] = minutes * 60;
             totalInitialTime += (minutes * 60);
         });
