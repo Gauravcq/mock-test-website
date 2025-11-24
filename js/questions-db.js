@@ -3477,37 +3477,37 @@ ssc_cgl_eng_13_sep_s1 : [
 ],
 "ssc_cgl_eng_13_sep_s3" : [
   {
-    "question": "Select the most appropriate synonym of the given word: DELETERIOUS",
+    "question": "Select the most appropriate synonym of the given word: <b>DELETERIOUS",
     "options": ["Harmful", "Useful", "Comforting", "Helpful"],
     "correctAnswer": "Harmful",
     "explanation": ""
   },
   {
     "question": "Select the most appropriate antonym of the given word. Cacophony",
-    "options": ["Noise", "Dissonance", "Clamor", "Silence"],
+    "options": ["Noise", "Harmony", "Clamor", "Dissonance"],
     "correctAnswer": "Silence",
     "explanation": ""
   },
   {
-    "question": "Choose the correct meaning of idiom: Show the white feather",
+    "question": "Choose the correct meaning of idiom: <br><b>Show the white feather",
     "options": ["To act cowardly", "To signal for help", "To display courage", "To admit defeat gracefully"],
     "correctAnswer": "To act cowardly",
     "explanation": ""
   },
   {
     "question": "Select the most appropriate antonym of the given word. Subterfuge",
-    "options": ["Chicanery", "Trickery", "Deception", "Honesty"],
-    "correctAnswer": "Honesty",
+    "options": ["Chicanery", "Trickery", "Deception", "Candor"],
+    "correctAnswer": "Candor",
     "explanation": ""
   },
   {
-    "question": "Spot the correct spelling of plant-based pollution cleanup.",
+    "question": "Spot the <b>correct spelling</b> of plant-based pollution cleanup.",
     "options": ["Phytoremediation", "Phytoremydiation", "Phytoremidiation", "Phytremediation"],
     "correctAnswer": "Phytoremediation",
     "explanation": ""
   },
   {
-    "question": "Choose the correct one-word substitute for: 'A professional who prepares maps’.",
+    "question": "Choose the correct <b>one-word substitute</b> for: 'A professional who prepares maps’.",
     "options": ["Topographer", "Cartographer", "Geodesist", "Archivist"],
     "correctAnswer": "Cartographer",
     "explanation": ""
@@ -3520,30 +3520,30 @@ ssc_cgl_eng_13_sep_s1 : [
   },
   {
     "question": "Select the correct option: The curator opted ___ displaying the artifact due to preservation concerns.",
-    "options": ["for", "on", "with", "at"],
-    "correctAnswer": "for",
+    "options": ["for", "on", "with", "against"],
+    "correctAnswer": "against",
     "explanation": ""
   },
   {
     "question": "Select the correct option: Neither the editor nor the contributors __ willing to accept the changes unconditionally.",
-    "options": ["was", "has been", "is", "are"],
-    "correctAnswer": "are",
+    "options": ["was", "has been", "is", "were"],
+    "correctAnswer": "were",
     "explanation": ""
   },
   {
-    "question": "Find the part of the sentence that contains an error: That none of the representatives found the proposal viable (1)/ is less surprising than the fact (2)/ that neither the chairperson nor the legal counsel (3)/ were briefed beforehand. (4)",
+    "question": "Find the part of the sentence that contains an error: <br><b>That none of the representatives found the proposal viable (1)/ is less surprising than the fact (2)/ that neither the chairperson nor the legal counsel (3)/ were briefed beforehand. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(4)",
     "explanation": ""
   },
   {
-    "question": "Find the part of the sentence that contains an error: Neither the projection of growth nor the estimation of deficit trends (1)/ appear to have accounted for the liquidity constraints (2)/ that small-scale enterprises face (3)/ during cyclical downturns in demand. (4)",
+    "question": "Find the part of the sentence that contains an error: <br><b>Neither the projection of growth nor the estimation of deficit trends (1)/ appear to have accounted for the liquidity constraints (2)/ that small-scale enterprises face (3)/ during cyclical downturns in demand. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
-    "correctAnswer": "(1)",
+    "correctAnswer": "(2)",
     "explanation": ""
   },
   {
-    "question": "Change the following from active to passive: Will the authorities enforce the revised ordinance promptly?",
+    "question": "Change the following from active to passive:<br><b> Will the authorities enforce the revised ordinance promptly?",
     "options": [
       "Will the revised ordinance be enforced promptly by the authorities?",
       "Will the revised ordinance being enforced promptly by the authorities?",
@@ -3554,7 +3554,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The guards stood in pike formation along the causeway.",
+    "question": "Select the sentence containing the homonym of the highlighted word: <br>The guards stood in <b><b>pike</b></b> formation along the causeway.",
     "options": [
       "The angler pulled a large pike from the icy lake.",
       "The rebel was punished by being placed on the pike.",
@@ -3565,7 +3565,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Convert the sentence from passive to active: The package will have been delivered by the courier before 5 PM.",
+    "question": "Convert the sentence from passive to active: <br><b>The package will have been delivered by the courier before 5 PM.",
     "options": [
       "The courier will deliver the package before 5 PM.",
       "The courier had delivered the package before 5 PM.",
@@ -3576,7 +3576,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "What was a significant unintended consequence of the CoWIN platform?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. What was a significant unintended consequence of the CoWIN platform?",
     "options": [
       "It slowed down rural internet speed",
       "It led to underreporting of vaccine data",
@@ -3587,7 +3587,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Why was vaccine distribution initially skewed in India?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. Why was vaccine distribution initially skewed in India?",
     "options": [
       "Excess production of urban vaccines",
       "International supply was unreliable",
@@ -3598,7 +3598,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "What strategy was used to counter misinformation and hesitancy?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. What strategy was used to counter misinformation and hesitancy?",
     "options": [
       "National censorship of social media",
       "Use of local influencers and mobile units",
@@ -3609,7 +3609,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Which phrase best summarizes the core theme of the passage?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. Which phrase best summarizes the core theme of the passage?",
     "options": [
       "The success of India’s pharma exports",
       "The risks of vaccine side effects",
@@ -3620,7 +3620,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "What is the author's tone toward India’s vaccine campaign?",
+    "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. What is the author's tone toward India’s vaccine campaign?",
     "options": [
       "Sarcastic and dismissive",
       "Analytical yet cautiously optimistic",
@@ -3631,7 +3631,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Choose the most suitable option: They returned back to home after the event.",
+    "question": "Choose the most suitable option: They returned back <b><b>to home</b></b>  after the event.",
     "options": [
       "back to their house",
       "returned to house",
@@ -3642,13 +3642,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Choose the most suitable option: He was accused for theft.",
+    "question": "Choose the most suitable option: He was accused <b><b>for theft.",
     "options": ["with theft", "by theft", "on theft", "of theft"],
     "correctAnswer": "of theft",
     "explanation": ""
   },
   {
-    "question": "Indirect speech: He said, “How long have you been waiting?”",
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.  <br><b>He said, “How long have you been waiting?”",
     "options": [
       "He asked how long had I been waiting.",
       "He said how long I was waiting.",
@@ -3659,24 +3659,24 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": ""
   },
   {
-    "question": "Direct speech: The coach said that the players were improving with each match.",
+    "question": "Asentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. : The coach said that the players were improving with each match.",
     "options": [
       "“The players are improving with each match,” said the coach.",
       "“The players were improving with each match,” the coach said.",
       "“Our players improve with each match,” said the coach.",
       "“The players had improved with each match,” the coach said."
     ],
-    "correctAnswer": "“The players are improving with each match,” said the coach.",
+    "correctAnswer": "“The players were improving with each match,” the coach said.",
     "explanation": ""
   },
   {
-    "question": "Rearrange the sentences to form a coherent paragraph: (Research)",
+    "question": "Rearrange the sentences to form a coherent paragraph: . <br>(1). It is a process that involves the systematic and objective investigation of a subject to discover new facts or to confirm existing ones. <br>2. Research is a foundational pillar of academic and scientific progress. <br>3. This can be either theoretical, aiming to expand knowledge, or applied, seeking to solve a practical problem. <br>4, The findings of this investigation are then documented and peer-reviewed to ensure validity and credibility. ",
     "options": ["1,2,4,3", "4,3,2,1", "3,4,1,2", "2,1,4,3"],
     "correctAnswer": "2,1,4,3",
     "explanation": ""
   },
   {
-    "question": "Rearrange the sentences to form a coherent paragraph: (Blockchain)",
+    "question": "Rearrange the sentences to form a coherent paragraph: <br>1. The most prevalent of these is the peer-to-peer (P2P) network, where no single entity controls the entire system. 2. Blockchain technology, at its core, is a distributed ledger that maintains a decentralized record of transactions.  3. This decentralized structure ensures security and transparency by requiring network consensus for any new record to be added. 4. It functions by distributing copies of the ledger across a vast network of computers.",
     "options": ["2,4,1,3", "4,1,3,2", "2,1,4,3"],
     "correctAnswer": "2,4,1,3",
     "explanation": ""
