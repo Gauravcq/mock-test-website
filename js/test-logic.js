@@ -44,32 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get questions
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
-    
-questions = questions.map(q => {
-    // 1. Get the raw subject/section name, defaulting to a placeholder if missing
-    let rawSubject = q.subject || q.section || "DEFAULT_UNCLASSIFIED"; 
-    let finalSubject = "Time Left"; // Default fallback display name
 
-    if (typeof rawSubject === 'string') {
-        // Use a simple, standardized string (no spaces, all lowercase) for reliable comparison
-        let s = rawSubject.toLowerCase().replace(/\s/g, ''); 
+const SECTION_BREAKS = [25, 50, 75]; 
 
-        // Check for the most basic required characters
-        if (s.includes('math') || s.includes('quant')) { 
-            finalSubject = "Maths"; 
-        } 
-        else if (s.includes('reasoning') || s.includes('logic')) { 
-            finalSubject = "Reasoning"; 
-        } 
-        else if (s.includes('eng') || s.includes('verbal')) { 
-            finalSubject = "English"; 
-        } 
+// The 'testId' variable must be defined earlier in your script to use this map
+// const testId = // ... (where you get your test ID)
+
+questions = questions.map((q, index) => {
+    let finalSubject;
+
+    // Use the question's array index to determine the subject
+    if (index < SECTION_BREAKS[0]) {
+        // Questions 1 to 25 (Index 0 to 24)
+        finalSubject = "Maths";
+    } else if (index < SECTION_BREAKS[1]) {
+        // Questions 26 to 50 (Index 25 to 49)
+        finalSubject = "Reasoning";
+    } else if (index < SECTION_BREAKS[2]) {
+        // Questions 51 to 75 (Index 50 to 74)
+        finalSubject = "English";
+    } else {
+        // Fallback for any questions outside the defined sections
+        finalSubject = "General"; 
     }
     
-    // 2. This name will be used to look up the time (25, 20, or 15 minutes)
+    // Assign the determined subject name to the question object
     return { ...q, subject: finalSubject };
 });
-// --------------------------------------------------------------------------
     startTestBtn.addEventListener('click', () => {
         instructionsModal.classList.add('hidden');
         quizUI.classList.remove('hidden');
