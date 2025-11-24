@@ -4359,7 +4359,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The correct prepositional phrase is 'confident of' followed by a gerund ('passing')."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must adapt b><b>with the situation.",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must adapt <b><b>with the situation.",
     "options": [
       "to the situation",
       "the situation",
