@@ -4137,9 +4137,284 @@ ssc_cgl_eng_13_sep_s1 : [
       }
     ],
 
+"ssc_cgl_eng_14_sep_s3":[
+  {
+    "question": "Select the most appropriate synonym of the given word: APOGEE",
+    "options": [
+      "Peak",
+      "Nadir",
+      "Base"
+    ],
+    "correctAnswer": "Peak",
+    "explanation": "Apogee means the highest point in the development of something, a climax or peak[cite: 22, 26]."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: Throw cold water on",
+    "options": [
+      "To make something popular",
+      "To oppose or discourage",
+      "To wash away concerns",
+      "To encourage enthusiastically"
+    ],
+    "correctAnswer": "To oppose or discourage",
+    "explanation": "The idiom 'throw cold water on' means to present an idea or plan in a way that discourages its acceptance or success[cite: 27]."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. Mendacious",
+    "options": [
+      "Dishonest",
+      "Fraudulent",
+      "Truthful",
+      "Deceitful"
+    ],
+    "correctAnswer": "Truthful",
+    "explanation": "Mendacious means not telling the truth or false. [cite_start]The antonym is Truthful[cite: 28]."
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": [
+      "Antediluvian",
+      "Infinitesimal",
+      "Persiflage",
+      "Obfescate"
+    ],
+    "correctAnswer": "Obfescate",
+    "explanation": "The word Obfescate is misspelt. [cite_start]The correct spelling is Obfuscate[cite: 29, 32, 33]."
+  },
+  {
+    "question": "Spot the correct spelling of a microchip printing method.",
+    "options": [
+      "Photolithography",
+      "Photolithographe",
+      "Photolitography",
+      "Potolithography"
+    ],
+    "correctAnswer": "Photolithography",
+    "explanation": "Photolithography is the correct spelling for the microchip printing method[cite: 34, 35, 36, 37, 38]."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A speech or piece of writing that praises someone highly'.",
+    "options": [
+      "Elegy",
+      "Encomium",
+      "Sermon",
+      "Soliloquy"
+    ],
+    "correctAnswer": "Encomium",
+    "explanation": "Encomium is a formal expression of high praise[cite: 39]."
+  },
+  {
+    "question": "Select the correct option: The journalist refused to her sources despite repeated legal threats.",
+    "options": [
+      "give out",
+      "give over",
+      "give away",
+      "give up"
+    ],
+    "correctAnswer": "give up",
+    "explanation": "The phrasal verb 'give up' means to surrender or reveal something, which fits the context of refusing to reveal sources[cite: 40, 41, 43, 44, 47]."
+  },
+  {
+    "question": "Select the correct option: The memorandum clarified that employees must comply the revised code of ethics.",
+    "options": [
+      "to",
+      "with",
+      "by",
+      "in"
+    ],
+    "correctAnswer": "with",
+    "explanation": "The correct idiom is 'comply with'[cite: 48, 49, 50, 51, 52]."
+  },
+  {
+    "question": "Select the correct option: The scientist's hypothesis was not only radical but also diametrically to the foundational assumptions of her discipline.",
+    "options": [
+      "opposed",
+      "opposing",
+      "opposite",
+      "averse"
+    ],
+    "correctAnswer": "opposed",
+    "explanation": "'Diametrically opposed' is the correct and common phrase meaning completely different or contrary[cite: 53, 54, 55, 56, 57, 58]."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: The investigation's findings, alarming in both scope and content, (1)/ prompted responses not just from the agencies concerned (2)/ but also from the auditors who report they (3)/ were never granted access to critical records. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(3)",
+    "explanation": "The error is in part (3). [cite_start]'who report they' should be replaced with 'who reported that they' or 'whose report they' for correct grammatical structure[cite: 59, 60, 64, 65, 66, 67]."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error: That certain state governments have invoked archaic laws (1)/ to suppress dissent does not only reflect legal opportunism (2)/ but also undermines the constitutional ethos (3)/ that such provisions were meant to uphold. (4)",
+    "options": [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)"
+    ],
+    "correctAnswer": "(2)",
+    "explanation": "The error is in part (2) due to the misplaced correlative conjunction 'not only... but also'. [cite_start]It should be 'reflects not only legal opportunism but also undermines'[cite: 68, 69, 71, 72, 73, 74]."
+  },
+  {
+    "question": "Change the following from active to passive: The jury has delivered a unanimous verdict.",
+    "options": [
+      "A unanimous verdict has been delivered by the jury.",
+      "A unanimous verdict was being delivered by the jury.",
+      "A unanimous verdict had been delivered by the jury.",
+      "A unanimous verdict is delivered by the jury."
+    ],
+    "correctAnswer": "A unanimous verdict has been delivered by the jury.",
+    "explanation": "The sentence is in the Present Perfect Active (has delivered). [cite_start]The passive form maintains the same tense: Present Perfect Passive (has been delivered)[cite: 75, 76, 77, 78, 79, 80]."
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word: The treatise critiqued the rheme in the syntactical arrangement of propositions. (Highlighted word: rheme)",
+    "options": [
+      "The linguist isolated the rheme in the sentence structure.",
+      "The rheme was pronounced with unique intonation in Tagalog.",
+      "The rheme swam rapidly into the estuarine current.",
+      "The poet emphasized the rheme for metrical impact."
+    ],
+    "correctAnswer": "The rheme swam rapidly into the estuarine current.",
+    "explanation": "The highlighted word 'rheme' refers to a linguistic concept. [cite_start]The option 'The rheme swam rapidly into the estuarine current' uses 'rheme' as the name of a type of aquatic organism or a geographical feature, representing a homonym[cite: 83]."
+  },
+  {
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: The construction is alleged to have been halted due to environmental violations.",
+    "options": [
+      "It is alleged that the authorities halted the construction.",
+      "Authorities allegedly halted the construction.",
+      "The authorities are alleged to have halted the construction.",
+      "The violation allegedly halted the construction."
+    ],
+    "correctAnswer": "It is alleged that the authorities halted the construction.",
+    "explanation": "The original sentence is an impersonal passive construction ('is alleged'). [cite_start]The most appropriate active voice conversion for an impersonal passive construction is 'It is alleged that the authorities halted the construction'[cite: 84, 85, 86, 87, 88]."
+  },
+  {
+    "question": "What major government initiative catalyzed India's digital ecosystem?",
+    "options": [
+      "BharatNet",
+      "Digital Bharat",
+      "Digital India",
+      "India Connect"
+    ],
+    "correctAnswer": "Digital India",
+    "explanation": "The passage states that the ecosystem was 'Spearheaded by government initiatives such as Digital India'[cite: 91, 97]."
+  },
+  {
+    "question": "What role did Aadhaar play in digital growth?",
+    "options": [
+      "Promoted telecom infrastructure",
+      "Enabled biometric voting",
+      "Offered unified payments",
+      "Enabled access to public services"
+    ],
+    "correctAnswer": "Enabled access to public services",
+    "explanation": "The passage mentions that Aadhaar 'enabled secure and streamlined access to various public services'[cite: 91, 98]."
+  },
+  {
+    "question": "Which factor unexpectedly accelerated India's digital adoption?",
+    "options": [
+      "Demonetisation",
+      "GST Implementation",
+      "COVID-19 pandemic",
+      "Global recession"
+    ],
+    "correctAnswer": "COVID-19 pandemic",
+    "explanation": "The passage states that 'the pandemic acted as an unexpected catalyst'[cite: 114, 100]."
+  },
+  {
+    "question": "What is a current challenge in India's digital development?",
+    "options": [
+      "Internet monopoly by private ISPS",
+      "Lack of mobile phone production",
+      "Digital divide and data privacy",
+      "Excess of international investors"
+    ],
+    "correctAnswer": "Digital divide and data privacy",
+    "explanation": "The passage explicitly names the challenges: 'A persistent digital divide remains' and 'concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues'[cite: 118, 102, 104]."
+  },
+  {
+    "question": "What does the passage suggest is key to India's digital future?",
+    "options": [
+      "More technical experts",
+      "Faster connectivity in rural areas",
+      "Support from foreign governments",
+      "Robust digital policy, inclusive access, and responsible innovation"
+    ],
+    "correctAnswer": "Robust digital policy, inclusive access, and responsible innovation",
+    "explanation": "The passage concludes that 'robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future'[cite: 120, 106]."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: I am confident to pass the examination. (Highlighted part is to pass)",
+    "options": [
+      "of pass the examination",
+      "of passing the examination",
+      "passing the examination",
+      "to passing the examination"
+    ],
+    "correctAnswer": "of passing the examination",
+     "explanation": "The correct prepositional phrase is 'confident of' followed by a gerund ('passing')[cite: 120]."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must adapt with the situation. (Highlighted part is with the situation)",
+    "options": [
+      "to the situation",
+      "with the situation",
+      "by the situation",
+      "adapt to situation"
+    ],
+    "correctAnswer": "to the situation",
+    "explanation": "The verb 'adapt' is correctly followed by the preposition 'to' when referring to a change in response to something[cite: 122]."
+  },
+  {
+    "question": "Convert the sentence provided below from its direct speech structure to an indirect speech structure: She said, 'I had completed the report.'",
+    "options": [
+      "She said that she had completed the report.",
+      "She said that I had completed the report.",
+      "She said that she has completed the report.",
+      "She said that I had been completing the report."
+    ],
+    "correctAnswer": "She said that she had completed the report.",
+    "explanation": "In indirect speech, the tense Past Perfect ('had completed') does not change, and the pronoun 'I' changes to 'she'[cite: 122]."
+  },
+  {
+    "question": "Convert the sentence provided below from its indirect speech structure to an direct speech structure: The scientist stated that water boiled at 100 degrees Celsius.",
+    "options": [
+      "\"Water will boil at 100 degrees Celsius,\" said the scientist.",
+      "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
+      "\"Water had boiled at 100 degrees Celsius,\" said the scientist.",
+      "\"Water is boiling at 100 degrees Celsius,\" said the scientist."
+    ],
+    "correctAnswer": "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
+    "explanation": "The statement expresses a universal truth, so the tense remains in the Simple Present ('boils') in direct speech[cite: 122]."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph (Object-Oriented Programming): 1. This allows a programmer to specify the structure... 2. Object-Oriented Programming (OOP) is a programming paradigm... 3. A central tenet of OOP is the concept of a 'Class'... 4. The key advantage of this approach...",
+    "options": [
+      "2, 3, 1, 4",
+      "4, 3, 2, 1",
+      "2, 1, 3, 4",
+      "1, 2, 3, 4"
+    ],
+    "correctAnswer": "2, 3, 1, 4",
+    "explanation": "The logical sequence is: 2 (Introduction of OOP) -> 3 (Defines the key concept 'Class') -> 1 (Explains the result of defining the key concept) -> 4 (States the final advantage of the approach)[cite: 124]."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph (Evolution): 1. This process, a cornerstone of evolution... 2. The diversity of life on Earth is the result of a gradual process... 3. This leads to the gradual accumulation... 4. It begins with inherited variation among individuals...",
+    "options": [
+      "2, 4, 3, 1",
+      "4, 2, 1, 3",
+      "2, 1, 3, 4",
+      "1, 2, 4, 3"
+    ],
+    "correctAnswer": "2, 4, 3, 1",
+    "explanation": "The logical sequence is: 2 (Introduction of the topic, diversity of life) -> 4 (Starts the mechanism, inherited variation) -> 3 (The direct consequence of the mechanism, accumulation of traits) -> 1 (Names the process and states its ultimate goal)[cite: 124]."
+  }
+],
 
-
-ssc_cgl_14_sep_s1 : [
+"ssc_cgl_14_sep_s1" : [
   {
     "question": "<img src='../images/011.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
