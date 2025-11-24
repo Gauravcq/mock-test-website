@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -10,8 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const testInfo = ALL_TESTS.find(t => String(t.id) === testId);
     if (!testInfo) { document.body.innerHTML = "<h1>Error: Test with ID " + testId + " not found.</h1>"; return; }
     if (typeof QUESTIONS_DATABASE === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: QUESTIONS_DATABASE not found.</h1>"; return; }
-    const questions = QUESTIONS_DATABASE[testId];
+    
+    // Get questions
+    let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
+
+    // --- SECTION MAPPING LOGIC (New) ---
+    // Ensure every question has a 'subject'. If your DB has it, this loop just standardizes casing.
+    // If not, it attempts to guess or defaults to General.
+    questions = questions.map(q => {
+        let subj = q.subject || q.section || "General";
+        // Normalize subject names to match your specific timer requirements
+        let s = subj.toLowerCase();
+        if (s.includes('math') || s.includes('quant')) subj = "Maths";
+        else if (s.includes('reasoning') || s.includes('logic')) subj = "Reasoning";
+        else if (s.includes('eng')) subj = "English";
+        return { ...q, subject: subj };
+    });
 
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
@@ -25,61 +39,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function normalizeString(str) {
         if (str === null) return '';
-        return String(str)
-            .replace(/[\u20b9₹]/g, '')
-            .replace(/m\u00b2/g, 'm^2')
-            .replace(/\u00b0/g, 'deg')
-            .replace(/\s+/g, '')
-            .toLowerCase();
+        return String(str).replace(/[\u20b9₹]/g, '').replace(/m\u00b2/g, 'm^2').replace(/\u00b0/g, 'deg').replace(/\s+/g, '').toLowerCase();
     }
     
     // Global scope variables
     let reviewQuestionList = []; 
     let questionStates = [];
     let currentReviewIndex = 0;
-    let currentLanguage = 'en'; // Default language
+    let currentLanguage = 'en'; 
 
     function filterQuestions(category) {
-        const questionsWithState = questions.map((q, index) => ({ 
-            ...q, 
-            index: index, 
-            state: questionStates[index] 
-        }));
-        
+        const questionsWithState = questions.map((q, index) => ({ ...q, index: index, state: questionStates[index] }));
         switch (category) {
-            case 'all':
-            case 'overview': 
-                return questionsWithState;
-            case 'correct':
-                return questionsWithState.filter(item => item.state.resultCategory === 'correct');
-            case 'incorrect':
-                return questionsWithState.filter(item => item.state.resultCategory === 'incorrect');
-            case 'unattempted':
-                return questionsWithState.filter(item => item.state.resultCategory === 'unattempted');
-            case 'marked for review':
-                return questionsWithState.filter(item => item.state.markedForReview);
-            default:
-                return [];
+            case 'all': case 'overview': return questionsWithState;
+            case 'correct': return questionsWithState.filter(item => item.state.resultCategory === 'correct');
+            case 'incorrect': return questionsWithState.filter(item => item.state.resultCategory === 'incorrect');
+            case 'unattempted': return questionsWithState.filter(item => item.state.resultCategory === 'unattempted');
+            case 'marked for review': return questionsWithState.filter(item => item.state.markedForReview);
+            default: return [];
         }
     }
     
     function showReviewPalette() { 
         const reviewPalette = document.getElementById('review-palette');
         if (!reviewPalette) return;
-
         reviewPalette.innerHTML = ''; 
-        
         reviewQuestionList.forEach((item, index) => { 
             const btn = document.createElement('button'); 
             btn.className = 'palette-btn'; 
             btn.textContent = item.index + 1; 
             btn.dataset.index = index; 
             
-            if (item.state.resultCategory === 'correct') {
-                btn.classList.add('answered'); 
-            } else if (item.state.resultCategory === 'incorrect') {
-                btn.classList.add('not-answered'); 
-            }
+            if (item.state.resultCategory === 'correct') btn.classList.add('answered'); 
+            else if (item.state.resultCategory === 'incorrect') btn.classList.add('not-answered'); 
 
             if (item.state.markedForReview) {
                 if (item.state.userAnswer !== null) {
@@ -89,21 +81,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.classList.add('marked-review');
                 }
             }
-            
-            if (index === currentReviewIndex) {
-                btn.classList.add('current');
-            }
-            
-            btn.addEventListener('click', () => { 
-                showReviewQuestion(index); 
-            }); 
+            if (index === currentReviewIndex) btn.classList.add('current');
+            btn.addEventListener('click', () => { showReviewQuestion(index); }); 
             reviewPalette.appendChild(btn); 
         }); 
     }
     
     function showReviewQuestion(index) { 
         currentReviewIndex = index; 
-        
         const reviewArea = document.getElementById('review-question-area'); 
         const reviewQuestionTitle = document.getElementById('review-question-title'); 
         const reviewPrevBtn = document.getElementById('review-prev-btn');
@@ -115,19 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = questions[reviewItem.index]; 
         const state = questionStates[reviewItem.index]; 
         
-        if (reviewQuestionTitle) {
-            reviewQuestionTitle.textContent = "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length + " (Original Q" + (reviewItem.index + 1) + ")"; 
-        }
+        if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length + " (Original Q" + (reviewItem.index + 1) + ")"; 
 
         const optionsHtml = question.options.map(option => { 
             const isCorrect = normalizeString(option) === normalizeString(question.correctAnswer); 
             const isUserChoice = normalizeString(option) === normalizeString(state.userAnswer);
             let optionClass = 'review-option'; 
-            
             if (isCorrect) optionClass += ' correct'; 
             if (isUserChoice && !isCorrect) optionClass += ' incorrect'; 
             if (isUserChoice && isCorrect) optionClass += ' correct-user-choice';
-            
             let html = '<div class="' + optionClass + '">';
             html += '<div class="review-option-text"><span class="radio-icon"></span><span>' + option + '</span></div>';
             if (isUserChoice) html += '<span class="user-pick-indicator">✔️ Your Pick</span>';
@@ -136,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return html;
         }).join(''); 
         
-        // Language check
         const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
         const explanationText = (typeof question.explanation === 'object') ? question.explanation[currentLanguage] : question.explanation;
 
@@ -147,17 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
             (state.userAnswer === null ? '<p class="unattempted-note">**This question was unattempted.**</p>' : ''); 
         
         if (window.MathJax) { window.MathJax.typeset(); } 
-        
         if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0; 
         if (reviewNextBtn) reviewNextBtn.disabled = index === reviewQuestionList.length - 1; 
-        
         showReviewPalette();
     }
 
     function tabClickHandler(e) {
         e.preventDefault();
         const category = e.target.textContent.toLowerCase().trim();
-        
         const resultTabsContainer = document.querySelector('#result-summary-page .results-header-nav');
         const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
         const resultSummaryPage = document.getElementById('result-summary-page');
@@ -194,13 +171,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ==========================================================
+    //  UPDATED INITIALIZE QUIZ WITH SECTIONAL TIMING
+    // ==========================================================
     function initializeQuiz(questions, testInfo) {
         let currentQuestionIndex = 0; 
         let timerInterval;
-        let testDurationMinutes = testInfo.durationMinutes || 25;
-        let timeRemaining = testDurationMinutes * 60;
         let isPaused = false;
         
+        // 1. DEFINE SECTION DURATIONS
+        const sectionDurations = {
+            "Maths": 25,
+            "Reasoning": 20,
+            "English": 15
+        };
+        
+        // 2. INITIALIZE TIMER BANKS
+        // Create an object to track seconds remaining for each subject found in questions
+        let sectionTimeRemaining = {};
+        let totalInitialTime = 0; // For calculating total time taken later
+        
+        // Fill the banks based on your config, default to 20 if subject not in list
+        const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
+        uniqueSubjects.forEach(subj => {
+            const minutes = sectionDurations[subj] || 20; // Default 20 mins if not in list
+            sectionTimeRemaining[subj] = minutes * 60;
+            totalInitialTime += (minutes * 60);
+        });
+
         const resultSummaryPage = document.getElementById('result-summary-page'); 
         const reviewPage = document.getElementById('review-page');
         const timerEl = document.getElementById('timer');
@@ -220,39 +218,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const clearResponseBtn = document.getElementById('clear-response-btn'); 
         const submitTestBtn = document.getElementById('submit-test-btn');
         const quizUI = document.getElementById('quiz-ui');
-
         const reviewPrevBtn = document.getElementById('review-prev-btn');
         const reviewNextBtn = document.getElementById('review-next-btn');
-        
         const resultTabsContainer = document.querySelector('#result-summary-page .results-header-nav');
         const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
-        
-        // --- LANGUAGE SELECTOR LOGIC ---
         const languageSelect = document.querySelector('.language-select');
+
         if (languageSelect) {
             languageSelect.value = currentLanguage; 
             languageSelect.addEventListener('change', (e) => {
                 currentLanguage = e.target.value;
                 const isQuizActive = !quizUI.classList.contains('hidden');
                 const isReviewActive = !reviewPage.classList.contains('hidden');
-                if (isQuizActive) {
-                    showQuestion(currentQuestionIndex);
-                } else if (isReviewActive) {
-                    showReviewQuestion(currentReviewIndex);
-                }
+                if (isQuizActive) showQuestion(currentQuestionIndex);
+                else if (isReviewActive) showReviewQuestion(currentReviewIndex);
             });
         }
 
-        // --- Test Title and Badge (Simplified to avoid Syntax Errors) ---
         const badgeHtml = testInfo.isNew ? '<span class="new-badge">NEW</span>' : '';
         document.getElementById('test-main-title').innerHTML = testInfo.date + ' - ' + testInfo.title + ' ' + badgeHtml;
 
-        // Initialize question states
         questionStates = questions.map(() => ({ 
-            status: 'not-visited', 
-            userAnswer: null, 
-            markedForReview: false, 
-            resultCategory: null 
+            status: 'not-visited', userAnswer: null, markedForReview: false, resultCategory: null 
         }));
         
         createPalette();
@@ -261,21 +248,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('beforeunload', (e) => { e.preventDefault(); e.returnValue = ''; });
 
+        function getCurrentSubject() {
+            return questions[currentQuestionIndex].subject;
+        }
+
+        // --- UPDATED TIMER FUNCTION ---
         function startTimer() {
+            clearInterval(timerInterval); // Prevent duplicates
             timerInterval = setInterval(() => {
                 if (isPaused) return;
-                timeRemaining--;
-                const minutes = Math.floor(timeRemaining / 60);
-                const seconds = timeRemaining % 60;
-                if (timerEl) {
-                    timerEl.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+                
+                const currentSubject = getCurrentSubject();
+                
+                // Check if this subject has time left
+                if (sectionTimeRemaining[currentSubject] > 0) {
+                    sectionTimeRemaining[currentSubject]--;
+                    
+                    // Update Display
+                    const t = sectionTimeRemaining[currentSubject];
+                    const minutes = Math.floor(t / 60);
+                    const seconds = t % 60;
+                    
+                    if (timerEl) {
+                        // Show Subject Name + Time
+                        timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    }
+                } else {
+                    // Time is UP for this section!
+                    handleSectionTimeout(currentSubject);
                 }
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    calculateAndShowResults(true);
-                }
+                
             }, 1000);
         }
+
+        function handleSectionTimeout(finishedSubject) {
+            clearInterval(timerInterval);
+            alert(`Time is up for ${finishedSubject}! Moving to next section.`);
+            
+            // Find the first question of a subject that still has time
+            const nextIndex = questions.findIndex(q => 
+                q.subject !== finishedSubject && sectionTimeRemaining[q.subject] > 0
+            );
+
+            if (nextIndex !== -1) {
+                showQuestion(nextIndex);
+                startTimer();
+            } else {
+                // No time left in ANY section
+                calculateAndShowResults(true);
+            }
+        }
+
         function pauseTest() { isPaused = true; pauseOverlay.classList.remove('hidden'); }
         function resumeTest() { isPaused = false; pauseOverlay.classList.add('hidden'); }
 
@@ -283,48 +306,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const answered = questionStates.filter(s => s.userAnswer !== null).length;
             const marked = questionStates.filter(s => s.markedForReview).length;
             const answeredAndMarked = questionStates.filter(s => s.userAnswer !== null && s.markedForReview).length;
-            
             submissionStatsEl.innerHTML = 
                 '<div>Answered: <span>' + answered + ' / ' + questions.length + '</span></div>' +
                 '<div>Not Answered: <span>' + (questions.length - answered) + ' / ' + questions.length + '</span></div>' +
                 '<div>Marked for Review: <span>' + marked + '</span></div>' +
                 '<div>Answered & Marked for Review: <span>' + answeredAndMarked + '</span></div>';
-            
             submitSummaryModal.classList.remove('hidden');
         }
 
         function calculateAndShowResults(autoSubmit = false) {
             clearInterval(timerInterval);
             
-            const timeTakenSecondsTotal = (testDurationMinutes * 60) - timeRemaining;
+            // Calculate Total Time Taken (Sum of used time in all sections)
+            let totalRemainingSeconds = 0;
+            for (let subj in sectionTimeRemaining) {
+                totalRemainingSeconds += sectionTimeRemaining[subj];
+            }
+            
+            const timeTakenSecondsTotal = totalInitialTime - totalRemainingSeconds;
             const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
             const timeTakenSeconds = timeTakenSecondsTotal % 60;
             
-            let correctCount = 0;
-            let incorrectCount = 0;
-            let unattemptedCount = 0;
-            let score = 0;
+            let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
 
             questionStates.forEach((state, index) => {
                 const question = questions[index];
-                const isAnswered = state.userAnswer !== null;
-
-                if (isAnswered) {
+                if (state.userAnswer !== null) {
                     const userAnswerNormalized = normalizeString(state.userAnswer);
                     const correctAnswerNormalized = normalizeString(question.correctAnswer);
-
                     if (userAnswerNormalized === correctAnswerNormalized) {
-                        correctCount++;
-                        score += 2;
-                        state.resultCategory = 'correct'; 
+                        correctCount++; score += 2; state.resultCategory = 'correct'; 
                     } else {
-                        incorrectCount++;
-                        score -= 0.5;
-                        state.resultCategory = 'incorrect'; 
+                        incorrectCount++; score -= 0.5; state.resultCategory = 'incorrect'; 
                     }
                 } else {
-                    unattemptedCount++;
-                    state.resultCategory = 'unattempted';
+                    unattemptedCount++; state.resultCategory = 'unattempted';
                 }
             });
 
@@ -332,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
             
             reviewQuestionList = filterQuestions('all'); 
-
             const testInfoAndActionsWrapper = document.querySelector('.test-info-and-actions');
 
             const testDetailsHtml = 
@@ -348,9 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '<a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>' +
                 '</div>';
             
-            if (testInfoAndActionsWrapper) {
-                testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
-            }
+            if (testInfoAndActionsWrapper) testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
 
             const statsCardsArea = document.getElementById('stats-cards-area');
             const statsCardsHtml = 
@@ -363,9 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '<div class="stat-card accuracy"><div class="stat-value">' + accuracy.toFixed(1) + '%</div><div class="stat-name">ACCURACY</div></div>' +
                 '</div>';
             
-            if (statsCardsArea) {
-                statsCardsArea.innerHTML = statsCardsHtml;
-            }
+            if (statsCardsArea) statsCardsArea.innerHTML = statsCardsHtml;
 
             const reviewTestBtn = document.querySelector('#review-test-btn');
             if (reviewTestBtn) {
@@ -375,9 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             function handleReviewTestClick() {
                  const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)'); 
-                 if (allTab) { 
-                     tabClickHandler({ preventDefault: () => {}, target: allTab });
-                 }
+                 if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
             }
             
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
@@ -409,17 +418,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         function showQuestion(index) { 
+            // Security check: Prevent going to a section with 0 time
+            const targetSubject = questions[index].subject;
+            if (sectionTimeRemaining[targetSubject] <= 0) {
+                alert(`Time for ${targetSubject} is over. You cannot access this section.`);
+                return; // Do not change question
+            }
+
             currentQuestionIndex = index; 
             const question = questions[index]; 
             const state = questionStates[index]; 
 
-            if (state.status === 'not-visited') { 
-                state.status = 'not-answered'; 
-            } 
-
-            questionTitle.textContent = "Question " + (index + 1) + " of " + questions.length; 
+            if (state.status === 'not-visited') state.status = 'not-answered'; 
             
-            // Bilingual logic
+            // Update Header to show Section Name
+            questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`; 
+            
             const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
 
             const optionsHtml = question.options.map(option => 
@@ -433,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '<p class="question-text">' + (index + 1) + '. ' + questionText + '</p>' +
                 '<div class="options-container">' + optionsHtml + '</div>'; 
             
-            if (window.MathJax) { window.MathJax.typeset(); } 
+            if (window.MathJax) window.MathJax.typeset(); 
             updateNavigation(); 
             updatePalette(); 
         }
@@ -446,57 +460,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMarked = state.markedForReview;
             const isAnswered = state.userAnswer !== null;
             
-            if (isMarked && isAnswered) {
-                markReviewBtn.textContent = 'Unmark & Save (Answered)';
-            } else if (isMarked) {
-                markReviewBtn.textContent = 'Unmark Review';
-            } else if (isAnswered) {
-                 markReviewBtn.textContent = 'Mark for Review (Answered)';
-            } else {
-                markReviewBtn.textContent = 'Mark for Review';
-            }
+            if (isMarked && isAnswered) markReviewBtn.textContent = 'Unmark & Save (Answered)';
+            else if (isMarked) markReviewBtn.textContent = 'Unmark Review';
+            else if (isAnswered) markReviewBtn.textContent = 'Mark for Review (Answered)';
+            else markReviewBtn.textContent = 'Mark for Review';
         }
 
         function updatePalette() { 
             document.querySelectorAll('#question-palette .palette-btn').forEach((btn, index) => { 
                 const state = questionStates[index]; 
                 btn.className = 'palette-btn'; 
-
                 const isAnswered = state.userAnswer !== null;
                 const isMarked = state.markedForReview;
 
-                if (isAnswered && isMarked) {
-                    btn.classList.add('answered-marked-review');
-                } else if (isMarked && !isAnswered) {
-                    btn.classList.add('marked-review'); 
-                } else if (isAnswered) {
-                    btn.classList.add('answered'); 
-                } else if (state.status === 'not-answered') {
-                    btn.classList.add('not-answered');
-                } else { 
-                    btn.classList.add('not-visited');
-                }
+                if (isAnswered && isMarked) btn.classList.add('answered-marked-review');
+                else if (isMarked && !isAnswered) btn.classList.add('marked-review'); 
+                else if (isAnswered) btn.classList.add('answered'); 
+                else if (state.status === 'not-answered') btn.classList.add('not-answered');
+                else btn.classList.add('not-visited');
 
-                if (index === currentQuestionIndex) { 
-                    btn.classList.add('current'); 
-                } 
+                if (index === currentQuestionIndex) btn.classList.add('current'); 
             }); 
         }
 
         function saveCurrentAnswer() { 
             const selectedOption = document.querySelector('input[name="option"]:checked'); 
             const state = questionStates[currentQuestionIndex]; 
-            
             if (selectedOption) { 
                 state.userAnswer = selectedOption.value; 
-                if (!state.markedForReview) {
-                    state.status = 'answered'; 
-                }
+                if (!state.markedForReview) state.status = 'answered'; 
             } else {
                 state.userAnswer = null;
-                if (!state.markedForReview) {
-                    state.status = 'not-answered';
-                }
+                if (!state.markedForReview) state.status = 'not-answered';
             }
         }
         
@@ -513,22 +508,14 @@ document.addEventListener('DOMContentLoaded', () => {
         resumeBtn.addEventListener('click', resumeTest);
         submitTestBtn.addEventListener('click', showSubmissionSummary);
         clearResponseBtn.addEventListener('click', clearCurrentAnswer);
-        
-        finalSubmitBtn.addEventListener('click', () => {
-            submitSummaryModal.classList.add('hidden');
-            calculateAndShowResults();
-        });
-        
+        finalSubmitBtn.addEventListener('click', () => { submitSummaryModal.classList.add('hidden'); calculateAndShowResults(); });
         cancelSubmitBtn.addEventListener('click', () => submitSummaryModal.classList.add('hidden'));
         
         nextBtn.addEventListener('click', () => { 
             saveCurrentAnswer(); 
             updatePalette(); 
-            if (currentQuestionIndex < questions.length - 1) { 
-                showQuestion(currentQuestionIndex + 1); 
-            } else if (currentQuestionIndex === questions.length - 1) {
-                showSubmissionSummary();
-            }
+            if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1); 
+            else if (currentQuestionIndex === questions.length - 1) showSubmissionSummary();
         });
         
         markReviewBtn.addEventListener('click', () => { 
@@ -537,33 +524,16 @@ document.addEventListener('DOMContentLoaded', () => {
             saveCurrentAnswer();
             updatePalette();
             updateNavigation(); 
-            if (currentQuestionIndex < questions.length - 1) { 
-                showQuestion(currentQuestionIndex + 1); 
-            }
+            if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1); 
         });
         
         prevBtn.addEventListener('click', () => { 
             saveCurrentAnswer(); 
             updatePalette(); 
-            if (currentQuestionIndex > 0) { 
-                showQuestion(currentQuestionIndex - 1); 
-            } 
+            if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1); 
         });
         
-        if (reviewNextBtn) { 
-            reviewNextBtn.addEventListener('click', () => { 
-                if (currentReviewIndex < reviewQuestionList.length - 1) { 
-                    showReviewQuestion(currentReviewIndex + 1); 
-                } 
-            }); 
-        }
-        if (reviewPrevBtn) { 
-            reviewPrevBtn.addEventListener('click', () => { 
-                if (currentReviewIndex > 0) { 
-                    showReviewQuestion(currentReviewIndex - 1); 
-                } 
-            }); 
-        }
+        if (reviewNextBtn) reviewNextBtn.addEventListener('click', () => { if (currentReviewIndex < reviewQuestionList.length - 1) showReviewQuestion(currentReviewIndex + 1); });
+        if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => { if (currentReviewIndex > 0) showReviewQuestion(currentReviewIndex - 1); });
     }
 });
-
