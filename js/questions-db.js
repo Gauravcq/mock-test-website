@@ -3918,7 +3918,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "Proprioception is the correct spelling for the sense of self-movement and body position."
       },
       {
-        "question": "Choose the correct one-word substitute for: <b>'A statement that appears self-contradictory yet may be true’.",
+        "question": "Choose the correct one-word substitute for: <br><b>'A statement that appears self-contradictory yet may be true’.",
         "options": [
           "Axiom",
           "Maxim",
