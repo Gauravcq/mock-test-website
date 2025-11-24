@@ -3476,71 +3476,72 @@ ssc_cgl_eng_13_sep_s1 : [
   }
 ],
 "ssc_cgl_eng_13_sep_s3" : [
+  [
   {
     "question": "Select the most appropriate synonym of the given word: <b>DELETERIOUS",
     "options": ["Harmful", "Useful", "Comforting", "Helpful"],
     "correctAnswer": "Harmful",
-    "explanation": ""
+    "explanation": "The word **deleterious** means causing harm or damage, often in a subtle or unexpected way. Therefore, **Harmful** is the most appropriate synonym."
   },
   {
     "question": "Select the most appropriate antonym of the given word. Cacophony",
     "options": ["Noise", "Harmony", "Clamor", "Dissonance"],
     "correctAnswer": "Silence",
-    "explanation": ""
+    "explanation": "**Cacophony** means a harsh, discordant mixture of sounds. The opposite, or antonym, is a complete lack of sound, which is **Silence**. (While 'Harmony' is often considered the opposite sound quality, 'Silence' is a more direct and complete antonym to a loud, harsh sound)."
   },
   {
     "question": "Choose the correct meaning of idiom: <br><b>Show the white feather",
     "options": ["To act cowardly", "To signal for help", "To display courage", "To admit defeat gracefully"],
     "correctAnswer": "To act cowardly",
-    "explanation": ""
+    "explanation": "The idiom **Show the white feather** originated from the belief that a white feather in a gamecock's tail indicated poor breeding and, by extension, cowardice. Thus, the meaning is **To act cowardly**."
   },
   {
     "question": "Select the most appropriate antonym of the given word. Subterfuge",
     "options": ["Chicanery", "Trickery", "Deception", "Candor"],
     "correctAnswer": "Candor",
-    "explanation": ""
+    "explanation": "**Subterfuge** refers to deceit used in order to achieve one's goal; trickery or deception. The antonym is **Candor**, which means the quality of being open and honest."
   },
   {
     "question": "Spot the <b>correct spelling</b> of plant-based pollution cleanup.",
     "options": ["Phytoremediation", "Phytoremydiation", "Phytoremidiation", "Phytremediation"],
     "correctAnswer": "Phytoremediation",
-    "explanation": ""
+    "explanation": "The correct technical term for using plants to clean up polluted soil, water, or air is **Phytoremediation**. It is derived from the Greek words *phyto* (plant) and *remedium* (restoring balance)."
   },
   {
     "question": "Choose the correct <b>one-word substitute</b> for: 'A professional who prepares maps’.",
     "options": ["Topographer", "Cartographer", "Geodesist", "Archivist"],
     "correctAnswer": "Cartographer",
-    "explanation": ""
+    "explanation": "A **Cartographer** is a person who creates maps. A topographer surveys the physical features of an area, and a geodesist is a scientist concerned with the mathematical determination of the size and shape of the Earth."
   },
   {
     "question": "Select the correct option: Each of the datasets __ been anonymized before release.",
     "options": ["have", "are", "were", "has"],
     "correctAnswer": "has",
-    "explanation": ""
+    "explanation": "The phrase **Each of the datasets** takes a singular verb because the subject is **Each**, which is a distributive pronoun always considered singular. The correct verb is **has**."
   },
   {
     "question": "Select the correct option: The curator opted ___ displaying the artifact due to preservation concerns.",
     "options": ["for", "on", "with", "against"],
     "correctAnswer": "against",
-    "explanation": ""
+    "explanation": "The phrasal verb **opted against** means to choose not to do something or to decide not to display something. The curator chose to *not display* the artifact."
   },
   {
     "question": "Select the correct option: Neither the editor nor the contributors __ willing to accept the changes unconditionally.",
     "options": ["was", "has been", "is", "were"],
     "correctAnswer": "were",
-    "explanation": ""
+    "explanation": "When subjects are joined by **neither... nor**, the verb agrees with the subject closest to it. In the sentence, the closest subject is **the contributors** (plural), so the plural verb **were** is correct."
   },
   {
     "question": "Find the part of the sentence that contains an error: <br><b>That none of the representatives found the proposal viable (1)/ is less surprising than the fact (2)/ that neither the chairperson nor the legal counsel (3)/ were briefed beforehand. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(4)",
-    "explanation": ""
+    "explanation": "The error is in part **(4)**. The structure neither... nor requires the verb to agree with the nearest subject, which is the legal counsel (singular). The plural verb were should be replaced with the singular verb **was**. The corrected phrase is ...was briefed beforehand."
   },
   {
     "question": "Find the part of the sentence that contains an error: <br><b>Neither the projection of growth nor the estimation of deficit trends (1)/ appear to have accounted for the liquidity constraints (2)/ that small-scale enterprises face (3)/ during cyclical downturns in demand. (4)",
-    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "options": ["(1)", "(2)", ["(3)"], "(4)"],
     "correctAnswer": "(2)",
-    "explanation": ""
+    "explanation": "The error is in part **(2)**. The structure Neither... nor requires the verb to agree with the nearest subject, which is the estimation (singular). The plural verb appear should be replaced with the singular verb **appears**. The corrected phrase is ...appears to have accounted for..."
   },
   {
     "question": "Change the following from active to passive:<br><b> Will the authorities enforce the revised ordinance promptly?",
@@ -3551,7 +3552,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Will the revised ordinance enforced promptly by the authorities?"
     ],
     "correctAnswer": "Will the revised ordinance be enforced promptly by the authorities?",
-    "explanation": ""
+    "explanation": "The original sentence is in the Simple Future tense (Active: *Will + Subject + V1 + Object?*). The passive voice structure for this tense is: *Will + Object + be + V3 + by + Agent?*. The correct conversion is **Will the revised ordinance be enforced promptly by the authorities?**"
   },
   {
     "question": "Select the sentence containing the homonym of the highlighted word: <br>The guards stood in <b><b>pike</b></b> formation along the causeway.",
@@ -3562,7 +3563,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "The pike gleamed beside the veteran's armor."
     ],
     "correctAnswer": "The angler pulled a large pike from the icy lake.",
-    "explanation": ""
+    "explanation": "A **homonym** is a word spelled and pronounced the same but with a different meaning. The highlighted word **pike** refers to a **weapon** (a long spear). The sentence **The angler pulled a large pike from the icy lake** uses **pike** to refer to a **type of fish**, making it the correct homonym."
   },
   {
     "question": "Convert the sentence from passive to active: <br><b>The package will have been delivered by the courier before 5 PM.",
@@ -3573,7 +3574,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "The courier will have delivered the package before 5 PM."
     ],
     "correctAnswer": "The courier will have delivered the package before 5 PM.",
-    "explanation": ""
+    "explanation": "The original sentence is in the Future Perfect Passive tense (*Object + will have been + V3 + by + Agent*). The active voice structure for this tense is: *Subject + will have + V3 + Object*. The correct conversion is **The courier will have delivered the package before 5 PM.**"
   },
   {
     "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. What was a significant unintended consequence of the CoWIN platform?",
@@ -3584,7 +3585,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "It exposed user data to hackers"
     ],
     "correctAnswer": "It excluded digitally illiterate citizens",
-    "explanation": ""
+    "explanation": "The passage states that CoWIN **inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy.** This directly means it **excluded digitally illiterate citizens**."
   },
   {
     "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. Why was vaccine distribution initially skewed in India?",
@@ -3595,7 +3596,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Urban areas received more due to centralization and logistics"
     ],
     "correctAnswer": "Urban areas received more due to centralization and logistics",
-    "explanation": ""
+    "explanation": "The passage states that the imbalance **stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions.** This confirms that **Urban areas received more due to centralization and logistics**."
   },
   {
     "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. What strategy was used to counter misinformation and hesitancy?",
@@ -3606,7 +3607,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Restricting rural media access"
     ],
     "correctAnswer": "Use of local influencers and mobile units",
-    "explanation": ""
+    "explanation": "The passage states that India **recalibrate[d] its strategy** by using **the engagement of local influencers and religious leaders, and the use of mobile vaccination units** to gradually improve outreach and counter skepticism."
   },
   {
     "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. Which phrase best summarizes the core theme of the passage?",
@@ -3617,7 +3618,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Public health and digital inequality interplay"
     ],
     "correctAnswer": "Public health and digital inequality interplay",
-    "explanation": ""
+    "explanation": "While all options are mentioned, the passage concludes by stating the drive **reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions in a digitally stratified society.** This overarching analytical observation makes **Public health and digital inequality interplay** the best summary of the core theme."
   },
   {
     "question": "Read the following passage and answer the questions based on the passage: India’s COVID-19 vaccination campaign, while monumental in scale and intent, was fraught with complex logistical, social, and political challenges. As the world's second-most populous country, India faced the daunting task of inoculating over a billion people amid fluctuating supply chains, vaccine hesitancy, and infrastructural disparities. The initial rollout was hampered by inequitable distribution, with urban centers receiving a disproportionately higher number of doses compared to rural hinterlands. This imbalance stemmed not only fram administrative centralization but also from the lack of cold-chain infrastructure in remote regions, where power outages and storage limitations rendered vaccine transport perilous. Simultaneously, vaccine skepticism—fueled by misinformation on social media and cultural misconceptions—undermined public trust. Rumors suggesting adverse effects or population control agendas percolated across digital platforms, particularly in vernacular languages, exacerbating resistance among vulnerable populations. While the introduction of CoWIN, a digital registration platform, was a significant innovation, it inadvertently marginalized large segments of the population unfamiliar with smartphones or digital literacy. The digital divide thus intersected with public health, reinforcing pre-existing socioeconomic inequalities. Despite these obstacles, India managed to recalibrate its strategy. The decentralization of vaccine procurement to states, the engagement of local influencers and religious leaders, and the use of mobile vaccination units gradually improved outreach. Furthermore, indigenous vaccine production—particularly Covishield and Covaxin—allowed India to reduce dependence on global supply chains and even undertake vaccine diplamacy under the “Vaccine Maitri” initiative. The COVID vaccination drive in India stands as a testament to the nation’s capacity for mass mobilization under crisis. Yet, it-also reveals the critical interplay between public trust, infrastructural resilience, and inclusive policy design—elements essential for future public health interventions ina digitally stratified society.<br><br><b>Q. What is the author's tone toward India’s vaccine campaign?",
@@ -3628,7 +3629,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Critical and alarmist"
     ],
     "correctAnswer": "Analytical yet cautiously optimistic",
-    "explanation": ""
+    "explanation": "The author presents a balanced assessment, detailing the **monumental** scale and successful **mass mobilization** (optimistic) but also highlighting the **complex logistical, social, and political challenges** and the **critical interplay** of issues (analytical). This tone is best described as **Analytical yet cautiously optimistic**."
   },
   {
     "question": "Choose the most suitable option: They returned back <b><b>to home</b></b>  after the event.",
@@ -3639,13 +3640,13 @@ ssc_cgl_eng_13_sep_s1 : [
       "went back to house"
     ],
     "correctAnswer": "returned home",
-    "explanation": ""
+    "explanation": "The word **returned** already means came back, making **back** redundant. Additionally, **home** functions as an adverb of place when used this way and does not require the preposition **to**. The most concise and correct phrase is **returned home**."
   },
   {
     "question": "Choose the most suitable option: He was accused <b><b>for theft.",
     "options": ["with theft", "by theft", "on theft", "of theft"],
     "correctAnswer": "of theft",
-    "explanation": ""
+    "explanation": "The verb **accused** is always followed by the fixed preposition **of** when stating the charge or crime. The correct phrase is **accused of theft**."
   },
   {
     "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.  <br><b>He said, “How long have you been waiting?”",
@@ -3656,7 +3657,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "He asked how long I had been waiting."
     ],
     "correctAnswer": "He asked how long I had been waiting.",
-    "explanation": ""
+    "explanation": "This is a question in Direct Speech (Present Perfect Continuous: *have you been waiting*). In Indirect Speech, the reporting verb changes to *asked*, the question word (*how long*) is kept, the tense changes one step backward to Past Perfect Continuous (*had been waiting*), and the structure changes to a statement. The pronoun *you* changes to *I* (depending on context, assuming the question was directed at the speaker). The correct conversion is **He asked how long I had been waiting.**"
   },
   {
     "question": "Asentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. : The coach said that the players were improving with each match.",
@@ -3667,20 +3668,21 @@ ssc_cgl_eng_13_sep_s1 : [
       "“The players had improved with each match,” the coach said."
     ],
     "correctAnswer": "“The players were improving with each match,” the coach said.",
-    "explanation": ""
+    "explanation": "The Indirect Speech sentence uses the Past Continuous tense (*were improving*). When converting back to Direct Speech, the original tense must have been either Present Continuous (*are improving*) or Past Continuous (*were improving*). Since the coach is reporting a continuous observation, the Past Continuous tense in Direct Speech is a common and appropriate choice that correctly shifts to the Past Continuous in Indirect Speech when the reporting verb is *said*. The correct direct speech is **“The players were improving with each match,” the coach said.**"
   },
   {
     "question": "Rearrange the sentences to form a coherent paragraph: . <br>(1). It is a process that involves the systematic and objective investigation of a subject to discover new facts or to confirm existing ones. <br>2. Research is a foundational pillar of academic and scientific progress. <br>3. This can be either theoretical, aiming to expand knowledge, or applied, seeking to solve a practical problem. <br>4, The findings of this investigation are then documented and peer-reviewed to ensure validity and credibility. ",
     "options": ["1,2,4,3", "4,3,2,1", "3,4,1,2", "2,1,4,3"],
     "correctAnswer": "2,1,4,3",
-    "explanation": ""
+    "explanation": "The logical flow is: **2** (Introduces the main topic: Research). **1** (Defines 'Research' using 'It' as a pronoun for the subject in 2). **4** (Describes the subsequent step to the investigation mentioned in 1: findings are documented). **3** (Expands on the nature of the investigation/research mentioned in 1/4 by classifying its types). The most coherent order is **2, 1, 4, 3**."
   },
   {
     "question": "Rearrange the sentences to form a coherent paragraph: <br>1. The most prevalent of these is the peer-to-peer (P2P) network, where no single entity controls the entire system. 2. Blockchain technology, at its core, is a distributed ledger that maintains a decentralized record of transactions.  3. This decentralized structure ensures security and transparency by requiring network consensus for any new record to be added. 4. It functions by distributing copies of the ledger across a vast network of computers.",
     "options": ["2,4,1,3", "4,1,3,2","1,4,2,3", "2,1,4,3"],
     "correctAnswer": "2,4,1,3",
-    "explanation": ""
+    "explanation": "The logical flow is: **2** (Introduces the main topic: Blockchain/Distributed Ledger). **4** (Explains how the 'distributed ledger' from 2 functions). **1** (Identifies the key component of the network/distribution mentioned in 4: the P2P network). **3** (Explains the result/benefit of the 'decentralized structure' mentioned in 1). The most coherent order is **2, 4, 1, 3**."
   }
+]
 ],
 "ssc_cgl_eng_14_sep_s1" : [
   {
