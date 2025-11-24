@@ -3475,7 +3475,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Definition → investigation → types → review process."
   }
 ],
-"ssc_cgl_eng_13_sep_s3" : [
+"ssc_cgl_eng_13_sep_s3" : 
   [
   {
     "question": "Select the most appropriate synonym of the given word: <b>DELETERIOUS",
@@ -3682,7 +3682,6 @@ ssc_cgl_eng_13_sep_s1 : [
     "correctAnswer": "2,4,1,3",
     "explanation": "The logical flow is: **2** (Introduces the main topic: Blockchain/Distributed Ledger). **4** (Explains how the 'distributed ledger' from 2 functions). **1** (Identifies the key component of the network/distribution mentioned in 4: the P2P network). **3** (Explains the result/benefit of the 'decentralized structure' mentioned in 1). The most coherent order is **2, 4, 1, 3**."
   }
-]
 ],
 "ssc_cgl_eng_14_sep_s1" : [
   {
