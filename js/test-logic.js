@@ -44,31 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get questions
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
-
-    // --- CRITICAL SUBJECT MAPPING LOGIC (Replace your existing block here) ---
+    
 questions = questions.map(q => {
     // 1. Get the raw subject/section name, defaulting to a placeholder if missing
     let rawSubject = q.subject || q.section || "DEFAULT_UNCLASSIFIED"; 
-    let finalSubject = "Time Left"; // Fallback name for display
+    let finalSubject = "Time Left"; // Default fallback display name
 
     if (typeof rawSubject === 'string') {
-        let s = rawSubject.toLowerCase().trim(); // Trim whitespace and lowercase
+        // Use a simple, standardized string (no spaces, all lowercase) for reliable comparison
+        let s = rawSubject.toLowerCase().replace(/\s/g, ''); 
 
+        // Check for the most basic required characters
         if (s.includes('math') || s.includes('quant')) { 
             finalSubject = "Maths"; 
         } 
         else if (s.includes('reasoning') || s.includes('logic')) { 
             finalSubject = "Reasoning"; 
         } 
-        else if (s.includes('eng')) { 
+        else if (s.includes('eng') || s.includes('verbal')) { 
             finalSubject = "English"; 
         } 
-        // Note: If rawSubject was DEFAULT_UNCLASSIFIED, finalSubject remains "Time Left"
     }
     
-    // 2. Return the question object with the correctly assigned subject name
+    // 2. This name will be used to look up the time (25, 20, or 15 minutes)
     return { ...q, subject: finalSubject };
 });
+// --------------------------------------------------------------------------
     startTestBtn.addEventListener('click', () => {
         instructionsModal.classList.add('hidden');
         quizUI.classList.remove('hidden');
