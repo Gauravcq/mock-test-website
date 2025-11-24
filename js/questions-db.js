@@ -4139,17 +4139,18 @@ ssc_cgl_eng_13_sep_s1 : [
 
 "ssc_cgl_eng_14_sep_s3":[
   {
-    "question": "Select the most appropriate synonym of the given word: APOGEE",
+    "question": "Select the most appropriate synonym of the given word: <b>APOGEE",
     "options": [
       "Peak",
       "Nadir",
-      "Base"
+      "Base",
+      "Decline"
     ],
     "correctAnswer": "Peak",
-    "explanation": "Apogee means the highest point in the development of something, a climax or peak[cite: 22, 26]."
+    "explanation": "Apogee means the highest point in the development of something, a climax or peak."
   },
   {
-    "question": "Choose the correct meaning of idiom: Throw cold water on",
+    "question": "Choose the correct meaning of idiom: <B>Throw cold water on",
     "options": [
       "To make something popular",
       "To oppose or discourage",
@@ -4157,10 +4158,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "To encourage enthusiastically"
     ],
     "correctAnswer": "To oppose or discourage",
-    "explanation": "The idiom 'throw cold water on' means to present an idea or plan in a way that discourages its acceptance or success[cite: 27]."
+    "explanation": "The idiom 'throw cold water on' means to dampen enthusiasm or discourage an idea or plan."
   },
   {
-    "question": "Select the most appropriate antonym of the given word. Mendacious",
+    "question": "Select the most appropriate antonym of the given word. <b>Mendacious",
     "options": [
       "Dishonest",
       "Fraudulent",
@@ -4168,7 +4169,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Deceitful"
     ],
     "correctAnswer": "Truthful",
-    "explanation": "Mendacious means not telling the truth or false. [cite_start]The antonym is Truthful[cite: 28]."
+    "explanation": "Mendacious means not telling the truth or false. The antonym is Truthful."
   },
   {
     "question": "Identify the misspelt word",
@@ -4179,7 +4180,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "Obfescate"
     ],
     "correctAnswer": "Obfescate",
-    "explanation": "The word Obfescate is misspelt. [cite_start]The correct spelling is Obfuscate[cite: 29, 32, 33]."
+    "explanation": "The word Obfescate is misspelt. The correct spelling is Obfuscate."
   },
   {
     "question": "Spot the correct spelling of a microchip printing method.",
@@ -4190,10 +4191,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "Potolithography"
     ],
     "correctAnswer": "Photolithography",
-    "explanation": "Photolithography is the correct spelling for the microchip printing method[cite: 34, 35, 36, 37, 38]."
+    "explanation": "Photolithography is the correct spelling for the microchip printing method."
   },
   {
-    "question": "Choose the correct one-word substitute for: 'A speech or piece of writing that praises someone highly'.",
+    "question": "Choose the correct <B>one-word substitute</B> for: <br>'A speech or piece of writing that praises someone highly'.",
     "options": [
       "Elegy",
       "Encomium",
@@ -4201,10 +4202,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "Soliloquy"
     ],
     "correctAnswer": "Encomium",
-    "explanation": "Encomium is a formal expression of high praise[cite: 39]."
+    "explanation": "Encomium is a formal expression of high praise."
   },
   {
-    "question": "Select the correct option: The journalist refused to her sources despite repeated legal threats.",
+    "question": "Select the correct option: <br>The journalist refused to ________ her sources despite repeated legal threats.",
     "options": [
       "give out",
       "give over",
@@ -4212,10 +4213,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "give up"
     ],
     "correctAnswer": "give up",
-    "explanation": "The phrasal verb 'give up' means to surrender or reveal something, which fits the context of refusing to reveal sources[cite: 40, 41, 43, 44, 47]."
+    "explanation": "The phrasal verb 'give up' in this context means to reveal or surrender confidential information."
   },
   {
-    "question": "Select the correct option: The memorandum clarified that employees must comply the revised code of ethics.",
+    "question": "Select the correct option: <br>The memorandum clarified that employees must comply ________ the revised code of ethics.",
     "options": [
       "to",
       "with",
@@ -4223,10 +4224,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "in"
     ],
     "correctAnswer": "with",
-    "explanation": "The correct idiom is 'comply with'[cite: 48, 49, 50, 51, 52]."
+    "explanation": "The correct idiomatic use of the verb is 'comply with'."
   },
   {
-    "question": "Select the correct option: The scientist's hypothesis was not only radical but also diametrically to the foundational assumptions of her discipline.",
+    "question": "Select the correct option:<br> The scientist's hypothesis was not only radical but also diametrically ________ to the foundational assumptions of her discipline.",
     "options": [
       "opposed",
       "opposing",
@@ -4234,10 +4235,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "averse"
     ],
     "correctAnswer": "opposed",
-    "explanation": "'Diametrically opposed' is the correct and common phrase meaning completely different or contrary[cite: 53, 54, 55, 56, 57, 58]."
+    "explanation": "'Diametrically opposed' is the correct and common phrase meaning completely different or contrary."
   },
   {
-    "question": "Find the part of the sentence that contains an error: The investigation's findings, alarming in both scope and content, (1)/ prompted responses not just from the agencies concerned (2)/ but also from the auditors who report they (3)/ were never granted access to critical records. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>The investigation's findings, alarming in both scope and content, (1)/ prompted responses not just from the agencies concerned (2)/ but also from the auditors who report they (3)/ were never granted access to critical records. (4)",
     "options": [
       "(1)",
       "(2)",
@@ -4245,10 +4246,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "(4)"
     ],
     "correctAnswer": "(3)",
-    "explanation": "The error is in part (3). [cite_start]'who report they' should be replaced with 'who reported that they' or 'whose report they' for correct grammatical structure[cite: 59, 60, 64, 65, 66, 67]."
+    "explanation": "The error is in part (3). 'who report they' should be replaced with 'who reported that they' or 'whose report they' for correct grammatical structure."
   },
   {
-    "question": "Find the part of the sentence that contains an error: That certain state governments have invoked archaic laws (1)/ to suppress dissent does not only reflect legal opportunism (2)/ but also undermines the constitutional ethos (3)/ that such provisions were meant to uphold. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>That certain state governments have invoked archaic laws (1)/ to suppress dissent does not only reflect legal opportunism (2)/ but also undermines the constitutional ethos (3)/ that such provisions were meant to uphold. (4)",
     "options": [
       "(1)",
       "(2)",
@@ -4256,10 +4257,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "(4)"
     ],
     "correctAnswer": "(2)",
-    "explanation": "The error is in part (2) due to the misplaced correlative conjunction 'not only... but also'. [cite_start]It should be 'reflects not only legal opportunism but also undermines'[cite: 68, 69, 71, 72, 73, 74]."
+    "explanation": "The error is in part (2) due to the misplaced correlative conjunction 'not only... but also'. It should be 'reflects not only legal opportunism but also undermines'."
   },
   {
-    "question": "Change the following from active to passive: The jury has delivered a unanimous verdict.",
+    "question": "Change the following from active to passive:<br> The jury has delivered a unanimous verdict.",
     "options": [
       "A unanimous verdict has been delivered by the jury.",
       "A unanimous verdict was being delivered by the jury.",
@@ -4267,10 +4268,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "A unanimous verdict is delivered by the jury."
     ],
     "correctAnswer": "A unanimous verdict has been delivered by the jury.",
-    "explanation": "The sentence is in the Present Perfect Active (has delivered). [cite_start]The passive form maintains the same tense: Present Perfect Passive (has been delivered)[cite: 75, 76, 77, 78, 79, 80]."
+    "explanation": "The sentence is in the Present Perfect Active (has delivered). The passive form maintains the same tense: Present Perfect Passive (has been delivered)."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The treatise critiqued the rheme in the syntactical arrangement of propositions. (Highlighted word: rheme)",
+    "question": "Select the sentence containing the homonym of the highlighted word: <br>The treatise critiqued the <b><b>rheme</b></b> in the syntactical arrangement of propositions. (Highlighted word: rheme)",
     "options": [
       "The linguist isolated the rheme in the sentence structure.",
       "The rheme was pronounced with unique intonation in Tagalog.",
@@ -4278,7 +4279,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "The poet emphasized the rheme for metrical impact."
     ],
     "correctAnswer": "The rheme swam rapidly into the estuarine current.",
-    "explanation": "The highlighted word 'rheme' refers to a linguistic concept. [cite_start]The option 'The rheme swam rapidly into the estuarine current' uses 'rheme' as the name of a type of aquatic organism or a geographical feature, representing a homonym[cite: 83]."
+    "explanation": "The original word 'rheme' refers to a linguistic concept. The option uses 'rheme' as a homonym, likely referring to an aquatic animal or a geographical feature."
   },
   {
     "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: The construction is alleged to have been halted due to environmental violations.",
@@ -4288,11 +4289,11 @@ ssc_cgl_eng_13_sep_s1 : [
       "The authorities are alleged to have halted the construction.",
       "The violation allegedly halted the construction."
     ],
-    "correctAnswer": "It is alleged that the authorities halted the construction.",
-    "explanation": "The original sentence is an impersonal passive construction ('is alleged'). [cite_start]The most appropriate active voice conversion for an impersonal passive construction is 'It is alleged that the authorities halted the construction'[cite: 84, 85, 86, 87, 88]."
+    "correctAnswer": "The authorities are alleged to have halted the construction.",
+    "explanation": "The original sentence is an impersonal passive construction ('is alleged'). The most appropriate active voice conversion for an impersonal passive construction is 'It is alleged that the authorities halted the construction'."
   },
   {
-    "question": "What major government initiative catalyzed India's digital ecosystem?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>India’s digital transformation over the last decade has been nothing short of revolutionary. What began as a modest attempt to expand internet access has now evolved into one of the largest digital ecosystems in the world. Spearheaded by government initiatives such as Digital India, the country has witnessed an unprecedented surge in internet penetration, digital payments, and online governance. A pivotal moment in this journey was the launch of Aadhaar, a biometric-based identification system that enabled secure and streamlined access to various public services. Coupled with the rise of Unified Payments Interface (UPI), India has leapfrogged traditional banking hurdles and facilitated real-time, low-cost transactions across urban and rural regions alike. Significantly, the pandemic acted as an unexpected catalyst. As lockdowns forced physical distancing, citizens turned to digital alternatives—telemedicine, online education, and remote work became not just accessible but essential. This sudden shift forced both public and private sectors to rethink infrastructure and embrace scalable tech solutions. However, the digital journey hasn't been without obstacles. A persistent digital divide remains, particularly between urban and rural populations. While metros enjoy high- speed broadband, many villages struggle with basic connectivity. Moreover, concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues in this digital age. Nonetheless, India’s digital growth story remains a testament to its adaptability and ambition. With over 850 million internet users and counting, the nation stands at a crucial intersection—where robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future. <br><br><b>What major government initiative catalyzed India's digital ecosystem?",
     "options": [
       "BharatNet",
       "Digital Bharat",
@@ -4300,10 +4301,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "India Connect"
     ],
     "correctAnswer": "Digital India",
-    "explanation": "The passage states that the ecosystem was 'Spearheaded by government initiatives such as Digital India'[cite: 91, 97]."
+    "explanation": "The Reading Comprehension passage mentions that the ecosystem was 'Spearheaded by government initiatives such as Digital India'."
   },
   {
-    "question": "What role did Aadhaar play in digital growth?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>India’s digital transformation over the last decade has been nothing short of revolutionary. What began as a modest attempt to expand internet access has now evolved into one of the largest digital ecosystems in the world. Spearheaded by government initiatives such as Digital India, the country has witnessed an unprecedented surge in internet penetration, digital payments, and online governance. A pivotal moment in this journey was the launch of Aadhaar, a biometric-based identification system that enabled secure and streamlined access to various public services. Coupled with the rise of Unified Payments Interface (UPI), India has leapfrogged traditional banking hurdles and facilitated real-time, low-cost transactions across urban and rural regions alike. Significantly, the pandemic acted as an unexpected catalyst. As lockdowns forced physical distancing, citizens turned to digital alternatives—telemedicine, online education, and remote work became not just accessible but essential. This sudden shift forced both public and private sectors to rethink infrastructure and embrace scalable tech solutions. However, the digital journey hasn't been without obstacles. A persistent digital divide remains, particularly between urban and rural populations. While metros enjoy high- speed broadband, many villages struggle with basic connectivity. Moreover, concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues in this digital age. Nonetheless, India’s digital growth story remains a testament to its adaptability and ambition. With over 850 million internet users and counting, the nation stands at a crucial intersection—where robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future. <br><br><b> What role did Aadhaar play in digital growth?",
     "options": [
       "Promoted telecom infrastructure",
       "Enabled biometric voting",
@@ -4311,10 +4312,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "Enabled access to public services"
     ],
     "correctAnswer": "Enabled access to public services",
-    "explanation": "The passage mentions that Aadhaar 'enabled secure and streamlined access to various public services'[cite: 91, 98]."
+    "explanation": "The passage states that Aadhaar 'enabled secure and streamlined access to various public services'."
   },
   {
-    "question": "Which factor unexpectedly accelerated India's digital adoption?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>India’s digital transformation over the last decade has been nothing short of revolutionary. What began as a modest attempt to expand internet access has now evolved into one of the largest digital ecosystems in the world. Spearheaded by government initiatives such as Digital India, the country has witnessed an unprecedented surge in internet penetration, digital payments, and online governance. A pivotal moment in this journey was the launch of Aadhaar, a biometric-based identification system that enabled secure and streamlined access to various public services. Coupled with the rise of Unified Payments Interface (UPI), India has leapfrogged traditional banking hurdles and facilitated real-time, low-cost transactions across urban and rural regions alike. Significantly, the pandemic acted as an unexpected catalyst. As lockdowns forced physical distancing, citizens turned to digital alternatives—telemedicine, online education, and remote work became not just accessible but essential. This sudden shift forced both public and private sectors to rethink infrastructure and embrace scalable tech solutions. However, the digital journey hasn't been without obstacles. A persistent digital divide remains, particularly between urban and rural populations. While metros enjoy high- speed broadband, many villages struggle with basic connectivity. Moreover, concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues in this digital age. Nonetheless, India’s digital growth story remains a testament to its adaptability and ambition. With over 850 million internet users and counting, the nation stands at a crucial intersection—where robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future. <br><br><b> Which factor unexpectedly accelerated India's digital adoption?",
     "options": [
       "Demonetisation",
       "GST Implementation",
@@ -4322,10 +4323,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "Global recession"
     ],
     "correctAnswer": "COVID-19 pandemic",
-    "explanation": "The passage states that 'the pandemic acted as an unexpected catalyst'[cite: 114, 100]."
+    "explanation": "The passage states that 'the pandemic acted as an unexpected catalyst'."
   },
   {
-    "question": "What is a current challenge in India's digital development?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>India’s digital transformation over the last decade has been nothing short of revolutionary. What began as a modest attempt to expand internet access has now evolved into one of the largest digital ecosystems in the world. Spearheaded by government initiatives such as Digital India, the country has witnessed an unprecedented surge in internet penetration, digital payments, and online governance. A pivotal moment in this journey was the launch of Aadhaar, a biometric-based identification system that enabled secure and streamlined access to various public services. Coupled with the rise of Unified Payments Interface (UPI), India has leapfrogged traditional banking hurdles and facilitated real-time, low-cost transactions across urban and rural regions alike. Significantly, the pandemic acted as an unexpected catalyst. As lockdowns forced physical distancing, citizens turned to digital alternatives—telemedicine, online education, and remote work became not just accessible but essential. This sudden shift forced both public and private sectors to rethink infrastructure and embrace scalable tech solutions. However, the digital journey hasn't been without obstacles. A persistent digital divide remains, particularly between urban and rural populations. While metros enjoy high- speed broadband, many villages struggle with basic connectivity. Moreover, concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues in this digital age. Nonetheless, India’s digital growth story remains a testament to its adaptability and ambition. With over 850 million internet users and counting, the nation stands at a crucial intersection—where robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future. <br><br><b> What is a current challenge in India's digital development?",
     "options": [
       "Internet monopoly by private ISPS",
       "Lack of mobile phone production",
@@ -4333,43 +4334,43 @@ ssc_cgl_eng_13_sep_s1 : [
       "Excess of international investors"
     ],
     "correctAnswer": "Digital divide and data privacy",
-    "explanation": "The passage explicitly names the challenges: 'A persistent digital divide remains' and 'concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues'[cite: 118, 102, 104]."
+    "explanation": "The passage explicitly names the challenges: 'A persistent digital divide remains' and 'concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues'."
   },
   {
-    "question": "What does the passage suggest is key to India's digital future?",
+    "question": "Read the following passage and answer the questions based on the passage: <br>India’s digital transformation over the last decade has been nothing short of revolutionary. What began as a modest attempt to expand internet access has now evolved into one of the largest digital ecosystems in the world. Spearheaded by government initiatives such as Digital India, the country has witnessed an unprecedented surge in internet penetration, digital payments, and online governance. A pivotal moment in this journey was the launch of Aadhaar, a biometric-based identification system that enabled secure and streamlined access to various public services. Coupled with the rise of Unified Payments Interface (UPI), India has leapfrogged traditional banking hurdles and facilitated real-time, low-cost transactions across urban and rural regions alike. Significantly, the pandemic acted as an unexpected catalyst. As lockdowns forced physical distancing, citizens turned to digital alternatives—telemedicine, online education, and remote work became not just accessible but essential. This sudden shift forced both public and private sectors to rethink infrastructure and embrace scalable tech solutions. However, the digital journey hasn't been without obstacles. A persistent digital divide remains, particularly between urban and rural populations. While metros enjoy high- speed broadband, many villages struggle with basic connectivity. Moreover, concerns around data privacy, cybersecurity, and misinformation have emerged as pressing issues in this digital age. Nonetheless, India’s digital growth story remains a testament to its adaptability and ambition. With over 850 million internet users and counting, the nation stands at a crucial intersection—where robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future. <br><br><b> What does the passage suggest is key to India's digital future?",
     "options": [
-      "More technical experts",
-      "Faster connectivity in rural areas",
-      "Support from foreign governments",
-      "Robust digital policy, inclusive access, and responsible innovation"
+      "More tMobile apps",
+      "Higher tax rates on digital goods",
+      "Stricter censorship laws",
+      "Inclusive access and responsible tech"
     ],
-    "correctAnswer": "Robust digital policy, inclusive access, and responsible innovation",
-    "explanation": "The passage concludes that 'robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future'[cite: 120, 106]."
+    "correctAnswer": "Inclusive access and responsible tech",
+    "explanation": "The passage concludes that 'robust digital policy, inclusive access, and responsible innovation will determine the trajectory of its digital future'."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: I am confident to pass the examination. (Highlighted part is to pass)",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: <br>I am confident <b><b>to pass the examination.",
     "options": [
-      "of pass the examination",
       "of passing the examination",
-      "passing the examination",
-      "to passing the examination"
+      "for passing the examination",
+      "in passing the exam",
+      "to passing the exami"
     ],
     "correctAnswer": "of passing the examination",
-     "explanation": "The correct prepositional phrase is 'confident of' followed by a gerund ('passing')[cite: 120]."
+    "explanation": "The correct prepositional phrase is 'confident of' followed by a gerund ('passing')."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must adapt with the situation. (Highlighted part is with the situation)",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must adapt b><b>with the situation.",
     "options": [
       "to the situation",
-      "with the situation",
+      "the situation",
       "by the situation",
-      "adapt to situation"
+      "adapt to the situation"
     ],
-    "correctAnswer": "to the situation",
-    "explanation": "The verb 'adapt' is correctly followed by the preposition 'to' when referring to a change in response to something[cite: 122]."
+    "correctAnswer": "adapt to the situation",
+    "explanation": "The verb 'adapt' is correctly followed by the preposition 'to' when referring to a change in response to something."
   },
   {
-    "question": "Convert the sentence provided below from its direct speech structure to an indirect speech structure: She said, 'I had completed the report.'",
+    "question": "Convert the sentence provided below from its direct speech structure to an indirect speech structure: <br>She said, 'I had completed the report.'",
     "options": [
       "She said that she had completed the report.",
       "She said that I had completed the report.",
@@ -4377,10 +4378,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "She said that I had been completing the report."
     ],
     "correctAnswer": "She said that she had completed the report.",
-    "explanation": "In indirect speech, the tense Past Perfect ('had completed') does not change, and the pronoun 'I' changes to 'she'[cite: 122]."
+    "explanation": "In indirect speech, the tense Past Perfect ('had completed') does not change, and the pronoun 'I' changes to 'she'."
   },
   {
-    "question": "Convert the sentence provided below from its indirect speech structure to an direct speech structure: The scientist stated that water boiled at 100 degrees Celsius.",
+    "question": "Convert the sentence provided below from its indirect speech structure to an direct speech structure: <br>The scientist stated that water boiled at 100 degrees Celsius.",
     "options": [
       "\"Water will boil at 100 degrees Celsius,\" said the scientist.",
       "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
@@ -4388,10 +4389,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "\"Water is boiling at 100 degrees Celsius,\" said the scientist."
     ],
     "correctAnswer": "\"Water boils at 100 degrees Celsius,\" the scientist stated.",
-    "explanation": "The statement expresses a universal truth, so the tense remains in the Simple Present ('boils') in direct speech[cite: 122]."
+    "explanation": "The statement expresses a universal truth, so the tense remains in the Simple Present ('boils') in direct speech."
   },
   {
-    "question": "Rearrange the following sentences to form a coherent paragraph (Object-Oriented Programming): 1. This allows a programmer to specify the structure... 2. Object-Oriented Programming (OOP) is a programming paradigm... 3. A central tenet of OOP is the concept of a 'Class'... 4. The key advantage of this approach...",
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br> 1. This allows a programmer to specify the structure and behavior of an object-oriented program. <br>2. Object-Oriented Programming (OOP) is a programming paradigm based on the concept of \"objects,\" which can contain data and code.<br>3.3. A central tenet of OOP is the concept of a \"class,\" which acts as a blueprint for creating objects. <br>4. The key advantage of this approach...",
     "options": [
       "2, 3, 1, 4",
       "4, 3, 2, 1",
@@ -4399,10 +4400,10 @@ ssc_cgl_eng_13_sep_s1 : [
       "1, 2, 3, 4"
     ],
     "correctAnswer": "2, 3, 1, 4",
-    "explanation": "The logical sequence is: 2 (Introduction of OOP) -> 3 (Defines the key concept 'Class') -> 1 (Explains the result of defining the key concept) -> 4 (States the final advantage of the approach)[cite: 124]."
+    "explanation": "The logical sequence is: 2 (Introduction of OOP) -> 3 (Defines the key concept 'Class') -> 1 (Explains the result of defining the key concept) -> 4 (States the final advantage of the approach)."
   },
   {
-    "question": "Rearrange the following sentences to form a coherent paragraph (Evolution): 1. This process, a cornerstone of evolution... 2. The diversity of life on Earth is the result of a gradual process... 3. This leads to the gradual accumulation... 4. It begins with inherited variation among individuals...",
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br>1 This process, a cornerstone of evolution, ensures that only individuals best suited to their environment survive to reproduce. <br>2. The diversity of life on Earth is the result of a gradual process of change over vast spans of time. <br>3. This leads to the gradual accumulation of favorable traits within a population.  <br>4. It begins with inherited variation among individuals...",
     "options": [
       "2, 4, 3, 1",
       "4, 2, 1, 3",
@@ -4410,7 +4411,7 @@ ssc_cgl_eng_13_sep_s1 : [
       "1, 2, 4, 3"
     ],
     "correctAnswer": "2, 4, 3, 1",
-    "explanation": "The logical sequence is: 2 (Introduction of the topic, diversity of life) -> 4 (Starts the mechanism, inherited variation) -> 3 (The direct consequence of the mechanism, accumulation of traits) -> 1 (Names the process and states its ultimate goal)[cite: 124]."
+    "explanation": "The logical sequence is: 2 (Introduction of the topic, diversity of life) -> 4 (Starts the mechanism, inherited variation) -> 3 (The direct consequence of the mechanism, accumulation of traits) -> 1 (Names the process and states its ultimate goal)."
   }
 ],
 
