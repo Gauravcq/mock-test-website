@@ -45,31 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
 
-const SECTION_BREAKS = [25, 50, 75]; 
+const singleSubjectName = testInfo.subject; 
 
-// The 'testId' variable must be defined earlier in your script to use this map
-// const testId = // ... (where you get your test ID)
-
-questions = questions.map((q, index) => {
-    let finalSubject;
-
-    // Use the question's array index to determine the subject
-    if (index < SECTION_BREAKS[0]) {
-        // Questions 1 to 25 (Index 0 to 24)
-        finalSubject = "Maths";
-    } else if (index < SECTION_BREAKS[1]) {
-        // Questions 26 to 50 (Index 25 to 49)
-        finalSubject = "Reasoning";
-    } else if (index < SECTION_BREAKS[2]) {
-        // Questions 51 to 75 (Index 50 to 74)
-        finalSubject = "English";
-    } else {
-        // Fallback for any questions outside the defined sections
-        finalSubject = "General"; 
-    }
-    
-    // Assign the determined subject name to the question object
-    return { ...q, subject: finalSubject };
+// 2. Map through all questions and assign the single subject name.
+questions = questions.map(q => {
+    // This assigns "Maths", "Reasoning", or "English" to every question.
+    // The subject name is then used to look up the correct time (25/20/15 minutes).
+    return { 
+        ...q, 
+        subject: singleSubjectName, 
+        sectionQNum: 1, // Reset to 1 since there is only one section
+        sectionTotal: 25 // Assuming all single-subject tests have 25 questions
+    };
 });
     startTestBtn.addEventListener('click', () => {
         instructionsModal.classList.add('hidden');
