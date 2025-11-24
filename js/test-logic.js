@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sectionDurations = {
             "Maths": 25,
             "Reasoning": 20,
-            "English": 15
+            "English": 15,
         };
         
         // 2. INITIALIZE TIMER BANKS
