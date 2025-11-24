@@ -3863,7 +3863,7 @@ ssc_cgl_eng_13_sep_s1 : [
 ],
 "ssc_cgl_eng_14_sep_s2": [
       {
-        "question": "Select the most appropriate synonym of the given word: CALLOW",
+        "question": "Select the most appropriate synonym of the given word: <b>CALLOW",
         "options": [
           "Inexperienced",
           "Experienced",
@@ -3874,7 +3874,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "CALLOW means (of a young person) inexperienced and immature."
       },
       {
-        "question": "Select the most appropriate antonym of the given word. Placatory",
+        "question": "Select the most appropriate antonym of the given word. <b>Placatory",
         "options": [
           "Pacifying",
           "Soothing",
@@ -3885,7 +3885,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "Placatory means intended to pacify or calm someone. The opposite, Aggravating, means making a problem worse."
       },
       {
-        "question": "Choose the correct meaning of idiom: Blow hot and cold",
+        "question": "Choose the correct meaning of idiom:<b> Blow hot and cold",
         "options": [
           "To change one’s mood or opinion frequently",
           "To talk boastfully",
@@ -3896,7 +3896,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "To blow hot and cold means to alternate inconsistently between two extremes, such as being favorable one moment and unfavorable the next."
       },
       {
-        "question": "Select the most appropriate antonym of the given word. Fulsome",
+        "question": "Select the most appropriate antonym of the given word.<b> Fulsome",
         "options": [
           "Overdone",
           "Sincere",
@@ -3907,7 +3907,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "Fulsome (especially of praise) means excessive or insincere. The most appropriate antonym is Sincere."
       },
       {
-        "question": "Spot the correct spelling of body-position sense.",
+        "question": "Spot the <b>correct spelling</b> of body-position sense.",
         "options": [
           "Propriozeption",
           "Propioception",
@@ -3918,7 +3918,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "Proprioception is the correct spelling for the sense of self-movement and body position."
       },
       {
-        "question": "Choose the correct one-word substitute for: 'A statement that appears self-contradictory yet may be true’.",
+        "question": "Choose the correct one-word substitute for: <b>'A statement that appears self-contradictory yet may be true’.",
         "options": [
           "Axiom",
           "Maxim",
@@ -3929,7 +3929,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "A Paradox is a statement that appears to contradict itself but contains a hidden truth."
       },
       {
-        "question": "Select the correct option: Scarcely had the satellite deployed ___ it transmitted its first data packet.",
+        "question": "Select the correct option: <br>Scarcely had the satellite deployed ___ it transmitted its first data packet.",
         "options": [
           "than",
           "when",
@@ -3940,18 +3940,18 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The correlative conjunction for 'Scarcely' or 'Hardly' is 'when'."
       },
       {
-        "question": "Select the correct option: ___ having completed the feasibility study, the team requested additional funding.",
+        "question": "Select the correct option:<br> ___ having completed the feasibility study, the team requested additional funding.",
         "options": [
           "Having",
           "On",
           "Upon",
           "Despite"
         ],
-        "correctAnswer": "Having",
-        "explanation": "The perfect participle 'Having completed...' is the correct structure to indicate an action that was finished before the action in the main clause."
+        "correctAnswer": "Upon",
+        "explanation": "The perfect participle 'upon completed...' is the correct structure to indicate an action that was finished before the action in the main clause."
       },
       {
-        "question": "Select the correct option: It was imperative that the document ___ signed before the close of business.",
+        "question": "Select the correct option: <br> It was imperative that the document ___ signed before the close of business.",
         "options": [
           "will be",
           "was",
@@ -3962,7 +3962,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The structure 'It is/was imperative that...' requires the **mandative subjunctive** form of the verb, which is the base form ('be') for the passive voice."
       },
       {
-        "question": "Find the part of the sentence that contains an error: The perception that the guidelines are optional (1)/ rather than compulsory have led (2)/ to widespread inconsistencies in compliance (3)/ across state-level implementations. (4)",
+        "question": "Find the part of the sentence that contains an error: <br> The perception that the guidelines are optional (1)/ rather than compulsory have led (2)/ to widespread inconsistencies in compliance (3)/ across state-level implementations. (4)",
         "options": [
           "(1)",
           "(2)",
@@ -3973,7 +3973,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The error is in part (2). The main subject is 'The perception' (singular), which requires the singular verb 'has led' (Subject-Verb Agreement)."
       },
       {
-        "question": "Change the following from active to passive: Historians may well reinterpret the artifact after new evidence emerges.",
+        "question": "Change the following from active to passive:<br> Historians may well reinterpret the artifact after new evidence emerges.",
         "options": [
           "The artifact may well be reinterpreted by historians after new evidence emerges.",
           "The artifact may have been reinterpreted by historians after new evidence emerges.",
@@ -3984,7 +3984,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The passive form of 'Modal + V1' (may reinterpret) is 'Modal + be + V3' (may be reinterpreted)."
       },
       {
-        "question": "Find the part of the sentence that contains an error: The fact that dissenting opinions are stifled (1)/ without due institutional safeguards (2)/ reflect a worrying trend in democratic regression (3)/ observed across multiple levels of governance. (4)",
+        "question": "Find the part of the sentence that contains an error: <br>The fact that dissenting opinions are stifled (1)/ without due institutional safeguards (2)/ reflect a worrying trend in democratic regression (3)/ observed across multiple levels of governance. (4)",
         "options": [
           "(1)",
           "(2)",
@@ -3995,7 +3995,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The error is in part (3). The main subject is 'The fact' (singular), which requires the singular verb 'reflects', not 'reflect' (Subject-Verb Agreement)."
       },
       {
-        "question": "Select the sentence containing the homonym of the highlighted word: The **tripos** system at Cambridge remains a model of academic rigor.",
+        "question": "Select the sentence containing the homonym of the highlighted word: The <b><b>tripos</b></b> system at Cambridge remains a model of academic rigor.",
         "options": [
           "The tripos involved oral defense and written modules.",
           "He broke his tripos into discrete phases of analysis.",
@@ -4006,7 +4006,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The original word 'Tripos' refers to an academic examination. Its homonym is its original meaning: a three-legged stool."
       },
       {
-        "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: The land is believed to have been acquired illegally by the company through forged documents.",
+        "question": "Convert the sentence provided below from its passive voice structure to an active voice structure: <br>The land is believed to have been acquired illegally by the company through forged documents.",
         "options": [
           "The company is believed to have acquired the land illegally.",
           "The company acquired the land illegally, as believed.",
@@ -4017,7 +4017,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The passive voice 'X is believed to have been acquired by Y' converts to the active voice 'Y is believed to have acquired X'."
       },
       {
-        "question": "Read the following passage and answer the questions based on the passage: Which of the following best captures the essence of Test cricket, as described in the passage?",
+        "question": "Read the following passage and answer the questions based on the passage:<br> Cricket, as a sport, has continually evolved in response to changing audience preferences and technological advancements. Among its many formats, Test cricket and One Day Internationals (ODIs) represent two contrasting philosophies—one rooted in endurance and strategy, the other in dynamism and entertainment. Test cricket, often regarded as the pinnacle of the sport, is a format that unfolds over five days, demanding exceptional levels of patience, technique, and mental resilience. It offers players the opportunity to exhibit classical skills and tactical acumen, where the fluctuating tempo mirrors the rhythm of real life—unpredictable, slow-burning, and layered. For purists, Test cricket is an art form, rewarding not merely flamboyance but consistency and grit. In contrast, ODIs compress the drama into a single day. With limited overs, this format prioritizes aggressive batting, innovative bowling variations, and strategic field placements. The adrenaline-infused pace of ODis appeals to a broader demographic, especially in an era of dwindling attention spans and time constraints. For broadcasters and advertisers, the shorter format offers commercial viability, making it a lucrative spectacle. However, critics argue that the commercialization of ODis has come at the expense of depth and nuance. In pursuit of viewership, substance often gives way to spectacle. Conversely, defenders of Test cricket lament its declining audience, attributing it to an increasingly entertainment-driven sports culture. Yet, occasional high-stakes encounters—like the Ashes or India-Australia series—still manage to ignite global interest. The ongoing debate between formats is not merely about preference, but about the identity of the sport itself. While both formats have their merits, the challenge lies in preserving the sanctity of Test cricket without undermining the accessibility of ODls—a delicate balance that cricketing authorities must negotiate in the years ahead.  <br><br><b>Which of the following best captures the essence of Test cricket, as described in the passage?",
         "options": [
           "It is long and often boring",
           "It reflects complexity and unpredictability",
@@ -4028,7 +4028,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The passage describes Test cricket's tempo as mirroring 'the rhythm of real life—unpredictable, slow-burning, and layered,' which reflects complexity and unpredictability."
       },
       {
-        "question": "Read the following passage and answer the questions based on the passage: Which of the following is a criticism of ODIs mentioned in the passage?",
+        "question": "Read the following passage and answer the questions based on the passage:<br> Cricket, as a sport, has continually evolved in response to changing audience preferences and technological advancements. Among its many formats, Test cricket and One Day Internationals (ODIs) represent two contrasting philosophies—one rooted in endurance and strategy, the other in dynamism and entertainment. Test cricket, often regarded as the pinnacle of the sport, is a format that unfolds over five days, demanding exceptional levels of patience, technique, and mental resilience. It offers players the opportunity to exhibit classical skills and tactical acumen, where the fluctuating tempo mirrors the rhythm of real life—unpredictable, slow-burning, and layered. For purists, Test cricket is an art form, rewarding not merely flamboyance but consistency and grit. In contrast, ODIs compress the drama into a single day. With limited overs, this format prioritizes aggressive batting, innovative bowling variations, and strategic field placements. The adrenaline-infused pace of ODis appeals to a broader demographic, especially in an era of dwindling attention spans and time constraints. For broadcasters and advertisers, the shorter format offers commercial viability, making it a lucrative spectacle. However, critics argue that the commercialization of ODis has come at the expense of depth and nuance. In pursuit of viewership, substance often gives way to spectacle. Conversely, defenders of Test cricket lament its declining audience, attributing it to an increasingly entertainment-driven sports culture. Yet, occasional high-stakes encounters—like the Ashes or India-Australia series—still manage to ignite global interest. The ongoing debate between formats is not merely about preference, but about the identity of the sport itself. While both formats have their merits, the challenge lies in preserving the sanctity of Test cricket without undermining the accessibility of ODls—a delicate balance that cricketing authorities must negotiate in the years ahead.  <br><br><b> Which of the following is a criticism of ODIs mentioned in the passage?",
         "options": [
           "Too long for modern viewers",
           "Lack of competitiveness",
@@ -4039,7 +4039,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The passage explicitly states, 'critics argue that the commercialization of ODIs has come at the expense of depth and nuance.'"
       },
       {
-        "question": "Read the following passage and answer the questions based on the passage: How are Test cricket and ODIs contrasted in terms of viewer appeal?",
+        "question": "Read the following passage and answer the questions based on the passage:<br> Cricket, as a sport, has continually evolved in response to changing audience preferences and technological advancements. Among its many formats, Test cricket and One Day Internationals (ODIs) represent two contrasting philosophies—one rooted in endurance and strategy, the other in dynamism and entertainment. Test cricket, often regarded as the pinnacle of the sport, is a format that unfolds over five days, demanding exceptional levels of patience, technique, and mental resilience. It offers players the opportunity to exhibit classical skills and tactical acumen, where the fluctuating tempo mirrors the rhythm of real life—unpredictable, slow-burning, and layered. For purists, Test cricket is an art form, rewarding not merely flamboyance but consistency and grit. In contrast, ODIs compress the drama into a single day. With limited overs, this format prioritizes aggressive batting, innovative bowling variations, and strategic field placements. The adrenaline-infused pace of ODis appeals to a broader demographic, especially in an era of dwindling attention spans and time constraints. For broadcasters and advertisers, the shorter format offers commercial viability, making it a lucrative spectacle. However, critics argue that the commercialization of ODis has come at the expense of depth and nuance. In pursuit of viewership, substance often gives way to spectacle. Conversely, defenders of Test cricket lament its declining audience, attributing it to an increasingly entertainment-driven sports culture. Yet, occasional high-stakes encounters—like the Ashes or India-Australia series—still manage to ignite global interest. The ongoing debate between formats is not merely about preference, but about the identity of the sport itself. While both formats have their merits, the challenge lies in preserving the sanctity of Test cricket without undermining the accessibility of ODls—a delicate balance that cricketing authorities must negotiate in the years ahead.  <br><br><b> How are Test cricket and ODIs contrasted in terms of viewer appeal?",
         "options": [
           "Tests are faster and more entertaining",
           "ODIs are only popular among senior fans",
@@ -4050,7 +4050,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The passage states that ODIs appeal to a broader demographic, 'especially in an era of dwindling attention spans and time constraints'."
       },
       {
-        "question": "Read the following passage and answer the questions based on the passage: What tone does the author adopt toward the preservation of Test cricket?",
+        "question": "Read the following passage and answer the questions based on the passage:<br> Cricket, as a sport, has continually evolved in response to changing audience preferences and technological advancements. Among its many formats, Test cricket and One Day Internationals (ODIs) represent two contrasting philosophies—one rooted in endurance and strategy, the other in dynamism and entertainment. Test cricket, often regarded as the pinnacle of the sport, is a format that unfolds over five days, demanding exceptional levels of patience, technique, and mental resilience. It offers players the opportunity to exhibit classical skills and tactical acumen, where the fluctuating tempo mirrors the rhythm of real life—unpredictable, slow-burning, and layered. For purists, Test cricket is an art form, rewarding not merely flamboyance but consistency and grit. In contrast, ODIs compress the drama into a single day. With limited overs, this format prioritizes aggressive batting, innovative bowling variations, and strategic field placements. The adrenaline-infused pace of ODis appeals to a broader demographic, especially in an era of dwindling attention spans and time constraints. For broadcasters and advertisers, the shorter format offers commercial viability, making it a lucrative spectacle. However, critics argue that the commercialization of ODis has come at the expense of depth and nuance. In pursuit of viewership, substance often gives way to spectacle. Conversely, defenders of Test cricket lament its declining audience, attributing it to an increasingly entertainment-driven sports culture. Yet, occasional high-stakes encounters—like the Ashes or India-Australia series—still manage to ignite global interest. The ongoing debate between formats is not merely about preference, but about the identity of the sport itself. While both formats have their merits, the challenge lies in preserving the sanctity of Test cricket without undermining the accessibility of ODls—a delicate balance that cricketing authorities must negotiate in the years ahead.  <br><br><b> What tone does the author adopt toward the preservation of Test cricket?",
         "options": [
           "Indifferent",
           "Hopeful and critical",
@@ -4072,7 +4072,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The core issue is 'preserving the sanctity of Test cricket without undermining the accessibility of ODIs—a delicate balance' between tradition and commercial interests."
       },
       {
-        "question": "Choose the most suitable option to replace the highlighted part of the sentence: I was discussing about the issue with him.",
+        "question": "Choose the most suitable option to replace the highlighted part of the sentence: <br>I was <b><b>discussing about the issue with him.",
         "options": [
           "discussed regarding the issue",
           "had discussion on issue",
@@ -4085,16 +4085,16 @@ ssc_cgl_eng_13_sep_s1 : [
       {
         "question": "Choose the most suitable option to replace the highlighted part of the sentence: You must prevent your brother to do such things.",
         "options": [
-          "doing such things",
+          "From doing such things",
           "of doing such things",
           "not to do such things",
           "doing such things"
         ],
-        "correctAnswer": "doing such things",
+        "correctAnswer": "From doing such things",
         "explanation": "The verb **prevent** is typically followed by an object and the preposition **from** + gerund ('prevent someone *from* doing something'). In the options provided, 'doing such things' is the closest correct structure, implying 'prevent your brother *from* doing such things'."
       },
       {
-        "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech. She said to me, “Open the window.”",
+        "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.<br> She said to me, “Open the window.”",
         "options": [
           "She told me open the window.",
           "She told me to open the window.",
@@ -4105,7 +4105,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "Commands (imperative sentences) in indirect speech use a reporting verb (like 'told') followed by an infinitive clause ('to' + verb)."
       },
       {
-        "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. She said that they had already left before she arrived.",
+        "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. <br>She said that they had already left before she arrived.",
         "options": [
           "“They have already left before I arrived,” she said.",
           "“They already left before I arrived,” she said.",
@@ -4116,7 +4116,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The Past Perfect Tense ('had left') in indirect speech converts from the Present Perfect Tense ('have left') in direct speech when the reporting verb is in the past."
       },
       {
-        "question": "Rearrange the following sentences to form a coherent paragraph:\n1. This process, known as photosynthesis, is fundamental to life on Earth as it forms the base of most food webs.\n2. Plants, algae, and some bacteria possess a unique ability to convert light energy into chemical energy.\n3. The captured light energy is then used to synthesize glucose molecules from water and carbon dioxide.\n4. It begins with the absorption of photons by chlorophyll pigments within the plant cells.",
+        "question": "Rearrange the following sentences to form a coherent paragraph:<br>1. This process, known as photosynthesis, is fundamental to life on Earth as it forms the base of most food webs. 2. Plants, algae, and some bacteria possess a unique ability to convert light energy into chemical energy. 3. The captured light energy is then used to synthesize glucose molecules from water and carbon dioxide. 4. It begins with the absorption of photons by chlorophyll pigments within the plant cells.",
         "options": [
           "2, 1, 4, 3",
           "4, 3, 2, 1",
@@ -4126,7 +4126,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The logical flow introduces the topic (2), names/defines the process (1), describes the start (4), and explains the immediate consequence (3)."
       },
       {
-        "question": "Rearrange the following sentences to form a coherent paragraph:\n1. This process, a crucial part of the plant's life cycle, is vital for the continued existence of many plant species.\n2. Pollination is the transfer of pollen from the male part of a flower to the female part.\n3. The transfer can be carried out by various agents, including insects, birds, and wind.\n4. Successful pollination leads to fertilization and the subsequent production of seeds and fruits.",
+        "question": "Rearrange the following sentences to form a coherent paragraph:<br> 1. This process, a crucial part of the plant's life cycle, is vital for the continued existence of many plant species. <br>2. Pollination is the transfer of pollen from the male part of a flower to the female part.<br> 3. The transfer can be carried out by various agents, including insects, birds, and wind. <br>4. Successful pollination leads to fertilization and the subsequent production of seeds and fruits.",
         "options": [
           "2, 3, 4, 1",
           "3, 4, 1, 2",
