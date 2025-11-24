@@ -375,7 +375,21 @@
     }
     .action-buttons .btn.review { background-color: var(--primary-blue); color: white; }
     .action-buttons .btn.go-to-tests { background-color: #6c757d; color: white; }
-
+ .user-info-row {
+    /* Styles for layout (e.g., flex or grid) */
+    display: flex;
+    margin-bottom: 5px;
+}
+.info-label {
+    /* Styles for "Subject Name:" (same size as "Candidate Name:") */
+    font-weight: bold;
+    font-size: 16px; /* Adjust this size to match */
+    width: 150px; /* Adjust width for alignment */
+}
+.info-value {
+    /* Styles for the actual name (e.g., "Maths") */
+    font-size: 16px; /* Must match the label size */
+}
 
     /* --- Stats Grid Area (Right side) --- */
     .stats-grid-container {
@@ -611,6 +625,35 @@
             overflow-y: visible; /* Let the body/main container scroll */
             padding-bottom: 100px; /* Space for the stacked footer */
         }
+        .sidebar-info {
+    /* Ensure the parent container can manage its children */
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.user-info-row {
+    /* Use Flexbox to align the label and value horizontally */
+    display: flex;
+    /* Optional: Keep rows tight */
+    margin-bottom: 5px; 
+}
+
+.info-label {
+    /* Give the label a fixed width so all labels (Candidate Name, Subject Name) line up */
+    font-weight: bold;
+    /* **Adjust this width** until the colons (:) align perfectly */
+    width: 120px; 
+    /* Optional: Ensure text is vertically centered */
+    line-height: 1.2; 
+    
+}
+
+.info-value {
+    /* Allows the subject name to take the remaining space */
+    flex-grow: 1;
+    /* Ensures the subject text starts right after the label */
+    margin-left: 5px; 
+    font-weight: normal; /* Subject name should not be bold unless desired */
+}
 
         /* Palette/Sidebar */
         .right-sidebar {
@@ -758,7 +801,7 @@
 
 </style>
 </head>
-<body>
+ <body>
 
     <div id="instructions-modal" class="modal-overlay">
     <div class="modal-content">
@@ -852,7 +895,12 @@
             <aside class="right-sidebar">
                 <div class="sidebar-info">
                     <p>Candidate: [User Name]</p>
-                    <p>Subject: Quantitative Aptitude</p>
+                    <div class="user-info-row">
+    <div class="info-label">Subject Name:</div>
+    <div class="info-value">
+        <span id="test-name-display">Loading</span> 
+    </div>
+</div>
                 </div>
                 <div class="palette-legend">
                     <span class="legend-item"><span class="legend-box answered"></span> Answered (Green)</span>
@@ -929,7 +977,7 @@
         
     </div>
 
-  <script>
+<script>
     /**
      * Helper function to safely extract a URL parameter (like 'testId')
      */
@@ -938,24 +986,32 @@
         return urlParams.get(name);
     }
 
-    // Get the testId and convert to lowercase for comparison
-    const testId = getUrlParameter('testId');
-    let duration = '25 minutes'; // Default to Maths/Quant duration for safety
+    // Get the testId from the URL (e.g., from ?testId=Ssc_cgl_12_sep_s1)
+    const testId = getUrlParameter('testId'); 
+    
+    // Set default values
+    let duration = '25 minutes'; 
+    let subjectName = 'General Test'; // <--- NEW VARIABLE TO HOLD THE CLEAN SUBJECT NAME
 
     if (testId) {
         const lowerTestId = testId.toLowerCase();
 
         // 1. Check for Reasoning/Logic (20 minutes)
-        if (lowerTestId.includes('Reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
+        if (lowerTestId.includes('reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
             duration = '20 minutes';
+            subjectName = 'Reasoning'; // <--- SETTING THE SUBJECT NAME
         } 
         // 2. Check for English/Verbal (15 minutes)
         else if (lowerTestId.includes('english') || lowerTestId.includes('verbal') || lowerTestId.includes('eng')) {
             duration = '15 minutes';
+            subjectName = 'English'; // <--- SETTING THE SUBJECT NAME
         }
-        // 3. Check explicitly for Maths/Quant (25 minutes - although this is the default)
-        else if (lowerTestId.includes('maths') || lowerTestId.includes('maths')) {
+        // 3. Default to Maths/Quant (25 minutes) if no other keywords found
+        // Since test names like 'Ssc_cgl_12_sep_s1' usually refer to Quant/Maths by default in the SSC structure, 
+        // we'll assign 'Maths' here if we can't find 'English' or 'Reasoning' keywords.
+        else {
             duration = '25 minutes';
+            subjectName = 'Maths'; // <--- SETTING THE SUBJECT NAME (Fallback)
         }
     }
     
@@ -964,6 +1020,28 @@
     if (durationElement) {
         durationElement.textContent = duration;
     }
+    
+    // --- UPDATED FUNCTION DEFINITION (REMAINS THE SAME) ---
+
+    function updateTestNameDisplay(currentTestType, differentTestName) {
+        const testNameElement = document.getElementById('test-name-display');
+        let finalTestName;
+        
+        // 1. Check if a specific 'different test' name is provided
+        if (differentTestName && differentTestName.trim() !== '') {
+            finalTestName = differentTestName;
+        } else {
+            // 2. Use the standard subject name (e.g., 'Reasoning')
+            finalTestName = currentTestType.charAt(0).toUpperCase() + currentTestType.slice(1).toLowerCase();
+        }
+        
+        // 3. Update the HTML element
+        testNameElement.textContent = finalTestName;
+    }
+
+    // 🎯 FIX: CALL THE FUNCTION DYNAMICALLY USING THE 'subjectName' VARIABLE
+    updateTestNameDisplay(subjectName, ''); 
+    
 </script>
     
     <script src="js/tests-list.js"></script>
