@@ -4392,7 +4392,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The statement expresses a universal truth, so the tense remains in the Simple Present ('boils') in direct speech."
   },
   {
-    "question": "Rearrange the following sentences to form a coherent paragraph: <br> 1. This allows a programmer to specify the structure and behavior of an object-oriented program. <br>2. Object-Oriented Programming (OOP) is a programming paradigm based on the concept of \"objects,\" which can contain data and code.<br>3.3. A central tenet of OOP is the concept of a \"class,\" which acts as a blueprint for creating objects. <br>4. The key advantage of this approach...",
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br> 1. This allows a programmer to specify the structure and behavior of an object-oriented program. <br>2. Object-Oriented Programming (OOP) is a programming paradigm based on the concept of \"objects,\" which can contain data and code.<br>3. A central tenet of OOP is the concept of a \"class,\" which acts as a blueprint for creating objects. <br>4. The key advantage of this approach...",
     "options": [
       "2, 3, 1, 4",
       "4, 3, 2, 1",
