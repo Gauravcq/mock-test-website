@@ -45,28 +45,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
 
-    // --- SECTION MAPPING LOGIC (FIXED TO REMOVE AMBIGUITY) ---
-    // If q.subject or q.section is missing, it defaults to a special internal key.
-    questions = questions.map(q => {
-        let subj = q.subject || q.section || "DEFAULT_UNCLASSIFIED"; // Renamed placeholder
-        
-        if (typeof subj === 'string') {
-            let s = subj.toLowerCase();
+    // --- CRITICAL SUBJECT MAPPING LOGIC (Replace your existing block here) ---
+questions = questions.map(q => {
+    // 1. Get the raw subject/section name, defaulting to a placeholder if missing
+    let rawSubject = q.subject || q.section || "DEFAULT_UNCLASSIFIED"; 
+    let finalSubject = "Time Left"; // Fallback name for display
 
-            if (s.includes('math') || s.includes('quant')) {
-                subj = "Maths";
-            } else if (s.includes('reasoning') || s.includes('logic')) {
-                subj = "Reasoning";
-            } else if (s.includes('eng')) {
-                subj = "English";
-            } else if (subj === "DEFAULT_UNCLASSIFIED") {
-                // If it's the default, set it to the visible fallback name
-                subj = "Time Left"; 
-            }
-        }
-        return { ...q, subject: subj };
-    });
+    if (typeof rawSubject === 'string') {
+        let s = rawSubject.toLowerCase().trim(); // Trim whitespace and lowercase
 
+        if (s.includes('math') || s.includes('quant')) { 
+            finalSubject = "Maths"; 
+        } 
+        else if (s.includes('reasoning') || s.includes('logic')) { 
+            finalSubject = "Reasoning"; 
+        } 
+        else if (s.includes('eng')) { 
+            finalSubject = "English"; 
+        } 
+        // Note: If rawSubject was DEFAULT_UNCLASSIFIED, finalSubject remains "Time Left"
+    }
+    
+    // 2. Return the question object with the correctly assigned subject name
+    return { ...q, subject: finalSubject };
+});
     startTestBtn.addEventListener('click', () => {
         instructionsModal.classList.add('hidden');
         quizUI.classList.remove('hidden');
