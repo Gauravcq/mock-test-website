@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Element Declarations (Declared ONCE in main scope) ---
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
-    const quizUI = document.getElementById('quiz-ui'); // The key element that was causing the redeclaration error
-
+    const quizUI = document.getElementById('quiz-ui'); 
     const resultSummaryPage = document.getElementById('result-summary-page');
     const reviewPage = document.getElementById('review-page');
     const timerEl = document.getElementById('timer');
@@ -46,13 +45,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
 
-    // --- SECTION MAPPING LOGIC (Preserved) ---
+    // --- SECTION MAPPING LOGIC (FIXED TO REMOVE AMBIGUITY) ---
+    // If q.subject or q.section is missing, it defaults to a special internal key.
     questions = questions.map(q => {
-        let subj = q.subject || q.section || "Time Left";
-        let s = subj.toLowerCase();
-        if (s.includes('math') || s.includes('quant')) subj = "Maths";
-        else if (s.includes('reasoning') || s.includes('logic')) subj = "Reasoning";
-        else if (s.includes('eng')) subj = "English";
+        let subj = q.subject || q.section || "DEFAULT_UNCLASSIFIED"; // Renamed placeholder
+        
+        if (typeof subj === 'string') {
+            let s = subj.toLowerCase();
+
+            if (s.includes('math') || s.includes('quant')) {
+                subj = "Maths";
+            } else if (s.includes('reasoning') || s.includes('logic')) {
+                subj = "Reasoning";
+            } else if (s.includes('eng')) {
+                subj = "English";
+            } else if (subj === "DEFAULT_UNCLASSIFIED") {
+                // If it's the default, set it to the visible fallback name
+                subj = "Time Left"; 
+            }
+        }
         return { ...q, subject: subj };
     });
 
@@ -193,22 +204,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================================
-    //  INITIALIZE QUIZ (MAIN LOGIC) - Now only takes data
+    //  INITIALIZE QUIZ (MAIN LOGIC) - Now only takes data
     // ==========================================================
-    // ==========================================================
-//  UPDATED INITIALIZE QUIZ (MAIN LOGIC) - Now only takes data
+// ==========================================================
+//  UPDATED INITIALIZE QUIZ (MAIN LOGIC) - FIX APPLIED
 // ==========================================================
 function initializeQuiz(questions, testInfo) {
     let currentQuestionIndex = 0;
     let timerInterval;
     let isPaused = false;
 
-    // 1. DEFINE SECTION DURATIONS - FIX APPLIED HERE
+    // 1. DEFINE SECTION DURATIONS - SET CLEAR TIMES
     const sectionDurations = {
-        "Maths": 25,
-        "Reasoning": 20,
-        "English": 15,
-        "Time Left": 20 // <--- EXPLICITLY DEFINING THE DEFAULT DURATION (20 minutes)
+        "Maths": 25,    // 25 minutes
+        "Reasoning": 20, // 20 minutes
+        "English": 15,  // 15 minutes
+        "Time Left": 20 // The explicit default/fallback time
     };
 
     // 2. INITIALIZE TIMER BANKS (Uses global sectionTimeRemaining/totalInitialTime)
@@ -217,8 +228,7 @@ function initializeQuiz(questions, testInfo) {
 
     const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
     uniqueSubjects.forEach(subj => {
-        // Now, if subj is "Time Left", it gets 20 minutes from the explicit list above.
-        // If an unknown subject name appears, it still defaults to 20 minutes (as a fallback).
+        // Use the duration for the subject, or 20 minutes if the subject is unknown/unlisted.
         const minutes = sectionDurations[subj] || 20; 
         sectionTimeRemaining[subj] = minutes * 60;
         totalInitialTime += (minutes * 60);
@@ -270,6 +280,7 @@ function initializeQuiz(questions, testInfo) {
                     const seconds = t % 60;
 
                     if (timerEl) {
+                        // Display the correct subject name (Maths, Reasoning, English, or Time Left)
                         timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                     }
                 } else {
