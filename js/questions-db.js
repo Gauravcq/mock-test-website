@@ -2082,7 +2082,7 @@ ssc_cgl_13_sep_s2 : [
     "explanation": "(x + 1/x)² = x² + 1/x² + 2 = 25 → x² + 1/x² = 23."
   }
 ],
-ssc_cgl_13_sep_s3 : [
+"ssc_cgl_13_sep_s3" : [
   {
     "question": "If B is 25% more than A, and C is 20% more than B, then what is A: C?",
     "options": ["3:2", "2:3", "5:4", "4:5"],
@@ -2235,7 +2235,7 @@ ssc_cgl_13_sep_s3 : [
     "explanation": "Area ratio = (135°/360°) : (3π/4/2π) = 1 : 1."
   }
 ],      
-ssc_cgl_eng_12_sep_s1 : [
+"ssc_cgl_eng_12_sep_s1" : [
   {
     "question": "Select the most appropriate synonym of the given word: PERFIDIOUS",
     "options": [
@@ -3275,13 +3275,13 @@ ssc_cgl_eng_13_sep_s1 : [
 ],
 "ssc_cgl_eng_13_sep_s2" : [
   {
-    "question": "Select the most appropriate synonym of the given word: BIBLIOPHILE",
+    "question": "Select the most appropriate synonym of the given word: <b><b>BIBLIOPHILE",
     "options": ["Publisher", "Bookkeeper", "Librarian", "Book-lover"],
     "correctAnswer": "Book-lover",
     "explanation": "Bibliophile means someone who loves or collects books."
   },
   {
-    "question": "Choose the correct meaning of idiom: Has two strings to his bow",
+    "question": "Choose the correct meaning of idiom:<br> <b><b> Has two strings to his bow",
     "options": [
       "He is indecisive in crucial matters.",
       "He has two romantic interests simultaneously.",
@@ -3292,61 +3292,61 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The idiom means having another option or skill as backup."
   },
   {
-    "question": "Select the most appropriate antonym of the given word: Lachrymose",
+    "question": "Select the most appropriate antonym of the given word: <br>Lachrymose",
     "options": ["Tearful", "Mournful", "Weepy", "Jovial"],
     "correctAnswer": "Jovial",
     "explanation": "Lachrymose means tearful. Opposite is cheerful → Jovial."
   },
   {
-    "question": "Identify the misspelt word",
+    "question": "Identify the <b>misspelt word</b>",
     "options": ["Acquiescence", "Bourgeoisie", "Consciencious", "Epitome"],
     "correctAnswer": "Consciencious",
     "explanation": "Correct spelling is 'conscientious'."
   },
   {
-    "question": "Spot the correct spelling of an electron-transport protein.",
+    "question": "Spot the <b>correct spelling</b> of an electron-transport protein.",
     "options": ["Cytocrome", "Cytocrhame", "Cytochrome", "Cytohrome"],
     "correctAnswer": "Cytochrome",
     "explanation": "Cytochrome is the correct protein spelling."
   },
   {
-    "question": "Choose the correct one-word substitute for: 'A state of temporary disuse or suspension’.",
+    "question": "Choose the correct <b>one-word substitute<b> for: 'A state of temporary disuse or suspension’.",
     "options": ["Intermission", "Recess", "Abeyance", "Dormancy"],
     "correctAnswer": "Abeyance",
     "explanation": "Abeyance means temporary suspension."
   },
   {
-    "question": "The analyst found the correlation to be ___ marginal to influence policy.",
+    "question": "Select the correct option <br>The analyst found the correlation to be ___ marginal to influence policy.",
     "options": ["too", "so", "as", "very"],
     "correctAnswer": "too",
     "explanation": "Too marginal to influence policy → correct usage."
   },
   {
-    "question": "Her argument was compelling; ___, it was based on outdated data.",
+    "question": "Select the correct option <br>Her argument was compelling; ___, it was based on outdated data.",
     "options": ["otherwise", "conversely", "nevertheless", "subsequently"],
-    "correctAnswer": "subsequently",
-    "explanation": "‘Subsequently’ fits the required contrast after a semicolon."
+    "correctAnswer": "nevertheless",
+    "explanation": "nevertheless fits the required contrast after a semicolon."
   },
   {
     "question": "Had it not been for her timely intervention, the discussion might well have ___ into an acrimonious stalemate.",
-    "options": ["evolved", "devolved", "absorbed"],
+    "options": ["evolved", "devolved","emerged", "absorbed"],
     "correctAnswer": "devolved",
     "explanation": "‘Devolve into’ means to deteriorate into something worse."
   },
   {
-    "question": "Find the part of the sentence that contains an error: The regulator's decision to postpone the implementation (1) was attributed partly to industry pressure (2) and partly due to legal ambiguity (3) surrounding the recent amendments. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>The regulator's decision to postpone the implementation (1) was attributed partly to industry pressure (2) and partly due to legal ambiguity (3) surrounding the recent amendments. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(3)",
     "explanation": "Parallelism error: ‘partly to’ must pair with ‘partly to’, not ‘due to’."
   },
   {
-    "question": "Find the part of the sentence that contains an error: That there exists no recourse for citizens (1) if environmental violations are condoned at the ministerial level (2) underline a systemic erosion of (3) constitutional accountability. (4)",
+    "question": "Find the part of the sentence that contains an error: <br>That there exists no recourse for citizens (1) if environmental violations are condoned at the ministerial level (2) underline a systemic erosion of (3) constitutional accountability. (4)",
     "options": ["(1)", "(2)", "(3)", "(4)"],
     "correctAnswer": "(3)",
     "explanation": "Subject is singular → ‘underlines’, not ‘underline’."
   },
   {
-    "question": "Change the following from active to passive: We shall have dispatched the invitations before Friday evening.",
+    "question": "Change the following from active to passive: <br>We shall have dispatched the invitations before Friday evening.",
     "options": [
       "The invitations shall have dispatched before Friday evening.",
       "The invitations shall have had been dispatched before Friday evening.",
@@ -3357,18 +3357,18 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Future perfect passive = shall/will have been + past participle."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word: The medieval oriel window projected elegantly from the chapel wall.",
+    "question": "Select the sentence containing the homonym of the highlighted word: <br>The medieval <b><b>oriel</b></b> window projected elegantly from the chapel wall.",
     "options": [
       "The priest admired the sunlight filtering through the oriel.",
       "The duke stood by the oriel gazing at the courtyard.",
       "The technician adjusted the frequency on the oriel.",
       "The stained-glass oriel was restored by artisans."
     ],
-    "correctAnswer": "The stained-glass oriel was restored by artisans.",
+    "correctAnswer": "The technician adjusted the frequency on the oriel.",
     "explanation": "Correct homonym usage referring to the architectural window."
   },
   {
-    "question": "Convert the sentence from passive to active: The photos will be printed by the studio within an hour.",
+    "question": "Convert the sentence from passive to active:<br> The photos will be printed by the studio within an hour.",
     "options": [
       "The studio prints the photos within an hour.",
       "The studio will print the photos within an hour.",
@@ -3379,13 +3379,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Active voice places subject first → ‘The studio will print...’"
   },
   {
-    "question": "According to the passage, which quality is most crucial for entrepreneurs?",
+    "question": "<b>Read the following passage and answer the questions based on the passage</b>: <br>In-contemporary discourse, the debate between entrepreneurship and conventional employment has gained remarkable traction. While traditional employment offers predictability, structured growth, and a defined career trajectory, entrepreneurship appeals to those seeking autonomy, innovation, and the potential for exponential returns. However, both paths are fraught with distinct advantages and inherent uncertainties. Employment, particularly within established organizations, provides financial stability, social recognition, and institutional support. Employees are not burdened with existential risks such as capital loss or market unpredictability. Instead, they. operate within frameworks of responsibility and hierarchy, where risk is absorbed at higher managerial levels. For many, this structure offers psychological comfort and a clear roadmap for progression. Conversely, entrepreneurship demands resilience, resourcefulness, and a high tolerance for ambiguity. Entrepreneurs must navigate volatile markets, requlatory complexities, and the absence of assured income—challenges often underestimated by aspirants. Yet, for those with a risk appetite and creative acumen, entrepreneurship promises a unique form of fulfillment. It allows individuals to disrupt existing paradigms, build ventures from the ground up, and possibly shape industries. Societal perceptions further complicate the dichotomy. In many cultures, steady employment is seen as the hallmark of success, while entrepreneurial endeavors are often perceived as reckless or unstable—until they succeed. This perception, however, is gradually shifting as global startup ecosystems mature and innovation becomes synonymous with progress. The real decision, therefore, lies not in which path is superior but in aligning one’s temperament, values, and long-term goals with the demands of each route. Entrepreneurship may offer liberation, but it is not without sacrifice. Employment may provide security, but it can come at the cost of creative constraint. A reflective, context-aware approach—not blind aspiration—is essential for navigating this professional crossroads. <br>According to the passage, which quality is most crucial for entrepreneurs?",
     "options": ["Obedience", "Resilience", "Delegation", "Conformity"],
     "correctAnswer": "Resilience",
     "explanation": "Passage states entrepreneurs need resilience to navigate uncertainty."
   },
   {
-    "question": "Why is employment often psychologically comforting, as per the passage?",
+    "question": "<b>Read the following passage and answer the questions based on the passage</b>: <br>In-contemporary discourse, the debate between entrepreneurship and conventional employment has gained remarkable traction. While traditional employment offers predictability, structured growth, and a defined career trajectory, entrepreneurship appeals to those seeking autonomy, innovation, and the potential for exponential returns. However, both paths are fraught with distinct advantages and inherent uncertainties. Employment, particularly within established organizations, provides financial stability, social recognition, and institutional support. Employees are not burdened with existential risks such as capital loss or market unpredictability. Instead, they. operate within frameworks of responsibility and hierarchy, where risk is absorbed at higher managerial levels. For many, this structure offers psychological comfort and a clear roadmap for progression. Conversely, entrepreneurship demands resilience, resourcefulness, and a high tolerance for ambiguity. Entrepreneurs must navigate volatile markets, requlatory complexities, and the absence of assured income—challenges often underestimated by aspirants. Yet, for those with a risk appetite and creative acumen, entrepreneurship promises a unique form of fulfillment. It allows individuals to disrupt existing paradigms, build ventures from the ground up, and possibly shape industries. Societal perceptions further complicate the dichotomy. In many cultures, steady employment is seen as the hallmark of success, while entrepreneurial endeavors are often perceived as reckless or unstable—until they succeed. This perception, however, is gradually shifting as global startup ecosystems mature and innovation becomes synonymous with progress. The real decision, therefore, lies not in which path is superior but in aligning one’s temperament, values, and long-term goals with the demands of each route. Entrepreneurship may offer liberation, but it is not without sacrifice. Employment may provide security, but it can come at the cost of creative constraint. A reflective, context-aware approach—not blind aspiration—is essential for navigating this professional crossroads.<br>Why is employment often psychologically comforting, as per the passage?",
     "options": [
       "It allows for flexible innovation",
       "It eliminates the need for competition",
@@ -3396,7 +3396,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Passage: job stability + structure = psychological comfort."
   },
   {
-    "question": "How does the passage describe societal views toward entrepreneurship?",
+    "question": "<b>Read the following passage and answer the questions based on the passage</b>: <br>In-contemporary discourse, the debate between entrepreneurship and conventional employment has gained remarkable traction. While traditional employment offers predictability, structured growth, and a defined career trajectory, entrepreneurship appeals to those seeking autonomy, innovation, and the potential for exponential returns. However, both paths are fraught with distinct advantages and inherent uncertainties. Employment, particularly within established organizations, provides financial stability, social recognition, and institutional support. Employees are not burdened with existential risks such as capital loss or market unpredictability. Instead, they. operate within frameworks of responsibility and hierarchy, where risk is absorbed at higher managerial levels. For many, this structure offers psychological comfort and a clear roadmap for progression. Conversely, entrepreneurship demands resilience, resourcefulness, and a high tolerance for ambiguity. Entrepreneurs must navigate volatile markets, requlatory complexities, and the absence of assured income—challenges often underestimated by aspirants. Yet, for those with a risk appetite and creative acumen, entrepreneurship promises a unique form of fulfillment. It allows individuals to disrupt existing paradigms, build ventures from the ground up, and possibly shape industries. Societal perceptions further complicate the dichotomy. In many cultures, steady employment is seen as the hallmark of success, while entrepreneurial endeavors are often perceived as reckless or unstable—until they succeed. This perception, however, is gradually shifting as global startup ecosystems mature and innovation becomes synonymous with progress. The real decision, therefore, lies not in which path is superior but in aligning one’s temperament, values, and long-term goals with the demands of each route. Entrepreneurship may offer liberation, but it is not without sacrifice. Employment may provide security, but it can come at the cost of creative constraint. A reflective, context-aware approach—not blind aspiration—is essential for navigating this professional crossroads.<br>How does the passage describe societal views toward entrepreneurship?",
     "options": [
       "Always supportive",
       "Unanimously dismissive",
@@ -3407,7 +3407,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Passage states society doubts entrepreneurs until success."
   },
   {
-    "question": "What is implied by 'absence of assured income' in the context of entrepreneurship?",
+    "question": "<b>Read the following passage and answer the questions based on the passage</b>: <br>In-contemporary discourse, the debate between entrepreneurship and conventional employment has gained remarkable traction. While traditional employment offers predictability, structured growth, and a defined career trajectory, entrepreneurship appeals to those seeking autonomy, innovation, and the potential for exponential returns. However, both paths are fraught with distinct advantages and inherent uncertainties. Employment, particularly within established organizations, provides financial stability, social recognition, and institutional support. Employees are not burdened with existential risks such as capital loss or market unpredictability. Instead, they. operate within frameworks of responsibility and hierarchy, where risk is absorbed at higher managerial levels. For many, this structure offers psychological comfort and a clear roadmap for progression. Conversely, entrepreneurship demands resilience, resourcefulness, and a high tolerance for ambiguity. Entrepreneurs must navigate volatile markets, requlatory complexities, and the absence of assured income—challenges often underestimated by aspirants. Yet, for those with a risk appetite and creative acumen, entrepreneurship promises a unique form of fulfillment. It allows individuals to disrupt existing paradigms, build ventures from the ground up, and possibly shape industries. Societal perceptions further complicate the dichotomy. In many cultures, steady employment is seen as the hallmark of success, while entrepreneurial endeavors are often perceived as reckless or unstable—until they succeed. This perception, however, is gradually shifting as global startup ecosystems mature and innovation becomes synonymous with progress. The real decision, therefore, lies not in which path is superior but in aligning one’s temperament, values, and long-term goals with the demands of each route. Entrepreneurship may offer liberation, but it is not without sacrifice. Employment may provide security, but it can come at the cost of creative constraint. A reflective, context-aware approach—not blind aspiration—is essential for navigating this professional crossroads.<br>What is implied by 'absence of assured income' in the context of entrepreneurship?",
     "options": [
       "Entrepreneurs always work voluntarily",
       "No fixed salary or stable cash flow",
@@ -3418,7 +3418,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Entrepreneurship involves unpredictable income."
   },
   {
-    "question": "What does the word 'dichotomy' in the passage most nearly mean?",
+    "question": "<b>Read the following passage and answer the questions based on the passage</b>: <br>In-contemporary discourse, the debate between entrepreneurship and conventional employment has gained remarkable traction. While traditional employment offers predictability, structured growth, and a defined career trajectory, entrepreneurship appeals to those seeking autonomy, innovation, and the potential for exponential returns. However, both paths are fraught with distinct advantages and inherent uncertainties. Employment, particularly within established organizations, provides financial stability, social recognition, and institutional support. Employees are not burdened with existential risks such as capital loss or market unpredictability. Instead, they. operate within frameworks of responsibility and hierarchy, where risk is absorbed at higher managerial levels. For many, this structure offers psychological comfort and a clear roadmap for progression. Conversely, entrepreneurship demands resilience, resourcefulness, and a high tolerance for ambiguity. Entrepreneurs must navigate volatile markets, requlatory complexities, and the absence of assured income—challenges often underestimated by aspirants. Yet, for those with a risk appetite and creative acumen, entrepreneurship promises a unique form of fulfillment. It allows individuals to disrupt existing paradigms, build ventures from the ground up, and possibly shape industries. Societal perceptions further complicate the dichotomy. In many cultures, steady employment is seen as the hallmark of success, while entrepreneurial endeavors are often perceived as reckless or unstable—until they succeed. This perception, however, is gradually shifting as global startup ecosystems mature and innovation becomes synonymous with progress. The real decision, therefore, lies not in which path is superior but in aligning one’s temperament, values, and long-term goals with the demands of each route. Entrepreneurship may offer liberation, but it is not without sacrifice. Employment may provide security, but it can come at the cost of creative constraint. A reflective, context-aware approach—not blind aspiration—is essential for navigating this professional crossroads.<br>What does the word 'dichotomy' in the passage most nearly mean?",
     "options": [
       "A shared understanding",
       "A mutual advantage",
@@ -3429,19 +3429,19 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Dichotomy = two opposite ideas contrasted."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part: He is looking forward fo meet you soon.",
+    "question": "Choose the most suitable option to replace the highlighted part:<br> He is looking forward <b><b>to meet you soon.",
     "options": ["to meeting you soon", "for meeting you", "meeting you", "to have met you"],
     "correctAnswer": "to meeting you soon",
     "explanation": "'Look forward to' is always followed by a gerund."
   },
   {
-    "question": "Choose the most suitable option to replace the highlighted part of the sentence: The judge declared the prisoner as guilty.",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence:<br> The judge declared the prisoner <b><b>as guilty.",
     "options": ["guilty for", "guilty", "as being guilty", "guilty to crime"],
     "correctAnswer": "as being guilty",
     "explanation": "Correct formal expression: 'declared as being guilty'."
   },
   {
-    "question": "Ravi said, “I like this pen.” (Indirect speech)",
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech. <br>Ravi said, “I like this pen.” ",
     "options": [
       "Ravi said he liked that pen.",
       "Ravi said he like that pen.",
@@ -3452,24 +3452,24 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "‘This’ → ‘that’, tense shifts to past."
   },
   {
-    "question": "The judge said that justice must be served at any cost. (Direct speech)",
+    "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech. <br>The judge said that justice must be served at any cost.",
     "options": [
       "\"Justice should be served at any cost,” said the judge.",
       "\"Justice must be served at any cost,” the judge said.",
       "\"We serve justice at any cost,” said the judge.",
       "\"One must serve justice,” the judge said."
     ],
-    "correctAnswer": "\"Justice should be served at any cost,” said the judge.",
-    "explanation": "‘Must’ often becomes ‘should’ in direct conversion per key."
+    "correctAnswer": "\"Justice must be served at any cost,” the judge said.",
+    "explanation": " "
   },
   {
-    "question": "Rearrange to form a coherent paragraph: (Misinformation passage)",
-    "options": ["2,1,4,3", "3,1,2,4", "1,4,2,3"],
-    "correctAnswer": "1,4,2,3",
+    "question": "Rearrange to form a coherent paragraph: .<br> (1)The rapid spread of misinformation and disinformation on social media platforms represents a major challenge to public discourse. (2). This method involves a systematic verification of facts, claims, and sources to provide a credible assessment of accuracy.(3). This phenomenon can erode public trust in news sources and undermine informed decision-making in a democratic society. (4). As a result, professional fact-checking organizations have emerged as a critical line of defense against the proliferation of false narratives. ",
+    "options": ["2,1,4,3", "3,1,2,4","1,3,4,2", "1,4,2,3"],
+    "correctAnswer": "1,3,4,2",
     "explanation": "Starts with issue → fact-check role → method → impact."
   },
   {
-    "question": "Rearrange to form a coherent paragraph:",
+    "question": "Rearrange to form a coherent paragraph:<br>. (1)It is a process that involves the systematic and objective investigation of a subject to discover new facts or to confirm existing ones. <br>(2). Research is a foundational pillar of academic and scientific progress. <br>(3). This can be either theoretical, aiming to expand knowledge, or applied, seeking to solve a practical problem. <br>(4) The findings of this investigation are then documented and peer-reviewed to ensure validity and credibility.",
     "options": ["2,1,3,4", "1,2,4,3", "4,3,2,1", "3,4,1,2"],
     "correctAnswer": "2,1,3,4",
     "explanation": "Definition → investigation → types → review process."
