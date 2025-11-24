@@ -766,7 +766,7 @@
         
         <ul class="instruction-list">
             <li>
-                <strong>Duration:</strong> The test duration is <strong>20 minutes</strong>.
+               <strong>Duration:</strong> The test duration is <strong id="duration-text">25 minutes</strong>.
             </li>
             <li>
                 <strong>Scoring:</strong> Each question carries <strong>2 marks</strong>. There is a penalty of <strong>0.5 marks</strong> for each incorrect answer (Negative Marking).
@@ -813,7 +813,6 @@
     <div class="header-right">
         <div class="timer-display">
             <span class="timer-icon">⏰</span>
-            <!-- ID 'timer' is updated by JS to show "Subject: 00:00" -->
             <span id="timer" class="timer-text">--:--</span>
         </div>
         <button id="pause-btn" class="header-btn secondary">Pause</button>
@@ -909,28 +908,68 @@
         <div class="review-main-content">
             
             <div class="review-question-area-wrapper">
-                   <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
-                   <div id="review-question-area">
-                           </div>
-                   <footer class="review-footer">
-                       <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                       <button id="review-next-btn" class="btn primary">Next Question</button>
-                   </footer>
+                       <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
+                       <div id="review-question-area">
+                            </div>
+                       <footer class="review-footer">
+                            <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                            <button id="review-next-btn" class="btn primary">Next Question</button>
+                       </footer>
             </div>
             
             <aside class="review-sidebar">
                 <div class="review-palette-container">
                     <h3 style="margin-top:0;">Question Palette</h3>
                     <div id="review-palette" class="question-palette">
-                           </div>
+                            </div>
                 </div>
             </aside>
             
         </div>
         
     </div>
+
+  <script>
+    /**
+     * Helper function to safely extract a URL parameter (like 'testId')
+     */
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get the testId and convert to lowercase for comparison
+    const testId = getUrlParameter('testId');
+    let duration = '25 minutes'; // Default to Maths/Quant duration for safety
+
+    if (testId) {
+        const lowerTestId = testId.toLowerCase();
+
+        // 1. Check for Reasoning/Logic (20 minutes)
+        if (lowerTestId.includes('Reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
+            duration = '20 minutes';
+        } 
+        // 2. Check for English/Verbal (15 minutes)
+        else if (lowerTestId.includes('english') || lowerTestId.includes('verbal') || lowerTestId.includes('eng')) {
+            duration = '15 minutes';
+        }
+        // 3. Check explicitly for Maths/Quant (25 minutes - although this is the default)
+        else if (lowerTestId.includes('maths') || lowerTestId.includes('maths')) {
+            duration = '25 minutes';
+        }
+    }
+    
+    // Safely update the duration text element
+    const durationElement = document.getElementById('duration-text');
+    if (durationElement) {
+        durationElement.textContent = duration;
+    }
+</script>
+    
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>
+    <script>
+</script>
 </body>
 </html>

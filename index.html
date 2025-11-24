@@ -175,16 +175,16 @@
             text-decoration: none; /* Make it look like a link */
         }
         .floating-theme-switch-wrapper {
-    position: fixed; /* Fixes it relative to the browser window */
-    top: 20px;      /* 20 pixels from the top */
-    right: 30px;    /* 30 pixels from the right */
-    z-index: 2000;  /* Ensure it's above other content */
-    
-    /* Inherit the existing toggle styles */
-    display: flex; 
-    align-items: center; 
-    gap: 10px;
-}
+            position: fixed; 
+            top: 20px; 
+            right: 30px; 
+            z-index: 2000; 
+            
+            /* Inherit the existing toggle styles */
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
 
         .test-card:hover .attempt-btn { transform: scale(1.02); box-shadow: 0 6px 20px rgba(74, 0, 224, 0.6); }
         
@@ -226,6 +226,21 @@
             const tabs = document.querySelectorAll('.tab');
             const themeToggle = document.getElementById('theme-toggle');
 
+            // NEW: Mapping for subject-specific display times on the cards
+            const SUBJECT_DISPLAY_TIMES = {
+                "Maths": 25,
+                "Reasoning": 20,
+                "English": 15,
+                "General": 25 // Default fallback
+            };
+            
+            // Function to get the current active subject from the tabs
+            function getActiveSubject() {
+                const activeTab = document.querySelector('.tab.active');
+                // Return the data-subject of the active tab, defaulting to 'Maths'
+                return activeTab ? activeTab.dataset.subject : 'Maths';
+            }
+
             // --- DARK MODE ---
             function applyTheme(theme) { 
                 document.body.classList.toggle('dark-mode', theme === 'dark'); 
@@ -249,11 +264,14 @@
             
             mainTitle.innerHTML = `Explore <strong>${ALL_TESTS.length}</strong> Available Mock Tests`;
             
-            function generateCardHTML(test) {
+            // UPDATED generateCardHTML function to accept the current active subject
+            function generateCardHTML(test, currentSubject) {
                 const fullTitle = `${test.date} ${test.title}`;
                 const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
                 const questions = test.questions || 25;
-                const time = test.time || 25;
+                
+                // Get the time based on the active tab's subject, using a fallback time if the subject isn't mapped
+                const time = SUBJECT_DISPLAY_TIMES[currentSubject] || SUBJECT_DISPLAY_TIMES["General"];
 
                 // The attempt button links directly to the test.html page
                 return `
@@ -264,7 +282,7 @@
                         <div class="card-stats">
                             <div class="stat-item"><div class="value">${questions}</div><div class="label">Questions</div></div>
                             <div class="stat-item"><div class="value">${questions * 2}</div><div class="label">Marks</div></div>
-                            <div class="stat-item"><div class="value">${time}</div><div class="label">Minutes</div></div>
+                            <div class="stat-item"><div class="value">${time}</div><div class="label">Minutes</div></div> 
                         </div>
                         
                         <a href="test.html?testId=${test.id}" class="attempt-btn">Attempt</a>
@@ -278,13 +296,15 @@
                 });
             }
 
+            // UPDATED displayTests function to pass the subject to generateCardHTML
             function displayTests(subject) {
                 const filteredTests = ALL_TESTS.filter(test => test.subject === subject);
                 
                 gridContainer.style.opacity = 0;
                 
                 if (filteredTests.length > 0) {
-                    gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
+                    // Pass the subject (which is the active tab) here
+                    gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test, subject)).join('');
                     
                     setTimeout(() => {
                         gridContainer.style.opacity = 1;
@@ -301,12 +321,13 @@
                 tab.addEventListener('click', () => {
                     tabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
+                    // Reload tests for the new subject
                     displayTests(tab.dataset.subject);
                 });
             });
             
-            // Initial load of tests
-            displayTests(document.querySelector('.tab.active').dataset.subject);
+            // Initial load of tests using the currently active tab's subject
+            displayTests(getActiveSubject());
         });
     </script>
     <div class="help-btn">💬</div>
