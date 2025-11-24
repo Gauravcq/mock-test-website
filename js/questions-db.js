@@ -3677,7 +3677,7 @@ ssc_cgl_eng_13_sep_s1 : [
   },
   {
     "question": "Rearrange the sentences to form a coherent paragraph: <br>1. The most prevalent of these is the peer-to-peer (P2P) network, where no single entity controls the entire system. 2. Blockchain technology, at its core, is a distributed ledger that maintains a decentralized record of transactions.  3. This decentralized structure ensures security and transparency by requiring network consensus for any new record to be added. 4. It functions by distributing copies of the ledger across a vast network of computers.",
-    "options": ["2,4,1,3", "4,1,3,2", "2,1,4,3"],
+    "options": ["2,4,1,3", "4,1,3,2","1,4,2,3", "2,1,4,3"],
     "correctAnswer": "2,4,1,3",
     "explanation": ""
   }
