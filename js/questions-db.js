@@ -3469,7 +3469,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Starts with issue → fact-check role → method → impact."
   },
   {
-    "question": "Rearrange to form a coherent paragraph:<br>. (1)It is a process that involves the systematic and objective investigation of a subject to discover new facts or to confirm existing ones. <br>(2). Research is a foundational pillar of academic and scientific progress. <br>(3). This can be either theoretical, aiming to expand knowledge, or applied, seeking to solve a practical problem. <br>(4) The findings of this investigation are then documented and peer-reviewed to ensure validity and credibility.",
+    "question": "Rearrange to form a coherent paragraph:<br>(1). It is a process that involves the systematic and objective investigation of a subject to discover new facts or to confirm existing ones. <br>(2). Research is a foundational pillar of academic and scientific progress. <br>(3). This can be either theoretical, aiming to expand knowledge, or applied, seeking to solve a practical problem. <br>(4). The findings of this investigation are then documented and peer-reviewed to ensure validity and credibility.",
     "options": ["2,1,3,4", "1,2,4,3", "4,3,2,1", "3,4,1,2"],
     "correctAnswer": "2,1,3,4",
     "explanation": "Definition → investigation → types → review process."
