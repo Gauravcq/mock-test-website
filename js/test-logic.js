@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure every question has a 'subject'. If your DB has it, this loop just standardizes casing.
     // If not, it attempts to guess or defaults to General.
     questions = questions.map(q => {
-        let subj = q.subject || q.section || "General";
+        let subj = q.subject || q.section || "Time Left";
         // Normalize subject names to match your specific timer requirements
         let s = subj.toLowerCase();
         if (s.includes('math') || s.includes('quant')) subj = "Maths";
