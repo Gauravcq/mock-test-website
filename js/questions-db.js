@@ -3995,7 +3995,7 @@ ssc_cgl_eng_13_sep_s1 : [
         "explanation": "The error is in part (3). The main subject is 'The fact' (singular), which requires the singular verb 'reflects', not 'reflect' (Subject-Verb Agreement)."
       },
       {
-        "question": "Select the sentence containing the homonym of the highlighted word: The <b><b>tripos</b></b> system at Cambridge remains a model of academic rigor.",
+        "question": "Select the sentence containing the homonym of the highlighted word: <br>The <b><b>tripos</b></b> system at Cambridge remains a model of academic rigor.",
         "options": [
           "The tripos involved oral defense and written modules.",
           "He broke his tripos into discrete phases of analysis.",
