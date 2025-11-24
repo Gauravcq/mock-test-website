@@ -195,28 +195,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================
     //  INITIALIZE QUIZ (MAIN LOGIC) - Now only takes data
     // ==========================================================
-    function initializeQuiz(questions, testInfo) {
-        let currentQuestionIndex = 0;
-        let timerInterval;
-        let isPaused = false;
+    // ==========================================================
+//  UPDATED INITIALIZE QUIZ (MAIN LOGIC) - Now only takes data
+// ==========================================================
+function initializeQuiz(questions, testInfo) {
+    let currentQuestionIndex = 0;
+    let timerInterval;
+    let isPaused = false;
 
-        // 1. DEFINE SECTION DURATIONS
-        const sectionDurations = {
-            "Maths": 25,
-            "Reasoning": 20,
-            "English": 15
-        };
+    // 1. DEFINE SECTION DURATIONS - FIX APPLIED HERE
+    const sectionDurations = {
+        "Maths": 25,
+        "Reasoning": 20,
+        "English": 15,
+        "Time Left": 20 // <--- EXPLICITLY DEFINING THE DEFAULT DURATION (20 minutes)
+    };
 
-        // 2. INITIALIZE TIMER BANKS (Uses global sectionTimeRemaining/totalInitialTime)
-        sectionTimeRemaining = {};
-        totalInitialTime = 0;
+    // 2. INITIALIZE TIMER BANKS (Uses global sectionTimeRemaining/totalInitialTime)
+    sectionTimeRemaining = {};
+    totalInitialTime = 0;
 
-        const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
-        uniqueSubjects.forEach(subj => {
-            const minutes = sectionDurations[subj] || 20; // Default 20 mins if not in list
-            sectionTimeRemaining[subj] = minutes * 60;
-            totalInitialTime += (minutes * 60);
-        });
+    const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
+    uniqueSubjects.forEach(subj => {
+        // Now, if subj is "Time Left", it gets 20 minutes from the explicit list above.
+        // If an unknown subject name appears, it still defaults to 20 minutes (as a fallback).
+        const minutes = sectionDurations[subj] || 20; 
+        sectionTimeRemaining[subj] = minutes * 60;
+        totalInitialTime += (minutes * 60);
+    });
 
         // Event listener for language change
         if (languageSelect) {
