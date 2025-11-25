@@ -1488,8 +1488,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "<img src='../images/gv.png' alt='Question 24' style='max-width: 100%; height: auto;'>",
-            "hi": "<img src='../images/gv.png' alt='Question 24' style='max-width: 100%; height: auto;'>"
+            "en": "<img src='../images/vg.png' alt='Question 24' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/vg.png' alt='Question 24' style='max-width: 100%; height: auto;'>"
         },
         "options": [
             "0 | 0",
