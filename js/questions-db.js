@@ -1652,7 +1652,8 @@ const QUESTIONS_DATABASE = {
     "explanation": "This is a combination problem $\\text{nC2} = \\frac{n(n-1)}{2}$.\n- $\\frac{7 \\times (7-1)}{2} = \\frac{7 \\times 6}{2} = \\frac{42}{2} = \\mathbf{21}$ matches."
   }
 ],
- "ssc_cgl_reasoning_13_sep_s1 " :[
+
+ "ssc_cgl_reasoning_13_sep_s1" :[
     {
         "question": {
             "en": "In the following question, select the related word from the given alternatives: Jurisprudence: Law:: Epistemology: ?",
