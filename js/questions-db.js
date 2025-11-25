@@ -1488,12 +1488,12 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "A coded mathematical operation is given. If $A \\% B = (A \\times B) - 1$, find the result of the operation $3 \\% 1$ (inferred from context).",
+            "en": "<img src='../images/gv.png' alt='Question 24' style='max-width: 100%; height: auto;'>",
             "hi": "एक कोडित गणितीय संक्रिया दी गई है। यदि $A \\% B = (A \\times B) - 1$ है, तो संक्रिया $3 \\% 1$ (संदर्भ से अनुमानित) का परिणाम ज्ञात कीजिए।"
         },
         "options": [
             "0 | 0",
-            "3 | 3",
+            "-3 | -3",
             "2 | 2",
             "5 | 5"
         ],
