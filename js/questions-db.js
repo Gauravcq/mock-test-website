@@ -2714,8 +2714,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others. <br><b>M1$:N2#:O3($; P4%:Q5\^:R68; S7*:T8(:U9); V10\_:X11@:Y13#",
-            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्याओं/प्रतीकों का एक समूह दिया गया है। उस समूह की पहचान कीजिए जो अन्य के समान स्वरूप का पालन नहीं करता है। <br><b>M1$:N2#:O3($; P4%:Q5\^:R68; S7*:T8(:U9); V10\_:X11@:Y13#"
+            "en": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others.",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्याओं/प्रतीकों का एक समूह दिया गया है। उस समूह की पहचान कीजिए जो अन्य के समान स्वरूप का पालन नहीं करता है।"
         },
         "options": [
             "M1$:N2#:O3($ | M1$:N2#:O3($",
