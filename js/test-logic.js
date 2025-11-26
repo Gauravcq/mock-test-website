@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
 
             reviewQuestionList = filterQuestions('all');
-            const testInfoAndActionsWrapper = document.querySelector('.test-info-and-actions');
+            const testInfoAndActionsWrapper = document.getElementById('review-button-area');
 
             const testDetailsHtml =
                 '<div class="test-details">' +

@@ -572,91 +572,104 @@ body {
    ========================= */
 
 @media (max-width: 768px) {
+  .mobile-only {
+    display: inline-flex;
+  }
 
-    .mobile-only {
-        display: inline-flex;
-    }
+  .quiz-header {
+    padding: 8px 10px;
+  }
+  .header-left h1#test-main-title {
+    max-width: 170px;
+    font-size: 0.8rem;
+  }
 
-    .quiz-header {
-        padding: 8px 10px;
-    }
-    .header-left h1#test-main-title {
-        max-width: 170px;
-        font-size: 0.8rem;
-    }
+  .main-content-wrapper {
+    flex-direction: column;
+  }
 
-    .main-content-wrapper {
-        flex-direction: column;
-    }
+  /* Palette drawer on mobile (unchanged) */
+  .right-sidebar {
+    display: none;
+  }
+  body.palette-open .right-sidebar {
+    display: flex;
+    position: fixed;
+    top: 44px;
+    right: 0;
+    bottom: 0;
+    width: 80%;
+    max-width: 320px;
+    z-index: 60;
+    box-shadow: -4px 0 16px rgba(0,0,0,0.35);
+  }
+  body.palette-open .palette-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 55;
+  }
 
-    /* Hide sidebar by default on mobile */
-    .right-sidebar {
-        display: none;
-    }
+  .question-area-main {
+    border-right: none;
+  }
 
-    /* When body has .palette-open, show as drawer */
-    body.palette-open .right-sidebar {
-        display: flex;
-        position: fixed;
-        top: 44px;     /* header height */
-        right: 0;
-        bottom: 0;
-        width: 80%;
-        max-width: 320px;
-        z-index: 60;
-        box-shadow: -4px 0 16px rgba(0,0,0,0.35);
-    }
+  .question-content {
+    padding: 12px 10px 80px;
+  }
 
-    body.palette-open .palette-backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.4);
-        z-index: 55;
-    }
+  /* ---------- BOTTOM BUTTONS: 4-COLUMN GRID ---------- */
+  .question-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px 10px;
+    box-shadow: 0 -1px 4px rgba(15,23,42,0.08);
+    background: #ffffff;
 
-    .question-area-main {
-        border-right: none;
-    }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Mark, Clear, Prev, Next */
+    column-gap: 8px;
+    row-gap: 6px;
+    align-items: stretch;
+  }
 
-    .question-content {
-        padding: 12px 10px 80px;
-    }
+  /* Make wrappers not affect layout – let buttons sit directly in grid */
+  .question-footer .left-btns,
+  .question-footer .right-btns {
+    display: contents;
+  }
+  /* submit-btn-wrapper is still hidden by earlier rule, so no 5th button */
 
-    .question-footer {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 8px 10px;
-        box-shadow: 0 -1px 4px rgba(15,23,42,0.08);
-    }
+  .question-footer .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 4px;
+    font-size: 0.8rem;
+    border-radius: 999px;
+  }
 
-    .left-btns,
-    .right-btns {
-        flex: 1;
-    }
-
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .result-container,
-    .review-container {
-        padding: 14px 10px 30px;
-        border-radius: 0;
-    }
+  .result-container,
+  .review-container {
+    padding: 14px 10px 30px;
+    border-radius: 0;
+  }
 }
 /* =========================================
    CLEAN RESULT SUMMARY (Overview tab)
+   ========================================= */
+
+/* =========================================
+   CLEAN RESULT SUMMARY LAYOUT
    ========================================= */
 
 #result-summary-page {
   background: #f3f4f6;
 }
 
-/* Container */
+/* Outer container */
 .result-container {
   max-width: 960px;
   margin: 0 auto;
@@ -664,7 +677,7 @@ body {
   background: transparent;
 }
 
-/* "← Go back" link */
+/* Back link */
 .go-back-btn {
   display: inline-flex;
   align-items: center;
@@ -710,17 +723,16 @@ body {
   border-color: #1d4ed8;
 }
 
-/* Layout: left info + right stats */
+/* 2‑column layout: left (info), right (stats) */
 .result-summary-content-wrapper {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
   gap: 16px;
   align-items: flex-start;
 }
 
-/* Left: review button / meta area */
+/* LEFT: test info + buttons */
 #review-button-area {
-  flex: 1 1 230px;
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
@@ -730,79 +742,78 @@ body {
   color: #4b5563;
 }
 
-/* If your JS puts a button/link here, make it full width & nice */
-#review-button-area a,
-#review-button-area button {
-  display: inline-flex;
+#review-button-area .test-details h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+#review-button-area .test-details p {
+  margin: 2px 0;
+  font-size: 0.85rem;
+}
+
+/* Buttons inside left card */
+#review-button-area .action-buttons {
   margin-top: 10px;
-  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#review-button-area .action-buttons .btn {
+  width: 100%;
   border-radius: 999px;
-  border: none;
-  background: #1d4ed8;
-  color: #fff;
+  padding: 8px 12px;
   font-size: 0.9rem;
   font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-}
-#review-button-area a:hover,
-#review-button-area button:hover {
-  background: #1e40af;
+  text-align: center;
 }
 
-/* Right: stats cards area */
-#stats-cards-area {
-  flex: 2 1 340px;
-}
-
-/* Grid of cards (we will inject .stats-grid + .stat-card via JS) */
-#stats-cards-area .stats-grid {
+/* RIGHT: stats cards grid */
+#stats-cards-area .stats-grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
 }
 
-/* Individual stat card */
+/* Stat cards */
 .stat-card {
   background: #ffffff;
   border-radius: 12px;
-  padding: 14px 12px 12px;
+  padding: 12px 14px 10px;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 4px 10px rgba(15,23,42,0.05);
+  box-shadow: 0 4px 8px rgba(15,23,42,0.05);
 }
 
-.stat-label {
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+/* Label under value */
+.stat-name {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: #6b7280;
-  margin-bottom: 6px;
 }
 
-.stat-value {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #111827;
-}
+/* Emphasis colors */
+.stat-card.total-score .stat-value { color: #4c1d95; }     /* purple */
+.stat-card.correct .stat-value    { color: #16a34a; }      /* green */
+.stat-card.incorrect .stat-value  { color: #dc2626; }      /* red */
+.stat-card.unattempted .stat-value { color: #6b7280; }     /* gray */
+.stat-card.time-taken .stat-value { color: #2563eb; }      /* blue */
+.stat-card.accuracy .stat-value   { color: #0891b2; }      /* teal */
 
-/* Emphasis colors for specific cards */
-.stat-card.total-score .stat-value { color: #4c1d95; }       /* Deep purple */
-.stat-card.correct .stat-value { color: #16a34a; }          /* Green */
-.stat-card.incorrect .stat-value { color: #dc2626; }        /* Red */
-.stat-card.unattempted .stat-value { color: #6b7280; }      /* Gray */
-.stat-card.time-taken .stat-value { color: #2563eb; }       /* Blue */
-.stat-card.accuracy .stat-value { color: #0891b2; }         /* Teal */
-
-/* Mobile tweaks */
+/* Mobile: stack columns */
 @media (max-width: 768px) {
-  .result-container {
-    padding: 12px 10px 30px;
-  }
   .result-summary-content-wrapper {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
-
 </style>
 </head>
  <body>
@@ -1068,6 +1079,7 @@ body {
       subtree: true
     });
   })();
+  
 </script>
     <script>
   // Simple toggle for mobile palette drawer
