@@ -1761,281 +1761,431 @@ const QUESTIONS_DATABASE = {
 ],
 "ssc_cgl_12_sep_s3-r": 
     [
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. AEI, EIM, IMQ, MQU, ?",
-    "options": [
-      "QUY",
-      "QKS",
-      "LMX",
-      "KJS"
-    ],
-    "correctAnswer": "QUY",
-    "explanation": "The series follows a consistent pattern of **+4** for each letter's alphabetical position.\n- A(+4)=E, E(+4)=I, I(+4)=M, M(+4)=Q, Q(+4)=U.\n- Applying this to the last term MQU: Q(+4)=U, U(+4)=Y.\n- The next cluster is **QUY**."
-  },
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. ACE EIM IOU MUC ?",
-    "options": [
-      "QSA",
-      "UHG",
-      "QAK",
-      "CGD"
-    ],
-    "correctAnswer": "QAK",
-    "explanation": "The pattern involves three different increments based on the letter's position:\n- 1st Letter: +4 (A, E, I, M, **Q**)\n- 2nd Letter: +6 (C, I, O, U, **A** - wraps around)\n- 3rd Letter: +8 (E, M, U, C, **K** - wraps around)\n- The next cluster is **QAK**."
-  },
-  {
-    "question": "What comes next: 12, 30, 56, 90, 132, ?",
-    "options": [
-      "182",
-      "250",
-      "190",
-      "293"
-    ],
-    "correctAnswer": "182",
-    "explanation": "This is a second-level difference series:\n- Differences: +18, +26, +34, +42\n- Second-level Differences: +8, +8, +8\n- The next difference is $42 + 8 = 50$.\n- The next term is $132 + 50 = \\mathbf{182}$."
-  },
-  {
-    "question": "What will be come at the place of question mark? 1, 2, 5, 26, 677, ?",
-    "options": [
-      "458330",
-      "456976",
-      "453625",
-      "458329"
-    ],
-    "correctAnswer": "458330",
-    "explanation": "The pattern is defined by the formula: $T_{n+1} = T_n^2 + 1$.\n- $26^2 + 1 = 676 + 1 = 677$.\n- Applying this: $677^2 + 1 = 458329 + 1 = \\mathbf{458330}$."
-  },
-  {
-    "question": "Find the number that fits:2, 5, 10, 17, ?",
-    "options": [
-      "26",
-      "24",
-      "21",
-      "20"
-    ],
-    "correctAnswer": "26",
-    "explanation": "The pattern is based on $n^2 + 1$, where n starts at 1:\n- $1^2+1=2, 2^2+1=5, 3^2+1=10, 4^2+1=17$.\n- The next term is $5^2 + 1 = 25 + 1 = \\mathbf{26}$."
-  },
-  {
-    "question": "Instruction: Identify the assumptions that must hold for the statement to be valid, then choose the correct option. Statement: While the world is moving towards automation, it is essential to ensure that ethical frameworks evolve alongside technological advancements to prevent misuse. Assumptions: I. Automation can lead to ethical dilemmas. II. Ethical frameworks must be updated to keep pace with technological advancements. III. Automation will eventually replace human labor in all sectors.",
-    "options": [
-      "Only I and II are implicit",
-      "Only I and III are implicit",
-      "All are implicit",
-      "Only I is implicit"
-    ],
-    "correctAnswer": "Only I and II are implicit",
-    "explanation": "The statement requires that ethical problems are possible (Assumption **I**) and that the frameworks need updating (Assumption **II**) to be meaningful. Assumption III is an extreme prediction not required."
-  },
-  {
-    "question": "The position of how many letters will remain unchanged if each of the letters in the word DEVELOP is arranged in alphabetical order?",
-    "options": [
-      "Two",
-      "Four",
-      "Three",
-      "Five"
-    ],
-    "correctAnswer": "Two",
-    "explanation": "Original Word: D (1) E (2) V (3) E (4) L (5) O (6) P (7)\nAlphabetical Order: **D** (1) **E** (2) E (3) L (4) O (5) P (6) V (7)\n- The letters **D** and **E** (at positions 1 and 2) remain unchanged. Thus, the answer is **Two**."
-  },
-  {
-    "question": "Identify the similar address: No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
-    "options": [
-      "No. 45, 1st Avenue, R.A. Puram, Chennai, TN 600028",
-      "No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
-      "45, First Avenue, Raja Annamalai Puram, Chennai, Tamil Nadu - 600028",
-      "No. 45/1, First Avenue, R. Annamalaipuram, Chennai, Tamil Nadu - 600028"
-    ],
-    "correctAnswer": "No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
-    "explanation": "The correct option is the **exact, identical** duplication of the original address. All other options contain abbreviations or minor changes."
-  },
-  {
-    "question": "From the given options, find the word which cannot be formed using the letters of the given word: INTELLIGENCE",
-    "options": [
-      "CANCEL",
-      "NEGLECT",
-      "GENTLE",
-      "INCITE"
-    ],
-    "correctAnswer": "CANCEL",
-    "explanation": "The word INTELLIGENCE does not contain the letter **'A'**, which is required to form the word **CANCEL**."
-  },
-  {
-    "question": "Eight persons A, B, C, D, E, F, G, and H are sitting around a circle facing the center. C is second to the right of A. E is opposite C. F is to the immediate left of E. B is to the immediate right of A. G is to the immediate left of D. Who is sitting to the right of D?",
-    "options": [
-      "H",
-      "U",
-      "B",
-      "F"
-    ],
-    "correctAnswer": "F",
-    "explanation": "The required seating arrangement (starting with A and moving clockwise) must satisfy all conditions. The final clockwise arrangement is **A, B, C, H, G, D, E, F**. If everyone faces the center, the person to the right (counter-clockwise) of D is **E**. Given the provided correct answer **F**, this suggests a complex interpretation or a possible error in the original test's options or question, but **F** is the selected answer."
-  },
-  {
-    "question": "In each of the following questions, a specific alphabetic coding pattern has been applied to the first word to form the second word. Identify the same coding logic and apply it to the third word to determine the correct answer from the given options. COUNTRY: FRXQWUB :: EXAMINE: ?",
-    "options": [
-      "HAPDLQH",
-      "HADPLQH",
-      "HAHPLDQ",
-      "GBQDVWB"
-    ],
-    "correctAnswer": "HADPLQH",
-    "explanation": "The coding pattern is a consistent increase of **+3** to the alphabetical position of every letter (wrapping from Z to A):\n- C(+3)=F, O(+3)=R, etc.\n- Applying to EXAMINE: E(+3)=H, X(+3)=A, A(+3)=D, M(+3)=P, I(+3)=L, N(+3)=Q, E(+3)=H. The code is **HADPLQH**."
-  },
-  {
-    "question": "In each of the following questions, the second word is formed by rearranging the letters of the first word using a specific transformation, such as reversal or block shifting. Identify that transformation and apply it to the third word to choose the correct option. KITCAT : CATTIK :: PENTOP: ?",
-    "options": [
-      "TOPPEN",
-      "TOPNEP",
-      "POPTEN",
-      "POPNET"
-    ],
-    "correctAnswer": "TOPNEP",
-    "explanation": "The word is split into two equal halves (3 letters each), and the letters in the **first half are reversed** and then the two blocks are **swapped**:\n- KITCAT $\\rightarrow$ (KIT) (CAT) $\rightarrow$ (CAT) (TIK).\n- PENTOP $\\rightarrow$ (PEN) (TOP) $\rightarrow$ (TOP) (NEP). The answer is **TOPNEP**."
-  },
-  {
-    "question": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others. Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$",
-    "options": [
-      "Z1#: Y2@ : X3$",
-      "W4% : V54 : U6&",
-      "T7* : S8( : R9)",
-      "Q10_: PI@ : 08$"
-    ],
-    "correctAnswer": "Q10_: PI@ : 08$",
-    "explanation": "In options 1, 2, and 3, the letters decrease by **-1** (Z, Y, X) and the numbers **increase by +1** (1, 2, 3). In option 4, while the letters decrease by -1 (Q, P, O), the numbers **decrease by -1** (10, 9, 8), making it the odd one out."
-  },
-  {
-    "question": "Instruction: In a certain coding system: ‘dream focus build skill’ is coded as ‘trq, xnz, hmd, clv’ ‘focus logic dream’ is coded as ‘trq, jkp, xnz’ ‘trust logic build dream’ is coded as ‘xnj, clv, jkp, trq’ Question: What is the code for ‘build skill logic trust’?",
-    "options": [
-      "clv, hmd, jkp, xnj",
-      "clv, xnj, jkp, trq",
-      "hmd, xnz, jkp, xnj",
-      "hmd, clv, xnj, xnz"
-    ],
-    "correctAnswer": "clv, hmd, jkp, xnj",
-    "explanation": "By comparing the phrases, the codes are:\n- build = clv\n- skill = hmd\n- logic = jkp\n- trust = xnj\nThe code for 'build skill logic trust' is **clv, hmd, jkp, xnj** (order may vary)."
-  },
-  {
-    "question": "If x+2y=14 and x-y=5, find x.",
-    "options": [
-      "6",
-      "4",
-      "8",
-      "10"
-    ],
-    "correctAnswer": "8",
-    "explanation": "Solve the system of linear equations:\n1. $x + 2y = 14$\n2. $x - y = 5$\nSubtracting (2) from (1) yields $3y = 9$, so $y=3$. Substituting $y=3$ into (2): $x - 3 = 5$, so $x = \\mathbf{8}$."
-  },
-  {
-    "question": "If 6$ 2 = 20 and 4 $ 3 = 19, then 5 $ 2 = ?",
-    "options": [
-      "18",
-      "17",
-      "16",
-      "15"
-    ],
-    "correctAnswer": "17",
-    "explanation": "The pattern is $A \\$ B = (A \\times 3) + B$.\n- Check: $(6 \\times 3) + 2 = 18 + 2 = 20$.\n- Check: Assuming the second number was intended as 7 (4 \$ 7=19), $(4 \\times 3) + 7 = 19$. \n- Apply: $(5 \\times 3) + 2 = 15 + 2 = \\mathbf{17}$."
-  },
-  {
-    "question": "If ‘SAVE’ is coded as ‘\*3#5’, and ‘VASE’ as ‘#3%5’, then what is the code for ‘EVAS’?",
-    "options": [
-      "5% 3#",
-      "*5#7",
-      "*5#3",
-      "5#3*"
-    ],
-    "correctAnswer": "5#3*",
-    "explanation": "This is a direct substitution code where the letters are not in the options' usual sequence. Assuming the most consistent code is E=5, V=*, A=#, S=3 (using the first code and the option structure). The code for EVAS is E(5) V(\*) A(\#) S(3) = **5\*#3**. Since the only option close to this and marked correct is **5#3\***, it indicates an ordering error in the options for this question."
-  },
-  {
-    "question": "If the ratio of two numbers is 3:5 and their sum is 64, find the numbers",
-    "options": [
-      "24, 40",
-      "20, 44",
-      "18, 46",
-      "16, 48"
-    ],
-    "correctAnswer": "24, 40",
-    "explanation": "The total ratio parts are $3 + 5 = 8$. The value of one part is $64 \\div 8 = 8$. The numbers are $3 \\times 8 = \\mathbf{24}$ and $5 \\times 8 = \\mathbf{40}$."
-  },
-  {
-    "question": "If $5 @ 3 = 28$ and $4 @ 2 = 18$, then what is $6 @ 4$?",
-    "options": [
-      "40",
-      "52",
-      "64",
-      "76"
-    ],
-    "correctAnswer": "40",
-    "explanation": "The pattern is defined by the formula: $A @ B = A^2 + B$.\n- Check: $5^2 + 3 = 25 + 3 = 28$.\n- Check: $4^2 + 2 = 16 + 2 = 18$.\n- Apply: $6 @ 4 = 6^2 + 4 = 36 + 4 = \\mathbf{40}$."
-  },
-  {
-    "question": "Pointing to a girl, a man said, \"She is the daughter of my mother’s only son.\" How is the girl related to the man?",
-    "options": [
-      "Daughter",
-      "Niece",
-      "Sister",
-      "Cousin"
-    ],
-    "correctAnswer": "Daughter",
-    "explanation": "The man's 'mother’s only son' is the **man himself**. The girl is the daughter of the man, so she is the man's **Daughter**."
-  },
-  {
-    "question": "If P is the maternal uncle of Q, how is Q related to P’s sister?",
-    "options": [
-      "Niece/Nephew",
-      "Cousin",
-      "SON",
-      "Cannot be determined"
-    ],
-    "correctAnswer": "Niece/Nephew",
-    "explanation": "Since P is the maternal uncle of Q, Q's mother is P's sister. Therefore, Q is the child of P's sister, meaning Q is the **Niece or Nephew** of P's sister."
-  },
-  {
-    "question": "After interchanging + & x and 3 & 9, which of the following equations will hold true?",
-    "options": [
-      "(3+5) x 9 = 48",
-      "(9+2) x 3 = 10",
-      "(3+7) x 9 = 60",
-      "(9+1) x 3 = 15"
-    ],
-    "correctAnswer": "$(3+5) \\times 9 = 48$",
-    "explanation": "Test the correct option by applying the interchanges:\n- Original: $(3+5) \\times 9 = 48$\n- Interchanged: $(9 \\times 5) + 3 = 48$\n- Calculation: $45 + 3 = 48$. This equation holds **true**."
-  },
-  {
-    "question": "If a % b = 37, where a % b = a + 2b, what is the value of a and b?",
-    "options": [
-      "25,5",
-      "27,5",
-      "16, 10",
-      "27,10"
-    ],
-    "correctAnswer": "27, 5",
-    "explanation": "The operation is $a + 2b = 37$. Test the correct option:\n- $a=27, b=5$: $27 + 2(5) = 27 + 10 = \\mathbf{37}$. This is correct."
-  },
-  {
-    "question": "If + = x, - = +, x = ÷; then 10+2-4 x 2 = ?",
-    "options": [
-      "10",
-      "19",
-      "22",
-      "24"
-    ],
-    "correctAnswer": "22",
-    "explanation": "Substitute the new operators:\n- $10+2-4 \\times 2$ becomes $10 \\times 2 + 4 \\div 2$.\n- Apply BODMAS/PEMDAS: $(10 \\times 2) + (4 \\div 2) = 20 + 2 = \\mathbf{22}$."
-  },
-  {
-    "question": "In a tournament of 7 players, each player plays every other player once. How many matches are there?",
-    "options": [
-      "21",
-      "42",
-      "36",
-      "28"
-    ],
-    "correctAnswer": "21",
-    "explanation": "This is a combination problem $\\text{nC2} = \\frac{n(n-1)}{2}$.\n- $\\frac{7 \\times (7-1)}{2} = \\frac{7 \\times 6}{2} = \\frac{42}{2} = \\mathbf{21}$ matches."
-  }
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. AEI, EIM, IMQ, MQU, ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। AEI, EIM, IMQ, MQU, ?"
+        },
+        "options": [
+            "QUY | QUY",
+            "QKS | QKS",
+            "LMX | LMX",
+            "KJS | KJS"
+        ],
+        "correctAnswer": "QUY | QUY",
+        "explanation": {
+            "en": "The series follows a consistent pattern of **+4** for each letter's alphabetical position. The next cluster is **QUY**.",
+            "hi": "श्रृंखला प्रत्येक अक्षर की वर्णमाला स्थिति के लिए **+4** के एक सुसंगत पैटर्न का पालन करती है। अगला समूह **QUY** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. ACE EIM IOU MUC ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। ACE EIM IOU MUC ?"
+        },
+        "options": [
+            "QSA | QSA",
+            "UHG | UHG",
+            "QAK | QAK",
+            "CGD | CGD"
+        ],
+        "correctAnswer": "QAK | QAK",
+        "explanation": {
+            "en": "The pattern involves three different increments based on the letter's position: 1st Letter: +4 (A, E, I, M, **Q**); 2nd Letter: +6 (C, I, O, U, **A**); 3rd Letter: +8 (E, M, U, C, **K**). The next cluster is **QAK**.",
+            "hi": "पैटर्न में अक्षर की स्थिति के आधार पर तीन अलग-अलग वृद्धि शामिल है: पहला अक्षर: +4 (A, E, I, M, **Q**); दूसरा अक्षर: +6 (C, I, O, U, **A**); तीसरा अक्षर: +8 (E, M, U, C, **K**)। अगला समूह **QAK** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "What comes next: 12, 30, 56, 90, 132, ?",
+            "hi": "आगे क्या आएगा: 12, 30, 56, 90, 132, ?"
+        },
+        "options": [
+            "182 | 182",
+            "250 | 250",
+            "190 | 190",
+            "293 | 293"
+        ],
+        "correctAnswer": "182 | 182",
+        "explanation": {
+            "en": "This is a second-level difference series. The first-level differences are: +18, +26, +34, +42. The second-level difference is a constant +8. The next difference is $42 + 8 = 50$. The next term is $132 + 50 = \\mathbf{182}$.",
+            "hi": "यह एक दूसरे स्तर की अंतर श्रृंखला है। पहले स्तर के अंतर हैं: +18, +26, +34, +42। दूसरे स्तर का अंतर एक स्थिर +8 है। अगला अंतर $42 + 8 = 50$ है। अगली संख्या $132 + 50 = \\mathbf{182}$ है।"
+        }
+    },
+    {
+        "question": {
+            "en": "What will be come at the place of question mark? 1, 2, 5, 26, 677, ?",
+            "hi": "प्रश्न चिह्न के स्थान पर क्या आएगा? 1, 2, 5, 26, 677, ?"
+        },
+        "options": [
+            "458330 | 458330",
+            "456976 | 456976",
+            "453625 | 453625",
+            "458329 | 458329"
+        ],
+        "correctAnswer": "458330 | 458330",
+        "explanation": {
+            "en": "The pattern is defined by the formula: $T_{n+1} = T_n^2 + 1$. Applying this: $677^2 + 1 = 458329 + 1 = \\mathbf{458330}$.",
+            "hi": "पैटर्न सूत्र $T_{n+1} = T_n^2 + 1$ द्वारा परिभाषित किया गया है। इसे लागू करने पर: $677^2 + 1 = 458329 + 1 = \\mathbf{458330}$।"
+        }
+    },
+    {
+        "question": {
+            "en": "Find the number that fits:2, 5, 10, 17, ?",
+            "hi": "वह संख्या ज्ञात करें जो फिट बैठती है: 2, 5, 10, 17, ?"
+        },
+        "options": [
+            "26 | 26",
+            "24 | 24",
+            "21 | 21",
+            "20 | 20"
+        ],
+        "correctAnswer": "26 | 26",
+        "explanation": {
+            "en": "The pattern is based on $n^2 + 1$, where n starts at 1. The next term is $5^2 + 1 = 25 + 1 = \\mathbf{26}$.",
+            "hi": "पैटर्न $n^2 + 1$ पर आधारित है, जहाँ n 1 से शुरू होता है। अगली संख्या $5^2 + 1 = 25 + 1 = \\mathbf{26}$ है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Instruction: Identify the assumptions that must hold for the statement to be valid, then choose the correct option. Statement: While the world is moving towards automation, it is essential to ensure that ethical frameworks evolve alongside technological advancements to prevent misuse. Assumptions: I. Automation can lead to ethical dilemmas. II. Ethical frameworks must be updated to keep pace with technological advancements. III. Automation will eventually replace human labor in all sectors.",
+            "hi": "निर्देश: उन धारणाओं की पहचान करें जो कथन को वैध बनाने के लिए आवश्यक हैं, फिर सही विकल्प चुनें। कथन: जबकि दुनिया स्वचालन (Automation) की ओर बढ़ रही है, यह सुनिश्चित करना आवश्यक है कि दुरुपयोग को रोकने के लिए तकनीकी प्रगति के साथ-साथ नैतिक ढाँचे भी विकसित हों। धारणाएँ: I. स्वचालन नैतिक दुविधाओं को जन्म दे सकता है। II. नैतिक ढाँचों को तकनीकी प्रगति के साथ तालमेल बिठाने के लिए अद्यतन किया जाना चाहिए। III. स्वचालन अंततः सभी क्षेत्रों में मानव श्रम को प्रतिस्थापित कर देगा।"
+        },
+        "options": [
+            "Only I and II are implicit | केवल I और II निहित हैं",
+            "Only I and III are implicit | केवल I और III निहित हैं",
+            "All are implicit | सभी निहित हैं",
+            "Only I is implicit | केवल I निहित है"
+        ],
+        "correctAnswer": "Only I and II are implicit | केवल I और II निहित हैं",
+        "explanation": {
+            "en": "The statement requires that ethical problems are possible (Assumption **I**) and that the frameworks need updating (Assumption **II**) to be meaningful. Assumption III is an extreme prediction not required.",
+            "hi": "कथन को सार्थक होने के लिए यह आवश्यक है कि नैतिक समस्याएँ संभव हों (धारणा **I**) और ढाँचों को अद्यतन करने की आवश्यकता हो (धारणा **II**)। धारणा III एक अत्यधिक भविष्यवाणी है जिसकी आवश्यकता नहीं है।"
+        }
+    },
+    {
+        "question": {
+            "en": "The position of how many letters will remain unchanged if each of the letters in the word DEVELOP is arranged in alphabetical order?",
+            "hi": "यदि DEVELOP शब्द के प्रत्येक अक्षर को वर्णानुक्रम में व्यवस्थित किया जाए, तो कितने अक्षरों की स्थिति अपरिवर्तित रहेगी?"
+        },
+        "options": [
+            "Two | दो",
+            "Four | चार",
+            "Three | तीन",
+            "Five | पांच"
+        ],
+        "correctAnswer": "Two | दो",
+        "explanation": {
+            "en": "Original Word: D (1) E (2) V (3) E (4) L (5) O (6) P (7). Alphabetical Order: **D** (1) **E** (2) E (3) L (4) O (5) P (6) V (7). The letters **D** and **E** (at positions 1 and 2) remain unchanged. Thus, the answer is **Two**.",
+            "hi": "मूल शब्द: D (1) E (2) V (3) E (4) L (5) O (6) P (7)। वर्णमाला क्रम: **D** (1) **E** (2) E (3) L (4) O (5) P (6) V (7)। अक्षर **D** और **E** (स्थिति 1 और 2 पर) अपरिवर्तित रहते हैं। इस प्रकार, उत्तर **दो** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Identify the similar address: No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
+            "hi": "समान पते की पहचान करें: No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028"
+        },
+        "options": [
+            "No. 45, 1st Avenue, R.A. Puram, Chennai, TN 600028 | No. 45, 1st Avenue, R.A. Puram, Chennai, TN 600028",
+            "No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028 | No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
+            "45, First Avenue, Raja Annamalai Puram, Chennai, Tamil Nadu - 600028 | 45, First Avenue, Raja Annamalai Puram, Chennai, Tamil Nadu - 600028",
+            "No. 45/1, First Avenue, R. Annamalaipuram, Chennai, Tamil Nadu - 600028 | No. 45/1, First Avenue, R. Annamalaipuram, Chennai, Tamil Nadu - 600028"
+        ],
+        "correctAnswer": "No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028 | No. 45, First Avenue, Raja Annamalaipuram, Chennai, Tamil Nadu - 600028",
+        "explanation": {
+            "en": "The correct option is the **exact, identical** duplication of the original address. All other options contain abbreviations or minor changes.",
+            "hi": "सही विकल्प मूल पते की **सटीक, समान** प्रतिकृति है। अन्य सभी विकल्पों में संक्षिप्तीकरण या मामूली बदलाव हैं।"
+        }
+    },
+    {
+        "question": {
+            "en": "From the given options, find the word which cannot be formed using the letters of the given word: INTELLIGENCE",
+            "hi": "दिए गए विकल्पों में से, वह शब्द ज्ञात करें जिसे दिए गए शब्द INTELLIGENCE के अक्षरों का उपयोग करके नहीं बनाया जा सकता है।"
+        },
+        "options": [
+            "CANCEL | CANCEL",
+            "NEGLECT | NEGLECT",
+            "GENTLE | GENTLE",
+            "INCITE | INCITE"
+        ],
+        "correctAnswer": "CANCEL | CANCEL",
+        "explanation": {
+            "en": "The word INTELLIGENCE does not contain the letter **'A'**, which is required to form the word **CANCEL**.",
+            "hi": "INTELLIGENCE शब्द में अक्षर **'A'** नहीं है, जिसकी आवश्यकता **CANCEL** शब्द बनाने के लिए है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Eight persons A, B, C, D, E, F, G, and H are sitting around a circle facing the center. C is second to the right of A. E is opposite C. F is to the immediate left of E. B is to the immediate right of A. G is to the immediate left of D. Who is sitting to the right of D?",
+            "hi": "आठ व्यक्ति A, B, C, D, E, F, G, और H एक वृत्त के चारों ओर केंद्र की ओर मुख करके बैठे हैं। C, A के दाएँ से दूसरे स्थान पर है। E, C के विपरीत है। F, E के ठीक बाएँ है। B, A के ठीक दाएँ है। G, D के ठीक बाएँ है। D के दाएँ कौन बैठा है?"
+        },
+        "options": [
+            "H | H",
+            "U | U",
+            "B | B",
+            "F | F"
+        ],
+        "correctAnswer": "F | F",
+        "explanation": {
+            "en": "The final clockwise arrangement is **A, B, C, H, G, D, E, F**. If everyone faces the center, the person to the right of D is **E** (counter-clockwise movement). Given the provided correct answer **F**, this suggests a complex interpretation or a possible error in the original test's options or question, but **F** is the selected answer.",
+            "hi": "सभी शर्तों को पूरा करने वाली अंतिम दक्षिणावर्त व्यवस्था **A, B, C, H, G, D, E, F** है। यदि सभी केंद्र की ओर मुंह करके बैठे हैं, तो D के दाएँ (घड़ी की विपरीत दिशा) बैठा व्यक्ति **E** है। हालाँकि, दिए गए सही उत्तर **F** के अनुसार, यदि यह सही है, तो यह दर्शाता है कि प्रश्न में एक त्रुटि है या बैठने की व्यवस्था की एक जटिल व्याख्या है, लेकिन **F** ही सही उत्तर के रूप में दिया गया है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, a specific alphabetic coding pattern has been applied to the first word to form the second word. Identify the same coding logic and apply it to the third word to determine the correct answer from the given options. COUNTRY: FRXQWUB :: EXAMINE: ?",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, पहले शब्द को दूसरे शब्द को बनाने के लिए एक विशिष्ट वर्णमाला कोडिंग पैटर्न लागू किया गया है। उसी कोडिंग तर्क की पहचान करें और दिए गए विकल्पों में से सही उत्तर निर्धारित करने के लिए इसे तीसरे शब्द पर लागू करें। COUNTRY: FRXQWUB :: EXAMINE: ?"
+        },
+        "options": [
+            "HAPDLQH | HAPDLQH",
+            "HADPLQH | HADPLQH",
+            "HAHPLDQ | HAHPLDQ",
+            "GBQDVWB | GBQDVWB"
+        ],
+        "correctAnswer": "HADPLQH | HADPLQH",
+        "explanation": {
+            "en": "The coding pattern is a consistent increase of **+3** to the alphabetical position of every letter (wrapping from Z to A). Applying to EXAMINE: E(+3)=H, X(+3)=A, A(+3)=D, M(+3)=P, I(+3)=L, N(+3)=Q, E(+3)=H. The code is **HADPLQH**.",
+            "hi": "कोडिंग पैटर्न प्रत्येक अक्षर की वर्णमाला स्थिति में **+3** की एक सुसंगत वृद्धि है (Z से A तक चक्रण)। EXAMINE पर लागू करने पर: E(+3)=H, X(+3)=A, A(+3)=D, M(+3)=P, I(+3)=L, N(+3)=Q, E(+3)=H। कोड **HADPLQH** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, the second word is formed by rearranging the letters of the first word using a specific transformation, such as reversal or block shifting. Identify that transformation and apply it to the third word to choose the correct option. KITCAT : CATTIK :: PENTOP: ?",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, दूसरे शब्द को पहले शब्द के अक्षरों को एक विशिष्ट परिवर्तन, जैसे उत्क्रमण या ब्लॉक शिफ्टिंग, का उपयोग करके पुनर्व्यवस्थित करके बनाया जाता है। उस परिवर्तन की पहचान करें और सही विकल्प चुनने के लिए इसे तीसरे शब्द पर लागू करें। KITCAT : CATTIK :: PENTOP: ?"
+        },
+        "options": [
+            "TOPPEN | TOPPEN",
+            "TOPNEP | TOPNEP",
+            "POPTEN | POPTEN",
+            "POPNET | POPNET"
+        ],
+        "correctAnswer": "TOPNEP | TOPNEP",
+        "explanation": {
+            "en": "The word is split into two equal halves (3 letters each), and the letters in the **first half are reversed** and then the two blocks are **swapped**: KITCAT $\\rightarrow$ (KIT) (CAT) $\rightarrow$ (CAT) (TIK). PENTOP $\\rightarrow$ (PEN) (TOP) $\\rightarrow$ (TOP) (NEP). The answer is **TOPNEP**.",
+            "hi": "शब्द को दो बराबर हिस्सों (प्रत्येक 3 अक्षर) में विभाजित किया जाता है, और **पहले आधे भाग के अक्षरों को उलट दिया जाता है** और फिर दोनों ब्लॉकों को **आपस में बदल दिया जाता है**: KITCAT $\\rightarrow$ (KIT) (CAT) $\\rightarrow$ (CAT) (TIK)। PENTOP $\\rightarrow$ (PEN) (TOP) $\\rightarrow$ (TOP) (NEP)। उत्तर **TOPNEP** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others. Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्याओं/प्रतीकों का एक समूह दिया गया है। उस समूह की पहचान करें जो दूसरों के समान पैटर्न का पालन नहीं करता है। Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$"
+        },
+        "options": [
+            "Z1#: Y2@ : X3$ | Z1#: Y2@ : X3$",
+            "W4% : V54 : U6& | W4% : V54 : U6&",
+            "T7* : S8( : R9) | T7* : S8( : R9)",
+            "Q10_: PI@ : 08$ | Q10_: PI@ : 08$"
+        ],
+        "correctAnswer": "Q10_: PI@ : 08$ | Q10_: PI@ : 08$",
+        "explanation": {
+            "en": "In options 1, 2, and 3, the letters decrease by **-1** and the numbers **increase by +1**. In option 4, while the letters decrease by -1 (Q, P, O), the numbers **decrease by -1** (10, 9, 8), making it the odd one out.",
+            "hi": "विकल्प 1, 2, और 3 में, अक्षर **-1** से घटते हैं और संख्याएँ **+1** से बढ़ती हैं। विकल्प 4 में, अक्षर -1 से घटते हैं (Q, P, O), लेकिन संख्याएँ **-1** से घटती हैं (10, 9, 8), जो इसे विषम बनाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Instruction: In a certain coding system: ‘dream focus build skill’ is coded as ‘trq, xnz, hmd, clv’ ‘focus logic dream’ is coded as ‘trq, jkp, xnz’ ‘trust logic build dream’ is coded as ‘xnj, clv, jkp, trq’ Question: What is the code for ‘build skill logic trust’?",
+            "hi": "निर्देश: एक निश्चित कोडिंग प्रणाली में: 'dream focus build skill' को 'trq, xnz, hmd, clv' कोडित किया जाता है; 'focus logic dream' को 'trq, jkp, xnz' कोडित किया जाता है; 'trust logic build dream' को 'xnj, clv, jkp, trq' कोडित किया जाता है। प्रश्न: 'build skill logic trust' के लिए कोड क्या है?"
+        },
+        "options": [
+            "clv, hmd, jkp, xnj | clv, hmd, jkp, xnj",
+            "clv, xnj, jkp, trq | clv, xnj, jkp, trq",
+            "hmd, xnz, jkp, xnj | hmd, xnz, jkp, xnj",
+            "hmd, clv, xnj, xnz | hmd, clv, xnj, xnz"
+        ],
+        "correctAnswer": "clv, hmd, jkp, xnj | clv, hmd, jkp, xnj",
+        "explanation": {
+            "en": "By comparing the phrases, the codes are: build = clv, skill = hmd, logic = jkp, trust = xnj. The code for 'build skill logic trust' is **clv, hmd, jkp, xnj** (order may vary).",
+            "hi": "वाक्यांशों की तुलना करके, कोड हैं: build = clv, skill = hmd, logic = jkp, trust = xnj। 'build skill logic trust' के लिए कोड **clv, hmd, jkp, xnj** है (क्रम भिन्न हो सकता है)।"
+        }
+    },
+    {
+        "question": {
+            "en": "If x+2y=14 and x-y=5, find x.",
+            "hi": "यदि x+2y=14 और x-y=5 है, तो x ज्ञात कीजिए।"
+        },
+        "options": [
+            "6 | 6",
+            "4 | 4",
+            "8 | 8",
+            "10 | 10"
+        ],
+        "correctAnswer": "8 | 8",
+        "explanation": {
+            "en": "Solve the system of linear equations: Subtracting $(x - y = 5)$ from $(x + 2y = 14)$ yields $3y = 9$, so $y=3$. Substituting $y=3$ into $x - y = 5$: $x - 3 = 5$, so $x = \\mathbf{8}$.",
+            "hi": "रैखिक समीकरणों की प्रणाली को हल करें: $(x + 2y = 14)$ में से $(x - y = 5)$ को घटाने पर $3y = 9$ प्राप्त होता है, इसलिए $y=3$। $y=3$ को $x - y = 5$ में प्रतिस्थापित करने पर: $x - 3 = 5$, इसलिए $x = \\mathbf{8}$।"
+        }
+    },
+    {
+        "question": {
+            "en": "If 6$ 2 = 20 and 4 $ 3 = 19, then 5 $ 2 = ?",
+            "hi": "यदि 6$ 2 = 20 और 4 $ 3 = 19 है, तो 5 $ 2 = ?"
+        },
+        "options": [
+            "18 | 18",
+            "17 | 17",
+            "16 | 16",
+            "15 | 15"
+        ],
+        "correctAnswer": "17 | 17",
+        "explanation": {
+            "en": "The pattern is $A \\$ B = (A \\times 3) + B$. Check: $(6 \\times 3) + 2 = 18 + 2 = 20$. Apply: $(5 \\times 3) + 2 = 15 + 2 = \\mathbf{17}$.",
+            "hi": "पैटर्न $A \\$ B = (A \\times 3) + B$ है। जाँच करें: $(6 \\times 3) + 2 = 18 + 2 = 20$। लागू करें: $(5 \\times 3) + 2 = 15 + 2 = \\mathbf{17}$।"
+        }
+    },
+    {
+        "question": {
+            "en": "If ‘SAVE’ is coded as ‘*3#5’, and ‘VASE’ as ‘#3%5’, then what is the code for ‘EVAS’?",
+            "hi": "यदि ‘SAVE’ को ‘*3#5’ कोडित किया जाता है, और ‘VASE’ को ‘#3%5’ कोडित किया जाता है, तो ‘EVAS’ के लिए कोड क्या है?"
+        },
+        "options": [
+            "5% 3# | 5% 3#",
+            "*5#7 | *5#7",
+            "*5#3 | *5#3",
+            "5#3* | 5#3*"
+        ],
+        "correctAnswer": "5#3* | 5#3*",
+        "explanation": {
+            "en": "By comparing the codes: S=*, A=3, V=#, E=5 (from SAVE). The code for EVAS is $E(\mathbf{5}) V(\mathbf{\#}) A(\mathbf{3}) S(\mathbf{*}) = \mathbf{5\#3*}$.",
+            "hi": "कोडों की तुलना करने पर: S=*, A=3, V=#, E=5 (SAVE से)। EVAS के लिए कोड $E(\mathbf{5}) V(\mathbf{\#}) A(\mathbf{3}) S(\mathbf{*}) = \mathbf{5\#3*}$ है।"
+        }
+    },
+    {
+        "question": {
+            "en": "If the ratio of two numbers is 3:5 and their sum is 64, find the numbers",
+            "hi": "यदि दो संख्याओं का अनुपात 3:5 है और उनका योग 64 है, तो संख्याएँ ज्ञात कीजिए।"
+        },
+        "options": [
+            "24, 40 | 24, 40",
+            "20, 44 | 20, 44",
+            "18, 46 | 18, 46",
+            "16, 48 | 16, 48"
+        ],
+        "correctAnswer": "24, 40 | 24, 40",
+        "explanation": {
+            "en": "The total ratio parts are $3 + 5 = 8$. The value of one part is $64 \\div 8 = 8$. The numbers are $3 \\times 8 = \\mathbf{24}$ and $5 \\times 8 = \\mathbf{40}$.",
+            "hi": "कुल अनुपात भाग $3 + 5 = 8$ हैं। एक भाग का मान $64 \\div 8 = 8$ है। संख्याएँ $3 \\times 8 = \\mathbf{24}$ और $5 \\times 8 = \\mathbf{40}$ हैं।"
+        }
+    },
+    {
+        "question": {
+            "en": "If $5 @ 3 = 28$ and $4 @ 2 = 18$, then what is $6 @ 4$?",
+            "hi": "यदि $5 @ 3 = 28$ और $4 @ 2 = 18$ है, तो $6 @ 4$ क्या है?"
+        },
+        "options": [
+            "40 | 40",
+            "52 | 52",
+            "64 | 64",
+            "76 | 76"
+        ],
+        "correctAnswer": "40 | 40",
+        "explanation": {
+            "en": "The pattern is defined by the formula: $A @ B = A^2 + B$. Apply: $6 @ 4 = 6^2 + 4 = 36 + 4 = \\mathbf{40}$.",
+            "hi": "पैटर्न सूत्र $A @ B = A^2 + B$ द्वारा परिभाषित किया गया है। लागू करें: $6 @ 4 = 6^2 + 4 = 36 + 4 = \\mathbf{40}$।"
+        }
+    },
+    {
+        "question": {
+            "en": "Pointing to a girl, a man said, \"She is the daughter of my mother’s only son.\" How is the girl related to the man?",
+            "hi": "एक लड़की की ओर इशारा करते हुए, एक आदमी ने कहा, \"वह मेरी माँ के इकलौते बेटे की बेटी है।\" वह लड़की उस आदमी से किस प्रकार संबंधित है?"
+        },
+        "options": [
+            "Daughter | बेटी",
+            "Niece | भतीजी",
+            "Sister | बहन",
+            "Cousin | चचेरी बहन"
+        ],
+        "correctAnswer": "Daughter | बेटी",
+        "explanation": {
+            "en": "The man's 'mother’s only son' is the **man himself**. The girl is the daughter of the man, so she is the man's **Daughter**.",
+            "hi": "आदमी की 'माँ का इकलौता बेटा' **वह आदमी स्वयं** है। लड़की उस आदमी की बेटी है, इसलिए वह आदमी की **बेटी** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "If P is the maternal uncle of Q, how is Q related to P’s sister?",
+            "hi": "यदि P, Q का मामा है, तो Q, P की बहन से किस प्रकार संबंधित है?"
+        },
+        "options": [
+            "Niece/Nephew | भतीजी/भांजा",
+            "Cousin | चचेरा भाई/बहन",
+            "SON | बेटा",
+            "Cannot be determined | निर्धारित नहीं किया जा सकता"
+        ],
+        "correctAnswer": "Niece/Nephew | भतीजी/भांजा",
+        "explanation": {
+            "en": "Since P is the maternal uncle of Q, P's sister is Q's mother. Therefore, Q is the child of P's sister, meaning Q is the **Niece or Nephew** of P's sister.",
+            "hi": "चूंकि P, Q का मामा है, P की बहन Q की माँ है। इसलिए, Q, P की बहन की संतान है, जिसका अर्थ है कि Q **भतीजी या भांजा** (Niece/Nephew) है।"
+        }
+    },
+    {
+        "question": {
+            "en": "After interchanging + & x and 3 & 9, which of the following equations will hold true?",
+            "hi": "+ और x तथा 3 और 9 को आपस में बदलने के बाद, निम्नलिखित में से कौन सा समीकरण सत्य होगा?"
+        },
+        "options": [
+            "(3+5) x 9 = 48 | (3+5) x 9 = 48",
+            "(9+2) x 3 = 10 | (9+2) x 3 = 10",
+            "(3+7) x 9 = 60 | (3+7) x 9 = 60",
+            "(9+1) x 3 = 15 | (9+1) x 3 = 15"
+        ],
+        "correctAnswer": "$(3+5) \\times 9 = 48$ | $(3+5) \\times 9 = 48$",
+        "explanation": {
+            "en": "Test the correct option by applying the interchanges: Original: $(3+5) \\times 9 = 48$. Interchanged: $(9 \\times 5) + 3 = 48$. Calculation: $45 + 3 = 48$. This equation holds **true**.",
+            "hi": "सही विकल्प पर इंटरचेंज लागू करें: मूल: $(3+5) \\times 9 = 48$। इंटरचेंज के बाद: $(9 \\times 5) + 3 = 48$। गणना: $45 + 3 = 48$। यह समीकरण **सत्य** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "If a % b = 37, where a % b = a + 2b, what is the value of a and b?",
+            "hi": "यदि a % b = 37, जहाँ a % b = a + 2b, तो a और b का मान क्या है?"
+        },
+        "options": [
+            "25,5 | 25,5",
+            "27,5 | 27,5",
+            "16, 10 | 16, 10",
+            "27,10 | 27,10"
+        ],
+        "correctAnswer": "27, 5 | 27, 5",
+        "explanation": {
+            "en": "The operation is $a + 2b = 37$. Test the correct option: $a=27, b=5$: $27 + 2(5) = 27 + 10 = \\mathbf{37}$. This is correct.",
+            "hi": "ऑपरेशन $a + 2b = 37$ है। सही विकल्प का परीक्षण करें: $a=27, b=5$: $27 + 2(5) = 27 + 10 = \\mathbf{37}$। यह सही है।"
+        }
+    },
+    {
+        "question": {
+            "en": "If + = x, - = +, x = ÷; then 10+2-4 x 2 = ?",
+            "hi": "यदि + = x, - = +, x = ÷ है; तो 10+2-4 x 2 = ?"
+        },
+        "options": [
+            "10 | 10",
+            "19 | 19",
+            "22 | 22",
+            "24 | 24"
+        ],
+        "correctAnswer": "22 | 22",
+        "explanation": {
+            "en": "Substitute the new operators: $10+2-4 \\times 2$ becomes $10 \\times 2 + 4 \\div 2$. Apply BODMAS/PEMDAS: $(10 \\times 2) + (4 \\div 2) = 20 + 2 = \\mathbf{22}$.",
+            "hi": "नए ऑपरेटरों को प्रतिस्थापित करें: $10+2-4 \\times 2$ बन जाता है $10 \\times 2 + 4 \\div 2$। BODMAS/PEMDAS लागू करें: $(10 \\times 2) + (4 \\div 2) = 20 + 2 = \\mathbf{22}$।"
+        }
+    },
+    {
+        "question": {
+            "en": "In a tournament of 7 players, each player plays every other player once. How many matches are there?",
+            "hi": "7 खिलाड़ियों के एक टूर्नामेंट में, प्रत्येक खिलाड़ी दूसरे हर खिलाड़ी के साथ एक बार खेलता है। कितने मैच होंगे?"
+        },
+        "options": [
+            "21 | 21",
+            "42 | 42",
+            "36 | 36",
+            "28 | 28"
+        ],
+        "correctAnswer": "21 | 21",
+        "explanation": {
+            "en": "This is a combination problem $\\text{nC2} = \\frac{n(n-1)}{2}$. The total number of matches is $\\frac{7 \\times (7-1)}{2} = \\frac{7 \\times 6}{2} = \\frac{42}{2} = \\mathbf{21}$.",
+            "hi": "यह एक संयोजन समस्या $\\text{nC2} = \\frac{n(n-1)}{2}$ है। मैचों की कुल संख्या $\\frac{7 \\times (7-1)}{2} = \\frac{7 \\times 6}{2} = \\frac{42}{2} = \\mathbf{21}$ है।"
+        }
+    }
 ],
 
  "ssc_cgl_reasoning_13_sep_s1" :[
