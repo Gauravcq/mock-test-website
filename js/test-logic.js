@@ -1,4 +1,4 @@
-// test-logic.js (UPDATED to support bilingual option objects; stores English value only)
+// test-logic.js  (supports BOTH old + new question formats)
 document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -34,6 +34,88 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
 
+    // --- Question Normalizer: supports old + new DB formats ---
+    // Old:
+    //   options: ["Fairness | निष्पक्षता", ...]
+    //   correctAnswer: "Fairness | निष्पक्षता"
+    // New:
+    //   options: [{en,hi}, ...]
+    //   correctAnswer: {en,hi}
+    function normalizeQuestion(raw) {
+        if (!raw) return raw;
+        if (raw._normalized) return raw; // avoid double-normalizing
+
+        const q = { ...raw };
+
+        // QUESTION
+        if (typeof q.question === 'string') {
+            q.question = { en: q.question, hi: q.question };
+        } else {
+            q.question = {
+                en: q.question?.en || '',
+                hi: q.question?.hi || ''
+            };
+        }
+
+        // OPTIONS
+        if (Array.isArray(q.options)) {
+            if (typeof q.options[0] === 'string') {
+                // OLD FORMAT: "English | Hindi"
+                q.options = q.options.map(str => {
+                    const [enPart, hiPart] = String(str).split('|');
+                    return {
+                        en: (enPart || '').trim(),
+                        hi: (hiPart || '').trim()
+                    };
+                });
+            } else if (typeof q.options[0] === 'object') {
+                // NEW FORMAT: already objects
+                q.options = q.options.map(o => ({
+                    en: (o.en || '').trim(),
+                    hi: (o.hi || '').trim()
+                }));
+            }
+        } else {
+            q.options = [];
+        }
+
+        // CORRECT ANSWER
+        if (typeof q.correctAnswer === 'string') {
+            const [enPart, hiPart] = String(q.correctAnswer).split('|');
+            q.correctAnswer = {
+                en: (enPart || '').trim(),
+                hi: (hiPart || '').trim()
+            };
+        } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
+            q.correctAnswer = {
+                en: (q.correctAnswer.en || '').trim(),
+                hi: (q.correctAnswer.hi || '').trim()
+            };
+        } else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
+            q.correctAnswer = {
+                en: q.options[q.correctIndex].en,
+                hi: q.options[q.correctIndex].hi
+            };
+        } else {
+            q.correctAnswer = { en: '', hi: '' };
+        }
+
+        // EXPLANATION
+        if (typeof q.explanation === 'string') {
+            q.explanation = { en: q.explanation, hi: q.explanation };
+        } else if (typeof q.explanation === 'object' && q.explanation !== null) {
+            q.explanation = {
+                en: q.explanation.en || '',
+                hi: q.explanation.hi || ''
+            };
+        } else {
+            q.explanation = { en: '', hi: '' };
+        }
+
+        q._normalized = true;
+        return q;
+    }
+
     // --- Initial Validation and Setup ---
     if (!testId) { document.body.innerHTML = "<h1>Error: Test ID not specified.</h1>"; return; }
     if (typeof ALL_TESTS === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: ALL_TESTS list not found.</h1>"; return; }
@@ -46,14 +128,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
 
     const singleSubjectName = testInfo.subject;
+    const totalQuestions = questions.length || 25;
 
-    // Ensure each question has subject, sectionQNum, sectionTotal (keeps compatibility)
-    questions = questions.map(q => ({
-        ...q,
-        subject: singleSubjectName,
-        sectionQNum: 1,
-        sectionTotal: questions.length || 25
-    }));
+    // Normalize every question + add subject/section metadata
+    questions = questions.map(q => {
+        const nq = normalizeQuestion(q);
+        return {
+            ...nq,
+            subject: singleSubjectName,
+            sectionQNum: 1,
+            sectionTotal: totalQuestions
+        };
+    });
 
     startTestBtn.addEventListener('click', () => {
         instructionsModal.classList.add('hidden');
@@ -72,7 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Helper Functions (Preserved) ---
     function normalizeString(str) {
         if (str === null || typeof str === 'undefined') return '';
-        return String(str).replace(/[\u20b9₹]/g, '').replace(/m\u00b2/g, 'm^2').replace(/\u00b0/g, 'deg').replace(/\s+/g, '').toLowerCase();
+        return String(str)
+            .replace(/[\u20b9₹]/g, '')
+            .replace(/m\u00b2/g, 'm^2')
+            .replace(/\u00b0/g, 'deg')
+            .replace(/\s+/g, '')
+            .toLowerCase();
     }
 
     function filterQuestions(category) {
@@ -423,16 +514,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Build options using option.en and option.hi
             const optionsHtml = question.options.map(optObj => {
                 const optionEn = optObj.en;
-                const optionHi = optObj.hi || '';
                 const checked = (state.userAnswer === optionEn) ? 'checked' : '';
-                // store english value in input.value
                 return `
 <label class="option">
     <input type="radio" name="option" value="${escapeHtml(optionEn)}" ${checked}>
     <span class="option-text"><strong>${escapeHtml(optObj[currentLanguage])}</strong></span>
 </label>
 `;
-
             }).join('');
 
             if (questionArea) {
@@ -485,7 +573,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectedOption = document.querySelector('input[name="option"]:checked');
             const state = questionStates[currentQuestionIndex];
             if (selectedOption) {
-                // Value is the English text
                 state.userAnswer = selectedOption.value;
                 if (!state.markedForReview) state.status = 'answered';
             } else {
@@ -522,8 +609,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
         if (clearResponseBtn) clearResponseBtn.addEventListener('click', clearCurrentAnswer);
 
-        if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => { if (submitSummaryModal) submitSummaryModal.classList.add('hidden'); calculateAndShowResults(); });
-        if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => { if (submitSummaryModal) submitSummaryModal.classList.add('hidden'); });
+        if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => {
+            if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+            calculateAndShowResults();
+        });
+        if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => {
+            if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+        });
 
         if (nextBtn) nextBtn.addEventListener('click', () => {
             saveCurrentAnswer();
@@ -546,9 +638,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
         });
 
-        if (reviewNextBtn) reviewNextBtn.addEventListener('click', () => { if (currentReviewIndex < reviewQuestionList.length - 1) showReviewQuestion(currentReviewIndex + 1); });
-        if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => { if (currentReviewIndex > 0) showReviewQuestion(currentReviewIndex - 1); });
-
+        if (reviewNextBtn) reviewNextBtn.addEventListener('click', () => {
+            if (currentReviewIndex < reviewQuestionList.length - 1) showReviewQuestion(currentReviewIndex + 1);
+        });
+        if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => {
+            if (currentReviewIndex > 0) showReviewQuestion(currentReviewIndex - 1);
+        });
     } // end initializeQuiz
 
 }); // end DOMContentLoaded
