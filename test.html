@@ -648,6 +648,160 @@ body {
         border-radius: 0;
     }
 }
+/* =========================================
+   CLEAN RESULT SUMMARY (Overview tab)
+   ========================================= */
+
+#result-summary-page {
+  background: #f3f4f6;
+}
+
+/* Container */
+.result-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 14px 40px;
+  background: transparent;
+}
+
+/* "← Go back" link */
+.go-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 500;
+}
+.go-back-btn:hover {
+  text-decoration: underline;
+}
+
+/* Heading */
+.result-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: #111827;
+}
+
+/* Tabs */
+.results-header-nav {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 18px;
+  overflow-x: auto;
+}
+.results-header-nav a {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.results-header-nav a.active {
+  color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* Layout: left info + right stats */
+.result-summary-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Left: review button / meta area */
+#review-button-area {
+  flex: 1 1 230px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 14px 14px 16px;
+  box-shadow: 0 4px 10px rgba(15,23,42,0.06);
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+/* If your JS puts a button/link here, make it full width & nice */
+#review-button-area a,
+#review-button-area button {
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #1d4ed8;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+#review-button-area a:hover,
+#review-button-area button:hover {
+  background: #1e40af;
+}
+
+/* Right: stats cards area */
+#stats-cards-area {
+  flex: 2 1 340px;
+}
+
+/* Grid of cards (we will inject .stats-grid + .stat-card via JS) */
+#stats-cards-area .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+/* Individual stat card */
+.stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 12px 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 10px rgba(15,23,42,0.05);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Emphasis colors for specific cards */
+.stat-card.total-score .stat-value { color: #4c1d95; }       /* Deep purple */
+.stat-card.correct .stat-value { color: #16a34a; }          /* Green */
+.stat-card.incorrect .stat-value { color: #dc2626; }        /* Red */
+.stat-card.unattempted .stat-value { color: #6b7280; }      /* Gray */
+.stat-card.time-taken .stat-value { color: #2563eb; }       /* Blue */
+.stat-card.accuracy .stat-value { color: #0891b2; }         /* Teal */
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .result-container {
+    padding: 12px 10px 30px;
+  }
+  .result-summary-content-wrapper {
+    flex-direction: column;
+  }
+}
 
 </style>
 </head>
@@ -840,6 +994,81 @@ body {
         </div>
         
     </div>
+    <script>
+  // Enhance ugly text stats into nice cards
+  (function () {
+    const statsRoot = document.getElementById('stats-cards-area');
+    if (!statsRoot) return;
+
+    function buildCards() {
+      if (!statsRoot || statsRoot.dataset.enhanced === '1') return;
+
+      // Grab raw text (what your current JS prints)
+      const rawTxt = statsRoot.textContent || '';
+      const cleaned = rawTxt.replace(/\s+/g, ' ').trim();
+      if (!cleaned) return;
+
+      // Split by spaces; we expect pattern like:
+      // 0.00 YOUR SCORE 0 CORRECT 0 INCORRECT 25 UNATTEMPTED 00:06 TIME TAKEN 0.0% ACCURACY
+      const parts = cleaned.split(' ');
+      if (parts.length < 13) return; // not enough data, bail out
+
+      const score      = parts[0];
+      const correct    = parts[3];
+      const incorrect  = parts[5];
+      const unattempt  = parts[7];
+      const timeTaken  = parts[9];
+      const accuracy   = parts[12];
+
+      // Build card markup
+      statsRoot.innerHTML = `
+        <div class="stats-grid">
+          <div class="stat-card total-score">
+            <div class="stat-label">Your Score</div>
+            <div class="stat-value">${score}</div>
+          </div>
+          <div class="stat-card correct">
+            <div class="stat-label">Correct</div>
+            <div class="stat-value">${correct}</div>
+          </div>
+          <div class="stat-card incorrect">
+            <div class="stat-label">Incorrect</div>
+            <div class="stat-value">${incorrect}</div>
+          </div>
+          <div class="stat-card unattempted">
+            <div class="stat-label">Unattempted</div>
+            <div class="stat-value">${unattempt}</div>
+          </div>
+          <div class="stat-card time-taken">
+            <div class="stat-label">Time Taken</div>
+            <div class="stat-value">${timeTaken}</div>
+          </div>
+          <div class="stat-card accuracy">
+            <div class="stat-label">Accuracy</div>
+            <div class="stat-value">${accuracy}</div>
+          </div>
+        </div>
+      `;
+
+      statsRoot.dataset.enhanced = '1';
+    }
+
+    // We don't know exactly when your main JS fills the result,
+    // so we watch the DOM and run when the result page becomes visible.
+    const observer = new MutationObserver(() => {
+      const page = document.getElementById('result-summary-page');
+      if (page && !page.classList.contains('hidden')) {
+        buildCards();
+      }
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
+  })();
+</script>
     <script>
   // Simple toggle for mobile palette drawer
   (function () {
