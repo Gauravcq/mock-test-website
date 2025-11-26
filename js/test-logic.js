@@ -1,4 +1,4 @@
-// test-logic.js  (supports BOTH old + new question formats)
+// test-logic.js  (supports OLD + NEW + EN-only question formats)
 document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -34,63 +34,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
 
-    // --- Question Normalizer: supports old + new DB formats ---
-    // Old:
-    //   options: ["Fairness | निष्पक्षता", ...]
-    //   correctAnswer: "Fairness | निष्पक्षता"
-    // New:
-    //   options: [{en,hi}, ...]
-    //   correctAnswer: {en,hi}
+    // --- Question Normalizer: supports all DB formats ---
+    // 1) Old bilingual strings:
+    //      options: ["Pressure | दबाव", ...]
+    //      correctAnswer: "Pressure | दबाव"
+    // 2) New objects:
+    //      options: [{en:"Pressure",hi:"दबाव"}, ...]
+    //      correctAnswer: {en:"Temperature",hi:"तापमान"}
+    // 3) English‑only strings:
+    //      options: ["3","5","7","9"]
+    //      correctAnswer: "5"
     function normalizeQuestion(raw) {
         if (!raw) return raw;
         if (raw._normalized) return raw; // avoid double-normalizing
 
         const q = { ...raw };
 
-        // QUESTION
+        // ---------- QUESTION ----------
         if (typeof q.question === 'string') {
             q.question = { en: q.question, hi: q.question };
         } else {
-            q.question = {
-                en: q.question?.en || '',
-                hi: q.question?.hi || ''
-            };
+            const enQ = q.question?.en || '';
+            const hiQ = q.question?.hi || enQ; // fallback hi=en if missing
+            q.question = { en: enQ, hi: hiQ };
         }
 
-        // OPTIONS
+        // ---------- OPTIONS ----------
         if (Array.isArray(q.options)) {
             if (typeof q.options[0] === 'string') {
-                // OLD FORMAT: "English | Hindi"
+                // Strings: maybe "en | hi" OR only "en"
                 q.options = q.options.map(str => {
-                    const [enPart, hiPart] = String(str).split('|');
-                    return {
-                        en: (enPart || '').trim(),
-                        hi: (hiPart || '').trim()
-                    };
+                    const parts = String(str).split('|');     // ["3"] or ["Pressure"," दबाव"]
+                    const enPart = (parts[0] || '').trim();
+                    const hiRaw = (parts[1] || '').trim();
+                    const hiPart = hiRaw !== '' ? hiRaw : enPart; // if no hi, use en
+                    return { en: enPart, hi: hiPart };
                 });
             } else if (typeof q.options[0] === 'object') {
-                // NEW FORMAT: already objects
-                q.options = q.options.map(o => ({
-                    en: (o.en || '').trim(),
-                    hi: (o.hi || '').trim()
-                }));
+                // Already objects {en,hi} – ensure both keys exist, hi fallback to en
+                q.options = q.options.map(o => {
+                    const en = (o.en || '').trim();
+                    const hiRaw = (o.hi || '').trim();
+                    const hi = hiRaw !== '' ? hiRaw : en;
+                    return { en, hi };
+                });
             }
         } else {
             q.options = [];
         }
 
-        // CORRECT ANSWER
+        // ---------- CORRECT ANSWER ----------
         if (typeof q.correctAnswer === 'string') {
-            const [enPart, hiPart] = String(q.correctAnswer).split('|');
-            q.correctAnswer = {
-                en: (enPart || '').trim(),
-                hi: (hiPart || '').trim()
-            };
+            // "5"  OR  "Pressure | दबाव"
+            const parts = String(q.correctAnswer).split('|');
+            const enPart = (parts[0] || '').trim();
+            const hiRaw = (parts[1] || '').trim();
+            const hiPart = hiRaw !== '' ? hiRaw : enPart; // fallback hi=en
+            q.correctAnswer = { en: enPart, hi: hiPart };
         } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
-            q.correctAnswer = {
-                en: (q.correctAnswer.en || '').trim(),
-                hi: (q.correctAnswer.hi || '').trim()
-            };
+            const en = (q.correctAnswer.en || '').trim();
+            const hiRaw = (q.correctAnswer.hi || '').trim();
+            const hi = hiRaw !== '' ? hiRaw : en;
+            q.correctAnswer = { en, hi };
         } else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
             q.correctAnswer = {
                 en: q.options[q.correctIndex].en,
@@ -100,14 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
             q.correctAnswer = { en: '', hi: '' };
         }
 
-        // EXPLANATION
+        // ---------- EXPLANATION ----------
         if (typeof q.explanation === 'string') {
             q.explanation = { en: q.explanation, hi: q.explanation };
         } else if (typeof q.explanation === 'object' && q.explanation !== null) {
-            q.explanation = {
-                en: q.explanation.en || '',
-                hi: q.explanation.hi || ''
-            };
+            const enE = q.explanation.en || '';
+            const hiRaw = q.explanation.hi || '';
+            const hiE = hiRaw !== '' ? hiRaw : enE; // fallback hi=en
+            q.explanation = { en: enE, hi: hiE };
         } else {
             q.explanation = { en: '', hi: '' };
         }
@@ -211,10 +216,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (reviewQuestionList.length === 0 || index < 0 || index >= reviewQuestionList.length || !reviewArea) return;
 
         const reviewItem = reviewQuestionList[index];
-        const question = questions[reviewItem.index];
+        the_question = questions[reviewItem.index];
+        const question = the_question;
         const state = questionStates[reviewItem.index];
 
-        if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length + " (Original Q" + (reviewItem.index + 1) + ")";
+        if (reviewQuestionTitle) reviewQuestionTitle.textContent =
+            "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length +
+            " (Original Q" + (reviewItem.index + 1) + ")";
 
         // Build options HTML; question.options are objects {en, hi}
         const optionsHtml = question.options.map(optObj => {
@@ -258,7 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
         [resultTabsContainer, reviewTabsContainer].forEach(container => {
             if (container) {
                 container.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-                const activeTab = Array.from(container.querySelectorAll('a')).find(a => a.textContent.toLowerCase().trim() === category);
+                const activeTab = Array.from(container.querySelectorAll('a'))
+                    .find(a => a.textContent.toLowerCase().trim() === category);
                 if (activeTab) activeTab.classList.add('active');
             }
         });
@@ -277,7 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (reviewQuestionList.length > 0) {
             showReviewQuestion(0);
         } else {
-            if (reviewArea) reviewArea.innerHTML = '<p style="text-align:center; padding: 50px;">No questions found in this category.</p>';
+            if (reviewArea) reviewArea.innerHTML =
+                '<p style="text-align:center; padding: 50px;">No questions found in this category.</p>';
             if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question 0 of 0";
             if (reviewPrevBtn) reviewPrevBtn.disabled = true;
             if (reviewNextBtn) reviewNextBtn.disabled = true;
@@ -335,7 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimer();
         showQuestion(0);
 
-        window.addEventListener('beforeunload', (e) => { e.preventDefault(); e.returnValue = ''; });
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault(); e.returnValue = '';
+        });
 
         function getCurrentSubject() {
             return questions[currentQuestionIndex].subject;
@@ -352,7 +364,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const minutes = Math.floor(t / 60);
                     const seconds = t % 60;
                     if (timerEl) {
-                        timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                        timerEl.textContent =
+                            `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                     }
                 } else {
                     handleSectionTimeout(currentSubject);
@@ -374,8 +387,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        function pauseTest() { isPaused = true; if (pauseOverlay) pauseOverlay.classList.remove('hidden'); }
-        function resumeTest() { isPaused = false; if (pauseOverlay) pauseOverlay.classList.add('hidden'); }
+        function pauseTest() {
+            isPaused = true;
+            if (pauseOverlay) pauseOverlay.classList.remove('hidden');
+        }
+        function resumeTest() {
+            isPaused = false;
+            if (pauseOverlay) pauseOverlay.classList.add('hidden');
+        }
 
         function showSubmissionSummary() {
             const answered = questionStates.filter(s => s.userAnswer !== null).length;
@@ -437,7 +456,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 '<a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>' +
                 '</div>';
 
-            if (testInfoAndActionsWrapper) testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
+            if (testInfoAndActionsWrapper) {
+                testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
+            }
 
             const statsCardsArea = document.getElementById('stats-cards-area');
             const statsCardsHtml =
@@ -446,7 +467,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 '<div class="stat-card correct"><div class="stat-value">' + correctCount + '</div><div class="stat-name">CORRECT</div></div>' +
                 '<div class="stat-card incorrect"><div class="stat-value">' + incorrectCount + '</div><div class="stat-name">INCORRECT</div></div>' +
                 '<div class="stat-card unattempted"><div class="stat-value">' + unattemptedCount + '</div><div class="stat-name">UNATTEMPTED</div></div>' +
-                '<div class="stat-card time-taken"><div class="stat-value">' + String(timeTakenMinutes).padStart(2, '0') + ':' + String(timeTakenSeconds).padStart(2, '0') + '</div><div class="stat-name">TIME TAKEN</div></div>' +
+                '<div class="stat-card time-taken"><div class="stat-value">' +
+                    String(timeTakenMinutes).padStart(2, '0') + ':' +
+                    String(timeTakenSeconds).padStart(2, '0') +
+                    '</div><div class="stat-name">TIME TAKEN</div></div>' +
                 '<div class="stat-card accuracy"><div class="stat-value">' + accuracy.toFixed(1) + '%</div><div class="stat-name">ACCURACY</div></div>' +
                 '</div>';
 
@@ -493,7 +517,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function showQuestion(index) {
-            // Prevent access if subject time over
             const targetSubject = questions[index].subject;
             if (sectionTimeRemaining[targetSubject] <= 0) {
                 alert(`Time for ${targetSubject} is over. You cannot access this section.`);
@@ -506,12 +529,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (state.status === 'not-visited') state.status = 'not-answered';
 
-            // Update Header
-            if (questionTitle) questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`;
+            if (questionTitle) questionTitle.textContent =
+                `${question.subject} | Q${index + 1} of ${questions.length}`;
 
-            const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
+            const questionText = (typeof question.question === 'object')
+                ? question.question[currentLanguage]
+                : question.question;
 
-            // Build options using option.en and option.hi
             const optionsHtml = question.options.map(optObj => {
                 const optionEn = optObj.en;
                 const checked = (state.userAnswer === optionEn) ? 'checked' : '';
@@ -532,12 +556,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.MathJax) window.MathJax.typeset();
             updateNavigation();
             updatePalette();
-            startTimer(); // ensure timer shows correct subject time
+            startTimer();
         }
 
         function updateNavigation() {
             if (prevBtn) prevBtn.disabled = currentQuestionIndex === 0;
-            if (nextBtn) nextBtn.textContent = (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
+            if (nextBtn) {
+                nextBtn.textContent =
+                    (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
+            }
 
             const state = questionStates[currentQuestionIndex];
             const isMarked = state.markedForReview;
@@ -568,7 +595,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Save the selected answer: store English string only
         function saveCurrentAnswer() {
             const selectedOption = document.querySelector('input[name="option"]:checked');
             const state = questionStates[currentQuestionIndex];
@@ -587,12 +613,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const state = questionStates[currentQuestionIndex];
             state.userAnswer = null;
             state.status = 'not-answered';
-            document.querySelectorAll('input[name="option"]:checked').forEach(radio => radio.checked = false);
+            document.querySelectorAll('input[name="option"]:checked')
+                .forEach(radio => radio.checked = false);
             updatePalette();
             updateNavigation();
         }
 
-        // helpers to escape values inserted into HTML to prevent issues
         function escapeHtml(text) {
             if (text === null || typeof text === 'undefined') return '';
             return String(text)
@@ -639,10 +665,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (reviewNextBtn) reviewNextBtn.addEventListener('click', () => {
-            if (currentReviewIndex < reviewQuestionList.length - 1) showReviewQuestion(currentReviewIndex + 1);
+            if (currentReviewIndex < reviewQuestionList.length - 1) {
+                showReviewQuestion(currentReviewIndex + 1);
+            }
         });
         if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => {
-            if (currentReviewIndex > 0) showReviewQuestion(currentReviewIndex - 1);
+            if (currentReviewIndex > 0) {
+                showReviewQuestion(currentReviewIndex - 1);
+            }
         });
     } // end initializeQuiz
 
