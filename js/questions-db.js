@@ -1865,7 +1865,7 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "The position of how many letters will remain unchanged if each of the letters in the word DEVELOP is arranged in alphabetical order?",
+            "en": "The position of how many letters will remain unchanged if each of the letters in the word <b>DEVELOP</b> is arranged in alphabetical order?",
             "hi": "यदि DEVELOP शब्द के प्रत्येक अक्षर को वर्णानुक्रम में व्यवस्थित किया जाए, तो कितने अक्षरों की स्थिति अपरिवर्तित रहेगी?"
         },
         "options": [
