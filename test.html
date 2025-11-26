@@ -755,6 +755,13 @@ body {
 /* =========================================
    MOBILE SPECIFIC OVERRIDES
    ========================================= */
+   /* Allow scrolling when viewing result / review pages */
+body.results-scroll {
+    height: auto;                 /* let body grow with content */
+    min-height: 100vh;
+    overflow-y: auto;             /* enable vertical scroll */
+    -webkit-overflow-scrolling: touch; /* smooth on iOS/Android */
+}
 @media (max-width: 768px) {
   .mobile-only { display: flex; }
   .main-content-wrapper { flex-direction: column; }
