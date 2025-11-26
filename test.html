@@ -804,7 +804,6 @@ body.results-scroll {
         <div class="ins-header-bar">
             <h1>General Instructions:</h1>
         </div>
-        
         <div class="ins-content">
             <h2>General Instructions:</h2>
             <ol>
@@ -1100,9 +1099,8 @@ body.results-scroll {
       const resultPage = document.getElementById('result-summary-page');
       const reviewPage = document.getElementById('review-page');
 
-      // visible if it's in the layout (not display:none)
-      const resultVisible = resultPage && resultPage.offsetParent !== null;
-      const reviewVisible = reviewPage && reviewPage.offsetParent !== null;
+      const resultVisible = resultPage && !resultPage.classList.contains('hidden');
+      const reviewVisible = reviewPage && !reviewPage.classList.contains('hidden');
 
       if (resultVisible || reviewVisible) {
         buildCards();
