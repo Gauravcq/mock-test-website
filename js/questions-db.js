@@ -1763,7 +1763,7 @@ const QUESTIONS_DATABASE = {
     [
     {
         "question": {
-            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. AEI, EIM, IMQ, MQU, ?",
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. <br><b> AEI, EIM, IMQ, MQU, ?",
             "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। AEI, EIM, IMQ, MQU, ?"
         },
         "options": [
@@ -1780,8 +1780,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. ACE EIM IOU MUC ?",
-            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। ACE EIM IOU MUC ?"
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series.<br><b> ACE EIM IOU MUC ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। <br><b>ACE EIM IOU MUC ?"
         },
         "options": [
             "QSA | QSA",
@@ -1797,8 +1797,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "What comes next: 12, 30, 56, 90, 132, ?",
-            "hi": "आगे क्या आएगा: 12, 30, 56, 90, 132, ?"
+            "en": "What comes next: <br><b>12, 30, 56, 90, 132, ?",
+            "hi": "आगे क्या आएगा: <br><b>12, 30, 56, 90, 132, ?"
         },
         "options": [
             "182 | 182",
@@ -1814,8 +1814,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "What will be come at the place of question mark? 1, 2, 5, 26, 677, ?",
-            "hi": "प्रश्न चिह्न के स्थान पर क्या आएगा? 1, 2, 5, 26, 677, ?"
+            "en": "What will be come at the place of question mark?<br><b> 1, 2, 5, 26, 677, ?",
+            "hi": "प्रश्न चिह्न के स्थान पर क्या आएगा? <br><b>1, 2, 5, 26, 677, ?"
         },
         "options": [
             "458330 | 458330",
@@ -1831,8 +1831,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Find the number that fits:2, 5, 10, 17, ?",
-            "hi": "वह संख्या ज्ञात करें जो फिट बैठती है: 2, 5, 10, 17, ?"
+            "en": "Find the number that fits:<br><b>2, 5, 10, 17, ?",
+            "hi": "वह संख्या ज्ञात करें जो फिट बैठती है: <br><b>2, 5, 10, 17, ?"
         },
         "options": [
             "26 | 26",
@@ -1848,8 +1848,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Instruction: Identify the assumptions that must hold for the statement to be valid, then choose the correct option. Statement: While the world is moving towards automation, it is essential to ensure that ethical frameworks evolve alongside technological advancements to prevent misuse. Assumptions: I. Automation can lead to ethical dilemmas. II. Ethical frameworks must be updated to keep pace with technological advancements. III. Automation will eventually replace human labor in all sectors.",
-            "hi": "निर्देश: उन धारणाओं की पहचान करें जो कथन को वैध बनाने के लिए आवश्यक हैं, फिर सही विकल्प चुनें। कथन: जबकि दुनिया स्वचालन (Automation) की ओर बढ़ रही है, यह सुनिश्चित करना आवश्यक है कि दुरुपयोग को रोकने के लिए तकनीकी प्रगति के साथ-साथ नैतिक ढाँचे भी विकसित हों। धारणाएँ: I. स्वचालन नैतिक दुविधाओं को जन्म दे सकता है। II. नैतिक ढाँचों को तकनीकी प्रगति के साथ तालमेल बिठाने के लिए अद्यतन किया जाना चाहिए। III. स्वचालन अंततः सभी क्षेत्रों में मानव श्रम को प्रतिस्थापित कर देगा।"
+            "en": "Instruction: Identify the assumptions that must hold for the statement to be valid, then choose the correct option. <br><b>Statement: <br><b>While the world is moving towards automation, it is essential to ensure that ethical frameworks evolve alongside technological advancements to prevent misuse. <br><b>Assumptions: <br><b>I. Automation can lead to ethical dilemmas. <br><b>II. Ethical frameworks must be updated to keep pace with technological advancements. <br><b>III. Automation will eventually replace human labor in all sectors.",
+            "hi": "निर्देश: उन धारणाओं की पहचान करें जो कथन को वैध बनाने के लिए आवश्यक हैं, फिर सही विकल्प चुनें। <br><b>कथन: जबकि दुनिया स्वचालन (Automation) की ओर बढ़ रही है, यह सुनिश्चित करना आवश्यक है कि दुरुपयोग को रोकने के लिए तकनीकी प्रगति के साथ-साथ नैतिक ढाँचे भी विकसित हों। धारणाएँ: <br><b>I. स्वचालन नैतिक दुविधाओं को जन्म दे सकता है। <br><b>II. नैतिक ढाँचों को तकनीकी प्रगति के साथ तालमेल बिठाने के लिए अद्यतन किया जाना चाहिए। <br><b>III. स्वचालन अंततः सभी क्षेत्रों में मानव श्रम को प्रतिस्थापित कर देगा।"
         },
         "options": [
             "Only I and II are implicit | केवल I और II निहित हैं",
@@ -1899,7 +1899,7 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "From the given options, find the word which cannot be formed using the letters of the given word: INTELLIGENCE",
+            "en": "From the given options, find the word which cannot be formed using the letters of the given word: <br><b>INTELLIGENCE",
             "hi": "दिए गए विकल्पों में से, वह शब्द ज्ञात करें जिसे दिए गए शब्द INTELLIGENCE के अक्षरों का उपयोग करके नहीं बनाया जा सकता है।"
         },
         "options": [
@@ -1916,8 +1916,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Eight persons A, B, C, D, E, F, G, and H are sitting around a circle facing the center. C is second to the right of A. E is opposite C. F is to the immediate left of E. B is to the immediate right of A. G is to the immediate left of D. Who is sitting to the right of D?",
-            "hi": "आठ व्यक्ति A, B, C, D, E, F, G, और H एक वृत्त के चारों ओर केंद्र की ओर मुख करके बैठे हैं। C, A के दाएँ से दूसरे स्थान पर है। E, C के विपरीत है। F, E के ठीक बाएँ है। B, A के ठीक दाएँ है। G, D के ठीक बाएँ है। D के दाएँ कौन बैठा है?"
+            "en": "Eight persons A, B, C, D, E, F, G, and H are sitting around a circle facing the center. C is second to the right of A. E is opposite C. F is to the immediate left of E. B is to the immediate right of A. G is to the immediate left of D. <br><b>Who is sitting to the right of D?",
+            "hi": "आठ व्यक्ति A, B, C, D, E, F, G, और H एक वृत्त के चारों ओर केंद्र की ओर मुख करके बैठे हैं। C, A के दाएँ से दूसरे स्थान पर है। E, C के विपरीत है। F, E के ठीक बाएँ है। B, A के ठीक दाएँ है। G, D के ठीक बाएँ है। <br><b>D के दाएँ कौन बैठा है?"
         },
         "options": [
             "H | H",
@@ -1967,8 +1967,8 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others. Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$",
-            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्याओं/प्रतीकों का एक समूह दिया गया है। उस समूह की पहचान करें जो दूसरों के समान पैटर्न का पालन नहीं करता है। Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$"
+            "en": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others. <br><b>Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्याओं/प्रतीकों का एक समूह दिया गया है। उस समूह की पहचान करें जो दूसरों के समान पैटर्न का पालन नहीं करता है। <br><b>Z1# : Y2@ : X3$ / W4% : V54 : U6& / T7* : S8( : R9) / Q10_: PI@ : 08$"
         },
         "options": [
             "Z1#: Y2@ : X3$ | Z1#: Y2@ : X3$",
@@ -1984,7 +1984,7 @@ const QUESTIONS_DATABASE = {
     },
     {
         "question": {
-            "en": "Instruction: In a certain coding system: ‘dream focus build skill’ is coded as ‘trq, xnz, hmd, clv’ ‘focus logic dream’ is coded as ‘trq, jkp, xnz’ ‘trust logic build dream’ is coded as ‘xnj, clv, jkp, trq’ Question: What is the code for ‘build skill logic trust’?",
+            "en": "Instruction: In a certain coding system: ‘dream focus build skill’ is coded as ‘trq, xnz, hmd, clv’ ‘focus logic dream’ is coded as ‘trq, jkp, xnz’ ‘trust logic build dream’ is coded as ‘xnj, clv, jkp, trq’ <br><b>Question: What is the code for ‘build skill logic trust’?",
             "hi": "निर्देश: एक निश्चित कोडिंग प्रणाली में: 'dream focus build skill' को 'trq, xnz, hmd, clv' कोडित किया जाता है; 'focus logic dream' को 'trq, jkp, xnz' कोडित किया जाता है; 'trust logic build dream' को 'xnj, clv, jkp, trq' कोडित किया जाता है। प्रश्न: 'build skill logic trust' के लिए कोड क्या है?"
         },
         "options": [
