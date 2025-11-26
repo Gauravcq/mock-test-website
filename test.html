@@ -275,30 +275,236 @@ body {
 .btn.tertiary { background: var(--danger); color: #fff; }
 
 /* Sidebar */
-.right-sidebar { width: 260px; background: #f9fafb; padding: 12px 12px 80px; display: flex; flex-direction: column; gap: 10px; border-left: 1px solid var(--border-soft); overflow-y: auto; }
-.sidebar-info { font-size: 0.85rem; color: var(--text-muted); }
+/* =========================
+   SIDEBAR / PALETTE – SSC STYLE
+   ========================= */
+.right-sidebar {
+    width: 340px;
+    background: #c8dcf5;
+    padding: 12px 12px 16px;  /* was 12px 12px 80px → only 16px bottom */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-left: 1px solid #9ab6e1;
+    overflow-y: auto;
+}
+
+.sidebar-info {
+    font-size: 0.85rem;
+    color: #1f2933;
+}
 .sidebar-info p { margin: 0 0 4px 0; }
 .user-info-row { display: flex; gap: 6px; font-size: 0.85rem; }
 .info-label { font-weight: 600; }
 
-.palette-legend { display: flex; flex-wrap: wrap; gap: 6px 10px; padding: 8px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); font-size: 0.75rem; }
-.legend-item { display: flex; align-items: center; gap: 4px; }
-.legend-box { width: 12px; height: 12px; border-radius: 999px; border: 1px solid #d1d5db; }
-.legend-box.answered { background: var(--answered); border-color: var(--answered); }
-.legend-box.not-answered { background: var(--not-answered); border-color: var(--not-answered); }
-.legend-box.marked-review { background: var(--marked-review); border-color: var(--marked-review); }
-.legend-box.current { background: var(--current-ring); border-color: var(--current-ring); }
+/* Legend row at top */
+/* =========================
+   SSC‑STYLE LEGEND (2 ROWS)
+   ========================= */
 
-.question-palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0 0; }
-.palette-btn { position: relative; width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--border-soft); background: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; justify-content: center; }
-.palette-btn.answered { background: var(--answered); border-color: var(--answered); color: #fff; }
-.palette-btn.not-answered { background: var(--not-answered); border-color: var(--not-answered); color: #fff; }
-.palette-btn.marked-review { background: var(--marked-review); border-color: var(--marked-review); color: #fff; }
-.palette-btn.current { box-shadow: 0 0 0 2px rgba(26,115,232,0.5); border-color: var(--current-ring) !important; }
+.palette-legend {
+    margin-top: 8px;
+    padding: 6px 10px 4px;
+    background: #c8dcf5;
+    border-radius: 4px;
+    border: 1px solid #9ab6e1;
+    font-size: 0.78rem;
+}
 
-.sidebar-actions { margin-top: auto; }
-.sidebar-btn { width: 100%; padding: 10px; border-radius: 6px; border: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
-.sidebar-btn.tertiary { background: var(--danger); color: #fff; }
+/* two horizontal rows */
+.palette-legend .legend-row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    column-gap: 24px;          /* space between items → matches screenshot */
+    margin-bottom: 2px;
+}
+.palette-legend .legend-row:last-child {
+    margin-bottom: 0;
+}
+
+/* item = colored number + label (no big box) */
+.legend-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+/* number icon */
+.legend-count {
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Answered – green badge */
+.legend-stat.answered .legend-count {
+    background: #7ac143;
+    border-radius: 3px;
+    border: 1px solid #5da52f;
+}
+
+/* Marked – purple circle */
+.legend-stat.marked .legend-count {
+    background: #6a4dd8;
+    border-radius: 50%;
+    border: 1px solid #4e35b1;
+}
+
+/* Not Visited – grey rounded square */
+.legend-stat.not-visited .legend-count {
+    background: #d6d6d6;
+    color: #333333;
+    border-radius: 3px;
+    border: 1px solid #a7a7a7;
+}
+
+/* Marked & Answered – purple circle with green dot */
+.legend-stat.marked-answered .legend-count {
+    position: relative;
+    background: #6a4dd8;
+    border-radius: 50%;
+    border: 1px solid #4e35b1;
+}
+.legend-stat.marked-answered .legend-count::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7ac143;
+    border: 1px solid #ffffff;
+}
+
+/* Not Answered – orange shield icon */
+.legend-stat.not-answered .legend-count {
+    background: #ff7043;
+    border-radius: 3px 3px 9px 9px;
+    border: 1px solid #e25427;
+}
+
+/* =========================
+   QUESTION TILES – SSC STYLE
+   ========================= */
+
+.question-palette {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 8px;
+    row-gap: 16px;              /* space for shield points */
+    margin: 14px 0 0;
+}
+
+/* Base 3D grey tile */
+.palette-btn {
+    position: relative;
+    width: 42px;
+    height: 26px;                /* rectangular part */
+    border-radius: 2px;
+    border: 1px solid #8a8a8a;
+    background: linear-gradient(#fdfdfd, #d9d9d9);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.35);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Not visited – default grey */
+.palette-btn.not-visited {
+    background: linear-gradient(#fdfdfd, #d9d9d9);
+    border-color: #8a8a8a;
+    color: #111827;
+}
+
+/* Answered – green square */
+.palette-btn.answered {
+    background: #7ac143;
+    border-color: #5da52f;
+    color: #ffffff;
+}
+
+/* Marked – purple square */
+.palette-btn.marked-review {
+    background: #6a4dd8;
+    border-color: #4e35b1;
+    color: #ffffff;
+}
+
+/* Answered & Marked – green with purple border */
+.palette-btn.answered-marked-review {
+    background: #7ac143;
+    border: 2px solid #6a4dd8;
+    color: #ffffff;
+}
+
+/* Not answered – orange shield */
+.palette-btn.not-answered {
+    background: #ff7043;
+    border: none;
+    color: #ffffff;
+    border-radius: 2px 2px 0 0;
+    box-shadow: none;
+}
+.palette-btn.not-answered::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border-left: 21px solid transparent;
+    border-right: 21px solid transparent;
+    border-top: 10px solid #ff7043;
+}
+
+/* Current question – blue outline */
+.palette-btn.current {
+    box-shadow: 0 0 0 2px rgba(26,115,232,0.9);
+    border-color: #1a73e8 !important;
+}
+
+/* Bottom area with Submit button */
+.sidebar-actions {
+    margin-top: auto;          /* pushes it to the bottom of sidebar */
+    padding-top: 10px;
+    border-top: 1px solid #9ab6e1;
+}
+
+.sidebar-btn {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Make submit look like blue button (similar to image) */
+.sidebar-btn.tertiary {
+    background: #1a73e8;
+    color: #ffffff;
+}
 .palette-backdrop { display: none; }
 
 /* Modals */
@@ -470,6 +676,82 @@ body {
     background: #fff;
     min-height: 100vh;
 }
+/* =========================
+   LEFT QUESTION PANEL – SSC LOOK
+   ========================= */
+
+/* make main area white like reference page */
+.quiz-container {
+    background: #ffffff;
+}
+.main-content-wrapper {
+    background: #ffffff;
+}
+
+/* question panel white, with subtle right border */
+.question-area-main {
+    background: #ffffff;
+    border-right: 1px solid #d4d4d4;
+}
+
+/* top bar "Maths | Q2 of 25" cleaner, more like No.4 bar */
+.question-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 20px;
+}
+.question-header h2#question-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.language-select {
+    font-size: 0.85rem;
+    padding: 5px 20px 5px 8px;
+}
+
+/* question body – one white sheet, no inner grey background */
+.question-content {
+    background: #ffffff;
+    padding: 18px 22px 140px;   /* top/right/bottom/left */
+}
+
+/* remove separate "card" look for question text, keep plain */
+.question-text {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 12px 0;
+    margin-bottom: 10px;
+    font-size: 0.96rem;
+}
+
+/* options: simple white rectangles like sample UI */
+.options-container {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.option {
+    border-radius: 3px;
+    border: 1px solid #d2d6e0;
+    background: #ffffff;
+    box-shadow: none;
+    padding: 10px 12px;
+}
+.option:hover {
+    background: #f5f7ff;
+    border-color: #1a73e8;
+}
+.option input[type="radio"] {
+    transform: scale(1.0);
+}
+
+/* footer bar straight, like bottom toolbar in sample */
+.question-footer {
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
 /* =========================================
    MOBILE SPECIFIC OVERRIDES
    ========================================= */
@@ -568,6 +850,104 @@ body {
       grid-template-columns: 1fr; 
   }
 }
+/* =========================
+   SSC‑STYLE LEGEND COUNTERS
+   ========================= */
+/* =========================
+   SSC‑STYLE LEGEND (TOP OF PALETTE)
+   ========================= */
+
+.palette-legend {
+    margin-top: 8px;
+    padding: 6px 6px;
+    background: #c8dcf5;          /* same light blue as sidebar */
+    border-radius: 4px;
+    border: 1px solid #9ab6e1;
+    font-size: 0.78rem;
+}
+
+/* Two rows inside legend */
+.palette-legend .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;                /* spacing like the screenshot */
+    flex-wrap: nowrap;        /* keep 3 items on the first row, 2 on second */
+    margin-bottom: 3px;
+}
+
+/* Each status item: icon + text (no big background box) */
+.legend-stat {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    white-space: nowrap;
+}
+
+/* Number icon */
+.legend-count {
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Answered – green "badge" */
+.legend-stat.answered .legend-count {
+    background: #7ac143;
+    border-radius: 3px;
+    border: 1px solid #5da52f;
+}
+
+/* Marked – purple circle */
+.legend-stat.marked .legend-count {
+    background: #6a4dd8;
+    border-radius: 50%;
+    border: 1px solid #4e35b1;
+}
+
+/* Not Visited – grey rounded square */
+.legend-stat.not-visited .legend-count {
+    background: #d6d6d6;
+    color: #333333;
+    border-radius: 3px;
+    border: 1px solid #a7a7a7;
+}
+
+/* Marked & Answered – purple circle with small green dot */
+.legend-stat.marked-answered .legend-count {
+    position: relative;
+    background: #6a4dd8;
+    border-radius: 50%;
+    border: 1px solid #4e35b1;
+}
+.legend-stat.marked-answered .legend-count::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7ac143;
+    border: 1px solid #ffffff;
+}
+
+/* Not Answered – orange "shield" */
+.legend-stat.not-answered .legend-count {
+    background: #ff7043;
+    border-radius: 3px 3px 9px 9px;
+    border: 1px solid #e25427;
+}
+
 </style>
 </head>
  <body>
@@ -737,12 +1117,35 @@ body {
                         </div>
                     </div>
                 </div>
-                <div class="palette-legend">
-                    <span class="legend-item"><span class="legend-box answered"></span> Answered (Green)</span>
-                    <span class="legend-item"><span class="legend-box not-answered"></span> Not Answered (Red)</span>
-                    <span class="legend-item"><span class="legend-box marked-review"></span> Marked for Review (Purple)</span>
-                    <span class="legend-item"><span class="legend-box current"></span> Current Q (Blue)</span>
-                </div>
+               <div class="palette-legend">
+    <!-- Row 1 -->
+    <div class="legend-row">
+        <div class="legend-stat answered">
+            <span class="legend-count" id="count-answered">0</span>
+            <span class="legend-label">Answered</span>
+        </div>
+        <div class="legend-stat marked">
+            <span class="legend-count" id="count-marked">0</span>
+            <span class="legend-label">Marked</span>
+        </div>
+        <div class="legend-stat not-visited">
+            <span class="legend-count" id="count-not-visited">25</span>
+            <span class="legend-label">Not Visited</span>
+        </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="legend-row">
+        <div class="legend-stat marked-answered">
+            <span class="legend-count" id="count-marked-answered">0</span>
+            <span class="legend-label">Marked &amp; Answered</span>
+        </div>
+        <div class="legend-stat not-answered">
+            <span class="legend-count" id="count-not-answered">0</span>
+            <span class="legend-label">Not Answered</span>
+        </div>
+    </div>
+</div>
                 <div id="question-palette" class="question-palette"></div>
                 <div class="sidebar-actions">
                     <button id="submit-test-btn" class="sidebar-btn tertiary">Submit Test</button>
@@ -903,5 +1306,90 @@ body {
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>
+    
+<script>
+/**
+ * Auto‑update palette legend counts based on classes on .palette-btn
+ * Classes used:
+ *  - not-visited
+ *  - not-answered
+ *  - answered
+ *  - marked-review
+ *  - answered-marked-review  (answered + marked)
+ */
+(function () {
+  function updateLegendCounts() {
+    const palette = document.getElementById('question-palette');
+    if (!palette) return;
+
+    const buttons = palette.querySelectorAll('.palette-btn');
+    if (!buttons.length) return;
+
+    const counts = {
+      answered: 0,
+      marked: 0,
+      notVisited: 0,
+      markedAnswered: 0,
+      notAnswered: 0
+    };
+
+    buttons.forEach(btn => {
+      const c = btn.classList;
+
+      if (c.contains('answered-marked-review')) {
+        counts.markedAnswered++;
+        counts.marked++;
+        counts.answered++;              // also counted as answered
+      } else if (c.contains('answered')) {
+        counts.answered++;
+      }
+
+      if (c.contains('marked-review')) {
+        counts.marked++;
+      }
+
+      if (c.contains('not-visited')) {
+        counts.notVisited++;
+      }
+
+      if (c.contains('not-answered')) {
+        counts.notAnswered++;
+      }
+    });
+
+    // Helper to safely set text
+    function setCount(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    setCount('count-answered',         counts.answered);
+    setCount('count-marked',           counts.marked);
+    setCount('count-not-visited',      counts.notVisited);
+    setCount('count-marked-answered',  counts.markedAnswered);
+    setCount('count-not-answered',     counts.notAnswered);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const palette = document.getElementById('question-palette');
+    if (!palette) return;
+
+    // Initial calculation (in case buttons already exist)
+    updateLegendCounts();
+
+    // Watch for any class/child changes on the palette
+    const observer = new MutationObserver(function () {
+      updateLegendCounts();
+    });
+
+    observer.observe(palette, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+      attributeFilter: ['class']
+    });
+  });
+})();
+</script>
 </body>
 </html>
