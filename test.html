@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -306,165 +307,26 @@ body {
 .modal-actions { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
 .modal-actions .btn { flex: 1; }
 
-/* =========================
-   RESULT SUMMARY & REVIEW
-   ========================= */
-
-#result-summary-page {
-    background: #f3f4f6;
-    min-height: 100vh;
-    overflow-y: auto;
-}
-
-/* Same element also has .result-container class */
-.result-container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 16px 14px 40px;
-}
-
-/* Back link */
-.go-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: #2563eb;
-    font-weight: 500;
-}
-.go-back-btn:hover { text-decoration: underline; }
-
-/* Heading */
-.result-heading {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 0 10px;
-    color: #111827;
-}
-
-/* Tabs */
-.results-header-nav {
-    display: flex;
-    gap: 6px;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 18px;
-    overflow-x: auto;
-}
-.results-header-nav a {
-    padding: 8px 14px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #6b7280;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    white-space: nowrap;
-}
-.results-header-nav a.active {
-    color: #1d4ed8;
-    border-color: #1d4ed8;
-}
-
-/* 2‑column layout: left (info + buttons) / right (stats) */
-.result-summary-content-wrapper {
-    display: grid;
-    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-    gap: 16px;
-    align-items: flex-start;
-}
-
-/* LEFT: test info card */
-#review-button-area {
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    padding: 14px 16px 16px;
-    box-shadow: 0 4px 10px rgba(15,23,42,0.06);
-    font-size: 0.9rem;
-    color: #4b5563;
-}
-#review-button-area h3 {
-    margin: 0 0 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111827;
-}
-#review-button-area p {
-    margin: 2px 0;
-    font-size: 0.85rem;
-}
-
-/* Buttons inside left card – FIXES MISALIGNMENT */
-#review-button-area .btn,
-#review-button-area button,
-#review-button-area a {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 999px;
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* Ensure primary/secondary colors look right */
-#review-button-area .btn.primary,
-#review-button-area button.btn.primary {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-}
-#review-button-area .btn.secondary,
-#review-button-area a.btn.secondary {
-    background: #ffffff;
-    color: var(--primary);
-    border-color: var(--primary);
-}
-
-/* RIGHT: stats cards grid */
-.stats-grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-}
-
-/* Stat cards */
-.stat-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px 14px 10px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 8px rgba(15,23,42,0.05);
-}
-.stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 4px;
-}
-.stat-name {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #6b7280;
-}
-
-/* Emphasis colors */
+/* Result */
+#result-summary-page { background: #f3f4f6; min-height: 100vh; overflow-y: auto; }
+.result-container { max-width: 960px; margin: 0 auto; padding: 16px 14px 40px; }
+.results-header-nav { display: flex; gap: 6px; border-bottom: 1px solid #e5e7eb; margin-bottom: 18px; overflow-x: auto; }
+.results-header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; }
+.results-header-nav a.active { color: #1d4ed8; border-color: #1d4ed8; }
+.result-summary-content-wrapper { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 16px; align-items: flex-start; }
+#review-button-area { background: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 14px; font-size: 0.9rem; color: #4b5563; }
+#review-button-area .action-buttons .btn { width: 100%; margin-top: 10px; text-align: center; }
+.stats-grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.stat-card { background: #ffffff; border-radius: 12px; padding: 12px 14px 10px; border: 1px solid #e5e7eb; box-shadow: 0 4px 8px rgba(15,23,42,0.05); }
+.stat-value { font-size: 1.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+.stat-name { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; }
 .stat-card.total-score .stat-value { color: #4c1d95; }
-.stat-card.correct .stat-value    { color: #16a34a; }
-.stat-card.incorrect .stat-value  { color: #dc2626; }
+.stat-card.correct .stat-value { color: #16a34a; }
+.stat-card.incorrect .stat-value { color: #dc2626; }
 .stat-card.unattempted .stat-value { color: #6b7280; }
 .stat-card.time-taken .stat-value { color: #2563eb; }
-.stat-card.accuracy .stat-value   { color: #0891b2; }
-
-/* Review page container */
-.review-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px 16px 40px;
-    background: #fff;
-    min-height: 100vh;
-}
+.stat-card.accuracy .stat-value { color: #0891b2; }
+.review-container { max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; background: #fff; min-height: 100vh; }
 
 /* =========================================
    MOBILE SPECIFIC OVERRIDES
@@ -490,15 +352,20 @@ body {
   }
 
   /* HEADER ADJUSTMENTS */
-  .header-left { margin-right: 4px; }
+  .header-left {
+      margin-right: 4px;
+  }
   .header-left h1#test-main-title {
       font-size: 0.8rem;
       display: block;
   }
+  
   .timer-display {
       padding: 4px 6px;
       font-size: 0.8rem;
   }
+  
+  /* Hide "Pause" text on mobile, show only icon */
   .pause-text { display: none; }
   .pause-btn {
       width: 32px;
@@ -519,12 +386,17 @@ body {
       padding: 10px 12px;
       padding-bottom: env(safe-area-inset-bottom, 10px);
   }
+
   .question-footer .left-btns, 
   .question-footer .right-btns { 
       display: contents; 
   }
+
+  /* Row 1 */
   #mark-review-btn { grid-column: 1 / 2; grid-row: 1; order: 1; }
   #clear-response-btn { grid-column: 2 / 3; grid-row: 1; order: 2; }
+  
+  /* Row 2 */
   #prev-btn { grid-column: 1 / 2; grid-row: 2; order: 3; }
   #next-btn { grid-column: 2 / 3; grid-row: 2; order: 4; }
 
@@ -540,13 +412,16 @@ body {
       max-width: 100%;
       padding: 12px 12px 30px;
   }
+
   .stats-grid-container {
       grid-template-columns: 1fr;
   }
+
   .review-container {
       max-width: 100%;
       padding: 12px 12px 30px;
   }
+
   .result-summary-content-wrapper { 
       grid-template-columns: 1fr; 
   }
@@ -561,8 +436,68 @@ body {
         </div>
         
         <div class="ins-content">
-            <!-- instructions content unchanged -->
-            ...
+            <h2>General Instructions:</h2>
+            <ol>
+                <li>The total duration of the exam was mentioned before starting the test.</li>
+                <li>The clock will be set at the server. The countdown timer in the top right corner of the screen will display the remaining time available for you to complete the examination. When the timer reaches zero, the examination will end by itself. You will not be required to end or submit your examination.</li>
+                <li>The Question Palette displayed on the right side of the screen will show the status of each question using one of the following symbols:
+                    <div style="margin-top: 15px;">
+                        <div class="legend-row">
+                            <span class="ins-icon grey-box">1</span> You have not visited the question yet.
+                        </div>
+                        <div class="legend-row">
+                            <span class="ins-icon red-box">2</span> You have not answered the question.
+                        </div>
+                        <div class="legend-row">
+                            <span class="ins-icon green-box">3</span> You have answered the question.
+                        </div>
+                        <div class="legend-row">
+                            <span class="ins-icon purple-circle">4</span> You have NOT answered the question, but have marked the question for review.
+                        </div>
+                        <div class="legend-row">
+                            <span class="ins-icon purple-tick">5</span> The question(s) "Answered and Marked for Review" will be considered for evaluation.
+                        </div>
+                    </div>
+                </li>
+                <li>The Marked for Review status for a question simply indicates that you would like to look at that question again. <em>If a question is answered and Marked for Review, your answer to that question will be considered in the evaluation.</em></li>
+                <li>You can click on the ">" arrow which appears to the left of question palette to collapse the question palette thereby maximizing the question window. To view the question palette again, you can click on "<" which appears on the right side of the question window.</li>
+                <li>You can click on your "Profile" image on the top right corner of your screen to change the language during the exam for the entire question paper. On the clicking of the Profile image, you will get a drop-down to change the question content to the desired language.</li>
+                <li>You can click on <span style="color:blue; font-weight:bold;">↓</span> to navigate to the bottom and <span style="color:blue; font-weight:bold;">↑</span> to navigate to the top of the question area, without scrolling.</li>
+            </ol>
+
+            <h2>Navigating to a Question:</h2>
+            <ol start="8">
+                <li>To answer a question, do the following:
+                    <ol type="1" style="margin-top:5px;">
+                        <li>Click on the question number in the Question Palette at the right of your screen to go to that numbered question directly. Note that using this option does NOT save your answer to the current question.</li>
+                        <li>Click on <strong>Save & Next</strong> to save your answer for the current question and then go to the next question.</li>
+                        <li>Click on <strong>Mark for Review & Next</strong> to save your answer for the current question, mark it for review, and then go to the next question.</li>
+                    </ol>
+                </li>
+            </ol>
+
+            <h2>Answering a Question :</h2>
+            <ol start="9">
+                <li>Procedure for answering a multiple choice type question:
+                    <ol type="1" style="margin-top:5px;">
+                        <li>To select your answer, click on the button of one of the options</li>
+                        <li>To deselect your chosen answer, click on the button of the chosen option again or click on the <strong>Clear Response</strong> button</li>
+                        <li>To change your chosen answer, click on the button of another option</li>
+                        <li>To save your answer, you MUST click on the <strong>Save & Next</strong> button</li>
+                        <li>To mark the question for review, click on the <strong>Mark for Review & Next</strong> button. <em>If an answer is selected for a question that is Marked for Review, that answer will be considered in the evaluation.</em></li>
+                        <li>To change your answer to a question that has already been answered, first select that question for answering and then follow the procedure for answering that type of question.</li>
+                        <li>Note that ONLY Questions for which answers are saved or marked for review after answering will be considered for evaluation.</li>
+                    </ol>
+                </li>
+            </ol>
+
+            <h2>Navigating through sections:</h2>
+            <ol start="10">
+                <li>Sections in this question paper are displayed on the top bar of the screen. Questions in a section can be viewed by clicking on the section name. The section you are currently viewing is highlighted.</li>
+                <li>After clicking the Save & Next button on the last question for a section, you will automatically be taken to the first question of the next section.</li>
+                <li>You can shuffle between tests and questions anytime during the examination as per your convenience only during the time stipulated.</li>
+                <li>Candidate can view the corresponding section summary as part of the legend that appears in every section above the question palette.</li>
+            </ol>
         </div>
 
         <div class="ins-footer">
@@ -571,16 +506,258 @@ body {
         </div>
     </div>
     
-    <!-- Pause / Submit modals & quiz UI (unchanged) -->
-    <!-- ... (keep your existing HTML from this point down) ... -->
+    <div id="pause-overlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Test Paused</h2>
+            <p>Your time has stopped. Click Resume to continue the test.</p>
+            <div class="modal-actions">
+                <button id="resume-btn" class="btn primary">Resume Test</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- keep the rest of your HTML exactly as in your last message -->
-    <!-- I have omitted it here for brevity but nothing else needs to change -->
+    <div id="submit-summary-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Confirm Submission</h2>
+            <p>Are you sure you want to submit the test?</p>
+            <div id="submission-stats" class="summary-stats"></div>
+            <div class="modal-actions">
+                <button id="cancel-submit-btn" class="btn secondary">Cancel</button>
+                <button id="final-submit-btn" class="btn primary">Final Submit</button>
+            </div>
+        </div>
+    </div>
 
-    <script>
-      /* JS blocks unchanged (stats enhancement, palette toggle, test name, test-logic) */
-    </script>
+    <div id="quiz-ui" class="quiz-container hidden">
+        <div id="palette-backdrop" class="palette-backdrop hidden"></div>
 
+     <header class="quiz-header">
+        <div class="header-left">
+            <h1 id="test-main-title">SSC CGL Mock Test</h1>
+        </div>
+
+        <div class="header-right">
+            <!-- Palette Toggle (Mobile) -->
+            <button id="palette-toggle" class="icon-btn mobile-only" aria-label="Open question palette">
+                <span></span><span></span><span></span>
+            </button>
+
+            <!-- Timer -->
+            <div class="timer-display">
+                <span class="timer-icon">⏱</span>
+                <span id="timer" class="timer-text">--:--</span>
+            </div>
+
+            <!-- Pause Button -->
+            <button id="pause-btn" class="icon-btn pause-btn" aria-label="Pause test">
+                <span class="pause-icon">
+                    <span class="pause-bar"></span>
+                    <span class="pause-bar"></span>
+                </span>
+                <span class="pause-text">Pause</span>
+            </button>
+        </div>
+    </header>
+
+        <div class="main-content-wrapper">
+            <main class="question-area-main">
+                <div class="question-header">
+                    <h2 id="question-title">Question 1 of 25</h2>
+                    <select class="language-select">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+                <div id="question-area" class="question-content"></div>
+
+                <footer class="question-footer">
+                    <div class="left-btns">
+                        <button id="mark-review-btn" class="btn secondary">Mark for Review & Next</button>
+                        <button id="clear-response-btn" class="btn secondary">Clear Response</button>
+                    </div>
+                    <div class="submit-btn-wrapper">
+                        <button id="submit-test-footer-btn" class="btn tertiary">Submit Test</button>
+                    </div>
+                    <div class="right-btns">
+                        <button id="prev-btn" class="btn primary">Previous</button>
+                        <button id="next-btn" class="btn primary">Save & Next</button>
+                    </div>
+                </footer>
+            </main>
+
+            <aside class="right-sidebar">
+                <div class="sidebar-info">
+                    <p>Candidate: [User Name]</p>
+                    <div class="user-info-row">
+                        <div class="info-label">Subject Name:</div>
+                        <div class="info-value">
+                            <span id="test-name-display">Loading</span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="palette-legend">
+                    <span class="legend-item"><span class="legend-box answered"></span> Answered (Green)</span>
+                    <span class="legend-item"><span class="legend-box not-answered"></span> Not Answered (Red)</span>
+                    <span class="legend-item"><span class="legend-box marked-review"></span> Marked for Review (Purple)</span>
+                    <span class="legend-item"><span class="legend-box current"></span> Current Q (Blue)</span>
+                </div>
+                <div id="question-palette" class="question-palette"></div>
+                <div class="sidebar-actions">
+                    <button id="submit-test-btn" class="sidebar-btn tertiary">Submit Test</button>
+                </div>
+            </aside>
+        </div>
+    </div> 
+    
+    <div id="result-summary-page" class="result-container hidden"> 
+        <a href="index.html" class="go-back-btn">⬅ Go Back to Tests</a>
+        <h1 class="result-heading">Test Result Summary</h1>
+        <div class="results-header-nav">
+            <a class="active">Overview</a>
+            <a>All</a>
+            <a>Correct</a>
+            <a>Incorrect</a>
+            <a>Unattempted</a>
+            <a>Marked For Review</a>
+        </div>
+        <div class="result-summary-content-wrapper">
+            <div id="review-button-area"></div>
+            <div id="stats-cards-area"></div>
+        </div>
+    </div> 
+    
+    <div id="review-page" class="review-container hidden">
+        <h1 class="result-heading">Question Review</h1>
+        <div class="results-header-nav">
+            <a class="active">Overview</a>
+            <a>All</a>
+            <a>Correct</a>
+            <a>Incorrect</a>
+            <a>Unattempted</a>
+            <a>Marked For Review</a>
+        </div>
+        <div class="review-main-content">
+            <div class="review-question-area-wrapper">
+                       <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
+                       <div id="review-question-area"></div>
+                       <footer class="review-footer">
+                            <button id="review-prev-btn" class="btn primary">Previous Question</button>
+                            <button id="review-next-btn" class="btn primary">Next Question</button>
+                       </footer>
+            </div>
+            <aside class="review-sidebar">
+                <div class="review-palette-container">
+                    <h3 style="margin-top:0;">Question Palette</h3>
+                    <div id="review-palette" class="question-palette"></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+<script>
+  // Enhance stats logic
+  (function () {
+    const statsRoot = document.getElementById('stats-cards-area');
+    if (!statsRoot) return;
+
+    function buildCards() {
+      if (!statsRoot || statsRoot.dataset.enhanced === '1') return;
+      const rawTxt = statsRoot.textContent || '';
+      const cleaned = rawTxt.replace(/\s+/g, ' ').trim();
+      if (!cleaned) return;
+      const parts = cleaned.split(' ');
+      if (parts.length < 13) return; 
+
+      const score      = parts[0];
+      const correct    = parts[3];
+      const incorrect  = parts[5];
+      const unattempt  = parts[7];
+      const timeTaken  = parts[9];
+      const accuracy   = parts[12];
+
+      statsRoot.innerHTML = `
+        <div class="stats-grid-container">
+          <div class="stat-card total-score">
+            <div class="stat-name">Your Score</div>
+            <div class="stat-value">${score}</div>
+          </div>
+          <div class="stat-card correct">
+            <div class="stat-name">Correct</div>
+            <div class="stat-value">${correct}</div>
+          </div>
+          <div class="stat-card incorrect">
+            <div class="stat-name">Incorrect</div>
+            <div class="stat-value">${incorrect}</div>
+          </div>
+          <div class="stat-card unattempted">
+            <div class="stat-name">Unattempted</div>
+            <div class="stat-value">${unattempt}</div>
+          </div>
+          <div class="stat-card time-taken">
+            <div class="stat-name">Time Taken</div>
+            <div class="stat-value">${timeTaken}</div>
+          </div>
+          <div class="stat-card accuracy">
+            <div class="stat-name">Accuracy</div>
+            <div class="stat-value">${accuracy}</div>
+          </div>
+        </div>
+      `;
+      statsRoot.dataset.enhanced = '1';
+    }
+    const observer = new MutationObserver(() => {
+      const page = document.getElementById('result-summary-page');
+      if (page && !page.classList.contains('hidden')) {
+        buildCards();
+      }
+    });
+    observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+  })();
+  
+  // Mobile Palette Toggle
+  (function () {
+    const toggleBtn = document.getElementById('palette-toggle');
+    const backdrop = document.getElementById('palette-backdrop');
+    if (!toggleBtn || !backdrop) return;
+    function togglePalette() { document.body.classList.toggle('palette-open'); }
+    toggleBtn.addEventListener('click', togglePalette);
+    backdrop.addEventListener('click', togglePalette);
+  })();
+</script>
+
+<script>
+    // Test Logic Helper
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+    const testId = getUrlParameter('testId'); 
+    let subjectName = 'General Test'; 
+
+    if (testId) {
+        const lowerTestId = testId.toLowerCase();
+        if (lowerTestId.includes('reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
+            subjectName = 'Reasoning'; 
+        } else if (lowerTestId.includes('english') || lowerTestId.includes('verbal') || lowerTestId.includes('eng')) {
+            subjectName = 'English'; 
+        } else {
+            subjectName = 'Maths'; 
+        }
+    }
+    
+    function updateTestNameDisplay(currentTestType, differentTestName) {
+        const testNameElement = document.getElementById('test-name-display');
+        let finalTestName;
+        if (differentTestName && differentTestName.trim() !== '') {
+            finalTestName = differentTestName;
+        } else {
+            finalTestName = currentTestType.charAt(0).toUpperCase() + currentTestType.slice(1).toLowerCase();
+        }
+        testNameElement.textContent = finalTestName;
+    }
+    updateTestNameDisplay(subjectName, ''); 
+</script>
+    
     <script src="js/tests-list.js"></script>
     <script src="js/questions-db.js"></script>
     <script src="js/test-logic.js"></script>
