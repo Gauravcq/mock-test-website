@@ -4,804 +4,640 @@
  * GLOBAL VARIABLES & RESETS
  * ================================= */
 :root {
-    /* Light Mode Variables (All end with ;) */
-    --light-bg: #f7f8fc; 
-    --light-card-bg: #ffffff; 
-    --light-text-primary: #1a202c; 
-    --light-text-secondary: #4a5568; 
-    --light-border: #e2e8f0; 
-    --light-shadow: rgba(0, 0, 0, 0.05);
-    
-    /* Dark Mode Variables (All end with ;) */
-    --dark-bg: #1a202c; 
-    --dark-card-bg: #2d3748; 
-    --dark-text-primary: #edf2f7; 
-    --dark-text-secondary: #a0aec0; 
-    --dark-border: #4a5568; 
-    --dark-shadow: rgba(0, 0, 0, 0.2);
-    
-    /* Brand Colors (All end with ;) */
-    --primary-brand: #4A00E0; 
-    --secondary-brand: #8E2DE2; 
-    --accent-blue: #0d6efd;
+  /* Light palette */
+  --light-bg: #f7f8fc;
+  --light-card-bg: #ffffff;
+  --light-text-primary: #1a202c;
+  --light-text-secondary: #4a5568;
+  --light-border: #e2e8f0;
+  --light-shadow: rgba(0, 0, 0, 0.05);
+
+  /* Dark palette (for future) */
+  --dark-bg: #1a202c;
+  --dark-card-bg: #2d3748;
+  --dark-text-primary: #edf2f7;
+  --dark-text-secondary: #a0aec0;
+  --dark-border: #4a5568;
+  --dark-shadow: rgba(0, 0, 0, 0.2);
+
+  /* Brand */
+  --primary-brand: #4A00E0;
+  --secondary-brand: #8E2DE2;
+  --accent-blue: #0d6efd;
+
+  /* Active theme = light (map actual vars used below) */
+  --primary-bg: var(--light-bg);
+  --secondary-bg: var(--light-card-bg);
+  --text-primary: var(--light-text-primary);
+  --text-secondary: var(--light-text-secondary);
+  --border-color: var(--light-border);
+  --shadow-soft: var(--light-shadow);
+
+  /* Status / palette colors */
+  --status-unvisited: #e5e7eb;
+  --status-not-answered: #ef4444;
+  --status-answered: #16a34a;
+  --status-marked-unanswered: #7c3aed;
+  --status-answered-marked: #16a34a;
+  --status-danger: #e11d48;
+
+  /* Layout */
+  --header-height: 56px;
 }
 
-/* Universal box-sizing and padding/margin resets */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body { 
-    font-family: 'Inter', sans-serif; 
-    background-color: var(--primary-bg); 
-    color: var(--text-primary); 
-    min-height: 100vh;
-    overflow-x: hidden;
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.hidden { 
-    display: none !important; 
+.hidden {
+  display: none !important;
 }
 
-/* --- 1. HEADER (FIXED AND STICKY) --- */
+/* =========================
+   1. MAIN HEADER (EXAM-AXIS)
+   ========================= */
+
 .main-header {
-    background: var(--secondary-bg);
-    color: var(--text-primary);
-    padding: 0 20px;
-    height: var(--header-height);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-.logo { 
-    font-size: 1.4em; 
-    font-weight: 800; 
-    color: var(--primary-brand); 
-}
-.header-controls { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-}
-#timer { 
-    background-color: #ffebeb; 
-    color: var(--status-danger); 
-    padding: 6px 12px; 
-    border-radius: 4px; 
-    font-size: 1.1em; 
-    font-weight: 700; 
-    border: 1px solid var(--status-danger);
-}
-#pause-btn { 
-    background-color: var(--text-secondary); 
-    border: none; 
-    color: white; 
-    font-size: 1rem; 
-    cursor: pointer; 
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+  background: #ffffff;
+  color: var(--text-primary);
+  padding: 12px 20px;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 4px var(--shadow-soft);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-/* --- 2. QUIZ BODY (MAIN LAYOUT) --- */
-.quiz-body { 
-    display: flex; 
-    padding: 15px; 
-    max-width: 1500px; 
-    margin: auto; 
-    gap: 15px; 
-    min-height: calc(100vh - var(--header-height) - 30px);
-    align-items: stretch; 
+.logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--primary-brand);
+  text-transform: uppercase;
 }
 
-/* Question Panel (Main Area) */
-.question-panel { 
-    flex-grow: 1; 
-    background: var(--secondary-bg); 
-    border-radius: 8px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
-    display: flex; 
-    flex-direction: column; 
-    overflow: hidden; 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-.question-header { 
-    padding: 15px 20px; 
-    border-bottom: 2px solid var(--border-color); 
-    font-size: 1.1em; 
-    font-weight: 600; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
+
+/* You can reuse these on test page header if you like */
+#timer {
+  background-color: #ffebeb;
+  color: var(--status-danger);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid var(--status-danger);
+}
+#pause-btn {
+  background-color: var(--text-secondary);
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: background-color 0.2s;
+}
+
+/* =========================
+   2. QUIZ BODY (TEST PAGE)
+   ========================= */
+
+.quiz-body {
+  display: flex;
+  padding: 15px;
+  max-width: 1500px;
+  margin: auto;
+  gap: 15px;
+  min-height: calc(100vh - var(--header-height) - 30px);
+  align-items: stretch;
+}
+
+/* Question Panel */
+.question-panel {
+  flex-grow: 1;
+  background: var(--secondary-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.question-header {
+  padding: 15px 20px;
+  border-bottom: 2px solid var(--border-color);
+  font-size: 1.1em;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .question-text-area {
-    padding: 20px;
-    flex-grow: 1;
-    overflow-y: auto;
+  padding: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
-.question-text { 
-    font-size: 1.15em; 
-    margin-bottom: 25px; 
-    line-height: 1.7; 
+.question-text {
+  font-size: 1.05em;
+  margin-bottom: 20px;
+  line-height: 1.7;
 }
-.options-container { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 10px; 
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.option { 
-    display: flex; 
-    align-items: center; 
-    padding: 12px 15px; 
-    border: 1px solid var(--border-color); 
-    border-radius: 6px; 
-    cursor: pointer; 
-    transition: all 0.2s ease; 
+.option {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.option:hover { 
-    border-color: var(--primary-brand); 
-    background-color: #f7f3ff; 
+.option:hover {
+  border-color: var(--primary-brand);
+  background-color: #f7f3ff;
 }
-.option input[type="radio"] { 
-    margin-right: 15px; 
-    width: 18px; 
-    height: 18px; 
-    flex-shrink: 0; 
-    accent-color: var(--primary-brand); 
+.option input[type="radio"] {
+  margin-right: 15px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--primary-brand);
 }
-.option.selected { 
-    border-color: var(--primary-brand); 
-    background-color: #eef1ff; 
+.option.selected {
+  border-color: var(--primary-brand);
+  background-color: #eef1ff;
 }
 
 /* Action Buttons Footer */
-.action-buttons { 
-    padding: 15px 20px; 
-    border-top: 1px solid var(--border-color); 
-    background-color: var(--primary-bg);
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
+.action-buttons {
+  padding: 15px 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--primary-bg);
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
 }
-.action-btn { 
-    padding: 10px 15px; 
-    border-radius: 6px; 
-    font-size: 0.9em; 
-    font-weight: 600; 
-    cursor: pointer; 
-    text-align: center; 
-    border: 1px solid transparent; 
-    transition: background-color 0.2s;
+.action-btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: background-color 0.2s;
 }
-/* Default action button style for Previous, Clear, Mark for Review */
-.action-buttons button:not(#next-btn) { 
-    background-color: var(--secondary-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
+.action-buttons button:not(#next-btn) {
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
-
-#next-btn { 
-    background-color: var(--primary-brand); 
-    color: white; 
-    border: 1px solid var(--primary-brand);
-    margin-left: auto; 
-    padding: 10px 25px;
+#next-btn {
+  background-color: var(--primary-brand);
+  color: white;
+  border: 1px solid var(--primary-brand);
+  margin-left: auto;
+  padding: 10px 25px;
 }
 
-/* --- 3. PALETTE PANEL (RIGHT SIDEBAR) --- */
-.palette-panel { 
-    width: 300px;
-    min-width: 300px;
-    background: var(--secondary-bg); 
-    border-radius: 8px; 
-    padding: 15px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* =========================
+   3. PALETTE PANEL (RIGHT)
+   ========================= */
+
+.palette-panel {
+  width: 300px;
+  min-width: 300px;
+  background: var(--secondary-bg);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .section-tabs {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 5px;
 }
 .section-btn {
-    flex-grow: 1;
-    padding: 8px 5px;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: var(--text-secondary);
+  flex-grow: 1;
+  padding: 8px 5px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: var(--text-secondary);
 }
 .section-btn.active {
-    border-bottom-color: var(--primary-brand);
-    color: var(--primary-brand);
+  border-bottom-color: var(--primary-brand);
+  color: var(--primary-brand);
 }
 
 .analysis-panel {
-    padding: 15px;
-    background-color: var(--primary-bg);
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+  padding: 15px;
+  background-color: var(--primary-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
 }
 .analysis-panel h4 {
-    font-size: 1em;
-    font-weight: 700;
-    color: var(--primary-brand);
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dashed var(--border-color);
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--primary-brand);
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed var(--border-color);
 }
 .analysis-panel p {
-    font-size: 0.9em;
-    margin: 5px 0;
-    display: flex;
-    justify-content: space-between;
+  font-size: 0.9em;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
 }
 .analysis-panel span {
-    font-weight: 700;
-    color: var(--text-primary);
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-
-.palette-header { 
-    font-size: 1.1em; 
-    font-weight: 700; 
-    margin-bottom: 15px; 
+.palette-header {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
-#question-palette { 
-    display: grid; 
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px; 
-    margin-bottom: 20px; 
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    overflow-y: auto;
+#question-palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow-y: auto;
 }
-.palette-btn { 
-    width: 100%; 
-    aspect-ratio: 1 / 1; 
-    border-radius: 50%;
-    border: 2px solid transparent; 
-    font-weight: 600; 
-    font-size: 1em; 
-    transition: all 0.2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    color: var(--text-primary);
-    cursor: pointer; 
+.palette-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  font-weight: 600;
+  font-size: 0.95em;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: var(--text-primary);
+  cursor: pointer;
 }
 
 /* Palette Status Colors */
-.palette-btn.unvisited { 
-    background-color: var(--status-unvisited); 
-    border-color: var(--border-color);
-    color: var(--text-primary);
-} 
-.palette-btn.not-answered { 
-    background-color: var(--status-not-answered); 
-    color: white; 
-    border-color: var(--status-not-answered);
-} 
-.palette-btn.answered { 
-    background-color: var(--status-answered); 
-    color: white; 
-    border-color: var(--status-answered);
-} 
-.palette-btn.marked-unanswered { 
-    background-color: var(--status-marked-unanswered); 
-    color: var(--text-primary);
-    border-color: var(--status-marked-unanswered);
-} 
-.palette-btn.answered-marked { 
-    background-color: var(--status-answered-marked); 
-    color: white;
-    border-color: var(--primary-brand); 
-} 
-.palette-btn.current { 
-    border: 3px solid var(--primary-brand); 
-    box-shadow: 0 0 8px rgba(74, 0, 224, 0.5); 
+.palette-btn.unvisited {
+  background-color: var(--status-unvisited);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.palette-btn.not-answered {
+  background-color: var(--status-not-answered);
+  color: white;
+  border-color: var(--status-not-answered);
+}
+.palette-btn.answered {
+  background-color: var(--status-answered);
+  color: white;
+  border-color: var(--status-answered);
+}
+.palette-btn.marked-unanswered {
+  background-color: var(--status-marked-unanswered);
+  color: var(--text-primary);
+  border-color: var(--status-marked-unanswered);
+}
+.palette-btn.answered-marked {
+  background-color: var(--status-answered-marked);
+  color: white;
+  border-color: var(--primary-brand);
+}
+.palette-btn.current {
+  border: 3px solid var(--primary-brand);
+  box-shadow: 0 0 8px rgba(74, 0, 224, 0.5);
 }
 
-#submit-test-btn { 
-    width: 100%; 
-    background-color: var(--status-danger); 
-    color: white; 
-    padding: 14px; 
-    border-radius: 6px; 
-    border: none; 
-    font-size: 1.1em; 
-    font-weight: 700; 
-    cursor: pointer; 
-    margin-top: auto;
+#submit-test-btn {
+  width: 100%;
+  background-color: var(--status-danger);
+  color: white;
+  padding: 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1.05em;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto;
 }
 
-/* --- 4. MEDIA QUERY FOR LARGER SCREENS (DESKTOP) --- */
+/* =========================
+   4. DESKTOP ADJUSTMENTS
+   ========================= */
+
 @media (min-width: 1024px) {
-    .main-header { padding: 0 40px; }
-    .quiz-body {
-        flex-direction: row; 
-        padding: 20px 40px;
-        align-items: stretch;
-        min-height: calc(100vh - var(--header-height) - 40px); 
-    }
-    .question-panel { flex: 1; min-height: 100%; }
-    .palette-panel { order: 2; min-height: 100%; }
-    
-    .hidden-sm { display: flex !important; gap: 10px; } 
-    
-    /* Desktop Action Button Layout */
-    .action-buttons { justify-content: flex-start; gap: 15px; }
-    .action-buttons .action-btn { flex-grow: 0; }
-    .action-buttons #next-btn { flex-grow: 0; }
+  .main-header { padding: 0 40px; }
+  .quiz-body {
+    flex-direction: row;
+    padding: 20px 40px;
+    align-items: stretch;
+    min-height: calc(100vh - var(--header-height) - 40px);
+  }
+  .question-panel { flex: 1; min-height: 100%; }
+  .palette-panel { order: 2; min-height: 100%; }
+
+  .hidden-sm { display: flex !important; gap: 10px; }
+
+  .action-buttons { justify-content: flex-start; gap: 15px; }
+  .action-buttons .action-btn { flex-grow: 0; }
+  .action-buttons #next-btn { flex-grow: 0; }
 }
 
-/* --- 5. MODAL STYLES (INSTRUCTIONS/SUMMARY) --- */
+/* =========================
+   5. MODALS
+   ========================= */
+
 .modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 2000; display: flex; justify-content: center; align-items: center; padding: 20px;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 .modal-content {
-    background: var(--secondary-bg); padding: 30px 40px; border-radius: 12px;
-    max-width: 700px; width: 100%; text-align: left;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  background: var(--secondary-bg);
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
-.modal-content h2 { 
-    font-size: 1.8rem; 
-    margin-bottom: 20px; 
-    color: var(--primary-brand); 
-    text-align: center; 
+.modal-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--primary-brand);
+  text-align: center;
 }
-.modal-content ul { 
-    list-style-type: disc; 
-    text-align: left; 
-    margin-bottom: 30px; 
-    padding-left: 20px; 
+.modal-content ul {
+  list-style-type: disc;
+  text-align: left;
+  margin-bottom: 30px;
+  padding-left: 20px;
 }
-.modal-content ul li { 
-    font-size: 1.0rem; 
-    margin-bottom: 8px; 
-    color: var(--text-secondary); 
+.modal-content ul li {
+  font-size: 1.0rem;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
 }
 .modal-btn {
-    background-color: var(--primary-brand); color: white; padding: 12px 30px; border-radius: 6px;
-    border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-    display: block; width: 100%; text-align: center; margin-top: 15px;
+  background-color: var(--primary-brand);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
 }
 .modal-btn:hover { background-color: var(--secondary-brand); }
 .modal-btn:disabled { background-color: #adb5bd; cursor: not-allowed; }
-.submission-stats { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px; 
-    margin-bottom: 25px; 
-    text-align: left; 
+.submission-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+  text-align: left;
 }
-.submission-stats div { 
-    background-color: var(--primary-bg); 
-    padding: 15px; 
-    border-radius: 8px; 
-    font-size: 1.1rem; 
+.submission-stats div {
+  background-color: var(--primary-bg);
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
 }
-.submission-stats span { 
-    font-weight: 700; 
-}
-.modal-btn-group { 
-    display: flex; 
-    justify-content: center; 
-    gap: 20px; 
+.submission-stats span { font-weight: 700; }
+.modal-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 .modal-btn.secondary { background: var(--text-secondary); }
 
-/* --- 6. RESULT SUMMARY PAGE STYLES --- */
+/* =========================
+   6. RESULT SUMMARY PAGE
+   ========================= */
+
 .result-page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
-    background-color: #f4f6f9; 
-    min-height: 100vh;
-}
-.result-box-card { 
-    max-width: 900px; 
-    width: 90%;
-    padding: 30px;
-    background-color: var(--secondary-bg);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
-}
-.result-summary-header {
-    font-size: 2em;
-    font-weight: 700;
-    color: var(--primary-brand);
-    margin-bottom: 30px;
-    text-align: center;
-}
-.action-btn.primary {
-    background-color: var(--primary-brand);
-    color: white;
-}
-.action-btn.primary:hover {
-    background-color: var(--secondary-brand);
-}
-.action-btn.secondary {
-    background-color: var(--action-blue);
-    color: white;
-}
-.action-btn.secondary:hover {
-    background-color: #0056b3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: #f4f6f9;
+  min-height: 100vh;
 }
 
-/* Result Layout */
-.result-top-row {
-    display: flex;
-    gap: 30px;
-    align-items: stretch;
-    padding: 20px 0;
-    width: 100%; 
-}
-.test-info-column {
-    flex: 1; 
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    min-width: 200px;
-}
-.test-details .shift-info {
-    font-size: 2em;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 5px;
-}
-.test-details .question-info {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-}
-.result-header-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 25px;
-}
-.result-header-actions .action-btn {
-    width: 100%; 
-    text-align: center;
-}
-.stats-grid-column {
-    flex: 2; 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    gap: 15px;
-    border-left: 1px solid var(--border-color);
-    padding-left: 30px; 
-}
-.stats-grid-column .stat-card {
-    background-color: var(--secondary-bg);
-    border: 1px solid var(--border-color);
-    padding: 20px 10px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: none;
-}
-/* Stat Card Styling */
-.stat-card .stat-value {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.stat-card .stat-label {
-    font-size: 1em;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-transform: uppercase;
+/* New summary layout used by test-logic.js */
+#result-summary-page {
+  background: #f4f6f9;
 }
 
-/* Responsive adjustment for smaller screens */
-@media (max-width: 768px) {
-    .result-top-row {
-        flex-direction: column;
-        gap: 20px;
-    }
-    .stats-grid-column {
-        padding-left: 0;
-        border-left: none; 
-        border-top: 1px solid var(--border-color);
-        padding-top: 20px;
-    }
-}/* --- CSS for Result Summary Alignment (Fixes the layout issue) --- */
+.result-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 14px 40px;
+}
 
-/* 1. Main container setup (to create two columns) */
+/* Back link */
+.go-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+.go-back-btn:hover { text-decoration: underline; }
+
+/* Heading */
+.result-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+/* Tabs */
+.results-header-nav {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 18px;
+  overflow-x: auto;
+}
+.results-header-nav a {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.results-header-nav a.active {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+/* Two-column container */
 .result-summary-content-wrapper {
-    display: flex; /* Use flexbox for horizontal alignment */
-    gap: 30px; /* Space between the left block and right cards */
-    padding-top: 20px;
-    align-items: flex-start; /* Align contents to the top */
+  display: flex;
+  gap: 24px;
+  padding-top: 20px;
+  align-items: flex-start;
 }
 
-/* 2. Styling the Left Block (Review Button Area) */
+/* Left column: review-button-area */
 #review-button-area {
-    width: 250px; /* Fixed width for the left column to look like a separate box */
-    flex-shrink: 0;
-    /* You might want to add background/border styles here to match the image_b095ca.png look */
+  width: 240px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  padding: 14px 14px 16px;
+  box-shadow: 0 4px 10px rgba(15,23,42,0.06);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+#review-button-area .test-details h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+#review-button-area .test-details p {
+  margin: 2px 0;
+  font-size: 0.85rem;
 }
 
-/* 3. Styling the Right Grid container */
+/* Buttons inside left */
+#review-button-area .action-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#review-button-area .action-buttons .btn {
+  width: 100%;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+/* Right column: stats cards */
 #stats-cards-area {
-    flex-grow: 1; /* Allows the stats area to take up the remaining space */
-}
-
-/* 4. Styling the stats grid structure itself */
-.stats-grid-container {
-    display: grid;
-    /* Creates a grid of columns, each at least 150px wide, filling available space */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    gap: 20px;
-}
-
-/* 5. Styling the block buttons (for correct visual appearance) */
-.button-group-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px; /* Space below the shift details */
-}
-.large-block-btn {
-    padding: 15px 10px;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-/* 6. Basic card styling (adjust colors/fonts as needed) */
-.stat-card {
-    background: var(--secondary-bg, #ffffff); 
-    border: 1px solid var(--border-color, #e0e0e0);
-    border-radius: 8px;
-    padding: 20px 15px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.stat-value {
-    font-size: 2.5em;
-    font-weight: 700;
-    color: var(--primary-color, #5e35b1); /* Example purple color */
-}
-/* --- Result Summary Layout --- */
-
-/* Parent container for the two columns */
-.result-summary-content-wrapper {
-    display: flex; 
-    gap: 30px; 
-    padding-top: 20px;
-    align-items: flex-start; 
-}
-
-/* Left Column: Details & Buttons */
-#review-button-area {
-    /* Set a reasonable width for the details/button column */
-    width: 250px; 
-    flex-shrink: 0;
-}
-
-/* Details text block */
-.shift-details-mini {
-    margin-bottom: 20px;
-}
-.shift-details-mini h3 {
-    font-size: 1.2em;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text-primary, #1a202c);
-}
-.shift-details-mini p {
-    font-size: 0.9em;
-    color: var(--text-secondary, #4a5568);
-}
-
-/* Vertical button group styling */
-.button-group-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.large-block-btn {
-    padding: 15px 10px;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-.small-link {
-    text-align: center;
-    padding: 10px;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-
-/* Right Column: Stats Cards Grid */
-#stats-cards-area {
-    flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .stats-grid-container {
-    display: grid;
-    /* Responsive grid: min 150px wide columns, up to 1fr each */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
 }
 
-/* Individual Stat Card Styling */
 .stat-card {
-    background: var(--secondary-bg, #ffffff); 
-    border: 1px solid var(--border-color, #e0e0e0);
-    border-radius: 8px;
-    padding: 20px 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(15,23,42,0.05);
 }
 
 .stat-value {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 5px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
-.stat-label {
-    font-size: 0.8em;
-    font-weight: 500;
-    color: var(--text-secondary, #4a5568);
+.stat-name {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
 }
 
-/* Coloring the values based on status (matching the images) */
-.total-score .stat-value { color: #5e35b1; /* A custom purple/brand color */ }
-.correct .stat-value { color: #28a745; /* Green */ }
-.incorrect .stat-value { color: #dc3545; /* Red */ }
-.unattempted .stat-value { color: #6c757d; /* Grey */ }
-.time-taken .stat-value { color: var(--action-blue, #007bff); }
-.accuracy .stat-value { color: #5e35b1; }
+/* Stat colors */
+.total-score .stat-value,
+.accuracy .stat-value {
+  color: var(--primary-brand);
+}
+.correct .stat-value { color: #16a34a; }
+.incorrect .stat-value { color: #dc2626; }
+.unattempted .stat-value { color: #6b7280; }
+.time-taken .stat-value { color: var(--accent-blue); }
 
+/* =========================
+   7. RESPONSIVE
+   ========================= */
 
-/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
-    .result-summary-content-wrapper {
-        flex-direction: column; /* Stacks columns vertically on small screens */
-    }
-    #review-button-area {
-        width: 100%; /* Takes full width */
-        order: 1; /* Puts the buttons/details after the stats on mobile */
-    }
-    #stats-cards-area {
-        order: 2;
-    }
-}
-/* --- Global Variables (Assuming you have these) --- */
-/*
-:root {
-    --primary-brand: #4A00E0;
-    --action-blue: #007bff;
-    --text-primary: #1a202c;
-    --text-secondary: #4a5568;
-    --secondary-bg: #ffffff;
-    --border-color: #e0e0e0;
-}
-*/
-
-/* --- Result Summary Layout --- */
-
-/* Parent container for the two columns */
-.result-summary-content-wrapper {
-    display: flex; 
-    gap: 30px; 
-    padding-top: 20px;
-    align-items: flex-start; 
-}
-
-/* Left Column: Details & Buttons */
-#review-button-area {
-    width: 250px; /* Fixed width for the details/button column */
-    flex-shrink: 0;
-}
-
-/* Details text block */
-.shift-details-mini {
-    margin-bottom: 20px;
-}
-.shift-details-mini h3 {
-    font-size: 1.2em;
-    font-weight: 700;
-}
-.shift-details-mini p {
-    font-size: 0.9em;
-    color: var(--text-secondary, #4a5568);
-}
-
-/* Vertical button group styling */
-.button-group-vertical {
-    display: flex;
+  /* Result summary stacked */
+  .result-summary-content-wrapper {
     flex-direction: column;
-    gap: 10px;
-}
-.large-block-btn {
-    padding: 15px 10px;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-.small-link {
-    text-align: center;
-    padding: 10px;
-    text-decoration: none;
-    font-weight: 500;
-}
+  }
+  #review-button-area {
+    width: 100%;
+  }
 
-
-/* Right Column: Stats Cards Grid */
-#stats-cards-area {
-    flex-grow: 1; 
-}
-
-.stats-grid-container {
-    display: grid;
-    /* Responsive grid: min 150px wide columns, up to 1fr each */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    gap: 20px;
-}
-
-/* Individual Stat Card Styling */
-.stat-card {
-    background: var(--secondary-bg, #ffffff); 
-    border: 1px solid var(--border-color, #e0e0e0);
-    border-radius: 8px;
-    padding: 20px 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.stat-value {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.stat-label {
-    font-size: 0.8em;
-    font-weight: 500;
-    color: var(--text-secondary, #4a5568);
-    text-transform: uppercase;
-}
-
-/* Coloring the values */
-.total-score .stat-value, .accuracy .stat-value { color: var(--primary-brand, #5e35b1); }
-.correct .stat-value { color: #28a745; /* Green */ }
-.incorrect .stat-value { color: #dc3545; /* Red */ }
-.unattempted .stat-value { color: #6c757d; /* Grey */ }
-.time-taken .stat-value { color: var(--action-blue, #007bff); }
-
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-    .result-summary-content-wrapper {
-        flex-direction: column; /* Stacks columns vertically on small screens */
-    }
-    #review-button-area {
-        width: 100%; /* Takes full width */
-        order: 1; /* Puts the buttons/details first */
-    }
-    #stats-cards-area {
-        order: 2;
-    }
+  /* Quiz layout responsive (if same CSS used) */
+  .quiz-body {
+    flex-direction: column;
+    padding: 12px 10px 80px;
+  }
+  .palette-panel {
+    width: 100%;
+    min-width: auto;
+    order: -1;
+  }
 }
