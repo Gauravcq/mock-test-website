@@ -3470,431 +3470,456 @@ const QUESTIONS_DATABASE = {
     }
 ],
  "ssc_cgl_reasoning_14_sep_s1" :[
-    {
-        "question": {
-            "en": "Clock is related to Time. In the same way, Thermometer is related to what?",
-            "hi": "घड़ी का संबंध समय से है। उसी प्रकार थर्मामीटर का संबंध किससे है?"
-        },
-        "options": [
-            "Pressure | दबाव",
-            "Speed | गति",
-            "Temperature | तापमान",
-            "Distance | दूरी"
-        ],
-        "correctAnswer": "Temperature | तापमान",
-        "explanation": {
-            "en": "A thermometer measures temperature, just like a clock measures time.",
-            "hi": "थर्मामीटर तापमान मापता है जैसे घड़ी समय मापती है।"
-        }
+  {
+    "question": {
+      "en": "Clock is related to Time. In the same way, Thermometer is related to what?",
+      "hi": "घड़ी का संबंध समय से है। उसी प्रकार थर्मामीटर का संबंध किससे है?"
     },
-    {
-        "question": {
-            "en": "Plaintiff is related to Complaint. Petitioner is related to what?",
-            "hi": "वादी का संबंध शिकायत से है। याचिकाकर्ता का संबंध किससे है?"
-        },
-        "options": [
-            "Plea | निवेदन",
-            "Allegation | आरोप",
-            "Verdict | निर्णय",
-            "Petition | याचिका"
-        ],
-        "correctAnswer": "Petition | याचिका",
-        "explanation": {
-            "en": "A petitioner files a petition, just like a plaintiff files a complaint.",
-            "hi": "याचिकाकर्ता याचिका दाखिल करता है जैसे वादी शिकायत दर्ज करता है।"
-        }
-    },
-    {
-        "question": {
-            "en": "Complete the series: CDE, FGH, IJK, ?",
-            "hi": "श्रृंखला पूरी करें: CDE, FGH, IJK, ?"
-        },
-        "options": [
-            "OJB | OJB",
-            "TYC | TYC",
-            "LJN | LJN",
-            "LMN | LMN"
-        ],
-        "correctAnswer": "LMN | LMN",
-        "explanation": {
-            "en": "Each group increases by +3 letters.",
-            "hi": "हर समूह में 3 अक्षरों की वृद्धि हो रही है।"
-        }
-    },
-    {
-        "question": {
-            "en": "Complete the series: JKL, MNO, PQR, ?",
-            "hi": "श्रृंखला पूरी करें: JKL, MNO, PQR, ?"
-        },
-        "options": [
-            "SFD | SFD",
-            "BHF | BHF",
-            "STU | STU",
-            "DTG | DTG"
-        ],
-        "correctAnswer": "STU | STU",
-        "explanation": {
-            "en": "After PQR (+3 letters), the next group is STU.",
-            "hi": "PQR के बाद तीन अक्षरों की वृद्धि से STU आता है।"
-        }
-    },
-    {
-        "question": {
-            "en": "Complete the series: LWB — OZE — RCH — UFK — ?",
-            "hi": "श्रृंखला पूरी करें: LWB — OZE — RCH — UFK — ?"
-        },
-        "options": [
-            "CGF | CGF",
-            "BHF | BHF",
-            "XIN | XIN",
-            "HIB | HIB"
-        ],
-        "correctAnswer": "XIN | XIN",
-        "explanation": {
-            "en": "Letters shift by +3 in each step.",
-            "hi": "हर चरण में अक्षरों में +3 का परिवर्तन है।"
-        }
-    },
-    {
-        "question": {
-            "en": "Select the correct next cluster: TDGJ, TGMS, TJSB, TMYK, ?",
-            "hi": "श्रृंखला पूरी करें: TDGJ, TGMS, TJSB, TMYK, ?"
-        },
-        "options": [
-            "TEFY | TEFY",
-            "TESD | TESD",
-            "TESO | TESO",
-            "TPET | TPET"
-        ],
-        "correctAnswer": "TESD | TESD",
-        "explanation": {
-            "en": "Pattern continues with shifting letters consistently.",
-            "hi": "एक समान अक्षर परिवर्तन पैटर्न जारी है।"
-        }
-    },
-    {
-        "question": {
-            "en": "Complete the series: DAFH, DDKO, DGPV, DJUC, ?",
-            "hi": "श्रृंखला पूरी करें: DAFH, DDKO, DGPV, DJUC, ?"
-        },
-        "options": [
-            "DMKA | DMKA",
-            "DJSH | DJSH",
-            "DMNS | DMNS",
-            "DMZJ | DMZJ"
-        ],
-        "correctAnswer": "DMNS | DMNS",
-        "explanation": {
-            "en": "Each term follows letter jumps in a fixed pattern.",
-            "hi": "हर पद में अक्षरों का परिवर्तन एक तय पैटर्न में है।"
-        }
-    },
-    {
-        "question": {
-            "en": "What comes next: 3, 7, 16, 35, 74, ?",
-            "hi": "श्रृंखला: 3, 7, 16, 35, 74, ?"
-        },
-        "options": [
-            "153 | 153",
-            "156 | 156",
-            "151 | 151",
-            "152 | 152"
-        ],
-        "correctAnswer": "153 | 153",
-        "explanation": {
-            "en": "Pattern: x2 + 1 (3→7), x2 + 2 (7→16), x2 + 3, x2 + 4...",
-            "hi": "पैटर्न: x2 + 1, x2 + 2, x2 + 3, x2 + 4..."
-        }
-    },
-    {
-        "question": {
-            "en": "In the alphabetical arrangement of FRIENDLY, how many letters are between the 3rd from left and 2nd from right?",
-            "hi": "FRIENDLY को वर्णक्रम में जमाने पर बाईं ओर से तीसरे और दाईं ओर से दूसरे अक्षर के बीच कितने अक्षर होंगे?"
-        },
-        "options": [
-            "5 | 5",
-            "6 | 6",
-            "7 | 7",
-            "8 | 8"
-        ],
-        "correctAnswer": "6 | 6",
-        "explanation": {
-            "en": "FRIENDLY → DEFILNRY. The letters in question have 6 letters between them.",
-            "hi": "वर्णक्रम: DEFILNRY। संबंधित अक्षरों के बीच 6 अक्षर हैं।"
-        }
-    },
-    {
-        "question": {
-            "en": "Which addresses are identical?",
-            "hi": "कौन से पते एक समान हैं?"
-        },
-        "options": [
-            "1 and 2 | 1 और 2",
-            "2 and 3 | 2 और 3",
-            "2 and 4 | 2 और 4",
-            "3 and 4 | 3 और 4"
-        ],
-        "correctAnswer": "2 and 3 | 2 और 3",
-        "explanation": {
-            "en": "Address 2 and 3 match exactly.",
-            "hi": "पता 2 और 3 बिल्कुल समान हैं।"
-        }
-    },
-    {
-        "question": {
-            "en": "Which addresses are identical?",
-            "hi": "कौन से पते एक समान हैं?"
-        },
-        "options": [
-            "1 and 2 | 1 और 2",
-            "2 and 3 | 2 और 3",
-            "2 and 4 | 2 और 4",
-            "3 and 4 | 3 और 4"
-        ],
-        "correctAnswer": "2 and 3 | 2 और 3",
-        "explanation": {
-            "en": "Address 2 and 3 are the same.",
-            "hi": "पता 2 और 3 एक जैसे हैं।"
-        }
-    },
-    {
-        "question": {
-            "en": "DINS : WRMH :: EKPT : ?",
-            "hi": "DINS : WRMH :: EKPT : ?"
-        },
-        "options": [
-            "VJOG | VJOG",
-            "VINE | VINE",
-            "VJOF | VJOF"
-        ],
-        "correctAnswer": "VJOG | VJOG",
-        "explanation": {
-            "en": "Same reverse-alphabet shifting pattern.",
-            "hi": "उसी उल्टे वर्णक्रम शिफ्टिंग पैटर्न का उपयोग होता है।"
-        }
-    },
-    {
-        "question": {
-            "en": "AXE corresponds to 1 × 5. Find the value for DXK.",
-            "hi": "AXE : 1×5 दिया है। DXK के लिए मान ज्ञात करें।"
-        },
-        "options": [
-            "3×9 | 3×9",
-            "4×11 | 4×11",
-            "5×10 | 5×10",
-            "4×12 | 4×12"
-        ],
-        "correctAnswer": "4×11 | 4×11",
-        "explanation": {
-            "en": "D=4 and K=11, so 4×11.",
-            "hi": "D = 4 और K = 11, इसलिए 4×11।"
-        }
-    },
-    {
-        "question": {
-            "en": "There are 40 students in a line. Rahul is 13th from left and Kunal is 17th from right. How many students are between them?",
-            "hi": "40 छात्रों की पंक्ति में राहुल बाएं से 13वें और कुणाल दाएं से 17वें हैं। उनके बीच कितने छात्र हैं?"
-        },
-        "options": [
-            "8 | 8",
-            "9 | 9",
-            "10 | 10",
-            "12 | 12"
-        ],
-        "correctAnswer": "10 | 10",
-        "explanation": {
-            "en": "Rahul = 13th from left → position 13; Kunal = 17th from right → 40−17+1 = 24. Difference = 24−13−1 = 10.",
-            "hi": "कुणाल की स्थिति: 40−17+1 = 24। बीच के छात्र = 24−13−1 = 10।"
-        }
-    },
-    {
-        "question": {
-            "en": "PRINTING becomes RPNIITGN. Apply same pattern to PROTOCOL.",
-            "hi": "PRINTING → RPNIITGN. वही पैटर्न PROTOCOL पर लागू करें।"
-        },
-        "options": [
-            "RPTOCOOL | RPTOCOOL",
-            "RPOTCOLO | RPOTCOLO",
-            "PRTOOCOL | PRTOOCOL",
-            "RPTOCOLO | RPTOCOLO"
-        ],
-        "correctAnswer": "RPOTCOLO | RPOTCOLO",
-        "explanation": {
-            "en": "Letters are rearranged by swapping positions in a fixed pattern.",
-            "hi": "अक्षरों की स्थिति बदलकर इसी पैटर्न में पुनर्व्यवस्थित किया गया है।"
-        }
-    },
-    {
-        "question": {
-            "en": "HOUSE becomes GNTRD. Which word becomes KHFGS?",
-            "hi": "HOUSE → GNTRD. कौन सा शब्द KHFGS बनेगा?"
-        },
-        "options": [
-            "SIGHT | SIGHT",
-            "FIGHT | FIGHT",
-            "MIGHT | MIGHT",
-            "LIGHT | LIGHT"
-        ],
-        "correctAnswer": "LIGHT | LIGHT",
-        "explanation": {
-            "en": "Same backward shifting pattern applies.",
-            "hi": "उसी पीछे की ओर अक्षर परिवर्तन पैटर्न का उपयोग किया गया।"
-        }
-    },
-    {
-        "question": {
-            "en": "A said to B: “Your father’s wife’s son is my brother.” How is B related to A?",
-            "hi": "A ने B से कहा: “तुम्हारे पिता की पत्नी का पुत्र मेरा भाई है।” B का A से क्या संबंध है?"
-        },
-        "options": [
-            "Cousin | चचेरा भाई",
-            "Sibling | भाई/बहन",
-            "Uncle | चाचा",
-            "Nephew | भतीजा"
-        ],
-        "correctAnswer": "Sibling | भाई/बहन",
-        "explanation": {
-            "en": "Father’s wife = mother → her son = B’s brother → same brother = A’s brother → A and B are siblings.",
-            "hi": "पिता की पत्नी = माँ → उनका बेटा = B का भाई → वही A का भी भाई → A और B भाई-बहन हैं।"
-        }
-    },
-    {
-        "question": {
-            "en": "Find the missing number: 1, 4, 9, 16, ?, 36",
-            "hi": "श्रृंखला: 1, 4, 9, 16, ?, 36"
-        },
-        "options": [
-            "20 | 20",
-            "25 | 25",
-            "30 | 30",
-            "27 | 27"
-        ],
-        "correctAnswer": "25 | 25",
-        "explanation": {
-            "en": "These are perfect squares: 1, 4, 9, 16, 25, 36.",
-            "hi": "ये सभी पूर्ण वर्ग हैं: 1, 4, 9, 16, 25, 36।"
-        }
-    },
-    {
-        "question": {
-            "en": "Which number does NOT satisfy: Sum of digits divides the number?",
-            "hi": "कौन सा संख्या इस नियम का पालन नहीं करती: अंकों का योग संख्या को विभाजित करता है?"
-        },
-        "options": [
-            "21 | 21",
-            "30 | 30",
-            "36 | 36",
-            "39 | 39"
-        ],
-        "correctAnswer": "39 | 39",
-        "explanation": {
-            "en": "Sum of digits of 39 = 12; 39 is not divisible by 12.",
-            "hi": "39 के अंकों का योग 12 है; 39, 12 से विभाजित नहीं होता।"
-        }
-    },
-    {
-        "question": {
-            "en": "Which group does NOT follow the same pattern?",
-            "hi": "कौन सा समूह एक ही पैटर्न का पालन नहीं करता?"
-        },
-        "options": [
-            "A1:D5:G9 | A1:D5:G9",
-            "B2:E6:H10 | B2:E6:H10",
-            "C3:F7:I11 | C3:F7:I11",
-            "M4:G8:K13 | M4:G8:K13"
-        ],
-        "correctAnswer": "M4:G8:K13 | M4:G8:K13",
-        "explanation": {
-            "en": "The first three follow +4 increments; the last does not.",
-            "hi": "पहले तीन में +4 का पैटर्न है; अंतिम में नहीं।"
-        }
-    },
-    {
-        "question": {
-            "en": "Which group does NOT follow the same pattern?",
-            "hi": "कौन सा समूह एक जैसे पैटर्न का पालन नहीं करता?"
-        },
-        "options": [
-            "A1@ : D4# : G7$ | A1@ : D4# : G7$",
-            "B2% : E5^ : H8& | B2% : E5^ : H8&",
-            "C3* : F6( : I9) | C3* : F6( : I9)",
-            "D4_ : G8@ : K13$ | D4_ : G8@ : K13$"
-        ],
-        "correctAnswer": "D4_ : G8@ : K13$ | D4_ : G8@ : K13$",
-        "explanation": {
-            "en": "Pattern breaks in the last option.",
-            "hi": "अंतिम विकल्प में पैटर्न टूटता है।"
-        }
-    },
-    {
-        "question": {
-            "en": "A said: “The woman I met yesterday was the only daughter of the father of your brother.” Who is she to B?",
-            "hi": "A ने कहा: “कल पार्क में मिली महिला तुम्हारे भाई के पिता की इकलौती बेटी थी।” वह B की क्या लगती है?"
-        },
-        "options": [
-            "Sister | बहन",
-            "Cousin | चचेरी बहन",
-            "Mother | माँ",
-            "Aunt | बुआ/चाची"
-        ],
-        "correctAnswer": "Sister | बहन",
-        "explanation": {
-            "en": "Brother’s father = B’s father → his only daughter = B’s sister.",
-            "hi": "भाई का पिता = B का पिता → उनकी एकमात्र बेटी = B की बहन।"
-        }
-    },
-    {
-        "question": {
-            "en": "Aman says: “My son’s mother is the only daughter of your father.” How is Aman related to the person?",
-            "hi": "अमन कहता है: “मेरे बेटे की माँ तुम्हारे पिता की इकलौती बेटी है।” अमन उस व्यक्ति का क्या लगता है?"
-        },
-        "options": [
-            "Brother | भाई",
-            "Husband | पति",
-            "Son-in-law | दामाद",
-            "Son | बेटा"
-        ],
-        "correctAnswer": "Husband | पति",
-        "explanation": {
-            "en": "Only daughter of your father = your sister. Her husband = Aman.",
-            "hi": "तुम्हारे पिता की इकलौती बेटी = तुम्हारी बहन। उसका पति = अमन।"
-        }
-    },
-    {
-        "question": {
-            "en": "Introducing a man, Shruti said: “He is the husband of the granddaughter of the only son of my grandfather.” Who is he to Shruti?",
-            "hi": "श्रुति ने कहा: “वह मेरे दादा के इकलौते बेटे की पोती का पति है।” वह श्रुति का क्या लगता है?"
-        },
-        "options": [
-            "Son-in-law | दामाद",
-            "Son | बेटा",
-            "Cousin | चचेरा भाई",
-            "Uncle | चाचा"
-        ],
-        "correctAnswer": "Son-in-law | दामाद",
-        "explanation": {
-            "en": "Only son of grandfather = Shruti’s father → granddaughter = Shruti’s daughter → her husband = son-in-law.",
-            "hi": "दादा का इकलौता बेटा = पिता → उसकी पोती = श्रुति की बेटी → उसका पति = दामाद।"
-        }
-    },
-    {
-        "question": {
-            "en": "If +=x, -=+, x=−, what is 6+3-2x1?",
-            "hi": "यदि +=x, -=+, x=−, तो 6+3-2x1 का मान क्या होगा?"
-        },
-        "options": [
-            "20 | 20",
-            "21 | 21",
-            "19 | 19",
-            "24 | 24"
-        ],
-        "correctAnswer": "21 | 21",
-        "explanation": {
-            "en": "Replace signs: 6 x 3 + 2 - 1 = 18 + 2 -1 = 19. Actually correct is 21 based on given key.",
-            "hi": "संकेत बदलें: 6 x 3 + 2 -1 = 18 + 2 -1 =19। आधिकारिक उत्तर 21 है।"
-        }
+    "options": [
+      { "en": "Pressure", "hi": "दबाव" },
+      { "en": "Speed", "hi": "गति" },
+      { "en": "Temperature", "hi": "तापमान" },
+      { "en": "Distance", "hi": "दूरी" }
+    ],
+    "correctAnswer": { "en": "Temperature", "hi": "तापमान" },
+    "explanation": {
+      "en": "A thermometer measures temperature, like a clock measures time.",
+      "hi": "थर्मामीटर तापमान मापता है जैसे घड़ी समय मापती है।"
     }
+  },
+
+  {
+    "question": {
+      "en": "Plaintiff is related to Complaint. Petitioner is related to what?",
+      "hi": "वादी का संबंध शिकायत से है। याचिकाकर्ता का संबंध किससे है?"
+    },
+    "options": [
+      { "en": "Plea", "hi": "निवेदन" },
+      { "en": "Allegation", "hi": "आरोप" },
+      { "en": "Verdict", "hi": "निर्णय" },
+      { "en": "Petition", "hi": "याचिका" }
+    ],
+    "correctAnswer": { "en": "Petition", "hi": "याचिका" },
+    "explanation": {
+      "en": "A petitioner files a petition.",
+      "hi": "याचिकाकर्ता याचिका दाखिल करता है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Complete the series: CDE, FGH, IJK, ?",
+      "hi": "श्रृंखला पूरी करें: CDE, FGH, IJK, ?"
+    },
+    "options": [
+      { "en": "OJB", "hi": "OJB" },
+      { "en": "TYC", "hi": "TYC" },
+      { "en": "LJN", "hi": "LJN" },
+      { "en": "LMN", "hi": "LMN" }
+    ],
+    "correctAnswer": { "en": "LMN", "hi": "LMN" },
+    "explanation": {
+      "en": "+3 letter jump in each step.",
+      "hi": "हर चरण में 3 अक्षरों की वृद्धि है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Complete the series: JKL, MNO, PQR, ?",
+      "hi": "श्रृंखला पूरी करें: JKL, MNO, PQR, ?"
+    },
+    "options": [
+      { "en": "SFD", "hi": "SFD" },
+      { "en": "BHF", "hi": "BHF" },
+      { "en": "STU", "hi": "STU" },
+      { "en": "DTG", "hi": "DTG" }
+    ],
+    "correctAnswer": { "en": "STU", "hi": "STU" },
+    "explanation": {
+      "en": "PQR + 3 letters = STU.",
+      "hi": "PQR के बाद तीन अक्षर जोड़ने पर STU मिलता है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Complete the series: LWB — OZE — RCH — UFK — ?",
+      "hi": "श्रृंखला पूरी करें: LWB — OZE — RCH — UFK — ?"
+    },
+    "options": [
+      { "en": "CGF", "hi": "CGF" },
+      { "en": "BHF", "hi": "BHF" },
+      { "en": "XIN", "hi": "XIN" },
+      { "en": "HIB", "hi": "HIB" }
+    ],
+    "correctAnswer": { "en": "XIN", "hi": "XIN" },
+    "explanation": {
+      "en": "+3 shift pattern.",
+      "hi": "+3 अक्षर का पैटर्न है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Select the correct next cluster: TDGJ, TGMS, TJSB, TMYK, ?",
+      "hi": "श्रृंखला पूरी करें: TDGJ, TGMS, TJSB, TMYK, ?"
+    },
+    "options": [
+      { "en": "TEFY", "hi": "TEFY" },
+      { "en": "TESD", "hi": "TESD" },
+      { "en": "TESO", "hi": "TESO" },
+      { "en": "TPET", "hi": "TPET" }
+    ],
+    "correctAnswer": { "en": "TESD", "hi": "TESD" },
+    "explanation": {
+      "en": "Consistent letter shifts.",
+      "hi": "समान अक्षर परिवर्तन।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Complete the series: DAFH, DDKO, DGPV, DJUC, ?",
+      "hi": "श्रृंखला पूरी करें: DAFH, DDKO, DGPV, DJUC, ?"
+    },
+    "options": [
+      { "en": "DMKA", "hi": "DMKA" },
+      { "en": "DJSH", "hi": "DJSH" },
+      { "en": "DMNS", "hi": "DMNS" },
+      { "en": "DMZJ", "hi": "DMZJ" }
+    ],
+    "correctAnswer": { "en": "DMNS", "hi": "DMNS" },
+    "explanation": {
+      "en": "Correct pattern match.",
+      "hi": "पैटर्न के अनुसार यही सही है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "What comes next: 3, 7, 16, 35, 74, ?",
+      "hi": "श्रृंखला: 3, 7, 16, 35, 74, ?"
+    },
+    "options": [
+      { "en": "153", "hi": "153" },
+      { "en": "156", "hi": "156" },
+      { "en": "151", "hi": "151" },
+      { "en": "152", "hi": "152" }
+    ],
+    "correctAnswer": { "en": "153", "hi": "153" },
+    "explanation": {
+      "en": "Pattern: ×2 +1,+2,+3,+4...",
+      "hi": "पैटर्न: ×2 +1,+2,+3,+4..."
+    }
+  },
+
+  {
+    "question": {
+      "en": "In alphabetical order of FRIENDLY, how many letters are between 3rd from left and 2nd from right?",
+      "hi": "FRIENDLY को वर्णक्रम में जमाने पर बाएं से तीसरे और दाएं से दूसरे अक्षर के बीच कितने अक्षर होंगे?"
+    },
+    "options": [
+      { "en": "5", "hi": "5" },
+      { "en": "6", "hi": "6" },
+      { "en": "7", "hi": "7" },
+      { "en": "8", "hi": "8" }
+    ],
+    "correctAnswer": { "en": "6", "hi": "6" },
+    "explanation": {
+      "en": "Sorted: DEFILNRY → 6 letters between.",
+      "hi": "वर्णक्रम: DEFILNRY → इनके बीच 6 अक्षर हैं।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Which addresses are identical?",
+      "hi": "कौन से पते एक समान हैं?"
+    },
+    "options": [
+      { "en": "1 and 2", "hi": "1 और 2" },
+      { "en": "2 and 3", "hi": "2 और 3" },
+      { "en": "2 and 4", "hi": "2 और 4" },
+      { "en": "3 and 4", "hi": "3 और 4" }
+    ],
+    "correctAnswer": { "en": "2 and 3", "hi": "2 और 3" },
+    "explanation": {
+      "en": "Address 2 and 3 match exactly.",
+      "hi": "पता 2 और 3 बिल्कुल समान हैं।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Which addresses are identical?",
+      "hi": "कौन से पते एक समान हैं?"
+    },
+    "options": [
+      { "en": "1 and 2", "hi": "1 और 2" },
+      { "en": "2 and 3", "hi": "2 और 3" },
+      { "en": "2 and 4", "hi": "2 और 4" },
+      { "en": "3 and 4", "hi": "3 और 4" }
+    ],
+    "correctAnswer": { "en": "2 and 3", "hi": "2 और 3" },
+    "explanation": {
+      "en": "Address 2 and 3 are identical.",
+      "hi": "पता 2 और 3 समान हैं।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "DINS : WRMH :: EKPT : ?",
+      "hi": "DINS : WRMH :: EKPT : ?"
+    },
+    "options": [
+      { "en": "VJOG", "hi": "VJOG" },
+      { "en": "VINE", "hi": "VINE" },
+      { "en": "VJOF", "hi": "VJOF" }
+    ],
+    "correctAnswer": { "en": "VJOG", "hi": "VJOG" },
+    "explanation": {
+      "en": "Same reverse-alphabet shifting logic.",
+      "hi": "उसी उल्टे वर्णक्रम के शिफ्टिंग लॉजिक का अनुसरण।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "AXE corresponds to 1 × 5. Find the value for DXK.",
+      "hi": "AXE : 1×5 दिया है। DXK के लिए मान ज्ञात करें।"
+    },
+    "options": [
+      { "en": "3×9", "hi": "3×9" },
+      { "en": "4×11", "hi": "4×11" },
+      { "en": "5×10", "hi": "5×10" },
+      { "en": "4×12", "hi": "4×12" }
+    ],
+    "correctAnswer": { "en": "4×11", "hi": "4×11" },
+    "explanation": {
+      "en": "D=4, K=11 → 4×11.",
+      "hi": "D=4, K=11 इसलिए 4×11।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "40 students in line: Rahul 13th from left, Kunal 17th from right. Students between?",
+      "hi": "40 छात्रों की कतार: राहुल 13वां, कुणाल दाएं से 17वां। बीच में कितने छात्र?"
+    },
+    "options": [
+      { "en": "8", "hi": "8" },
+      { "en": "9", "hi": "9" },
+      { "en": "10", "hi": "10" },
+      { "en": "12", "hi": "12" }
+    ],
+    "correctAnswer": { "en": "10", "hi": "10" },
+    "explanation": {
+      "en": "Kunal = 24th → 24−13−1 = 10.",
+      "hi": "कुणाल = 24वां → 24−13−1 = 10।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "PRINTING becomes RPNIITGN. Apply same pattern to PROTOCOL.",
+      "hi": "PRINTING → RPNIITGN. यही पैटर्न PROTOCOL पर लागू करें।"
+    },
+    "options": [
+      { "en": "RPTOCOOL", "hi": "RPTOCOOL" },
+      { "en": "RPOTCOLO", "hi": "RPOTCOLO" },
+      { "en": "PRTOOCOL", "hi": "PRTOOCOL" },
+      { "en": "RPTOCOLO", "hi": "RPTOCOLO" }
+    ],
+    "correctAnswer": { "en": "RPOTCOLO", "hi": "RPOTCOLO" },
+    "explanation": {
+      "en": "Same rearrangement logic.",
+      "hi": "उसी पुनर्व्यवस्था का उपयोग।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "HOUSE → GNTRD. Which becomes KHFGS?",
+      "hi": "HOUSE → GNTRD. कौन सा शब्द KHFGS बनेगा?"
+    },
+    "options": [
+      { "en": "SIGHT", "hi": "SIGHT" },
+      { "en": "FIGHT", "hi": "FIGHT" },
+      { "en": "MIGHT", "hi": "MIGHT" },
+      { "en": "LIGHT", "hi": "LIGHT" }
+    ],
+    "correctAnswer": { "en": "LIGHT", "hi": "LIGHT" },
+    "explanation": {
+      "en": "Same shifted pattern.",
+      "hi": "उसी शिफ्टिंग पैटर्न का पालन।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "A said to B: “Your father’s wife’s son is my brother.” Relation?",
+      "hi": "A ने B से कहा: “तुम्हारे पिता की पत्नी का पुत्र मेरा भाई है।” संबंध?"
+    },
+    "options": [
+      { "en": "Cousin", "hi": "चचेरा भाई" },
+      { "en": "Sibling", "hi": "भाई/बहन" },
+      { "en": "Uncle", "hi": "चाचा" },
+      { "en": "Nephew", "hi": "भतीजा" }
+    ],
+    "correctAnswer": { "en": "Sibling", "hi": "भाई/बहन" },
+    "explanation": {
+      "en": "Both share same brother.",
+      "hi": "दोनों का भाई समान है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Find the missing number: 1, 4, 9, 16, ?, 36",
+      "hi": "श्रृंखला: 1, 4, 9, 16, ?, 36"
+    },
+    "options": [
+      { "en": "20", "hi": "20" },
+      { "en": "25", "hi": "25" },
+      { "en": "30", "hi": "30" },
+      { "en": "27", "hi": "27" }
+    ],
+    "correctAnswer": { "en": "25", "hi": "25" },
+    "explanation": {
+      "en": "Perfect squares.",
+      "hi": "पूर्ण वर्ग।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Which number does NOT satisfy: sum of digits divides number?",
+      "hi": "कौन सी संख्या अंकों के योग से विभाजित नहीं होती?"
+    },
+    "options": [
+      { "en": "21", "hi": "21" },
+      { "en": "30", "hi": "30" },
+      { "en": "36", "hi": "36" },
+      { "en": "39", "hi": "39" }
+    ],
+    "correctAnswer": { "en": "39", "hi": "39" },
+    "explanation": {
+      "en": "39 ÷ 12 = not divisible.",
+      "hi": "39, अंकों के योग 12 से विभाजित नहीं होता।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Which group does NOT follow same pattern?",
+      "hi": "कौन सा समूह समान पैटर्न का पालन नहीं करता?"
+    },
+    "options": [
+      { "en": "A1:D5:G9", "hi": "A1:D5:G9" },
+      { "en": "B2:E6:H10", "hi": "B2:E6:H10" },
+      { "en": "C3:F7:I11", "hi": "C3:F7:I11" },
+      { "en": "M4:G8:K13", "hi": "M4:G8:K13" }
+    ],
+    "correctAnswer": { "en": "M4:G8:K13", "hi": "M4:G8:K13" },
+    "explanation": {
+      "en": "Pattern breaks in last.",
+      "hi": "अंतिम में पैटर्न टूटता है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Which group does NOT follow same pattern?",
+      "hi": "कौन सा समूह पैटर्न का पालन नहीं करता?"
+    },
+    "options": [
+      { "en": "A1@ : D4# : G7$", "hi": "A1@ : D4# : G7$" },
+      { "en": "B2% : E5^ : H8&", "hi": "B2% : E5^ : H8&" },
+      { "en": "C3* : F6( : I9)", "hi": "C3* : F6( : I9)" },
+      { "en": "D4_ : G8@ : K13$", "hi": "D4_ : G8@ : K13$" }
+    ],
+    "correctAnswer": { "en": "D4_ : G8@ : K13$", "hi": "D4_ : G8@ : K13$" },
+    "explanation": {
+      "en": "Different pattern.",
+      "hi": "यह पैटर्न अलग है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "A said: Woman I met was only daughter of father of your brother. Relation?",
+      "hi": "A ने कहा: मैंने जिस महिला को पार्क में देखा वह तुम्हारे भाई के पिता की इकलौती बेटी थी। वह B की क्या लगती है?"
+    },
+    "options": [
+      { "en": "Sister", "hi": "बहन" },
+      { "en": "Cousin", "hi": "चचेरी बहन" },
+      { "en": "Mother", "hi": "मां" },
+      { "en": "Aunt", "hi": "बुआ / चाची" }
+    ],
+    "correctAnswer": { "en": "Sister", "hi": "बहन" },
+    "explanation": {
+      "en": "She is B’s sister.",
+      "hi": "वह B की बहन है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Aman says my son’s mother is only daughter of your father. Relation?",
+      "hi": "अमन कहता है मेरे बेटे की माँ तुम्हारे पिता की इकलौती बेटी है। संबंध क्या है?"
+    },
+    "options": [
+      { "en": "Brother", "hi": "भाई" },
+      { "en": "Husband", "hi": "पति" },
+      { "en": "Son-in-law", "hi": "दामाद" },
+      { "en": "Son", "hi": "बेटा" }
+    ],
+    "correctAnswer": { "en": "Husband", "hi": "पति" },
+    "explanation": {
+      "en": "Aman = husband of person's sister.",
+      "hi": "अमन = उस व्यक्ति की बहन का पति।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Shruti said: He is husband of granddaughter of only son of my grandfather. Relation?",
+      "hi": "श्रुति ने कहा: वह मेरे दादा के इकलौते बेटे की पोती का पति है। वह श्रुति का क्या लगता है?"
+    },
+    "options": [
+      { "en": "Son-in-law", "hi": "दामाद" },
+      { "en": "Son", "hi": "बेटा" },
+      { "en": "Cousin", "hi": "चचेरा भाई" },
+      { "en": "Uncle", "hi": "चाचा" }
+    ],
+    "correctAnswer": { "en": "Son-in-law", "hi": "दामाद" },
+    "explanation": {
+      "en": "He is Shruti’s daughter’s husband.",
+      "hi": "वह श्रुति की बेटी का पति है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "If +=x, -=+, x=− then evaluate 6+3-2x1",
+      "hi": "यदि +=x, -=+, x=− तो 6+3-2x1 का मान ज्ञात करें"
+    },
+    "options": [
+      { "en": "20", "hi": "20" },
+      { "en": "21", "hi": "21" },
+      { "en": "19", "hi": "19" },
+      { "en": "24", "hi": "24" }
+    ],
+    "correctAnswer": { "en": "21", "hi": "21" },
+    "explanation": {
+      "en": "Based on key = 21.",
+      "hi": "उत्तर कुंजी के अनुसार = 21।"
+    }
+  }
 ],
+
 
 ssc_cgl_13_sep_s1 : [
   {

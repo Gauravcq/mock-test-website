@@ -1,3 +1,4 @@
+// test-logic.js (UPDATED to support bilingual option objects; stores English value only)
 document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -6,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Element Declarations (Declared ONCE in main scope) ---
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
-    const quizUI = document.getElementById('quiz-ui'); 
+    const quizUI = document.getElementById('quiz-ui');
     const resultSummaryPage = document.getElementById('result-summary-page');
     const reviewPage = document.getElementById('review-page');
     const timerEl = document.getElementById('timer');
@@ -33,35 +34,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
 
-
     // --- Initial Validation and Setup ---
     if (!testId) { document.body.innerHTML = "<h1>Error: Test ID not specified.</h1>"; return; }
     if (typeof ALL_TESTS === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: ALL_TESTS list not found.</h1>"; return; }
     const testInfo = ALL_TESTS.find(t => String(t.id) === testId);
     if (!testInfo) { document.body.innerHTML = "<h1>Error: Test with ID " + testId + " not found.</h1>"; return; }
     if (typeof QUESTIONS_DATABASE === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: QUESTIONS_DATABASE not found.</h1>"; return; }
-    
+
     // Get questions
     let questions = QUESTIONS_DATABASE[testId];
     if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
 
-const singleSubjectName = testInfo.subject; 
+    const singleSubjectName = testInfo.subject;
 
-// 2. Map through all questions and assign the single subject name.
-questions = questions.map(q => {
-    // This assigns "Maths", "Reasoning", or "English" to every question.
-    // The subject name is then used to look up the correct time (25/20/15 minutes).
-    return { 
-        ...q, 
-        subject: singleSubjectName, 
-        sectionQNum: 1, // Reset to 1 since there is only one section
-        sectionTotal: 25 // Assuming all single-subject tests have 25 questions
-    };
-});
+    // Ensure each question has subject, sectionQNum, sectionTotal (keeps compatibility)
+    questions = questions.map(q => ({
+        ...q,
+        subject: singleSubjectName,
+        sectionQNum: 1,
+        sectionTotal: questions.length || 25
+    }));
+
     startTestBtn.addEventListener('click', () => {
         instructionsModal.classList.add('hidden');
         quizUI.classList.remove('hidden');
-        // Pass only data to the initialization function
         initializeQuiz(questions, testInfo);
     });
 
@@ -70,13 +66,12 @@ questions = questions.map(q => {
     let questionStates = [];
     let currentReviewIndex = 0;
     let currentLanguage = 'en';
-    let sectionTimeRemaining = {}; // Moved to main scope so it's accessible by all functions
-    let totalInitialTime = 0; // Moved to main scope
-
+    let sectionTimeRemaining = {};
+    let totalInitialTime = 0;
 
     // --- Helper Functions (Preserved) ---
     function normalizeString(str) {
-        if (str === null) return '';
+        if (str === null || typeof str === 'undefined') return '';
         return String(str).replace(/[\u20b9₹]/g, '').replace(/m\u00b2/g, 'm^2').replace(/\u00b0/g, 'deg').replace(/\s+/g, '').toLowerCase();
     }
 
@@ -102,11 +97,12 @@ questions = questions.map(q => {
             btn.textContent = item.index + 1;
             btn.dataset.index = index;
 
-            if (item.state.resultCategory === 'correct') btn.classList.add('answered');
-            else if (item.state.resultCategory === 'incorrect') btn.classList.add('not-answered');
+            const state = item.state || {};
+            if (state.resultCategory === 'correct') btn.classList.add('answered');
+            else if (state.resultCategory === 'incorrect') btn.classList.add('not-answered');
 
-            if (item.state.markedForReview) {
-                if (item.state.userAnswer !== null) {
+            if (state.markedForReview) {
+                if (state.userAnswer !== null) {
                     btn.classList.remove('answered', 'not-answered');
                     btn.classList.add('answered-marked-review');
                 } else {
@@ -129,15 +125,20 @@ questions = questions.map(q => {
 
         if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length + " (Original Q" + (reviewItem.index + 1) + ")";
 
-        const optionsHtml = question.options.map(option => {
-            const isCorrect = normalizeString(option) === normalizeString(question.correctAnswer);
-            const isUserChoice = normalizeString(option) === normalizeString(state.userAnswer);
+        // Build options HTML; question.options are objects {en, hi}
+        const optionsHtml = question.options.map(optObj => {
+            const optionEn = optObj.en;
+            const optionHi = optObj.hi || '';
+            const isCorrect = normalizeString(optionEn) === normalizeString(question.correctAnswer.en);
+            const isUserChoice = normalizeString(optionEn) === normalizeString(state.userAnswer);
             let optionClass = 'review-option';
             if (isCorrect) optionClass += ' correct';
             if (isUserChoice && !isCorrect) optionClass += ' incorrect';
             if (isUserChoice && isCorrect) optionClass += ' correct-user-choice';
             let html = '<div class="' + optionClass + '">';
-            html += '<div class="review-option-text"><span class="radio-icon"></span><span>' + option + '</span></div>';
+            html += '<div class="review-option-text"><span class="radio-icon"></span><span class="option-label"><strong>' + optionEn + '</strong>';
+            if (optionHi) html += ' <small class="hi-text">(' + optionHi + ')</small>';
+            html += '</span></div>';
             if (isUserChoice) html += '<span class="user-pick-indicator">✔️ Your Pick</span>';
             if (isCorrect && !isUserChoice) html += '<span class="correct-indicator">✅ Correct Answer</span>';
             html += '</div>';
@@ -164,11 +165,11 @@ questions = questions.map(q => {
         const category = e.target.textContent.toLowerCase().trim();
 
         [resultTabsContainer, reviewTabsContainer].forEach(container => {
-             if (container) {
-                 container.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-                 const activeTab = Array.from(container.querySelectorAll('a')).find(a => a.textContent.toLowerCase().trim() === category);
-                 if (activeTab) activeTab.classList.add('active');
-             }
+            if (container) {
+                container.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                const activeTab = Array.from(container.querySelectorAll('a')).find(a => a.textContent.toLowerCase().trim() === category);
+                if (activeTab) activeTab.classList.add('active');
+            }
         });
 
         if (category === 'overview') {
@@ -185,47 +186,41 @@ questions = questions.map(q => {
         if (reviewQuestionList.length > 0) {
             showReviewQuestion(0);
         } else {
-             if (reviewArea) reviewArea.innerHTML = '<p style="text-align:center; padding: 50px;">No questions found in this category.</p>';
-             document.getElementById('review-question-title').textContent = "Reviewing Question 0 of 0";
-             if (reviewPrevBtn) reviewPrevBtn.disabled = true;
-             if (reviewNextBtn) reviewNextBtn.disabled = true;
-             document.getElementById('review-palette').innerHTML = '';
+            if (reviewArea) reviewArea.innerHTML = '<p style="text-align:center; padding: 50px;">No questions found in this category.</p>';
+            if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question 0 of 0";
+            if (reviewPrevBtn) reviewPrevBtn.disabled = true;
+            if (reviewNextBtn) reviewNextBtn.disabled = true;
+            const rp = document.getElementById('review-palette');
+            if (rp) rp.innerHTML = '';
         }
     }
 
-
     // ==========================================================
-    //  INITIALIZE QUIZ (MAIN LOGIC) - Now only takes data
+    //  INITIALIZE QUIZ (MAIN LOGIC)
     // ==========================================================
-// ==========================================================
-//  UPDATED INITIALIZE QUIZ (MAIN LOGIC) - FIX APPLIED
-// ==========================================================
-function initializeQuiz(questions, testInfo) {
-    let currentQuestionIndex = 0;
-    let timerInterval;
-    let isPaused = false;
+    function initializeQuiz(questions, testInfo) {
+        let currentQuestionIndex = 0;
+        let timerInterval;
+        let isPaused = false;
 
-    // 1. DEFINE SECTION DURATIONS - SET CLEAR TIMES
-    const sectionDurations = {
-        "Maths": 25,    // 25 minutes
-        "Reasoning": 20, // 20 minutes
-        "English": 15,  // 15 minutes
-        "Time Left": 20 // The explicit default/fallback time
-    };
+        const sectionDurations = {
+            "Maths": 25,
+            "Reasoning": 20,
+            "English": 15,
+            "Time Left": 20
+        };
 
-    // 2. INITIALIZE TIMER BANKS (Uses global sectionTimeRemaining/totalInitialTime)
-    sectionTimeRemaining = {};
-    totalInitialTime = 0;
+        // init timer banks
+        sectionTimeRemaining = {};
+        totalInitialTime = 0;
+        const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
+        uniqueSubjects.forEach(subj => {
+            const minutes = sectionDurations[subj] || 20;
+            sectionTimeRemaining[subj] = minutes * 60;
+            totalInitialTime += (minutes * 60);
+        });
 
-    const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
-    uniqueSubjects.forEach(subj => {
-        // Use the duration for the subject, or 20 minutes if the subject is unknown/unlisted.
-        const minutes = sectionDurations[subj] || 20; 
-        sectionTimeRemaining[subj] = minutes * 60;
-        totalInitialTime += (minutes * 60);
-    });
-
-        // Event listener for language change
+        // language select handler
         if (languageSelect) {
             languageSelect.value = currentLanguage;
             languageSelect.addEventListener('change', (e) => {
@@ -238,7 +233,8 @@ function initializeQuiz(questions, testInfo) {
         }
 
         const badgeHtml = testInfo.isNew ? '<span class="new-badge">NEW</span>' : '';
-        document.getElementById('test-main-title').innerHTML = testInfo.date + ' - ' + testInfo.title + ' ' + badgeHtml;
+        const titleEl = document.getElementById('test-main-title');
+        if (titleEl) titleEl.innerHTML = testInfo.date + ' - ' + testInfo.title + ' ' + badgeHtml;
 
         questionStates = questions.map(() => ({
             status: 'not-visited', userAnswer: null, markedForReview: false, resultCategory: null
@@ -254,75 +250,62 @@ function initializeQuiz(questions, testInfo) {
             return questions[currentQuestionIndex].subject;
         }
 
-        // --- TIMER FUNCTION (Preserved) ---
         function startTimer() {
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 if (isPaused) return;
-
                 const currentSubject = getCurrentSubject();
-
                 if (sectionTimeRemaining[currentSubject] > 0) {
                     sectionTimeRemaining[currentSubject]--;
-
-                    // Update Display
                     const t = sectionTimeRemaining[currentSubject];
                     const minutes = Math.floor(t / 60);
                     const seconds = t % 60;
-
                     if (timerEl) {
-                        // Display the correct subject name (Maths, Reasoning, English, or Time Left)
                         timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                     }
                 } else {
                     handleSectionTimeout(currentSubject);
                 }
-
             }, 1000);
         }
 
         function handleSectionTimeout(finishedSubject) {
             clearInterval(timerInterval);
             alert(`Time is up for ${finishedSubject}! Moving to next section.`);
-
-            // Find the first question of a subject that still has time
             const nextIndex = questions.findIndex(q =>
                 q.subject !== finishedSubject && sectionTimeRemaining[q.subject] > 0
             );
-
             if (nextIndex !== -1) {
                 showQuestion(nextIndex);
                 startTimer();
             } else {
-                // No time left in ANY section
                 calculateAndShowResults(true);
             }
         }
 
-        function pauseTest() { isPaused = true; pauseOverlay.classList.remove('hidden'); }
-        function resumeTest() { isPaused = false; pauseOverlay.classList.add('hidden'); }
+        function pauseTest() { isPaused = true; if (pauseOverlay) pauseOverlay.classList.remove('hidden'); }
+        function resumeTest() { isPaused = false; if (pauseOverlay) pauseOverlay.classList.add('hidden'); }
 
         function showSubmissionSummary() {
             const answered = questionStates.filter(s => s.userAnswer !== null).length;
             const marked = questionStates.filter(s => s.markedForReview).length;
             const answeredAndMarked = questionStates.filter(s => s.userAnswer !== null && s.markedForReview).length;
-            submissionStatsEl.innerHTML =
-                '<div>Answered: <span>' + answered + ' / ' + questions.length + '</span></div>' +
-                '<div>Not Answered: <span>' + (questions.length - answered) + ' / ' + questions.length + '</span></div>' +
-                '<div>Marked for Review: <span>' + marked + '</span></div>' +
-                '<div>Answered & Marked for Review: <span>' + answeredAndMarked + '</span></div>';
-            submitSummaryModal.classList.remove('hidden');
+            if (submissionStatsEl) {
+                submissionStatsEl.innerHTML =
+                    '<div>Answered: <span>' + answered + ' / ' + questions.length + '</span></div>' +
+                    '<div>Not Answered: <span>' + (questions.length - answered) + ' / ' + questions.length + '</span></div>' +
+                    '<div>Marked for Review: <span>' + marked + '</span></div>' +
+                    '<div>Answered & Marked for Review: <span>' + answeredAndMarked + '</span></div>';
+            }
+            if (submitSummaryModal) submitSummaryModal.classList.remove('hidden');
         }
 
         function calculateAndShowResults(autoSubmit = false) {
             clearInterval(timerInterval);
-
-            // Calculate Total Time Taken
             let totalRemainingSeconds = 0;
             for (let subj in sectionTimeRemaining) {
                 totalRemainingSeconds += sectionTimeRemaining[subj];
             }
-
             const timeTakenSecondsTotal = totalInitialTime - totalRemainingSeconds;
             const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
             const timeTakenSeconds = timeTakenSecondsTotal % 60;
@@ -333,7 +316,7 @@ function initializeQuiz(questions, testInfo) {
                 const question = questions[index];
                 if (state.userAnswer !== null) {
                     const userAnswerNormalized = normalizeString(state.userAnswer);
-                    const correctAnswerNormalized = normalizeString(question.correctAnswer);
+                    const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
                     if (userAnswerNormalized === correctAnswerNormalized) {
                         correctCount++; score += 2; state.resultCategory = 'correct';
                     } else {
@@ -386,7 +369,7 @@ function initializeQuiz(questions, testInfo) {
 
             function handleReviewTestClick() {
                 const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
+                if (allTab) tabClickHandler({ preventDefault: () => { }, target: allTab });
             }
 
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
@@ -403,6 +386,7 @@ function initializeQuiz(questions, testInfo) {
         }
 
         function createPalette() {
+            if (!questionPalette) return;
             questionPalette.innerHTML = '';
             questions.forEach((_, index) => {
                 const btn = document.createElement('button');
@@ -418,11 +402,11 @@ function initializeQuiz(questions, testInfo) {
         }
 
         function showQuestion(index) {
-            // Security check: Prevent going to a section with 0 time
+            // Prevent access if subject time over
             const targetSubject = questions[index].subject;
             if (sectionTimeRemaining[targetSubject] <= 0) {
                 alert(`Time for ${targetSubject} is over. You cannot access this section.`);
-                return; // Do not change question
+                return;
             }
 
             currentQuestionIndex = index;
@@ -431,42 +415,52 @@ function initializeQuiz(questions, testInfo) {
 
             if (state.status === 'not-visited') state.status = 'not-answered';
 
-            // Update Header to show Section Name
-            questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`;
+            // Update Header
+            if (questionTitle) questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`;
 
             const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
 
-            const optionsHtml = question.options.map(option =>
-                '<label class="option">' +
-                '<input type="radio" name="option" value="' + option + '" ' + (state.userAnswer === option ? 'checked' : '') + '>' +
-                '<span>' + option + '</span>' +
-                '</label>'
-            ).join('');
+            // Build options using option.en and option.hi
+            const optionsHtml = question.options.map(optObj => {
+                const optionEn = optObj.en;
+                const optionHi = optObj.hi || '';
+                const checked = (state.userAnswer === optionEn) ? 'checked' : '';
+                // store english value in input.value
+                return `
+<label class="option">
+    <input type="radio" name="option" value="${escapeHtml(optionEn)}" ${checked}>
+    <span class="option-text"><strong>${escapeHtml(optObj[currentLanguage])}</strong></span>
+</label>
+`;
 
-            questionArea.innerHTML =
-                '<p class="question-text">' + (index + 1) + '. ' + questionText + '</p>' +
-                '<div class="options-container">' + optionsHtml + '</div>';
+            }).join('');
+
+            if (questionArea) {
+                questionArea.innerHTML =
+                    '<p class="question-text">' + (index + 1) + '. ' + questionText + '</p>' +
+                    '<div class="options-container">' + optionsHtml + '</div>';
+            }
 
             if (window.MathJax) window.MathJax.typeset();
             updateNavigation();
             updatePalette();
-            // Re-start timer for the new section if subject has changed
-            // This is essential for the timer display to show the correct remaining time
-            startTimer(); 
+            startTimer(); // ensure timer shows correct subject time
         }
 
         function updateNavigation() {
-            prevBtn.disabled = currentQuestionIndex === 0;
-            nextBtn.textContent = (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
+            if (prevBtn) prevBtn.disabled = currentQuestionIndex === 0;
+            if (nextBtn) nextBtn.textContent = (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
 
             const state = questionStates[currentQuestionIndex];
             const isMarked = state.markedForReview;
             const isAnswered = state.userAnswer !== null;
 
-            if (isMarked && isAnswered) markReviewBtn.textContent = 'Unmark & Save (Answered)';
-            else if (isMarked) markReviewBtn.textContent = 'Unmark Review';
-            else if (isAnswered) markReviewBtn.textContent = 'Mark for Review (Answered)';
-            else markReviewBtn.textContent = 'Mark for Review';
+            if (markReviewBtn) {
+                if (isMarked && isAnswered) markReviewBtn.textContent = 'Unmark & Save (Answered)';
+                else if (isMarked) markReviewBtn.textContent = 'Unmark Review';
+                else if (isAnswered) markReviewBtn.textContent = 'Mark for Review (Answered)';
+                else markReviewBtn.textContent = 'Mark for Review';
+            }
         }
 
         function updatePalette() {
@@ -486,16 +480,20 @@ function initializeQuiz(questions, testInfo) {
             });
         }
 
+        // Save the selected answer: store English string only
         function saveCurrentAnswer() {
             const selectedOption = document.querySelector('input[name="option"]:checked');
             const state = questionStates[currentQuestionIndex];
             if (selectedOption) {
+                // Value is the English text
                 state.userAnswer = selectedOption.value;
                 if (!state.markedForReview) state.status = 'answered';
             } else {
                 state.userAnswer = null;
                 if (!state.markedForReview) state.status = 'not-answered';
             }
+            updatePalette();
+            updateNavigation();
         }
 
         function clearCurrentAnswer() {
@@ -507,38 +505,50 @@ function initializeQuiz(questions, testInfo) {
             updateNavigation();
         }
 
-        pauseBtn.addEventListener('click', pauseTest);
-        resumeBtn.addEventListener('click', resumeTest);
-        submitTestBtn.addEventListener('click', showSubmissionSummary);
-        clearResponseBtn.addEventListener('click', clearCurrentAnswer);
-        finalSubmitBtn.addEventListener('click', () => { submitSummaryModal.classList.add('hidden'); calculateAndShowResults(); });
-        cancelSubmitBtn.addEventListener('click', () => submitSummaryModal.classList.add('hidden'));
+        // helpers to escape values inserted into HTML to prevent issues
+        function escapeHtml(text) {
+            if (text === null || typeof text === 'undefined') return '';
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
-        nextBtn.addEventListener('click', () => {
+        // bind controls
+        if (pauseBtn) pauseBtn.addEventListener('click', pauseTest);
+        if (resumeBtn) resumeBtn.addEventListener('click', resumeTest);
+        if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
+        if (clearResponseBtn) clearResponseBtn.addEventListener('click', clearCurrentAnswer);
+
+        if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => { if (submitSummaryModal) submitSummaryModal.classList.add('hidden'); calculateAndShowResults(); });
+        if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => { if (submitSummaryModal) submitSummaryModal.classList.add('hidden'); });
+
+        if (nextBtn) nextBtn.addEventListener('click', () => {
             saveCurrentAnswer();
             updatePalette();
             if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1);
             else if (currentQuestionIndex === questions.length - 1) showSubmissionSummary();
         });
 
-        markReviewBtn.addEventListener('click', () => {
+        if (markReviewBtn) markReviewBtn.addEventListener('click', () => {
             const state = questionStates[currentQuestionIndex];
             state.markedForReview = !state.markedForReview;
             saveCurrentAnswer();
             updatePalette();
             updateNavigation();
-            // Do NOT automatically go to next question after mark/unmark - this is an important UI flow fix.
-            // if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1); 
         });
 
-        prevBtn.addEventListener('click', () => {
+        if (prevBtn) prevBtn.addEventListener('click', () => {
             saveCurrentAnswer();
             updatePalette();
             if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
         });
 
-        // Add review navigation listeners to the elements defined in the main scope
         if (reviewNextBtn) reviewNextBtn.addEventListener('click', () => { if (currentReviewIndex < reviewQuestionList.length - 1) showReviewQuestion(currentReviewIndex + 1); });
         if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => { if (currentReviewIndex > 0) showReviewQuestion(currentReviewIndex - 1); });
-    }
-});
+
+    } // end initializeQuiz
+
+}); // end DOMContentLoaded
