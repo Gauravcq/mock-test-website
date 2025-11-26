@@ -903,195 +903,433 @@ const QUESTIONS_DATABASE = {
 
 
 
-    "ssc_cgl_12_sep_s1-r": [
-       
-  {
-    "question": "In the following question, select the related word from the given alternatives. Watt: Power :: Pascal: ?",
-    "options": ["Energy", "Temperature", "Pressure", "Force"],
-    "correctAnswer": "Pressure",
-    "explanation": "The relationship is a physical quantity and its S.I. unit. Watt is the S.I. unit of Power. Similarly, Pascal is the S.I. unit of Pressure."
-  },
-  {
-    "question": "In the following question, select the related word from the given alternatives. Mekong: Tibet :: Amazon:?",
-    "options": ["Chile", "Peru", "Colombia", "Ecuador"],
-    "correctAnswer": "Peru",
-    "explanation": "The relationship is River: Place of Origin. The Mekong River originates in Tibet (the Tibetan Plateau). The Amazon River's source is in the Andes mountains, most commonly cited as being in Peru."
-  },
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. CGK, GKO, KOS, OSW, ?",
-    "options": ["SDA", "KNB", "SWA", "KJH"],
-    "correctAnswer": "SWA",
-    "explanation": "The pattern involves a sequential shift where the first letter of the next cluster is the second letter of the current cluster, and the second letter is the third letter of the current cluster. The third letter is an increment of +4 from the third letter of the current cluster. (O\u2192S, S\u2192W, W\u2192A: W+4=A)."
-  },
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. MIN, NJM, OKL, PLK, ?",
-    "options": ["QWS", "HGF", "QMJ", "UJH"],
-    "correctAnswer": "QMJ",
-    "explanation": "The pattern is an increment or decrement for each letter position across the clusters:\nFirst Letter: M, N, O, P, \u2192 Q (+1)\nSecond Letter: I, J, K, L, \u2192 M (+1)\nThird Letter: N, M, L, K, \u2192 J (-1)"
-  },
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. BRF, EUH, HXJ, KAL, ?",
-    "options": ["NMB", "NKH", "NHG", "NDN"],
-    "correctAnswer": "NDN",
-    "explanation": "The pattern is a constant increment in alphabetical position for each letter in the cluster:\nFirst Letter: B, E, H, K, \u2192 N (+3)\nSecond Letter: R, U, X, A, \u2192 D (+3)\nThird Letter: F, H, J, L, \u2192 N (+2)"
-  },
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series: WZWT, WWOH, WRGV, WNYJ, ?",
-    "options": ["WJQX", "WJQW", "WHPX", "WJPX"],
-    "correctAnswer": "WJQX",
-    "explanation": "The pattern is observed across the four letters:\n1st letter: W (Constant)\n3rd letter: W, O, G, Y, \u2192 Q (-8)\n4th letter: T, H, V, J, \u2192 X (Alternating -12, +14)\n2nd letter: Z, W, R, N, \u2192 J (Irregular difference: -3, -5, -4, -4)"
-  },
-  {
-    "question": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series: MCFI, NEKP, OGPW, PIUD, ?",
-    "options": ["NKYD", "QLYL", "QKZK", "QKZL"],
-    "correctAnswer": "QKZK",
-    "explanation": "The pattern is a constant increment in alphabetical position for each letter in the cluster:\nFirst Letter: M, N, O, P, \u2192 Q (+1)\nSecond Letter: C, E, G, I, \u2192 K (+2)\nThird Letter: F, K, P, U, \u2192 Z (+5)\nFourth Letter: I, P, W, D, \u2192 K (+7)"
-  },
-  {
-    "question": "What comes next: 3, 12, 7, 16, 11, 20, 15, ?",
-    "options": ["16", "24", "14", "18"],
-    "correctAnswer": "24",
-    "explanation": "This is an alternating series. The terms in the odd positions (3, 7, 11, 15) increase by 4. The terms in the even positions (12, 16, 20, ?) also increase by 4. The next term is in the even series: 20 + 4 = 24."
-  },
-  {
-    "question": "Each of the letters in the word STUDENT is arranged in alphabetical order. How many letters are there in the English alphabetical series between the letter that is second from the left and the one that is fourth from the right in the new letter-cluster formed?",
-    "options": ["17", "13", "11", "15"],
-    "correctAnswer": "13",
-    "explanation": "When arranged alphabetically, STUDENT becomes D E N S T T U. The second letter from the left is E (position 5). The fourth letter from the right is S (position 19). The number of letters between E and S is 19 - 5 - 1 = 13."
-  },
-  {
-    "question": "<img src='../images/qs.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
-    "options": ["1 and 2", "1 and 3", "2 and 4", "3 and 4"],
-    "correctAnswer": "2 and 4",
-    "explanation": "Addresses 2 and 4 are an exact match: 'Arjun Mehta A-101, Emerald Tower, Surat, 395001'. Address 1 has 'Towers' and Address 3 has 'Arjun M.'."
-  },
-  {
-    "question": "<img src='../images/new.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
-    "options": ["1", "3", "2", "4"],
-    "correctAnswer": "1",
-    "explanation": "The identical address must be an exact match, including punctuation and the PIN code. Only address 1 is a character-for-character match."
-  },
-   {
-    "question": "<img src='../images/an.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
-    "options": ["KO", "KU", "KS", "KW"],
-    "correctAnswer": "KU",
-    "explanation": "Step 1: Analyze the Numerical Pattern (AG : 10)The standard logic involves adding the positional values of the letters and applying a mathematical rule.A = 1, G = 7Sum of values: $1 + 7 = 8$Resulting number: 10Pattern Rule: Sum of values + $\mathbf{2}$ = Resulting Number$8 + 2 = \mathbf{10}$Step 2: Apply the Pattern to the Second Pair (CM : ?)Apply the same rule to the letters CM:C = 3, M = 13Sum of values: $3 + 13 = 16$Apply Pattern Rule: $16 + 2 = \mathbf{18}$The logically expected answer is 18. Since the given options are letter clusters, this indicates the question is flawed.Step 3: Deriving KU from an Inconsistent Letter-Shift PatternSince KU is the provided answer, we must assume a letter-shift relationship, ignoring the numerical part of the analogy for consistency across all three clusters (AG, CM, KU).The pattern proceeds in two steps: $\mathbf{AG \rightarrow CM}$ and $\mathbf{CM \rightarrow KU}$."
-  },
-  {
-    "question": "A is facing North. B is seated second to the right of A. Who is sitting immediately to the left of B?",
-    "options": ["The person seated to the immediate right of A", "The person seated opposite to A", "The person seated to the immediate left of A", "Cannot be determined"],
-    "correctAnswer": "The person seated to the immediate right of A",
-    "explanation": "Regardless of the total number of people or arrangement (linear/circular), if B is the second person to the right of A, the person immediately to B's left is always the one positioned between A and B. This person is, by definition, the one seated immediately to the right of A."
-  },
-  {
-    "question": "In the following question, the second word is related to the first word by a specific pattern of letter transformation. Identify the same pattern and apply it to the third word to find the correct option that completes the analogy. TIME: VJOG :: WORD:?",
-    "options": ["YPTF", "YQTG", "YPSF", "ZPSF"],
-    "correctAnswer": "YPTF",
-    "explanation": "The pattern is a positional shift for each letter:\n(T\u2192V, +2); (I\u2192J, +1); (M\u2192O, +2); (E\u2192G, +2). \nApplying the (+2, +1, +2, +2) rule to WORD: W\u2192Y, O\u2192P, R\u2192T, D\u2192F, resulting in YPTF."
-  },
-  {
-    "question": "In each of the following questions, a specific pattern such as reversal or rearrangement has been applied to the first word to get the second. Apply the same pattern to the third word and find the correct answer from the given options. GNIDAER: READING :: NOITULOS:?",
-    "options": ["SOLUTION", "SOLUNOIT", "NOILOSUT", "POLLUTION"],
-    "correctAnswer": "SOLUTION",
-    "explanation": "The relationship is that the first word is the reverse spelling of the second word (GNIDAER is READING backward). Reversing NOITULOS yields SOLUTION."
-  },
-  {
-    "question": "In each of the following questions, the first word is coded to form the second word using a specific rearrangement and/or substitution rule. Apply the same rule to the third word to determine the correct corresponding word from the given alternatives. AYRRJC: CATTLE :: NCPDCAR:?",
-    "options": ["SUBJECTS", "NEGLECT", "PERFECT", "OPERATE"],
-    "correctAnswer": "PERFECT",
-    "explanation": "The pattern is a shift cipher where the Original Word is derived from the Code Word by shifting each letter forward by 2 in the alphabet (Code Letter \u2192 Original Letter + 2). Applying this rule to NCPDCAR (N\u2192P, C\u2192E, P\u2192R, D\u2192F, C\u2192E, A\u2192C, R\u2192T) results in PERFECT."
-  },
-  {
-    "question": "Identify the odd one: 2, 3, 5, 7, 11, 13, 17, 20",
-    "options": ["17", "13", "20", "11"],
-    "correctAnswer": "20",
-    "explanation": "All numbers in the list (2, 3, 5, 7, 11, 13, 17) are prime numbers, as they are only divisible by 1 and themselves. The number **20** is the only composite number, as it has factors other than 1 and 20."
-  },
-  {
-    "question": "Which of the following is the odd one out? ",
-    "options": ["2, 3, 5", "11, 13, 17", "4, 6, 8", "7, 19, 23"],
-    "correctAnswer": "4, 6, 8",
-    "explanation": "The sets {2, 3, 5}, {11, 13, 17}, and {7, 19, 23} all consist exclusively of prime numbers. The set **{4, 6, 8}** is the odd one out because it consists of composite (non-prime) numbers."
-  },
-  {
-  "question": "Rani said, 'The man in the photo is my mother’s son-in-law.' Who is the man to Rani?",
-  "options": [
-    "Husband",
-    "Father",
-    "Uncle",
-    "Cousin"
-  ],
-  "correctAnswer": "Husband",
-  "explanation": "Rani's mother's son-in-law is the husband of Rani's sister or the husband of Rani herself. Since only 'Husband' is a viable correct option among the choices, and in the context of typical exam questions, 'my mother’s son-in-law' usually refers to the husband of the speaker (if she is a daughter), the man is Rani's Husband."
-},
-{
-  "question": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others.",
-  "options": [
-    "K11:I9:G7",
-    "M13:K11:I9",
-    "O15:M13:K11",
-    "N14:K11:H8"
-  ],
-  "correctAnswer": "N14:K11:H8",
-  "explanation": "The pattern involves the alphabetical position of the letters (A=1, B=2, etc.):\n\n1. K11:I9:G7: The positional values are 11, 9, 7. The difference is $11-9=2$ and $9-7=2$ (Pattern: -2, -2).\n2. M13:K11:I9: The positional values are 13, 11, 9. The difference is $13-11=2$ and $11-9=2$ (Pattern: -2, -2).\n3. O15:M13:K11: The positional values are 15, 13, 11. The difference is $15-13=2$ and $13-11=2$ (Pattern: -2, -2).\n4. N14:K11:H8: The positional values are 14, 11, 8. The difference is $14-11=3$ and $11-8=3$ (Pattern: -3, -3).\n\nSince options 1, 2, and 3 follow a constant difference of -2, and option 4 follows a constant difference of -3, **N14:K11:H8** is the odd one out."
-},
-{
-  "question": "In each of the following questions, a group of three number/symbol clusters is given in each option. Identify the group that does NOT follow the same pattern as the others.",
-  "options": [
-    "A1@ : B2# : C3$",
-    "D4% : E54 : F6&",
-    "G7* : H8( : I9)",
-    "J10_:K11@:L12@"
-  ],
-  "correctAnswer": "J10_:K11@:L12@",
-  "explanation": "In Options 1, 2, and 3, both the letters (e.g., A, B, C) and the numbers (e.g., 1, 2, 3) are consecutive, and critically, all three components in the cluster use a **unique symbol** (@, #, $; or %, 4, &; or *, (, )).\n\nIn the odd one out, **J10_:K11@:L12@**, the letters and numbers follow the consecutive pattern (J, K, L and 10, 11, 12), but the **symbols are repeated**: @ is used for both the second and third components (K11@ and L12@). Therefore, this group does not follow the unique symbol pattern established by the others."
-},
-{
-  "question": "Pointing to a man, a woman said, 'His mother is the only daughter of my father.' How is the man related to the woman?",
-  "options": [
-    "Son",
-    "Nephew",
-    "Cousin",
-    "Brother"
-  ],
-  "correctAnswer": "Son",
-  "explanation": "The woman's statement, 'the only daughter of my father,' refers to the woman herself. Therefore, 'His mother is the only daughter of my father' means 'His mother is me (the woman)'. If the man's mother is the woman, the man is her **Son**."
-},
-{
-  "question": "Pointing to a woman, John says, 'She is the wife of my uncle’s only son.' How is the woman related to John?",
-  "options": [
-    "Sister",
-    "Cousin",
-    "Sister-in-law",
-    "Niece"
-  ],
-  "correctAnswer": "Sister-in-law",
-  "explanation": "Breakdown of the relationship:\n1. **My uncle's only son** refers to John's first cousin (since the 'uncle' is usually the paternal or maternal uncle, making his son John's cousin).\n2. **The wife of my cousin** is John's **Sister-in-law** (or more specifically, Cousin's Wife). In the context of the options provided, 'Sister-in-law' is the correct and closest familial term for the wife of a male relative (like a brother or, in this case, a cousin)."
-},
-{
-  "question": "Aman said, 'My mother’s husband's only son is the father of your sister’s brother.' How is the man related to you?",
-  "options": [
-    "Uncle",
-    "Father",
-    "Grandfather",
-    "Brother"
-  ],
-  "correctAnswer": "Father",
-  "explanation": "Let's break down Aman's statement:\n1. **Aman's mother's husband** is Aman's Father.\n2. **Aman's mother's husband's only son** is Aman himself (assuming Aman is the speaker and has only one brother, which is the most common interpretation in these puzzles).\n3. **Your sister’s brother** is You yourself (as a sibling's sibling is the person).\n\nTherefore, the statement simplifies to: **Aman is the father of You.** This means the man (Aman) is your **Father**."
-},
-{
-  "question": "If #=*, @=-, $=+$, then evaluate: 9#2@3$1",
-  "options": [
-    "18",
-    "14",
-    "16",
-    "17"
-  ],
-  "correctAnswer": "16",
-  "explanation": "Substitute the symbols with the given mathematical operators:\n$9 \\times 2 - 3 + 1$\n\nFollow the order of operations (BODMAS/PEMDAS):\n1. Multiplication: $9 \\times 2 = 18$\n2. The expression becomes: $18 - 3 + 1$\n3. Subtraction: $18 - 3 = 15$\n4. Addition: $15 + 1 = 16$\n\nTherefore, the final value is **16**."
-},
+    "ssc_cgl_12_sep_s1-r":[
+    {
+        "question": {
+            "en": "In the following question, select the related word from the given alternatives. Watt: Power :: Pascal: ?",
+            "hi": "निम्नलिखित प्रश्न में दिए गए विकल्पों में से संबंधित शब्द का चयन कीजिए। वाट : शक्ति :: पास्कल : ?"
+        },
+        "options": [
+            "Energy | ऊर्जा",
+            "Temperature | तापमान",
+            "Pressure | दबाव",
+            "Force | बल"
+        ],
+        "correctAnswer": "Pressure | दबाव",
+        "explanation": {
+            "en": "The relationship is a physical quantity and its S.I. unit. Watt is the S.I. unit of Power. Similarly, Pascal is the S.I. unit of Pressure.",
+            "hi": "संबंध एक भौतिक राशि और उसकी S.I. इकाई का है। वाट, शक्ति की S.I. इकाई है। उसी प्रकार, पास्कल, **दबाव** की S.I. इकाई है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In the following question, select the related word from the given alternatives. Mekong: Tibet :: Amazon:?",
+            "hi": "निम्नलिखित प्रश्न में दिए गए विकल्पों में से संबंधित शब्द का चयन कीजिए। मेकांग : तिब्बत :: अमेज़न :?"
+        },
+        "options": [
+            "Chile | चिली",
+            "Peru | पेरू",
+            "Colombia | कोलंबिया",
+            "Ecuador | इक्वाडोर"
+        ],
+        "correctAnswer": "Peru | पेरू",
+        "explanation": {
+            "en": "The relationship is River: Place of Origin. The Mekong River originates in Tibet (the Tibetan Plateau). The Amazon River's source is in the Andes mountains, most commonly cited as being in Peru.",
+            "hi": "संबंध नदी और उसके उद्गम स्थान का है। मेकांग नदी का उद्गम तिब्बत (तिब्बती पठार) में होता है। अमेज़न नदी का स्रोत एंडीज़ पर्वत में है, जिसे आमतौर पर **पेरू** में उद्धृत किया जाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. CGK, GKO, KOS, OSW, ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। CGK, GKO, KOS, OSW, ?"
+        },
+        "options": [
+            "SDA | SDA",
+            "KNB | KNB",
+            "SWA | SWA",
+            "KJH | KJH"
+        ],
+        "correctAnswer": "SWA | SWA",
+        "explanation": {
+            "en": "The pattern involves a sequential shift where the first letter of the next cluster is the second letter of the current cluster, and the second letter is the third letter of the current cluster. The third letter is an increment of +4 from the third letter of the current cluster. (O→S, S→W, W→A: W+4=A).",
+            "hi": "पैटर्न में एक अनुक्रमिक बदलाव शामिल है जहाँ अगले समूह का पहला अक्षर वर्तमान समूह का दूसरा अक्षर है, और दूसरा अक्षर वर्तमान समूह का तीसरा अक्षर है। तीसरा अक्षर वर्तमान समूह के तीसरे अक्षर से +4 की वृद्धि है। (O→S, S→W, W→A: W+4=A)। इसलिए, अगला समूह **SWA** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. MIN, NJM, OKL, PLK, ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। MIN, NJM, OKL, PLK, ?"
+        },
+        "options": [
+            "QWS | QWS",
+            "HGF | HGF",
+            "QMJ | QMJ",
+            "UJH | UJH"
+        ],
+        "correctAnswer": "QMJ | QMJ",
+        "explanation": {
+            "en": "The pattern is an increment or decrement for each letter position across the clusters: First Letter: M, N, O, P, → Q (+1). Second Letter: I, J, K, L, → M (+1). Third Letter: N, M, L, K, → J (-1).",
+            "hi": "पैटर्न समूहों में प्रत्येक अक्षर की स्थिति के लिए एक वृद्धि या कमी है: पहला अक्षर: M, N, O, P, → Q (+1)। दूसरा अक्षर: I, J, K, L, → M (+1)। तीसरा अक्षर: N, M, L, K, → J (-1)। इसलिए, अगला समूह **QMJ** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series. BRF, EUH, HXJ, KAL, ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके। BRF, EUH, HXJ, KAL, ?"
+        },
+        "options": [
+            "NMB | NMB",
+            "NKH | NKH",
+            "NHG | NHG",
+            "NDN | NDN"
+        ],
+        "correctAnswer": "NDN | NDN",
+        "explanation": {
+            "en": "The pattern is a constant increment in alphabetical position for each letter in the cluster: First Letter: B, E, H, K, → N (+3). Second Letter: R, U, X, A, → D (+3). Third Letter: F, H, J, L, → N (+2).",
+            "hi": "पैटर्न समूह में प्रत्येक अक्षर के लिए वर्णमाला स्थिति में एक स्थिर वृद्धि है: पहला अक्षर: B, E, H, K, → N (+3)। दूसरा अक्षर: R, U, X, A, → D (+3)। तीसरा अक्षर: F, H, J, L, → N (+2)। इसलिए, अगला समूह **NDN** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series: WZWT, WWOH, WRGV, WNYJ, ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके: WZWT, WWOH, WRGV, WNYJ, ?"
+        },
+        "options": [
+            "WJQX | WJQX",
+            "WJQW | WJQW",
+            "WHPX | WHPX",
+            "WJPX | WJPX"
+        ],
+        "correctAnswer": "WJQX | WJQX",
+        "explanation": {
+            "en": "The pattern is observed across the four letters: 1st letter: W (Constant). 3rd letter: W, O, G, Y, → Q (-8). 4th letter: T, H, V, J, → X (Alternating -12, +14). 2nd letter: Z, W, R, N, → J (Irregular difference: -3, -5, -4, -4).",
+            "hi": "पैटर्न चार अक्षरों में देखा जाता है: पहला अक्षर: W (स्थिर)। तीसरा अक्षर: W, O, G, Y, → Q (-8)। चौथा अक्षर: T, H, V, J, → X (वैकल्पिक -12, +14)। दूसरा अक्षर: Z, W, R, N, → J (-3, -5, -4, -4)। इसलिए, अगला समूह **WJQX** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Select the letter-cluster from among the given options that can replace the question mark (?) in the following series: MCFI, NEKP, OGPW, PIUD, ?",
+            "hi": "दिए गए विकल्पों में से उस अक्षर-समूह का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) के स्थान पर आ सके: MCFI, NEKP, OGPW, PIUD, ?"
+        },
+        "options": [
+            "NKYD | NKYD",
+            "QLYL | QLYL",
+            "QKZK | QKZK",
+            "QKZL | QKZL"
+        ],
+        "correctAnswer": "QKZK | QKZK",
+        "explanation": {
+            "en": "The pattern is a constant increment in alphabetical position for each letter in the cluster: First Letter: M, N, O, P, → Q (+1). Second Letter: C, E, G, I, → K (+2). Third Letter: F, K, P, U, → Z (+5). Fourth Letter: I, P, W, D, → K (+7).",
+            "hi": "पैटर्न समूह में प्रत्येक अक्षर के लिए वर्णमाला स्थिति में एक स्थिर वृद्धि है: पहला अक्षर: M, N, O, P, → Q (+1)। दूसरा अक्षर: C, E, G, I, → K (+2)। तीसरा अक्षर: F, K, P, U, → Z (+5)। चौथा अक्षर: I, P, W, D, → K (+7)। इसलिए, अगला समूह **QKZK** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "What comes next: 3, 12, 7, 16, 11, 20, 15, ?",
+            "hi": "आगे क्या आएगा: 3, 12, 7, 16, 11, 20, 15, ?"
+        },
+        "options": [
+            "16 | 16",
+            "24 | 24",
+            "14 | 14",
+            "18 | 18"
+        ],
+        "correctAnswer": "24 | 24",
+        "explanation": {
+            "en": "This is an alternating series. The terms in the odd positions (3, 7, 11, 15) increase by 4. The terms in the even positions (12, 16, 20, ?) also increase by 4. The next term is in the even series: 20 + 4 = 24.",
+            "hi": "यह एक वैकल्पिक श्रृंखला है। विषम स्थानों पर पद (3, 7, 11, 15) 4 से बढ़ रहे हैं। सम स्थानों पर पद (12, 16, 20, ?) भी 4 से बढ़ रहे हैं। अगला पद सम श्रृंखला में है: $20 + 4 = 24$।"
+        }
+    },
+    {
+        "question": {
+            "en": "Each of the letters in the word STUDENT is arranged in alphabetical order. How many letters are there in the English alphabetical series between the letter that is second from the left and the one that is fourth from the right in the new letter-cluster formed?",
+            "hi": "STUDENT शब्द के प्रत्येक अक्षर को वर्णानुक्रम में व्यवस्थित किया गया है। निर्मित नए अक्षर-समूह में बाएँ से दूसरे अक्षर और दाएँ से चौथे अक्षर के बीच अंग्रेजी वर्णमाला श्रृंखला में कितने अक्षर हैं?"
+        },
+        "options": [
+            "17 | 17",
+            "13 | 13",
+            "11 | 11",
+            "15 | 15"
+        ],
+        "correctAnswer": "13 | 13",
+        "explanation": {
+            "en": "When arranged alphabetically, STUDENT becomes D E N S T T U. The second letter from the left is E (position 5). The fourth letter from the right is S (position 19). The number of letters between E and S is $19 - 5 - 1 = 13$.",
+            "hi": "जब वर्णानुक्रम में व्यवस्थित किया जाता है, तो STUDENT बन जाता है D E N S T T U। बाएँ से दूसरा अक्षर **E** (स्थान 5) है। दाएँ से चौथा अक्षर **S** (स्थान 19) है। E और S के बीच अक्षरों की संख्या $19 - 5 - 1 = 13$ है।"
+        }
+    },
+    {
+        "question": {
+            "en": "<img src='../images/qs.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/qs.png' alt='Question 25' style='max-width: 100%; height: auto;'>"
+        },
+        "options": [
+            "1 and 2 | 1 और 2",
+            "1 and 3 | 1 और 3",
+            "2 and 4 | 2 और 4",
+            "3 and 4 | 3 और 4"
+        ],
+        "correctAnswer": "2 and 4 | 2 और 4",
+        "explanation": {
+            "en": "Addresses 2 and 4 are an exact match: 'Arjun Mehta A-101, Emerald Tower, Surat, 395001'. Address 1 has 'Towers' and Address 3 has 'Arjun M.'.",
+            "hi": "पते 2 और 4 बिल्कुल मेल खाते हैं: 'Arjun Mehta A-101, Emerald Tower, Surat, 395001'। पते 1 में 'Towers' है और पते 3 में 'Arjun M.' है।"
+        }
+    },
+    {
+        "question": {
+            "en": "<img src='../images/new.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/new.png' alt='Question 25' style='max-width: 100%; height: auto;'>"
+        },
+        "options": [
+            "1 | 1",
+            "3 | 3",
+            "2 | 2",
+            "4 | 4"
+        ],
+        "correctAnswer": "1 | 1",
+        "explanation": {
+            "en": "The identical address must be an exact match, including punctuation and the PIN code. Only address 1 is a character-for-character match.",
+            "hi": "समान पता बिल्कुल मेल खाना चाहिए, जिसमें विराम चिह्न और पिन कोड शामिल हैं। केवल पता 1 अक्षर-दर-अक्षर मेल खाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "<img src='../images/an.png' alt='Question 25' style='max-width: 100%; height: auto;'>",
+            "hi": "<img src='../images/an.png' alt='Question 25' style='max-width: 100%; height: auto;'>"
+        },
+        "options": [
+            "KO | KO",
+            "KU | KU",
+            "KS | KS",
+            "KW | KW"
+        ],
+        "correctAnswer": "KU | KU",
+        "explanation": {
+            "en": "The logical pattern (Sum of values + 2) suggests the number 18 for CM, but since KU is the correct letter-cluster answer, a letter-shift relationship must be assumed, ignoring the numerical part of the analogy for consistency across all three clusters (AG, CM, KU).",
+            "hi": "तार्किक पैटर्न (मानों का योग + 2) CM के लिए 18 संख्या का सुझाव देता है, लेकिन चूंकि KU सही अक्षर-समूह उत्तर है, इसलिए एक अक्षर-शिफ्ट संबंध मानना ​​होगा, जिसमें तीनों समूहों (AG, CM, KU) में स्थिरता के लिए सादृश्य के संख्यात्मक भाग को अनदेखा किया जाएगा।"
+        }
+    },
+    {
+        "question": {
+            "en": "A is facing North. B is seated second to the right of A. Who is sitting immediately to the left of B?",
+            "hi": "A का मुख उत्तर दिशा में है। B, A के दाएँ से दूसरे स्थान पर बैठा है। B के ठीक बाएँ कौन बैठा है?"
+        },
+        "options": [
+            "The person seated to the immediate right of A | A के ठीक दाएँ बैठा व्यक्ति",
+            "The person seated opposite to A | A के विपरीत बैठा व्यक्ति",
+            "The person seated to the immediate left of A | A के ठीक बाएँ बैठा व्यक्ति",
+            "Cannot be determined | निर्धारित नहीं किया जा सकता"
+        ],
+        "correctAnswer": "The person seated to the immediate right of A | A के ठीक दाएँ बैठा व्यक्ति",
+        "explanation": {
+            "en": "Regardless of the total number of people or arrangement (linear/circular), if B is the second person to the right of A, the person immediately to B's left is always the one positioned between A and B. This person is, by definition, the one seated immediately to the right of A.",
+            "hi": "व्यक्तियों की कुल संख्या या व्यवस्था (रेखीय/गोलाकार) के बावजूद, यदि B, A के दाएँ से दूसरा व्यक्ति है, तो B के ठीक बाएँ बैठा व्यक्ति हमेशा वह होता है जो A और B के बीच में स्थित होता है। यह व्यक्ति, परिभाषा के अनुसार, A के ठीक दाएँ बैठा व्यक्ति है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In the following question, the second word is related to the first word by a specific pattern of letter transformation. Identify the same pattern and apply it to the third word to find the correct option that completes the analogy. TIME: VJOG :: WORD:?",
+            "hi": "निम्नलिखित प्रश्न में, दूसरा शब्द अक्षर परिवर्तन के एक विशिष्ट पैटर्न द्वारा पहले शब्द से संबंधित है। उसी पैटर्न की पहचान करें और सादृश्य को पूरा करने वाले सही विकल्प को खोजने के लिए इसे तीसरे शब्द पर लागू करें। TIME: VJOG :: WORD:?"
+        },
+        "options": [
+            "YPTF | YPTF",
+            "YQTG | YQTG",
+            "YPSF | YPSF",
+            "ZPSF | ZPSF"
+        ],
+        "correctAnswer": "YPTF | YPTF",
+        "explanation": {
+            "en": "The pattern is a positional shift for each letter: (T→V, +2); (I→J, +1); (M→O, +2); (E→G, +2). Applying the (+2, +1, +2, +2) rule to WORD: W→Y, O→P, R→T, D→F, resulting in YPTF.",
+            "hi": "पैटर्न प्रत्येक अक्षर के लिए एक स्थितिगत बदलाव है: (T→V, +2); (I→J, +1); (M→O, +2); (E→G, +2)। WORD पर (+2, +1, +2, +2) नियम लागू करने पर: W→Y, O→P, R→T, D→F, जिसके परिणामस्वरूप **YPTF** प्राप्त होता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, a specific pattern such as reversal or rearrangement has been applied to the first word to get the second. Apply the same pattern to the third word and find the correct answer from the given options. GNIDAER: READING :: NOITULOS:?",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, दूसरे शब्द को प्राप्त करने के लिए पहले शब्द पर उत्क्रमण या पुनर्व्यवस्थापन जैसा एक विशिष्ट पैटर्न लागू किया गया है। तीसरे शब्द पर समान पैटर्न लागू करें और दिए गए विकल्पों में से सही उत्तर ज्ञात करें। GNIDAER: READING :: NOITULOS:?"
+        },
+        "options": [
+            "SOLUTION | SOLUTION",
+            "SOLUNOIT | SOLUNOIT",
+            "NOILOSUT | NOILOSUT",
+            "POLLUTION | POLLUTION"
+        ],
+        "correctAnswer": "SOLUTION | SOLUTION",
+        "explanation": {
+            "en": "The relationship is that the first word is the reverse spelling of the second word (GNIDAER is READING backward). Reversing NOITULOS yields SOLUTION.",
+            "hi": "संबंध यह है कि पहला शब्द दूसरे शब्द की विपरीत वर्तनी है (GNIDAER, READING का उलटा है)। NOITULOS को उलटने पर **SOLUTION** प्राप्त होता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, the first word is coded to form the second word using a specific rearrangement and/or substitution rule. Apply the same rule to the third word to determine the correct corresponding word from the given alternatives. AYRRJC: CATTLE :: NCPDCAR:?",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, पहले शब्द को एक विशिष्ट पुनर्व्यवस्थापन और/या प्रतिस्थापन नियम का उपयोग करके दूसरे शब्द को बनाने के लिए कोडित किया जाता है। तीसरे शब्द पर समान नियम लागू करें और दिए गए विकल्पों में से सही संगत शब्द निर्धारित करें। AYRRJC: CATTLE :: NCPDCAR:?"
+        },
+        "options": [
+            "SUBJECTS | SUBJECTS",
+            "NEGLECT | NEGLECT",
+            "PERFECT | परफेक्ट",
+            "OPERATE | ऑपरेट"
+        ],
+        "correctAnswer": "PERFECT | परफेक्ट",
+        "explanation": {
+            "en": "The pattern is a shift cipher where the Original Word is derived from the Code Word by shifting each letter forward by 2 in the alphabet (Code Letter → Original Letter + 2). Applying this rule to NCPDCAR results in PERFECT.",
+            "hi": "पैटर्न एक शिफ्ट सिफर है जहां मूल शब्द, कोड शब्द से वर्णमाला में प्रत्येक अक्षर को 2 आगे बढ़ाकर (कोड अक्षर → मूल अक्षर + 2) प्राप्त किया जाता है। इस नियम को NCPDCAR पर लागू करने पर **PERFECT** प्राप्त होता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Identify the odd one: 2, 3, 5, 7, 11, 13, 17, 20",
+            "hi": "विषम संख्या की पहचान करें: 2, 3, 5, 7, 11, 13, 17, 20"
+        },
+        "options": [
+            "17 | 17",
+            "13 | 13",
+            "20 | 20",
+            "11 | 11"
+        ],
+        "correctAnswer": "20 | 20",
+        "explanation": {
+            "en": "All numbers in the list (2, 3, 5, 7, 11, 13, 17) are prime numbers, as they are only divisible by 1 and themselves. The number **20** is the only composite number, as it has factors other than 1 and 20.",
+            "hi": "सूची की सभी संख्याएँ (2, 3, 5, 7, 11, 13, 17) अभाज्य संख्याएँ हैं, क्योंकि वे केवल 1 और स्वयं से विभाज्य हैं। संख्या **20** एकमात्र भाज्य संख्या है, क्योंकि इसके 1 और 20 के अलावा अन्य गुणनखंड हैं।"
+        }
+    },
+    {
+        "question": {
+            "en": "Which of the following is the odd one out?",
+            "hi": "निम्नलिखित में से विषम समूह कौन सा है?"
+        },
+        "options": [
+            "2, 3, 5 | 2, 3, 5",
+            "11, 13, 17 | 11, 13, 17",
+            "4, 6, 8 | 4, 6, 8",
+            "7, 19, 23 | 7, 19, 23"
+        ],
+        "correctAnswer": "4, 6, 8 | 4, 6, 8",
+        "explanation": {
+            "en": "The sets {2, 3, 5}, {11, 13, 17}, and {7, 19, 23} all consist exclusively of prime numbers. The set **{4, 6, 8}** is the odd one out because it consists of composite (non-prime) numbers.",
+            "hi": "समूह {2, 3, 5}, {11, 13, 17}, और {7, 19, 23} सभी में केवल अभाज्य संख्याएँ हैं। समूह **{4, 6, 8}** विषम है क्योंकि इसमें भाज्य (गैर-अभाज्य) संख्याएँ शामिल हैं।"
+        }
+    },
+    {
+        "question": {
+            "en": "Rani said, 'The man in the photo is my mother’s son-in-law.' Who is the man to Rani?",
+            "hi": "रानी ने कहा, 'तस्वीर में दिख रहा आदमी मेरी माँ का दामाद है।' वह आदमी रानी का कौन है?"
+        },
+        "options": [
+            "Husband | पति",
+            "Father | पिता",
+            "Uncle | चाचा",
+            "Cousin | चचेरा भाई/बहन"
+        ],
+        "correctAnswer": "Husband | पति",
+        "explanation": {
+            "en": "Rani's mother's son-in-law is the husband of Rani's sister or the husband of Rani herself. In the context of typical exam questions, the man is Rani's **Husband**.",
+            "hi": "रानी की माँ का दामाद रानी की बहन का पति या रानी स्वयं का पति है। सामान्यतः 'मेरी माँ का दामाद' वक्ता के पति को संदर्भित करता है। इसलिए, वह आदमी रानी का **पति** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, a group of three numbers/symbols is given in each option. Identify the group that does NOT follow the same pattern as the others.",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्याओं/प्रतीकों का एक समूह दिया गया है। उस समूह की पहचान करें जो दूसरों के समान पैटर्न का पालन नहीं करता है।"
+        },
+        "options": [
+            "K11:I9:G7 | K11:I9:G7",
+            "M13:K11:I9 | M13:K11:I9",
+            "O15:M13:K11 | O15:M13:K11",
+            "N14:K11:H8 | N14:K11:H8"
+        ],
+        "correctAnswer": "N14:K11:H8 | N14:K11:H8",
+        "explanation": {
+            "en": "The pattern involves the alphabetical position of the letters (A=1, B=2, etc.): Options 1, 2, and 3 follow a constant difference of -2. Option 4 (N=14, K=11, H=8) follows a constant difference of -3. Hence, **N14:K11:H8** is the odd one out.",
+            "hi": "पैटर्न में अक्षरों की वर्णमाला स्थिति शामिल है: विकल्प 1, 2, और 3 में -2 का स्थिर अंतर है। विकल्प 4 (N=14, K=11, H=8) में -3 का स्थिर अंतर है। इसलिए, **N14:K11:H8** विषम है।"
+        }
+    },
+    {
+        "question": {
+            "en": "In each of the following questions, a group of three number/symbol clusters is given in each option. Identify the group that does NOT follow the same pattern as the others.",
+            "hi": "निम्नलिखित प्रत्येक प्रश्न में, प्रत्येक विकल्प में तीन संख्या/प्रतीक समूहों का एक समूह दिया गया है। उस समूह की पहचान करें जो दूसरों के समान पैटर्न का पालन नहीं करता है।"
+        },
+        "options": [
+            "A1@ : B2# : C3$ | A1@ : B2# : C3$",
+            "D4% : E54 : F6& | D4% : E54 : F6&",
+            "G7* : H8( : I9) | G7* : H8( : I9)",
+            "J10_:K11@:L12@ | J10_:K11@:L12@"
+        ],
+        "correctAnswer": "J10_:K11@:L12@ | J10_:K11@:L12@",
+        "explanation": {
+            "en": "In Options 1, 2, and 3, both the letters and the numbers are consecutive, and all three components use a **unique symbol**. In the odd one out, **J10_:K11@:L12@**, the symbols are repeated: @ is used for both the second and third components.",
+            "hi": "विकल्प 1, 2, और 3 में, अक्षर और संख्याएँ दोनों लगातार हैं, और सभी तीन घटक एक **अद्वितीय प्रतीक** का उपयोग करते हैं। विषम विकल्प, **J10_:K11@:L12@** में, प्रतीक दोहराए जाते हैं: @ का उपयोग दूसरे और तीसरे दोनों घटकों के लिए किया जाता है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Pointing to a man, a woman said, 'His mother is the only daughter of my father.' How is the man related to the woman?",
+            "hi": "एक आदमी की ओर इशारा करते हुए, एक महिला ने कहा, 'उसकी माँ मेरे पिता की इकलौती बेटी है।' वह आदमी महिला से किस प्रकार संबंधित है?"
+        },
+        "options": [
+            "Son | बेटा",
+            "Nephew | भतीजा",
+            "Cousin | चचेरा भाई/बहन",
+            "Brother | भाई"
+        ],
+        "correctAnswer": "Son | बेटा",
+        "explanation": {
+            "en": "The woman's statement, 'the only daughter of my father,' refers to the woman herself. Therefore, 'His mother is me (the woman)'. The man is her **Son**.",
+            "hi": "महिला का कथन, 'मेरे पिता की इकलौती बेटी', महिला का स्वयं को संदर्भित करता है। इसलिए, 'उसकी माँ मैं (महिला) हूँ'। वह आदमी उसका **बेटा** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Pointing to a woman, John says, 'She is the wife of my uncle’s only son.' How is the woman related to John?",
+            "hi": "एक महिला की ओर इशारा करते हुए, जॉन कहता है, 'वह मेरे चाचा/मामा के इकलौते बेटे की पत्नी है।' वह महिला जॉन से किस प्रकार संबंधित है?"
+        },
+        "options": [
+            "Sister | बहन",
+            "Cousin | चचेरा भाई/बहन",
+            "Sister-in-law | भाभी",
+            "Niece | भतीजी"
+        ],
+        "correctAnswer": "Sister-in-law | भाभी",
+        "explanation": {
+            "en": "John's 'uncle's only son' is John's first cousin. The wife of his cousin is his **Sister-in-law** (Cousin's Wife).",
+            "hi": "जॉन के 'चाचा/मामा का इकलौता बेटा' जॉन का चचेरा भाई है। उसके चचेरे भाई की पत्नी जॉन की **भाभी** (चचेरे भाई की पत्नी) है।"
+        }
+    },
+    {
+        "question": {
+            "en": "Aman said, 'My mother’s husband's only son is the father of your sister’s brother.' How is the man related to you?",
+            "hi": "अमन ने कहा, 'मेरी माँ के पति का इकलौता बेटा तुम्हारी बहन के भाई का पिता है।' वह आदमी तुमसे किस प्रकार संबंधित है?"
+        },
+        "options": [
+            "Uncle | चाचा",
+            "Father | पिता",
+            "Grandfather | दादा/नाना",
+            "Brother | भाई"
+        ],
+        "correctAnswer": "Father | पिता",
+        "explanation": {
+            "en": "Aman's mother's husband's only son is Aman. Your sister’s brother is You. The statement simplifies to: 'Aman is the father of You.' The man (Aman) is your **Father**.",
+            "hi": "अमन की माँ के पति का इकलौता बेटा अमन स्वयं है। 'तुम्हारी बहन का भाई' तुम स्वयं हो। कथन सरल हो जाता है: 'अमन तुम्हारा पिता है।' वह आदमी (अमन) तुम्हारा **पिता** है।"
+        }
+    },
+    {
+        "question": {
+            "en": "If #=*, @=-, $=+$, then evaluate: 9#2@3$1",
+            "hi": "यदि #=*, @=-, $=+$ है, तो मूल्यांकन करें: 9#2@3$1"
+        },
+        "options": [
+            "18 | 18",
+            "14 | 14",
+            "16 | 16",
+            "17 | 17"
+        ],
+        "correctAnswer": "16 | 16",
+        "explanation": {
+            "en": "Substitute the symbols: $9 \\times 2 - 3 + 1$. Follow the order of operations: $18 - 3 + 1 = 15 + 1 = 16$.",
+            "hi": "प्रतीकों को प्रतिस्थापित करें: $9 \\times 2 - 3 + 1$. BODMAS नियम का पालन करें: $18 - 3 + 1 = 15 + 1 = 16$।"
+        }
+    }
 ],
-
 
 "ssc_cgl_12_sep_s2-r": 
   [
