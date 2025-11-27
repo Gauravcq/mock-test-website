@@ -3952,10 +3952,10 @@ const QUESTIONS_DATABASE = {
         { "en": "RDF", "hi": "RDF" },
         { "en": "RLB", "hi": "RLB" }
       ],
-      "correctAnswer": { "en": "RLC", "hi": "RLC" },
+      "correctAnswer": { "en": "RLB", "hi": "RLB" },
       "explanation": {
         "en": "Observe pattern separately: 1st letter is always R. 2nd letters: X(24)→U(21)(−3), U→R(18)(−3), R→O(15)(−3), O→L(12)(−3). 3rd letters: D(4)→J(10)(+6), J→P(16)(+6), P→V(22)(+6), V→B(28→2)(+6). So next term is RLC.",
-        "hi": "पैटर्न अलग-अलग देखें: पहला अक्षर हमेशा R है। दूसरा अक्षर हर बार 3 घट रहा है: X→U→R→O→L। तीसरा अक्षर हर बार 6 बढ़ रहा है: D→J→P→V→B। इसलिए अगला पद RLC है।"
+        "hi": "पैटर्न अलग-अलग देखें: पहला अक्षर हमेशा R है। दूसरा अक्षर हर बार 3 घट रहा है: X→U→R→O→L। तीसरा अक्षर हर बार 6 बढ़ रहा है: D→J→P→V→B। इसलिए अगला पद RLB है।"
       }
     },
 
@@ -3988,17 +3988,17 @@ const QUESTIONS_DATABASE = {
         { "en": "97", "hi": "97" },
         { "en": "100", "hi": "100" }
       ],
-      "correctAnswer": { "en": "97", "hi": "97" },
+      "correctAnswer": { "en": "98", "hi": "98" },
       "explanation": {
-        "en": "Differences: 5, 10, 17, 26. These differences increase by +5, +7, +9. Next increase is +11 → 26+11=36. So 61+36=97.",
-        "hi": "अन्तर: 5, 10, 17, 26। ये अंतर क्रमशः +5, +7, +9 से बढ़ रहे हैं। अगला +11 होगा → 26+11=36। इसलिए 61+36 = 97।"
+        "en": "Differences: 5, 10, 17, 26. These differences increase by +5, +7, +9. Next increase is +11 → 26+11=37. So 61+37=98.",
+        "hi": "अन्तर: 5, 10, 17, 26। ये अंतर क्रमशः +5, +7, +9 से बढ़ रहे हैं। अगला +11 होगा → 26+11=37। इसलिए 61+36 = 98।"
       }
     },
 
     {
       "question": {
-        "en": "Which assumptions are implied?",
-        "hi": "कौन से अनुमान निहित हैं?"
+        "en": "Instruction: Identify the assumptions that must hold for the statement to be valid, then choose the correct option.<br><b>Statement: The rapid advancement of automation and artificial intelligence could lead to significant job displacement, but it also presents an opportunity to create new jobs in emerging industries.<BR><B>Assumptions:<BR><B>|. Automation and Al could cause job losses in some sectors|.<BR><B>II New industries will emerge as a result of automation and Al.>BR><B>III. The displacement caused by automation is temporary and will be reversed by new industries. ",
+        "hi": "निर्देश: कथन को मान्य बनाने के लिए आवश्यक मान्यताओं की पहचान करें, फिर सही विकल्प चुनें।<BR><B>कथन: स्वचालन और कृत्रिम बुद्धिमत्ता की तीव्र प्रगति से महत्वपूर्ण नौकरी विस्थापन हो सकता है, लेकिन यह उभरते उद्योगों में नई नौकरियों के सृजन का अवसर भी प्रस्तुत करता है।<BR><B>मान्यताएँ:<BR><B>I. स्वचालन और AI कुछ क्षेत्रों में नौकरी के नुकसान का कारण बन सकते हैं।<BR><B>II. स्वचालन और AI के परिणामस्वरूप नए उद्योग उभरेंगे।<BR><B>III. स्वचालन के कारण होने वाला विस्थापन अस्थायी है और नए उद्योगों द्वारा उलट दिया जाएगा। "
       },
       "options": [
         { "en": "Only I and II", "hi": "केवल I और II" },
@@ -4015,16 +4015,16 @@ const QUESTIONS_DATABASE = {
 
     {
       "question": {
-        "en": "How many letters remain in the same position in FRIEND after sorting alphabetically?",
-        "hi": "FRIEND को वर्णक्रम में रखने पर कितने अक्षर अपनी जगह पर रहते हैं?"
+        "en": "The position of how many letters will remain unchanged if each of the letters in the word FRIEND is arranged in alphabetical order? ",
+        "hi": "यदि शब्द FRIEND के प्रत्येक अक्षर को वर्णानुक्रम में व्यवस्थित किया जाए तो कितने अक्षरों की स्थिति अपरिवर्तित रहेगी??"
       },
       "options": [
-        { "en": "Two", "hi": "दो" },
+        { "en": "ONE", "hi": "एक" },
         { "en": "Four", "hi": "चार" },
         { "en": "Three", "hi": "तीन" },
         { "en": "Five", "hi": "पांच" }
       ],
-      "correctAnswer": { "en": "Two", "hi": "दो" },
+      "correctAnswer": { "en": "ONE", "hi": "एक" },
       "explanation": {
         "en": "FRIEND sorted → DEFINR. Compare both words: only E and N are in the same position.",
         "hi": "FRIEND को वर्णक्रम में रखने पर → DEFINR मिलता है। तुलना करने पर केवल E और N वही स्थान रखते हैं।"
