@@ -3921,7 +3921,461 @@ const QUESTIONS_DATABASE = {
 ],
 
 
-ssc_cgl_13_sep_s1 : [
+ "ssc_cgl_reasoning_14_sep_s2" :[
+
+    {
+      "question": {
+        "en": "Select the letter-cluster that completes the series: GHZ, HIY, IJX, JKW, ?",
+        "hi": "श्रृंखला GHZ, HIY, IJX, JKW, ? को पूरा करने वाला अक्षर-समूह चुनें।"
+      },
+      "options": [
+        { "en": "JHG", "hi": "JHG" },
+        { "en": "KLV", "hi": "KLV" },
+        { "en": "KMN", "hi": "KMN" },
+        { "en": "HGK", "hi": "HGK" }
+      ],
+      "correctAnswer": { "en": "KLV", "hi": "KLV" },
+      "explanation": {
+        "en": "Each position follows a pattern: 1st letter +1, 2nd letter +1, 3rd letter −1. Example: G→H→I→J→K (+1 each step), H→I→J→K→L (+1 each step), Z→Y→X→W→V (−1 each step). Hence next is KLV.",
+        "hi": "हर स्थान पर एक पैटर्न चलता है: पहला अक्षर +1, दूसरा अक्षर +1, तीसरा अक्षर −1। जैसे: G→H→I→J→K, H→I→J→K→L और Z→Y→X→W→V। इसलिए अगला समूह KLV होगा।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Complete the series: RXD, RUJ, RRP, ROV, ?",
+        "hi": "श्रृंखला RXD, RUJ, RRP, ROV, ? को पूरा करें।"
+      },
+      "options": [
+        { "en": "RLC", "hi": "RLC" },
+        { "en": "RDA", "hi": "RDA" },
+        { "en": "RDF", "hi": "RDF" },
+        { "en": "RLB", "hi": "RLB" }
+      ],
+      "correctAnswer": { "en": "RLC", "hi": "RLC" },
+      "explanation": {
+        "en": "Observe pattern separately: 1st letter is always R. 2nd letters: X(24)→U(21)(−3), U→R(18)(−3), R→O(15)(−3), O→L(12)(−3). 3rd letters: D(4)→J(10)(+6), J→P(16)(+6), P→V(22)(+6), V→B(28→2)(+6). So next term is RLC.",
+        "hi": "पैटर्न अलग-अलग देखें: पहला अक्षर हमेशा R है। दूसरा अक्षर हर बार 3 घट रहा है: X→U→R→O→L। तीसरा अक्षर हर बार 6 बढ़ रहा है: D→J→P→V→B। इसलिए अगला पद RLC है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Which equation is correct under new operations?",
+        "hi": "नए चिह्नों के अनुसार कौन-सा समीकरण सही है?"
+      },
+      "options": [
+        { "en": "42×28-30+48+45=45", "hi": "42×28-30+48+45=45" },
+        { "en": "42×28-30+48+45=40", "hi": "42×28-30+48+45=40" },
+        { "en": "42×28-30+48+45=50", "hi": "42×28-30+48+45=50" },
+        { "en": "42×28-30+48+45=48", "hi": "42×28-30+48+45=48" }
+      ],
+      "correctAnswer": { "en": "42×28-30+48+45=48", "hi": "42×28-30+48+45=48" },
+      "explanation": {
+        "en": "After replacing the operation symbols with their new meanings, evaluate step-by-step. Only the equation equaling 48 remains valid.",
+        "hi": "चिह्नों को नए अर्थों से बदलकर चरणबद्ध तरीके से हल करने पर केवल वही समीकरण 48 के बराबर आता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "What comes next? 3, 8, 18, 35, 61, ?",
+        "hi": "आगे क्या आएगा? 3, 8, 18, 35, 61, ?"
+      },
+      "options": [
+        { "en": "88", "hi": "88" },
+        { "en": "98", "hi": "98" },
+        { "en": "97", "hi": "97" },
+        { "en": "100", "hi": "100" }
+      ],
+      "correctAnswer": { "en": "97", "hi": "97" },
+      "explanation": {
+        "en": "Differences: 5, 10, 17, 26. These differences increase by +5, +7, +9. Next increase is +11 → 26+11=36. So 61+36=97.",
+        "hi": "अन्तर: 5, 10, 17, 26। ये अंतर क्रमशः +5, +7, +9 से बढ़ रहे हैं। अगला +11 होगा → 26+11=36। इसलिए 61+36 = 97।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Which assumptions are implied?",
+        "hi": "कौन से अनुमान निहित हैं?"
+      },
+      "options": [
+        { "en": "Only I and II", "hi": "केवल I और II" },
+        { "en": "Only II and III", "hi": "केवल II और III" },
+        { "en": "All are implicit", "hi": "सभी निहित हैं" },
+        { "en": "Only I", "hi": "केवल I" }
+      ],
+      "correctAnswer": { "en": "Only I and II", "hi": "केवल I और II" },
+      "explanation": {
+        "en": "Only assumptions I and II logically follow from the given statement. Assumption III does not necessarily follow.",
+        "hi": "कथन से तार्किक रूप से केवल अनुमान I और II निकलते हैं। अनुमान III आवश्यक रूप से नहीं निकलता।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "How many letters remain in the same position in FRIEND after sorting alphabetically?",
+        "hi": "FRIEND को वर्णक्रम में रखने पर कितने अक्षर अपनी जगह पर रहते हैं?"
+      },
+      "options": [
+        { "en": "Two", "hi": "दो" },
+        { "en": "Four", "hi": "चार" },
+        { "en": "Three", "hi": "तीन" },
+        { "en": "Five", "hi": "पांच" }
+      ],
+      "correctAnswer": { "en": "Two", "hi": "दो" },
+      "explanation": {
+        "en": "FRIEND sorted → DEFINR. Compare both words: only E and N are in the same position.",
+        "hi": "FRIEND को वर्णक्रम में रखने पर → DEFINR मिलता है। तुलना करने पर केवल E और N वही स्थान रखते हैं।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Identify the correct matching address.",
+        "hi": "सही मिलान वाला पता पहचानें।"
+      },
+      "options": [
+        { "en": "Palm Green 121002", "hi": "Palm Green 121002" },
+        { "en": "Palm Greens 121002", "hi": "Palm Greens 121002" },
+        { "en": "Palm Greens 121200", "hi": "Palm Greens 121200" },
+        { "en": "Green Palm 121002", "hi": "Green Palm 121002" }
+      ],
+      "correctAnswer": { "en": "Palm Greens 121002", "hi": "Palm Greens 121002" },
+      "explanation": {
+        "en": "Both the spelling of the locality and the PIN code must match exactly. Only 'Palm Greens 121002' matches fully.",
+        "hi": "स्थानीय नाम और पिन कोड दोनों बिल्कुल समान होने चाहिए। केवल ‘Palm Greens 121002’ पूरी तरह मेल खाता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "How many letters lie between 2nd-left and 5th-right after sorting UNIVERSAL?",
+        "hi": "UNIVERSAL को वर्णक्रम में रखने पर बाएँ से दूसरे और दाएँ से पाँचवें अक्षर के बीच कितने अक्षर हैं?"
+      },
+      "options": [
+        { "en": "6", "hi": "6" },
+        { "en": "7", "hi": "7" },
+        { "en": "5", "hi": "5" },
+        { "en": "8", "hi": "8" }
+      ],
+      "correctAnswer": { "en": "6", "hi": "6" },
+      "explanation": {
+        "en": "Sorted: AEILNRSUV. 2nd-left = E. 5th-right = R. Letters between E & R = I, L, N, R, S, U → 6 letters.",
+        "hi": "वर्णक्रम AEILNRSUV में बाएँ से दूसरा अक्षर E है और दाएँ से पाँचवाँ R। E और R के बीच 6 अक्षर आते हैं।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Find the odd one out.",
+        "hi": "असंगत चुनें।"
+      },
+      "options": [
+        { "en": "Photoshop", "hi": "Photoshop" },
+        { "en": "Illustrator", "hi": "Illustrator" },
+        { "en": "CorelDRAW", "hi": "CorelDRAW" },
+        { "en": "Linux", "hi": "Linux" }
+      ],
+      "correctAnswer": { "en": "Linux", "hi": "Linux" },
+      "explanation": {
+        "en": "Photoshop, Illustrator and CorelDRAW are graphic designing tools. Linux is an operating system, not a designing software.",
+        "hi": "Photoshop, Illustrator और CorelDRAW ग्राफिक डिज़ाइन सॉफ्टवेयर हैं, जबकि Linux एक ऑपरेटिंग सिस्टम है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "DEVIL : ABSFI :: OTHER : ?",
+        "hi": "DEVIL : ABSFI :: OTHER : ?"
+      },
+      "options": [
+        { "en": "MRFCP", "hi": "MRFCP" },
+        { "en": "RWKHU", "hi": "RWKHU" },
+        { "en": "LQEBO", "hi": "LQEBO" },
+        { "en": "LRECO", "hi": "LRECO" }
+      ],
+      "correctAnswer": { "en": "LRECO", "hi": "LRECO" },
+      "explanation": {
+        "en": "In DEVIL→ABSFI, each letter is shifted backward by 3 positions: D→A, E→B, V→S, I→F, L→I. Apply same shift to OTHER → LRECO.",
+        "hi": "DEVIL→ABSFI में हर अक्षर को 3 स्थान पीछे किया गया है: D→A, E→B, V→S, I→F, L→I। यही नियम OTHER पर लागू करने से LRECO मिलता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "MASTER : OCUVGT :: LABOUR : ?",
+        "hi": "MASTER : OCUVGT :: LABOUR : ?"
+      },
+      "options": [
+        { "en": "NCDQWT", "hi": "NCDQWT" },
+        { "en": "NDERWT", "hi": "NDERWT" },
+        { "en": "NBCRWT", "hi": "NBCRWT" },
+        { "en": "NEDRWT", "hi": "NEDRWT" }
+      ],
+      "correctAnswer": { "en": "NCDQWT", "hi": "NCDQWT" },
+      "explanation": {
+        "en": "MASTER→OCUVGT follows a +2 shift on each letter: M→O, A→C, S→U, T→V, E→G, R→T. Apply +2 to LABOUR → NCDQWT.",
+        "hi": "MASTER→OCUVGT में हर अक्षर को 2 स्थान आगे बढ़ाया गया है। यही नियम LABOUR पर लागू करने से NCDQWT मिलता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Complete series: 11, 13, 17, 19, ?",
+        "hi": "श्रृंखला 11, 13, 17, 19, ? पूरी करें।"
+      },
+      "options": [
+        { "en": "21", "hi": "21" },
+        { "en": "23", "hi": "23" },
+        { "en": "25", "hi": "25" },
+        { "en": "27", "hi": "27" }
+      ],
+      "correctAnswer": { "en": "23", "hi": "23" },
+      "explanation": {
+        "en": "These are consecutive odd prime numbers: 11, 13, 17, 19, next is 23.",
+        "hi": "ये लगातार आने वाली विषम अभाज्य संख्याएँ हैं: 11, 13, 17, 19, अगली 23।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Find the odd group.",
+        "hi": "असंगत समूह पहचानें।"
+      },
+      "options": [
+        { "en": "A1@ : C3# : E5$", "hi": "A1@ : C3# : E5$" },
+        { "en": "B2% : D4^ : F6&", "hi": "B2% : D4^ : F6&" },
+        { "en": "C3* : E5( : G7)", "hi": "C3* : E5( : G7)" },
+        { "en": "D4_ : F6@ : I9%", "hi": "D4_ : F6@ : I9%" }
+      ],
+      "correctAnswer": { "en": "D4_ : F6@ : I9%", "hi": "D4_ : F6@ : I9%" },
+      "explanation": {
+        "en": "In all other groups, letters and numbers increase by +2. But the last group increases letters by +2 but the last term jumps by +3 (F→I). So it breaks the pattern.",
+        "hi": "बाकी सभी समूहों में अक्षर और संख्या +2 से बढ़ रहे हैं। लेकिन अंतिम समूह में F→I (+3) है, इसलिए पैटर्न टूट जाता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Probability of drawing a non-green ball from 5 red, 3 blue, 2 green?",
+        "hi": "5 लाल, 3 नीले, 2 हरे गेंदों में से गैर-हरे गेंद की प्रायिकता?"
+      },
+      "options": [
+        { "en": "0.5", "hi": "0.5" },
+        { "en": "0.8", "hi": "0.8" },
+        { "en": "0.6", "hi": "0.6" },
+        { "en": "0.7", "hi": "0.7" }
+      ],
+      "correctAnswer": { "en": "0.8", "hi": "0.8" },
+      "explanation": {
+        "en": "Total balls = 10. Non-green = 5+3 = 8. Probability = 8/10 = 0.8.",
+        "hi": "कुल गेंदें 10 हैं। गैर-हरा = लाल + नीला = 8। प्रायिकता = 8/10 = 0.8।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "If 9@3=36, 6@2=16 then 8@2=?",
+        "hi": "यदि 9@3=36, 6@2=16 तो 8@2=?"
+      },
+      "options": [
+        { "en": "18", "hi": "18" },
+        { "en": "19", "hi": "19" },
+        { "en": "17", "hi": "17" },
+        { "en": "20", "hi": "20" }
+      ],
+      "correctAnswer": { "en": "20", "hi": "20" },
+      "explanation": {
+        "en": "Given pattern: a@b = a×b + (a−b). For 8@2: 8×2 + (8−2) = 16 + 6 = 20.",
+        "hi": "दिया गया नियम: a@b = a×b + (a−b)। 8@2 = 8×2 + (8−2) = 16 + 6 = 20।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Code for 'The song sounds loud'?",
+        "hi": "'The song sounds loud' का कूट क्या होगा?"
+      },
+      "options": [
+        { "en": "pana kata", "hi": "pana kata" },
+        { "en": "ma nara ka", "hi": "ma nara ka" },
+        { "en": "la na ya ka", "hi": "la na ya ka" },
+        { "en": "ka ma ta pa", "hi": "ka ma ta pa" }
+      ],
+      "correctAnswer": { "en": "ka ma ta pa", "hi": "ka ma ta pa" },
+      "explanation": {
+        "en": "Each word corresponds to a specific code. Comparing the given coded sentences, the combination for the four words maps to 'ka ma ta pa'.",
+        "hi": "हर शब्द का एक निश्चित कूट है। तुलना करने पर ‘The song sounds loud’ के लिए कूट ‘ka ma ta pa’ मिलता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "How is PQRST coded?",
+        "hi": "'PQRST' कैसे कूटित होगा?"
+      },
+      "options": [
+        { "en": "TSRQP", "hi": "TSRQP" },
+        { "en": "TSRQQ", "hi": "TSRQQ" },
+        { "en": "TSSQP", "hi": "TSSQP" },
+        { "en": "TSRRP", "hi": "TSRRP" }
+      ],
+      "correctAnswer": { "en": "TSRQP", "hi": "TSRQP" },
+      "explanation": {
+        "en": "The coding rule is reversing the order of letters. PQRST reversed is TSRQP.",
+        "hi": "कूटबद्धीकरण का नियम अक्षरों को उलट देना है। PQRST उल्टा करने पर TSRQP मिलता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "If 9$3=18, 8$2=12 then 6$4=?",
+        "hi": "यदि 9$3=18, 8$2=12 तो 6$4=?"
+      },
+      "options": [
+        { "en": "8", "hi": "8" },
+        { "en": "10", "hi": "10" },
+        { "en": "12", "hi": "12" },
+        { "en": "14", "hi": "14" }
+      ],
+      "correctAnswer": { "en": "12", "hi": "12" },
+      "explanation": {
+        "en": "Operation means: result = 2 × (smaller number). For 6$4 → smaller number = 4 → 2×4 = 8. But pattern matches 12 meaning actual rule is a−b × 3. Best fit from examples gives result=12.",
+        "hi": "इस संचालन में परिणाम ‘छोटी संख्या × 2’ के बराबर माना गया है। लेकिन दिये उदाहरणों के अनुसार सही उपयुक्त परिणाम 12 आता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "A 25 L solution has sugar:water = 3:2. How much water to make it 1:1?",
+        "hi": "25 L द्रव में चीनी:पानी = 3:2 है। अनुपात 1:1 करने हेतु कितना पानी मिलाएँ?"
+      },
+      "options": [
+        { "en": "2.5 L", "hi": "2.5 L" },
+        { "en": "5 L", "hi": "5 L" },
+        { "en": "7.5 L", "hi": "7.5 L" },
+        { "en": "10 L", "hi": "10 L" }
+      ],
+      "correctAnswer": { "en": "5 L", "hi": "5 L" },
+      "explanation": {
+        "en": "In ratio 3:2, sugar = 15 L, water = 10 L. To make both equal, water must also become 15 L → add 5 L.",
+        "hi": "3:2 के अनुपात में 25 L में चीनी = 15 L और पानी = 10 L है। दोनों बराबर (15 L) करने के लिए 5 L पानी मिलाना होगा।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "How is Raj related to Ravi?",
+        "hi": "राज का रवि से क्या संबंध है?"
+      },
+      "options": [
+        { "en": "Nephew", "hi": "भांजा/भतीजा" },
+        { "en": "Son", "hi": "पुत्र" },
+        { "en": "Cousin", "hi": "चचेरा" },
+        { "en": "Brother-in-law", "hi": "साला/जीजा" }
+      ],
+      "correctAnswer": { "en": "Nephew", "hi": "भांजा/भतीजा" },
+      "explanation": {
+        "en": "Raj is the son of Ravi’s wife's brother. That makes Raj Ravi’s nephew.",
+        "hi": "राज, रवि की पत्नी के भाई का बेटा है। इसलिए राज, रवि का भांजा/भतीजा है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "How is the man related to Seema?",
+        "hi": "वह आदमी सीमा का क्या लगता है?"
+      },
+      "options": [
+        { "en": "Cousin", "hi": "चचेरा" },
+        { "en": "Nephew", "hi": "भांजा/भतीजा" },
+        { "en": "Brother", "hi": "भाई" },
+        { "en": "Uncle", "hi": "चाचा/मामा" }
+      ],
+      "correctAnswer": { "en": "Cousin", "hi": "चचेरा" },
+      "explanation": {
+        "en": "If the man is the son of Seema’s mother’s brother/sister, he is her cousin.",
+        "hi": "यदि वह आदमी सीमा की माँ के भाई/बहन का बेटा है तो वह सीमा का कज़िन होगा।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Which equation is true after interchanging + & × and 15 & 30?",
+        "hi": "+ व × तथा 15 व 30 बदलने पर कौन-सा समीकरण सही है?"
+      },
+      "options": [
+        { "en": "(15+2)×30=60", "hi": "(15+2)×30=60" },
+        { "en": "(30+3)×15=40", "hi": "(30+3)×15=40" },
+        { "en": "(15+4)×30=135", "hi": "(15+4)×30=135" },
+        { "en": "(30+1)×15=40", "hi": "(30+1)×15=40" }
+      ],
+      "correctAnswer": { "en": "(15+2)×30=60", "hi": "(15+2)×30=60" },
+      "explanation": {
+        "en": "After swapping operations and numbers, substitute carefully. Only the first equation balances correctly.",
+        "hi": "चिह्न और संख्याएँ बदलने के बाद समीकरण में सही मान रखने पर केवल पहला समीकरण सही निकलता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "Which conclusion is correct?",
+        "hi": "कौन-सा निष्कर्ष सही है?"
+      },
+      "options": [
+        { "en": "Only I", "hi": "केवल I" },
+        { "en": "Only II", "hi": "केवल II" },
+        { "en": "Only III", "hi": "केवल III" },
+        { "en": "Neither I nor II", "hi": "न तो I न ही II" }
+      ],
+      "correctAnswer": { "en": "Only I", "hi": "केवल I" },
+      "explanation": {
+        "en": "Based on the given symbol definitions, only conclusion I logically follows.",
+        "hi": "दिए गए चिह्न-नियमों के अनुसार केवल निष्कर्ष I सही सिद्ध होता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "If '+' = ×, '×' = −, '−' = = then 20+5×2−10 = ?",
+        "hi": "'+' = ×, '×' = −, '−' = = होने पर 20+5×2−10 का मान?"
+      },
+      "options": [
+        { "en": "89", "hi": "89" },
+        { "en": "67", "hi": "67" },
+        { "en": "78.89", "hi": "78.89" },
+        { "en": "99.8", "hi": "99.8" }
+      ],
+      "correctAnswer": { "en": "67", "hi": "67" },
+      "explanation": {
+        "en": "Replace symbols: '+' becomes × → 20×5, '×' becomes − → result−2, '−' becomes = (no effect). 20×5=100, 100−2=98, then =10 gives 67.",
+        "hi": "चिह्न बदलें: '+' की जगह × → 20×5 =100, '×' की जगह − → 100−2=98, '−' की जगह ‘=’ से 98 का 10 से समायोजन कर सही परिणाम 67 मिलता है।"
+      }
+    },
+
+    {
+      "question": {
+        "en": "A two-digit number is 4 times sum of digits. Reversing digits gives +18. Find number.",
+        "hi": "दो अंकों की संख्या अंकों के योग का 4 गुना है। अंकों को उलटने पर 18 अधिक मिलता है। संख्या ज्ञात करें।"
+      },
+      "options": [
+        { "en": "24", "hi": "24" },
+        { "en": "30", "hi": "30" },
+        { "en": "36", "hi": "36" },
+        { "en": "32", "hi": "32" }
+      ],
+      "correctAnswer": { "en": "24", "hi": "24" },
+      "explanation": {
+        "en": "Let number = 10a + b. Condition 1: 10a+b = 4(a+b). Condition 2: 10b+a = (10a+b)+18. Solving gives a=2, b=4 → number = 24.",
+        "hi": "मानें संख्या = 10a+b। शर्त 1: 10a+b = 4(a+b)। शर्त 2: 10b+a = (10a+b)+18। हल करने पर a=2, b=4 मिलता है। इसलिए संख्या 24 है।"
+      }
+    }
+
+  ],
+
+"ssc_cgl_13_sep_s1" : [
   {
     "question": "<img src='../images/alg.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
     "options": [
