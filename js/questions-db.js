@@ -7482,7 +7482,152 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The most coherent sequence is <b>2, 1, 3, 4</b>: <b>2</b> introduces the main idea (the necessity of reducing reliance on carbon-intensive energy). <b>1</b> presents the key strategy to achieve this (diversifying energy sources). <b>3</b> explains the benefits of this 'shift' (referencing sentence 1). <b>4</b> introduces an 'Additional' measure to supplement the main strategy."
   }
 ],
-
+ "ssc_cgl_eng_14_sep_s3":[
+  {
+    "question": "Select the most appropriate synonym of the given word: <b>PROPITIOUS</b>",
+    "options": ["Doubtful", "Harmful", "Favorable", "Unlucky"],
+    "correctAnswer": "Favorable",
+    "explanation": "<b>Propitious</b> means giving or indicating a good chance of success; <b>Favorable</b>. [cite: 21, 26]"
+  },
+  {
+    "question": "Choose the correct meaning of idiom:<br><b>Fiddle while Rome burns</b>",
+    "options": ["To play music at night", "To waste time in trivialities during a crisis", "To seek artistic approval", "To incite rebellion"],
+    "correctAnswer": "To waste time in trivialities during a crisis",
+    "explanation": "The idiom 'Fiddle while Rome burns' means to occupy oneself with trivial matters while ignoring a critical situation. [cite: 28]"
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. <b>Oppugn</b>",
+    "options": ["Defend", "Dispute", "Challenge", "Question"],
+    "correctAnswer": "Defend",
+    "explanation": "<b>Oppugn</b> means to call into question or challenge the truth/validity of something. [cite_start]The opposite (antonym) is to <b>Defend</b>. [cite: 29]"
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": ["Mnemonic", "Occassionally", "Surveillance", "Bureaucracy"],
+    "correctAnswer": "Occassionally",
+     "explanation": "The correct spelling is <b>Occasionally</b>, with a single 's'. [cite: 32]"
+  },
+  {
+    "question": "Spot the correct spelling of a happy accident adjective. <b>Serendipitous</b>",
+    "options": ["Serendipitous", "Serendipidous", "Serendipitios", "Serendipetous"],
+    "correctAnswer": "Serendipitous",
+    "explanation": "The correct spelling of the adjective meaning occurring or discovered by chance in a happy or beneficial way is <b>Serendipitous</b>. [cite: 38]"
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'A state of mental weariness and lack of enthusiasm'.",
+    "options": ["Languor", "Ennui", "Torpor", "Tedium"],
+    "correctAnswer": "Ennui",
+    "explanation": "<b>Ennui</b> is a feeling of listlessness and dissatisfaction arising from a lack of occupation or excitement; mental weariness. [cite: 42]"
+  },
+  {
+    "question": "Select the correct option:<br>The architect argued that aesthetics should not be subordinated **to** functionality.",
+    "options": ["at", "for", "to", "with"],
+    "correctAnswer": "to",
+    "explanation": "The verb 'subordinated' means to be treated as of less importance and correctly collocates with the preposition <b>to</b>. [cite: 43]"
+  },
+  {
+    "question": "Select the correct option:<br>If the security protocol **is** breached, the system alerts administrators instantly.",
+    "options": ["were", "is", "has", "had been"],
+    "correctAnswer": "is",
+    "explanation": "This describes a general, factual consequence (Zero Conditional). [cite_start]The present simple form <b>is</b> is required in the 'if' clause to match the present simple verb 'alerts' in the main clause. [cite: 46]"
+  },
+  {
+    "question": "Select the correct option:<br>Although the experiment had been meticulously designed, unforeseen variables <b>undermined</b> the reliability of its conclusions.",
+    "options": ["undermined", "bolstered", "ratified", "exacerbated"],
+    "correctAnswer": "undermined",
+    "explanation": "The word 'Although' indicates a contrast. Despite the careful design, the unforeseen variables must have negatively affected the reliability. [cite_start]<b>Undermined</b> (weakened or lessened the reliability) is the correct choice. [cite: 47]"
+  },
+  {
+    "question": "Find the part of the sentence that contains an error:<br>It remains unclear whether the board intends to implement the proposal (1)/ or <b>if</b> the statement was merely a strategic ploy (2)/ aimed at appeasing shareholders (3)/ in light of the recent legal setbacks. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(2)",
+    "explanation": "The error is in part (2). When using the correlative conjunction 'whether... or', the conjunction 'if' is redundant and incorrect. [cite_start]It should read 'whether... **or** the statement...'. [cite: 49, 52]"
+  },
+  {
+    "question": "Find the part of the sentence that contains an error:<br>The presumption... (1)/ **have** contributed more to civic apathy (2)/... reflects a deeper institutional detachment (3)/... (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(2)",
+    "explanation": "The subject of the main clause is the singular noun 'The presumption'. The verb must agree with this singular subject. 'have contributed' (plural) should be <b>has contributed</b> (singular). [cite_start]The error is in part (2). [cite: 58, 61]"
+  },
+  {
+    "question": "Change the following from active to passive:<br><b>The university may confer honorary degrees upon exceptional scholars.</b>",
+    "options": ["Honorary degrees might have been conferred upon exceptional scholars by the university.", "Honorary degrees may be conferred upon exceptional scholars by the university.", "Honorary degrees may have conferred upon exceptional scholars by the university.", "Honorary degrees must be being conferred upon exceptional scholars by the university."],
+    "correctAnswer": "Honorary degrees may be conferred upon exceptional scholars by the university.",
+    "explanation": "The active sentence uses the modal verb 'may'. [cite_start]The correct passive structure is <b>Modal + be + Past Participle (V3)</b>: 'Honorary degrees <b>may be conferred</b>...'. [cite: 65]"
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word:<br>The legal scholar revised the <b>digest</b> of civil statutes.",
+    "options": ["He took a tablet to aid his digest after the meal.", "The magazine's monthly digest reached a million readers.", "The editor proofread the tax digest overnight.", "The court referenced an old digest of maritime law."],
+    "correctAnswer": "He took a tablet to aid his digest after the meal.",
+    "explanation": "The highlighted word 'digest' in the question is a noun meaning a summary/compilation. [cite_start]The homonym uses 'digest' to refer to the process of **digestion** (e.g., of food in the stomach), which is the primary meaning in the correct sentence. [cite: 67, 68]"
+  },
+  {
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure:<br><b>The instructions have been misunderstood by many candidates.</b>",
+    "options": ["Many candidates misunderstood the instructions.", "Many candidates have misunderstood the instructions.", "The instructions misunderstood the candidates.", "The candidates misunderstand the instructions."],
+    "correctAnswer": "Many candidates have misunderstood the instructions.",
+    "explanation": "The passive sentence is in the Present Perfect tense ('have been misunderstood'). [cite_start]The active voice equivalent is: **Subject + have/has + V3 + Object** ('Many candidates <b>have misunderstood</b> the instructions'). [cite: 74]"
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>What does the author primarily convey about CSR in modern times?</b>",
+    "options": ["It is outdated", "It is mandated in all countries", "It is central to business strategy", "It is limited to donations"],
+    "correctAnswer": "It is central to business strategy",
+    "explanation": "The passage states that CSR has evolved to become an '<b>integral strategic imperative</b>' [cite: 77] [cite_start]and is 'embedded into core business strategies'[cite: 83]."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>Which action reflects purpose-driven CSR as per the paragraph?</b>",
+    "options": ["Occasional charity events", "Investing in renewable energy", "Publishing glossy brochures", "Avoiding taxes"],
+    "correctAnswer": "Investing in renewable energy",
+    "explanation": "The passage lists investing in **renewable energy solutions** as an example of deliberate, genuine CSR, contrasting it with 'Tokenistic CSR' like isolated acts of giving. [cite: 80]"
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>How does the author differentiate genuine CSR from tokenistic CSR?</b>",
+    "options": ["Through environmental certification", "Through government involvement", "Through intent and impact", "Through marketing partnerships"],
+    "correctAnswer": "Through intent and impact",
+    "explanation": "Genuine CSR is explicitly distinguished from superficial public relations exercises by its '<b>intent, consistency, and impact measurement</b>'. [cite: 83]"
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>What is the role of legislation in CSR according to the passage?</b>",
+    "options": ["It promotes shareholder profits", "It enforces minimum standards", "It abolishes business taxes", "It restricts competition"],
+    "correctAnswer": "It enforces minimum standards",
+    "explanation": "The passage notes that legislation mandates 'certain profit thresholds to be reinvested into socially beneficial projects'[cite: 86], thereby **enforcing minimum standards** of social contribution."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>Why are millennials and Gen Z considered important in the CSR discourse?</b>",
+    "options": ["They are not applicable", "They support traditional business", "They avoid ethical consumption", "They scrutinize corporate behavior"],
+    "correctAnswer": "They scrutinize corporate behavior",
+    "explanation": "The passage states that these demographics 'now **scrutinize corporate behaviour with unprecedented vigilance**'[cite: 83], making them key accountability stakeholders."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence:<br>He speaks English **good**.",
+    "options": ["very good", "more well", "generally", "well"],
+    "correctAnswer": "well",
+    "explanation": "The word 'good' is an adjective, but it is modifying the verb 'speaks'. [cite_start]The correct adverbial form to modify a verb is <b>well</b>. [cite: 90]"
+  },
+  {
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.<br><b>She said, \"My parents will arrive today.\"</b>",
+    "options": ["She said that my parents will arrive that day", "She said that her parents will arrive today", "She said that her parents would arrive that day", "She said that her parents would be arriving that day"],
+    "correctAnswer": "She said that her parents would arrive that day",
+    "explanation": "In Direct to Indirect Speech conversion, 'will' changes to **would**, 'My' changes to **her**, and 'today' changes to **that day**. [cite: 90]"
+  },
+  {
+    "question": "A sentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech.<br><b>He said that he wanted to speak with the manager.</b>",
+    "options": ["\"I would like to speak with the manager,\" He said", "\"I want to speak with the manager,\" He said", "\"I wanted to speak with the manager,\" He said", "\"May I speak with the manager,\" He said"],
+    "correctAnswer": "\"I want to speak with the manager,\" He said",
+    "explanation": "The indirect speech verb 'wanted' (Past Simple) is typically derived from the Direct Speech verb 'want' (Simple Present) when the reporting verb is in the past ('said'). [cite: 92]"
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph:<br>1. It is a process that involves the systematic and objective investigation of a subject to discover new facts or to confirm existing ones.<br>2. Research is a foundational pillar of academic and scientific progress.<br>3. This can be either theoretical, aiming to expand knowledge, or applied, seeking to solve a practical problem.<br>4. The findings of the investigation are then documented and peer-reviewed to ensure validity and credibility.",
+    "options": ["2, 1, 3, 4", "1, 2, 4, 3", "4, 2, 3, 1", "2, 4, 1, 3"],
+    "correctAnswer": "2, 1, 3, 4",
+    "explanation": "The sequence should start with the general topic: <b>2</b> (Research is a foundational pillar...), followed by its definition: <b>1</b> (It is a process...), then the elaboration on its types: <b>3</b> (This can be either theoretical...), and finally the conclusion of the process: <b>4</b> (The findings... are then documented...). [cite: 92]"
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph:<br>1. A key strategy is to diversify energy sources: transitioning from fossil fuels to renewable alternatives like solar, wind, and geothermal power.<br>2. To mitigate the worst effects of climate change, the global community must drastically reduce its reliance on carbon-intensive energy production.<br>3. This shift not only decreases greenhouse gas emissions but also improves air quality and creates new economic opportunities.<br>4. Additionally, policies that promote energy efficiency in buildings and transportation can further lower overall energy consumption.",
+    "options": ["2, 1, 3, 4", "1, 2, 3, 4", "4, 1, 3, 2", "2, 4, 1, 3"],
+    "correctAnswer": "2, 1, 3, 4",
+    "explanation": "The logical flow begins with the main goal: <b>2</b> (To mitigate... must drastically reduce its reliance...). This is followed by the core method: <b>1</b> (A key strategy is to diversify...). Then, the result of the method: <b>3</b> (This shift not only decreases...). [cite_start]Finally, an additional measure is added: <b>4</b> (Additionally, policies...). [cite: 94]"
+  }
+],
 "ssc_cgl_14_sep_s1" : [
   {
     "question": "<img src='../images/011.png' alt='Question 01' style='max-width: 100%; height: auto;'>",
