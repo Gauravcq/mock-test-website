@@ -7140,9 +7140,9 @@ ssc_cgl_eng_13_sep_s1 : [
  [
   {
     "question": "Select the most appropriate synonym of the given word: <b>NONCHALANT</b>",
-    "options": ["Anxious", "Tense", "Worried", "Calm"],
-    "correctAnswer": "Calm",
-    "explanation": "Nonchalant means relaxed and calm; not displaying anxiety."
+    "options": ["Anxious", "Tense", "Worried", "Carefree"],
+    "correctAnswer": "Carefree",
+    "explanation": "Nonchalant means relaxed and carefree; not displaying anxiety."
   },
   {
     "question": "Choose the correct meaning of idiom:<br><b>Keep at bay</b>",
@@ -7216,12 +7216,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Correct form is ‘Were he to respond…’; ‘to have responded’ is incorrect in conditional."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>",
+    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>,<br>She placed a compact mirror in her purse.",
     "options": [
-      "She placed a compact mirror in her purse.",
+      "",
       "The team formed a compact defensive unit.",
       "He compacted the soil using a roller.",
-      "They signed a compact to maintain peace."
+      "They signed a compact to maintain peace.",
+      "The book was written in a compact style."
     ],
     "correctAnswer": "They signed a compact to maintain peace.",
     "explanation": "‘Compact’ (noun) meaning agreement is the correct homonym."
@@ -7232,19 +7233,19 @@ ssc_cgl_eng_13_sep_s1 : [
       "The accused believed he was hiding in the hills.",
       "Someone believed the accused had hidden in the hills.",
       "It was believed that the accused had been hiding in the hills.",
-      "They believed the accused was hiding in the hills."
+      "Authorities believed the accused was hiding in the hills."
     ],
-    "correctAnswer": "They believed the accused was hiding in the hills.",
+    "correctAnswer": "Authorities believed the accused was hiding in the hills.",
     "explanation": "Active structure becomes ‘They believed…’ representing general agency."
   },
   {
-    "question": "Read the passage and answer:<br>Which of the following best completes the analogy:<br><b>Joy is to presence as sorrow is to — ?</b>",
+    "question": "Read the following passage and answer the questions based on the passage : <br>To bifurcate life into immutable dichotomies of joy and sorrow is to misread its most intrinsic rhythm. Human existence unfolds not as a linear progression of happiness or despair, but-as a dynamic interplay where each emotion deepens the resonance of the other. The ecstasy of triumph Is never as poignant as when preceded by failure; likewise, the pang of loss finds contour only because we have once cherished the presence of what is now absent. Joy and sorrow, then, are not adversaries but co-authors of the same narrative. From antiquity to modernity, philosophical traditions have acknowledged this existential polarity. The Stoics embraced the inevitability of suffering as a precursor to tranquility, while Eastern philosophies like Buddhism anchor themselves in the impermanence of all experiences. In both frameworks, the pursuit of enduring happiness necessitates an acceptance of transience. Without sorrow, joy would be indistinct—a flat and shallow sensation lacking contrast or value. This interdependence is vividly manifest in the mundane. The delight of spring is intensified by the memory of a harsh winter; the serenity of solitude is meaningful only to one who has tasted the cacophony of crowds. Even our personal growth often emerges from crucibles of pain—grief chisels depth into our emotional landscape, refining our capacity for empathy, resilience, and gratitude. To demand unbroken happiness is to seek a monochromatic life—an existence devoid of emotional texture. The beauty of being lies not in circumventing sorrow, but in embracing it as a necessary foil to joy. These twin sentiments coalesce to form the chiaroscuro of consciousness, rendering our lives more vivid, more intricate, more human. :<br> Which of the following best completes the analogy:<br><b>Joy is to presence as sorrow is to — ?</b>",
     "options": ["Freedom", "Anticipation", "Absence", "Stagnation"],
     "correctAnswer": "Absence",
     "explanation": "The passage links sorrow with loss/absence."
   },
   {
-    "question": "Based on the passage, what can be inferred about human emotions?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>To bifurcate life into immutable dichotomies of joy and sorrow is to misread its most intrinsic rhythm. Human existence unfolds not as a linear progression of happiness or despair, but-as a dynamic interplay where each emotion deepens the resonance of the other. The ecstasy of triumph Is never as poignant as when preceded by failure; likewise, the pang of loss finds contour only because we have once cherished the presence of what is now absent. Joy and sorrow, then, are not adversaries but co-authors of the same narrative. From antiquity to modernity, philosophical traditions have acknowledged this existential polarity. The Stoics embraced the inevitability of suffering as a precursor to tranquility, while Eastern philosophies like Buddhism anchor themselves in the impermanence of all experiences. In both frameworks, the pursuit of enduring happiness necessitates an acceptance of transience. Without sorrow, joy would be indistinct—a flat and shallow sensation lacking contrast or value. This interdependence is vividly manifest in the mundane. The delight of spring is intensified by the memory of a harsh winter; the serenity of solitude is meaningful only to one who has tasted the cacophony of crowds. Even our personal growth often emerges from crucibles of pain—grief chisels depth into our emotional landscape, refining our capacity for empathy, resilience, and gratitude. To demand unbroken happiness is to seek a monochromatic life—an existence devoid of emotional texture. The beauty of being lies not in circumventing sorrow, but in embracing it as a necessary foil to joy. These twin sentiments coalesce to form the chiaroscuro of consciousness, rendering our lives more vivid, more intricate, more human. ,<br><br><b>Based on the passage what can be inferred about human emotions?",
     "options": [
       "Life should be devoid of emotional pain",
       "Emotions exist in strict binaries",
@@ -7255,7 +7256,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The passage emphasises interdependence of sorrow and joy."
   },
   {
-    "question": "What is the author's primary purpose in writing the passage?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>To bifurcate life into immutable dichotomies of joy and sorrow is to misread its most intrinsic rhythm. Human existence unfolds not as a linear progression of happiness or despair, but-as a dynamic interplay where each emotion deepens the resonance of the other. The ecstasy of triumph Is never as poignant as when preceded by failure; likewise, the pang of loss finds contour only because we have once cherished the presence of what is now absent. Joy and sorrow, then, are not adversaries but co-authors of the same narrative. From antiquity to modernity, philosophical traditions have acknowledged this existential polarity. The Stoics embraced the inevitability of suffering as a precursor to tranquility, while Eastern philosophies like Buddhism anchor themselves in the impermanence of all experiences. In both frameworks, the pursuit of enduring happiness necessitates an acceptance of transience. Without sorrow, joy would be indistinct—a flat and shallow sensation lacking contrast or value. This interdependence is vividly manifest in the mundane. The delight of spring is intensified by the memory of a harsh winter; the serenity of solitude is meaningful only to one who has tasted the cacophony of crowds. Even our personal growth often emerges from crucibles of pain—grief chisels depth into our emotional landscape, refining our capacity for empathy, resilience, and gratitude. To demand unbroken happiness is to seek a monochromatic life—an existence devoid of emotional texture. The beauty of being lies not in circumventing sorrow, but in embracing it as a necessary foil to joy. These twin sentiments coalesce to form the chiaroscuro of consciousness, rendering our lives more vivid, more intricate, more human. <br><b>What is the author's primary purpose in writing the passage?",
     "options": [
       "To highlight philosophical traditions",
       "To argue that sorrow should be embraced as essential to experiencing true joy",
@@ -7266,13 +7267,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The central theme is that sorrow enhances joy and is necessary."
   },
   {
-    "question": "What tone does the author primarily adopt throughout the passage?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>To bifurcate life into immutable dichotomies of joy and sorrow is to misread its most intrinsic rhythm. Human existence unfolds not as a linear progression of happiness or despair, but-as a dynamic interplay where each emotion deepens the resonance of the other. The ecstasy of triumph Is never as poignant as when preceded by failure; likewise, the pang of loss finds contour only because we have once cherished the presence of what is now absent. Joy and sorrow, then, are not adversaries but co-authors of the same narrative. From antiquity to modernity, philosophical traditions have acknowledged this existential polarity. The Stoics embraced the inevitability of suffering as a precursor to tranquility, while Eastern philosophies like Buddhism anchor themselves in the impermanence of all experiences. In both frameworks, the pursuit of enduring happiness necessitates an acceptance of transience. Without sorrow, joy would be indistinct—a flat and shallow sensation lacking contrast or value. This interdependence is vividly manifest in the mundane. The delight of spring is intensified by the memory of a harsh winter; the serenity of solitude is meaningful only to one who has tasted the cacophony of crowds. Even our personal growth often emerges from crucibles of pain—grief chisels depth into our emotional landscape, refining our capacity for empathy, resilience, and gratitude. To demand unbroken happiness is to seek a monochromatic life—an existence devoid of emotional texture. The beauty of being lies not in circumventing sorrow, but in embracing it as a necessary foil to joy. These twin sentiments coalesce to form the chiaroscuro of consciousness, rendering our lives more vivid, more intricate, more human. <br><b>What tone does the author primarily adopt throughout the passage?",
     "options": ["Whimsical", "Philosophical", "Satirical", "Indifferent"],
     "correctAnswer": "Philosophical",
     "explanation": "The passage discusses life, emotions, and meaning in a reflective tone."
   },
   {
-    "question": "In the context of the passage, what does the word <b>chiaroscuro</b> most likely mean?",
+    "question": "Read the following passage and answer the questions based on the passage : <br>To bifurcate life into immutable dichotomies of joy and sorrow is to misread its most intrinsic rhythm. Human existence unfolds not as a linear progression of happiness or despair, but-as a dynamic interplay where each emotion deepens the resonance of the other. The ecstasy of triumph Is never as poignant as when preceded by failure; likewise, the pang of loss finds contour only because we have once cherished the presence of what is now absent. Joy and sorrow, then, are not adversaries but co-authors of the same narrative. From antiquity to modernity, philosophical traditions have acknowledged this existential polarity. The Stoics embraced the inevitability of suffering as a precursor to tranquility, while Eastern philosophies like Buddhism anchor themselves in the impermanence of all experiences. In both frameworks, the pursuit of enduring happiness necessitates an acceptance of transience. Without sorrow, joy would be indistinct—a flat and shallow sensation lacking contrast or value. This interdependence is vividly manifest in the mundane. The delight of spring is intensified by the memory of a harsh winter; the serenity of solitude is meaningful only to one who has tasted the cacophony of crowds. Even our personal growth often emerges from crucibles of pain—grief chisels depth into our emotional landscape, refining our capacity for empathy, resilience, and gratitude. To demand unbroken happiness is to seek a monochromatic life—an existence devoid of emotional texture. The beauty of being lies not in circumventing sorrow, but in embracing it as a necessary foil to joy. These twin sentiments coalesce to form the chiaroscuro of consciousness, rendering our lives more vivid, more intricate, more human. <br><br><b>In the context of the passage, what does the word <b>chiaroscuro</b> most likely mean?",
     "options": [
       "Emotional paralysis",
       "A blend of light and shadow",
@@ -7284,8 +7285,8 @@ ssc_cgl_eng_13_sep_s1 : [
   },
   {
     "question": "Choose the most suitable replacement:<br>She do not knows the answer to this question.",
-    "options": ["do not knew", "not know", "is not knowing", "do not know"],
-    "correctAnswer": "do not know",
+    "options": ["do not knew", "does not know", "is not knowing", "do not know"],
+    "correctAnswer": "does not know",
     "explanation": "Correct present simple negative is ‘do not know’."
   },
   {
@@ -7295,7 +7296,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "‘Senior’ takes preposition ‘to’, not ‘than’."
   },
   {
-    "question": "Convert to indirect speech:<br>I said, “He will be here by noon.”",
+    "question": " A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.:<br>I said, “He will be here by noon.”",
     "options": [
       "I said he will be there by noon.",
       "I said that he would be here by noon.",
@@ -7306,7 +7307,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "‘Will’ becomes ‘would’, and ‘here’ becomes ‘there’ in reported speech."
   },
   {
-    "question": "Convert to direct speech:<br>The assistant said that she was not feeling well and would leave early.",
+    "question": " Asentence is provided in indirect speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding direct speech.:<br>The assistant said that she was not feeling well and would leave early.",
     "options": [
       "\"I am not feeling well and will leave early,” the assistant said.",
       "\"I was not feeling well and would leave early,” said the assistant.",
@@ -7317,13 +7318,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Reported speech back-shifts to present for direct narration."
   },
   {
-    "question": "Rearrange the sentences to form a coherent paragraph:<br>1. This is challenging in industries such as steel.<br>2. CCS technologies help reduce emissions.<br>3. Achieving carbon neutrality requires emission cuts.<br>4. CCS captures CO₂ and stores it.",
+    "question": "Rearrange the sentences to form a coherent paragraph:<br>1.. This is particularly challenging in industries such as steel and cement production, where emissions are an integral part of the manufacturing process. 2. As a result, carbon capture and storage (CCS) technologies have emerged as a crucial component of strategies aimed at reducing industrial greenhouse gas emissions. 3. Achieving carbon neutrality requires a significant reduction in emissions across all economic sectors. 4. These technologies capture carbon dioxide at the source, preventing its release into the atmosphere and either utilizing it or storing it permanently underground. ",
     "options": ["1,2,3,4", "1,2,4,3", "2,1,3,4", "4,3,1,2"],
     "correctAnswer": "3,1,2,4",
     "explanation": "General statement → challenge → solution → detail."
   },
   {
-    "question": "Rearrange the sentences:<br>1. Class specifies structure.<br>2. OOP paradigm.<br>3. Class is blueprint.<br>4. Advantage is real-world mapping.",
+    "question": " Rearrange the following sentences to form a coherent paragraph: <br>1. This allows a programmer to specify the structure and behavior of an object-oriented program. <br>2. Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects," which can contain data and code. <br>3. A central tenet of OOP is the concept of a "class," which acts as a blueprint for creating objects. <br>4. The key advantage of this approach is that it models real-world entities, making complex systems easier to manage and debug. ",
     "options": ["4,3,2,1", "2,1,3,4", "1,2,3,4", "4,1,2,3"],
     "correctAnswer": "2,3,1,4",
     "explanation": "Definition → class → class details → advantage."
