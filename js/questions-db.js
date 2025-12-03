@@ -7216,7 +7216,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Correct form is ‘Were he to respond…’; ‘to have responded’ is incorrect in conditional."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>,<br>She placed a compact mirror in her purse.",
+    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>,<br>She placed a <b>compact<b> mirror in her purse.",
     "options": [
       "",
       "The team formed a compact defensive unit.",
@@ -7284,13 +7284,13 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Chiaroscuro describes contrast of light/dark, metaphorically emotions."
   },
   {
-    "question": "Choose the most suitable replacement:<br>She do not knows the answer to this question.",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: :She <b>do not knows</b> the answer to this question.",
     "options": ["do not knew", "does not know", "is not knowing", "do not know"],
     "correctAnswer": "does not know",
     "explanation": "Correct present simple negative is ‘do not know’."
   },
   {
-    "question": "Choose the suitable replacement:<br>He is senior than me in age.",
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence: :<br>He is <b>senior than me in age.",
     "options": ["more senior than me", "to me by age", "senior to me in age", "elder to me"],
     "correctAnswer": "senior to me in age",
     "explanation": "‘Senior’ takes preposition ‘to’, not ‘than’."
