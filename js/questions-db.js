@@ -7482,7 +7482,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The most coherent sequence is <b>2, 1, 3, 4</b>: <b>2</b> introduces the main idea (the necessity of reducing reliance on carbon-intensive energy). <b>1</b> presents the key strategy to achieve this (diversifying energy sources). <b>3</b> explains the benefits of this 'shift' (referencing sentence 1). <b>4</b> introduces an 'Additional' measure to supplement the main strategy."
   }
 ],
- "ssc_cgl_eng_14_sep_s3":[
+ "ssc_cgl_eng_15_sep_s3":[
   {
     "question": "Select the most appropriate synonym of the given word: <b>PROPITIOUS</b>",
     "options": ["Doubtful", "Harmful", "Favorable", "Unlucky"],
