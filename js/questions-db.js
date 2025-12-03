@@ -7216,7 +7216,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "Correct form is ‘Were he to respond…’; ‘to have responded’ is incorrect in conditional."
   },
   {
-    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>,<br>She placed a <b>compact<b> mirror in her purse.",
+    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>,<br>She placed a <b>compact</b> mirror in her purse.",
     "options": [
       "",
       "The team formed a compact defensive unit.",
