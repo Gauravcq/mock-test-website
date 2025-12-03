@@ -31,8 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultTabsContainer = document.querySelector('#result-summary-page .results-header-nav');
     const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
     const languageSelect = document.querySelector('.language-select');
+
+    // OLD review area (inside left panel)
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
+
+    // NEW clean layout elements (center card style)
+    const reviewQuestionCard = document.getElementById('review-question-card');
+    const reviewSolutionText = document.getElementById('review-solution-text');
+    const reviewPaletteClean = document.getElementById('review-palette-clean');
 
     // --- Question Normalizer: supports all DB formats ---
     // 1) Old bilingual strings:
@@ -41,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2) New objects:
     //      options: [{en:"Pressure",hi:"दबाव"}, ...]
     //      correctAnswer: {en:"Temperature",hi:"तापमान"}
-    // 3) English‑only strings:
+    // 3) English-only strings:
     //      options: ["3","5","7","9"]
     //      correctAnswer: "5"
     function normalizeQuestion(raw) {
@@ -183,57 +190,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Show palette in BOTH:
+     *  - old sidebar:   #review-palette (buttons.palette-btn)
+     *  - new clean bar: #review-palette-clean (div.qp-btn)
+     */
     function showReviewPalette() {
-        const reviewPalette = document.getElementById('review-palette');
-        if (!reviewPalette) return;
-        reviewPalette.innerHTML = '';
-        reviewQuestionList.forEach((item, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'palette-btn';
-            btn.textContent = item.index + 1;
-            btn.dataset.index = index;
+        const reviewPaletteOld = document.getElementById('review-palette');
+        const reviewPaletteNew = reviewPaletteClean; // from DOM above
 
-            const state = item.state || {};
-            if (state.resultCategory === 'correct') btn.classList.add('answered');
-            else if (state.resultCategory === 'incorrect') btn.classList.add('not-answered');
+        // helper fills a container depending on style
+        function fillContainer(container, cleanStyle) {
+            if (!container) return;
+            container.innerHTML = '';
 
-            if (state.markedForReview) {
-                if (state.userAnswer !== null) {
-                    btn.classList.remove('answered', 'not-answered');
-                    btn.classList.add('answered-marked-review');
+            reviewQuestionList.forEach((item, index) => {
+                const state = item.state || {};
+                const btn = document.createElement('button');
+
+                if (cleanStyle) {
+                    // small square tiles
+                    btn.className = 'qp-btn';
                 } else {
-                    btn.classList.add('marked-review');
+                    // original palette style
+                    btn.className = 'palette-btn';
                 }
-            }
-            if (index === currentReviewIndex) btn.classList.add('current');
-            btn.addEventListener('click', () => { showReviewQuestion(index); });
-            reviewPalette.appendChild(btn);
-        });
+
+                btn.textContent = item.index + 1;
+                btn.dataset.index = index;
+
+                // apply state styles (only for old palette; new one is neutral)
+                if (!cleanStyle) {
+                    if (state.resultCategory === 'correct') btn.classList.add('answered');
+                    else if (state.resultCategory === 'incorrect') btn.classList.add('not-answered');
+
+                    if (state.markedForReview) {
+                        if (state.userAnswer !== null) {
+                            btn.classList.remove('answered', 'not-answered');
+                            btn.classList.add('answered-marked-review');
+                        } else {
+                            btn.classList.add('marked-review');
+                        }
+                    }
+                    if (index === currentReviewIndex) btn.classList.add('current');
+                }
+
+                btn.addEventListener('click', () => { showReviewQuestion(index); });
+                container.appendChild(btn);
+            });
+        }
+
+        fillContainer(reviewPaletteOld, false);
+        fillContainer(reviewPaletteNew, true);
     }
 
+    /**
+     * Show a question in review mode.
+     * Works for both:
+     *  - OLD layout (#review-question-area with inline solution)
+     *  - NEW clean layout (#review-question-card + #review-solution-text)
+     */
     function showReviewQuestion(index) {
         currentReviewIndex = index;
-        if (reviewQuestionList.length === 0 || index < 0 || index >= reviewQuestionList.length || !reviewArea) return;
+
+        if (reviewQuestionList.length === 0 || index < 0 || index >= reviewQuestionList.length) return;
 
         const reviewItem = reviewQuestionList[index];
-        the_question = questions[reviewItem.index];
-        const question = the_question;
+        const question = questions[reviewItem.index];
         const state = questionStates[reviewItem.index];
 
-        if (reviewQuestionTitle) reviewQuestionTitle.textContent =
-            "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length +
-            " (Original Q" + (reviewItem.index + 1) + ")";
+        if (reviewQuestionTitle) {
+            reviewQuestionTitle.textContent =
+                "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length +
+                " (Original Q" + (reviewItem.index + 1) + ")";
+        }
 
         // Build options HTML; question.options are objects {en, hi}
         const optionsHtml = question.options.map(optObj => {
             const optionEn = optObj.en;
             const optionHi = optObj.hi || '';
+
             const isCorrect = normalizeString(optionEn) === normalizeString(question.correctAnswer.en);
             const isUserChoice = normalizeString(optionEn) === normalizeString(state.userAnswer);
+
             let optionClass = 'review-option';
             if (isCorrect) optionClass += ' correct';
             if (isUserChoice && !isCorrect) optionClass += ' incorrect';
             if (isUserChoice && isCorrect) optionClass += ' correct-user-choice';
+
             let html = '<div class="' + optionClass + '">';
             html += '<div class="review-option-text"><span class="radio-icon"></span><span class="option-label"><strong>' + optionEn + '</strong>';
             if (optionHi) html += ' <small class="hi-text">(' + optionHi + ')</small>';
@@ -247,15 +291,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
         const explanationText = (typeof question.explanation === 'object') ? question.explanation[currentLanguage] : question.explanation;
 
-        reviewArea.innerHTML =
+        // Core HTML for question + options + unattempted note
+        const baseQuestionHtml =
             '<p class="question-text">' + (reviewItem.index + 1) + '. ' + questionText + '</p>' +
             '<div class="options-container">' + optionsHtml + '</div>' +
-            '<div class="solution-box"><h4>Solution:</h4><p>' + explanationText + '</p></div>' +
             (state.userAnswer === null ? '<p class="unattempted-note">**This question was unattempted.**</p>' : '');
 
+        // NEW clean layout → inject into reviewQuestionCard + separate solution text
+        if (reviewQuestionCard) {
+            reviewQuestionCard.innerHTML = baseQuestionHtml;
+        }
+
+        if (reviewSolutionText) {
+            reviewSolutionText.textContent = explanationText || '—';
+        }
+
+        // OLD layout fallback → still support original container if present
+        if (reviewArea && !reviewQuestionCard) {
+            reviewArea.innerHTML =
+                baseQuestionHtml +
+                '<div class="solution-box"><h4>Solution:</h4><p>' + explanationText + '</p></div>';
+        }
+
         if (window.MathJax) { window.MathJax.typeset(); }
+
         if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
         if (reviewNextBtn) reviewNextBtn.disabled = index === reviewQuestionList.length - 1;
+
         showReviewPalette();
     }
 
@@ -291,8 +353,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question 0 of 0";
             if (reviewPrevBtn) reviewPrevBtn.disabled = true;
             if (reviewNextBtn) reviewNextBtn.disabled = true;
-            const rp = document.getElementById('review-palette');
-            if (rp) rp.innerHTML = '';
+            const rpOld = document.getElementById('review-palette');
+            if (rpOld) rpOld.innerHTML = '';
+            if (reviewPaletteClean) reviewPaletteClean.innerHTML = '';
         }
     }
 

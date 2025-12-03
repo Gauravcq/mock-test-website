@@ -557,5 +557,72 @@
         });
     </script>
     <div class="help-btn">💬</div>
+    <script>
+function loadReviewQuestion(qIndex) {
+    const q = testData[qIndex];
+
+    const card = document.getElementById("review-question-card");
+    const solBox = document.getElementById("review-solution-text");
+
+    let html = `
+        <h3>Q${qIndex+1} • ${q.originalQuestion || "Original Question"}</h3>
+        <div>${q.question}</div>
+        <br>
+    `;
+
+    q.options.forEach((opt, i) => {
+        const isCorrect = q.correctIndex === i;
+        html += `
+          <div class="review-option ${isCorrect ? "correct" : ""}">
+              ☐ ${opt} ${isCorrect ? "(Correct)" : ""}
+          </div>
+        `;
+    });
+
+    card.innerHTML = html;
+    solBox.innerHTML = q.explanation || "No explanation provided.";
+}
+
+// Palette render
+function renderReviewPalette() {
+    const pal = document.getElementById("review-palette-clean");
+    pal.innerHTML = "";
+
+    for (let i = 0; i < testData.length; i++) {
+        const btn = document.createElement("div");
+        btn.className = "qp-btn";
+        btn.textContent = (i + 1);
+        btn.onclick = () => {
+            currentReviewIndex = i;
+            loadReviewQuestion(i);
+        };
+        pal.appendChild(btn);
+    }
+}
+
+// Navigation
+let currentReviewIndex = 0;
+
+document.getElementById("review-prev-btn").onclick = () => {
+    if (currentReviewIndex > 0) {
+        currentReviewIndex--;
+        loadReviewQuestion(currentReviewIndex);
+    }
+};
+
+document.getElementById("review-next-btn").onclick = () => {
+    if (currentReviewIndex < testData.length - 1) {
+        currentReviewIndex++;
+        loadReviewQuestion(currentReviewIndex);
+    }
+};
+
+// When opening review page
+function initReviewPage() {
+    renderReviewPalette();
+    loadReviewQuestion(0);
+}
+</script>
+
 </body>
 </html>

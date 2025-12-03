@@ -7136,6 +7136,352 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "The logical sequence is: 2 (Introduction of the topic, diversity of life) -> 4 (Starts the mechanism, inherited variation) -> 3 (The direct consequence of the mechanism, accumulation of traits) -> 1 (Names the process and states its ultimate goal)."
   }
 ],
+ "ssc_cgl_eng_15_sep_s1" :
+ [
+  {
+    "question": "Select the most appropriate synonym of the given word: <b>NONCHALANT</b>",
+    "options": ["Anxious", "Tense", "Worried", "Calm"],
+    "correctAnswer": "Calm",
+    "explanation": "Nonchalant means relaxed and calm; not displaying anxiety."
+  },
+  {
+    "question": "Choose the correct meaning of idiom:<br><b>Keep at bay</b>",
+    "options": ["To monitor closely", "To keep away or at a safe distance", "To defeat completely", "To take advantage of"],
+    "correctAnswer": "To keep away or at a safe distance",
+    "explanation": "‘Keep at bay’ means preventing something or someone from coming near."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word:<br><b>Quixotic</b>",
+    "options": ["Romantic", "Visionary", "Pragmatic", "Idealistic"],
+    "correctAnswer": "Pragmatic",
+    "explanation": "Quixotic means extremely idealistic; its opposite is practical or pragmatic."
+  },
+  {
+    "question": "Identify the misspelt word",
+    "options": ["Apothegm", "Esoterica", "Onomatopiea", "Sesquipedalian"],
+    "correctAnswer": "Onomatopiea",
+    "explanation": "Correct spelling is ‘Onomatopoeia’; hence this is misspelt."
+  },
+  {
+    "question": "Spot the correct spelling of adjective 'relating to the muscular tissue of the heart’.",
+    "options": ["Myocardiac", "Myocordial", "Myocardial", "Myocardiol"],
+    "correctAnswer": "Myocardial",
+    "explanation": "‘Myocardial’ means relating to the myocardium (heart muscle)."
+  },
+  {
+    "question": "Choose the correct one-word substitution:<br>‘An act of intentionally setting fire to property’.",
+    "options": ["Burglary", "Vandalism", "Sabotage", "Arson"],
+    "correctAnswer": "Arson",
+    "explanation": "Arson means intentionally setting fire to property."
+  },
+  {
+    "question": "Choose the correct one-word substitution:<br>‘Fear of public speaking.’",
+    "options": ["Glossophobia", "Sociophobia", "Anthophobia", "Ergophobia"],
+    "correctAnswer": "Glossophobia",
+    "explanation": "Glossophobia refers to fear of public speaking."
+  },
+  {
+    "question": "Select the correct option:<br>Not until the data was independently verified ___ accepted by the journal.",
+    "options": ["it was", "was it", "did it", "had it"],
+    "correctAnswer": "was it",
+    "explanation": "Negative adverbial inversion requires auxiliary + subject: ‘Not until… was it…’"
+  },
+  {
+    "question": "Select the correct option:<br>Though the board remained divided on procedural issues, the chairperson, ___ authority was rarely contested, pushed the resolution through.",
+    "options": ["whom", "who's", "which", "whose"],
+    "correctAnswer": "whose",
+    "explanation": "‘Whose authority’ refers to possession; hence ‘whose’ is correct."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error:<br>The spokesperson refused to comment (1)/ until the investigation would be completed (2)/ to avoid jeopardising (3)/ ongoing proceedings. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(2)",
+    "explanation": "After ‘until’, simple present is used for future meaning → ‘is completed’."
+  },
+  {
+    "question": "Change the following from active to passive:<br>Did the council approve the comprehensive zoning plan?",
+    "options": [
+      "Has the comprehensive zoning plan been approved by the council?",
+      "Is the comprehensive zoning plan being approved by the council?",
+      "Was the comprehensive zoning plan being approved by the council?",
+      "Was the comprehensive zoning plan approved by the council?"
+    ],
+    "correctAnswer": "Was the comprehensive zoning plan approved by the council?",
+    "explanation": "Simple past interrogative passive form is ‘Was + object + past participle’."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error:<br>Were he to have responded promptly (1)/ the crisis could have been (2)/ averted far earlier than it ultimately was (3)/ saving valuable diplomatic capital. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(1)",
+    "explanation": "Correct form is ‘Were he to respond…’; ‘to have responded’ is incorrect in conditional."
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word:<br><b>compact</b>",
+    "options": [
+      "She placed a compact mirror in her purse.",
+      "The team formed a compact defensive unit.",
+      "He compacted the soil using a roller.",
+      "They signed a compact to maintain peace."
+    ],
+    "correctAnswer": "They signed a compact to maintain peace.",
+    "explanation": "‘Compact’ (noun) meaning agreement is the correct homonym."
+  },
+  {
+    "question": "Convert the sentence from passive to active:<br>The accused was believed to have been hiding in the hills before being captured.",
+    "options": [
+      "The accused believed he was hiding in the hills.",
+      "Someone believed the accused had hidden in the hills.",
+      "It was believed that the accused had been hiding in the hills.",
+      "They believed the accused was hiding in the hills."
+    ],
+    "correctAnswer": "They believed the accused was hiding in the hills.",
+    "explanation": "Active structure becomes ‘They believed…’ representing general agency."
+  },
+  {
+    "question": "Read the passage and answer:<br>Which of the following best completes the analogy:<br><b>Joy is to presence as sorrow is to — ?</b>",
+    "options": ["Freedom", "Anticipation", "Absence", "Stagnation"],
+    "correctAnswer": "Absence",
+    "explanation": "The passage links sorrow with loss/absence."
+  },
+  {
+    "question": "Based on the passage, what can be inferred about human emotions?",
+    "options": [
+      "Life should be devoid of emotional pain",
+      "Emotions exist in strict binaries",
+      "Sorrow deepens the meaning of joy",
+      "Joy is an artificial construct"
+    ],
+    "correctAnswer": "Sorrow deepens the meaning of joy",
+    "explanation": "The passage emphasises interdependence of sorrow and joy."
+  },
+  {
+    "question": "What is the author's primary purpose in writing the passage?",
+    "options": [
+      "To highlight philosophical traditions",
+      "To argue that sorrow should be embraced as essential to experiencing true joy",
+      "To lament the fragility of happiness",
+      "To critique modern emotional detachment"
+    ],
+    "correctAnswer": "To argue that sorrow should be embraced as essential to experiencing true joy",
+    "explanation": "The central theme is that sorrow enhances joy and is necessary."
+  },
+  {
+    "question": "What tone does the author primarily adopt throughout the passage?",
+    "options": ["Whimsical", "Philosophical", "Satirical", "Indifferent"],
+    "correctAnswer": "Philosophical",
+    "explanation": "The passage discusses life, emotions, and meaning in a reflective tone."
+  },
+  {
+    "question": "In the context of the passage, what does the word <b>chiaroscuro</b> most likely mean?",
+    "options": [
+      "Emotional paralysis",
+      "A blend of light and shadow",
+      "A musical variation",
+      "A specific type of sorrow"
+    ],
+    "correctAnswer": "A blend of light and shadow",
+    "explanation": "Chiaroscuro describes contrast of light/dark, metaphorically emotions."
+  },
+  {
+    "question": "Choose the most suitable replacement:<br>She do not knows the answer to this question.",
+    "options": ["do not knew", "not know", "is not knowing", "do not know"],
+    "correctAnswer": "do not know",
+    "explanation": "Correct present simple negative is ‘do not know’."
+  },
+  {
+    "question": "Choose the suitable replacement:<br>He is senior than me in age.",
+    "options": ["more senior than me", "to me by age", "senior to me in age", "elder to me"],
+    "correctAnswer": "senior to me in age",
+    "explanation": "‘Senior’ takes preposition ‘to’, not ‘than’."
+  },
+  {
+    "question": "Convert to indirect speech:<br>I said, “He will be here by noon.”",
+    "options": [
+      "I said he will be there by noon.",
+      "I said that he would be here by noon.",
+      "I said that he would be there by noon.",
+      "I said he shall be there by noon."
+    ],
+    "correctAnswer": "I said that he would be there by noon.",
+    "explanation": "‘Will’ becomes ‘would’, and ‘here’ becomes ‘there’ in reported speech."
+  },
+  {
+    "question": "Convert to direct speech:<br>The assistant said that she was not feeling well and would leave early.",
+    "options": [
+      "\"I am not feeling well and will leave early,” the assistant said.",
+      "\"I was not feeling well and would leave early,” said the assistant.",
+      "\"I'm not well and am leaving,” she said.",
+      "\"I am not well and I leave now,” said the assistant."
+    ],
+    "correctAnswer": "\"I am not feeling well and will leave early,” the assistant said.",
+    "explanation": "Reported speech back-shifts to present for direct narration."
+  },
+  {
+    "question": "Rearrange the sentences to form a coherent paragraph:<br>1. This is challenging in industries such as steel.<br>2. CCS technologies help reduce emissions.<br>3. Achieving carbon neutrality requires emission cuts.<br>4. CCS captures CO₂ and stores it.",
+    "options": ["1,2,3,4", "1,2,4,3", "2,1,3,4", "4,3,1,2"],
+    "correctAnswer": "3,1,2,4",
+    "explanation": "General statement → challenge → solution → detail."
+  },
+  {
+    "question": "Rearrange the sentences:<br>1. Class specifies structure.<br>2. OOP paradigm.<br>3. Class is blueprint.<br>4. Advantage is real-world mapping.",
+    "options": ["4,3,2,1", "2,1,3,4", "1,2,3,4", "4,1,2,3"],
+    "correctAnswer": "2,3,1,4",
+    "explanation": "Definition → class → class details → advantage."
+  }
+],
+ "ssc_cgl_eng_15_sep_s2" :
+ [
+  {
+    "question": "Select the most appropriate synonym of the given word: <b>IMPLACABLE</b>",
+    "options": ["Soft", "Unyielding", "Flexible", "Gentle"],
+    "correctAnswer": "Unyielding",
+    "explanation": "Implacable means someone who cannot be appeased; <b>Unyielding</b> or relentless. The options provided are 'Soft', 'Unyielding', 'Flexible', and 'Gentle'. 'Unyielding' is the most suitable synonym."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. <b>Obsequious</b>",
+    "options": ["Assertive", "Submissive", "Flattering", "Servile"],
+    "correctAnswer": "Assertive",
+    "explanation": "Obsequious means obedient or attentive to an excessive or servile degree. The opposite (antonym) is <b>Assertive</b>, meaning having or showing a confident and forceful personality."
+  },
+  {
+    "question": "Select the most appropriate antonym of the given word. <b>Soporific</b>",
+    "options": ["Stimulating", "Drowsy", "Sleep-inducing", "Sedative"],
+    "correctAnswer": "Stimulating",
+    "explanation": "Soporific means tending to induce drowsiness or sleep. The opposite (antonym) is <b>Stimulating</b>."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: <b>Tooth and nail</b>",
+    "options": ["With full force or vigour", "Without planning", "Secretly and quietly", "Half-heartedly"],
+    "correctAnswer": "With full force or vigour",
+    "explanation": "The idiom 'Tooth and nail' means to fight or contest with all one's resources and energy; <b>With full force or vigour</b>."
+  },
+  {
+    "question": "Choose the correct meaning of idiom: <b>Steal a march on</b>",
+    "options": ["Surrender unexpectedly", "Gain an advantage by acting before others do", "Betray one's allies", "Escape punishment"],
+    "correctAnswer": "Gain an advantage by acting before others do",
+    "explanation": "The idiom 'Steal a march on' means to get an advantage over someone, typically by acting quickly or secretly; <b>Gain an advantage by acting before others do</b>."
+  },
+  {
+    "question": "Which is the correct spelling for a word meaning 'a very large number'?",
+    "options": ["Myriad", "Myriod", "Miriad", "Mirriad"],
+    "correctAnswer": "Myriad",
+    "explanation": "The correct spelling for a word meaning 'a very large number' is <b>Myriad</b>."
+  },
+  {
+    "question": "Spot the correct spelling of an autism-linked speech echo.",
+    "options": ["Echolallia", "Echolalia", "Echollalia", "Echolaliah"],
+    "correctAnswer": "Echolalia",
+    "explanation": "The correct spelling of the term for an autism-linked speech echo is <b>Echolalia</b>."
+  },
+  {
+    "question": "Choose the correct one-word substitution for: 'A person who opposes official policy'.",
+    "options": ["Activist", "Agitator", "Dissident", "Atheist"],
+    "correctAnswer": "Dissident",
+    "explanation": "A person who opposes official policy is a <b>Dissident</b>. An 'Activist' campaigns for change, an 'Agitator' stirs up trouble, and an 'Atheist' is someone who disbelieves in God."
+  },
+  {
+    "question": "Choose the correct one-word substitute for: 'Excessive self-importance or over-confidence.'",
+    "options": ["Prudence", "Humility", "Arrogance", "Modesty"],
+    "correctAnswer": "Arrogance",
+    "explanation": "Excessive self-importance or over-confidence is called <b>Arrogance</b>."
+  },
+  {
+    "question": "Choose the right collocation:<br>The article offers a ______ critique of contemporary educational paradigms.",
+    "options": ["thorough going", "through-going", "thorough-go", "go-through"],
+    "correctAnswer": "thorough going",
+    "explanation": "The phrase 'thoroughgoing critique' means a complete and comprehensive critique. The best collocation among the options is <b>thorough going</b>."
+  },
+  {
+    "question": "Select the correct option:<br>The discovery, ______, was unexpected, altered the trajectory of the entire study.",
+    "options": ["that", "which", "what", "whose"],
+    "correctAnswer": "which",
+    "explanation": "The clause 'was unexpected' is a non-restrictive clause, providing additional, non-essential information. It is set off by commas and requires the relative pronoun <b>which</b>."
+  },
+  {
+    "question": "Find the part of the sentence that contains an error:<br>Not only does the report fail to address the structural gaps, (1)/ but also it overlooks the more pressing issue (2)/ of community exclusion which, according to activists, (3)/ have been systematically ignored for years. (4)",
+    "options": ["(1)", "(2)", "(3)", "(4)"],
+    "correctAnswer": "(3)",
+    "explanation": "The error is in part (3). The relative pronoun 'which' refers to the singular noun 'issue' (from part 2), so the verb must also be singular. 'have been' should be '<b>has been</b>'."
+  },
+  {
+    "question": "Change the following from active to passive:<br><b>Did the analysts anticipate the sudden market downturn?</b>",
+    "options": ["Was the sudden market downturn anticipated from the analysts?", "Had the sudden market downturn been anticipated by the analysts?", "Was the sudden market downturn anticipated by the analysts?", "Is the sudden market downturn being anticipated by the analysts?"],
+    "correctAnswer": "Was the sudden market downturn anticipated by the analysts?",
+    "explanation": "The active sentence is in the simple past tense (Did... anticipate?). The correct passive voice structure for a simple past interrogative is: <b>Was/Were + Subject + Past Participle (V3) + by + Agent?</b>"
+  },
+  {
+    "question": "Select the sentence containing the homonym of the highlighted word:<br>The monk carried a carved <b>crosier</b> into the sanctuary.",
+    "options": ["The florist added white crosiers to the bouquet.", "The bishop's crosier gleamed under the candlelight.", "The museum displayed a gilded 14th-century crosier.", "The abbot's ceremonial crosier was stolen."],
+    "correctAnswer": "The florist added white crosiers to the bouquet.",
+    "explanation": "The highlighted word 'crosier' refers to a bishop's staff. A homonym is a word spelled and pronounced the same but with a different meaning. The other meaning of 'crosier' is a young, coiled fern frond, which fits the context of <b>The florist added white crosiers to the bouquet.</b>"
+  },
+  {
+    "question": "Convert the sentence provided below from its passive voice structure to an active voice structure:<br><b>The ministers were being briefed about the situation by the intelligence officers.</b>",
+    "options": ["The intelligence officers briefed the ministers about the situation.", "The intelligence officers had briefed the ministers.", "The ministers were briefed by the intelligence officers.", "The intelligence officers were briefing the ministers."],
+    "correctAnswer": "The intelligence officers were briefing the ministers.",
+    "explanation": "The passive sentence is in the Past Continuous tense (were being briefed). The active voice conversion for the Past Continuous tense is: <b>Subject + was/were + V-ing + Object</b>."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence:<br>He <b>is going to abroad</b> for higher studies.",
+    "options": ["is going abroad", "goes to abroad", "is going to the abroad", "is going for abroad"],
+    "correctAnswer": "is going abroad",
+    "explanation": "The word 'abroad' acts as an adverb, meaning 'to or in a foreign country', and does not require a preposition like 'to' before it. The correct phrase is <b>is going abroad</b>."
+  },
+  {
+    "question": "Choose the most suitable option to replace the highlighted part of the sentence:<br>She avoids <b>to go</b> to crowded places.",
+    "options": ["avoids to going to", "avoids from going", "avoids going to crowded places", "is avoiding to go to crowded place"],
+    "correctAnswer": "avoids going to crowded places",
+    "explanation": "The verb 'avoid' is typically followed by a gerund (V-ing), not an infinitive (to + V). The correct phrase is 'avoids going to crowded places'. Given the options, <b>avoids going to crowded places</b> is the only grammatically correct option."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>What is implied by describing art as an \"epistemological act\" in the passage?</b>",
+    "options": ["Art is an emotional expression.", "Art is a method of acquiring and challenging knowledge structures.", "Art serves as mere historical documentation.", "Art reflects state-sponsored ideologies."],
+    "correctAnswer": "Art is a method of acquiring and challenging knowledge structures.",
+    "explanation": "The passage states that art is an epistemological act—'challenging dominant paradigms and opening discursive space for marginalized narratives.' Epistemology is the theory of knowledge, so it implies art is a method of <b>acquiring and challenging knowledge structures</b>."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>The phrase \"commodification of art\" in the passage most nearly refers to:</b>",
+    "options": ["Art being preserved in national archives.", "Art being transformed into a consumer product stripped of its critical power.", "Art being used exclusively for educational purposes.", "Art becoming a tool for political awareness."],
+    "correctAnswer": "Art being transformed into a consumer product stripped of its critical power.",
+    "explanation": "The passage describes commodification as the aesthetic being 'reduced to a spectacle optimized for consumption, divorced from nuance, complexity, or transgression.' This aligns with <b>Art being transformed into a consumer product stripped of its critical power</b>."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>According to the passage, how does art function in politically repressive environments?</b>",
+    "options": ["It reinforces state propaganda through images.", "It loses its relevance.", "It channels dissent and expresses unspeakable truths.", "It remains confined to academic circles."],
+    "correctAnswer": "It channels dissent and expresses unspeakable truths.",
+    "explanation": "The passage states: 'Art enables dissent when speech is suppressed... Satire, documentary film, and performance art often articulate the unspeakable, using metaphor and allusion to subvert censure.' This means it <b>channels dissent and expresses unspeakable truths</b>."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>Which of the following best explains the dialectical nature of art as per the last paragraph?</b>",
+    "options": ["Art is at once reflective and projective, disruptive and redemptive.", "Art involves both opposing ideas of form and content.", "Art involves only utilitarian and aesthetic functions.", "Art is limited to educating the masses."],
+    "correctAnswer": "Art is at once reflective and projective, disruptive and redemptive.",
+    "explanation": "The last paragraph explicitly states: 'It is a dialectical force—at once <b>reflective and projective, disruptive and redemptive</b>.' This combination of opposing yet complementary functions defines its dialectical nature."
+  },
+  {
+    "question": "Read the following passage and answer the questions based on the passage:<br><b>What is the closest meaning of the word \"banality\" as used in the sentence: \"threaten to flatten it into banality\"?</b>",
+    "options": ["Vitality", "Triviality", "Profundity", "Complexity"],
+    "correctAnswer": "Triviality",
+    "explanation": "Banality means the condition of being ordinary, unoriginal, or uninteresting. The closest synonym is <b>Triviality</b>. The context ('flatten it into banality') suggests a loss of critical depth and quality."
+  },
+  {
+    "question": "Select the correct option for the Direct Speech conversion of the sentence below.<br><b>The zoologist warned that the island's carrying capacity might be exceeded should invasive species proliferate unchecked.</b>",
+    "options": ["The zoologist said, \"The island's carrying capacity will be exceeded should invasive species proliferate unchecked.\"", "The zoologist said, \"Should invasive species proliferate unchecked, the island's carrying capacity will be exceeded.\"", "The zoologist said, \"The island's carrying capacity may be exceeded should invasive species proliferate unchecked.\"", "The zoologist said, \"If invasive species proliferate unchecked, the carrying capacity can be exceeded.\""],
+    "correctAnswer": "The zoologist said, \"The island's carrying capacity may be exceeded should invasive species proliferate unchecked.\"",
+    "explanation": "In Direct to Indirect Speech conversion, 'may' is converted to 'might'. Thus, the indirect speech 'might be exceeded' must come from the direct speech 'may be exceeded'. The most accurate conversion is <b>The zoologist said, \"The island's carrying capacity may be exceeded should invasive species proliferate unchecked.\"</b>"
+  },
+  {
+    "question": "A sentence is provided in direct speech. From the four given options, choose the one that most accurately conveys the sentence in its corresponding indirect speech.<br><b>He said, \"I bought a new laptop.\"</b>",
+    "options": ["He said that he bought a new laptop.", "He said that he buys a new laptop.", "He said that he was buying a new laptop.", "He said that he had bought a new laptop."],
+    "correctAnswer": "He said that he had bought a new laptop.",
+    "explanation": "When converting from Direct to Indirect Speech, the Simple Past tense ('bought') is changed to the <b>Past Perfect tense ('had bought')</b>."
+  },
+  {
+    "question": "Rearrange the following sentences to form a coherent paragraph.<br>1. A key strategy is to diversify energy sources: transitioning from fossil fuels to renewable alternatives like solar, wind, and geothermal power.<br>2. To mitigate the worst effects of climate change, the global community must drastically reduce its reliance on carbon-intensive energy production.<br>3. This shift not only decreases greenhouse gas emissions but also improves air quality and creates new economic opportunities.<br>4. Additional policies that promote energy efficiency in buildings and transportation can further lower overall energy consumption.",
+    "options": ["2, 1, 3, 4", "1, 2, 3, 4", "4, 1, 3, 2", "2, 4, 1, 3"],
+    "correctAnswer": "2, 1, 3, 4",
+    "explanation": "The most coherent sequence is <b>2, 1, 3, 4</b>: <b>2</b> introduces the main idea (the necessity of reducing reliance on carbon-intensive energy). <b>1</b> presents the key strategy to achieve this (diversifying energy sources). <b>3</b> explains the benefits of this 'shift' (referencing sentence 1). <b>4</b> introduces an 'Additional' measure to supplement the main strategy."
+  }
+],
 
 "ssc_cgl_14_sep_s1" : [
   {

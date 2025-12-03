@@ -954,6 +954,125 @@ body.results-scroll {
     border-radius: 3px 3px 9px 9px;
     border: 1px solid #e25427;
 }
+/* ============================================
+   CLEAN REVIEW MODE UI (Your Requested Style)
+   ============================================ */
+
+.review-mode-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 0 30px;
+}
+
+.review-top-bar {
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 6px;
+}
+
+.review-question-card {
+    background: #ffffff;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 15px 0;
+    font-size: 1rem;
+}
+
+.review-question-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.review-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid #d7d7d7;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 0.95rem;
+}
+
+.review-option.correct {
+    border-color: #16a34a;
+    background: #eaffea;
+    font-weight: 600;
+}
+
+.review-solution-box {
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    padding: 14px;
+    margin-top: 20px;
+}
+
+.review-nav-btns {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-nav-btns button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.review-nav-btns button:hover {
+    background: #1d4ed8;
+}
+
+.review-palette-header {
+    margin-top: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.review-palette-clean {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.review-palette-clean .qp-btn {
+    width: 32px;
+    height: 32px;
+    background: #e4e4e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-weight: 600;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+/* Allow review page to scroll */
+#review-page {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+}
+
+/* Fix scroll inside inner review container */
+.review-content-wrapper,
+#review-question-area,
+#review-question-card {
+    overflow-y: visible !important;
+}
+
+
 
 </style>
 </head>
@@ -1189,22 +1308,33 @@ body.results-scroll {
             <a>Marked For Review</a>
         </div>
         <div class="review-main-content">
-            <div class="review-question-area-wrapper">
-                       <h2 id="review-question-title">Reviewing Question 1 of 25</h2>
-                       <div id="review-question-area"></div>
-                       <footer class="review-footer">
-                            <button id="review-prev-btn" class="btn primary">Previous Question</button>
-                            <button id="review-next-btn" class="btn primary">Next Question</button>
-                       </footer>
-            </div>
-            <aside class="review-sidebar">
-                <div class="review-palette-container">
-                    <h3 style="margin-top:0;">Question Palette</h3>
-                    <div id="review-palette" class="question-palette"></div>
-                </div>
-            </aside>
-        </div>
+<div class="review-mode-wrapper">
+
+    <div class="review-top-bar">
+        REVIEW MODE  |  All | Correct | Incorrect
     </div>
+
+    <div id="review-question-card" class="review-question-card">
+        <!-- Filled by JS -->
+    </div>
+
+    <div id="review-solution-box" class="review-solution-box">
+        Solution:
+        <div id="review-solution-text">—</div>
+    </div>
+
+    <div class="review-nav-btns">
+        <button id="review-prev-btn">⬅ Prev</button>
+        <button id="review-next-btn">Next ➜</button>
+    </div>
+
+    <div class="review-palette-header">Question Palette:</div>
+    <div id="review-palette-clean" class="review-palette-clean">
+        <!-- Palette added by JS -->
+    </div>
+
+</div>
+
 
 <script>
   // Enhance stats logic
