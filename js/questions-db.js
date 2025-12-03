@@ -7324,7 +7324,7 @@ ssc_cgl_eng_13_sep_s1 : [
     "explanation": "General statement → challenge → solution → detail."
   },
   {
-    "question": " Rearrange the following sentences to form a coherent paragraph: <br>1. This allows a programmer to specify the structure and behavior of an object-oriented program. <br>2. Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects," which can contain data and code. <br>3. A central tenet of OOP is the concept of a "class," which acts as a blueprint for creating objects. <br>4. The key advantage of this approach is that it models real-world entities, making complex systems easier to manage and debug. ",
+    "question": "Rearrange the following sentences to form a coherent paragraph: <br>1. This allows a programmer to specify the structure and behavior of an object-oriented program. <br>2. Object-Oriented Programming (OOP) is a programming paradigm based on the concept of objects, which can contain data and code. <br>3. A central tenet of OOP is the concept of a class, which acts as a blueprint for creating objects. <br>4. The key advantage of this approach is that it models real-world entities, making complex systems easier to manage and debug. ",
     "options": ["4,3,2,1", "2,1,3,4", "1,2,3,4", "4,1,2,3"],
     "correctAnswer": "2,3,1,4",
     "explanation": "Definition → class → class details → advantage."
