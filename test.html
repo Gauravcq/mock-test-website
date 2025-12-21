@@ -1,1202 +1,1480 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SSC CGL Mock Test</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<style>
-/* =========================
-   THEME VARIABLES
-   ========================= */
-:root {
-    --primary: #1a73e8;
-    --primary-dark: #0b5bd3;
-    --accent: #00c853;
-    --danger: #e53935;
-    --text-main: #1f2933;
-    --text-muted: #6b7280;
-    --bg-page: #f3f4f6;
-    --bg-card: #ffffff;
-    --border-soft: #e5e7eb;
-
-    --answered: #00c853;
-    --not-answered: #ff5252;
-    --marked-review: #7c4dff;
-    --not-visited: #e5e7eb;
-    --current-ring: #1a73e8;
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg-page);
-    color: var(--text-main);
-    height: 100vh;
-    height: 100dvh; /* Mobile fix */
-    overflow: hidden; 
-}
-
-.hidden { display: none !important; }
-
-/* =========================
-   INSTRUCTION PAGE
-   ========================= */
-#instructions-modal {
-    position: fixed;
-    inset: 0;
-    background: #ffffff;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    height: 100vh; 
-    height: 100dvh; 
-    width: 100vw;
-}
-
-.ins-header-bar {
-    flex-shrink: 0;
-    padding: 15px 20px;
-    border-bottom: 1px solid #ddd;
-    background: #fff;
-}
-.ins-header-bar h1 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: 600;
-}
-
-.ins-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 15px 20px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #333;
-    text-align: left;
-    -webkit-overflow-scrolling: touch;
-}
-
-.ins-content h2 { font-size: 1rem; text-decoration: underline; margin-top: 20px; margin-bottom: 10px; color: #000; }
-.ins-content ol { padding-left: 20px; margin-top: 5px; }
-.ins-content li { margin-bottom: 8px; }
-
-.legend-row { display: flex; align-items: center; margin-bottom: 10px; gap: 10px; }
-.ins-icon {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 30px; height: 28px; font-size: 0.8rem; font-weight: bold;
-    color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.2); vertical-align: middle; flex-shrink: 0;
-}
-.ins-icon.grey-box { background: #e0e0e0; color: #000; border: 1px solid #ccc; border-radius: 2px; }
-.ins-icon.red-box { background: #d93025; border-radius: 4px 4px 12px 12px; }
-.ins-icon.green-box { background: #5cb85c; border-radius: 4px 4px 12px 12px; }
-.ins-icon.purple-circle { background: #7b1fa2; border-radius: 50%; width: 28px; height: 28px; }
-.ins-icon.purple-tick { background: #7b1fa2; border-radius: 50%; width: 28px; height: 28px; position: relative; }
-.ins-icon.purple-tick::after {
-    content: "✔"; position: absolute; bottom: -2px; right: -2px;
-    background: #5cb85c; width: 12px; height: 12px; font-size: 8px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%; border: 1px solid #fff;
-}
-
-.ins-footer {
-    flex-shrink: 0;
-    padding: 12px 20px;
-    padding-bottom: env(safe-area-inset-bottom, 12px); 
-    border-top: 1px solid #ccc;
-    background: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-}
-.btn-orange {
-    background: #f59e0b; color: #fff; border: 1px solid #d97706;
-    padding: 12px 20px; border-radius: 4px; font-weight: 600;
-    cursor: pointer; text-decoration: none; font-size: 0.9rem; min-width: 100px; text-align: center;
-}
-.btn-blue {
-    background: #0288d1; color: #fff; border: none;
-    padding: 12px 30px; border-radius: 4px; font-weight: 600;
-    cursor: pointer; font-size: 0.9rem; min-width: 100px;
-}
-
-/* =========================
-   MAIN QUIZ LAYOUT
-   ========================= */
-.quiz-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    height: 100dvh;
-    background: #fff;
-}
-
-/* ---------- HEADER (Fixed for Mobile) ---------- */
-.quiz-header {
-    background: #111827;
-    color: #fff;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    gap: 8px;
-}
-
-.header-left {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    flex: 1;
-}
-.header-left h1#test-main-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-}
-
-.icon-btn { border: none; background: transparent; padding: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-.mobile-only { display: none; }
-
-#palette-toggle {
-    width: 28px; height: 28px; border-radius: 6px;
-    background: #374151;
-    padding: 5px;
-    display: flex; flex-direction: column; justify-content: center; gap: 3px;
-}
-#palette-toggle span { width: 100%; height: 2px; background: #fff; border-radius: 999px; }
-
-.timer-display {
-    display: flex; align-items: center; gap: 4px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: rgba(55, 65, 81, 1);
-    font-size: 0.85rem;
-    font-weight: 600;
-    white-space: nowrap;
-}
-.timer-icon { font-size: 0.8rem; }
-#timer { font-variant-numeric: tabular-nums; }
-
-/* Pause Button */
-.pause-btn {
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: #374151;
-    border: 1px solid #4b5563;
-    color: #f9fafb;
-    font-size: 0.8rem;
-    gap: 5px;
-    height: 30px;
-    display: flex; align-items: center;
-}
-.pause-icon { display: inline-flex; gap: 2px; }
-.pause-bar { width: 3px; height: 10px; border-radius: 2px; background: #f9fafb; }
-
-/* CONTENT AREA */
-.main-content-wrapper { display: flex; flex: 1; min-height: 0; }
-
-.question-area-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #f9fafb;
-    border-right: 1px solid var(--border-soft);
-    min-width: 0;
-    min-height: 0; /* IMPORTANT for nested scrolling */
-}
-
-.question-header {
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border-soft);
-    display: flex; align-items: center; justify-content: space-between;
-    background: #ffffff;
-}
-.question-header h2#question-title { margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
-.language-select { padding: 6px 25px 6px 10px; border-radius: 6px; border: 1px solid var(--border-soft); font-size: 0.9rem; background: #fff; }
-
-/* SCROLLABLE QUESTION CONTENT */
-.question-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px 16px 140px; /* extra bottom space for footer */
-    -webkit-overflow-scrolling: touch; /* smooth mobile scroll */
-}
-
-.question-text { font-size: 1rem; line-height: 1.6; font-weight: 500; margin-bottom: 14px; background: var(--bg-card); padding: 14px 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(15,23,42,0.06); }
-
-.options-container { margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
-.option { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 10px; background: #ffffff; border: 1px solid var(--border-soft); cursor: pointer; transition: background 0.15s; font-size: 0.95rem; }
-.option:hover { border-color: var(--primary); background: #eef4ff; }
-.option input[type="radio"] { accent-color: var(--primary); transform: scale(1.2); }
-.option span { flex: 1; }
-
-/* ---------- FOOTER (Fixed for Mobile) ---------- */
-.question-footer {
-    position: sticky; bottom: 0;
-    padding: 10px 12px;
-    padding-bottom: env(safe-area-inset-bottom, 10px);
-    border-top: 1px solid var(--border-soft);
-    background: #ffffff;
-    display: flex; gap: 8px; align-items: center; justify-content: space-between;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
-}
-.left-btns, .right-btns { display: flex; gap: 8px; }
-.submit-btn-wrapper { display: none; }
-
-.btn {
-    border-radius: 6px;
-    border: 1px solid transparent;
-    padding: 10px 16px;
-    font-size: 0.9rem; font-weight: 600;
-    cursor: pointer; white-space: nowrap;
-}
-.btn.primary { background: var(--primary); color: #fff; }
-.btn.secondary { background: #ffffff; color: var(--primary); border-color: var(--border-soft); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-.btn.tertiary { background: var(--danger); color: #fff; }
-
-/* Sidebar */
-/* =========================
-   SIDEBAR / PALETTE – SSC STYLE
-   ========================= */
-.right-sidebar {
-    width: 340px;
-    background: #c8dcf5;
-    padding: 12px 12px 16px;  /* was 12px 12px 80px → only 16px bottom */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-left: 1px solid #9ab6e1;
-    overflow-y: auto;
-}
-
-.sidebar-info {
-    font-size: 0.85rem;
-    color: #1f2933;
-}
-.sidebar-info p { margin: 0 0 4px 0; }
-.user-info-row { display: flex; gap: 6px; font-size: 0.85rem; }
-.info-label { font-weight: 600; }
-
-/* Legend row at top */
-/* =========================
-   SSC‑STYLE LEGEND (2 ROWS)
-   ========================= */
-
-.palette-legend {
-    margin-top: 8px;
-    padding: 6px 10px 4px;
-    background: #c8dcf5;
-    border-radius: 4px;
-    border: 1px solid #9ab6e1;
-    font-size: 0.78rem;
-}
-
-/* two horizontal rows */
-.palette-legend .legend-row {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    column-gap: 24px;          /* space between items → matches screenshot */
-    margin-bottom: 2px;
-}
-.palette-legend .legend-row:last-child {
-    margin-bottom: 0;
-}
-
-/* item = colored number + label (no big box) */
-.legend-stat {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    white-space: nowrap;
-    flex: 0 0 auto;
-}
-
-/* number icon */
-.legend-count {
-    min-width: 20px;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-}
-
-/* Answered – green badge */
-.legend-stat.answered .legend-count {
-    background: #7ac143;
-    border-radius: 3px;
-    border: 1px solid #5da52f;
-}
-
-/* Marked – purple circle */
-.legend-stat.marked .legend-count {
-    background: #6a4dd8;
-    border-radius: 50%;
-    border: 1px solid #4e35b1;
-}
-
-/* Not Visited – grey rounded square */
-.legend-stat.not-visited .legend-count {
-    background: #d6d6d6;
-    color: #333333;
-    border-radius: 3px;
-    border: 1px solid #a7a7a7;
-}
-
-/* Marked & Answered – purple circle with green dot */
-.legend-stat.marked-answered .legend-count {
-    position: relative;
-    background: #6a4dd8;
-    border-radius: 50%;
-    border: 1px solid #4e35b1;
-}
-.legend-stat.marked-answered .legend-count::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #7ac143;
-    border: 1px solid #ffffff;
-}
-
-/* Not Answered – orange shield icon */
-.legend-stat.not-answered .legend-count {
-    background: #ff7043;
-    border-radius: 3px 3px 9px 9px;
-    border: 1px solid #e25427;
-}
-
-/* =========================
-   QUESTION TILES – SSC STYLE
-   ========================= */
-
-.question-palette {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    column-gap: 8px;
-    row-gap: 16px;              /* space for shield points */
-    margin: 14px 0 0;
-}
-
-/* Base 3D grey tile */
-.palette-btn {
-    position: relative;
-    width: 42px;
-    height: 26px;                /* rectangular part */
-    border-radius: 2px;
-    border: 1px solid #8a8a8a;
-    background: linear-gradient(#fdfdfd, #d9d9d9);
-    box-shadow: 0 1px 1px rgba(0,0,0,0.35);
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #111827;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-}
-
-/* Not visited – default grey */
-.palette-btn.not-visited {
-    background: linear-gradient(#fdfdfd, #d9d9d9);
-    border-color: #8a8a8a;
-    color: #111827;
-}
-
-/* Answered – green square */
-.palette-btn.answered {
-    background: #7ac143;
-    border-color: #5da52f;
-    color: #ffffff;
-}
-
-/* Marked – purple square */
-.palette-btn.marked-review {
-    background: #6a4dd8;
-    border-color: #4e35b1;
-    color: #ffffff;
-}
-
-/* Answered & Marked – green with purple border */
-.palette-btn.answered-marked-review {
-    background: #7ac143;
-    border: 2px solid #6a4dd8;
-    color: #ffffff;
-}
-
-/* Not answered – orange shield */
-.palette-btn.not-answered {
-    background: #ff7043;
-    border: none;
-    color: #ffffff;
-    border-radius: 2px 2px 0 0;
-    box-shadow: none;
-}
-.palette-btn.not-answered::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -10px;
-    margin: auto;
-    width: 0;
-    height: 0;
-    border-left: 21px solid transparent;
-    border-right: 21px solid transparent;
-    border-top: 10px solid #ff7043;
-}
-
-/* Current question – blue outline */
-.palette-btn.current {
-    box-shadow: 0 0 0 2px rgba(26,115,232,0.9);
-    border-color: #1a73e8 !important;
-}
-
-/* Bottom area with Submit button */
-.sidebar-actions {
-    margin-top: auto;          /* pushes it to the bottom of sidebar */
-    padding-top: 10px;
-    border-top: 1px solid #9ab6e1;
-}
-
-.sidebar-btn {
-    width: 100%;
-    padding: 9px 12px;
-    border-radius: 4px;
-    border: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* Make submit look like blue button (similar to image) */
-.sidebar-btn.tertiary {
-    background: #1a73e8;
-    color: #ffffff;
-}
-.palette-backdrop { display: none; }
-
-/* Modals */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 3000; backdrop-filter: blur(2px); }
-.modal-content { background: #fff; border-radius: 12px; max-width: 400px; width: 85%; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
-.modal-actions { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
-.modal-actions .btn { flex: 1; }
-
-/* Result */
-/* =========================
-   RESULT SUMMARY & REVIEW
-   ========================= */
-
-#result-summary-page {
-    background: #f3f4f6;
-    min-height: 100vh;
-    overflow-y: auto;
-}
-
-/* Outer container – this same element also has class="result-container" */
-.result-container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 16px 14px 40px;
-}
-
-/* Back link on top */
-.go-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: #2563eb;
-    font-weight: 500;
-}
-.go-back-btn:hover { text-decoration: underline; }
-
-/* Page heading */
-.result-heading {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 0 10px;
-    color: #111827;
-}
-
-/* Tabs */
-.results-header-nav {
-    display: flex;
-    gap: 6px;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 18px;
-    overflow-x: auto;
-}
-.results-header-nav a {
-    padding: 8px 14px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #6b7280;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    white-space: nowrap;
-}
-.results-header-nav a.active {
-    color: #1d4ed8;
-    border-color: #1d4ed8;
-}
-
-/* Grid: left card (shift info) + right stats cards */
-.result-summary-content-wrapper {
-    display: grid;
-    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-    gap: 16px;
-    align-items: flex-start;
-}
-
-/* LEFT CARD: shift info + buttons */
-#review-button-area {
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    padding: 14px 16px 16px;
-    box-shadow: 0 4px 10px rgba(15,23,42,0.06);
-    font-size: 0.9rem;
-    color: #4b5563;
-}
-
-#review-button-area h3 {
-    margin: 0 0 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111827;
-}
-
-#review-button-area p {
-    margin: 2px 0;
-    font-size: 0.85rem;
-}
-
-/* IMPORTANT: stack buttons neatly (fixes misalignment) */
-#review-button-area .btn,
-#review-button-area button,
-#review-button-area a {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 999px;
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* Make primary/secondary colors match your theme */
-#review-button-area .btn.primary,
-#review-button-area button.btn.primary {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-}
-
-#review-button-area .btn.secondary,
-#review-button-area a.btn.secondary {
-    background: #ffffff;
-    color: var(--primary);
-    border-color: var(--primary);
-}
-
-/* RIGHT SIDE: stats cards grid */
-.stats-grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-}
-
-/* Stat cards */
-.stat-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px 14px 10px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 8px rgba(15,23,42,0.05);
-}
-.stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 4px;
-}
-.stat-name {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #6b7280;
-}
-
-/* Emphasis colors (same as before) */
-.stat-card.total-score .stat-value { color: #4c1d95; }
-.stat-card.correct .stat-value    { color: #16a34a; }
-.stat-card.incorrect .stat-value  { color: #dc2626; }
-.stat-card.unattempted .stat-value { color: #6b7280; }
-.stat-card.time-taken .stat-value { color: #2563eb; }
-.stat-card.accuracy .stat-value   { color: #0891b2; }
-
-/* Review page container (unchanged) */
-.review-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px 16px 40px;
-    background: #fff;
-    min-height: 100vh;
-}
-/* =========================
-   LEFT QUESTION PANEL – SSC LOOK
-   ========================= */
-
-/* make main area white like reference page */
-.quiz-container {
-    background: #ffffff;
-}
-.main-content-wrapper {
-    background: #ffffff;
-}
-
-/* question panel white, with subtle right border */
-.question-area-main {
-    background: #ffffff;
-    border-right: 1px solid #d4d4d4;
-}
-
-/* top bar "Maths | Q2 of 25" cleaner, more like No.4 bar */
-.question-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 10px 20px;
-}
-.question-header h2#question-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-.language-select {
-    font-size: 0.85rem;
-    padding: 5px 20px 5px 8px;
-}
-
-/* question body – one white sheet, no inner grey background */
-.question-content {
-    background: #ffffff;
-    padding: 18px 22px 140px;   /* top/right/bottom/left */
-}
-
-/* remove separate "card" look for question text, keep plain */
-.question-text {
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0 0 12px 0;
-    margin-bottom: 10px;
-    font-size: 0.96rem;
-}
-
-/* options: simple white rectangles like sample UI */
-.options-container {
-    margin-top: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.option {
-    border-radius: 3px;
-    border: 1px solid #d2d6e0;
-    background: #ffffff;
-    box-shadow: none;
-    padding: 10px 12px;
-}
-.option:hover {
-    background: #f5f7ff;
-    border-color: #1a73e8;
-}
-.option input[type="radio"] {
-    transform: scale(1.0);
-}
-
-/* footer bar straight, like bottom toolbar in sample */
-.question-footer {
-    background: #ffffff;
-    border-top: 1px solid #e5e7eb;
-}
-/* =========================================
-   MOBILE SPECIFIC OVERRIDES
-   ========================================= */
-   /* Allow scrolling when viewing result / review pages */
-body.results-scroll {
-    height: auto;                 /* let body grow with content */
-    min-height: 100vh;
-    overflow-y: auto;             /* enable vertical scroll */
-    -webkit-overflow-scrolling: touch; /* smooth on iOS/Android */
-}
-@media (max-width: 768px) {
-  .mobile-only { display: flex; }
-  .main-content-wrapper { flex-direction: column; }
-  .right-sidebar { display: none; }
-  
-  /* Mobile Palette Drawer */
-  body.palette-open .right-sidebar {
-    display: flex; position: fixed; top: 44px; right: 0; bottom: 0; width: 80%; max-width: 300px; z-index: 60;
-    box-shadow: -4px 0 16px rgba(0,0,0,0.3);
-  }
-  body.palette-open .palette-backdrop { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 55; }
-  
-  .question-area-main { border-right: none; }
-
-  /* more bottom padding so all options visible above footer */
-  .question-content { 
-      padding: 12px 12px 220px;
-      -webkit-overflow-scrolling: touch;
-  }
-
-  /* HEADER ADJUSTMENTS */
-  .header-left {
-      margin-right: 4px;
-  }
-  .header-left h1#test-main-title {
-      font-size: 0.8rem;
-      display: block;
-  }
-  
-  .timer-display {
-      padding: 4px 6px;
-      font-size: 0.8rem;
-  }
-  
-  /* Hide "Pause" text on mobile, show only icon */
-  .pause-text { display: none; }
-  .pause-btn {
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      justify-content: center;
-      border-radius: 6px;
-  }
-  .pause-icon { margin: 0; }
-
-  /* FOOTER ADJUSTMENTS: 2 Rows */
-  .question-footer {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      column-gap: 10px;
-      row-gap: 10px;
-      padding: 10px 12px;
-      padding-bottom: env(safe-area-inset-bottom, 10px);
-  }
-
-  .question-footer .left-btns, 
-  .question-footer .right-btns { 
-      display: contents; 
-  }
-
-  /* Row 1 */
-  #mark-review-btn { grid-column: 1 / 2; grid-row: 1; order: 1; }
-  #clear-response-btn { grid-column: 2 / 3; grid-row: 1; order: 2; }
-  
-  /* Row 2 */
-  #prev-btn { grid-column: 1 / 2; grid-row: 2; order: 3; }
-  #next-btn { grid-column: 2 / 3; grid-row: 2; order: 4; }
-
-  .question-footer .btn {
-      width: 100%;
-      justify-content: center;
-      padding: 10px 5px;
-      font-size: 0.85rem;
-  }
-
-  /* RESULT PAGE: full width & single column */
-  .result-container {
-      max-width: 100%;
-      padding: 12px 12px 30px;
-  }
-
-  .stats-grid-container {
-      grid-template-columns: 1fr;
-  }
-
-  .review-container {
-      max-width: 100%;
-      padding: 12px 12px 30px;
-  }
-
-  .result-summary-content-wrapper { 
-      grid-template-columns: 1fr; 
-  }
-}
-/* =========================
-   SSC‑STYLE LEGEND COUNTERS
-   ========================= */
-/* =========================
-   SSC‑STYLE LEGEND (TOP OF PALETTE)
-   ========================= */
-
-.palette-legend {
-    margin-top: 8px;
-    padding: 6px 6px;
-    background: #c8dcf5;          /* same light blue as sidebar */
-    border-radius: 4px;
-    border: 1px solid #9ab6e1;
-    font-size: 0.78rem;
-}
-
-/* Two rows inside legend */
-.palette-legend .legend-row {
-    display: flex;
-    align-items: center;
-    gap: 18px;                /* spacing like the screenshot */
-    flex-wrap: nowrap;        /* keep 3 items on the first row, 2 on second */
-    margin-bottom: 3px;
-}
-
-/* Each status item: icon + text (no big background box) */
-.legend-stat {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    white-space: nowrap;
-}
-
-/* Number icon */
-.legend-count {
-    min-width: 20px;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-}
-
-/* Answered – green "badge" */
-.legend-stat.answered .legend-count {
-    background: #7ac143;
-    border-radius: 3px;
-    border: 1px solid #5da52f;
-}
-
-/* Marked – purple circle */
-.legend-stat.marked .legend-count {
-    background: #6a4dd8;
-    border-radius: 50%;
-    border: 1px solid #4e35b1;
-}
-
-/* Not Visited – grey rounded square */
-.legend-stat.not-visited .legend-count {
-    background: #d6d6d6;
-    color: #333333;
-    border-radius: 3px;
-    border: 1px solid #a7a7a7;
-}
-
-/* Marked & Answered – purple circle with small green dot */
-.legend-stat.marked-answered .legend-count {
-    position: relative;
-    background: #6a4dd8;
-    border-radius: 50%;
-    border: 1px solid #4e35b1;
-}
-.legend-stat.marked-answered .legend-count::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #7ac143;
-    border: 1px solid #ffffff;
-}
-
-/* Not Answered – orange "shield" */
-.legend-stat.not-answered .legend-count {
-    background: #ff7043;
-    border-radius: 3px 3px 9px 9px;
-    border: 1px solid #e25427;
-}
-/* ============================================
-   CLEAN REVIEW MODE UI (Your Requested Style)
-   ============================================ */
-
-.review-mode-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 10px 0 30px;
-}
-
-.review-top-bar {
-    font-family: monospace;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 6px;
-}
-
-.review-question-card {
-    background: #ffffff;
-    border: 1px solid #cfcfcf;
-    border-radius: 6px;
-    padding: 16px;
-    margin: 15px 0;
-    font-size: 1rem;
-}
-
-.review-question-card h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.review-option {
-    display: flex;
-    align-items: center;
-    padding: 8px 10px;
-    border: 1px solid #d7d7d7;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    background: #fff;
-    font-size: 0.95rem;
-}
-
-.review-option.correct {
-    border-color: #16a34a;
-    background: #eaffea;
-    font-weight: 600;
-}
-
-.review-solution-box {
-    background: #ffffff;
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    padding: 14px;
-    margin-top: 20px;
-}
-
-.review-nav-btns {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.review-nav-btns button {
-    padding: 10px 20px;
-    border-radius: 6px;
-    background: #2563eb;
-    color: #fff;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.review-nav-btns button:hover {
-    background: #1d4ed8;
-}
-
-.review-palette-header {
-    margin-top: 25px;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-.review-palette-clean {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.review-palette-clean .qp-btn {
-    width: 32px;
-    height: 32px;
-    background: #e4e4e4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    font-weight: 600;
-    border: 1px solid #aaa;
-    cursor: pointer;
-}
-/* Allow review page to scroll */
-#review-page {
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow-y: auto !important;
-    overflow-x: hidden;
-}
-
-/* Fix scroll inside inner review container */
-.review-content-wrapper,
-#review-question-area,
-#review-question-card {
-    overflow-y: visible !important;
-}
-
-
-
-</style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* =========================
+           THEME VARIABLES
+           ========================= */
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0b5bd3;
+            --accent: #00c853;
+            --danger: #e53935;
+            --text-main: #1f2933;
+            --text-muted: #6b7280;
+            --bg-page: #f3f4f6;
+            --bg-card: #ffffff;
+            --border-soft: #e5e7eb;
+
+            --answered: #00c853;
+            --not-answered: #ff5252;
+            --marked-review: #7c4dff;
+            --not-visited: #e5e7eb;
+            --current-ring: #1a73e8;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-main);
+            height: 100vh;
+            height: 100dvh; /* Mobile fix */
+            overflow: hidden;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================
+           INSTRUCTION PAGE
+           ========================= */
+        #instructions-modal {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh;
+            width: 100vw;
+        }
+
+        .ins-header-bar {
+            flex-shrink: 0;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .ins-header-bar h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .ins-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333;
+            text-align: left;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .ins-content h2 {
+            font-size: 1rem;
+            text-decoration: underline;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .ins-content ol {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .ins-content li {
+            margin-bottom: 8px;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .ins-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 28px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .ins-icon.grey-box {
+            background: #e0e0e0;
+            color: #000;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+        }
+
+        .ins-icon.red-box {
+            background: #d93025;
+            border-radius: 4px 4px 12px 12px;
+        }
+
+        .ins-icon.green-box {
+            background: #5cb85c;
+            border-radius: 4px 4px 12px 12px;
+        }
+
+        .ins-icon.purple-circle {
+            background: #7b1fa2;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+        }
+
+        .ins-icon.purple-tick {
+            background: #7b1fa2;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            position: relative;
+        }
+
+        .ins-icon.purple-tick::after {
+            content: "✔";
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #5cb85c;
+            width: 12px;
+            height: 12px;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #fff;
+        }
+
+        .ins-footer {
+            flex-shrink: 0;
+            padding: 12px 20px;
+            padding-bottom: env(safe-area-inset-bottom, 12px);
+            border-top: 1px solid #ccc;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-orange {
+            background: #f59e0b;
+            color: #fff;
+            border: 1px solid #d97706;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .btn-blue {
+            background: #0288d1;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            min-width: 100px;
+        }
+
+        /* =========================
+           MAIN QUIZ LAYOUT
+           ========================= */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh;
+            background: #ffffff;
+        }
+
+        /* ---------- HEADER ---------- */
+        .quiz-header {
+            background: #111827;
+            color: #fff;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            gap: 8px;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .header-left h1#test-main-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-only {
+            display: none;
+        }
+
+        #palette-toggle {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #374151;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        #palette-toggle span {
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 999px;
+        }
+
+        .timer-display {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(55, 65, 81, 1);
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .timer-icon {
+            font-size: 0.8rem;
+        }
+
+        #timer {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .pause-btn {
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: #374151;
+            border: 1px solid #4b5563;
+            color: #f9fafb;
+            font-size: 0.8rem;
+            gap: 5px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .pause-icon {
+            display: inline-flex;
+            gap: 2px;
+        }
+
+        .pause-bar {
+            width: 3px;
+            height: 10px;
+            border-radius: 2px;
+            background: #f9fafb;
+        }
+
+        /* CONTENT AREA */
+        .main-content-wrapper {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            background: #ffffff;
+        }
+
+        .question-area-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border-right: 1px solid #d4d4d4;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        .question-header {
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+        }
+
+        .question-header h2#question-title {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .language-select {
+            padding: 5px 20px 5px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-soft);
+            font-size: 0.85rem;
+            background: #fff;
+        }
+
+        .question-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 22px 140px;
+            -webkit-overflow-scrolling: touch;
+            background: #ffffff;
+        }
+
+        .question-text {
+            font-size: 0.96rem;
+            line-height: 1.6;
+            font-weight: 500;
+            margin-bottom: 10px;
+            background: transparent;
+            padding: 0 0 12px 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .options-container {
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 3px;
+            background: #ffffff;
+            border: 1px solid #d2d6e0;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            font-size: 0.95rem;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: #f5f7ff;
+        }
+
+        .option input[type="radio"] {
+            accent-color: var(--primary);
+            transform: scale(1.0);
+        }
+
+        .option span {
+            flex: 1;
+        }
+
+        .question-footer {
+            position: sticky;
+            bottom: 0;
+            padding: 10px 12px;
+            padding-bottom: env(safe-area-inset-bottom, 10px);
+            border-top: 1px solid var(--border-soft);
+            background: #ffffff;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .left-btns, .right-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .submit-btn-wrapper {
+            display: none;
+        }
+
+        .btn {
+            border-radius: 6px;
+            border: 1px solid transparent;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn.primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn.secondary {
+            background: #ffffff;
+            color: var(--primary);
+            border-color: var(--border-soft);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn.tertiary {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* =========================
+           SIDEBAR / PALETTE – SSC STYLE
+           ========================= */
+        .right-sidebar {
+            width: 340px;
+            background: #c8dcf5;
+            padding: 12px 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-left: 1px solid #9ab6e1;
+            overflow-y: auto;
+        }
+
+        .sidebar-info {
+            font-size: 0.85rem;
+            color: #1f2933;
+        }
+
+        .sidebar-info p {
+            margin: 0 0 4px 0;
+        }
+
+        .user-info-row {
+            display: flex;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+        }
+
+        /* Legend at top of palette */
+        .palette-legend {
+            margin-top: 8px;
+            padding: 6px 6px;
+            background: #c8dcf5;
+            border-radius: 4px;
+            border: 1px solid #9ab6e1;
+            font-size: 0.78rem;
+        }
+
+        .palette-legend .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: nowrap;
+            margin-bottom: 3px;
+        }
+
+        .legend-stat {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            white-space: nowrap;
+        }
+
+        .legend-count {
+            min-width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .legend-stat.answered .legend-count {
+            background: #7ac143;
+            border-radius: 3px;
+            border: 1px solid #5da52f;
+        }
+
+        .legend-stat.marked .legend-count {
+            background: #6a4dd8;
+            border-radius: 50%;
+            border: 1px solid #4e35b1;
+        }
+
+        .legend-stat.not-visited .legend-count {
+            background: #d6d6d6;
+            color: #333333;
+            border-radius: 3px;
+            border: 1px solid #a7a7a7;
+        }
+
+        .legend-stat.marked-answered .legend-count {
+            position: relative;
+            background: #6a4dd8;
+            border-radius: 50%;
+            border: 1px solid #4e35b1;
+        }
+
+        .legend-stat.marked-answered .legend-count::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7ac143;
+            border: 1px solid #ffffff;
+        }
+
+        .legend-stat.not-answered .legend-count {
+            background: #ff7043;
+            border-radius: 3px 3px 9px 9px;
+            border: 1px solid #e25427;
+        }
+
+        /* Question palette tiles */
+        .question-palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            column-gap: 8px;
+            row-gap: 16px;
+            margin: 14px 0 0;
+        }
+
+        .palette-btn {
+            position: relative;
+            width: 42px;
+            height: 26px;
+            border-radius: 2px;
+            border: 1px solid #8a8a8a;
+            background: linear-gradient(#fdfdfd, #d9d9d9);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .palette-btn.not-visited {
+            background: linear-gradient(#fdfdfd, #d9d9d9);
+            border-color: #8a8a8a;
+            color: #111827;
+        }
+
+        .palette-btn.answered {
+            background: #7ac143;
+            border-color: #5da52f;
+            color: #ffffff;
+        }
+
+        .palette-btn.marked-review {
+            background: #6a4dd8;
+            border-color: #4e35b1;
+            color: #ffffff;
+        }
+
+        .palette-btn.answered-marked-review {
+            background: #7ac143;
+            border: 2px solid #6a4dd8;
+            color: #ffffff;
+        }
+
+        .palette-btn.not-answered {
+            background: #ff7043;
+            border: none;
+            color: #ffffff;
+            border-radius: 2px 2px 0 0;
+            box-shadow: none;
+        }
+
+        .palette-btn.not-answered::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -10px;
+            margin: auto;
+            width: 0;
+            height: 0;
+            border-left: 21px solid transparent;
+            border-right: 21px solid transparent;
+            border-top: 10px solid #ff7043;
+        }
+
+        .palette-btn.current {
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.9);
+            border-color: #1a73e8 !important;
+        }
+
+        .sidebar-actions {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #9ab6e1;
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .sidebar-btn.tertiary {
+            background: #1a73e8;
+            color: #ffffff;
+        }
+
+        .palette-backdrop {
+            display: none;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 85%;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        /* =========================
+           RESULT SUMMARY & REVIEW (BASE)
+           ========================= */
+        #result-summary-page {
+            background: #f3f4f6;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .result-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 16px 14px 40px;
+        }
+
+        .go-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 500;
+        }
+
+        .go-back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .result-heading {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 10px;
+            color: #111827;
+        }
+
+        .results-header-nav {
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 18px;
+            overflow-x: auto;
+        }
+
+        .results-header-nav a {
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .results-header-nav a.active {
+            color: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .result-summary-content-wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        #review-button-area {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 14px 16px 16px;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        #review-button-area h3 {
+            margin: 0 0 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        #review-button-area p {
+            margin: 2px 0;
+            font-size: 0.85rem;
+        }
+
+        #review-button-area .btn,
+        #review-button-area button,
+        #review-button-area a {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 999px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #review-button-area .btn.primary,
+        #review-button-area button.btn.primary {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        #review-button-area .btn.secondary,
+        #review-button-area a.btn.secondary {
+            background: #ffffff;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .stats-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 14px 10px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 8px rgba(15, 23, 42, 0.05);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .stat-name {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6b7280;
+        }
+
+        .stat-card.total-score .stat-value {
+            color: #4c1d95;
+        }
+
+        .stat-card.correct .stat-value {
+            color: #16a34a;
+        }
+
+        .stat-card.incorrect .stat-value {
+            color: #dc2626;
+        }
+
+        .stat-card.unattempted .stat-value {
+            color: #6b7280;
+        }
+
+        .stat-card.time-taken .stat-value {
+            color: #2563eb;
+        }
+
+        .stat-card.accuracy .stat-value {
+            color: #0891b2;
+        }
+
+        .review-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+            background: #fff;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           LEFT QUESTION PANEL – Already aligned
+           ========================= */
+
+        /* =========================================
+           MOBILE SPECIFIC OVERRIDES
+           ========================================= */
+        body.results-scroll {
+            height: auto;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-only {
+                display: flex;
+            }
+
+            .main-content-wrapper {
+                flex-direction: column;
+            }
+
+            .right-sidebar {
+                display: none;
+            }
+
+            body.palette-open .right-sidebar {
+                display: flex;
+                position: fixed;
+                top: 44px;
+                right: 0;
+                bottom: 0;
+                width: 80%;
+                max-width: 300px;
+                z-index: 60;
+                box-shadow: -4px 0 16px rgba(0, 0, 0, 0.3);
+            }
+
+            body.palette-open .palette-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 55;
+            }
+
+            .question-area-main {
+                border-right: none;
+            }
+
+            .question-content {
+                padding: 12px 12px 220px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .header-left {
+                margin-right: 4px;
+            }
+
+            .header-left h1#test-main-title {
+                font-size: 0.8rem;
+                display: block;
+            }
+
+            .timer-display {
+                padding: 4px 6px;
+                font-size: 0.8rem;
+            }
+
+            .pause-text {
+                display: none;
+            }
+
+            .pause-btn {
+                width: 32px;
+                height: 32px;
+                padding: 0;
+                justify-content: center;
+                border-radius: 6px;
+            }
+
+            .pause-icon {
+                margin: 0;
+            }
+
+            .question-footer {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                column-gap: 10px;
+                row-gap: 10px;
+                padding: 10px 12px;
+                padding-bottom: env(safe-area-inset-bottom, 10px);
+            }
+
+            .question-footer .left-btns,
+            .question-footer .right-btns {
+                display: contents;
+            }
+
+            #mark-review-btn {
+                grid-column: 1 / 2;
+                grid-row: 1;
+                order: 1;
+            }
+
+            #clear-response-btn {
+                grid-column: 2 / 3;
+                grid-row: 1;
+                order: 2;
+            }
+
+            #prev-btn {
+                grid-column: 1 / 2;
+                grid-row: 2;
+                order: 3;
+            }
+
+            #next-btn {
+                grid-column: 2 / 3;
+                grid-row: 2;
+                order: 4;
+            }
+
+            .question-footer .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 5px;
+                font-size: 0.85rem;
+            }
+
+            .result-container {
+                max-width: 100%;
+                padding: 12px 12px 30px;
+            }
+
+            .stats-grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            .review-container {
+                max-width: 100%;
+                padding: 12px 12px 30px;
+            }
+
+            .result-summary-content-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================
+           CLEAN REVIEW MODE UI (BASE)
+           ========================= */
+        .review-mode-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px 0 30px;
+        }
+
+        .review-top-bar {
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 6px;
+        }
+
+        .review-question-card {
+            background: #ffffff;
+            border: 1px solid #cfcfcf;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 15px 0;
+            font-size: 1rem;
+        }
+
+        .review-solution-box {
+            background: #ffffff;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            padding: 14px;
+            margin-top: 20px;
+        }
+
+        .review-nav-btns {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .review-nav-btns button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .review-nav-btns button:hover {
+            background: #1d4ed8;
+        }
+
+        .review-palette-header {
+            margin-top: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .review-palette-clean {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .review-palette-clean .qp-btn {
+            width: 32px;
+            height: 32px;
+            background: #e4e4e4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            font-weight: 600;
+            border: 1px solid #aaa;
+            cursor: pointer;
+        }
+
+        #review-page {
+            height: auto !important;
+            min-height: 100vh !important;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            background: #f3f4f6;
+        }
+
+        .review-content-wrapper,
+        #review-question-area,
+        #review-question-card {
+            overflow-y: visible !important;
+        }
+
+        /* ========= Improved Result Summary Look ========= */
+        #result-summary-page {
+            background: radial-gradient(circle at top left, #eef2ff, #f9fafb);
+        }
+
+        .result-container {
+            max-width: 980px;
+            margin: 16px auto 40px;
+            padding: 16px 18px 40px;
+            background: transparent;
+        }
+
+        .result-heading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-heading::before {
+            content: "";
+            width: 6px;
+            height: 24px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, #1d4ed8, #38bdf8);
+        }
+
+        .results-header-nav {
+            background: #ffffff;
+            border-radius: 999px;
+            padding: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .results-header-nav a {
+            border-radius: 999px;
+            border-bottom: none;
+            padding: 6px 12px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .results-header-nav a.active {
+            background: #1d4ed8;
+            color: #f9fafb;
+            border-color: transparent;
+        }
+
+        .result-summary-content-wrapper {
+            margin-top: 14px;
+        }
+
+        #review-button-area {
+            position: sticky;
+            top: 60px;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            padding: 16px 16px 18px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .stats-grid-container {
+            gap: 14px;
+        }
+
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 60%);
+            pointer-events: none;
+        }
+
+        /* ========= Improved Review Question Look ========= */
+        .review-mode-wrapper {
+            max-width: 900px;
+            margin: 14px auto 40px;
+            padding: 14px 16px 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .review-top-bar {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 8px;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .review-question-card {
+            margin-top: 10px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            padding: 14px 16px 12px;
+            background: #f9fafb;
+        }
+
+        .review-question-card h3 {
+            margin: 0 0 8px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .review-question-card .question-body {
+            font-size: 0.96rem;
+            margin-bottom: 10px;
+        }
+
+        .review-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .review-option.correct {
+            border-color: #16a34a;
+            background: #ecfdf3;
+            box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.25);
+        }
+
+        .review-option.user-wrong {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .review-solution-box {
+            margin-top: 18px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: #fefce8;
+        }
+
+        .review-nav-btns button {
+            border-radius: 999px;
+        }
+
+        .review-palette-clean .qp-btn {
+            border-radius: 999px;
+            width: 34px;
+            height: 34px;
+        }
+    </style>
 </head>
- <body>
+<body>
 
-    <div id="instructions-modal">
-        <div class="ins-header-bar">
-            <h1>General Instructions:</h1>
-        </div>
-        
-        <div class="ins-content">
-            <h2>General Instructions:</h2>
-            <ol>
-                <li>The total duration of the exam was mentioned before starting the test.</li>
-                <li>The clock will be set at the server. The countdown timer in the top right corner of the screen will display the remaining time available for you to complete the examination. When the timer reaches zero, the examination will end by itself. You will not be required to end or submit your examination.</li>
-                <li>The Question Palette displayed on the right side of the screen will show the status of each question using one of the following symbols:
-                    <div style="margin-top: 15px;">
-                        <div class="legend-row">
-                            <span class="ins-icon grey-box">1</span> You have not visited the question yet.
-                        </div>
-                        <div class="legend-row">
-                            <span class="ins-icon red-box">2</span> You have not answered the question.
-                        </div>
-                        <div class="legend-row">
-                            <span class="ins-icon green-box">3</span> You have answered the question.
-                        </div>
-                        <div class="legend-row">
-                            <span class="ins-icon purple-circle">4</span> You have NOT answered the question, but have marked the question for review.
-                        </div>
-                        <div class="legend-row">
-                            <span class="ins-icon purple-tick">5</span> The question(s) "Answered and Marked for Review" will be considered for evaluation.
-                        </div>
+<div id="instructions-modal">
+    <div class="ins-header-bar">
+        <h1>General Instructions:</h1>
+    </div>
+
+    <div class="ins-content">
+        <h2>General Instructions:</h2>
+        <ol>
+            <li>The total duration of the exam was mentioned before starting the test.</li>
+            <li>The clock will be set at the server. The countdown timer in the top right corner of the screen will
+                display the remaining time available for you to complete the examination. When the timer reaches zero,
+                the examination will end by itself. You will not be required to end or submit your examination.
+            </li>
+            <li>The Question Palette displayed on the right side of the screen will show the status of each question
+                using one of the following symbols:
+                <div style="margin-top: 15px;">
+                    <div class="legend-row">
+                        <span class="ins-icon grey-box">1</span> You have not visited the question yet.
                     </div>
-                </li>
-                <li>The Marked for Review status for a question simply indicates that you would like to look at that question again. <em>If a question is answered and Marked for Review, your answer to that question will be considered in the evaluation.</em></li>
-                <li>You can click on the ">" arrow which appears to the left of question palette to collapse the question palette thereby maximizing the question window. To view the question palette again, you can click on "<" which appears on the right side of the question window.</li>
-                <li>You can click on your "Profile" image on the top right corner of your screen to change the language during the exam for the entire question paper. On the clicking of the Profile image, you will get a drop-down to change the question content to the desired language.</li>
-                <li>You can click on <span style="color:blue; font-weight:bold;">↓</span> to navigate to the bottom and <span style="color:blue; font-weight:bold;">↑</span> to navigate to the top of the question area, without scrolling.</li>
-            </ol>
+                    <div class="legend-row">
+                        <span class="ins-icon red-box">2</span> You have not answered the question.
+                    </div>
+                    <div class="legend-row">
+                        <span class="ins-icon green-box">3</span> You have answered the question.
+                    </div>
+                    <div class="legend-row">
+                        <span class="ins-icon purple-circle">4</span> You have NOT answered the question, but have
+                        marked the question for review.
+                    </div>
+                    <div class="legend-row">
+                        <span class="ins-icon purple-tick">5</span> The question(s) "Answered and Marked for Review"
+                        will be considered for evaluation.
+                    </div>
+                </div>
+            </li>
+            <li>The Marked for Review status for a question simply indicates that you would like to look at that
+                question again. <em>If a question is answered and Marked for Review, your answer to that question will
+                    be considered in the evaluation.</em></li>
+            <li>You can click on the ">" arrow which appears to the left of question palette to collapse the question
+                palette thereby maximizing the question window. To view the question palette again, you can click on
+                "<" which appears on the right side of the question window.
+            </li>
+            <li>You can click on your "Profile" image on the top right corner of your screen to change the language
+                during the exam for the entire question paper. On the clicking of the Profile image, you will get a
+                drop-down to change the question content to the desired language.
+            </li>
+            <li>You can click on <span style="color:blue; font-weight:bold;">↓</span> to navigate to the bottom and
+                <span style="color:blue; font-weight:bold;">↑</span> to navigate to the top of the question area,
+                without scrolling.
+            </li>
+        </ol>
 
-            <h2>Navigating to a Question:</h2>
-            <ol start="8">
-                <li>To answer a question, do the following:
-                    <ol type="1" style="margin-top:5px;">
-                        <li>Click on the question number in the Question Palette at the right of your screen to go to that numbered question directly. Note that using this option does NOT save your answer to the current question.</li>
-                        <li>Click on <strong>Save & Next</strong> to save your answer for the current question and then go to the next question.</li>
-                        <li>Click on <strong>Mark for Review & Next</strong> to save your answer for the current question, mark it for review, and then go to the next question.</li>
-                    </ol>
-                </li>
-            </ol>
+        <h2>Navigating to a Question:</h2>
+        <ol start="8">
+            <li>To answer a question, do the following:
+                <ol type="1" style="margin-top:5px;">
+                    <li>Click on the question number in the Question Palette at the right of your screen to go to that
+                        numbered question directly. Note that using this option does NOT save your answer to the current
+                        question.
+                    </li>
+                    <li>Click on <strong>Save & Next</strong> to save your answer for the current question and then go
+                        to the next question.
+                    </li>
+                    <li>Click on <strong>Mark for Review & Next</strong> to save your answer for the current question,
+                        mark it for review, and then go to the next question.
+                    </li>
+                </ol>
+            </li>
+        </ol>
 
-            <h2>Answering a Question :</h2>
-            <ol start="9">
-                <li>Procedure for answering a multiple choice type question:
-                    <ol type="1" style="margin-top:5px;">
-                        <li>To select your answer, click on the button of one of the options</li>
-                        <li>To deselect your chosen answer, click on the button of the chosen option again or click on the <strong>Clear Response</strong> button</li>
-                        <li>To change your chosen answer, click on the button of another option</li>
-                        <li>To save your answer, you MUST click on the <strong>Save & Next</strong> button</li>
-                        <li>To mark the question for review, click on the <strong>Mark for Review & Next</strong> button. <em>If an answer is selected for a question that is Marked for Review, that answer will be considered in the evaluation.</em></li>
-                        <li>To change your answer to a question that has already been answered, first select that question for answering and then follow the procedure for answering that type of question.</li>
-                        <li>Note that ONLY Questions for which answers are saved or marked for review after answering will be considered for evaluation.</li>
-                    </ol>
-                </li>
-            </ol>
+        <h2>Answering a Question :</h2>
+        <ol start="9">
+            <li>Procedure for answering a multiple choice type question:
+                <ol type="1" style="margin-top:5px;">
+                    <li>To select your answer, click on the button of one of the options</li>
+                    <li>To deselect your chosen answer, click on the button of the chosen option again or click on the
+                        <strong>Clear Response</strong> button
+                    </li>
+                    <li>To change your chosen answer, click on the button of another option</li>
+                    <li>To save your answer, you MUST click on the <strong>Save & Next</strong> button</li>
+                    <li>To mark the question for review, click on the <strong>Mark for Review & Next</strong> button.
+                        <em>If an answer is selected for a question that is Marked for Review, that answer will be
+                            considered in the evaluation.</em></li>
+                    <li>To change your answer to a question that has already been answered, first select that question
+                        for answering and then follow the procedure for answering that type of question.
+                    </li>
+                    <li>Note that ONLY Questions for which answers are saved or marked for review after answering will
+                        be considered for evaluation.
+                    </li>
+                </ol>
+            </li>
+        </ol>
 
-            <h2>Navigating through sections:</h2>
-            <ol start="10">
-                <li>Sections in this question paper are displayed on the top bar of the screen. Questions in a section can be viewed by clicking on the section name. The section you are currently viewing is highlighted.</li>
-                <li>After clicking the Save & Next button on the last question for a section, you will automatically be taken to the first question of the next section.</li>
-                <li>You can shuffle between tests and questions anytime during the examination as per your convenience only during the time stipulated.</li>
-                <li>Candidate can view the corresponding section summary as part of the legend that appears in every section above the question palette.</li>
-            </ol>
-        </div>
+        <h2>Navigating through sections:</h2>
+        <ol start="10">
+            <li>Sections in this question paper are displayed on the top bar of the screen. Questions in a section can
+                be viewed by clicking on the section name. The section you are currently viewing is highlighted.
+            </li>
+            <li>After clicking the Save & Next button on the last question for a section, you will automatically be
+                taken to the first question of the next section.
+            </li>
+            <li>You can shuffle between tests and questions anytime during the examination as per your convenience only
+                during the time stipulated.
+            </li>
+            <li>Candidate can view the corresponding section summary as part of the legend that appears in every
+                section above the question palette.
+            </li>
+        </ol>
+    </div>
 
-        <div class="ins-footer">
-            <a href="index.html" class="btn-orange">Go to Tests</a>
-            <button id="start-test-btn" class="btn-blue">Next</button>
+    <div class="ins-footer">
+        <a href="index.html" class="btn-orange">Go to Tests</a>
+        <button id="start-test-btn" class="btn-blue">Next</button>
+    </div>
+</div>
+
+<div id="pause-overlay" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2>Test Paused</h2>
+        <p>Your time has stopped. Click Resume to continue the test.</p>
+        <div class="modal-actions">
+            <button id="resume-btn" class="btn primary">Resume Test</button>
         </div>
     </div>
-    
-    <div id="pause-overlay" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>Test Paused</h2>
-            <p>Your time has stopped. Click Resume to continue the test.</p>
-            <div class="modal-actions">
-                <button id="resume-btn" class="btn primary">Resume Test</button>
-            </div>
+</div>
+
+<div id="submit-summary-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2>Confirm Submission</h2>
+        <p>Are you sure you want to submit the test?</p>
+        <div id="submission-stats" class="summary-stats"></div>
+        <div class="modal-actions">
+            <button id="cancel-submit-btn" class="btn secondary">Cancel</button>
+            <button id="final-submit-btn" class="btn primary">Final Submit</button>
         </div>
     </div>
+</div>
 
-    <div id="submit-summary-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>Confirm Submission</h2>
-            <p>Are you sure you want to submit the test?</p>
-            <div id="submission-stats" class="summary-stats"></div>
-            <div class="modal-actions">
-                <button id="cancel-submit-btn" class="btn secondary">Cancel</button>
-                <button id="final-submit-btn" class="btn primary">Final Submit</button>
-            </div>
-        </div>
-    </div>
+<div id="quiz-ui" class="quiz-container hidden">
+    <div id="palette-backdrop" class="palette-backdrop hidden"></div>
 
-    <div id="quiz-ui" class="quiz-container hidden">
-        <div id="palette-backdrop" class="palette-backdrop hidden"></div>
-
-     <header class="quiz-header">
+    <header class="quiz-header">
         <div class="header-left">
             <h1 id="test-main-title">SSC CGL Mock Test</h1>
         </div>
 
         <div class="header-right">
-            <!-- Palette Toggle (Mobile) -->
             <button id="palette-toggle" class="icon-btn mobile-only" aria-label="Open question palette">
                 <span></span><span></span><span></span>
             </button>
 
-            <!-- Timer -->
             <div class="timer-display">
                 <span class="timer-icon">⏱</span>
                 <span id="timer" class="timer-text">--:--</span>
             </div>
 
-            <!-- Pause Button -->
             <button id="pause-btn" class="icon-btn pause-btn" aria-label="Pause test">
                 <span class="pause-icon">
                     <span class="pause-bar"></span>
@@ -1207,157 +1485,159 @@ body.results-scroll {
         </div>
     </header>
 
-        <div class="main-content-wrapper">
-            <main class="question-area-main">
-                <div class="question-header">
-                    <h2 id="question-title">Question 1 of 25</h2>
-                    <select class="language-select">
-                        <option value="en">English</option>
-                        <option value="hi">Hindi</option>
-                    </select>
-                </div>
-                <div id="question-area" class="question-content"></div>
+    <div class="main-content-wrapper">
+        <main class="question-area-main">
+            <div class="question-header">
+                <h2 id="question-title">Question 1 of 25</h2>
+                <select class="language-select">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                </select>
+            </div>
+            <div id="question-area" class="question-content"></div>
 
-                <footer class="question-footer">
-                    <div class="left-btns">
-                        <button id="mark-review-btn" class="btn secondary">Mark for Review & Next</button>
-                        <button id="clear-response-btn" class="btn secondary">Clear Response</button>
-                    </div>
-                    <div class="submit-btn-wrapper">
-                        <button id="submit-test-footer-btn" class="btn tertiary">Submit Test</button>
-                    </div>
-                    <div class="right-btns">
-                        <button id="prev-btn" class="btn primary">Previous</button>
-                        <button id="next-btn" class="btn primary">Save & Next</button>
-                    </div>
-                </footer>
-            </main>
+            <footer class="question-footer">
+                <div class="left-btns">
+                    <button id="mark-review-btn" class="btn secondary">Mark for Review & Next</button>
+                    <button id="clear-response-btn" class="btn secondary">Clear Response</button>
+                </div>
+                <div class="submit-btn-wrapper">
+                    <button id="submit-test-footer-btn" class="btn tertiary">Submit Test</button>
+                </div>
+                <div class="right-btns">
+                    <button id="prev-btn" class="btn primary">Previous</button>
+                    <button id="next-btn" class="btn primary">Save & Next</button>
+                </div>
+            </footer>
+        </main>
 
-            <aside class="right-sidebar">
-                <div class="sidebar-info">
-                    <p>Candidate: [User Name]</p>
-                    <div class="user-info-row">
-                        <div class="info-label">Subject Name:</div>
-                        <div class="info-value">
-                            <span id="test-name-display">Loading</span> 
-                        </div>
+        <aside class="right-sidebar">
+            <div class="sidebar-info">
+                <p>Candidate: [User Name]</p>
+                <div class="user-info-row">
+                    <div class="info-label">Subject Name:</div>
+                    <div class="info-value">
+                        <span id="test-name-display">Loading</span>
                     </div>
                 </div>
-               <div class="palette-legend">
-    <!-- Row 1 -->
-    <div class="legend-row">
-        <div class="legend-stat answered">
-            <span class="legend-count" id="count-answered">0</span>
-            <span class="legend-label">Answered</span>
-        </div>
-        <div class="legend-stat marked">
-            <span class="legend-count" id="count-marked">0</span>
-            <span class="legend-label">Marked</span>
-        </div>
-        <div class="legend-stat not-visited">
-            <span class="legend-count" id="count-not-visited">25</span>
-            <span class="legend-label">Not Visited</span>
-        </div>
+            </div>
+
+            <div class="palette-legend">
+                <div class="legend-row">
+                    <div class="legend-stat answered">
+                        <span class="legend-count" id="count-answered">0</span>
+                        <span class="legend-label">Answered</span>
+                    </div>
+                    <div class="legend-stat marked">
+                        <span class="legend-count" id="count-marked">0</span>
+                        <span class="legend-label">Marked</span>
+                    </div>
+                    <div class="legend-stat not-visited">
+                        <span class="legend-count" id="count-not-visited">25</span>
+                        <span class="legend-label">Not Visited</span>
+                    </div>
+                </div>
+
+                <div class="legend-row">
+                    <div class="legend-stat marked-answered">
+                        <span class="legend-count" id="count-marked-answered">0</span>
+                        <span class="legend-label">Marked &amp; Answered</span>
+                    </div>
+                    <div class="legend-stat not-answered">
+                        <span class="legend-count" id="count-not-answered">0</span>
+                        <span class="legend-label">Not Answered</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-palette" class="question-palette"></div>
+            <div class="sidebar-actions">
+                <button id="submit-test-btn" class="sidebar-btn tertiary">Submit Test</button>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<div id="result-summary-page" class="result-container hidden">
+    <a href="index.html" class="go-back-btn">⬅ Go Back to Tests</a>
+    <h1 class="result-heading">Test Result Summary</h1>
+    <div class="results-header-nav">
+        <a class="active">Overview</a>
+        <a>All</a>
+        <a>Correct</a>
+        <a>Incorrect</a>
+        <a>Unattempted</a>
+        <a>Marked For Review</a>
+    </div>
+    <div class="result-summary-content-wrapper">
+        <div id="review-button-area"></div>
+        <div id="stats-cards-area"></div>
+    </div>
+</div>
+
+<div id="review-page" class="review-container hidden">
+    <h1 class="result-heading">Question Review</h1>
+    <div class="results-header-nav">
+        <a class="active">Overview</a>
+        <a>All</a>
+        <a>Correct</a>
+        <a>Incorrect</a>
+        <a>Unattempted</a>
+        <a>Marked For Review</a>
     </div>
 
-    <!-- Row 2 -->
-    <div class="legend-row">
-        <div class="legend-stat marked-answered">
-            <span class="legend-count" id="count-marked-answered">0</span>
-            <span class="legend-label">Marked &amp; Answered</span>
-        </div>
-        <div class="legend-stat not-answered">
-            <span class="legend-count" id="count-not-answered">0</span>
-            <span class="legend-label">Not Answered</span>
+    <div class="review-main-content">
+        <div class="review-mode-wrapper">
+
+            <div class="review-top-bar">
+                REVIEW MODE  |  All | Correct | Incorrect
+            </div>
+
+            <div id="review-question-card" class="review-question-card">
+                <!-- Filled by JS -->
+            </div>
+
+            <div id="review-solution-box" class="review-solution-box">
+                Solution:
+                <div id="review-solution-text">—</div>
+            </div>
+
+            <div class="review-nav-btns">
+                <button id="review-prev-btn">⬅ Prev</button>
+                <button id="review-next-btn">Next ➜</button>
+            </div>
+
+            <div class="review-palette-header">Question Palette:</div>
+            <div id="review-palette-clean" class="review-palette-clean">
+                <!-- Palette added by JS -->
+            </div>
+
         </div>
     </div>
 </div>
-                <div id="question-palette" class="question-palette"></div>
-                <div class="sidebar-actions">
-                    <button id="submit-test-btn" class="sidebar-btn tertiary">Submit Test</button>
-                </div>
-            </aside>
-        </div>
-    </div> 
-    
-    <div id="result-summary-page" class="result-container hidden"> 
-        <a href="index.html" class="go-back-btn">⬅ Go Back to Tests</a>
-        <h1 class="result-heading">Test Result Summary</h1>
-        <div class="results-header-nav">
-            <a class="active">Overview</a>
-            <a>All</a>
-            <a>Correct</a>
-            <a>Incorrect</a>
-            <a>Unattempted</a>
-            <a>Marked For Review</a>
-        </div>
-        <div class="result-summary-content-wrapper">
-            <div id="review-button-area"></div>
-            <div id="stats-cards-area"></div>
-        </div>
-    </div> 
-    
-    <div id="review-page" class="review-container hidden">
-        <h1 class="result-heading">Question Review</h1>
-        <div class="results-header-nav">
-            <a class="active">Overview</a>
-            <a>All</a>
-            <a>Correct</a>
-            <a>Incorrect</a>
-            <a>Unattempted</a>
-            <a>Marked For Review</a>
-        </div>
-        <div class="review-main-content">
-<div class="review-mode-wrapper">
-
-    <div class="review-top-bar">
-        REVIEW MODE  |  All | Correct | Incorrect
-    </div>
-
-    <div id="review-question-card" class="review-question-card">
-        <!-- Filled by JS -->
-    </div>
-
-    <div id="review-solution-box" class="review-solution-box">
-        Solution:
-        <div id="review-solution-text">—</div>
-    </div>
-
-    <div class="review-nav-btns">
-        <button id="review-prev-btn">⬅ Prev</button>
-        <button id="review-next-btn">Next ➜</button>
-    </div>
-
-    <div class="review-palette-header">Question Palette:</div>
-    <div id="review-palette-clean" class="review-palette-clean">
-        <!-- Palette added by JS -->
-    </div>
-
-</div>
-
 
 <script>
-  // Enhance stats logic
-  (function () {
-    const statsRoot = document.getElementById('stats-cards-area');
-    if (!statsRoot) return;
+    // Enhance stats grid into cards
+    (function () {
+        const statsRoot = document.getElementById('stats-cards-area');
+        if (!statsRoot) return;
 
-    function buildCards() {
-      if (!statsRoot || statsRoot.dataset.enhanced === '1') return;
-      const rawTxt = statsRoot.textContent || '';
-      const cleaned = rawTxt.replace(/\s+/g, ' ').trim();
-      if (!cleaned) return;
-      const parts = cleaned.split(' ');
-      if (parts.length < 13) return; 
+        function buildCards() {
+            if (!statsRoot || statsRoot.dataset.enhanced === '1') return;
+            const rawTxt = statsRoot.textContent || '';
+            const cleaned = rawTxt.replace(/\s+/g, ' ').trim();
+            if (!cleaned) return;
+            const parts = cleaned.split(' ');
+            if (parts.length < 13) return;
 
-      const score      = parts[0];
-      const correct    = parts[3];
-      const incorrect  = parts[5];
-      const unattempt  = parts[7];
-      const timeTaken  = parts[9];
-      const accuracy   = parts[12];
+            const score = parts[0];
+            const correct = parts[3];
+            const incorrect = parts[5];
+            const unattempt = parts[7];
+            const timeTaken = parts[9];
+            const accuracy = parts[12];
 
-      statsRoot.innerHTML = `
+            statsRoot.innerHTML = `
         <div class="stats-grid-container">
           <div class="stat-card total-score">
             <div class="stat-name">Your Score</div>
@@ -1385,48 +1665,56 @@ body.results-scroll {
           </div>
         </div>
       `;
-      statsRoot.dataset.enhanced = '1';
-    }
-    const observer = new MutationObserver(() => {
-      const page = document.getElementById('result-summary-page');
-      if (page && !page.classList.contains('hidden')) {
-        buildCards();
-      }
-    });
-    observer.observe(document.body, { attributes: true, childList: true, subtree: true });
-  })();
-  
-  // Mobile Palette Toggle
-  (function () {
-    const toggleBtn = document.getElementById('palette-toggle');
-    const backdrop = document.getElementById('palette-backdrop');
-    if (!toggleBtn || !backdrop) return;
-    function togglePalette() { document.body.classList.toggle('palette-open'); }
-    toggleBtn.addEventListener('click', togglePalette);
-    backdrop.addEventListener('click', togglePalette);
-  })();
+            statsRoot.dataset.enhanced = '1';
+        }
+
+        const observer = new MutationObserver(() => {
+            const page = document.getElementById('result-summary-page');
+            if (page && !page.classList.contains('hidden')) {
+                buildCards();
+            }
+        });
+        observer.observe(document.body, {attributes: true, childList: true, subtree: true});
+    })();
+
+    // Mobile Palette Toggle
+    (function () {
+        const toggleBtn = document.getElementById('palette-toggle');
+        const backdrop = document.getElementById('palette-backdrop');
+        if (!toggleBtn || !backdrop) return;
+
+        function togglePalette() {
+            document.body.classList.toggle('palette-open');
+        }
+
+        toggleBtn.addEventListener('click', togglePalette);
+        backdrop.addEventListener('click', togglePalette);
+    })();
 </script>
 
 <script>
-    // Test Logic Helper
+    // Test Name Logic based on testId
     function getUrlParameter(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
     }
-    const testId = getUrlParameter('testId'); 
-    let subjectName = 'General Test'; 
+
+    const testId = getUrlParameter('testId');
+    let subjectName = 'General Test';
 
     if (testId) {
         const lowerTestId = testId.toLowerCase();
         if (lowerTestId.includes('reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
-            subjectName = 'Reasoning'; 
+            subjectName = 'Reasoning';
         } else if (lowerTestId.includes('english') || lowerTestId.includes('verbal') || lowerTestId.includes('eng')) {
-            subjectName = 'English'; 
+            subjectName = 'English';
+        } else if (lowerTestId.includes('gk') || lowerTestId.includes('ga') || lowerTestId.includes('gs')) {
+            subjectName = 'GK';
         } else {
-            subjectName = 'Maths'; 
+            subjectName = 'Maths';
         }
     }
-    
+
     function updateTestNameDisplay(currentTestType, differentTestName) {
         const testNameElement = document.getElementById('test-name-display');
         let finalTestName;
@@ -1437,96 +1725,235 @@ body.results-scroll {
         }
         testNameElement.textContent = finalTestName;
     }
-    updateTestNameDisplay(subjectName, ''); 
+
+    updateTestNameDisplay(subjectName, '');
 </script>
-    
-    <script src="js/tests-list.js"></script>
-    <script src="js/questions-db.js"></script>
-    <script src="js/test-logic.js"></script>
-    
+
+<script src="js/tests-list.js"></script>
+<script src="js/questions-db.js"></script>
+<script src="js/test-logic.js"></script>
+
 <script>
-/**
- * Auto‑update palette legend counts based on classes on .palette-btn
- * Classes used:
- *  - not-visited
- *  - not-answered
- *  - answered
- *  - marked-review
- *  - answered-marked-review  (answered + marked)
- */
-(function () {
-  function updateLegendCounts() {
-    const palette = document.getElementById('question-palette');
-    if (!palette) return;
+    /**
+     * Auto‑update palette legend counts based on classes on .palette-btn
+     */
+    (function () {
+        function updateLegendCounts() {
+            const palette = document.getElementById('question-palette');
+            if (!palette) return;
 
-    const buttons = palette.querySelectorAll('.palette-btn');
-    if (!buttons.length) return;
+            const buttons = palette.querySelectorAll('.palette-btn');
+            if (!buttons.length) return;
 
-    const counts = {
-      answered: 0,
-      marked: 0,
-      notVisited: 0,
-      markedAnswered: 0,
-      notAnswered: 0
-    };
+            const counts = {
+                answered: 0,
+                marked: 0,
+                notVisited: 0,
+                markedAnswered: 0,
+                notAnswered: 0
+            };
 
-    buttons.forEach(btn => {
-      const c = btn.classList;
+            buttons.forEach(btn => {
+                const c = btn.classList;
 
-      if (c.contains('answered-marked-review')) {
-        counts.markedAnswered++;
-        counts.marked++;
-        counts.answered++;              // also counted as answered
-      } else if (c.contains('answered')) {
-        counts.answered++;
-      }
+                if (c.contains('answered-marked-review')) {
+                    counts.markedAnswered++;
+                    counts.marked++;
+                    counts.answered++;
+                } else if (c.contains('answered')) {
+                    counts.answered++;
+                }
 
-      if (c.contains('marked-review')) {
-        counts.marked++;
-      }
+                if (c.contains('marked-review')) {
+                    counts.marked++;
+                }
 
-      if (c.contains('not-visited')) {
-        counts.notVisited++;
-      }
+                if (c.contains('not-visited')) {
+                    counts.notVisited++;
+                }
 
-      if (c.contains('not-answered')) {
-        counts.notAnswered++;
-      }
-    });
+                if (c.contains('not-answered')) {
+                    counts.notAnswered++;
+                }
+            });
 
-    // Helper to safely set text
-    function setCount(id, value) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
+            function setCount(id, value) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            }
 
-    setCount('count-answered',         counts.answered);
-    setCount('count-marked',           counts.marked);
-    setCount('count-not-visited',      counts.notVisited);
-    setCount('count-marked-answered',  counts.markedAnswered);
-    setCount('count-not-answered',     counts.notAnswered);
-  }
+            setCount('count-answered', counts.answered);
+            setCount('count-marked', counts.marked);
+            setCount('count-not-visited', counts.notVisited);
+            setCount('count-marked-answered', counts.markedAnswered);
+            setCount('count-not-answered', counts.notAnswered);
+        }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const palette = document.getElementById('question-palette');
-    if (!palette) return;
+        document.addEventListener('DOMContentLoaded', function () {
+            const palette = document.getElementById('question-palette');
+            if (!palette) return;
 
-    // Initial calculation (in case buttons already exist)
-    updateLegendCounts();
+            updateLegendCounts();
 
-    // Watch for any class/child changes on the palette
-    const observer = new MutationObserver(function () {
-      updateLegendCounts();
-    });
+            const observer = new MutationObserver(function () {
+                updateLegendCounts();
+            });
 
-    observer.observe(palette, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-      attributeFilter: ['class']
-    });
-  });
-})();
+            observer.observe(palette, {
+                attributes: true,
+                childList: true,
+                subtree: true,
+                attributeFilter: ['class']
+            });
+        });
+    })();
 </script>
+
+<script>
+    /**
+     * Toggle body scroll depending on which page is visible
+     * - Quiz: no scroll (overflow hidden)
+     * - Result / Review: allow scroll (body.results-scroll)
+     */
+    (function () {
+        function updateScrollMode() {
+            const quizUI = document.getElementById('quiz-ui');
+            const resultPg = document.getElementById('result-summary-page');
+            const reviewPg = document.getElementById('review-page');
+
+            const quizVisible = quizUI && !quizUI.classList.contains('hidden');
+            const resultVisible = resultPg && !resultPg.classList.contains('hidden');
+            const reviewVisible = reviewPg && !reviewPg.classList.contains('hidden');
+
+            if (resultVisible || reviewVisible) {
+                document.body.classList.add('results-scroll');
+            } else {
+                document.body.classList.remove('results-scroll');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateScrollMode);
+
+        const observer = new MutationObserver(updateScrollMode);
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        window.addEventListener('load', updateScrollMode);
+    })();
+</script>
+
+<script>
+    /**
+     * Review Mode: show question + options like live test, with correct answer highlighted.
+     * Uses global testData[] provided by your questions-db/test-logic.
+     */
+    (function () {
+        let currentReviewIndex = 0;
+
+        function getData() {
+            return (typeof testData !== 'undefined' && Array.isArray(testData)) ? testData : [];
+        }
+
+        function loadReviewQuestion(index) {
+            const data = getData();
+            if (!data.length) return;
+
+            if (index < 0) index = 0;
+            if (index >= data.length) index = data.length - 1;
+            currentReviewIndex = index;
+
+            const q = data[index];
+            const card = document.getElementById('review-question-card');
+            const solBox = document.getElementById('review-solution-text');
+            if (!card || !solBox) return;
+
+            let html = `
+                <h3>Q${index + 1}</h3>
+                <div class="question-body">${q.question}</div>
+            `;
+
+            if (Array.isArray(q.options)) {
+                q.options.forEach((opt, i) => {
+                    const isCorrect = (typeof q.correctIndex === 'number') && q.correctIndex === i;
+                    html += `
+                      <div class="review-option ${isCorrect ? 'correct' : ''}">
+                          <span>(${String.fromCharCode(65 + i)})</span>
+                          <span>${opt}</span>
+                      </div>
+                    `;
+                });
+            }
+
+            card.innerHTML = html;
+            solBox.textContent = q.explanation || 'No explanation provided.';
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([card, solBox]).catch(() => {});
+            }
+        }
+
+        function renderReviewPalette() {
+            const pal = document.getElementById('review-palette-clean');
+            const data = getData();
+            if (!pal || !data.length) return;
+
+            pal.innerHTML = '';
+            data.forEach((q, i) => {
+                const btn = document.createElement('div');
+                btn.className = 'qp-btn';
+                btn.textContent = i + 1;
+                btn.addEventListener('click', () => loadReviewQuestion(i));
+                pal.appendChild(btn);
+            });
+        }
+
+        // Called from test-logic.js when switching to review page
+        window.initReviewPage = function () {
+            renderReviewPalette();
+            loadReviewQuestion(0);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const prevBtn = document.getElementById('review-prev-btn');
+            const nextBtn = document.getElementById('review-next-btn');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    const data = getData();
+                    if (!data.length) return;
+                    if (currentReviewIndex > 0) {
+                        loadReviewQuestion(currentReviewIndex - 1);
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    const data = getData();
+                    if (!data.length) return;
+                    if (currentReviewIndex < data.length - 1) {
+                        loadReviewQuestion(currentReviewIndex + 1);
+                    }
+                });
+            }
+        });
+    })();
+</script>
+
+<script>
+    // Start test from instructions modal
+    document.getElementById('start-test-btn')?.addEventListener('click', () => {
+        const insModal = document.getElementById('instructions-modal');
+        const quizUI = document.getElementById('quiz-ui');
+        insModal.classList.add('hidden');
+        quizUI.classList.remove('hidden');
+        document.body.classList.remove('results-scroll');
+    });
+</script>
+
 </body>
 </html>
