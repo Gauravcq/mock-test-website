@@ -8092,7 +8092,7 @@ ssc_cgl_14_sep_s3 :[
   },
 ],
 
-ssc_chsl_gk_12_nov_s2 :[ 
+ssc_chsl_gk_12_nov_s2 :[
   {
     "question": {
       "en": "Tokyo Olympian C. A. Bhavani Devi is associated with which sport?",
@@ -8107,7 +8107,7 @@ ssc_chsl_gk_12_nov_s2 :[
     "correctAnswer": { "en": "Fencing", "hi": "फेंसिंग" },
     "explanation": {
       "en": "C. A. Bhavani Devi is the first Indian fencer to qualify for the Olympics. She competes in the sabre event.",
-      "hi": "सी.ए. भवानी देवी ओलंपिक के लिए क्वालीफाई करने वाली पहली भारतीय फेंसर हैं। वह सेबर इवेंट में प्रतिस्पर्धा करती हैं।"
+      "hi": "सी. ए. भवानी देवी ओलंपिक के लिए क्वालीफाई करने वाली पहली भारतीय फेंसर हैं। वह 'सब्रे' स्पर्धा में प्रतिस्पर्धा करती हैं।"
     }
   },
   {
@@ -8123,14 +8123,14 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Manan Kumar Mishra", "hi": "मनन कुमार मिश्रा" },
     "explanation": {
-      "en": "Manan Kumar Mishra is a senior advocate and has served multiple terms as Chairman of the Bar Council of India.",
-      "hi": "मनन कुमार मिश्रा एक वरिष्ठ अधिवक्ता हैं और बार काउंसिल ऑफ इंडिया के अध्यक्ष के रूप में कई बार कार्य कर चुके हैं।"
+      "en": "Manan Kumar Mishra is a Senior Advocate who has served multiple terms as the Chairman of the Bar Council of India, the statutory body that regulates legal practice and education.",
+      "hi": "मनन कुमार मिश्रा एक वरिष्ठ अधिवक्ता हैं जिन्होंने बार काउंसिल ऑफ इंडिया के अध्यक्ष के रूप में कई कार्यकाल सेवा दी है, जो कानूनी अभ्यास और शिक्षा को विनियमित करने वाला वैधानिक निकाय है।"
     }
   },
   {
     "question": {
-      "en": "In 2025, the Women Entrepreneurship Platform (WEP) launched EmpowHER Biz – Sapno Ki Udaan in partnership with?",
-      "hi": "2025 में महिला उद्यमिता मंच (WEP) ने एम्पोवेहर बिज़ – सपनों की उड़ान किसके साथ साझेदारी में शुरू किया?"
+      "en": "In 2025, the Women Entrepreneurship Platform (WEP), launched EmpowHER Biz – Sapno Ki Udaan in partnership with ________.",
+      "hi": "2025 में, महिला उद्यमिता मंच (डब्ल्यू.ई.पी.) ने ________ के साथ साझेदारी में एम्पोवेहर बिज़ - सपनों की उड़ान लॉन्च किया था।"
     },
     "options": [
       { "en": "New Shop", "hi": "न्यू शॉप" },
@@ -8140,14 +8140,14 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "New Shop", "hi": "न्यू शॉप" },
     "explanation": {
-      "en": "WEP partnered with New Shop to provide a dedicated marketplace and support ecosystem for women entrepreneurs.",
-      "hi": "महिला उद्यमियों के लिए विशेष बाज़ार और समर्थन प्रदान करने हेतु WEP ने न्यू शॉप के साथ साझेदारी की।"
+      "en": "The Women Entrepreneurship Platform (WEP) launched 'EmpowHER Biz' in partnership with 'New Shop' to provide an exclusive marketplace and support for women entrepreneurs.",
+      "hi": "महिला उद्यमिता मंच (WEP) ने महिला उद्यमियों के लिए एक विशेष बाज़ार और सहायता प्रदान करने के लिए 'न्यू शॉप' के साथ साझेदारी में 'EmpowHER Biz' लॉन्च किया।"
     }
   },
   {
     "question": {
-      "en": "Which index in 2025 highlighted that account ownership in India has reached 89% since 2011?",
-      "hi": "2025 में किस सूचकांक ने दर्शाया कि भारत में खाता स्वामित्व 2011 से बढ़कर 89% हो गया है?"
+      "en": "Which index in 2025 highlighted that account ownership in India has reached to 89% since 2011?",
+      "hi": "2025 में किस सूचकांक ने दर्शाया कि भारत में खाता स्वामित्व वर्ष 2011 से 89% तक पहुंच गया है?"
     },
     "options": [
       { "en": "Global Findex 2025", "hi": "ग्लोबल फाइंडेक्स 2025" },
@@ -8157,14 +8157,14 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Global Findex 2025", "hi": "ग्लोबल फाइंडेक्स 2025" },
     "explanation": {
-      "en": "The Global Findex 2025 report highlighted a major increase in financial inclusion in India.",
-      "hi": "ग्लोबल फाइंडेक्स 2025 रिपोर्ट ने भारत में वित्तीय समावेशन में बड़ी वृद्धि को दर्शाया।"
+      "en": "The 'Global Findex 2025' report highlighted the surge in financial inclusion, noting that account ownership in India significantly rose to 89%.",
+      "hi": "'ग्लोबल फाइंडेक्स 2025' रिपोर्ट ने वित्तीय समावेशन में वृद्धि पर प्रकाश डाला, यह देखते हुए कि भारत में खाता स्वामित्व काफी बढ़कर 89% हो गया है।"
     }
   },
   {
     "question": {
-      "en": "Project _____ is the world’s first inter-continental large wild carnivore translocation project.",
-      "hi": "प्रोजेक्ट _____ विश्व की पहली अंतर-महाद्वीपीय विशाल जंगली मांसाहारी स्थानांतरण परियोजना है।"
+      "en": "Project ________ is the world’s first inter-continental large wild carnivore translocation project.",
+      "hi": "प्रोजेक्ट ________ विश्व की पहली अंतर-महाद्वीपीय विशाल जंगली मांसाहारी स्थानांतरण परियोजना है।"
     },
     "options": [
       { "en": "Lion", "hi": "शेर" },
@@ -8174,11 +8174,10 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Cheetah", "hi": "चीता" },
     "explanation": {
-      "en": "Project Cheetah involves translocation of cheetahs from Africa to Kuno National Park in India.",
-      "hi": "प्रोजेक्ट चीता के अंतर्गत अफ्रीका से चीतों को भारत के कूनो राष्ट्रीय उद्यान में लाया गया।"
+      "en": "Project Cheetah involves the translocation of cheetahs from Namibia and South Africa to Kuno National Park in India to re-establish the species.",
+      "hi": "प्रोजेक्ट चीता में प्रजातियों को फिर से स्थापित करने के लिए नामीबिया और दक्षिण अफ्रीका से भारत के कूनो नेशनल पार्क में चीतों का स्थानांतरण शामिल है।"
     }
   },
-
   {
     "question": {
       "en": "Who is the author of the book 'The Illicit Happiness of Other People'?",
@@ -8192,11 +8191,10 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Manu Joseph", "hi": "मनु जोसेफ़" },
     "explanation": {
-      "en": "The novel was written by Manu Joseph and explores family secrets and urban life.",
-      "hi": "यह उपन्यास मनु जोसेफ़ द्वारा लिखा गया है जो पारिवारिक रहस्यों और शहरी जीवन को दर्शाता है।"
+      "en": "Manu Joseph wrote 'The Illicit Happiness of Other People', a novel that explores the domestic lives and secrets of a family in Madras.",
+      "hi": "मनु जोसेफ ने 'द इलिसिट हैप्पीनेस ऑफ अदर पीपल' लिखा, एक उपन्यास जो मद्रास में एक परिवार के घरेलू जीवन और रहस्यों की पड़ताल करता है।"
     }
   },
-
   {
     "question": {
       "en": "'Abhanga Vanis' are folk songs of which state?",
@@ -8210,15 +8208,14 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Maharashtra", "hi": "महाराष्ट्र" },
     "explanation": {
-      "en": "Abhangas are devotional songs dedicated to Lord Vitthal in Maharashtra.",
-      "hi": "अभंग भगवान विठ्ठल की भक्ति में गाए जाने वाले महाराष्ट्र के प्रसिद्ध भक्ति गीत हैं।"
+      "en": "Abhangas are devotional poems sung in praise of Lord Vithoba and are an integral part of the Bhakti tradition in Maharashtra.",
+      "hi": "अभंग भगवान विठोबा की स्तुति में गाई जाने वाली भक्ति कविताएँ हैं और महाराष्ट्र में भक्ति परंपरा का एक अभिन्न अंग हैं।"
     }
   },
-
   {
     "question": {
-      "en": "The 'Jhoda' dance belongs to which Indian state?",
-      "hi": "'झोड़ा' नृत्य किस भारतीय राज्य से संबंधित है?"
+      "en": "The 'Jhoda' dance, performed on a full moon night around Holi, belongs to which Indian state?",
+      "hi": "होली के आसपास पूर्णिमा की रात को किया जाने वाला 'झोड़ा' नृत्य किस भारतीय राज्य से संबंधित है?"
     },
     "options": [
       { "en": "Goa", "hi": "गोवा" },
@@ -8228,33 +8225,31 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Uttarakhand", "hi": "उत्तराखंड" },
     "explanation": {
-      "en": "Jhoda is a traditional group folk dance of Uttarakhand performed during festivals like Holi.",
-      "hi": "झोड़ा उत्तराखंड का पारंपरिक सामूहिक लोक नृत्य है, जो होली के समय किया जाता है।"
+      "en": "Jhoda is a communal folk dance of Uttarakhand performed in a circle, often accompanied by singing, during festivals like Holi and Bikhoti.",
+      "hi": "झोड़ा उत्तराखंड का एक सामुदायिक लोक नृत्य है जो होली और बिखोती जैसे त्योहारों के दौरान अक्सर गायन के साथ घेरे में किया जाता है।"
     }
   },
-
   {
     "question": {
-      "en": "A satellite at 0° inclination and ~36,000 km altitude is in which orbit?",
-      "hi": "0° झुकाव और लगभग 36,000 किमी ऊँचाई पर स्थित उपग्रह किस कक्षा में होता है?"
+      "en": "If a satellite is in the plane of the equator with 0 degrees inclination and at a height of about 36000 km then it is said to be in ________ orbit.",
+      "hi": "यदि कोई उपग्रह भूमध्य रेखा के तल में 0 डिग्री झुकाव के साथ और लगभग 36000 किमी की ऊंचाई पर है तो इसे ________ कक्षा में कहा जाता है।"
     },
     "options": [
       { "en": "Polar", "hi": "ध्रुवीय" },
-      { "en": "Geo-stationary", "hi": "भू-स्थिर" },
+      { "en": "Geo-stationary", "hi": "भू स्थिर" },
       { "en": "Elliptical", "hi": "दीर्घवृत्तीय" },
       { "en": "Sun-synchronous", "hi": "सूर्य तुल्यकाली" }
     ],
-    "correctAnswer": { "en": "Geo-stationary", "hi": "भू-स्थिर" },
+    "correctAnswer": { "en": "Geo-stationary", "hi": "भू स्थिर" },
     "explanation": {
-      "en": "A geostationary satellite matches Earth’s rotation and appears fixed over one point.",
-      "hi": "भू-स्थिर उपग्रह पृथ्वी की घूर्णन गति के साथ घूमता है और स्थिर प्रतीत होता है।"
+      "en": "A geo-stationary orbit allows a satellite to appear stationary relative to Earth because it matches Earth's rotation period at an altitude of ~36,000 km.",
+      "hi": "एक भू-स्थिर कक्षा एक उपग्रह को पृथ्वी के सापेक्ष स्थिर दिखने की अनुमति देती है क्योंकि यह ~36,000 किमी की ऊंचाई पर पृथ्वी की घूर्णन अवधि से मेल खाती है।"
     }
   },
-
   {
     "question": {
-      "en": "Which of the following does NOT affect the rate of evaporation?",
-      "hi": "निम्नलिखित में से कौन सा वाष्पीकरण की दर को प्रभावित नहीं करता?"
+      "en": "Which of the following is NOT a main factor affecting the rate of evaporation?",
+      "hi": "निम्नलिखित में से कौन सा वाष्पीकरण की दर को प्रभावित करने वाला एक मुख्य कारक नहीं है?"
     },
     "options": [
       { "en": "Surface area", "hi": "सतह क्षेत्रफल" },
@@ -8264,11 +8259,265 @@ ssc_chsl_gk_12_nov_s2 :[
     ],
     "correctAnswer": { "en": "Buoyancy", "hi": "उत्प्लावकता" },
     "explanation": {
-      "en": "Evaporation depends on surface area, wind speed, temperature and humidity, not buoyancy.",
-      "hi": "वाष्पीकरण सतह क्षेत्रफल, पवन चाल, तापमान और आर्द्रता पर निर्भर करता है, उत्प्लावकता पर नहीं।"
+      "en": "Evaporation is affected by surface area, temperature, humidity, and wind speed. Buoyancy is an upward force and does not drive evaporation.",
+      "hi": "वाष्पीकरण सतह क्षेत्रफल, तापमान, आर्द्रता और हवा की गति से प्रभावित होता है। उत्प्लावकता एक ऊपर की ओर लगने वाला बल है और वाष्पीकरण को संचालित नहीं करता है।"
+    }
+  },
+  {
+    "question": {
+      "en": "What is gravitational potential energy?",
+      "hi": "गुरुत्वीय स्थितिज ऊर्जा क्या है?"
+    },
+    "options": [
+      { "en": "Energy possessed by an object due to its motion", "hi": "किसी वस्तु में उसकी गति के कारण मौजूद ऊर्जा" },
+      { "en": "Energy stored in an object due to its position above the ground", "hi": "किसी वस्तु में जमीन से ऊपर उसकी स्थिति के कारण संग्रहित ऊर्जा" },
+      { "en": "Energy that is released during a chemical reaction", "hi": "रासायनिक प्रतिक्रिया के दौरान निकलने वाली ऊर्जा" },
+      { "en": "Energy transferred through heat", "hi": "ऊष्मा के माध्यम से स्थानांतरित ऊर्जा" }
+    ],
+    "correctAnswer": { "en": "Energy stored in an object due to its position above the ground", "hi": "किसी वस्तु में जमीन से ऊपर उसकी स्थिति के कारण संग्रहित ऊर्जा" },
+    "explanation": {
+      "en": "Gravitational potential energy is the energy stored in an object specifically due to its vertical position or height relative to the ground.",
+      "hi": "गुरुत्वीय स्थितिज ऊर्जा किसी वस्तु में विशेष रूप से जमीन के सापेक्ष उसकी ऊर्ध्वाधर स्थिति या ऊंचाई के कारण संचित ऊर्जा है।"
+    }
+  },
+  {
+    "question": {
+      "en": "India’s first airport based self-powered indoor air quality monitoring facility ‘Pavana Chitra’ was unveiled at which airport in October 2024?",
+      "hi": "भारत की पहली हवाई अड्डा आधारित स्व-संचालित इनडोर वायु गुणवत्ता निगरानी सुविधा 'पवन चित्र' का अनावरण अक्टूबर 2024 में किस हवाई अड्डे पर किया गया था?"
+    },
+    "options": [
+      { "en": "Chennai International Airport", "hi": "चेन्नई अंतर्राष्ट्रीय हवाई अड्डा" },
+      { "en": "Bengaluru International Airport", "hi": "बेंगलुरु अंतर्राष्ट्रीय हवाई अड्डा" },
+      { "en": "Jaipur International Airport", "hi": "जयपुर अंतर्राष्ट्रीय हवाई अड्डा" },
+      { "en": "Thiruvananthapuram International Airport", "hi": "थिरुवनंतपुरम अंतर्राष्ट्रीय हवाई अड्डा" }
+    ],
+    "correctAnswer": { "en": "Thiruvananthapuram International Airport", "hi": "थिरुवनंतपुरम अंतर्राष्ट्रीय हवाई अड्डा" },
+    "explanation": {
+      "en": "‘Pavana Chitra’ was unveiled at Thiruvananthapuram International Airport to monitor indoor air quality using a self-powered system.",
+      "hi": "'पवन चित्र' का अनावरण तिरुवनंतपुरम अंतर्राष्ट्रीय हवाई अड्डे पर एक स्व-संचालित प्रणाली का उपयोग करके इनडोर वायु गुणवत्ता की निगरानी के लिए किया गया था।"
+    }
+  },
+  {
+    "question": {
+      "en": "Which railway zone became India’s first to switch to compostable bioplastic on trains in August 2025?",
+      "hi": "अगस्त 2025 में ट्रेनों में कम्पोस्टेबल बायोप्लास्टिक का उपयोग करने वाला भारत का पहला रेलवे जोन कौन सा बन गया था?"
+    },
+    "options": [
+      { "en": "Northern Railway", "hi": "उत्तर रेलवे" },
+      { "en": "Southern Railway", "hi": "दक्षिणी रेलवे" },
+      { "en": "Western Railway", "hi": "पश्चिमी रेलवे" },
+      { "en": "Northeast Frontier Railway", "hi": "पूर्वोत्तर सीमा रेलवे" }
+    ],
+    "correctAnswer": { "en": "Northeast Frontier Railway", "hi": "पूर्वोत्तर सीमा रेलवे" },
+    "explanation": {
+      "en": "The Northeast Frontier Railway adopted compostable bioplastic materials to reduce plastic waste and promote eco-friendly practices on trains.",
+      "hi": "पूर्वोत्तर सीमा रेलवे ने प्लास्टिक कचरे को कम करने और ट्रेनों में पर्यावरण अनुकूल प्रथाओं को बढ़ावा देने के लिए कम्पोस्टेबल बायोप्लास्टिक सामग्री को अपनाया।"
+    }
+  },
+  {
+    "question": {
+      "en": "Which of the following Mughal Emperors was assassinated by his nobles? I. Farrukh Siyar II. Alamgir II",
+      "hi": "निम्नलिखित में से किस मुग़ल सम्राट की हत्या उसके सरदारों ने की थी? I. फर्रुखसियर II. आलमगीर द्वितीय"
+    },
+    "options": [
+      { "en": "Only I", "hi": "केवल I" },
+      { "en": "Only II", "hi": "केवल II" },
+      { "en": "Both I and II", "hi": "I और II दोनों" },
+      { "en": "Neither I nor II", "hi": "ना ही I और ना ही II" }
+    ],
+    "correctAnswer": { "en": "Both I and II", "hi": "I और II दोनों" },
+    "explanation": {
+      "en": "Farrukh Siyar was killed by the Sayyid Brothers, and Alamgir II was assassinated by his vizier Imad-ul-Mulk during the later Mughal period.",
+      "hi": "बाद के मुगल काल के दौरान सैयद बंधुओं द्वारा फर्रुख सियार की हत्या कर दी गई थी, और आलमगीर द्वितीय की उसके वज़ीर इमाद-उल-मुल्क ने हत्या कर दी थी।"
+    }
+  },
+  {
+    "question": {
+      "en": "In the context of Microeconomics, the graphical representation of the demand function is called the ________.",
+      "hi": "व्यष्टि अर्थ शास्त्र के संदर्भ में, मांग फलन के ग्राफीय चित्रण को ________ कहा जाता है।"
+    },
+    "options": [
+      { "en": "demand curve", "hi": "मांग वक्र" },
+      { "en": "goods curve", "hi": "माल वक्र" },
+      { "en": "supply curve", "hi": "आपूर्ति वक्र" },
+      { "en": "seller curve", "hi": "विक्रेता वक्र" }
+    ],
+    "correctAnswer": { "en": "demand curve", "hi": "मांग वक्र" },
+    "explanation": {
+      "en": "A demand curve graphically represents the relationship between the price of a good and the quantity demanded by consumers.",
+      "hi": "एक मांग वक्र ग्राफिक रूप से किसी वस्तु की कीमत और उपभोक्ताओं द्वारा मांगी गई मात्रा के बीच संबंध को दर्शाता है।"
+    }
+  },
+  {
+    "question": {
+      "en": "The National Infrastructure Pipeline was launched in India in ________.",
+      "hi": "भारत में राष्ट्रीय अवसंरचना पाइपलाइन ________ में शुरू की गई थी।"
+    },
+    "options": [
+      { "en": "2003", "hi": "2003" },
+      { "en": "2008", "hi": "2008" },
+      { "en": "2013", "hi": "2013" },
+      { "en": "2020", "hi": "2020" }
+    ],
+    "correctAnswer": { "en": "2020", "hi": "2020" },
+    "explanation": {
+      "en": "The National Infrastructure Pipeline (NIP) was launched to provide world-class infrastructure, covering the period from 2020 to 2025.",
+      "hi": "राष्ट्रीय अवसंरचना पाइपलाइन (NIP) को 2020 से 2025 तक की अवधि के लिए विश्व स्तरीय बुनियादी ढांचा प्रदान करने के लिए लॉन्च किया गया था।"
+    }
+  },
+  {
+    "question": {
+      "en": "Abhijit Sen was the chairman of the Committee on the Wholesale Price Index which submitted its report in ________.",
+      "hi": "अभिजीत सेन थोक कीमत सूचकांक समिति के अध्यक्ष थे जिसने ________ में अपनी रिपोर्ट प्रस्तुत की थी।"
+    },
+    "options": [
+      { "en": "2004", "hi": "2004" },
+      { "en": "2008", "hi": "2008" },
+      { "en": "2010", "hi": "2010" },
+      { "en": "2006", "hi": "2006" }
+    ],
+    "correctAnswer": { "en": "2008", "hi": "2008" },
+    "explanation": {
+      "en": "The working group on WPI headed by Abhijit Sen submitted its technical report in 2008, suggesting revisions to the base year and commodity basket.",
+      "hi": "अभिजीत सेन की अध्यक्षता में डब्ल्यूपीआई (WPI) पर कार्य समूह ने 2008 में अपनी तकनीकी रिपोर्ट प्रस्तुत की, जिसमें आधार वर्ष और वस्तु टोकरी में संशोधन का सुझाव दिया गया था।"
+    }
+  },
+  {
+    "question": {
+      "en": "Which of the following subjects falls under the Concurrent List in the Indian Constitution?",
+      "hi": "निम्नलिखित में से कौन सा विषय भारतीय संविधान में समवर्ती सूची के अंतर्गत आता है?"
+    },
+    "options": [
+      { "en": "Police", "hi": "पुलिस" },
+      { "en": "Criminal matters", "hi": "दंड के मामले" },
+      { "en": "Radio and television", "hi": "रेडियो और टेलीविजन" },
+      { "en": "Foreign affairs", "hi": "विदेश कार्य" }
+    ],
+    "correctAnswer": { "en": "Criminal matters", "hi": "दंड के मामले" },
+    "explanation": {
+      "en": "Criminal matters (law and procedure) are in the Concurrent List, while Police is in the State List and Foreign Affairs is in the Union List.",
+      "hi": "आपराधिक मामले (कानून और प्रक्रिया) समवर्ती सूची में हैं, जबकि पुलिस राज्य सूची में है और विदेशी मामले संघ सूची में हैं।"
+    }
+  },
+  {
+    "question": {
+      "en": "Which of the following is NOT a cropping season in India?",
+      "hi": "निम्नलिखित में से कौन सा भारत में फसल का मौसम नहीं है?"
+    },
+    "options": [
+      { "en": "Kharif", "hi": "खरीफ" },
+      { "en": "Rabi", "hi": "रबी" },
+      { "en": "Zaid", "hi": "ज़ैद" },
+      { "en": "Barani", "hi": "बारानी" }
+    ],
+    "correctAnswer": { "en": "Barani", "hi": "बारानी" },
+    "explanation": {
+      "en": "India has three cropping seasons: Rabi, Kharif, and Zaid. Barani refers to rain-fed agriculture areas, not a specific season.",
+      "hi": "भारत में तीन फसलें होती हैं: रबी, खरीफ और जायद। बरानी वर्षा आधारित कृषि क्षेत्रों को संदर्भित करता है, न कि किसी विशिष्ट मौसम को।"
+    }
+  },
+  {
+    "question": {
+      "en": "Who among the following was the deputy chairman of Planning Commission under the tenth five year plan?",
+      "hi": "निम्नलिखित में से कौन दसवीं पंचवर्षीय योजना के अंतर्गत योजना आयोग के उपाध्यक्ष थे?"
+    },
+    "options": [
+      { "en": "Shankarrao Chavan", "hi": "शंकरराव चव्हाण" },
+      { "en": "K.C. Pant", "hi": "के.सी. पंत" },
+      { "en": "Yaswant Sinha", "hi": "यशवंत सिन्हा" },
+      { "en": "P. Shiv Shankar", "hi": "पी. शिव शंकर" }
+    ],
+    "correctAnswer": { "en": "K.C. Pant", "hi": "के.सी. पंत" },
+    "explanation": {
+      "en": "K.C. Pant served as the Deputy Chairman of the Planning Commission during the formulation of the Tenth Five Year Plan (2002–2007).",
+      "hi": "के.सी. पंत ने दसवीं पंचवर्षीय योजना (2002-2007) के निर्माण के दौरान योजना आयोग के उपाध्यक्ष के रूप में कार्य किया।"
+    }
+  },
+  {
+    "question": {
+      "en": "In the context of trade policy tools, Which of the following is considered as non-tariff measure? I. Anti-dumping measures II. Technical barriers to trade measures",
+      "hi": "व्यापार नीति उपकरणों के संदर्भ में, निम्नलिखित में से किसे गैर-प्रशुल्क उपाय माना जाता है? I. एंटी-डंपिंग उपाय II. व्यापार उपायों में तकनीकी बाधाएँ"
+    },
+    "options": [
+      { "en": "Only I", "hi": "केवल I" },
+      { "en": "Only II", "hi": "केवल II" },
+      { "en": "Both I and II", "hi": "I तथा II दोनों" },
+      { "en": "Neither I nor II", "hi": "ना ही I तथा ना ही II" }
+    ],
+    "correctAnswer": { "en": "Both I and II", "hi": "I तथा II दोनों" },
+    "explanation": {
+      "en": "Non-tariff measures include policy tools like Anti-dumping duties and Technical barriers (safety/quality standards) that regulate trade without standard import tariffs.",
+      "hi": "गैर-टैरिफ उपायों में एंटी-डंपिंग शुल्क और तकनीकी बाधाएं (सुरक्षा/गुणवत्ता मानक) जैसे नीतिगत उपकरण शामिल हैं जो मानक आयात टैरिफ के बिना व्यापार को विनियमित करते हैं।"
+    }
+  },
+  {
+    "question": {
+      "en": "What led to the decline in mortality rate in India during 1921-1951?",
+      "hi": "1921-1951 के दौरान भारत में मृत्यु दर में गिरावट किस कारण से हुई?"
+    },
+    "options": [
+      { "en": "Second world war", "hi": "द्वितीय विश्व युद्ध" },
+      { "en": "Improved health and sanitation", "hi": "बेहतर स्वास्थ्य और स्वच्छता" },
+      { "en": "Increase in birth rate", "hi": "जन्म दर में वृद्धि" }
+    ],
+    "correctAnswer": { "en": "Improved health and sanitation", "hi": "बेहतर स्वास्थ्य और स्वच्छता" },
+    "explanation": {
+      "en": "The decline in mortality rate was largely due to the control of widespread epidemics and improved health and sanitation infrastructure.",
+      "hi": "मृत्यु दर में गिरावट मुख्य रूप से व्यापक महामारियों के नियंत्रण और बेहतर स्वास्थ्य और स्वच्छता बुनियादी ढांचे के कारण थी।"
+    }
+  },
+  {
+    "question": {
+      "en": "What are the temporary finger-like extensions of the cell surface used by Amoeba to take in food called?",
+      "hi": "अमीबा द्वारा भोजन ग्रहण करने के लिए प्रयुक्त कोशिका सतह के उंगली जैसे अस्थायी प्रवर्ध को क्या कहा जाता है?"
+    },
+    "options": [
+      { "en": "Flagella", "hi": "कशाभिका" },
+      { "en": "Cilia", "hi": "सिलिया" },
+      { "en": "Vacuoles", "hi": "रसधानी" },
+      { "en": "Pseudopodia", "hi": "पादाभ (स्युडोपोडिया)" }
+    ],
+    "correctAnswer": { "en": "Pseudopodia", "hi": "पादाभ (स्युडोपोडिया)" },
+    "explanation": {
+      "en": "Amoeba projects Pseudopodia (meaning false feet) to surround and engulf food particles through a process called phagocytosis.",
+      "hi": "अमीबा फागोसाइटोसिस नामक प्रक्रिया के माध्यम से खाद्य कणों को घेरने और निगलने के लिए स्यूडोपोडिया (जिसका अर्थ झूठे पैर) का उपयोग करता है।"
+    }
+  },
+  {
+    "question": {
+      "en": "What does ‘moksha’ stand for in the fourfold objective of life according to Vedic philosophy?",
+      "hi": "वैदिक दर्शन के अनुसार जीवन के चतुर्विध उद्देश्य में 'मोक्ष' का क्या अर्थ है?"
+    },
+    "options": [
+      { "en": "Pursuit of desires", "hi": "इच्छाओं की खोज" },
+      { "en": "Social status", "hi": "सामाजिक स्थिति" },
+      { "en": "Spiritual freedom", "hi": "आध्यात्मिक स्वतंत्रता" },
+      { "en": "Wealth accumulation", "hi": "धन संचय" }
+    ],
+    "correctAnswer": { "en": "Spiritual freedom", "hi": "आध्यात्मिक स्वतंत्रता" },
+    "explanation": {
+      "en": "In the Purusharthas, 'Moksha' signifies spiritual freedom, liberation, or salvation from the cycle of rebirth (Samsara).",
+      "hi": "पुरुषार्थों में, 'मोक्ष' आध्यात्मिक स्वतंत्रता, मुक्ति, या पुनर्जन्म के चक्र (संसार) से मुक्ति का प्रतीक है।"
+    }
+  },
+  {
+    "question": {
+      "en": "Announced in the Union Budget 2025-26, what is the primary objective of the National Geospatial Mission?",
+      "hi": "केंद्रीय बजट 2025-26 में घोषित राष्ट्रीय भू-स्थानिक मिशन का प्राथमिक उद्देश्य क्या है?"
+    },
+    "options": [
+      { "en": "To create and manage an integrated geospatial infrastructure for governance and development", "hi": "शासन और विकास के लिए एक एकीकृत भू-स्थानिक बुनियादी ढांचे का निर्माण और प्रबंधन करना" },
+      { "en": "To promote satellite launch services for private companies", "hi": "निजी कंपनियों के लिए उपग्रह प्रक्षेपण सेवाओं को बढ़ावा देना" },
+      { "en": "To provide free GPS services to rural areas", "hi": "ग्रामीण क्षेत्रों में नि:शुल्क जी.पी.एस. सेवाएं प्रदान करना" },
+      { "en": "To monitor climate change patterns through satellite data", "hi": "उपग्रह डेटा के माध्यम से जलवायु परिवर्तन पैटर्न की निगरानी करना" }
+    ],
+    "correctAnswer": { "en": "To create and manage an integrated geospatial infrastructure for governance and development", "hi": "शासन और विकास के लिए एक एकीकृत भू-स्थानिक बुनियादी ढांचे का निर्माण और प्रबंधन करना" },
+    "explanation": {
+      "en": "The mission aims to create an integrated geospatial infrastructure to enhance data accessibility for better governance and developmental planning across the country.",
+      "hi": "मिशन का उद्देश्य देश भर में बेहतर शासन और विकासात्मक योजना के लिए डेटा पहुंच बढ़ाने के लिए एक एकीकृत भू-स्थानिक बुनियादी ढांचा तैयार करना है।"
     }
   }
-]
+],
 
 
 }
