@@ -8090,6 +8090,184 @@ ssc_cgl_14_sep_s3 :[
     "correctAnswer": "√2+1",
     "explanation": ""
   },
+],
+
+ssc_chsl_gk_12_nov_s2 :[ 
+  {
+    "question": {
+      "en": "Tokyo Olympian C. A. Bhavani Devi is associated with which sport?",
+      "hi": "टोक्यो ओलंपियन सी.ए. भवानी देवी किस खेल से संबंधित हैं?"
+    },
+    "options": [
+      { "en": "Fencing", "hi": "फेंसिंग" },
+      { "en": "Shooting", "hi": "शूटिंग" },
+      { "en": "Badminton", "hi": "बैडमिंटन" },
+      { "en": "Gymnastics", "hi": "जिम्नास्टिक्स" }
+    ],
+    "correctAnswer": { "en": "Fencing", "hi": "फेंसिंग" },
+    "explanation": {
+      "en": "C. A. Bhavani Devi is the first Indian fencer to qualify for the Olympics. She competes in the sabre event.",
+      "hi": "सी.ए. भवानी देवी ओलंपिक के लिए क्वालीफाई करने वाली पहली भारतीय फेंसर हैं। वह सेबर इवेंट में प्रतिस्पर्धा करती हैं।"
+    }
+  },
+  {
+    "question": {
+      "en": "As of 31st May 2025, who is the Chairman of the Bar Council of India?",
+      "hi": "31 मई 2025 तक, बार काउंसिल ऑफ इंडिया के अध्यक्ष कौन हैं?"
+    },
+    "options": [
+      { "en": "Ashok Arora", "hi": "अशोक अरोड़ा" },
+      { "en": "Manan Kumar Mishra", "hi": "मनन कुमार मिश्रा" },
+      { "en": "Vikas Singh", "hi": "विकास सिंह" },
+      { "en": "Dushyant Dave", "hi": "दुष्यंत दवे" }
+    ],
+    "correctAnswer": { "en": "Manan Kumar Mishra", "hi": "मनन कुमार मिश्रा" },
+    "explanation": {
+      "en": "Manan Kumar Mishra is a senior advocate and has served multiple terms as Chairman of the Bar Council of India.",
+      "hi": "मनन कुमार मिश्रा एक वरिष्ठ अधिवक्ता हैं और बार काउंसिल ऑफ इंडिया के अध्यक्ष के रूप में कई बार कार्य कर चुके हैं।"
+    }
+  },
+  {
+    "question": {
+      "en": "In 2025, the Women Entrepreneurship Platform (WEP) launched EmpowHER Biz – Sapno Ki Udaan in partnership with?",
+      "hi": "2025 में महिला उद्यमिता मंच (WEP) ने एम्पोवेहर बिज़ – सपनों की उड़ान किसके साथ साझेदारी में शुरू किया?"
+    },
+    "options": [
+      { "en": "New Shop", "hi": "न्यू शॉप" },
+      { "en": "TATA Trusts", "hi": "टाटा ट्रस्ट्स" },
+      { "en": "Azad Foundation", "hi": "आज़ाद फाउंडेशन" },
+      { "en": "JIO World", "hi": "जियो वर्ल्ड" }
+    ],
+    "correctAnswer": { "en": "New Shop", "hi": "न्यू शॉप" },
+    "explanation": {
+      "en": "WEP partnered with New Shop to provide a dedicated marketplace and support ecosystem for women entrepreneurs.",
+      "hi": "महिला उद्यमियों के लिए विशेष बाज़ार और समर्थन प्रदान करने हेतु WEP ने न्यू शॉप के साथ साझेदारी की।"
+    }
+  },
+  {
+    "question": {
+      "en": "Which index in 2025 highlighted that account ownership in India has reached 89% since 2011?",
+      "hi": "2025 में किस सूचकांक ने दर्शाया कि भारत में खाता स्वामित्व 2011 से बढ़कर 89% हो गया है?"
+    },
+    "options": [
+      { "en": "Global Findex 2025", "hi": "ग्लोबल फाइंडेक्स 2025" },
+      { "en": "Fiscal Health Index 2025", "hi": "राजकोषीय स्वास्थ्य सूचकांक 2025" },
+      { "en": "Gross Financial Index 2025", "hi": "सकल वित्तीय सूचकांक 2025" },
+      { "en": "National Strategy for Financial Education", "hi": "वित्तीय शिक्षा के लिए राष्ट्रीय रणनीति" }
+    ],
+    "correctAnswer": { "en": "Global Findex 2025", "hi": "ग्लोबल फाइंडेक्स 2025" },
+    "explanation": {
+      "en": "The Global Findex 2025 report highlighted a major increase in financial inclusion in India.",
+      "hi": "ग्लोबल फाइंडेक्स 2025 रिपोर्ट ने भारत में वित्तीय समावेशन में बड़ी वृद्धि को दर्शाया।"
+    }
+  },
+  {
+    "question": {
+      "en": "Project _____ is the world’s first inter-continental large wild carnivore translocation project.",
+      "hi": "प्रोजेक्ट _____ विश्व की पहली अंतर-महाद्वीपीय विशाल जंगली मांसाहारी स्थानांतरण परियोजना है।"
+    },
+    "options": [
+      { "en": "Lion", "hi": "शेर" },
+      { "en": "Cheetah", "hi": "चीता" },
+      { "en": "Crocodile", "hi": "मगरमच्छ" },
+      { "en": "Panther", "hi": "तेंदुआ" }
+    ],
+    "correctAnswer": { "en": "Cheetah", "hi": "चीता" },
+    "explanation": {
+      "en": "Project Cheetah involves translocation of cheetahs from Africa to Kuno National Park in India.",
+      "hi": "प्रोजेक्ट चीता के अंतर्गत अफ्रीका से चीतों को भारत के कूनो राष्ट्रीय उद्यान में लाया गया।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Who is the author of the book 'The Illicit Happiness of Other People'?",
+      "hi": "'द इलिसिट हैप्पीनेस ऑफ अदर पीपल' पुस्तक के लेखक कौन हैं?"
+    },
+    "options": [
+      { "en": "Janice Pariat", "hi": "जेनिस परियात" },
+      { "en": "Madhuri Vijay", "hi": "माधुरी विजय" },
+      { "en": "Neel Mukherjee", "hi": "नील मुखर्जी" },
+      { "en": "Manu Joseph", "hi": "मनु जोसेफ़" }
+    ],
+    "correctAnswer": { "en": "Manu Joseph", "hi": "मनु जोसेफ़" },
+    "explanation": {
+      "en": "The novel was written by Manu Joseph and explores family secrets and urban life.",
+      "hi": "यह उपन्यास मनु जोसेफ़ द्वारा लिखा गया है जो पारिवारिक रहस्यों और शहरी जीवन को दर्शाता है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "'Abhanga Vanis' are folk songs of which state?",
+      "hi": "'अभंग वाणी' किस राज्य के लोक गीत हैं?"
+    },
+    "options": [
+      { "en": "Manipur", "hi": "मणिपुर" },
+      { "en": "West Bengal", "hi": "पश्चिम बंगाल" },
+      { "en": "Maharashtra", "hi": "महाराष्ट्र" },
+      { "en": "Tamil Nadu", "hi": "तमिलनाडु" }
+    ],
+    "correctAnswer": { "en": "Maharashtra", "hi": "महाराष्ट्र" },
+    "explanation": {
+      "en": "Abhangas are devotional songs dedicated to Lord Vitthal in Maharashtra.",
+      "hi": "अभंग भगवान विठ्ठल की भक्ति में गाए जाने वाले महाराष्ट्र के प्रसिद्ध भक्ति गीत हैं।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "The 'Jhoda' dance belongs to which Indian state?",
+      "hi": "'झोड़ा' नृत्य किस भारतीय राज्य से संबंधित है?"
+    },
+    "options": [
+      { "en": "Goa", "hi": "गोवा" },
+      { "en": "Uttarakhand", "hi": "उत्तराखंड" },
+      { "en": "Andhra Pradesh", "hi": "आंध्र प्रदेश" },
+      { "en": "Karnataka", "hi": "कर्नाटक" }
+    ],
+    "correctAnswer": { "en": "Uttarakhand", "hi": "उत्तराखंड" },
+    "explanation": {
+      "en": "Jhoda is a traditional group folk dance of Uttarakhand performed during festivals like Holi.",
+      "hi": "झोड़ा उत्तराखंड का पारंपरिक सामूहिक लोक नृत्य है, जो होली के समय किया जाता है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "A satellite at 0° inclination and ~36,000 km altitude is in which orbit?",
+      "hi": "0° झुकाव और लगभग 36,000 किमी ऊँचाई पर स्थित उपग्रह किस कक्षा में होता है?"
+    },
+    "options": [
+      { "en": "Polar", "hi": "ध्रुवीय" },
+      { "en": "Geo-stationary", "hi": "भू-स्थिर" },
+      { "en": "Elliptical", "hi": "दीर्घवृत्तीय" },
+      { "en": "Sun-synchronous", "hi": "सूर्य तुल्यकाली" }
+    ],
+    "correctAnswer": { "en": "Geo-stationary", "hi": "भू-स्थिर" },
+    "explanation": {
+      "en": "A geostationary satellite matches Earth’s rotation and appears fixed over one point.",
+      "hi": "भू-स्थिर उपग्रह पृथ्वी की घूर्णन गति के साथ घूमता है और स्थिर प्रतीत होता है।"
+    }
+  },
+
+  {
+    "question": {
+      "en": "Which of the following does NOT affect the rate of evaporation?",
+      "hi": "निम्नलिखित में से कौन सा वाष्पीकरण की दर को प्रभावित नहीं करता?"
+    },
+    "options": [
+      { "en": "Surface area", "hi": "सतह क्षेत्रफल" },
+      { "en": "Buoyancy", "hi": "उत्प्लावकता" },
+      { "en": "Wind speed", "hi": "पवन चाल" },
+      { "en": "Humidity", "hi": "आर्द्रता" }
+    ],
+    "correctAnswer": { "en": "Buoyancy", "hi": "उत्प्लावकता" },
+    "explanation": {
+      "en": "Evaporation depends on surface area, wind speed, temperature and humidity, not buoyancy.",
+      "hi": "वाष्पीकरण सतह क्षेत्रफल, पवन चाल, तापमान और आर्द्रता पर निर्भर करता है, उत्प्लावकता पर नहीं।"
+    }
+  }
 ]
 
 
