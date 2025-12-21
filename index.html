@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam-Axis | SSC CGL Mock Tests</title>
+    <title>Exam-Axis | SSC Mock Tests</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* --- CSS Variables and Global Reset --- */
         :root {
-            --light-bg: #f7f8fc; /* Very light grey/blue */
+            --light-bg: #f7f8fc;
             --light-card-bg: #ffffff;
-            --light-text-primary: #1a202c; /* Near black */
-            --light-text-secondary: #4a5568; /* Dark grey */
-            --light-border: #e2e8f0; /* Light border */
-            --light-shadow: rgba(26, 32, 44, 0.08); /* Primary color for shadows in light mode */
+            --light-text-primary: #1a202c;
+            --light-text-secondary: #4a5568;
+            --light-border: #e2e8f0;
+            --light-shadow: rgba(26, 32, 44, 0.08);
 
-            --dark-bg: #0f172a; /* Deep blue/black */
-            --dark-card-bg: #1e293b; /* Darker blue/grey */
-            --dark-text-primary: #f8fafc; /* Near white */
-            --dark-text-secondary: #94a3b8; /* Muted grey */
-            --dark-border: #334155; /* Muted dark border */
+            --dark-bg: #0f172a;
+            --dark-card-bg: #1e293b;
+            --dark-text-primary: #f8fafc;
+            --dark-text-secondary: #94a3b8;
+            --dark-border: #334155;
             --dark-shadow: rgba(0, 0, 0, 0.4);
 
-            --primary-brand: #4A00E0; /* Violet */
-            --secondary-brand: #8E2DE2; /* Lighter Violet */
-            --accent-new: #ff4b2b; /* Red/Orange for NEW badge */
+            --primary-brand: #4A00E0;
+            --secondary-brand: #8E2DE2;
+            --accent-new: #ff4b2b;
+            
+            --cgl-color: #4A00E0;
+            --chsl-color: #00b894;
         }
 
         * {
@@ -59,7 +62,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin: 0 -15px; /* Extend to edge of screen */
+            margin: 0 -15px;
         }
 
         body.dark-mode .top-nav {
@@ -175,6 +178,10 @@
             font-weight: 900;
         }
 
+        body.exam-chsl .header-title-section strong {
+            color: var(--chsl-color);
+        }
+
         .header-title-section .sub-heading {
             font-size: 1.1rem;
             color: var(--light-text-secondary);
@@ -184,6 +191,48 @@
 
         body.dark-mode .header-title-section .sub-heading {
             color: var(--dark-text-secondary);
+        }
+
+        /* --- EXAM SELECTOR (NEW - Simple Toggle) --- */
+        .exam-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .exam-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 2px solid var(--light-border);
+            border-radius: 50px;
+            background-color: var(--light-card-bg);
+            color: var(--light-text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .exam-btn {
+            background-color: var(--dark-card-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text-secondary);
+        }
+
+        .exam-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .exam-btn.active {
+            background: linear-gradient(135deg, var(--cgl-color), var(--secondary-brand));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(74, 0, 224, 0.3);
+        }
+
+        .exam-btn.active.chsl {
+            background: linear-gradient(135deg, var(--chsl-color), #00cec9);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
         }
 
         /* --- TABS --- */
@@ -220,10 +269,19 @@
             color: var(--primary-brand);
         }
 
+        body.exam-chsl .tab:hover:not(.active) {
+            color: var(--chsl-color);
+        }
+
         .tab.active {
             color: var(--primary-brand);
             border-bottom-color: var(--primary-brand);
             font-weight: 700;
+        }
+
+        body.exam-chsl .tab.active {
+            color: var(--chsl-color);
+            border-bottom-color: var(--chsl-color);
         }
 
         /* --- GRID & CARDS --- */
@@ -243,6 +301,7 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             padding: 0 10px;
+            transition: opacity 0.3s ease;
         }
 
         .test-card {
@@ -271,6 +330,10 @@
             box-shadow: 0 15px 30px rgba(74, 0, 224, 0.2);
         }
 
+        body.exam-chsl .test-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 184, 148, 0.2);
+        }
+
         .new-badge {
             position: absolute;
             top: 0;
@@ -292,6 +355,10 @@
             text-align: center;
             color: var(--primary-brand);
             width: 100%;
+        }
+
+        body.exam-chsl .card-title {
+            color: var(--chsl-color);
         }
 
         .test-card hr {
@@ -338,7 +405,7 @@
             color: var(--dark-text-secondary);
         }
 
-        /* --- ATTEMPT BUTTON (Button element, not a div) --- */
+        /* --- ATTEMPT BUTTON --- */
         .attempt-btn {
             background: linear-gradient(45deg, var(--primary-brand), var(--secondary-brand));
             color: white;
@@ -355,16 +422,52 @@
             max-width: 280px;
             border: none;
             cursor: pointer;
-            text-decoration: none; /* Looks like a link */
-            display: block; /* Ensure full width up to max-width */
+            text-decoration: none;
+            display: block;
+        }
+
+        body.exam-chsl .attempt-btn {
+            background: linear-gradient(45deg, var(--chsl-color), #00cec9);
+            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
         }
 
         .test-card:hover .attempt-btn {
             transform: scale(1.03);
             box-shadow: 0 8px 25px rgba(74, 0, 224, 0.6);
         }
+
+        body.exam-chsl .test-card:hover .attempt-btn {
+            box-shadow: 0 8px 25px rgba(0, 184, 148, 0.6);
+        }
+
+        /* --- NO TESTS MESSAGE --- */
+        .no-tests-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-text-secondary);
+        }
+
+        body.dark-mode .no-tests-message {
+            color: var(--dark-text-secondary);
+        }
+
+        .no-tests-message .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .no-tests-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--light-text-primary);
+        }
+
+        body.dark-mode .no-tests-message h3 {
+            color: var(--dark-text-primary);
+        }
         
-        /* --- HELP BUTTON (Floating Action Button) --- */
+        /* --- HELP BUTTON --- */
         .help-btn {
             position: fixed;
             bottom: 30px;
@@ -384,9 +487,12 @@
             z-index: 999;
         }
 
+        body.exam-chsl .help-btn {
+            background: var(--chsl-color);
+        }
+
         .help-btn:hover {
             transform: scale(1.1);
-            background: var(--primary-brand);
         }
 
         @media (max-width: 600px) {
@@ -394,6 +500,8 @@
             .brand-logo { font-size: 1.6rem; }
             .header-title-section h1 { font-size: 2rem; }
             .header-title-section .sub-heading { font-size: 1rem; }
+            .exam-selector { gap: 8px; }
+            .exam-btn { padding: 10px 20px; font-size: 0.9rem; }
             .tabs-container { justify-content: flex-start; }
             .floating-theme-switch-wrapper { right: 15px; }
             .test-grid-container { grid-template-columns: 1fr; }
@@ -418,19 +526,28 @@
     <div class="main-container">
         <div class="header-container">
             <div class="header-title-section">
-                <h1 id="main-title">Assess Your Preparation: Start a Test Now</h1>
+                <h1 id="main-title">SSC <strong>CGL</strong> Mock Tests</h1>
                 <p class="sub-heading">Assess Your Preparation: Start a Test Now</p>
             </div>
+        </div>
+
+        <!-- EXAM SELECTOR (NEW) -->
+        <div class="exam-selector">
+            <button class="exam-btn active" data-exam="CGL" id="btn-cgl">📘 SSC CGL</button>
+            <button class="exam-btn" data-exam="CHSL" id="btn-chsl">📗 SSC CHSL</button>
         </div>
 
         <div class="tabs-container">
             <div class="tab active" data-subject="Maths">Maths</div>
             <div class="tab" data-subject="Reasoning">Reasoning</div>
             <div class="tab" data-subject="English">English</div>
-            <div class="tab" data-subject="English">Gk</div>
+            <div class="tab" data-subject="GK">GK</div>
         </div>
+
         <div id="test-grid-container" class="test-grid-container"></div>
     </div>
+
+    <div class="help-btn">💬</div>
 
     <script src="js/tests-list.js"></script> 
     
@@ -440,21 +557,21 @@
             const gridContainer = document.getElementById('test-grid-container');
             const tabs = document.querySelectorAll('.tab');
             const themeToggle = document.getElementById('theme-toggle');
+            const btnCGL = document.getElementById('btn-cgl');
+            const btnCHSL = document.getElementById('btn-chsl');
 
-            // NEW: Mapping for subject-specific display times on the cards
+            // State
+            let currentExam = 'CGL';
+            let currentSubject = 'Maths';
+
+            // Config
             const SUBJECT_DISPLAY_TIMES = {
                 "Maths": 25,
                 "Reasoning": 20,
                 "English": 15,
-                "General": 25 // Default fallback
+                "GK": 10,
+                "General": 25
             };
-
-            // Function to get the current active subject from the tabs
-            function getActiveSubject() {
-                const activeTab = document.querySelector('.tab.active');
-                // Return the data-subject of the active tab, defaulting to 'Maths'
-                return activeTab ? activeTab.dataset.subject : 'Maths';
-            }
 
             // --- DARK MODE LOGIC ---
             function applyTheme(theme) {
@@ -468,162 +585,129 @@
                 applyTheme(newTheme);
             });
             
-            // Load saved theme or default to light
             const savedTheme = localStorage.getItem('theme') || 'light';
             applyTheme(savedTheme);
 
-            // --- TEST DATA CHECK ---
-            // Check if the external data file (tests-list.js) is loaded and has a valid structure
+            // --- DATA CHECK ---
             if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
                 mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
-                gridContainer.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--light-text-secondary); font-size: 1.2rem; font-weight: 600;">\n\nERROR: The file **js/tests-list.js** is missing or invalid.\n\n</p>';
+                gridContainer.innerHTML = `
+                    <div class="no-tests-message">
+                        <div class="icon">⚠️</div>
+                        <h3>Data Not Found</h3>
+                        <p>The file <strong>js/tests-list.js</strong> is missing or invalid.</p>
+                    </div>`;
                 return;
             }
 
-            mainTitle.innerHTML = `Explore <strong>${ALL_TESTS.length}</strong> Available Mock Tests`;
+            // --- HELPER FUNCTIONS ---
+            function getFilteredTests(exam, subject) {
+                return ALL_TESTS.filter(test => test.exam === exam && test.subject === subject);
+            }
 
-            // --- CARD GENERATION ---
-            function generateCardHTML(test, currentSubject) {
+            // --- CARD HTML ---
+            function generateCardHTML(test) {
                 const fullTitle = `${test.date} ${test.title}`;
                 const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
                 const questions = test.questions || 25;
+                const time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
 
-                // Get the time based on the active tab's subject, using a fallback time if the subject isn't mapped
-                const time = SUBJECT_DISPLAY_TIMES[currentSubject] || SUBJECT_DISPLAY_TIMES["General"];
-
-                // Test ID is encoded in the URL for navigation
                 return `
                     <div class="test-card">
                         ${newBadge}
                         <div class="card-title">${fullTitle}</div>
                         <hr>
                         <div class="card-stats">
-                            <div class="stat-item"><div class="value">${questions}</div><div class="label">Questions</div></div>
-                            <div class="stat-item"><div class="value">${questions * 2}</div><div class="label">Marks</div></div>
-                            <div class="stat-item"><div class="value">${time}</div><div class="label">Minutes</div></div>
+                            <div class="stat-item">
+                                <div class="value">${questions}</div>
+                                <div class="label">Questions</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="value">${questions * 2}</div>
+                                <div class="label">Marks</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="value">${time}</div>
+                                <div class="label">Minutes</div>
+                            </div>
                         </div>
-                        
                         <a href="test.html?testId=${test.id}" class="attempt-btn">Attempt</a>
                     </div>`;
             }
 
-            // --- ANIMATION LOGIC ---
+            // --- ANIMATE CARDS ---
             function animateCards() {
                 const cards = gridContainer.querySelectorAll('.test-card');
                 cards.forEach((card, index) => {
-                    // Stagger the animation delay for a smoother effect
                     card.style.animationDelay = `${index * 0.08}s`;
                 });
             }
 
-            // --- DISPLAY LOGIC ---
-            function displayTests(subject) {
-                const filteredTests = ALL_TESTS.filter(test => test.subject === subject);
+            // --- DISPLAY TESTS ---
+            function displayTests() {
+                const filteredTests = getFilteredTests(currentExam, currentSubject);
 
-                // Start fade out animation before changing content
                 gridContainer.style.opacity = 0;
 
                 setTimeout(() => {
                     if (filteredTests.length > 0) {
-                        // Pass the current subject to correctly determine the 'Minutes' value
-                        gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test, subject)).join('');
-
-                        // Fade in and animate the cards
+                        gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
                         setTimeout(() => {
                             gridContainer.style.opacity = 1;
                             animateCards();
                         }, 50);
-
                     } else {
-                        gridContainer.innerHTML = `<p style="text-align:center; padding: 40px; color: var(--light-text-secondary); font-size: 1.2rem; font-weight: 500;">No tests available for **${subject}** yet.</p>`;
+                        gridContainer.innerHTML = `
+                            <div class="no-tests-message">
+                                <div class="icon">📭</div>
+                                <h3>Coming Soon!</h3>
+                                <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
+                            </div>`;
                         gridContainer.style.opacity = 1;
                     }
-                }, 200); // Small delay to allow fade-out to begin
+                }, 200);
             }
 
-            // --- TAB EVENT LISTENERS ---
+            // --- SWITCH EXAM ---
+            function switchExam(exam) {
+                currentExam = exam;
+
+                // Update buttons
+                btnCGL.classList.remove('active', 'chsl');
+                btnCHSL.classList.remove('active', 'chsl');
+
+                if (exam === 'CGL') {
+                    btnCGL.classList.add('active');
+                    document.body.classList.remove('exam-chsl');
+                    mainTitle.innerHTML = `SSC <strong>CGL</strong> Mock Tests`;
+                } else {
+                    btnCHSL.classList.add('active', 'chsl');
+                    document.body.classList.add('exam-chsl');
+                    mainTitle.innerHTML = `SSC <strong>CHSL</strong> Mock Tests`;
+                }
+
+                displayTests();
+            }
+
+            // --- EVENT LISTENERS ---
+            
+            // Exam buttons
+            btnCGL.addEventListener('click', () => switchExam('CGL'));
+            btnCHSL.addEventListener('click', () => switchExam('CHSL'));
+
+            // Subject tabs
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Remove active class from all tabs
                     tabs.forEach(t => t.classList.remove('active'));
-                    // Add active class to the clicked tab
                     tab.classList.add('active');
-                    // Display tests for the new subject
-                    displayTests(tab.dataset.subject);
+                    currentSubject = tab.dataset.subject;
+                    displayTests();
                 });
             });
 
-            // Initial load of tests using the currently active tab's subject
-            displayTests(getActiveSubject());
+            // --- INITIAL LOAD ---
+            displayTests();
         });
     </script>
-    <div class="help-btn">💬</div>
-    <script>
-function loadReviewQuestion(qIndex) {
-    const q = testData[qIndex];
-
-    const card = document.getElementById("review-question-card");
-    const solBox = document.getElementById("review-solution-text");
-
-    let html = `
-        <h3>Q${qIndex+1} • ${q.originalQuestion || "Original Question"}</h3>
-        <div>${q.question}</div>
-        <br>
-    `;
-
-    q.options.forEach((opt, i) => {
-        const isCorrect = q.correctIndex === i;
-        html += `
-          <div class="review-option ${isCorrect ? "correct" : ""}">
-              ☐ ${opt} ${isCorrect ? "(Correct)" : ""}
-          </div>
-        `;
-    });
-
-    card.innerHTML = html;
-    solBox.innerHTML = q.explanation || "No explanation provided.";
-}
-
-// Palette render
-function renderReviewPalette() {
-    const pal = document.getElementById("review-palette-clean");
-    pal.innerHTML = "";
-
-    for (let i = 0; i < testData.length; i++) {
-        const btn = document.createElement("div");
-        btn.className = "qp-btn";
-        btn.textContent = (i + 1);
-        btn.onclick = () => {
-            currentReviewIndex = i;
-            loadReviewQuestion(i);
-        };
-        pal.appendChild(btn);
-    }
-}
-
-// Navigation
-let currentReviewIndex = 0;
-
-document.getElementById("review-prev-btn").onclick = () => {
-    if (currentReviewIndex > 0) {
-        currentReviewIndex--;
-        loadReviewQuestion(currentReviewIndex);
-    }
-};
-
-document.getElementById("review-next-btn").onclick = () => {
-    if (currentReviewIndex < testData.length - 1) {
-        currentReviewIndex++;
-        loadReviewQuestion(currentReviewIndex);
-    }
-};
-
-// When opening review page
-function initReviewPage() {
-    renderReviewPalette();
-    loadReviewQuestion(0);
-}
-</script>
-
 </body>
 </html>
