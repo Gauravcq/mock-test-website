@@ -1954,6 +1954,47 @@
         document.body.classList.remove('results-scroll');
     });
 </script>
+<script>
+/**
+ * Ensure the Confirm Submission buttons always work:
+ * - Cancel: simply closes the modal
+ * - Final Submit: tries to call existing test-logic submit handler (if any),
+ *   then hides quiz UI and shows result summary as a fallback.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const modal      = document.getElementById('submit-summary-modal');
+    const cancelBtn  = document.getElementById('cancel-submit-btn');
+    const finalBtn   = document.getElementById('final-submit-btn');
+    const quizUI     = document.getElementById('quiz-ui');
+    const resultPage = document.getElementById('result-summary-page');
 
+    if (cancelBtn && modal) {
+        cancelBtn.addEventListener('click', function () {
+            modal.classList.add('hidden');
+        });
+    }
+
+    if (finalBtn && modal) {
+        finalBtn.addEventListener('click', function () {
+            // 1) Let your existing test-logic (if present) handle scoring / result
+            if (typeof window.handleFinalSubmit === 'function') {
+                try { window.handleFinalSubmit(); } catch (e) { console.error(e); }
+            } else if (typeof window.finalSubmit === 'function') {
+                try { window.finalSubmit(); } catch (e) { console.error(e); }
+            } else if (typeof window.submitTest === 'function') {
+                try { window.submitTest(); } catch (e) { console.error(e); }
+            }
+
+            // 2) UI fallback: close modal, hide quiz, show result page
+            modal.classList.add('hidden');
+            if (quizUI)     quizUI.classList.add('hidden');
+            if (resultPage) resultPage.classList.remove('hidden');
+
+            // 3) Make sure scrolling is enabled on the results page
+            document.body.classList.add('results-scroll');
+        });
+    }
+});
+</script>
 </body>
 </html>
