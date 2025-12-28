@@ -8540,7 +8540,7 @@ ssc_cgl_maths_15_sep_s1 :[  {
   {
     "questionNo": 52,
     "question": {
-      "en": "Simplify: (2 + 1/2) × (4 + 1/3)",
+      "en": "<img src='../images/simpli.png' alt='Math question image' style='max-width: 100%; height: auto;'>",
       "hi": "सरल कीजिए: (2 + 1/2) × (4 + 1/3)"
     },
     "options": [
