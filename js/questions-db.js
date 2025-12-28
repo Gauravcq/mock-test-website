@@ -8970,5 +8970,360 @@ ssc_cgl_maths_15_sep_s1 :[  {
       "hi": "खंड का क्षेत्रफल = त्रिज्यखंड का क्षेत्रफल - त्रिभुज का क्षेत्रफल। त्रिज्यखंड क्षेत्रफल = (150/360) × π × 12² = 60π। त्रिभुज क्षेत्रफल = (1/2) × 12² × sin(150°) = 36। खंड क्षेत्रफल = 60π - 36।"
     }
   },
-]
+],
+
+ssc_cgl_maths_15_sep_s2 : 
+  [
+  {
+    "questionNo": 51,
+    "question": {
+      "en": "<img src='../images/val.png' alt='Math question image' style='max-width: 100%; height: auto;'>",
+      "hi": "(7 × 2.4) + 0.6 / (2 × 2.4) + 0.6 का मान क्या है?"
+    },
+    "options": [
+      { "en": "25", "hi": "25" },
+      { "en": "3.2", "hi": "3.2" },
+      { "en": "2.8", "hi": "2.8" },
+      { "en": "3.5", "hi": "3.5" }
+    ],
+    "correctAnswer": { "en": "3.2", "hi": "3.2" }
+  },
+  {
+    "questionNo": 52,
+    "question": {
+      "en": "Which of the following equals 10?",
+      "hi": "निम्नलिखित में से कौन 10 के बराबर है?"
+    },
+    "options": [
+      { "en": "(√7 + √3)² - 2√21", "hi": "(√7 + √3)² - 2√21" },
+      { "en": "(√5 + √5)² + (√5 - √5)", "hi": "(√5 + √5)² + (√5 - √5)" },
+      { "en": "(√2 + √3)² + 2√6", "hi": "(√2 + √3)² + 2√6" },
+      { "en": "(√11 + √5)² - 2√55", "hi": "(√11 + √5)² - 2√55" }
+    ],
+    "correctAnswer": { "en": "(√7 + √3)² - 2√21", "hi": "(√7 + √3)² - 2√21" }
+  },
+  {
+    "questionNo": 53,
+    "question": {
+      "en": "If a:b = 5:3, then find (6a+2b):(6a-2b).",
+      "hi": "यदि a:b = 5:3, तो (6a+2b):(6a-2b) ज्ञात करें।"
+    },
+    "options": [
+      { "en": "11:7", "hi": "11:7" },
+      { "en": "7:11", "hi": "7:11" },
+      { "en": "4:3", "hi": "4:3" },
+      { "en": "3:4", "hi": "3:4" }
+    ],
+    "correctAnswer": { "en": "4:3", "hi": "4:3" }
+  },
+  {
+    "questionNo": 54,
+    "question": {
+      "en": "A and B invest ₹50,000 and ₹70,000 respectively in a business. After 1 year, the total profit is distributed including simple interest at 10% per annum on the capital of each partner. If the total profit including interest is ₹18,000, what is A's share of the profit?",
+      "hi": "A और B एक व्यवसाय में क्रमशः ₹50,000 और ₹70,000 निवेश करते हैं। 1 वर्ष के बाद, प्रत्येक साझेदार की पूंजी पर 10% वार्षिक साधारण ब्याज सहित कुल लाभ वितरित किया जाता है। यदि ब्याज सहित कुल लाभ ₹18,000 है, तो लाभ में A का हिस्सा क्या है?"
+    },
+    "options": [
+      { "en": "₹7,000", "hi": "₹7,000" },
+      { "en": "₹7,500", "hi": "₹7,500" },
+      { "en": "₹8,000", "hi": "₹8,000" },
+      { "en": "₹8,500", "hi": "₹8,500" }
+    ],
+    "correctAnswer": { "en": "₹7,500", "hi": "₹7,500" }
+  },
+  {
+    "questionNo": 55,
+    "question": {
+      "en": "What is the average of all numbers between 1000 and 1300 that are divisible by 25?",
+      "hi": "1000 और 1300 के बीच 25 से विभाज्य सभी संख्याओं का औसत क्या है?"
+    },
+    "options": [
+      { "en": "1150", "hi": "1150" },
+      { "en": "1200", "hi": "1200" },
+      { "en": "1575", "hi": "1575" },
+      { "en": "1500", "hi": "1500" }
+    ],
+    "correctAnswer": { "en": "1150", "hi": "1150" }
+  },
+  {
+    "questionNo": 56,
+    "question": {
+      "en": "There are 5 consecutive even numbers X₁, X₂, X₃, X₄, X₅ and 4 consecutive odd numbers Y₁, Y₂, Y₃, Y₄. The average of the even numbers is 5 more than the average of the odd numbers. If the sum of the even numbers is 30 more than the sum of the odd numbers, find the average of the odd numbers.",
+      "hi": "5 लगातार सम संख्याएं X₁, X₂, X₃, X₄, X₅ और 4 लगातार विषम संख्याएं Y₁, Y₂, Y₃, Y₄ हैं। सम संख्याओं का औसत विषम संख्याओं के औसत से 5 अधिक है। यदि सम संख्याओं का योग विषम संख्याओं के योग से 30 अधिक है, तो विषम संख्याओं का औसत ज्ञात करें।"
+    },
+    "options": [
+      { "en": "15", "hi": "15" },
+      { "en": "10", "hi": "10" },
+      { "en": "20", "hi": "20" },
+      { "en": "25", "hi": "25" }
+    ],
+    "correctAnswer": { "en": "15", "hi": "15" }
+  },
+  {
+    "questionNo": 57,
+    "question": {
+      "en": "Evaluate: 80% of 350 - 37(1/4)% of 160 + 11% of 500",
+      "hi": "मूल्यांकन करें: 80% of 350 - 37(1/4)% of 160 + 11% of 500"
+    },
+    "options": [
+      { "en": "225", "hi": "225" },
+      { "en": "250", "hi": "250" },
+      { "en": "275", "hi": "275" },
+      { "en": "300", "hi": "300" }
+    ],
+    "correctAnswer": { "en": "275", "hi": "275" }
+  },
+  {
+    "questionNo": 58,
+    "question": {
+      "en": "A man needed ₹30,000 for a start-up and split the sum between two private lenders under simple-interest terms: Lender A charges 9% p.a. (simple interest), Lender B charges 6% p.a. (simple interest). A man kept both loans exactly 4 years and then made a single lump-sum payment that settled only the accumulated interest, which came to ₹9,600. After preparing his books of account, A man discovered that if he interchanged the principal amounts taken from the two lenders, his four-year interest outgo would have been ₹1,200 less than what he actually paid. How much of the original ₹30,000 did A man borrow at 9% p.a. from Lender A?",
+      "hi": "एक आदमी को स्टार्ट-अप के लिए ₹30,000 की जरूरत थी और उसने साधारण ब्याज की शर्तों पर दो निजी ऋणदाताओं के बीच राशि को विभाजित किया: ऋणदाता A 9% प्रति वर्ष (साधारण ब्याज) लेता है, ऋणदाता B 6% प्रति वर्ष (साधारण ब्याज) लेता है। आदमी ने दोनों ऋण ठीक 4 साल तक रखे और फिर एक एकमुश्त भुगतान किया जिसने केवल संचित ब्याज का निपटान किया, जो ₹9,600 था। अपनी खाता पुस्तकों को तैयार करने के बाद, आदमी ने पाया कि यदि उसने दो ऋणदाताओं से ली गई मूल राशि को आपस में बदल दिया होता, तो उसका चार साल का ब्याज व्यय वास्तव में भुगतान की गई राशि से ₹1,200 कम होता। मूल ₹30,000 में से आदमी ने ऋणदाता A से 9% प्रति वर्ष पर कितना उधार लिया?"
+    },
+    "options": [
+      { "en": "₹10,000", "hi": "₹10,000" },
+      { "en": "₹8,000", "hi": "₹8,000" },
+      { "en": "₹7,000", "hi": "₹7,000" },
+      { "en": "₹20,000", "hi": "₹20,000" }
+    ],
+    "correctAnswer": { "en": "₹20,000", "hi": "₹20,000" }
+  },
+  {
+    "questionNo": 59,
+    "question": {
+      "en": "A garment shop sells a shirt for ₹A, incurring a loss of 5%. During an end-of-season sale, they mark up the same shirt to ₹1.2A. At the sale, they provide a flat discount of 10% on this marked price. What will be the percentage profit or loss for the garment shop on that shirt during the sale?",
+      "hi": "एक कपड़े की दुकान एक शर्ट को ₹A में बेचती है, 5% की हानि उठाते हुए। सीजन के अंत की बिक्री के दौरान, वे उसी शर्ट को ₹1.2A तक चिह्नित करते हैं। बिक्री में, वे इस चिह्नित मूल्य पर 10% की फ्लैट छूट प्रदान करते हैं। बिक्री के दौरान उस शर्ट पर कपड़े की दुकान के लिए लाभ या हानि का प्रतिशत क्या होगा?"
+    },
+    "options": [
+      { "en": "4.6% Profit", "hi": "4.6% लाभ" },
+      { "en": "2.6% Loss", "hi": "2.6% हानि" },
+      { "en": "2.6% Profit", "hi": "2.6% लाभ" },
+      { "en": "4.6% Loss", "hi": "4.6% हानि" }
+    ],
+    "correctAnswer": { "en": "2.6% Profit", "hi": "2.6% लाभ" }
+  },
+  {
+    "questionNo": 60,
+    "question": {
+      "en": "A shopkeeper marked an item 50% above its cost price. He then offered two successive discounts of 10% and 20% to a customer. If he made a profit of ₹80, at what price did he sell the item to that customer?",
+      "hi": "एक दुकानदार ने एक वस्तु को उसके लागत मूल्य से 50% ऊपर चिह्नित किया। फिर उसने एक ग्राहक को 10% और 20% की दो क्रमिक छूट दी। यदि उसने ₹80 का लाभ कमाया, तो उसने उस ग्राहक को वस्तु किस कीमत पर बेची?"
+    },
+    "options": [
+      { "en": "₹2000", "hi": "₹2000" },
+      { "en": "₹2500", "hi": "₹2500" },
+      { "en": "₹1080", "hi": "₹1080" },
+      { "en": "₹1000", "hi": "₹1000" }
+    ],
+    "correctAnswer": { "en": "₹1080", "hi": "₹1080" }
+  },
+  {
+    "questionNo": 61,
+    "question": {
+      "en": "A shopkeeper has two types of pulses: one costing ₹60/kg and the other costing ₹90/kg. He mixes them in a specific ratio and sells the mixture at ₹84/kg, thereby earning a 20% profit. In what ratio did he mix the two types of pulses?",
+      "hi": "एक दुकानदार के पास दो प्रकार की दालें हैं: एक की कीमत ₹60/किग्रा है और दूसरी की कीमत ₹90/किग्रा है। वह उन्हें एक विशिष्ट अनुपात में मिलाता है और मिश्रण को ₹84/किग्रा पर बेचता है, जिससे 20% का लाभ होता है। उसने दो प्रकार की दालों को किस अनुपात में मिलाया?"
+    },
+    "options": [
+      { "en": "3:5", "hi": "3:5" },
+      { "en": "5:3", "hi": "5:3" },
+      { "en": "2:3", "hi": "2:3" },
+      { "en": "3:2", "hi": "3:2" }
+    ],
+    "correctAnswer": { "en": "3:2", "hi": "3:2" }
+  },
+  {
+    "questionNo": 62,
+    "question": {
+      "en": "A is three times more efficient as a worker than B, which allows A to complete a job in 60 days less than B. If they work together, they can finish the job in:",
+      "hi": "A, B की तुलना में एक कार्यकर्ता के रूप में तीन गुना अधिक कुशल है, जिससे A, B की तुलना में 60 दिन कम में काम पूरा कर सकता है। यदि वे एक साथ काम करते हैं, तो वे काम को पूरा कर सकते हैं:"
+    },
+    "options": [
+      { "en": "19.2 days", "hi": "19.2 दिन" },
+      { "en": "22.5 days", "hi": "22.5 दिन" },
+      { "en": "16 days", "hi": "16 दिन" },
+      { "en": "20 days", "hi": "20 दिन" }
+    ],
+    "correctAnswer": { "en": "22.5 days", "hi": "22.5 दिन" }
+  },
+  {
+    "questionNo": 63,
+    "question": {
+      "en": "A cyclist has to cover a distance of 80 km. After cycling for 4 hours and 48 minutes, he finds that he has completed 4/5th of the total distance. What is his speed in km/h?",
+      "hi": "एक साइकिल चालक को 80 किमी की दूरी तय करनी है। 4 घंटे और 48 मिनट तक साइकिल चलाने के बाद, उसे पता चलता है कि उसने कुल दूरी का 4/5वां हिस्सा पूरा कर लिया है। किमी/घंटा में उसकी गति क्या है?"
+    },
+    "options": [
+      { "en": "15.45 km/h", "hi": "15.45 किमी/घंटा" },
+      { "en": "16 km/h", "hi": "16 किमी/घंटा" },
+      { "en": "13.33 km/h", "hi": "13.33 किमी/घंटा" },
+      { "en": "10 km/h", "hi": "10 किमी/घंटा" }
+    ],
+    "correctAnswer": { "en": "13.33 km/h", "hi": "13.33 किमी/घंटा" }
+  },
+  {
+    "questionNo": 64,
+    "question": {
+      "en": "Sarah invested amounts in three different schemes M, N, and O at simple interest rates of 10% p.a., 12% p.a., and 15% p.a. respectively. If the total interest accrued in one year was ₹2282 and the amount invested in Scheme O was 180% of the amount invested in Scheme M and 250% of the amount invested in Scheme N, what was the amount invested in Scheme N?",
+      "hi": "सारा ने तीन अलग-अलग योजनाओं M, N और O में क्रमशः 10% प्रति वर्ष, 12% प्रति वर्ष और 15% प्रति वर्ष की साधारण ब्याज दरों पर राशि निवेश की। यदि एक वर्ष में अर्जित कुल ब्याज ₹2282 था और योजना O में निवेश की गई राशि योजना M में निवेश की गई राशि का 180% और योजना N में निवेश की गई राशि का 250% थी, तो योजना N में निवेश की गई राशि क्या थी?"
+    },
+    "options": [
+      { "en": "₹3000", "hi": "₹3000" },
+      { "en": "₹3200", "hi": "₹3200" },
+      { "en": "₹3600", "hi": "₹3600" },
+      { "en": "₹4000", "hi": "₹4000" }
+    ],
+    "correctAnswer": { "en": "₹3600", "hi": "₹3600" }
+  },
+  {
+    "questionNo": 65,
+    "question": {
+      "en": "A vertical pole of height H stands on the ground. From a point P on the ground, the angle of elevation of the top of the pole is 60°. From a different point Q, located 10 meters away from point P (directly along the line extending from the base of the pole), the angle of elevation to the top of the pole is 30°. What is the height of the pole?",
+      "hi": "ऊंचाई H का एक ऊर्ध्वाधर खंभा जमीन पर खड़ा है। जमीन पर एक बिंदु P से, खंभे के शीर्ष का उन्नयन कोण 60° है। एक अलग बिंदु Q से, जो बिंदु P से 10 मीटर दूर है (खंभे के आधार से विस्तारित रेखा के साथ सीधे), खंभे के शीर्ष का उन्नयन कोण 30° है। खंभे की ऊंचाई क्या है?"
+    },
+    "options": [
+      { "en": "5√3 m", "hi": "5√3 मीटर" },
+      { "en": "10√3 m", "hi": "10√3 मीटर" },
+      { "en": "10 m", "hi": "10 मीटर" },
+      { "en": "20 m", "hi": "20 मीटर" }
+    ],
+    "correctAnswer": { "en": "5√3 m", "hi": "5√3 मीटर" }
+  },
+  {
+    "questionNo": 66,
+    "question": {
+      "en": "A right circular cone has radius of 7 cm and a height of 24 cm. A sphere is placed inside the cone such that it touches the base and the slanted surface of the cone. Find the radius of this inscribed sphere.",
+      "hi": "एक लम्ब वृत्तीय शंकु की त्रिज्या 7 सेमी और ऊंचाई 24 सेमी है। शंकु के अंदर एक गोला रखा गया है जो शंकु के आधार और तिरछी सतह को छूता है। इस अंकित गोले की त्रिज्या ज्ञात करें।"
+    },
+    "options": [
+      { "en": "5.25 cm", "hi": "5.25 सेमी" },
+      { "en": "4.86 cm", "hi": "4.86 सेमी" },
+      { "en": "3.82 cm", "hi": "3.82 सेमी" },
+      { "en": "6.24 cm", "hi": "6.24 सेमी" }
+    ],
+    "correctAnswer": { "en": "3.82 cm", "hi": "3.82 सेमी" }
+  },
+  {
+    "questionNo": 67,
+    "question": {
+      "en": "If the perimeter of a regular octagon is 80 cm, what is the side length?",
+      "hi": "यदि एक नियमित अष्टभुज की परिधि 80 सेमी है, तो भुजा की लंबाई क्या है?"
+    },
+    "options": [
+      { "en": "10 cm", "hi": "10 सेमी" },
+      { "en": "8 cm", "hi": "8 सेमी" },
+      { "en": "12 cm", "hi": "12 सेमी" },
+      { "en": "6 cm", "hi": "6 सेमी" }
+    ],
+    "correctAnswer": { "en": "10 cm", "hi": "10 सेमी" }
+  },
+  {
+    "questionNo": 68,
+    "question": {
+      "en": "A circular wheel is divided into 8 equal sectors. If the area of one sector is 45 sq cm, what is the radius of the wheel?",
+      "hi": "एक गोलाकार पहिये को 8 बराबर खंडों में विभाजित किया गया है। यदि एक खंड का क्षेत्रफल 45 वर्ग सेमी है, तो पहिये की त्रिज्या क्या है?"
+    },
+    "options": [
+      { "en": "8.6 cm", "hi": "8.6 सेमी" },
+      { "en": "6.5 cm", "hi": "6.5 सेमी" },
+      { "en": "10.7 cm", "hi": "10.7 सेमी" },
+      { "en": "7.5 cm", "hi": "7.5 सेमी" }
+    ],
+    "correctAnswer": { "en": "10.7 cm", "hi": "10.7 सेमी" }
+  },
+  {
+    "questionNo": 69,
+    "question": {
+      "en": "If the lateral surface area of a prism is 240 sq cm and height is 8 cm, what is the perimeter of the base?",
+      "hi": "यदि किसी प्रिज्म का पार्श्व पृष्ठीय क्षेत्रफल 240 वर्ग सेमी है और ऊंचाई 8 सेमी है, तो आधार की परिधि क्या है?"
+    },
+    "options": [
+      { "en": "30 cm", "hi": "30 सेमी" },
+      { "en": "24 cm", "hi": "24 सेमी" },
+      { "en": "36 cm", "hi": "36 सेमी" },
+      { "en": "40 cm", "hi": "40 सेमी" }
+    ],
+    "correctAnswer": { "en": "30 cm", "hi": "30 सेमी" }
+  },
+  {
+    "questionNo": 70,
+    "question": {
+      "en": "Solve system: y = 2x + 1 and y = -x + 4",
+      "hi": "निकाय हल करें: y = 2x + 1 और y = -x + 4"
+    },
+    "options": [
+      { "en": "(1, 3)", "hi": "(1, 3)" },
+      { "en": "(2, 5)", "hi": "(2, 5)" },
+      { "en": "(3, 7)", "hi": "(3, 7)" },
+      { "en": "(0, 1)", "hi": "(0, 1)" }
+    ],
+    "correctAnswer": { "en": "(1, 3)", "hi": "(1, 3)" }
+  },
+  {
+    "questionNo": 71,
+    "question": {
+      "en": "Simplify: √98 - √32 + √50",
+      "hi": "सरल करें: √98 - √32 + √50"
+    },
+    "options": [
+      { "en": "7√2", "hi": "7√2" },
+      { "en": "6√2", "hi": "6√2" },
+      { "en": "5√2", "hi": "5√2" },
+      { "en": "8√2", "hi": "8√2" }
+    ],
+    "correctAnswer": { "en": "7√2", "hi": "7√2" }
+  },
+  {
+    "questionNo": 72,
+    "question": {
+      "en": "If two circles are touching internally how many common tangents do they have?",
+      "hi": "यदि दो वृत्त आंतरिक रूप से स्पर्श कर रहे हैं तो उनमें कितनी उभयनिष्ठ स्पर्श रेखाएं हैं?"
+    },
+    "options": [
+      { "en": "1", "hi": "1" },
+      { "en": "2", "hi": "2" },
+      { "en": "3", "hi": "3" },
+      { "en": "4", "hi": "4" }
+    ],
+    "correctAnswer": { "en": "1", "hi": "1" }
+  },
+  {
+    "questionNo": 73,
+    "question": {
+      "en": "Two chords, AB and CD, are equal in length and are at a distance of 10 cm from the center of a circle. If the radius is 26 cm, what is the length of AB?",
+      "hi": "दो जीवाएं, AB और CD, लंबाई में बराबर हैं और एक वृत्त के केंद्र से 10 सेमी की दूरी पर हैं। यदि त्रिज्या 26 सेमी है, तो AB की लंबाई क्या है?"
+    },
+    "options": [
+      { "en": "12 cm", "hi": "12 सेमी" },
+      { "en": "24 cm", "hi": "24 सेमी" },
+      { "en": "36 cm", "hi": "36 सेमी" },
+      { "en": "48 cm", "hi": "48 सेमी" }
+    ],
+    "correctAnswer": { "en": "48 cm", "hi": "48 सेमी" }
+  },
+  {
+    "questionNo": 74,
+    "question": {
+      "en": "A sector of a circle with radius 6 cm has a central angle of 60°. What is the area of the corresponding segment?",
+      "hi": "त्रिज्या 6 सेमी वाले एक वृत्त के त्रिज्यखंड का केंद्रीय कोण 60° है। संगत वृत्तखंड का क्षेत्रफल क्या है?"
+    },
+    "options": [
+      { "en": "(3π - 9√3) sq. cm", "hi": "(3π - 9√3) वर्ग सेमी" },
+      { "en": "(6π - 9√3) sq. cm", "hi": "(6π - 9√3) वर्ग सेमी" },
+      { "en": "(6π - 18√3) sq. cm", "hi": "(6π - 18√3) वर्ग सेमी" },
+      { "en": "(12π - 18√3) sq. cm", "hi": "(12π - 18√3) वर्ग सेमी" }
+    ],
+    "correctAnswer": { "en": "(6π - 9√3) sq. cm", "hi": "(6π - 9√3) वर्ग सेमी" }
+  },
+  {
+    "questionNo": 75,
+    "question": {
+      "en": "Express 0.121212... as a fraction.",
+      "hi": "0.121212... को भिन्न के रूप में व्यक्त करें।"
+    },
+    "options": [
+      { "en": "4/33", "hi": "4/33" },
+      { "en": "2/33", "hi": "2/33" },
+      { "en": "12/99", "hi": "12/99" },
+      { "en": "4/11", "hi": "4/11" }
+    ],
+    "correctAnswer": { "en": "4/33", "hi": "4/33" }
+  }
+],
+
 }
