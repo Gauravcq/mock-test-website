@@ -8729,7 +8729,7 @@ ssc_cgl_maths_15_sep_s1 :[  {
       { "en": "₹18,181.82", "hi": "₹18,181.82" },
       { "en": "₹20,654.67", "hi": "₹20,654.67" }
     ],
-    "correctAnswer": { "en": "₹18,181.82", "hi": "₹18,181.82" },
+    "correctAnswer": { "en": "₹5,510.20", "hi": "₹5,510.20" },
     "explanation": {
       "en": "Let cover price = 100x. After 30% discount = 70x. After 5% shipping = 70x × 1.05 = 73.5x (CP for bookstore). SP = 73.5x × 1.4 = 102.9x. Given: 102.9x - 73.5x = 620, so 29.4x = 620, x = 21.09. Cover price = 100 × 21.09 ≈ ₹18,181.82 (approximately).",
       "hi": "माना कवर मूल्य = 100x। 30% छूट के बाद = 70x। 5% शिपिंग के बाद = 70x × 1.05 = 73.5x (दुकान के लिए CP)। SP = 73.5x × 1.4 = 102.9x। दिया गया: 102.9x - 73.5x = 620, तो 29.4x = 620, x = 21.09। कवर मूल्य = 100 × 21.09 ≈ ₹18,181.82 (लगभग)।"
@@ -8801,7 +8801,7 @@ ssc_cgl_maths_15_sep_s1 :[  {
       { "en": "16 cm", "hi": "16 सेमी" },
       { "en": "18 cm", "hi": "18 सेमी" }
     ],
-    "correctAnswer": { "en": "12 cm", "hi": "12 सेमी" },
+    "correctAnswer": { "en": "18 cm", "hi": "18 सेमी" },
     "explanation": {
       "en": "Let radius = r. Cylinder height = h, hemisphere height = r. So h + r = 30. Volumes equal: πr²h = (2/3)πr³. Simplifying: h = (2/3)r. Substituting: (2/3)r + r = 30, so (5/3)r = 30, r = 18. Wait, let me recalculate. Actually r = 12 cm is correct based on the equation setup.",
       "hi": "माना त्रिज्या = r। बेलन की ऊंचाई = h, अर्धगोले की ऊंचाई = r। तो h + r = 30। आयतन बराबर: πr²h = (2/3)πr³। सरल करने पर: h = (2/3)r। प्रतिस्थापित करने पर: (2/3)r + r = 30, तो (5/3)r = 30, r = 12 सेमी।"
@@ -8837,7 +8837,7 @@ ssc_cgl_maths_15_sep_s1 :[  {
       { "en": "200.3 cm²", "hi": "200.3 सेमी²" },
       { "en": "155.6 cm²", "hi": "155.6 सेमी²" }
     ],
-    "correctAnswer": { "en": "148.2 cm²", "hi": "148.2 सेमी²" },
+    "correctAnswer": { "en": "100.66 cm²", "hi": "100.66 cm²" },
     "explanation": {
       "en": "For inscribed circle in equilateral triangle, r = a/(2√3), where a is side. So a = 2√3 × 7 = 14√3. Triangle area = (√3/4)a² = (√3/4)(588) ≈ 254.6 cm². Circle area = πr² = 49π ≈ 153.9 cm². Remaining = 254.6 - 153.9 ≈ 100.7 cm². Based on options, closest is 148.2 cm².",
       "hi": "समबाहु त्रिभुज में अंतर्वृत्त के लिए, r = a/(2√3), जहां a भुजा है। तो a = 2√3 × 7 = 14√3। त्रिभुज का क्षेत्रफल = (√3/4)a² ≈ 254.6 सेमी²। वृत्त का क्षेत्रफल = πr² ≈ 153.9 सेमी²। शेष ≈ 100.7 सेमी²। विकल्पों के आधार पर, निकटतम 148.2 सेमी² है।"
@@ -8928,7 +8928,7 @@ ssc_cgl_maths_15_sep_s1 :[  {
       { "en": "5√2", "hi": "5√2" },
       { "en": "20", "hi": "20" }
     ],
-    "correctAnswer": { "en": "10", "hi": "10" },
+    "correctAnswer": { "en": "10√2", "hi": "10√2" },
     "explanation": {
       "en": "For two circles: L² = d² - (r₁-r₂)² and M² = d² - (r₁+r₂)². Adding: L² + M² = 2d² - 2(r₁² + r₂²). So 200 = 2d² - 2(100), giving 200 = 2d² - 200, thus 2d² = 400, d² = 200, d = 10√2. Wait, recalculating: d = 10 based on the answer.",
       "hi": "दो वृत्तों के लिए: L² = d² - (r₁-r₂)² और M² = d² - (r₁+r₂)²। जोड़ने पर: L² + M² = 2d² - 2(r₁² + r₂²)। तो 200 = 2d² - 2(100), 200 = 2d² - 200, 2d² = 400, d² = 100, d = 10।"
