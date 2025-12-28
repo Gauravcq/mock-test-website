@@ -8558,7 +8558,7 @@ ssc_cgl_maths_15_sep_s1 :[  {
   {
     "questionNo": 53,
     "question": {
-      "en": "Simplify: (1.5 + 3)² - (2 × 1.25)",
+      "en": "<img src='../images/simp2.png' alt='Math question image' style='max-width: 100%; height: auto;'>",
       "hi": "सरल कीजिए: (1.5 + 3)² - (2 × 1.25)"
     },
     "options": [
