@@ -8648,8 +8648,8 @@ ssc_cgl_maths_15_sep_s1 :[  {
   {
     "questionNo": 58,
     "question": {
-      "en": "Table - Monthly Sales (in '000): Salesperson Jan Feb Mar Apr | P: 50 60 70 55 | Q: 65 68 62 64. What are the average monthly sales of Q?",
-      "hi": "सारणी - मासिक बिक्री ('000 में): विक्रेता जन फर मार अप्र | P: 50 60 70 55 | Q: 65 68 62 64। Q की औसत मासिक बिक्री क्या है?"
+      "en": "<img src='../images/qt.png' alt='Math question image' style='max-width: 100%; height: auto;'>",
+      "hi": "<img src='../images/qhh.png' alt='Math question image' style='max-width: 100%; height: auto;'>"
     },
     "options": [
       { "en": "63.5", "hi": "63.5" },
