@@ -3396,6 +3396,14 @@ const ALL_TESTS = [
   exam: "CHSL",
   isNew: true
 },
+{
+  id: "dp_constable_18nov1stshift reasoning",
+  date: "18 Nov",
+  title: "Shift 1",
+  subject: "Reasoning",
+  exam: "DP Constable",
+  isNew: true
+},
 ];
 
 
