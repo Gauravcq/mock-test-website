@@ -792,10 +792,9 @@ body.exam-chsl .test-card::before {
             }
 
             // --- SWITCH EXAM ---
-        function switchExam(exam) {
+  function switchExam(exam) {
     currentExam = exam;
 
-    // Reset buttons
     btnCGL.classList.remove('active');
     btnCHSL.classList.remove('active');
     btnDP.classList.remove('active');
@@ -817,8 +816,10 @@ body.exam-chsl .test-card::before {
         mainTitle.innerHTML = `<strong>DP Constable</strong> Mock Tests`;
     }
 
+    updateTabsForExam(exam);   // ✅ ADD THIS LINE
     displayTests();
 }
+
 
 
             // --- EVENT LISTENERS ---
