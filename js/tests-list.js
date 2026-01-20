@@ -3396,14 +3396,101 @@ const ALL_TESTS = [
   exam: "CHSL",
   isNew: true
 },
-{
-  id: "dp_constable_reasoning_18_nov_s1",
-  date: "18 dec",
-  title: "Shift 1",
-  subject: "Reasoning",
-  exam: "DP",
-  isNew: true
-}
+// 18 Dec
+{ id: "dp_constable_reasoning_s1", date: "18 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "18 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "18 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 19 Dec
+{ id: "dp_constable_reasoning_s1", date: "19 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "19 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "19 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 20 Dec
+{ id: "dp_constable_reasoning_s1", date: "20 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "20 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "20 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 21 Dec
+{ id: "dp_constable_reasoning_s1", date: "21 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "21 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "21 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 22 Dec
+{ id: "dp_constable_reasoning_s1", date: "22 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "22 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "22 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 23 Dec
+{ id: "dp_constable_reasoning_s1", date: "23 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "23 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "23 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 24 Dec
+{ id: "dp_constable_reasoning_s1", date: "24 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "24 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "24 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 25 Dec
+{ id: "dp_constable_reasoning_s1", date: "25 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "25 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "25 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 26 Dec
+{ id: "dp_constable_reasoning_s1", date: "26 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "26 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "26 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 27 Dec
+{ id: "dp_constable_reasoning_s1", date: "27 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "27 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "27 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 28 Dec
+{ id: "dp_constable_reasoning_s1", date: "28 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "28 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "28 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 29 Dec
+{ id: "dp_constable_reasoning_s1", date: "29 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "29 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "29 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 30 Dec
+{ id: "dp_constable_reasoning_s1", date: "30 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "30 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "30 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 31 Dec
+{ id: "dp_constable_reasoning_s1", date: "31 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "31 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "31 Dec", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+// 01–06 Jan
+{ id: "dp_constable_reasoning_s1", date: "1 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "1 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "1 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+{ id: "dp_constable_reasoning_s1", date: "2 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "2 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "2 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+{ id: "dp_constable_reasoning_s1", date: "3 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "3 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "3 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+{ id: "dp_constable_reasoning_s1", date: "4 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "4 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "4 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+{ id: "dp_constable_reasoning_s1", date: "5 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "5 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "5 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
+{ id: "dp_constable_reasoning_s1", date: "6 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s2", date: "6 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
+{ id: "dp_constable_reasoning_s3", date: "6 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+
 ];
 
 
