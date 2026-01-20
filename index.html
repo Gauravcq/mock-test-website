@@ -652,11 +652,12 @@ body.exam-chsl .test-card::before {
         </div>
 
         <!-- EXAM SELECTOR (NEW) -->
-        <div class="exam-selector">
-            <button class="exam-btn active" data-exam="CGL" id="btn-cgl">📘 SSC CGL</button>
-            <button class="exam-btn" data-exam="CHSL" id="btn-chsl">📗 SSC CHSL</button>
-            <button class="exam-btn" data-exam="CHSL" id="btn-chsl">👮 DP Constable</button>
-        </div>
+<div class="exam-selector">
+    <button class="exam-btn active" data-exam="CGL" id="btn-cgl">🎓 SSC CGL</button>
+    <button class="exam-btn" data-exam="CHSL" id="btn-chsl">📘 SSC CHSL</button>
+    <button class="exam-btn" data-exam="DP" id="btn-dp">👮 DP Constable</button>
+</div>
+
 
         <div class="tabs-container">
             <div class="tab active" data-subject="Maths">Maths</div>
@@ -680,6 +681,7 @@ body.exam-chsl .test-card::before {
             const themeToggle = document.getElementById('theme-toggle');
             const btnCGL = document.getElementById('btn-cgl');
             const btnCHSL = document.getElementById('btn-chsl');
+            const btnDP = document.getElementById('btn-dp');
 
             // State
             let currentExam = 'CGL';
@@ -790,31 +792,42 @@ body.exam-chsl .test-card::before {
             }
 
             // --- SWITCH EXAM ---
-            function switchExam(exam) {
-                currentExam = exam;
+        function switchExam(exam) {
+    currentExam = exam;
 
-                // Update buttons
-                btnCGL.classList.remove('active', 'chsl');
-                btnCHSL.classList.remove('active', 'chsl');
+    // Reset buttons
+    btnCGL.classList.remove('active');
+    btnCHSL.classList.remove('active');
+    btnDP.classList.remove('active');
 
-                if (exam === 'CGL') {
-                    btnCGL.classList.add('active');
-                    document.body.classList.remove('exam-chsl');
-                    mainTitle.innerHTML = `SSC <strong>CGL</strong> Mock Tests`;
-                } else {
-                    btnCHSL.classList.add('active', 'chsl');
-                    document.body.classList.add('exam-chsl');
-                    mainTitle.innerHTML = `SSC <strong>CHSL</strong> Mock Tests`;
-                }
+    document.body.classList.remove('exam-chsl', 'exam-dp');
 
-                displayTests();
-            }
+    if (exam === 'CGL') {
+        btnCGL.classList.add('active');
+        mainTitle.innerHTML = `SSC <strong>CGL</strong> Mock Tests`;
+
+    } else if (exam === 'CHSL') {
+        btnCHSL.classList.add('active');
+        document.body.classList.add('exam-chsl');
+        mainTitle.innerHTML = `SSC <strong>CHSL</strong> Mock Tests`;
+
+    } else if (exam === 'DP') {
+        btnDP.classList.add('active');
+        document.body.classList.add('exam-dp');
+        mainTitle.innerHTML = `<strong>DP Constable</strong> Mock Tests`;
+    }
+
+    displayTests();
+}
+
 
             // --- EVENT LISTENERS ---
             
             // Exam buttons
             btnCGL.addEventListener('click', () => switchExam('CGL'));
             btnCHSL.addEventListener('click', () => switchExam('CHSL'));
+            btnDP.addEventListener('click', () => switchExam('DP'));
+
 
             // Subject tabs
             tabs.forEach(tab => {
