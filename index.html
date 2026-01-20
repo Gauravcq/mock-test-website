@@ -790,6 +790,31 @@ body.exam-chsl .test-card::before {
                     }
                 }, 200);
             }
+            function updateTabsForExam(exam) {
+    tabs.forEach(tab => {
+        const subject = tab.dataset.subject;
+
+        // DP Constable → hide English
+        if (exam === "DP" && subject === "English") {
+            tab.style.display = "none";
+        } else {
+            tab.style.display = "block";
+        }
+    });
+
+    // If English was active & DP selected → switch to Maths
+    if (exam === "DP" && currentSubject === "English") {
+        currentSubject = "Maths";
+
+        tabs.forEach(tab => {
+            tab.classList.toggle(
+                "active",
+                tab.dataset.subject === "Maths"
+            );
+        });
+    }
+}
+
 
             // --- SWITCH EXAM ---
   function switchExam(exam) {
