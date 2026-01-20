@@ -3397,13 +3397,13 @@ const ALL_TESTS = [
   isNew: true
 },
 {
-  id: "dp_constable_18nov1stshift reasoning",
-  date: "18 Nov",
+  id: "dp_constable_reasoning_18_nov_s1",
+  date: "10 Jan",
   title: "Shift 1",
   subject: "Reasoning",
-  exam: "DP Constable",
+  exam: "DP",
   isNew: true
-},
+}
 ];
 
 
