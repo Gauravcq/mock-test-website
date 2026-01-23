@@ -200,20 +200,30 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     };
 
     try {
-        const res = await ExamAxisAPI.register(userData);
+        const res = await fetch("http://localhost:5000/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)   // ✅ THIS IS THE KEY FIX
+        });
 
-        if (res.success) {
+        const data = await res.json();
+
+        if (data.success) {
             alert("Account created successfully 🎉");
-            window.location.href = "dashboard.html";
+            window.location.href = "login.html";
         } else {
-            alert(res.message || "Registration failed");
+            alert(data.message || "Registration failed");
         }
+
     } catch (err) {
-        alert("Something went wrong. Please try again.");
+        alert("Server error. Try again.");
         console.error(err);
     }
 });
 </script>
+
 
 </body>
 </html>
