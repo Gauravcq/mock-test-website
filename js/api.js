@@ -2,7 +2,7 @@
 
 // ⚠️ UPDATE THIS WITH YOUR RENDER API URL
 // No slash at the end, and include '/api'
-const API_BASE_URL = 'https://exam-axis-backend.vercel.app/api';
+const API_BASE_URL = 'https://exam-axis-backend-git-main-gouravmeu78-gmailcoms-projects.vercel.app';
 
 class ExamAxisAPI {
   
