@@ -486,7 +486,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const attemptedCount = correctCount + incorrectCount;
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
-
+            // Send summary to backend (non-blocking)
+            const attemptSummary = {
+              testId: testInfo.id || testId,
+              testTitle: testInfo.title,
+              subject: testInfo.subject || singleSubjectName,
+              totalQuestions: questions.length,
+              correct: correctCount,
+              incorrect: incorrectCount,
+              unattempted: unattemptedCount,
+              score: Number(score.toFixed(2)),
+              maxScore: questions.length * 2,
+              accuracy: Number(accuracy.toFixed(1)),
+              timeTakenMinutes
+            };
+            sendAttemptToServer(attemptSummary);
             reviewQuestionList = filterQuestions('all');
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
 
@@ -724,4 +738,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     } // end initializeQuiz
+    function sendAttemptToServer(summary) {
+  if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) return;
+
+  ExamAxisAPI.saveTestAttempt(summary)
+    .then(res => {
+      if (!res || !res.success) {
+        console.warn('Failed to save attempt:', res);
+      }
+    })
+    .catch(err => {
+      console.error('Error saving attempt:', err);
+    });
+}
 }); // end DOMContentLoaded
