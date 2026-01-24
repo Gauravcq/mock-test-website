@@ -1,24 +1,18 @@
 // test-logic.js  (supports OLD + NEW + EN-only question formats)
 document.addEventListener('DOMContentLoaded', () => {
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const testId = urlParams.get('testId') || urlParams.get('id');
-    document.addEventListener('DOMContentLoaded', () => {
-
     const urlParams = new URLSearchParams(window.location.search);
     const testId = urlParams.get('testId') || urlParams.get('id');
 
-    // === NEW: Require login for tests ===
+    // ====== REQUIRE LOGIN FOR TESTS ======
     if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
-        // Optionally store redirect target
+        // Optionally remember where user wanted to go
         localStorage.setItem('redirectAfterLogin', window.location.href);
         window.location.href = 'login.html';
         return;
     }
-    // ====================================
+    // =====================================
 
     // --- DOM Element Declarations (Declared ONCE in main scope) ---
-    const attemptedCount = document.getElementById('attempted-count');
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
     const quizUI = document.getElementById('quiz-ui');
@@ -56,43 +50,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewPaletteClean = document.getElementById('review-palette-clean');
 
     // --- Question Normalizer: supports all DB formats ---
-    // 1) Old bilingual strings:
-    //      options: ["Pressure | दबाव", ...]
-    //      correctAnswer: "Pressure | दबाव"
-    // 2) New objects:
-    //      options: [{en:"Pressure",hi:"दबाव"}, ...]
-    //      correctAnswer: {en:"Temperature",hi:"तापमान"}
-    // 3) English-only strings:
-    //      options: ["3","5","7","9"]
-    //      correctAnswer: "5"
     function normalizeQuestion(raw) {
         if (!raw) return raw;
         if (raw._normalized) return raw; // avoid double-normalizing
 
         const q = { ...raw };
 
-        // ---------- QUESTION ----------
+        // QUESTION
         if (typeof q.question === 'string') {
             q.question = { en: q.question, hi: q.question };
         } else {
             const enQ = q.question?.en || '';
-            const hiQ = q.question?.hi || enQ; // fallback hi=en if missing
+            const hiQ = q.question?.hi || enQ;
             q.question = { en: enQ, hi: hiQ };
         }
 
-        // ---------- OPTIONS ----------
+        // OPTIONS
         if (Array.isArray(q.options)) {
             if (typeof q.options[0] === 'string') {
-                // Strings: maybe "en | hi" OR only "en"
                 q.options = q.options.map(str => {
-                    const parts = String(str).split('|');     // ["3"] or ["Pressure"," दबाव"]
+                    const parts = String(str).split('|');
                     const enPart = (parts[0] || '').trim();
                     const hiRaw = (parts[1] || '').trim();
-                    const hiPart = hiRaw !== '' ? hiRaw : enPart; // if no hi, use en
+                    const hiPart = hiRaw !== '' ? hiRaw : enPart;
                     return { en: enPart, hi: hiPart };
                 });
             } else if (typeof q.options[0] === 'object') {
-                // Already objects {en,hi} – ensure both keys exist, hi fallback to en
                 q.options = q.options.map(o => {
                     const en = (o.en || '').trim();
                     const hiRaw = (o.hi || '').trim();
@@ -104,13 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
             q.options = [];
         }
 
-        // ---------- CORRECT ANSWER ----------
+        // CORRECT ANSWER
         if (typeof q.correctAnswer === 'string') {
-            // "5"  OR  "Pressure | दबाव"
             const parts = String(q.correctAnswer).split('|');
             const enPart = (parts[0] || '').trim();
             const hiRaw = (parts[1] || '').trim();
-            const hiPart = hiRaw !== '' ? hiRaw : enPart; // fallback hi=en
+            const hiPart = hiRaw !== '' ? hiRaw : enPart;
             q.correctAnswer = { en: enPart, hi: hiPart };
         } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
             const en = (q.correctAnswer.en || '').trim();
@@ -126,13 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
             q.correctAnswer = { en: '', hi: '' };
         }
 
-        // ---------- EXPLANATION ----------
+        // EXPLANATION
         if (typeof q.explanation === 'string') {
             q.explanation = { en: q.explanation, hi: q.explanation };
         } else if (typeof q.explanation === 'object' && q.explanation !== null) {
             const enE = q.explanation.en || '';
             const hiRaw = q.explanation.hi || '';
-            const hiE = hiRaw !== '' ? hiRaw : enE; // fallback hi=en
+            const hiE = hiRaw !== '' ? hiRaw : enE;
             q.explanation = { en: enE, hi: hiE };
         } else {
             q.explanation = { en: '', hi: '' };
@@ -173,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeQuiz(questions, testInfo);
     });
 
-    // --- Global Variables (Preserved) ---
+    // --- Global Variables ---
     let reviewQuestionList = [];
     let questionStates = [];
     let currentReviewIndex = 0;
@@ -181,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let sectionTimeRemaining = {};
     let totalInitialTime = 0;
 
-    // --- Helper Functions (Preserved) ---
+    // --- Helper Functions ---
     function normalizeString(str) {
         if (str === null || typeof str === 'undefined') return '';
         return String(str)
@@ -193,27 +175,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterQuestions(category) {
-        const questionsWithState = questions.map((q, index) => ({ ...q, index: index, state: questionStates[index] }));
+        const questionsWithState = questions.map((q, index) => ({ ...q, index, state: questionStates[index] }));
         switch (category) {
-            case 'all': case 'overview': return questionsWithState;
-            case 'correct': return questionsWithState.filter(item => item.state.resultCategory === 'correct');
-            case 'incorrect': return questionsWithState.filter(item => item.state.resultCategory === 'incorrect');
-            case 'unattempted': return questionsWithState.filter(item => item.state.resultCategory === 'unattempted');
-            case 'marked for review': return questionsWithState.filter(item => item.state.markedForReview);
-            default: return [];
+            case 'all':
+            case 'overview':
+                return questionsWithState;
+            case 'correct':
+                return questionsWithState.filter(item => item.state.resultCategory === 'correct');
+            case 'incorrect':
+                return questionsWithState.filter(item => item.state.resultCategory === 'incorrect');
+            case 'unattempted':
+                return questionsWithState.filter(item => item.state.resultCategory === 'unattempted');
+            case 'marked for review':
+                return questionsWithState.filter(item => item.state.markedForReview);
+            default:
+                return [];
         }
     }
 
-    /**
-     * Show palette in BOTH:
-     *  - old sidebar:   #review-palette (buttons.palette-btn)
-     *  - new clean bar: #review-palette-clean (div.qp-btn)
-     */
     function showReviewPalette() {
         const reviewPaletteOld = document.getElementById('review-palette');
-        const reviewPaletteNew = reviewPaletteClean; // from DOM above
+        const reviewPaletteNew = reviewPaletteClean;
 
-        // helper fills a container depending on style
         function fillContainer(container, cleanStyle) {
             if (!container) return;
             container.innerHTML = '';
@@ -222,18 +205,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const state = item.state || {};
                 const btn = document.createElement('button');
 
-                if (cleanStyle) {
-                    // small square tiles
-                    btn.className = 'qp-btn';
-                } else {
-                    // original palette style
-                    btn.className = 'palette-btn';
-                }
+                btn.className = cleanStyle ? 'qp-btn' : 'palette-btn';
 
                 btn.textContent = item.index + 1;
                 btn.dataset.index = index;
 
-                // apply state styles (only for old palette; new one is neutral)
                 if (!cleanStyle) {
                     if (state.resultCategory === 'correct') btn.classList.add('answered');
                     else if (state.resultCategory === 'incorrect') btn.classList.add('not-answered');
@@ -258,12 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fillContainer(reviewPaletteNew, true);
     }
 
-    /**
-     * Show a question in review mode.
-     * Works for both:
-     *  - OLD layout (#review-question-area with inline solution)
-     *  - NEW clean layout (#review-question-card + #review-solution-text)
-     */
     function showReviewQuestion(index) {
         currentReviewIndex = index;
 
@@ -279,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 " (Original Q" + (reviewItem.index + 1) + ")";
         }
 
-        // Build options HTML; question.options are objects {en, hi}
         const optionsHtml = question.options.map(optObj => {
             const optionEn = optObj.en;
             const optionHi = optObj.hi || '';
@@ -305,13 +274,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
         const explanationText = (typeof question.explanation === 'object') ? question.explanation[currentLanguage] : question.explanation;
 
-        // Core HTML for question + options + unattempted note
         const baseQuestionHtml =
             '<p class="question-text">' + (reviewItem.index + 1) + '. ' + questionText + '</p>' +
             '<div class="options-container">' + optionsHtml + '</div>' +
             (state.userAnswer === null ? '<p class="unattempted-note">**This question was unattempted.**</p>' : '');
 
-        // NEW clean layout → inject into reviewQuestionCard + separate solution text
         if (reviewQuestionCard) {
             reviewQuestionCard.innerHTML = baseQuestionHtml;
         }
@@ -320,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
             reviewSolutionText.textContent = explanationText || '—';
         }
 
-        // OLD layout fallback → still support original container if present
         if (reviewArea && !reviewQuestionCard) {
             reviewArea.innerHTML =
                 baseQuestionHtml +
@@ -388,9 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "Time Left": 20
         };
 
-        // init timer banks
         sectionTimeRemaining = {};
         totalInitialTime = 0;
+
         const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
         uniqueSubjects.forEach(subj => {
             const minutes = sectionDurations[subj] || 20;
@@ -398,7 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
             totalInitialTime += (minutes * 60);
         });
 
-        // language select handler
         if (languageSelect) {
             languageSelect.value = currentLanguage;
             languageSelect.addEventListener('change', (e) => {
@@ -415,7 +380,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (titleEl) titleEl.innerHTML = testInfo.date + ' - ' + testInfo.title + ' ' + badgeHtml;
 
         questionStates = questions.map(() => ({
-            status: 'not-visited', userAnswer: null, markedForReview: false, resultCategory: null
+            status: 'not-visited',
+            userAnswer: null,
+            markedForReview: false,
+            resultCategory: null
         }));
 
         createPalette();
@@ -468,12 +436,13 @@ document.addEventListener('DOMContentLoaded', () => {
             isPaused = true;
             if (pauseOverlay) pauseOverlay.classList.remove('hidden');
         }
+
         function resumeTest() {
             isPaused = false;
             if (pauseOverlay) pauseOverlay.classList.add('hidden');
         }
 
-               function showSubmissionSummary() {
+        function showSubmissionSummary() {
             const answered = questionStates.filter(s => s.userAnswer !== null).length;
             const marked = questionStates.filter(s => s.markedForReview).length;
             const answeredAndMarked = questionStates.filter(s => s.userAnswer !== null && s.markedForReview).length;
@@ -487,7 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submitSummaryModal) submitSummaryModal.classList.remove('hidden');
         }
 
-        // ORIGINAL result calculation (no backend saving yet)
         function calculateAndShowResults(autoSubmit = false) {
             clearInterval(timerInterval);
 
@@ -518,7 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const attemptedCount = correctCount + incorrectCount;
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
-            // (you can add backend saving here later if you want)
 
             reviewQuestionList = filterQuestions('all');
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
@@ -564,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             function handleReviewTestClick() {
                 const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
+                if (allTab) tabClickHandler({ preventDefault: () => { }, target: allTab });
             }
 
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
@@ -750,25 +717,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 showReviewQuestion(currentReviewIndex + 1);
             }
         });
+
         if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => {
             if (currentReviewIndex > 0) {
                 showReviewQuestion(currentReviewIndex - 1);
             }
         });
     } // end initializeQuiz
-// Save attempt to backend (fire-and-forget)
-function saveAttemptToBackend(payload) {
-    // Only if API helper exists
-    if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) return;
-
-    ExamAxisAPI.saveTestAttempt(payload)
-        .then(res => {
-            if (!res || !res.success) {
-                console.warn('Failed to save test attempt:', res);
-            }
-        })
-        .catch(err => {
-            console.error('Error saving test attempt:', err);
-        });
-}
 }); // end DOMContentLoaded
