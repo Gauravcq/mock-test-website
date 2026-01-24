@@ -3,8 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const testId = urlParams.get('testId') || urlParams.get('id');
+    document.addEventListener('DOMContentLoaded', () => {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const testId = urlParams.get('testId') || urlParams.get('id');
+
+    // === NEW: Require login for tests ===
+    if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
+        // Optionally store redirect target
+        localStorage.setItem('redirectAfterLogin', window.location.href);
+        window.location.href = 'login.html';
+        return;
+    }
+    // ====================================
 
     // --- DOM Element Declarations (Declared ONCE in main scope) ---
+    const attemptedCount = document.getElementById('attempted-count');
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
     const quizUI = document.getElementById('quiz-ui');
@@ -504,25 +518,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const attemptedCount = correctCount + incorrectCount;
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
-            // --- NEW: send attempt to backend (non-blocking) ---
-            if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.isLoggedIn()) {
-                const attemptPayload = {
-                    testId: testInfo.id || testId,
-                    testTitle: testInfo.title,
-                    subject: testInfo.subject || singleSubjectName,
-                    totalQuestions: questions.length,
-                    correct: correctCount,
-                    incorrect: incorrectCount,
-                    unattempted: unattemptedCount,
-                    score: Number(score.toFixed(2)),
-                    maxScore: questions.length * 2,
-                    accuracy: Number(accuracy.toFixed(1)),
-                    timeTakenMinutes,
-                    timeTakenSeconds: timeTakenSecondsTotal
-                };
-                saveAttemptToBackend(attemptPayload);
-            }
-            // ----------------------------------------------------
+            // (you can add backend saving here later if you want)
+
             reviewQuestionList = filterQuestions('all');
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
 
