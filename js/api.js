@@ -1,7 +1,8 @@
 // js/api.js
 
 // ⚠️ UPDATE THIS WITH YOUR RENDER API URL
-const API_BASE_URL = 'https://exam-axis-api.onrender.com';
+// No slash at the end, and include '/api'
+const API_BASE_URL = 'https://exam-axis-backend.vercel.app/api';
 
 class ExamAxisAPI {
   
