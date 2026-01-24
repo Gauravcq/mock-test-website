@@ -504,7 +504,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const attemptedCount = correctCount + incorrectCount;
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
-
+            // --- NEW: send attempt to backend (non-blocking) ---
+            if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.isLoggedIn()) {
+                const attemptPayload = {
+                    testId: testInfo.id || testId,
+                    testTitle: testInfo.title,
+                    subject: testInfo.subject || singleSubjectName,
+                    totalQuestions: questions.length,
+                    correct: correctCount,
+                    incorrect: incorrectCount,
+                    unattempted: unattemptedCount,
+                    score: Number(score.toFixed(2)),
+                    maxScore: questions.length * 2,
+                    accuracy: Number(accuracy.toFixed(1)),
+                    timeTakenMinutes,
+                    timeTakenSeconds: timeTakenSecondsTotal
+                };
+                saveAttemptToBackend(attemptPayload);
+            }
+            // ----------------------------------------------------
             reviewQuestionList = filterQuestions('all');
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
 
@@ -741,5 +759,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     } // end initializeQuiz
+// Save attempt to backend (fire-and-forget)
+function saveAttemptToBackend(payload) {
+    // Only if API helper exists
+    if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) return;
 
+    ExamAxisAPI.saveTestAttempt(payload)
+        .then(res => {
+            if (!res || !res.success) {
+                console.warn('Failed to save test attempt:', res);
+            }
+        })
+        .catch(err => {
+            console.error('Error saving test attempt:', err);
+        });
+}
 }); // end DOMContentLoaded
