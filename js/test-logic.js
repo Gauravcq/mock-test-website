@@ -473,35 +473,124 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submitSummaryModal) submitSummaryModal.classList.remove('hidden');
         }
 
-        function calculateAndShowResults(autoSubmit = false) {
-            clearInterval(timerInterval);
-            let totalRemainingSeconds = 0;
-            for (let subj in sectionTimeRemaining) {
-                totalRemainingSeconds += sectionTimeRemaining[subj];
+async function calculateAndShowResults(autoSubmit = false) {
+    clearInterval(timerInterval);
+
+    let totalRemainingSeconds = 0;
+    for (let subj in sectionTimeRemaining) {
+        totalRemainingSeconds += sectionTimeRemaining[subj];
+    }
+    const timeTakenSecondsTotal = totalInitialTime - totalRemainingSeconds;
+    const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
+    const timeTakenSeconds = timeTakenSecondsTotal % 60;
+
+    let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
+
+    questionStates.forEach((state, index) => {
+        const question = questions[index];
+        if (state.userAnswer !== null) {
+            const userAnswerNormalized = normalizeString(state.userAnswer);
+            const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
+            if (userAnswerNormalized === correctAnswerNormalized) {
+                correctCount++; score += 2; state.resultCategory = 'correct';
+            } else {
+                incorrectCount++; score -= 0.5; state.resultCategory = 'incorrect';
             }
-            const timeTakenSecondsTotal = totalInitialTime - totalRemainingSeconds;
-            const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
-            const timeTakenSeconds = timeTakenSecondsTotal % 60;
+        } else {
+            unattemptedCount++; state.resultCategory = 'unattempted';
+        }
+    });
 
-            let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
+    const attemptedCount = correctCount + incorrectCount;
+    const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
 
-            questionStates.forEach((state, index) => {
-                const question = questions[index];
-                if (state.userAnswer !== null) {
-                    const userAnswerNormalized = normalizeString(state.userAnswer);
-                    const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
-                    if (userAnswerNormalized === correctAnswerNormalized) {
-                        correctCount++; score += 2; state.resultCategory = 'correct';
-                    } else {
-                        incorrectCount++; score -= 0.5; state.resultCategory = 'incorrect';
-                    }
-                } else {
-                    unattemptedCount++; state.resultCategory = 'unattempted';
-                }
+    // ============ NEW: send attempt to backend ============
+    if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.isLoggedIn()) {
+        const attemptPayload = {
+            testId: testInfo.id || testId,
+            testTitle: testInfo.title,
+            subject: testInfo.subject || singleSubjectName,
+            totalQuestions: questions.length,
+            correct: correctCount,
+            incorrect: incorrectCount,
+            unattempted: unattemptedCount,
+            score: Number(score.toFixed(2)),
+            maxScore: questions.length * 2,
+            accuracy: Number(accuracy.toFixed(1)),
+            timeTakenMinutes,
+            timeTakenSeconds: timeTakenSecondsTotal
+        };
+
+        try {
+            const res = await ExamAxisAPI.saveTestAttempt(attemptPayload);
+            if (!res || !res.success) {
+                console.warn('Failed to save test attempt:', res);
+            }
+        } catch (err) {
+            console.error('Error saving test attempt:', err);
+        }
+    }
+    // ======================================================
+
+    reviewQuestionList = filterQuestions('all');
+    const testInfoAndActionsWrapper = document.getElementById('review-button-area');
+
+    const testDetailsHtml =
+        '<div class="test-details">' +
+        '<h3>' + (testInfo.title || 'Shift 1') + '</h3>' +
+        '<p>Total Questions: ' + questions.length + '</p>' +
+        '<p>Max Marks: ' + (questions.length * 2) + '</p>' +
+        '</div>';
+
+    const reviewButtonHtml =
+        '<div class="action-buttons">' +
+        '<button id="review-test-btn" class="btn primary review">Review Test</button>' +
+        '<a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>' +
+        '</div>';
+
+    if (testInfoAndActionsWrapper) {
+        testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
+    }
+
+    const statsCardsArea = document.getElementById('stats-cards-area');
+    const statsCardsHtml =
+        '<div class="stats-grid-container">' +
+        '<div class="stat-card total-score"><div class="stat-value">' + score.toFixed(2) + '</div><div class="stat-name">YOUR SCORE</div></div>' +
+        '<div class="stat-card correct"><div class="stat-value">' + correctCount + '</div><div class="stat-name">CORRECT</div></div>' +
+        '<div class="stat-card incorrect"><div class="stat-value">' + incorrectCount + '</div><div class="stat-name">INCORRECT</div></div>' +
+        '<div class="stat-card unattempted"><div class="stat-value">' + unattemptedCount + '</div><div class="stat-name">UNATTEMPTED</div></div>' +
+        '<div class="stat-card time-taken"><div class="stat-value">' +
+            String(timeTakenMinutes).padStart(2, '0') + ':' +
+            String(timeTakenSeconds).padStart(2, '0') +
+            '</div><div class="stat-name">TIME TAKEN</div></div>' +
+        '<div class="stat-card accuracy"><div class="stat-value">' + accuracy.toFixed(1) + '%</div><div class="stat-name">ACCURACY</div></div>' +
+        '</div>';
+
+    if (statsCardsArea) statsCardsArea.innerHTML = statsCardsHtml;
+
+    const reviewTestBtn = document.querySelector('#review-test-btn');
+    if (reviewTestBtn) {
+        reviewTestBtn.removeEventListener('click', handleReviewTestClick);
+        reviewTestBtn.addEventListener('click', handleReviewTestClick);
+    }
+
+    function handleReviewTestClick() {
+        const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
+        if (allTab) tabClickHandler({ preventDefault: () => { }, target: allTab });
+    }
+
+    [resultTabsContainer, reviewTabsContainer].forEach(container => {
+        if (container) {
+            container.querySelectorAll('a').forEach(tab => {
+                tab.removeEventListener('click', tabClickHandler);
+                tab.addEventListener('click', tabClickHandler);
             });
+        }
+    });
 
-            const attemptedCount = correctCount + incorrectCount;
-            const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
+    quizUI.classList.add('hidden');
+    resultSummaryPage.classList.remove('hidden');
+};
 
             reviewQuestionList = filterQuestions('all');
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
@@ -698,10 +787,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
         if (clearResponseBtn) clearResponseBtn.addEventListener('click', clearCurrentAnswer);
 
-        if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => {
-            if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-            calculateAndShowResults();
-        });
+       if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', async () => {
+    if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+    await calculateAndShowResults();
+});
         if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => {
             if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
         });
@@ -739,4 +828,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } // end initializeQuiz
 
-}); // end DOMContentLoaded
+); // end DOMContentLoaded
