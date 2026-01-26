@@ -9325,8 +9325,9 @@ ssc_cgl_maths_15_sep_s2 :
     "correctAnswer": { "en": "4/33", "hi": "4/33" }
   }
 ],
+
 ssc_cgl_maths_15_sep_s3 :
-  [[
+  [
   {
     "questionNo": 1,
     "question": {
@@ -9677,7 +9678,6 @@ ssc_cgl_maths_15_sep_s3 :
     ],
     "correctAnswer": { "en": "5", "hi": "5" }
   }
-]
-  ],
+],
 
 }
