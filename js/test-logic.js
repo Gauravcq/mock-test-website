@@ -1,18 +1,19 @@
 // test-logic.js  (supports OLD + NEW + EN-only question formats)
-document.addEventListener('DOMContentLoaded', () => {
+// NOW LOADS QUESTIONS FROM SECURE BACKEND API
+
+document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const testId = urlParams.get('testId') || urlParams.get('id');
 
     // ====== REQUIRE LOGIN FOR TESTS ======
     if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
-        // Optionally remember where user wanted to go
         localStorage.setItem('redirectAfterLogin', window.location.href);
         window.location.href = 'login.html';
         return;
     }
     // =====================================
 
-    // --- DOM Element Declarations (Declared ONCE in main scope) ---
+    // --- DOM Element Declarations ---
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
     const quizUI = document.getElementById('quiz-ui');
@@ -40,19 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
     const languageSelect = document.querySelector('.language-select');
 
-    // OLD review area (inside left panel)
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
-
-    // NEW clean layout elements (center card style)
     const reviewQuestionCard = document.getElementById('review-question-card');
     const reviewSolutionText = document.getElementById('review-solution-text');
     const reviewPaletteClean = document.getElementById('review-palette-clean');
 
-    // --- Question Normalizer: supports all DB formats ---
+    // --- Question Normalizer ---
     function normalizeQuestion(raw) {
         if (!raw) return raw;
-        if (raw._normalized) return raw; // avoid double-normalizing
+        if (raw._normalized) return raw;
 
         const q = { ...raw };
 
@@ -87,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             q.options = [];
         }
 
-        // CORRECT ANSWER
+        // CORRECT ANSWER - Only available after submission from backend
         if (typeof q.correctAnswer === 'string') {
             const parts = String(q.correctAnswer).split('|');
             const enPart = (parts[0] || '').trim();
@@ -124,52 +122,146 @@ document.addEventListener('DOMContentLoaded', () => {
         return q;
     }
 
-    // --- Initial Validation and Setup ---
-    if (!testId) { document.body.innerHTML = "<h1>Error: Test ID not specified.</h1>"; return; }
-    if (typeof ALL_TESTS === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: ALL_TESTS list not found.</h1>"; return; }
+    // --- Show Loading State ---
+    function showLoadingState() {
+        if (instructionsModal) {
+            instructionsModal.innerHTML = `
+                <div style="text-align: center; padding: 60px 20px;">
+                    <div class="spinner" style="
+                        width: 50px; height: 50px; margin: 0 auto 20px;
+                        border: 4px solid rgba(99, 102, 241, 0.2);
+                        border-top-color: #6366f1;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                    "></div>
+                    <h3>Loading Test Questions...</h3>
+                    <p>Please wait while we securely fetch your test</p>
+                    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+                </div>
+            `;
+        }
+    }
+
+    // --- Show Error State ---
+    function showErrorState(message) {
+        if (instructionsModal) {
+            instructionsModal.innerHTML = `
+                <div style="text-align: center; padding: 60px 20px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">⚠️</div>
+                    <h3>Unable to Load Test</h3>
+                    <p style="color: #ef4444; margin-bottom: 20px;">${message}</p>
+                    <button onclick="location.reload()" style="
+                        padding: 12px 30px; background: #6366f1; color: white;
+                        border: none; border-radius: 8px; cursor: pointer;
+                        font-size: 16px; margin-right: 10px;
+                    ">Try Again</button>
+                    <a href="index.html" style="
+                        padding: 12px 30px; background: #64748b; color: white;
+                        border: none; border-radius: 8px; cursor: pointer;
+                        font-size: 16px; text-decoration: none; display: inline-block;
+                    ">Go Back</a>
+                </div>
+            `;
+        }
+    }
+
+    // --- Initial Validation ---
+    if (!testId) {
+        document.body.innerHTML = "<h1>Error: Test ID not specified.</h1>";
+        return;
+    }
+
+    if (typeof ALL_TESTS === 'undefined') {
+        document.body.innerHTML = "<h1>Fatal Error: ALL_TESTS list not found.</h1>";
+        return;
+    }
+
     const testInfo = ALL_TESTS.find(t => String(t.id) === testId);
-    if (!testInfo) { document.body.innerHTML = "<h1>Error: Test with ID " + testId + " not found.</h1>"; return; }
-    if (typeof QUESTIONS_DATABASE === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: QUESTIONS_DATABASE not found.</h1>"; return; }
+    if (!testInfo) {
+        document.body.innerHTML = "<h1>Error: Test with ID " + testId + " not found in tests list.</h1>";
+        return;
+    }
 
-    // Get questions
-  // Get questions - support both old array format and new object format
-let rawData = QUESTIONS_DATABASE[testId];
-if (!rawData) { 
-    document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; 
-    return; 
-}
+    // ====================================================================
+    // 🔒 LOAD QUESTIONS FROM SECURE BACKEND API (instead of QUESTIONS_DATABASE)
+    // ====================================================================
+    showLoadingState();
 
-// Check if it's new format { duration: 60, questions: [...] } or old format [...]
-let questions;
-if (Array.isArray(rawData)) {
-    // Old format: direct array of questions
-    questions = rawData;
-} else if (rawData.questions && Array.isArray(rawData.questions)) {
-    // New format: object with questions array
-    questions = rawData.questions;
-} else {
-    document.body.innerHTML = "<h1>Error: Invalid question format for test ID " + testId + "</h1>"; 
-    return;
-}
+    let questions = [];
+    let testResults = null; // Will store results after submission
+
+    try {
+        console.log(`🔒 Loading questions for test: ${testId} from secure API...`);
+        
+        const response = await ExamAxisAPI.getQuestions(testId);
+        
+        if (!response.success) {
+            throw new Error(response.message || 'Failed to load questions');
+        }
+
+        if (!response.data || !response.data.questions || response.data.questions.length === 0) {
+            throw new Error('No questions found for this test');
+        }
+
+        // Questions from API (without correct answers!)
+        questions = response.data.questions;
+        console.log(`✅ Loaded ${questions.length} questions securely (answers hidden)`);
+
+    } catch (error) {
+        console.error('❌ Failed to load questions:', error);
+        showErrorState(error.message);
+        return;
+    }
+
+    // ====================================================================
+
     const singleSubjectName = testInfo.subject;
-    const totalQuestions = questions.length || 25;
+    const totalQuestions = questions.length;
 
     // Normalize every question + add subject/section metadata
-    questions = questions.map(q => {
+    questions = questions.map((q, index) => {
         const nq = normalizeQuestion(q);
         return {
             ...nq,
+            originalIndex: index, // Keep track of original index for submission
             subject: singleSubjectName,
             sectionQNum: 1,
             sectionTotal: totalQuestions
         };
     });
 
-    startTestBtn.addEventListener('click', () => {
-        instructionsModal.classList.add('hidden');
-        quizUI.classList.remove('hidden');
-        initializeQuiz(questions, testInfo);
-    });
+    // Restore instructions modal content
+    if (instructionsModal) {
+        instructionsModal.innerHTML = `
+            <div class="instructions-content">
+                <h2>📝 Test Instructions</h2>
+                <div class="test-info-header">
+                    <h3>${testInfo.title}</h3>
+                    <p><strong>Subject:</strong> ${singleSubjectName}</p>
+                    <p><strong>Questions:</strong> ${totalQuestions}</p>
+                    <p><strong>Duration:</strong> ${testInfo.duration || 25} minutes</p>
+                </div>
+                <ul class="instructions-list">
+                    <li>Each correct answer carries <strong>2 marks</strong></li>
+                    <li>Each wrong answer has <strong>-0.5 negative marking</strong></li>
+                    <li>You can mark questions for review and revisit them</li>
+                    <li>Click "Submit Test" when you're done</li>
+                    <li>⚠️ Do not refresh the page during the test</li>
+                </ul>
+                <button id="start-test-btn" class="btn primary start-btn">Start Test</button>
+            </div>
+        `;
+        
+        // Re-bind start button
+        const newStartBtn = document.getElementById('start-test-btn');
+        if (newStartBtn) {
+            newStartBtn.addEventListener('click', () => {
+                instructionsModal.classList.add('hidden');
+                quizUI.classList.remove('hidden');
+                initializeQuiz(questions, testInfo);
+            });
+        }
+    }
 
     // --- Global Variables ---
     let reviewQuestionList = [];
@@ -222,7 +314,6 @@ if (Array.isArray(rawData)) {
                 const btn = document.createElement('button');
 
                 btn.className = cleanStyle ? 'qp-btn' : 'palette-btn';
-
                 btn.textContent = item.index + 1;
                 btn.dataset.index = index;
 
@@ -363,43 +454,29 @@ if (Array.isArray(rawData)) {
         let timerInterval;
         let isPaused = false;
 
-const sectionDurations = {
-    "Maths": 25,
-    "Maths Top 50": 60,  // NEW - 60 minutes for 50 questions
-    "Reasoning": 20,
-    "English": 15,
-    "Time Left": 20
-};
+        const sectionDurations = {
+            "Maths": 25,
+            "Maths Top 50": 60,
+            "Reasoning": 20,
+            "English": 15,
+            "GK": 10,
+            "Time Left": 20
+        };
 
-sectionTimeRemaining = {};
-totalInitialTime = 0;
+        sectionTimeRemaining = {};
+        totalInitialTime = 0;
 
-// Get raw quiz data to check for custom duration
-const rawQuizData = QUESTIONS_DATABASE[testId];
+        // Use testInfo duration or default
+        const testDuration = testInfo.duration || sectionDurations[singleSubjectName] || 25;
 
-// Check if quiz has custom duration
-let customDuration = null;
-if (rawQuizData && typeof rawQuizData === 'object' && !Array.isArray(rawQuizData)) {
-    // New format: { duration: 60, questions: [...] }
-    customDuration = rawQuizData.duration || null;
-}
+        const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
+        uniqueSubjects.forEach(subj => {
+            const minutes = testDuration;
+            sectionTimeRemaining[subj] = minutes * 60;
+            totalInitialTime += (minutes * 60);
+        });
 
-const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
-uniqueSubjects.forEach(subj => {
-    let minutes;
-    
-    // Priority: Custom duration > Default subject duration
-    if (customDuration) {
-        minutes = customDuration;
-    } else {
-        minutes = sectionDurations[subj] || 20;
-    }
-    
-    sectionTimeRemaining[subj] = minutes * 60;
-    totalInitialTime += (minutes * 60);
-});
-
-console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectName] || 20} minutes`);
+        console.log(`⏱️ Quiz Duration: ${testDuration} minutes`);
 
         if (languageSelect) {
             languageSelect.value = currentLanguage;
@@ -428,7 +505,8 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
         showQuestion(0);
 
         window.addEventListener('beforeunload', (e) => {
-            e.preventDefault(); e.returnValue = '';
+            e.preventDefault();
+            e.returnValue = '';
         });
 
         function getCurrentSubject() {
@@ -457,16 +535,8 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
 
         function handleSectionTimeout(finishedSubject) {
             clearInterval(timerInterval);
-            alert(`Time is up for ${finishedSubject}! Moving to next section.`);
-            const nextIndex = questions.findIndex(q =>
-                q.subject !== finishedSubject && sectionTimeRemaining[q.subject] > 0
-            );
-            if (nextIndex !== -1) {
-                showQuestion(nextIndex);
-                startTimer();
-            } else {
-                calculateAndShowResults(true);
-            }
+            alert(`Time is up for ${finishedSubject}!`);
+            submitTestToBackend(true);
         }
 
         function pauseTest() {
@@ -493,9 +563,13 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
             if (submitSummaryModal) submitSummaryModal.classList.remove('hidden');
         }
 
-        function calculateAndShowResults(autoSubmit = false) {
+        // ================================================================
+        // 🔒 SUBMIT TEST TO BACKEND (Get results with correct answers)
+        // ================================================================
+        async function submitTestToBackend(autoSubmit = false) {
             clearInterval(timerInterval);
 
+            // Calculate time taken
             let totalRemainingSeconds = 0;
             for (let subj in sectionTimeRemaining) {
                 totalRemainingSeconds += sectionTimeRemaining[subj];
@@ -504,85 +578,149 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
             const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
             const timeTakenSeconds = timeTakenSecondsTotal % 60;
 
-            let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
-
-            questionStates.forEach((state, index) => {
-                const question = questions[index];
-                if (state.userAnswer !== null) {
-                    const userAnswerNormalized = normalizeString(state.userAnswer);
-                    const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
-                    if (userAnswerNormalized === correctAnswerNormalized) {
-                        correctCount++; score += 2; state.resultCategory = 'correct';
-                    } else {
-                        incorrectCount++; score -= 0.5; state.resultCategory = 'incorrect';
-                    }
-                } else {
-                    unattemptedCount++; state.resultCategory = 'unattempted';
-                }
+            // Prepare answers array for backend
+            // Backend expects array of selected option indices or -1 for unanswered
+            const answers = questionStates.map((state, index) => {
+                if (state.userAnswer === null) return -1;
+                
+                // Find index of selected option
+                const selectedOptionIndex = questions[index].options.findIndex(
+                    opt => opt.en === state.userAnswer
+                );
+                return selectedOptionIndex;
             });
 
-            const attemptedCount = correctCount + incorrectCount;
-            const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
-            // Send summary to backend (non-blocking)
+            try {
+                // Show submitting state
+                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+                if (quizUI) {
+                    quizUI.innerHTML = `
+                        <div style="text-align: center; padding: 100px 20px;">
+                            <div class="spinner" style="
+                                width: 60px; height: 60px; margin: 0 auto 30px;
+                                border: 4px solid rgba(99, 102, 241, 0.2);
+                                border-top-color: #6366f1;
+                                border-radius: 50%;
+                                animation: spin 1s linear infinite;
+                            "></div>
+                            <h2>Submitting Test...</h2>
+                            <p>Please wait while we calculate your results</p>
+                            <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+                        </div>
+                    `;
+                }
+
+                console.log('📤 Submitting test to backend...');
+                const response = await ExamAxisAPI.submitTest(testId, answers);
+
+                if (!response.success) {
+                    throw new Error(response.message || 'Submission failed');
+                }
+
+                console.log('✅ Test submitted successfully!');
+                testResults = response.data;
+
+                // Update questions with correct answers from backend
+                if (testResults.results) {
+                    testResults.results.forEach((result, index) => {
+                        if (questions[index]) {
+                            // Add correct answer from backend
+                            questions[index].correctAnswer = {
+                                en: questions[index].options[result.correctAnswer]?.en || '',
+                                hi: questions[index].options[result.correctAnswer]?.hi || ''
+                            };
+                            questions[index].explanation = {
+                                en: result.explanation || '',
+                                hi: result.explanation || ''
+                            };
+
+                            // Update state with result category
+                            questionStates[index].resultCategory = result.isCorrect ? 'correct' : 
+                                (questionStates[index].userAnswer === null ? 'unattempted' : 'incorrect');
+                        }
+                    });
+                }
+
+                // Show results
+                showResults(testResults, timeTakenMinutes, timeTakenSeconds);
+
+            } catch (error) {
+                console.error('❌ Failed to submit test:', error);
+                alert('Failed to submit test: ' + error.message + '\n\nPlease try again.');
+                
+                // Restore quiz UI
+                if (quizUI) {
+                    quizUI.classList.remove('hidden');
+                    location.reload();
+                }
+            }
+        }
+
+        function showResults(results, timeTakenMinutes, timeTakenSeconds) {
+            const correctCount = results.correctAnswers;
+            const incorrectCount = results.incorrectAnswers || (results.totalQuestions - correctCount);
+            const unattemptedCount = questionStates.filter(s => s.userAnswer === null).length;
+            const score = results.score;
+            const accuracy = results.percentage;
+
+            // Save attempt to backend
             const attemptSummary = {
-              testId: testInfo.id || testId,
-              testTitle: testInfo.title,
-              subject: testInfo.subject || singleSubjectName,
-              totalQuestions: questions.length,
-              correct: correctCount,
-              incorrect: incorrectCount,
-              unattempted: unattemptedCount,
-              score: Number(score.toFixed(2)),
-              maxScore: questions.length * 2,
-              accuracy: Number(accuracy.toFixed(1)),
-              timeTakenMinutes
+                testId: testInfo.id || testId,
+                testTitle: testInfo.title,
+                subject: testInfo.subject || singleSubjectName,
+                totalQuestions: questions.length,
+                correct: correctCount,
+                incorrect: incorrectCount,
+                unattempted: unattemptedCount,
+                score: Number(score),
+                maxScore: results.maxScore,
+                accuracy: Number(accuracy),
+                timeTakenMinutes
             };
             sendAttemptToServer(attemptSummary);
+
             reviewQuestionList = filterQuestions('all');
+
+            // Render results UI
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
-
-            const testDetailsHtml =
-                '<div class="test-details">' +
-                '<h3>' + (testInfo.title || 'Shift 1') + '</h3>' +
-                '<p>Total Questions: ' + questions.length + '</p>' +
-                '<p>Max Marks: ' + (questions.length * 2) + '</p>' +
-                '</div>';
-
-            const reviewButtonHtml =
-                '<div class="action-buttons">' +
-                '<button id="review-test-btn" class="btn primary review">Review Test</button>' +
-                '<a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>' +
-                '</div>';
+            const testDetailsHtml = `
+                <div class="test-details">
+                    <h3>${testInfo.title || 'Test Completed'}</h3>
+                    <p>Total Questions: ${questions.length}</p>
+                    <p>Max Marks: ${results.maxScore}</p>
+                </div>
+            `;
+            const reviewButtonHtml = `
+                <div class="action-buttons">
+                    <button id="review-test-btn" class="btn primary review">Review Test</button>
+                    <a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>
+                </div>
+            `;
 
             if (testInfoAndActionsWrapper) {
                 testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
             }
 
             const statsCardsArea = document.getElementById('stats-cards-area');
-            const statsCardsHtml =
-                '<div class="stats-grid-container">' +
-                '<div class="stat-card total-score"><div class="stat-value">' + score.toFixed(2) + '</div><div class="stat-name">YOUR SCORE</div></div>' +
-                '<div class="stat-card correct"><div class="stat-value">' + correctCount + '</div><div class="stat-name">CORRECT</div></div>' +
-                '<div class="stat-card incorrect"><div class="stat-value">' + incorrectCount + '</div><div class="stat-name">INCORRECT</div></div>' +
-                '<div class="stat-card unattempted"><div class="stat-value">' + unattemptedCount + '</div><div class="stat-name">UNATTEMPTED</div></div>' +
-                '<div class="stat-card time-taken"><div class="stat-value">' +
-                    String(timeTakenMinutes).padStart(2, '0') + ':' +
-                    String(timeTakenSeconds).padStart(2, '0') +
-                    '</div><div class="stat-name">TIME TAKEN</div></div>' +
-                '<div class="stat-card accuracy"><div class="stat-value">' + accuracy.toFixed(1) + '%</div><div class="stat-name">ACCURACY</div></div>' +
-                '</div>';
+            const statsCardsHtml = `
+                <div class="stats-grid-container">
+                    <div class="stat-card total-score"><div class="stat-value">${score}</div><div class="stat-name">YOUR SCORE</div></div>
+                    <div class="stat-card correct"><div class="stat-value">${correctCount}</div><div class="stat-name">CORRECT</div></div>
+                    <div class="stat-card incorrect"><div class="stat-value">${incorrectCount}</div><div class="stat-name">INCORRECT</div></div>
+                    <div class="stat-card unattempted"><div class="stat-value">${unattemptedCount}</div><div class="stat-name">UNATTEMPTED</div></div>
+                    <div class="stat-card time-taken"><div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div><div class="stat-name">TIME TAKEN</div></div>
+                    <div class="stat-card accuracy"><div class="stat-value">${accuracy}%</div><div class="stat-name">ACCURACY</div></div>
+                </div>
+            `;
 
             if (statsCardsArea) statsCardsArea.innerHTML = statsCardsHtml;
 
             const reviewTestBtn = document.querySelector('#review-test-btn');
             if (reviewTestBtn) {
-                reviewTestBtn.removeEventListener('click', handleReviewTestClick);
-                reviewTestBtn.addEventListener('click', handleReviewTestClick);
-            }
-
-            function handleReviewTestClick() {
-                const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                if (allTab) tabClickHandler({ preventDefault: () => { }, target: allTab });
+                reviewTestBtn.addEventListener('click', () => {
+                    const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
+                    if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
+                });
             }
 
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
@@ -617,7 +755,7 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
         function showQuestion(index) {
             const targetSubject = questions[index].subject;
             if (sectionTimeRemaining[targetSubject] <= 0) {
-                alert(`Time for ${targetSubject} is over. You cannot access this section.`);
+                alert(`Time for ${targetSubject} is over.`);
                 return;
             }
 
@@ -638,11 +776,11 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
                 const optionEn = optObj.en;
                 const checked = (state.userAnswer === optionEn) ? 'checked' : '';
                 return `
-<label class="option">
-    <input type="radio" name="option" value="${escapeHtml(optionEn)}" ${checked}>
-    <span class="option-text"><strong>${escapeHtml(optObj[currentLanguage])}</strong></span>
-</label>
-`;
+                    <label class="option">
+                        <input type="radio" name="option" value="${escapeHtml(optionEn)}" ${checked}>
+                        <span class="option-text"><strong>${escapeHtml(optObj[currentLanguage])}</strong></span>
+                    </label>
+                `;
             }).join('');
 
             if (questionArea) {
@@ -727,7 +865,7 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
                 .replace(/'/g, '&#039;');
         }
 
-        // bind controls
+        // Bind controls
         if (pauseBtn) pauseBtn.addEventListener('click', pauseTest);
         if (resumeBtn) resumeBtn.addEventListener('click', resumeTest);
         if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
@@ -735,7 +873,7 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
 
         if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => {
             if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-            calculateAndShowResults();
+            submitTestToBackend(); // Submit to backend!
         });
 
         if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => {
@@ -774,18 +912,19 @@ console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectNa
                 showReviewQuestion(currentReviewIndex - 1);
             }
         });
-    } // end initializeQuiz
-    function sendAttemptToServer(summary) {
-  if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) return;
+    }
 
-  ExamAxisAPI.saveTestAttempt(summary)
-    .then(res => {
-      if (!res || !res.success) {
-        console.warn('Failed to save attempt:', res);
-      }
-    })
-    .catch(err => {
-      console.error('Error saving attempt:', err);
-    });
-}
-}); // end DOMContentLoaded
+    function sendAttemptToServer(summary) {
+        if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) return;
+
+        ExamAxisAPI.saveTestAttempt(summary)
+            .then(res => {
+                if (!res || !res.success) {
+                    console.warn('Failed to save attempt:', res);
+                }
+            })
+            .catch(err => {
+                console.error('Error saving attempt:', err);
+            });
+    }
+});

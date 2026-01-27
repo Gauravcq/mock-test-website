@@ -302,7 +302,88 @@ class ExamAxisAPI {
       return { success: false, message: 'Failed to get leaderboard' };
     }
   }
+// ==================== TESTS ====================
 
+// ... your existing test methods ...
+
+// Get questions for a test (secure - no answers)
+static async getQuestions(testId) {
+  try {
+    const { response, data, error } = await this.request(`/api/questions/${testId}`);
+
+    if (error === 'NETWORK_ERROR') {
+      return { success: false, message: 'Network error. Please check your connection.' };
+    }
+
+    if (!response.ok) {
+      const msg = (data && (data.message || data.error)) || 
+                  `Failed to load questions (${response.status})`;
+      return { success: false, message: msg };
+    }
+
+    return data || { success: false, message: 'No questions found' };
+  } catch (error) {
+    console.error('Get questions error:', error);
+    return { success: false, message: 'Failed to load questions' };
+  }
+}
+
+// Submit test and get results
+static async submitTest(testId, answers) {
+  try {
+    const { response, data, error } = await this.request(`/api/questions/${testId}/submit`, {
+      method: 'POST',
+      body: JSON.stringify({ answers }),
+    });
+
+    if (error === 'NETWORK_ERROR') {
+      return { success: false, message: 'Network error. Please check your connection.' };
+    }
+
+    if (!response.ok) {
+      const msg = (data && (data.message || data.error)) || 
+                  `Failed to submit test (${response.status})`;
+      return { success: false, message: msg };
+    }
+
+    return data || { success: false, message: 'Failed to get results' };
+  } catch (error) {
+    console.error('Submit test error:', error);
+    return { success: false, message: 'Failed to submit test' };
+  }
+}
+
+// Check if a test exists
+static async checkTestExists(testId) {
+  try {
+    const { response, data } = await this.request(`/api/questions/check/${testId}`);
+
+    if (!response.ok) {
+      return { success: false, exists: false };
+    }
+
+    return data || { success: false, exists: false };
+  } catch (error) {
+    return { success: false, exists: false };
+  }
+}
+
+// Get list of available tests
+static async getAvailableTests() {
+  try {
+    const { response, data } = await this.request('/api/questions/list');
+
+    if (!response.ok) {
+      const msg = (data && (data.message || data.error)) || 
+                  `Failed to get tests (${response.status})`;
+      return { success: false, message: msg };
+    }
+
+    return data || { success: false, message: 'No tests available' };
+  } catch (error) {
+    return { success: false, message: 'Failed to get available tests' };
+  }
+}
   // ==================== HELPERS ====================
 
   static isLoggedIn() {
