@@ -10142,17 +10142,7 @@ ssc_cgl_maths_15_sep_s3 :
     "explanation": { "en": "", "hi": "" }
   }
 ],
-CHSL_TOP_100_MATHS2 : {
-  "metadata": {
-    "quizId": "CHSL_TOP_100_MATHS2",
-    "title": "CHSL Top 100 Maths - Part 2",
-    "subject": "Maths",
-    "totalQuestions": 50,
-    "duration": 60,
-    "negativeMarking": 0.5,
-    "correctScore": 2
-  },
-  "questions": [
+CHSL_TOP_100_MATHS2 : [
   {
     "questionNo": 51,
     "question": {
@@ -10855,4 +10845,4 @@ CHSL_TOP_100_MATHS2 : {
   }
 ],
 }
-}
+
