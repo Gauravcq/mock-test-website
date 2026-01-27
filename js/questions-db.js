@@ -10142,4 +10142,706 @@ ssc_cgl_maths_15_sep_s3 :
     "explanation": { "en": "", "hi": "" }
   }
 ],
+CHSL_TOP_100_MATHS2 : [
+  {
+    "questionNo": 51,
+    "question": {
+      "en": "In a construction project, two support beams form angles of 30° and 60° with the ground, respectively. Engineers must calculate combined efficiency using tan A + cot B where A=30 deg and B=60 deg Both angles are complementary. Find the value of tan A + cot B when A= 30 deg and B=60 deg.",
+      "hi": "एक निर्माण परियोजना में दो सहायक बीम ज़मीन के साथ क्रमशः 30° और 60° के कोण बनाते हैं। इंजीनियरों को tan A + cot B के मान से संयुक्त दक्षता निकालनी है, जहाँ A=30° और B=60° हैं। दोनों कोण परस्पर पूरक (complementary) हैं। जब A=30° और B=60° हों, तब tan A + cot B का मान ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "1", "hi": "1" },
+      { "en": "√3", "hi": "√3" },
+      { "en": "2⁄√3", "hi": "2⁄√3" },
+      { "en": "√5", "hi": "√5" }
+    ],
+    "correctAnswer": { "en": "2⁄√3", "hi": "2⁄√3" }
+  },
+  {
+    "questionNo": 52,
+    "question": {
+      "en": "A drone is programmed to fly diagonally inside a cuboid-shaped warehouse with internal dimensions 6m×8m×10 m, starting from one bottom corner to the opposite top corner. What is the shortest straight-line distance the drone must travel?",
+      "hi": "एक ड्रोन को घनाभ (Cuboid) आकार के एक गोदाम के भीतर तिरछी दिशा में उड़ने के लिए प्रोग्राम किया गया है। गोदाम के आंतरिक आयाम 6 मीटर × 8 मीटर × 10 मीटर हैं। ड्रोन एक निचले कोने से शुरू होकर विपरीत ऊपरी कोने तक जाता है। ड्रोन को तय करनी वाली सबसे कम सीधी दूरी कितनी होगी?"
+    },
+    "options": [
+      { "en": "12 m", "hi": "12 m" },
+      { "en": "13.4 m", "hi": "13.4 m" },
+      { "en": "14.1 m", "hi": "14.1 m" },
+      { "en": "15.6 m", "hi": "15.6 m" }
+    ],
+    "correctAnswer": { "en": "14.1 m", "hi": "14.1 m" }
+  },
+  {
+    "questionNo": 53,
+    "question": {
+      "en": "In a triangular steel frame, points A(0,0), B(6,0), and C(2,6) form a triangle. A vertical load acts at the centroid. What is the distance from vertex C to the centroid?",
+      "hi": "एक त्रिकोणीय स्टील फ्रेम में बिंदु A(0,0), B(6,0) और C(2,6) मिलकर एक त्रिभुज बनाते हैं। त्रिभुज के केंद्रक (Centroid) पर एक ऊर्ध्वाधर भार लगाया गया है। शीर्ष C से केंद्रक तक की दूरी कितनी है?"
+    },
+    "options": [
+      { "en": "√13 units", "hi": "√13 units" },
+      { "en": "√16.4 units", "hi": "√16.4 units" },
+      { "en": "√12 units", "hi": "√12 units" },
+      { "en": "√14 units", "hi": "√14 units" }
+    ],
+    "correctAnswer": { "en": "√16.4 units", "hi": "√16.4 units" }
+  },
+  {
+    "questionNo": 54,
+    "question": {
+      "en": "A group of 12 students appeared for a physics test. The average of the top 6 scores was 84.5, and the average of the bottom 6 scores was 72.75. Later, it was found that a decimal error had occurred, and one of the scores from the bottom half was mistakenly recorded as 58.2 instead of 85.2. What is the corrected overall average of the group?",
+      "hi": "12 छात्रों के एक समूह ने भौतिकी की परीक्षा दी। शीर्ष 6 अंकों का औसत 84.5 था और निचले 6 अंकों का औसत 72.75 था। बाद में पता चला कि एक दशमलव त्रुटि हो गई थी और निचले समूह के एक छात्र का अंक गलती से 85.2 के स्थान पर 58.2 दर्ज कर लिया गया था। इस त्रुटि को सुधारने के बाद पूरे समूह का सही औसत क्या होगा?"
+    },
+    "options": [
+      { "en": "80.25", "hi": "80.25" },
+      { "en": "79.95", "hi": "79.95" },
+      { "en": "81.00", "hi": "81.00" },
+      { "en": "80.875", "hi": "80.875" }
+    ],
+    "correctAnswer": { "en": "80.875", "hi": "80.875" }
+  },
+  {
+    "questionNo": 55,
+    "question": {
+      "en": "AB is a chord in the minor segment of a circle with centre O. C is a point on the minor arc (between A and B). The tangents to the circle at A and B meet at a point P. If ∠ACB=108° then ∠APB is equal to:",
+      "hi": "AB एक वृत्त के लघु खंड (minor segment) में स्थित एक जीवा है, जिसका केंद्र O है। C, लघु चाप (A और B के बीच) पर स्थित एक बिंदु है। A और B पर खींची गई वृत्त की स्पर्श रेखाएँ एक बिंदु P पर मिलती हैं। यदि ∠ACB=108° हो, तो ∠APB का मान क्या होगा?"
+    },
+    "options": [
+      { "en": "36°", "hi": "36°" },
+      { "en": "54°", "hi": "54°" },
+      { "en": "27°", "hi": "27°" },
+      { "en": "18°", "hi": "18°" }
+    ],
+    "correctAnswer": { "en": "36°", "hi": "36°" }
+  },
+  {
+    "questionNo": 56,
+    "question": {
+      "en": "Two identical solid hemispheres are placed flat side to flat side, forming a sphere. Find the percentage of the sphere's total surface area that comes from the flat circular faces of the hemispheres before joining.",
+      "hi": "दो समान ठोस अर्धगोले समतल सतह से समतल सतह मिलाकर जोड़े जाते हैं, जिससे एक पूरा गोला बनता है। जोड़ने से पहले अर्धगोलों की समतल वृत्ताकार सतहें गोले के कुल पृष्ठीय क्षेत्रफल का कितने प्रतिशत भाग बनाती हैं?"
+    },
+    "options": [
+      { "en": "40%", "hi": "40%" },
+      { "en": "70%", "hi": "70%" },
+      { "en": "50%", "hi": "50%" },
+      { "en": "80%", "hi": "80%" }
+    ],
+    "correctAnswer": { "en": "50%", "hi": "50%" }
+  },
+  {
+    "questionNo": 57,
+    "question": {
+      "en": "A regular right square pyramid has a base side of 14 cm. An ant walks from one corner of the base to the midpoint of the slant edge opposite that corner by the shortest surface path. If the pyramid's perpendicular height is 9 cm, find the lateral surface area.",
+      "hi": "एक समकोण नियमित वर्गाकार पिरामिड का आधार भुजा 14 सेमी है। एक चींटी आधार के एक कोने से उसके विपरीत तिरछी धार (slant edge) के मध्यबिंदु तक पिरामिड की सतह पर सबसे छोटे मार्ग से चलती है। यदि पिरामिड की लंबवत ऊँचाई 9 सेमी है, तो पिरामिड का पार्श्व पृष्ठीय क्षेत्रफल ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "302.12 cm²", "hi": "302.12 cm²" },
+      { "en": "383.33 cm²", "hi": "383.33 cm²" },
+      { "en": "319.25 cm²", "hi": "319.25 cm²" },
+      { "en": "356.36 cm²", "hi": "356.36 cm²" }
+    ],
+    "correctAnswer": { "en": "319.25 cm²", "hi": "319.25 cm²" }
+  },
+  {
+    "questionNo": 58,
+    "question": {
+      "en": "Which of the following is correct? Statement I: The sum of two mixed fractions can always be expressed as a mixed fraction. Statement II: Subtracting a smaller mixed fraction from a larger mixed fraction always results in a proper fraction.",
+      "hi": "निम्नलिखित में से कौन सा/से कथन सही है/हैं? कथन I: दो मिश्रित भिन्नों का योग हमेशा एक मिश्रित भिन्न के रूप में व्यक्त किया जा सकता है। कथन II: एक बड़ी मिश्रित भिन्न में से एक छोटी मिश्रित भिन्न को घटाने पर हमेशा एक उचित भिन्न प्राप्त होती है।"
+    },
+    "options": [
+      { "en": "Statement I is true, Statement II is false", "hi": "कथन I सत्य है, कथन II असत्य है" },
+      { "en": "Statement I is true, Statement II is true", "hi": "कथन I सत्य है, कथन II सत्य है" },
+      { "en": "Statement I is false, Statement II is true", "hi": "कथन I असत्य है, कथन II सत्य है" },
+      { "en": "None of these", "hi": "इनमें से कोई नहीं" }
+    ],
+    "correctAnswer": { "en": "None of these", "hi": "इनमें से कोई नहीं" }
+  },
+  {
+    "questionNo": 59,
+    "question": {
+      "en": "The amounts obtained after 3 years and 5 years on a certain sum at the same annual compound interest rate (compounded annually) are 5324 and 6442.04 respectively. What is the principal amount?",
+      "hi": "एक निश्चित धनराशि पर समान वार्षिक चक्रवृद्धि ब्याज दर (वार्षिक चक्रवृद्धि) से 3 वर्षों बाद प्राप्त राशि ₹5324 है और 5 वर्षों बाद प्राप्त राशि ₹6442.04 है। मूलधन (Principal) कितना है?"
+    },
+    "options": [
+      { "en": "Rs. 5000", "hi": "₹5000" },
+      { "en": "Rs. 4200", "hi": "₹4200" },
+      { "en": "Rs. 4000", "hi": "₹4000" },
+      { "en": "Rs. 5500", "hi": "₹5500" }
+    ],
+    "correctAnswer": { "en": "Rs. 4000", "hi": "₹4000" }
+  },
+  {
+    "questionNo": 60,
+    "question": {
+      "en": "Which of the following represents a line perpendicular to the line 4x+5y=20",
+      "hi": "निम्नलिखित में से कौन सी रेखा, रेखा 4x + 5y = 20 के लंबवत है?"
+    },
+    "options": [
+      { "en": "5x−7y=8", "hi": "5x−7y=8" },
+      { "en": "4x+5y=12", "hi": "4x+5y=12" },
+      { "en": "y=(5x⁄4)−3", "hi": "y=(5x⁄4)−3" },
+      { "en": "y=−(4x⁄5)+1", "hi": "y=−(4x⁄5)+1" }
+    ],
+    "correctAnswer": { "en": "y=(5x⁄4)−3", "hi": "y=(5x⁄4)−3" }
+  },
+  {
+    "questionNo": 61,
+    "question": {
+      "en": "At a cultural club, 4 events were organized. The average attendance for the first two events was 152.5 people. The next two events had an average of 198.5 people. Later, due to a correction, it was found that the attendance at one of the first two events was 12 more than what was originally recorded, and one of the last two events was 9 less. Find the corrected overall average attendance for all 4 events.",
+      "hi": "एक सांस्कृतिक क्लब में 4 कार्यक्रम आयोजित किए गए। पहले दो कार्यक्रमों में औसत उपस्थिति 152.5 व्यक्ति थी। अगले दो कार्यक्रमों में औसत उपस्थिति 198.5 व्यक्ति थी। बाद में जाँच करने पर पता चला कि पहले दो कार्यक्रमों में से एक कार्यक्रम की उपस्थिति वास्तविक संख्या से 12 कम दर्ज हो गई थी और अंतिम दो कार्यक्रमों में से एक कार्यक्रम की उपस्थिति 9 अधिक दर्ज हो गई थी। सभी 4 कार्यक्रमों की सही औसत उपस्थिति ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "175.50", "hi": "175.50" },
+      { "en": "175.50", "hi": "175.50" },
+      { "en": "176.25", "hi": "176.25" },
+      { "en": "176.25", "hi": "176.25" }
+    ],
+    "correctAnswer": { "en": "176.25", "hi": "176.25" }
+  },
+  {
+    "questionNo": 62,
+    "question": {
+      "en": "The number of irrational numbers between 1 and 2 is:",
+      "hi": "1 और 2 के बीच अपरिमेय संख्याओं की संख्या है:"
+    },
+    "options": [
+      { "en": "0", "hi": "0" },
+      { "en": "1", "hi": "1" },
+      { "en": "Finite", "hi": "परिमित" },
+      { "en": "Infinite", "hi": "अनंत" }
+    ],
+    "correctAnswer": { "en": "Infinite", "hi": "अनंत" }
+  },
+  {
+    "questionNo": 63,
+    "question": {
+      "en": "The ratio of the interest received when Rs. (x+500) is invested at 32% p.a. simple interest for 4 years to the interest received when Rs. (x-500) is invested at 20% p.a. compound interest, compounded annually for 2 years, is 64:11. Find the value of 'x'.",
+      "hi": "जब ₹(x+500) की राशि को 32% वार्षिक दर से 4 वर्षों के लिए साधारण ब्याज पर निवेश किया जाता है, तब प्राप्त ब्याज और जब ₹(x – 500) की राशि को 20% वार्षिक दर से 2 वर्षों के लिए वार्षिक चक्रवृद्धि ब्याज पर निवेश किया जाता है, तब प्राप्त ब्याज का अनुपात 64 : 11 है। x का मान ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "Rs. 1,600", "hi": "₹1,600" },
+      { "en": "Rs. 1,500", "hi": "₹1,500" },
+      { "en": "Rs. 1,100", "hi": "₹1,100" },
+      { "en": "Rs. 1,000", "hi": "₹1,000" }
+    ],
+    "correctAnswer": { "en": "Rs. 1,500", "hi": "₹1,500" }
+  },
+  {
+    "questionNo": 64,
+    "question": {
+      "en": "A bookstore bought 120 different novels at an average price of ₹145. It sold 40 novels at 20% profit, 60 novels at 10% loss, and the rest were sold in a combo deal that included a 30% profit on the total cost of those remaining novels. What was the selling price per novel in the combo deal?",
+      "hi": "एक बुकस्टोर ने ₹145 की औसत कीमत पर 120 अलग-अलग नॉवेल खरीदे। उसने 40 नॉवेल 20% मुनाफ़े पर, 60 नॉवेल 10% नुकसान पर बेचे, और बाकी नॉवेल एक कॉम्बो डील में बेचे जिसमें बचे हुए नॉवेल की कुल लागत पर 30% का मुनाफ़ा शामिल था। कॉम्बो डील में प्रति नॉवेल बेचने की कीमत क्या थी?"
+    },
+    "options": [
+      { "en": "₹186.75", "hi": "₹186.75" },
+      { "en": "₹192.00", "hi": "₹192.00" },
+      { "en": "₹190.25", "hi": "₹190.25" },
+      { "en": "₹188.50", "hi": "₹188.50" }
+    ],
+    "correctAnswer": { "en": "₹188.50", "hi": "₹188.50" }
+  },
+  {
+    "questionNo": 65,
+    "question": {
+      "en": "A monument shaped like a square-based pyramid is placed on top of a cuboidal stone base (1.2 m×1.2m×0.5 m). The pyramid has the same base and is 1.5 m tall. Find the total height of the monument and its total volume.",
+      "hi": "एक चौकोर बेस वाले पिरामिड के आकार का एक स्मारक एक घनाकार पत्थर के बेस (1.2 m×1.2 m×0.5 m) के ऊपर रखा गया है। पिरामिड का बेस भी वही है और उसकी ऊंचाई 1.5 m है। स्मारक की कुल ऊंचाई और उसका कुल आयतन ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "2 m, 2.3 m³", "hi": "2 m, 2.3 m³" },
+      { "en": "2 m, 1.44 m³", "hi": "2 m, 1.44 m³" },
+      { "en": "2 m, 2.6 m³", "hi": "2 m, 2.6 m³" },
+      { "en": "2 m, 2.8 m³", "hi": "2 m, 2.8 m³" }
+    ],
+    "correctAnswer": { "en": "2 m, 1.44 m³", "hi": "2 m, 1.44 m³" }
+  },
+  {
+    "questionNo": 66,
+    "question": {
+      "en": "An architect designs a modern building facade using triangular glass panels. Each triangle has angles in the ratio 2:3:7. What is the measure of the largest angle in the panel?",
+      "hi": "एक आर्किटेक्ट त्रिकोणीय ग्लास पैनल का इस्तेमाल करके एक मॉडर्न बिल्डिंग का बाहरी हिस्सा डिज़ाइन करता है। हर त्रिभुज के कोणों का अनुपात 2:3:7 है। पैनल में सबसे बड़े कोण का माप क्या है?"
+    },
+    "options": [
+      { "en": "90°", "hi": "90°" },
+      { "en": "105°", "hi": "105°" },
+      { "en": "108°", "hi": "108°" },
+      { "en": "126°", "hi": "126°" }
+    ],
+    "correctAnswer": { "en": "105°", "hi": "105°" }
+  },
+  {
+    "questionNo": 67,
+    "question": {
+      "en": "A pyramid-shaped puzzle piece fits exactly into a square-based hole of depth 4 cm. If the base is 6 cm, what is the volume of the pyramid?",
+      "hi": "एक पिरामिड आकार का पज़ल पीस 4 सेमी गहराई वाले वर्गाकार आधार के छेद में बिल्कुल फिट होता है। यदि पिरामिड के आधार की भुजा 6 सेमी है, तो पिरामिड का आयतन कितना होगा?"
+    },
+    "options": [
+      { "en": "42 cm³", "hi": "42 cm³" },
+      { "en": "38 cm³", "hi": "38 cm³" },
+      { "en": "52 cm³", "hi": "52 cm³" },
+      { "en": "48 cm³", "hi": "48 cm³" }
+    ],
+    "correctAnswer": { "en": "48 cm³", "hi": "48 cm³" }
+  },
+  {
+    "questionNo": 68,
+    "question": {
+      "en": "A conical flask is perfectly fitted inside a cylindrical container. Both have a base radius of 5 cm and height 12 cm. What is the ratio of the cone's volume to that of the cylinder?",
+      "hi": "एक शंक्वाकार फ्लास्क ठीक-ठाक एक बेलनाकार पात्र में फिट होता है। दोनों की आधार त्रिज्या 5 cm और ऊँचाई 12 cm है। शंकु और बेलन के आयतन का अनुपात क्या है?"
+    },
+    "options": [
+      { "en": "1:2", "hi": "1:2" },
+      { "en": "1:3", "hi": "1:3" },
+      { "en": "2:3", "hi": "2:3" },
+      { "en": "3:4", "hi": "3:4" }
+    ],
+    "correctAnswer": { "en": "1:3", "hi": "1:3" }
+  },
+  {
+    "questionNo": 69,
+    "question": {
+      "en": "A rhombus-shaped support structure has sides 10 cm and one diagonal 16 cm. What is the other diagonal?",
+      "hi": "एक समचतुर्भुज (rhombus) के आकार का सपोर्ट स्ट्रक्चर है जिसकी भुजा 10cm और एक विकर्ण 16 cm है। दूसरा विकर्ण कितना होगा?"
+    },
+    "options": [
+      { "en": "13 cm", "hi": "13 cm" },
+      { "en": "14 cm", "hi": "14 cm" },
+      { "en": "11 cm", "hi": "11 cm" },
+      { "en": "12 cm", "hi": "12 cm" }
+    ],
+    "correctAnswer": { "en": "12 cm", "hi": "12 cm" }
+  },
+  {
+    "questionNo": 70,
+    "question": {
+      "en": "A triangle has vertices with coordinates A(1,2), B(5,2), and C(3,8). What is the y-coordinate of its centroid?",
+      "hi": "एक त्रिभुज के शीर्षों के निर्देशांक A (1,2), B (5,2) और C (3,8) हैं। इसके केन्द्रक का y-निर्देशांक क्या है?"
+    },
+    "options": [
+      { "en": "2", "hi": "2" },
+      { "en": "4", "hi": "4" },
+      { "en": "5", "hi": "5" },
+      { "en": "6", "hi": "6" }
+    ],
+    "correctAnswer": { "en": "4", "hi": "4" }
+  },
+  {
+    "questionNo": 71,
+    "question": {
+      "en": "In triangle ABC, the circumcenter is located at point O. The lengths of the sides are a, b, and c. Which of the following statements about the distances from O is true?",
+      "hi": "त्रिभुज ABC में, परिकेन्द्र बिंदु O पर स्थित है। भुजाओं की लंबाई a, b, और c हैं। O से दूरियों के बारे में निम्नलिखित में से कौन सा कथन सत्य है?"
+    },
+    "options": [
+      { "en": "Distance from O to side a is equal to distance from O to vertex A", "hi": "O से भुजा a की दूरी, O से शीर्ष A की दूरी के बराबर है" },
+      { "en": "Distance from O to side a is equal to distance from O to side b", "hi": "O से भुजा a की दूरी, O से भुजा b की दूरी के बराबर है" },
+      { "en": "Distance from O to vertex A is twice the distance from O to vertex B", "hi": "O से शीर्ष A की दूरी, O से शीर्ष B की दूरी की दोगुनी है" },
+      { "en": "Distance from O to vertex B is equal to distance from O to vertex C", "hi": "O से शीर्ष B की दूरी, O से शीर्ष C की दूरी के बराबर है" }
+    ],
+    "correctAnswer": { "en": "Distance from O to vertex B is equal to distance from O to vertex C", "hi": "O से शीर्ष B की दूरी, O से शीर्ष C की दूरी के बराबर है" }
+  },
+  {
+    "questionNo": 72,
+    "question": {
+      "en": "In a circle, chord AB subtends an angle of 75° at the circumference at point C. A tangent is drawn at point A. If the angle between the tangent and chord AC is 40°, what is the measure of the angle subtended by the minor arc AC at the center of the circle?",
+      "hi": "एक वृत्त में जीवा AB परिधि के एक बिंदु C पर 75° का कोण बनाती है। बिंदु A पर वृत्त की एक स्पर्श रेखा खींची गई है। यदि स्पर्श रेखा और जीवा AC के बीच का कोण 40° है, तो वृत्त के केंद्र पर लघु चाप AC द्वारा निर्मित कोण का मान क्या होगा?"
+    },
+    "options": [
+      { "en": "80°", "hi": "80°" },
+      { "en": "100°", "hi": "100°" },
+      { "en": "70°", "hi": "70°" },
+      { "en": "110°", "hi": "110°" }
+    ],
+    "correctAnswer": { "en": "80°", "hi": "80°" }
+  },
+  {
+    "questionNo": 73,
+    "question": {
+      "en": "Simplify: (81^(3/4) × (1⁄27)^(−2/3)) ⁄ ((√32 + √8)² − (√32 − √8)²)",
+      "hi": "सरल कीजिए: (81^(3/4) × (1⁄27)^(−2/3)) ⁄ ((√32 + √8)² − (√32 − √8)²)"
+    },
+    "options": [
+      { "en": "224⁄19", "hi": "224⁄19" },
+      { "en": "243⁄64", "hi": "243⁄64" },
+      { "en": "121⁄24", "hi": "121⁄24" },
+      { "en": "198⁄43", "hi": "198⁄43" }
+    ],
+    "correctAnswer": { "en": "243⁄64", "hi": "243⁄64" }
+  },
+  {
+    "questionNo": 74,
+    "question": {
+      "en": "A sum of Rs. 6,400 amounts to Rs. 8,100 in 8 years at a certain rate of interest, compounded annually. Find the amount received after 4 years when Rs. 2,240 are invested at same rate of compound interest (compounded annually).",
+      "hi": "₹6,400 की एक धनराशि किसी निश्चित वार्षिक चक्रवृद्धि ब्याज दर पर 8 वर्षों में ₹8,100 हो जाती है। उसी ब्याज दर (वार्षिक चक्रवृद्धि) पर ₹2,240 निवेश करने पर 4 वर्षों बाद प्राप्त होने वाली राशि कितनी होगी?"
+    },
+    "options": [
+      { "en": "Rs. 2,600", "hi": "₹2,600" },
+      { "en": "Rs. 2,330", "hi": "₹2,330" },
+      { "en": "Rs. 2,880", "hi": "₹2,880" },
+      { "en": "Rs. 2,520", "hi": "₹2,520" }
+    ],
+    "correctAnswer": { "en": "Rs. 2,520", "hi": "₹2,520" }
+  },
+  {
+    "questionNo": 75,
+    "question": {
+      "en": "The ratios of alcohol to water in solutions A and B are 1:3 and 3:1, respectively. Solutions A and B are mixed in the ratio 1:1. In 400 ml of the resulting solution, how much water (in ml) should be mixed to obtain a solution in which the ratio of alcohol to water is 1:2?",
+      "hi": "घोल A और घोल B में अल्कोहल और पानी का अनुपात क्रमशः 1 : 3 और 3:1 है। घोल A और घोल B को 1 : 1 के अनुपात में मिलाया जाता है। प्राप्त घोल के 400 मि.ली. में कितना पानी (मि.ली. में) मिलाया जाए, ताकि नए घोल में अल्कोहल और पानी का अनुपात 1 : 2 हो जाए?"
+    },
+    "options": [
+      { "en": "100 ml", "hi": "100 ml" },
+      { "en": "50 ml", "hi": "50 ml" },
+      { "en": "200 ml", "hi": "200 ml" },
+      { "en": "150 ml", "hi": "150 ml" }
+    ],
+    "correctAnswer": { "en": "200 ml", "hi": "200 ml" }
+  },
+  {
+    "questionNo": 76,
+    "question": {
+      "en": "A metal container is in the shape of a cuboid with dimensions 3 m×2m×1.5m. If its outer surface is painted at a rate of Rs. 15 per m² find the total cost.",
+      "hi": "एक धातु का कंटेनर घनाभ के आकार का है, जिसकी माप 3 मीटर×2मीटर×1.5 मीटर है। यदि इसकी बाहरी सतह को ₹15 प्रति वर्ग मीटर की दर से रंगा जाता है, तो कुल लागत ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "Rs. 390", "hi": "₹390" },
+      { "en": "Rs. 405", "hi": "₹405" },
+      { "en": "Rs. 420", "hi": "₹420" },
+      { "en": "Rs. 450", "hi": "₹450" }
+    ],
+    "correctAnswer": { "en": "Rs. 405", "hi": "₹405" }
+  },
+  {
+    "questionNo": 77,
+    "question": {
+      "en": "In right triangle ABC, right angled at 'B', AB=18 cm. BD is perpendicular to AC such that AC=2BD If ∠BAC=∠BCA, then find the numerical value of (AC²−BD²).",
+      "hi": "समकोण त्रिभुज ABC में, जिसका कोण 'B' समकोण है, AB=18 सेमी है। BD, AC पर इस प्रकार लंबवत है कि AC=2BD है। यदि ∠BAC=∠BCA है, तो (AC²−BD²) का संख्यात्मक मान ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "509", "hi": "509" },
+      { "en": "412", "hi": "412" },
+      { "en": "356", "hi": "356" },
+      { "en": "486", "hi": "486" }
+    ],
+    "correctAnswer": { "en": "486", "hi": "486" }
+  },
+  {
+    "questionNo": 78,
+    "question": {
+      "en": "A solid hemispherical block is melted and recast into a cylinder of the same radius. The height of the cylinder is what fraction of the radius of the hemisphere?",
+      "hi": "एक ठोस अर्धगोलाकार ब्लॉक को पिघलाकर उसी त्रिज्या का एक बेलन बनाया जाता है। बेलन की ऊँचाई अर्धगोले की त्रिज्या का कितना भाग है?"
+    },
+    "options": [
+      { "en": "2⁄3", "hi": "2⁄3" },
+      { "en": "3⁄2", "hi": "3⁄2" },
+      { "en": "1⁄4", "hi": "1⁄4" },
+      { "en": "3⁄1", "hi": "3⁄1" }
+    ],
+    "correctAnswer": { "en": "2⁄3", "hi": "2⁄3" }
+  },
+  {
+    "questionNo": 79,
+    "question": {
+      "en": "A, B, and C started a business. A contributed Rs. 12,000, B contributed Rs. 15,000, and C contributed Rs. 18,000. After 6 months, B withdrew Rs. 5,000, while C added Rs. 10,000. If the total profit at the end of the year is Rs. 54,000, how much did C receive?",
+      "hi": "A, B और C ने एक व्यवसाय शुरू किया। A ने 12,000 रुपये, B ने 15,000 रुपये और C ने 18,000 रुपये का योगदान दिया। 6 महीने बाद, B ने 5,000 रुपये निकाल लिए, जबकि C ने 10,000 रुपये जोड़े। यदि वर्ष के अंत में कुल लाभ 54,000 रुपये है, तो C को कितना लाभ हुआ?"
+    },
+    "options": [
+      { "en": "₹26,147", "hi": "₹26,147" },
+      { "en": "₹24,901", "hi": "₹24,901" },
+      { "en": "₹14,000", "hi": "₹14,000" },
+      { "en": "₹17,890", "hi": "₹17,890" }
+    ],
+    "correctAnswer": { "en": "₹26,147", "hi": "₹26,147" }
+  },
+  {
+    "questionNo": 80,
+    "question": {
+      "en": "In a sale, a shopkeeper offers a 15% discount on clothes if you buy more than two items. Priya buys four shirts for 2040. If the shopkeeper still makes a 20% profit, find the profit the shopkeeper would make if he had sold the clothes at full price.",
+      "hi": "एक सेल में, एक दुकानदार दो से ज़्यादा कपड़े खरीदने पर 15% की छूट देता है। प्रिया ₹2040 में चार कमीजें खरीदती है। अगर दुकानदार को फिर भी 20% का मुनाफ़ा होता है, तो बताइए कि अगर दुकानदार ने कपड़े पूरी कीमत पर बेचे होते, तो उसे कितना मुनाफ़ा होता।"
+    },
+    "options": [
+      { "en": "₹600", "hi": "₹600" },
+      { "en": "₹700", "hi": "₹700" },
+      { "en": "₹800", "hi": "₹800" },
+      { "en": "₹900", "hi": "₹900" }
+    ],
+    "correctAnswer": { "en": "₹700", "hi": "₹700" }
+  },
+  {
+    "questionNo": 81,
+    "question": {
+      "en": "A hemispherical tank has an inner radius of 3 m. It is filled with water at a rate of 1800π liters per minute. How long will it take to fill the tank completely? (Note: 1 m³=1000 liters)",
+      "hi": "एक अर्धगोलाकार टैंक की आंतरिक त्रिज्या 3 मीटर है। इसे 1800π लीटर प्रति मिनट की दर से पानी से भरा जाता है। टैंक को पूरी तरह भरने में कितना समय लगेगा? (ध्यान दें: 1 घन मीटर = 1000 लीटर)"
+    },
+    "options": [
+      { "en": "12 minutes", "hi": "12 मिनट" },
+      { "en": "10 minutes", "hi": "10 मिनट" },
+      { "en": "5 minutes", "hi": "5 मिनट" },
+      { "en": "15 minutes", "hi": "15 मिनट" }
+    ],
+    "correctAnswer": { "en": "10 minutes", "hi": "10 मिनट" }
+  },
+  {
+    "questionNo": 82,
+    "question": {
+      "en": "The slope of a line is -5. If the line passes through the point (2, 3), what is its equation?",
+      "hi": "एक रेखा का ढलान -5 है। यदि रेखा बिंदु (2, 3) से होकर जाती है, तो इसका समीकरण क्या है?"
+    },
+    "options": [
+      { "en": "y=2x−1", "hi": "y=2x−1" },
+      { "en": "y=7x+19", "hi": "y=7x+19" },
+      { "en": "y=−x⁄4−4", "hi": "y=−x⁄4−4" },
+      { "en": "y=−5x+13", "hi": "y=−5x+13" }
+    ],
+    "correctAnswer": { "en": "y=−5x+13", "hi": "y=−5x+13" }
+  },
+  {
+    "questionNo": 83,
+    "question": {
+      "en": "Find the value of (tan 20°)²⁄(cosec70°)²+(cot20°)²⁄(sec70°)²+2tan15°tan45° tan 75°.",
+      "hi": "(tan 20°)²⁄(cosec70°)²+(cot20°)²⁄(sec70°)²+2tan15°tan45° tan 75° का मान ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "2", "hi": "2" },
+      { "en": "3", "hi": "3" },
+      { "en": "1", "hi": "1" },
+      { "en": "0", "hi": "0" }
+    ],
+    "correctAnswer": { "en": "3", "hi": "3" }
+  },
+  {
+    "questionNo": 84,
+    "question": {
+      "en": "A tank contains liquid A and B in the ratio 13:12. 50 litres of the mixture are taken out and filled with 50 litres of B. Now the ratio changes to 7:8. Find the quantity of liquid B initially.",
+      "hi": "किसी टंकी में द्रव A और B का अनुपात 13:12 है। 50 लीटर मिश्रण निकालकर उसमें 50 लीटर द्रव B भर दिया जाता है। अब अनुपात 7:8 हो जाता है। शुरू में द्रव B की मात्रा ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "222 litres", "hi": "222 लीटर" },
+      { "en": "230 litres", "hi": "230 लीटर" },
+      { "en": "240 litres", "hi": "240 लीटर" },
+      { "en": "234 litres", "hi": "234 लीटर" }
+    ],
+    "correctAnswer": { "en": "234 litres", "hi": "234 लीटर" }
+  },
+  {
+    "questionNo": 85,
+    "question": {
+      "en": "In a survey conducted at a university, it was found that 55% of the students like Mathematics, 45% like Physics, and 30% like both Mathematics and Physics. Among the remaining students, 25% prefer Computer Science, while the rest have no preference. If the total number of students surveyed is 800, how many students had no preference for any of the three subjects?",
+      "hi": "एक यूनिवर्सिटी में किए गए सर्वे में पता चला कि 55% स्टूडेंट्स को मैथ्स पसंद है, 45% को फिजिक्स पसंद है, और 30% को मैथ्स और फिजिक्स दोनों पसंद हैं। बाकी स्टूडेंट्स में से 25% को कंप्यूटर साइंस पसंद है, जबकि बाकी किसी भी सब्जेक्ट को पसंद नहीं करते। अगर सर्वे में कुल 800 स्टूडेंट्स थे, तो कितने स्टूडेंट्स को तीनों में से किसी भी सब्जेक्ट में कोई पसंद नहीं थी?"
+    },
+    "options": [
+      { "en": "160", "hi": "160" },
+      { "en": "200", "hi": "200" },
+      { "en": "220", "hi": "220" },
+      { "en": "180", "hi": "180" }
+    ],
+    "correctAnswer": { "en": "180", "hi": "180" }
+  },
+  {
+    "questionNo": 86,
+    "question": {
+      "en": "A construction project was estimated to be completed in 180 days. Due to rain, only 60% of the days were productive. If the work done each productive day is constant, by what percent must daily output be increased to complete the project on time?",
+      "hi": "एक निर्माण परियोजना को 180 दिनों में पूरा होने का अनुमान था। बारिश के कारण, केवल 60% दिन ही उत्पादक थे। अगर प्रत्येक उत्पादक दिन में किया गया कार्य स्थिर है, तो परियोजना को समय पर पूरा करने के लिए दैनिक उत्पादन में कितने प्रतिशत की वृद्धि करनी होगी?"
+    },
+    "options": [
+      { "en": "60.65%", "hi": "60.65%" },
+      { "en": "65%", "hi": "65%" },
+      { "en": "70.43%", "hi": "70.43%" },
+      { "en": "66.67%", "hi": "66.67%" }
+    ],
+    "correctAnswer": { "en": "66.67%", "hi": "66.67%" }
+  },
+  {
+    "questionNo": 87,
+    "question": {
+      "en": "Rs. 12,000 is invested at the rate of 8% p.a. for 4 years at simple interest in scheme 'A'. The amount received from scheme 'A' is then invested for 2 years at rate of 5% р.а., compounded annually in scheme 'B'. Find the amount received from scheme 'B'.",
+      "hi": "योजना 'A' में 12,000 रुपये 8% वार्षिक साधारण ब्याज दर से 4 वर्षों के लिए निवेश किए जाते हैं। योजना 'A' से प्राप्त राशि को फिर योजना 'B' में 5% वार्षिक चक्रवृद्धि ब्याज दर से 2 वर्षों के लिए निवेश किया जाता है। योजना 'B' से प्राप्त राशि ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "Rs. 17,463.6", "hi": "₹17,463.6" },
+      { "en": "Rs. 17,677", "hi": "₹17,677" },
+      { "en": "Rs. 11,460.5", "hi": "₹11,460.5" },
+      { "en": "Rs. 17,999", "hi": "₹17,999" }
+    ],
+    "correctAnswer": { "en": "Rs. 17,463.6", "hi": "₹17,463.6" }
+  },
+  {
+    "questionNo": 88,
+    "question": {
+      "en": "A circular field is surrounded by a path of uniform width 2.5 m. The total area of the field, including the path, is 1078.125 m². If the area of the circular field (excluding the path) is 803.25 m², find the radius of the circular field and the radius including the path. (Use π= 3.1416)",
+      "hi": "एक वृत्ताकार मैदान 2.5 मीटर की एक समान चौड़ाई वाले पथ से घिरा हुआ है। पथ सहित मैदान का कुल क्षेत्रफल 1078.125 वर्ग मीटर है। अगर वृत्ताकार मैदान का क्षेत्रफल (पथ को छोड़कर) 803.25 वर्ग मीटर है, तो वृत्ताकार मैदान की त्रिज्या और पथ सहित त्रिज्या ज्ञात कीजिए। (π=3.1416 का प्रयोग कीजिए)"
+    },
+    "options": [
+      { "en": "15.50 m, 18.00 m", "hi": "15.50 m, 18.00 m" },
+      { "en": "15.99 m, 18.49 m", "hi": "15.99 m, 18.49 m" },
+      { "en": "16.20 m, 18.70 m", "hi": "16.20 m, 18.70 m" },
+      { "en": "14.00 m, 16.50 m", "hi": "14.00 m, 16.50 m" }
+    ],
+    "correctAnswer": { "en": "15.99 m, 18.49 m", "hi": "15.99 m, 18.49 m" }
+  },
+  {
+    "questionNo": 89,
+    "question": {
+      "en": "The length, breadth, and height of a rectangular parallelepiped are in the ratio 2: 3: 4. If the total length of all edges is 108 cm, what is the volume of the parallelepiped?",
+      "hi": "एक आयताकार समांतर चतुर्भुज की लंबाई, चौड़ाई और ऊंचाई 2: 3: 4 के अनुपात में है। यदि सभी किनारों की कुल लंबाई 108 सेमी है, तो समांतर चतुर्भुज का आयतन क्या है?"
+    },
+    "options": [
+      { "en": "640 cubic cm", "hi": "640 घन सेमी" },
+      { "en": "668 cubic cm", "hi": "668 घन सेमी" },
+      { "en": "648 cubic cm", "hi": "648 घन सेमी" },
+      { "en": "688 cubic cm", "hi": "688 घन सेमी" }
+    ],
+    "correctAnswer": { "en": "648 cubic cm", "hi": "648 घन सेमी" }
+  },
+  {
+    "questionNo": 90,
+    "question": {
+      "en": "In a ∆ABC, 'D' and 'E' are points on BC such that AD=AE and ∠BAD=∠CAE. IF AB=(2p + 3) units, BD='2p' units, AC=(3q−1) units and CE='q' units, then find the value of (p+q)",
+      "hi": "एक ∆ABC में, BC पर बिंदु 'D' और 'E' इस प्रकार हैं कि AD=AE और ∠BAD=∠CAE है। यदि AB= (2p+3) इकाई, BD='2p' इकाई, AC=(3q−1) इकाई और CE = 'q' इकाई है, तो (p+q) का मान ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "4", "hi": "4" },
+      { "en": "2", "hi": "2" },
+      { "en": "5", "hi": "5" },
+      { "en": "3", "hi": "3" }
+    ],
+    "correctAnswer": { "en": "3", "hi": "3" }
+  },
+  {
+    "questionNo": 91,
+    "question": {
+      "en": "A regular polygon has twice the number of sides as another regular polygon. The perimeter of the smaller polygon is 84.8 cm and each of its interior angles measures 140°. The side length of the larger polygon is 1.2 times that of the smaller one. What is the measure of each interior angle of the larger polygon?",
+      "hi": "एक समबहुभुज की भुजाओं की संख्या दूसरे समबहुभुज की भुजाओं की संख्या से दोगुनी है। छोटे बहुभुज का परिमाप 84.8 सेमी है और इसके प्रत्येक आंतरिक कोण का माप 140° है। बड़े बहुभुज की भुजा की लंबाई छोटे बहुभुज की भुजा की 1.2 गुना है। बड़े बहुभुज के प्रत्येक आंतरिक कोण का माप क्या है?"
+    },
+    "options": [
+      { "en": "155°", "hi": "155°" },
+      { "en": "158°", "hi": "158°" },
+      { "en": "160°", "hi": "160°" },
+      { "en": "162°", "hi": "162°" }
+    ],
+    "correctAnswer": { "en": "160°", "hi": "160°" }
+  },
+  {
+    "questionNo": 92,
+    "question": {
+      "en": "In a circle with center O, two parallel chords AB and CD are on opposite sides of the center. If the length of chord AB is 16 cm and chord CD is 12 cm, and the distance between them is 14 cm, find the radius of the circle.",
+      "hi": "केंद्र O वाले एक वृत्त में, दो समांतर जीवाएँ AB और CD केंद्र के विपरीत दिशाओं में हैं। यदि जीवा AB की लंबाई 16 सेमी और जीवा CD की लंबाई 12 सेमी है, और उनके बीच की दूरी 14 सेमी है, तो वृत्त की त्रिज्या ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "15 cm", "hi": "15 cm" },
+      { "en": "10 cm", "hi": "10 cm" },
+      { "en": "12 cm", "hi": "12 cm" },
+      { "en": "8 cm", "hi": "8 cm" }
+    ],
+    "correctAnswer": { "en": "10 cm", "hi": "10 cm" }
+  },
+  {
+    "questionNo": 93,
+    "question": {
+      "en": "Two chords AB and CD of a circle intersect at a point P inside the circle. If AP = 5 cm, PB =8 cm, and CP=4 cm, what is the length of chord CD?",
+      "hi": "एक वृत्त की दो जीवाएँ AB और CD, वृत्त के अंदर एक बिंदु P पर प्रतिच्छेद करती हैं। यदि AP=5 सेमी, PB=8 सेमी और CP=4 सेमी है, तो जीवा CD की लंबाई क्या है?"
+    },
+    "options": [
+      { "en": "10 cm", "hi": "10 cm" },
+      { "en": "14 cm", "hi": "14 cm" },
+      { "en": "16 cm", "hi": "16 cm" },
+      { "en": "18 cm", "hi": "18 cm" }
+    ],
+    "correctAnswer": { "en": "14 cm", "hi": "14 cm" }
+  },
+  {
+    "questionNo": 94,
+    "question": {
+      "en": "A cyclist covers a total distance of 36 km. After cycling for 2 hours and 30 minutes, he finds that the distance he has covered is 3⁄5 of the remaining distance. What is his speed in km/hr?",
+      "hi": "एक साइकिल चालक कुल 36 किमी की दूरी तय करता है। 2 घंटे 30 मिनट साइकिल चलाने के बाद, वह पाता है कि उसने जो दूरी तय की है, वह शेष दूरी का 3⁄5 है। उसकी गति किमी/घंटा में क्या है?"
+    },
+    "options": [
+      { "en": "4.8 km/hr", "hi": "4.8 km/hr" },
+      { "en": "5.4 km/hr", "hi": "5.4 km/hr" },
+      { "en": "6.0 km/hr", "hi": "6.0 km/hr" },
+      { "en": "4.5 km/hr", "hi": "4.5 km/hr" }
+    ],
+    "correctAnswer": { "en": "5.4 km/hr", "hi": "5.4 km/hr" }
+  },
+  {
+    "questionNo": 95,
+    "question": {
+      "en": "The average monthly salary of employees in a company is ₹40,000. When 4 new employees with average salary ₹25,000 join, the average salary of the whole company decreases by ₹3,000. Find the original number of employees.",
+      "hi": "एक कंपनी में कर्मचारियों का औसत मासिक वेतन ₹40,000 है। जब ₹25,000 औसत वेतन वाले 4 नए कर्मचारी कंपनी में शामिल होते हैं, तो पूरी कंपनी का औसत वेतन ₹3,000 कम हो जाता है। कर्मचारियों की मूल संख्या ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "16", "hi": "16" },
+      { "en": "14", "hi": "14" },
+      { "en": "12", "hi": "12" },
+      { "en": "20", "hi": "20" }
+    ],
+    "correctAnswer": { "en": "16", "hi": "16" }
+  },
+  {
+    "questionNo": 96,
+    "question": {
+      "en": "The length and breadth of a rectangle are in the ratio 14:11, respectively, and the perimeter of the rectangle is 150 cm. If the area of the rectangle is equal to the area of the top surface of a solid cylinder, then find the curved surface area of the cylinder given that its radius is 105% of its height.",
+      "hi": "एक आयत की लंबाई और चौड़ाई क्रमशः 14:11 के अनुपात में है और आयत का परिमाप 150 सेमी है। यदि आयत का क्षेत्रफल एक ठोस बेलन के ऊपरी पृष्ठ के क्षेत्रफल के बराबर है, तो बेलन का वक्र पृष्ठीय क्षेत्रफल ज्ञात कीजिए, जबकि इसकी त्रिज्या, इसकी ऊँचाई का 105% है।"
+    },
+    "options": [
+      { "en": "2330 cm²", "hi": "2330 cm²" },
+      { "en": "2560 cm²", "hi": "2560 cm²" },
+      { "en": "2120 cm²", "hi": "2120 cm²" },
+      { "en": "2640 cm²", "hi": "2640 cm²" }
+    ],
+    "correctAnswer": { "en": "2640 cm²", "hi": "2640 cm²" }
+  },
+  {
+    "questionNo": 97,
+    "question": {
+      "en": "Arrange in descending order: ³√10, √6, ⁶√120",
+      "hi": "अवरोही क्रम में व्यवस्थित कीजिए: ³√10, √6, ⁶√120"
+    },
+    "options": [
+      { "en": "³√10, ⁶√120, √6", "hi": "³√10, ⁶√120, √6" },
+      { "en": "³√10, √6, ⁶√120", "hi": "³√10, √6, ⁶√120" },
+      { "en": "√6, ⁶√120, ³√10", "hi": "√6, ⁶√120, ³√10" },
+      { "en": "⁶√120, ³√10, √6", "hi": "⁶√120, ³√10, √6" }
+    ],
+    "correctAnswer": { "en": "√6, ⁶√120, ³√10", "hi": "√6, ⁶√120, ³√10" }
+  },
+  {
+    "questionNo": 98,
+    "question": {
+      "en": "A milk seller claims to sell milk at its actual cost price, yet he secretly adds water to it and thus secures a 25% profit. In what proportion of water to milk must the mixture be prepared to yield this gain?",
+      "hi": "एक दूध विक्रेता दूध को उसके वास्तविक क्रय मूल्य पर बेचने का दावा करता है, फिर भी वह उसमें चुपके से पानी मिला देता है और इस प्रकार 25% लाभ कमाता है। यह लाभ प्राप्त करने के लिए मिश्रण में पानी और दूध का अनुपात कितना होना चाहिए?"
+    },
+    "options": [
+      { "en": "1:3", "hi": "1:3" },
+      { "en": "1:4", "hi": "1:4" },
+      { "en": "1:5", "hi": "1:5" },
+      { "en": "4:1", "hi": "4:1" }
+    ],
+    "correctAnswer": { "en": "1:4", "hi": "1:4" }
+  },
+  {
+    "questionNo": 99,
+    "question": {
+      "en": "A town has a present population of 2,40,000. Every year the population increases by a birth rate of 12% and decreases by a death rate of 7%. Find the population of the town at the end of 3 years.",
+      "hi": "एक कस्बे की वर्तमान जनसंख्या 2,40,000 है। प्रत्येक वर्ष जनसंख्या में जन्म दर 12% की वृद्धि और मृत्यु दर 7% की कमी होती है। 3 वर्ष के अंत में कस्बे की जनसंख्या ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "2,92,500", "hi": "2,92,500" },
+      { "en": "2,98,000", "hi": "2,98,000" },
+      { "en": "2,77,830", "hi": "2,77,830" },
+      { "en": "3,27,830", "hi": "3,27,830" }
+    ],
+    "correctAnswer": { "en": "2,77,830", "hi": "2,77,830" }
+  },
+  {
+    "questionNo": 100,
+    "question": {
+      "en": "After two successive increments, a person's salary became 156.25% of the original salary. If the percentage increase in the second increment was equal to that in the first increment, then what was the percentage of each increment?",
+      "hi": "दो क्रमिक वेतन वृद्धि के बाद, एक व्यक्ति का वेतन मूल वेतन का 156.25% हो गया। यदि दूसरी वेतन वृद्धि में प्रतिशत वृद्धि पहली वेतन वृद्धि के बराबर थी, तो प्रत्येक वेतन वृद्धि का प्रतिशत क्या था?"
+    },
+    "options": [
+      { "en": "20%", "hi": "20%" },
+      { "en": "22%", "hi": "22%" },
+      { "en": "25%", "hi": "25%" },
+      { "en": "30%", "hi": "30%" }
+    ],
+    "correctAnswer": { "en": "25%", "hi": "25%" }
+  }
+],
 }
