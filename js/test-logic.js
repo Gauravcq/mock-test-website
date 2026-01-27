@@ -123,47 +123,92 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // --- Show Loading State ---
-    function showLoadingState() {
-        if (instructionsModal) {
-            instructionsModal.innerHTML = `
-                <div style="text-align: center; padding: 60px 20px;">
-                    <div class="spinner" style="
-                        width: 50px; height: 50px; margin: 0 auto 20px;
-                        border: 4px solid rgba(99, 102, 241, 0.2);
-                        border-top-color: #6366f1;
-                        border-radius: 50%;
-                        animation: spin 1s linear infinite;
-                    "></div>
-                    <h3>Loading Test Questions...</h3>
-                    <p>Please wait while we securely fetch your test</p>
-                    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
-                </div>
-            `;
-        }
-    }
+   // --- Show Loading State ---
+function showLoadingState() {
+    // Create a loading overlay instead of replacing instructions
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'loading-overlay';
+    loadingOverlay.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        ">
+            <div class="spinner" style="
+                width: 50px; height: 50px; margin-bottom: 20px;
+                border: 4px solid rgba(99, 102, 241, 0.2);
+                border-top-color: #6366f1;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            "></div>
+            <h3 style="margin: 0; color: #1f2937;">Loading Test Questions...</h3>
+            <p style="color: #6b7280; margin-top: 10px;">Please wait while we securely fetch your test</p>
+            <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+        </div>
+    `;
+    document.body.appendChild(loadingOverlay);
+}
 
-    // --- Show Error State ---
-    function showErrorState(message) {
-        if (instructionsModal) {
-            instructionsModal.innerHTML = `
-                <div style="text-align: center; padding: 60px 20px;">
-                    <div style="font-size: 48px; margin-bottom: 20px;">⚠️</div>
-                    <h3>Unable to Load Test</h3>
-                    <p style="color: #ef4444; margin-bottom: 20px;">${message}</p>
-                    <button onclick="location.reload()" style="
-                        padding: 12px 30px; background: #6366f1; color: white;
-                        border: none; border-radius: 8px; cursor: pointer;
-                        font-size: 16px; margin-right: 10px;
-                    ">Try Again</button>
-                    <a href="index.html" style="
-                        padding: 12px 30px; background: #64748b; color: white;
-                        border: none; border-radius: 8px; cursor: pointer;
-                        font-size: 16px; text-decoration: none; display: inline-block;
-                    ">Go Back</a>
-                </div>
-            `;
-        }
+// --- Hide Loading State ---
+function hideLoadingState() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.remove();
     }
+}
+
+// --- Show Error State ---
+function showErrorState(message) {
+    hideLoadingState();
+    
+    const errorOverlay = document.createElement('div');
+    errorOverlay.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 20px;
+        ">
+            <div style="font-size: 64px; margin-bottom: 20px;">⚠️</div>
+            <h2 style="margin: 0; color: #1f2937;">Unable to Load Test</h2>
+            <p style="color: #ef4444; margin: 15px 0; max-width: 400px;">${message}</p>
+            <div style="margin-top: 20px;">
+                <button onclick="location.reload()" style="
+                    padding: 12px 30px; 
+                    background: #6366f1; 
+                    color: white;
+                    border: none; 
+                    border-radius: 8px; 
+                    cursor: pointer;
+                    font-size: 16px; 
+                    margin-right: 10px;
+                ">Try Again</button>
+                <a href="index.html" style="
+                    padding: 12px 30px; 
+                    background: #64748b; 
+                    color: white;
+                    border: none; 
+                    border-radius: 8px; 
+                    text-decoration: none;
+                    font-size: 16px;
+                    display: inline-block;
+                ">Go Back</a>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(errorOverlay);
+}
 
     // --- Initial Validation ---
     if (!testId) {
@@ -185,33 +230,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ====================================================================
     // 🔒 LOAD QUESTIONS FROM SECURE BACKEND API (instead of QUESTIONS_DATABASE)
     // ====================================================================
-    showLoadingState();
+    // ====================================================================
+// 🔒 LOAD QUESTIONS FROM SECURE BACKEND API
+// ====================================================================
+showLoadingState();
 
-    let questions = [];
-    let testResults = null; // Will store results after submission
+let questions = [];
+let testResults = null;
 
-    try {
-        console.log(`🔒 Loading questions for test: ${testId} from secure API...`);
-        
-        const response = await ExamAxisAPI.getQuestions(testId);
-        
-        if (!response.success) {
-            throw new Error(response.message || 'Failed to load questions');
-        }
-
-        if (!response.data || !response.data.questions || response.data.questions.length === 0) {
-            throw new Error('No questions found for this test');
-        }
-
-        // Questions from API (without correct answers!)
-        questions = response.data.questions;
-        console.log(`✅ Loaded ${questions.length} questions securely (answers hidden)`);
-
-    } catch (error) {
-        console.error('❌ Failed to load questions:', error);
-        showErrorState(error.message);
-        return;
+try {
+    console.log(`🔒 Loading questions for test: ${testId} from secure API...`);
+    
+    const response = await ExamAxisAPI.getQuestions(testId);
+    
+    if (!response.success) {
+        throw new Error(response.message || 'Failed to load questions');
     }
+
+    if (!response.data || !response.data.questions || response.data.questions.length === 0) {
+        throw new Error('No questions found for this test');
+    }
+
+    // Questions from API (without correct answers!)
+    questions = response.data.questions;
+    console.log(`✅ Loaded ${questions.length} questions securely (answers hidden)`);
+    
+    // Hide loading - YOUR original instructions modal will show!
+    hideLoadingState();
+
+} catch (error) {
+    console.error('❌ Failed to load questions:', error);
+    showErrorState(error.message);
+    return;
+}
+
+// ====================================================================
 
     // ====================================================================
 
@@ -229,39 +282,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             sectionTotal: totalQuestions
         };
     });
-
-    // Restore instructions modal content
-    if (instructionsModal) {
-        instructionsModal.innerHTML = `
-            <div class="instructions-content">
-                <h2>📝 Test Instructions</h2>
-                <div class="test-info-header">
-                    <h3>${testInfo.title}</h3>
-                    <p><strong>Subject:</strong> ${singleSubjectName}</p>
-                    <p><strong>Questions:</strong> ${totalQuestions}</p>
-                    <p><strong>Duration:</strong> ${testInfo.duration || 25} minutes</p>
-                </div>
-                <ul class="instructions-list">
-                    <li>Each correct answer carries <strong>2 marks</strong></li>
-                    <li>Each wrong answer has <strong>-0.5 negative marking</strong></li>
-                    <li>You can mark questions for review and revisit them</li>
-                    <li>Click "Submit Test" when you're done</li>
-                    <li>⚠️ Do not refresh the page during the test</li>
-                </ul>
-                <button id="start-test-btn" class="btn primary start-btn">Start Test</button>
-            </div>
-        `;
-        
-        // Re-bind start button
-        const newStartBtn = document.getElementById('start-test-btn');
-        if (newStartBtn) {
-            newStartBtn.addEventListener('click', () => {
-                instructionsModal.classList.add('hidden');
-                quizUI.classList.remove('hidden');
-                initializeQuiz(questions, testInfo);
-            });
-        }
-    }
 
     // --- Global Variables ---
     let reviewQuestionList = [];
