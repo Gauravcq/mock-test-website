@@ -3410,7 +3410,7 @@ const ALL_TESTS = [
     id: "CHSL_TOP_100_MATHS2",
     exam: "CHSL_TOP_100_MATHS",  
     subject: "Maths Top 50",  // Use new subject name
-    title: "CHSL_Top_100_Maths_Set 2",
+    title: "CHSL Top 100 Maths - Set 2",
     date: "2025",
     questions: 50,
     isNew: true
