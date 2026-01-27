@@ -1,5 +1,5 @@
 // test-logic.js  (supports OLD + NEW + EN-only question formats)
-// NOW LOADS QUESTIONS FROM SECURE BACKEND API
+// Tries API first, falls back to local QUESTIONS_DATABASE
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             q.options = [];
         }
 
-        // CORRECT ANSWER - Only available after submission from backend
+        // CORRECT ANSWER
         if (typeof q.correctAnswer === 'string') {
             const parts = String(q.correctAnswer).split('|');
             const enPart = (parts[0] || '').trim();
@@ -122,96 +122,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return q;
     }
 
-    // --- Show Loading State ---
-   // --- Show Loading State ---
-function showLoadingState() {
-    // Create a loading overlay instead of replacing instructions
-    const loadingOverlay = document.createElement('div');
-    loadingOverlay.id = 'loading-overlay';
-    loadingOverlay.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.95);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        ">
-            <div class="spinner" style="
-                width: 50px; height: 50px; margin-bottom: 20px;
-                border: 4px solid rgba(99, 102, 241, 0.2);
-                border-top-color: #6366f1;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-            "></div>
-            <h3 style="margin: 0; color: #1f2937;">Loading Test Questions...</h3>
-            <p style="color: #6b7280; margin-top: 10px;">Please wait while we securely fetch your test</p>
-            <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
-        </div>
-    `;
-    document.body.appendChild(loadingOverlay);
-}
-
-// --- Hide Loading State ---
-// Hide loading - YOUR original instructions modal will show!
-hideLoadingState();
-
-// DEBUG: Log what we got
-console.log('📋 Test Info:', testInfo);
-console.log('📋 Questions count:', questions.length);
-console.log('📋 First question:', questions[0]);
-console.log('📋 Start button exists:', !!startTestBtn);
-console.log('📋 Instructions modal exists:', !!instructionsModal);
-// --- Show Error State ---
-function showErrorState(message) {
-    hideLoadingState();
-    
-    const errorOverlay = document.createElement('div');
-    errorOverlay.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.98);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            text-align: center;
-            padding: 20px;
-        ">
-            <div style="font-size: 64px; margin-bottom: 20px;">⚠️</div>
-            <h2 style="margin: 0; color: #1f2937;">Unable to Load Test</h2>
-            <p style="color: #ef4444; margin: 15px 0; max-width: 400px;">${message}</p>
-            <div style="margin-top: 20px;">
-                <button onclick="location.reload()" style="
-                    padding: 12px 30px; 
-                    background: #6366f1; 
-                    color: white;
-                    border: none; 
-                    border-radius: 8px; 
-                    cursor: pointer;
-                    font-size: 16px; 
-                    margin-right: 10px;
-                ">Try Again</button>
-                <a href="index.html" style="
-                    padding: 12px 30px; 
-                    background: #64748b; 
-                    color: white;
-                    border: none; 
-                    border-radius: 8px; 
-                    text-decoration: none;
-                    font-size: 16px;
-                    display: inline-block;
-                ">Go Back</a>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(errorOverlay);
-}
-
     // --- Initial Validation ---
     if (!testId) {
         document.body.innerHTML = "<h1>Error: Test ID not specified.</h1>";
@@ -230,44 +140,58 @@ function showErrorState(message) {
     }
 
     // ====================================================================
-    // 🔒 LOAD QUESTIONS FROM SECURE BACKEND API (instead of QUESTIONS_DATABASE)
+    // 🔒 LOAD QUESTIONS - Try API first, fallback to local QUESTIONS_DATABASE
     // ====================================================================
-    // ====================================================================
-// 🔒 LOAD QUESTIONS FROM SECURE BACKEND API
-// ====================================================================
-showLoadingState();
+    let questions = [];
+    let testResults = null;
+    let loadedFromAPI = false;
 
-let questions = [];
-let testResults = null;
-
-try {
-    console.log(`🔒 Loading questions for test: ${testId} from secure API...`);
-    
-    const response = await ExamAxisAPI.getQuestions(testId);
-    
-    if (!response.success) {
-        throw new Error(response.message || 'Failed to load questions');
+    // Try to load from API first
+    try {
+        console.log(`🔒 Trying to load questions from API for test: ${testId}...`);
+        
+        const response = await ExamAxisAPI.getQuestions(testId);
+        
+        if (response.success && response.data?.questions?.length > 0) {
+            questions = response.data.questions;
+            loadedFromAPI = true;
+            console.log(`✅ Loaded ${questions.length} questions from API (secure)`);
+        } else {
+            throw new Error('API returned no questions');
+        }
+    } catch (apiError) {
+        console.warn('⚠️ API failed, falling back to local QUESTIONS_DATABASE...', apiError.message);
+        
+        // Fallback to local questions
+        if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
+            let rawData = QUESTIONS_DATABASE[testId];
+            
+            // Support both old array format and new object format
+            if (Array.isArray(rawData)) {
+                questions = rawData;
+            } else if (rawData.questions && Array.isArray(rawData.questions)) {
+                questions = rawData.questions;
+            }
+            
+            if (questions.length > 0) {
+                console.log(`✅ Loaded ${questions.length} questions from local database`);
+            }
+        }
     }
 
-    if (!response.data || !response.data.questions || response.data.questions.length === 0) {
-        throw new Error('No questions found for this test');
+    // Final check - if still no questions, show error
+    if (!questions || questions.length === 0) {
+        document.body.innerHTML = `
+            <div style="text-align: center; padding: 50px;">
+                <h1>❌ Error</h1>
+                <p>No questions found for test ID: ${testId}</p>
+                <a href="index.html" style="color: #6366f1;">Go Back to Tests</a>
+            </div>
+        `;
+        return;
     }
 
-    // Questions from API (without correct answers!)
-    questions = response.data.questions;
-    console.log(`✅ Loaded ${questions.length} questions securely (answers hidden)`);
-    
-    // Hide loading - YOUR original instructions modal will show!
-    hideLoadingState();
-
-} catch (error) {
-    console.error('❌ Failed to load questions:', error);
-    showErrorState(error.message);
-    return;
-}
-
-// ====================================================================
-
+    console.log(`📋 Total questions loaded: ${questions.length}, From API: ${loadedFromAPI}`);
     // ====================================================================
 
     const singleSubjectName = testInfo.subject;
@@ -278,37 +202,27 @@ try {
         const nq = normalizeQuestion(q);
         return {
             ...nq,
-            originalIndex: index, // Keep track of original index for submission
+            originalIndex: index,
             subject: singleSubjectName,
             sectionQNum: 1,
             sectionTotal: totalQuestions
         };
     });
-    // Normalize every question + add subject/section metadata
-questions = questions.map((q, index) => {
-    const nq = normalizeQuestion(q);
-    return {
-        ...nq,
-        originalIndex: index,
-        subject: singleSubjectName,
-        sectionQNum: 1,
-        sectionTotal: totalQuestions
-    };
-});
 
-// ====================================================================
-// 🎯 BIND START TEST BUTTON (This was missing!)
-// ====================================================================
-if (startTestBtn) {
-    startTestBtn.addEventListener('click', () => {
-        console.log('🚀 Starting test...');
-        if (instructionsModal) instructionsModal.classList.add('hidden');
-        if (quizUI) quizUI.classList.remove('hidden');
-        initializeQuiz(questions, testInfo);
-    });
-} else {
-    console.error('❌ Start Test button not found!');
-}
+    // ====================================================================
+    // 🎯 BIND START TEST BUTTON
+    // ====================================================================
+    if (startTestBtn) {
+        startTestBtn.addEventListener('click', () => {
+            console.log('🚀 Starting test with', questions.length, 'questions');
+            if (instructionsModal) instructionsModal.classList.add('hidden');
+            if (quizUI) quizUI.classList.remove('hidden');
+            initializeQuiz(questions, testInfo);
+        });
+    } else {
+        console.error('❌ Start Test button not found!');
+    }
+    // ====================================================================
 
     // --- Global Variables ---
     let reviewQuestionList = [];
@@ -583,7 +497,7 @@ if (startTestBtn) {
         function handleSectionTimeout(finishedSubject) {
             clearInterval(timerInterval);
             alert(`Time is up for ${finishedSubject}!`);
-            submitTestToBackend(true);
+            calculateAndShowResults(true);
         }
 
         function pauseTest() {
@@ -611,12 +525,11 @@ if (startTestBtn) {
         }
 
         // ================================================================
-        // 🔒 SUBMIT TEST TO BACKEND (Get results with correct answers)
+        // CALCULATE AND SHOW RESULTS (Local scoring - works without API)
         // ================================================================
-        async function submitTestToBackend(autoSubmit = false) {
+        function calculateAndShowResults(autoSubmit = false) {
             clearInterval(timerInterval);
 
-            // Calculate time taken
             let totalRemainingSeconds = 0;
             for (let subj in sectionTimeRemaining) {
                 totalRemainingSeconds += sectionTimeRemaining[subj];
@@ -625,92 +538,32 @@ if (startTestBtn) {
             const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
             const timeTakenSeconds = timeTakenSecondsTotal % 60;
 
-            // Prepare answers array for backend
-            // Backend expects array of selected option indices or -1 for unanswered
-            const answers = questionStates.map((state, index) => {
-                if (state.userAnswer === null) return -1;
-                
-                // Find index of selected option
-                const selectedOptionIndex = questions[index].options.findIndex(
-                    opt => opt.en === state.userAnswer
-                );
-                return selectedOptionIndex;
+            let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
+
+            questionStates.forEach((state, index) => {
+                const question = questions[index];
+                if (state.userAnswer !== null) {
+                    const userAnswerNormalized = normalizeString(state.userAnswer);
+                    const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
+                    if (userAnswerNormalized === correctAnswerNormalized) {
+                        correctCount++; 
+                        score += 2; 
+                        state.resultCategory = 'correct';
+                    } else {
+                        incorrectCount++; 
+                        score -= 0.5; 
+                        state.resultCategory = 'incorrect';
+                    }
+                } else {
+                    unattemptedCount++; 
+                    state.resultCategory = 'unattempted';
+                }
             });
 
-            try {
-                // Show submitting state
-                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-                if (quizUI) {
-                    quizUI.innerHTML = `
-                        <div style="text-align: center; padding: 100px 20px;">
-                            <div class="spinner" style="
-                                width: 60px; height: 60px; margin: 0 auto 30px;
-                                border: 4px solid rgba(99, 102, 241, 0.2);
-                                border-top-color: #6366f1;
-                                border-radius: 50%;
-                                animation: spin 1s linear infinite;
-                            "></div>
-                            <h2>Submitting Test...</h2>
-                            <p>Please wait while we calculate your results</p>
-                            <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
-                        </div>
-                    `;
-                }
+            const attemptedCount = correctCount + incorrectCount;
+            const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
 
-                console.log('📤 Submitting test to backend...');
-                const response = await ExamAxisAPI.submitTest(testId, answers);
-
-                if (!response.success) {
-                    throw new Error(response.message || 'Submission failed');
-                }
-
-                console.log('✅ Test submitted successfully!');
-                testResults = response.data;
-
-                // Update questions with correct answers from backend
-                if (testResults.results) {
-                    testResults.results.forEach((result, index) => {
-                        if (questions[index]) {
-                            // Add correct answer from backend
-                            questions[index].correctAnswer = {
-                                en: questions[index].options[result.correctAnswer]?.en || '',
-                                hi: questions[index].options[result.correctAnswer]?.hi || ''
-                            };
-                            questions[index].explanation = {
-                                en: result.explanation || '',
-                                hi: result.explanation || ''
-                            };
-
-                            // Update state with result category
-                            questionStates[index].resultCategory = result.isCorrect ? 'correct' : 
-                                (questionStates[index].userAnswer === null ? 'unattempted' : 'incorrect');
-                        }
-                    });
-                }
-
-                // Show results
-                showResults(testResults, timeTakenMinutes, timeTakenSeconds);
-
-            } catch (error) {
-                console.error('❌ Failed to submit test:', error);
-                alert('Failed to submit test: ' + error.message + '\n\nPlease try again.');
-                
-                // Restore quiz UI
-                if (quizUI) {
-                    quizUI.classList.remove('hidden');
-                    location.reload();
-                }
-            }
-        }
-
-        function showResults(results, timeTakenMinutes, timeTakenSeconds) {
-            const correctCount = results.correctAnswers;
-            const incorrectCount = results.incorrectAnswers || (results.totalQuestions - correctCount);
-            const unattemptedCount = questionStates.filter(s => s.userAnswer === null).length;
-            const score = results.score;
-            const accuracy = results.percentage;
-
-            // Save attempt to backend
+            // Send summary to backend (non-blocking)
             const attemptSummary = {
                 testId: testInfo.id || testId,
                 testTitle: testInfo.title,
@@ -719,55 +572,58 @@ if (startTestBtn) {
                 correct: correctCount,
                 incorrect: incorrectCount,
                 unattempted: unattemptedCount,
-                score: Number(score),
-                maxScore: results.maxScore,
-                accuracy: Number(accuracy),
+                score: Number(score.toFixed(2)),
+                maxScore: questions.length * 2,
+                accuracy: Number(accuracy.toFixed(1)),
                 timeTakenMinutes
             };
             sendAttemptToServer(attemptSummary);
 
             reviewQuestionList = filterQuestions('all');
 
-            // Render results UI
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
-            const testDetailsHtml = `
-                <div class="test-details">
-                    <h3>${testInfo.title || 'Test Completed'}</h3>
-                    <p>Total Questions: ${questions.length}</p>
-                    <p>Max Marks: ${results.maxScore}</p>
-                </div>
-            `;
-            const reviewButtonHtml = `
-                <div class="action-buttons">
-                    <button id="review-test-btn" class="btn primary review">Review Test</button>
-                    <a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>
-                </div>
-            `;
+            const testDetailsHtml =
+                '<div class="test-details">' +
+                '<h3>' + (testInfo.title || 'Shift 1') + '</h3>' +
+                '<p>Total Questions: ' + questions.length + '</p>' +
+                '<p>Max Marks: ' + (questions.length * 2) + '</p>' +
+                '</div>';
+
+            const reviewButtonHtml =
+                '<div class="action-buttons">' +
+                '<button id="review-test-btn" class="btn primary review">Review Test</button>' +
+                '<a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>' +
+                '</div>';
 
             if (testInfoAndActionsWrapper) {
                 testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
             }
 
             const statsCardsArea = document.getElementById('stats-cards-area');
-            const statsCardsHtml = `
-                <div class="stats-grid-container">
-                    <div class="stat-card total-score"><div class="stat-value">${score}</div><div class="stat-name">YOUR SCORE</div></div>
-                    <div class="stat-card correct"><div class="stat-value">${correctCount}</div><div class="stat-name">CORRECT</div></div>
-                    <div class="stat-card incorrect"><div class="stat-value">${incorrectCount}</div><div class="stat-name">INCORRECT</div></div>
-                    <div class="stat-card unattempted"><div class="stat-value">${unattemptedCount}</div><div class="stat-name">UNATTEMPTED</div></div>
-                    <div class="stat-card time-taken"><div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div><div class="stat-name">TIME TAKEN</div></div>
-                    <div class="stat-card accuracy"><div class="stat-value">${accuracy}%</div><div class="stat-name">ACCURACY</div></div>
-                </div>
-            `;
+            const statsCardsHtml =
+                '<div class="stats-grid-container">' +
+                '<div class="stat-card total-score"><div class="stat-value">' + score.toFixed(2) + '</div><div class="stat-name">YOUR SCORE</div></div>' +
+                '<div class="stat-card correct"><div class="stat-value">' + correctCount + '</div><div class="stat-name">CORRECT</div></div>' +
+                '<div class="stat-card incorrect"><div class="stat-value">' + incorrectCount + '</div><div class="stat-name">INCORRECT</div></div>' +
+                '<div class="stat-card unattempted"><div class="stat-value">' + unattemptedCount + '</div><div class="stat-name">UNATTEMPTED</div></div>' +
+                '<div class="stat-card time-taken"><div class="stat-value">' +
+                    String(timeTakenMinutes).padStart(2, '0') + ':' +
+                    String(timeTakenSeconds).padStart(2, '0') +
+                    '</div><div class="stat-name">TIME TAKEN</div></div>' +
+                '<div class="stat-card accuracy"><div class="stat-value">' + accuracy.toFixed(1) + '%</div><div class="stat-name">ACCURACY</div></div>' +
+                '</div>';
 
             if (statsCardsArea) statsCardsArea.innerHTML = statsCardsHtml;
 
             const reviewTestBtn = document.querySelector('#review-test-btn');
             if (reviewTestBtn) {
-                reviewTestBtn.addEventListener('click', () => {
-                    const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                    if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
-                });
+                reviewTestBtn.removeEventListener('click', handleReviewTestClick);
+                reviewTestBtn.addEventListener('click', handleReviewTestClick);
+            }
+
+            function handleReviewTestClick() {
+                const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
+                if (allTab) tabClickHandler({ preventDefault: () => { }, target: allTab });
             }
 
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
@@ -802,7 +658,7 @@ if (startTestBtn) {
         function showQuestion(index) {
             const targetSubject = questions[index].subject;
             if (sectionTimeRemaining[targetSubject] <= 0) {
-                alert(`Time for ${targetSubject} is over.`);
+                alert(`Time for ${targetSubject} is over. You cannot access this section.`);
                 return;
             }
 
@@ -920,7 +776,7 @@ if (startTestBtn) {
 
         if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => {
             if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-            submitTestToBackend(); // Submit to backend!
+            calculateAndShowResults();
         });
 
         if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => {
@@ -959,7 +815,7 @@ if (startTestBtn) {
                 showReviewQuestion(currentReviewIndex - 1);
             }
         });
-    }
+    } // end initializeQuiz
 
     function sendAttemptToServer(summary) {
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) return;
@@ -974,4 +830,4 @@ if (startTestBtn) {
                 console.error('Error saving attempt:', err);
             });
     }
-});
+}); // end DOMContentLoaded
