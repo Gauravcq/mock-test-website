@@ -155,13 +155,15 @@ function showLoadingState() {
 }
 
 // --- Hide Loading State ---
-function hideLoadingState() {
-    const loadingOverlay = document.getElementById('loading-overlay');
-    if (loadingOverlay) {
-        loadingOverlay.remove();
-    }
-}
+// Hide loading - YOUR original instructions modal will show!
+hideLoadingState();
 
+// DEBUG: Log what we got
+console.log('📋 Test Info:', testInfo);
+console.log('📋 Questions count:', questions.length);
+console.log('📋 First question:', questions[0]);
+console.log('📋 Start button exists:', !!startTestBtn);
+console.log('📋 Instructions modal exists:', !!instructionsModal);
 // --- Show Error State ---
 function showErrorState(message) {
     hideLoadingState();
@@ -282,6 +284,31 @@ try {
             sectionTotal: totalQuestions
         };
     });
+    // Normalize every question + add subject/section metadata
+questions = questions.map((q, index) => {
+    const nq = normalizeQuestion(q);
+    return {
+        ...nq,
+        originalIndex: index,
+        subject: singleSubjectName,
+        sectionQNum: 1,
+        sectionTotal: totalQuestions
+    };
+});
+
+// ====================================================================
+// 🎯 BIND START TEST BUTTON (This was missing!)
+// ====================================================================
+if (startTestBtn) {
+    startTestBtn.addEventListener('click', () => {
+        console.log('🚀 Starting test...');
+        if (instructionsModal) instructionsModal.classList.add('hidden');
+        if (quizUI) quizUI.classList.remove('hidden');
+        initializeQuiz(questions, testInfo);
+    });
+} else {
+    console.error('❌ Start Test button not found!');
+}
 
     // --- Global Variables ---
     let reviewQuestionList = [];
