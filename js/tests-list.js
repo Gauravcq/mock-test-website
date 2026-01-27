@@ -3396,7 +3396,7 @@ const ALL_TESTS = [
   exam: "CHSL",
   isNew: true
 },
-{ id: "CHSL_TOP_100_MATHS", date: "2025 ALL DATES", title: "Shift 1", subject: "Top100Maths", exam: "CHSL TOP 100 MATHS", isNew: true },,
+{ id: "CHSL_TOP_100_MATHS", date: "2025 ALL DATES", title: "Shift 1", subject: "Top100Maths", exam: "CHSL", isNew: true },,
   // 18 Dec
 { id: "dp_constable_reasoning_s1", date: "18 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
 { id: "dp_constable_reasoning_s2", date: "18 Dec", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
