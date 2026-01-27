@@ -132,9 +132,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof QUESTIONS_DATABASE === 'undefined') { document.body.innerHTML = "<h1>Fatal Error: QUESTIONS_DATABASE not found.</h1>"; return; }
 
     // Get questions
-    let questions = QUESTIONS_DATABASE[testId];
-    if (!questions) { document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; return; }
+  // Get questions - support both old array format and new object format
+let rawData = QUESTIONS_DATABASE[testId];
+if (!rawData) { 
+    document.body.innerHTML = "<h1>Error: Questions for test ID " + testId + " not found.</h1>"; 
+    return; 
+}
 
+// Check if it's new format { duration: 60, questions: [...] } or old format [...]
+let questions;
+if (Array.isArray(rawData)) {
+    // Old format: direct array of questions
+    questions = rawData;
+} else if (rawData.questions && Array.isArray(rawData.questions)) {
+    // New format: object with questions array
+    questions = rawData.questions;
+} else {
+    document.body.innerHTML = "<h1>Error: Invalid question format for test ID " + testId + "</h1>"; 
+    return;
+}
     const singleSubjectName = testInfo.subject;
     const totalQuestions = questions.length || 25;
 
@@ -347,22 +363,42 @@ document.addEventListener('DOMContentLoaded', () => {
         let timerInterval;
         let isPaused = false;
 
-        const sectionDurations = {
-            "Maths": 25,
-            "Reasoning": 20,
-            "English": 15,
-            "Time Left": 20
-        };
+      const sectionDurations = {
+    "Maths": 25,
+    "Reasoning": 20,
+    "English": 15,
+    "Time Left": 20
+};
 
-        sectionTimeRemaining = {};
-        totalInitialTime = 0;
+sectionTimeRemaining = {};
+totalInitialTime = 0;
 
-        const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
-        uniqueSubjects.forEach(subj => {
-            const minutes = sectionDurations[subj] || 20;
-            sectionTimeRemaining[subj] = minutes * 60;
-            totalInitialTime += (minutes * 60);
-        });
+// Get raw quiz data to check for custom duration
+const rawQuizData = QUESTIONS_DATABASE[testId];
+
+// Check if quiz has custom duration
+let customDuration = null;
+if (rawQuizData && typeof rawQuizData === 'object' && !Array.isArray(rawQuizData)) {
+    // New format: { duration: 60, questions: [...] }
+    customDuration = rawQuizData.duration || null;
+}
+
+const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
+uniqueSubjects.forEach(subj => {
+    let minutes;
+    
+    // Priority: Custom duration > Default subject duration
+    if (customDuration) {
+        minutes = customDuration;
+    } else {
+        minutes = sectionDurations[subj] || 20;
+    }
+    
+    sectionTimeRemaining[subj] = minutes * 60;
+    totalInitialTime += (minutes * 60);
+});
+
+console.log(`Quiz Duration: ${customDuration || sectionDurations[singleSubjectName] || 20} minutes`);
 
         if (languageSelect) {
             languageSelect.value = currentLanguage;
