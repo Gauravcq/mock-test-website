@@ -190,38 +190,58 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
         return;
     }
+console.log(`📋 Total questions loaded: ${questions.length}, From API: ${loadedFromAPI}`);
 
-    console.log(`📋 Total questions loaded: ${questions.length}, From API: ${loadedFromAPI}`);
-    // ====================================================================
+const singleSubjectName = testInfo.subject;
+const totalQuestions = questions.length;
 
-    const singleSubjectName = testInfo.subject;
-    const totalQuestions = questions.length;
+// Normalize every question + add subject/section metadata
+questions = questions.map((q, index) => {
+    const nq = normalizeQuestion(q);
+    return {
+        ...nq,
+        originalIndex: index,
+        subject: singleSubjectName,
+        sectionQNum: 1,
+        sectionTotal: totalQuestions
+    };
+});
 
-    // Normalize every question + add subject/section metadata
-    questions = questions.map((q, index) => {
-        const nq = normalizeQuestion(q);
-        return {
-            ...nq,
-            originalIndex: index,
-            subject: singleSubjectName,
-            sectionQNum: 1,
-            sectionTotal: totalQuestions
-        };
+// ====================================================================
+// 🎯 SHOW INSTRUCTIONS AND BIND START BUTTON
+// ====================================================================
+// Make sure instructions modal is visible
+if (instructionsModal) {
+    instructionsModal.classList.remove('hidden');
+    console.log('✅ Instructions modal is now visible');
+}
+
+// Make sure quiz UI is hidden initially
+if (quizUI) {
+    quizUI.classList.add('hidden');
+}
+
+// Bind start button
+if (startTestBtn) {
+    // Remove any existing listeners
+    const newStartBtn = startTestBtn.cloneNode(true);
+    startTestBtn.parentNode.replaceChild(newStartBtn, startTestBtn);
+    
+    newStartBtn.addEventListener('click', () => {
+        console.log('🚀 Starting test with', questions.length, 'questions');
+        if (instructionsModal) instructionsModal.classList.add('hidden');
+        if (quizUI) quizUI.classList.remove('hidden');
+        initializeQuiz(questions, testInfo);
     });
-
-    // ====================================================================
-    // 🎯 BIND START TEST BUTTON
-    // ====================================================================
-    if (startTestBtn) {
-        startTestBtn.addEventListener('click', () => {
-            console.log('🚀 Starting test with', questions.length, 'questions');
-            if (instructionsModal) instructionsModal.classList.add('hidden');
-            if (quizUI) quizUI.classList.remove('hidden');
-            initializeQuiz(questions, testInfo);
-        });
-    } else {
-        console.error('❌ Start Test button not found!');
-    }
+    console.log('✅ Start button is ready - click it to begin!');
+} else {
+    console.error('❌ Start Test button (#start-test-btn) not found in HTML!');
+    // Fallback: Auto-start the quiz
+    console.log('🚀 Auto-starting quiz since no start button...');
+    if (quizUI) quizUI.classList.remove('hidden');
+    initializeQuiz(questions, testInfo);
+}
+// ====================================================================
     // ====================================================================
 
     // --- Global Variables ---
