@@ -3407,13 +3407,11 @@ const ALL_TESTS = [
   isNew: true
 },
 {
-  id: "CHSL_TOP_100_MATHS2",          // must match question-db key & URL testId
-  exam: "CHSL_TOP_100_MATHS",        // must match string in getFilteredTests
-  subject: "Maths",                  // you can keep this "Maths"
-  title: "CHSL Top 100 Maths - Set 2",
-  date: "2025",
-  questions: 50,
-  isNew: true
+    id: "CHSL_TOP_100_MATHS2",
+    title: "CHSL Top 100 Maths Part 2",
+    subject: "Maths Top 50",  // Use new subject name
+    date: "2025",
+    isNew: true
 },
 
 { id: "dp_constable_reasoning_s1", date: "18 Dec", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },

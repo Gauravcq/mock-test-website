@@ -363,8 +363,9 @@ if (Array.isArray(rawData)) {
         let timerInterval;
         let isPaused = false;
 
-      const sectionDurations = {
+const sectionDurations = {
     "Maths": 25,
+    "Maths Top 50": 60,  // NEW - 60 minutes for 50 questions
     "Reasoning": 20,
     "English": 15,
     "Time Left": 20
