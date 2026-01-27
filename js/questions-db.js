@@ -9680,4 +9680,707 @@ ssc_cgl_maths_15_sep_s3 :
   }
 ],
 
+CHSL_TOP_100_MATHS : 
+[
+  {
+    "questionNo": 1,
+    "question": {
+      "en": "3 litres are drawn from a cask full of wine and are then filled with water. This operation is performed two more times. The ratio of the quantity of wine now left in the cask to that of water is 8:19. How much wine did the cask hold originally?",
+      "hi": "शराब से भरे एक पीपे से 3 लीटर शराब निकाला जाता है और फिर उसमें जल भर दिया जाता है। यह प्रक्रिया दो बार और दोहराई जाती है। अब पीपे में बची शराब और जल का अनुपात 8:19 है। पीपे में मूलतः कितनी शराब थी?"
+    },
+    "options": [
+      { "en": "11 litres", "hi": "11 लीटर" },
+      { "en": "6.88 litres", "hi": "6.88 लीटर" },
+      { "en": "7.5 litres", "hi": "7.5 लीटर" },
+      { "en": "9 litres", "hi": "9 लीटर" }
+    ],
+    "correctAnswer": { "en": "9 litres", "hi": "9 लीटर" }
+  },
+  {
+    "questionNo": 2,
+    "question": {
+      "en": "'P', 'Q', 'R' and 'S' have different amounts. 'Q' has 2.5 times the amount 'P' has. 'S' has 40% less than 'Q'. The amount 'R' has equals the average of all four persons. If the sum of amounts 'P' and 'R' is Rs. 4800, find the amount 'R' has.",
+      "hi": "'P', 'Q', 'R' और 'S' के पास अलग-अलग राशियां हैं। 'Q' के पास जो राशि है, वो 'P' की राशि की 2.5 गुनी है। 'S' के पास 'Q' से 40% कम राशि है। 'R' के पास जो राशि है, वह चारों व्यक्तियों की औसत राशि के बराबर है। यदि 'P' और 'R' की राशियों का योगफल 4800 रुपये है, तो 'R' के पास कितनी राशि है?"
+    },
+    "options": [
+      { "en": "Rs. 5200", "hi": "₹5200" },
+      { "en": "Rs. 1800", "hi": "₹1800" },
+      { "en": "Rs. 4200", "hi": "₹4200" },
+      { "en": "Rs. 3000", "hi": "₹3000" }
+    ],
+    "correctAnswer": { "en": "Rs. 3000", "hi": "₹3000" }
+  },
+  {
+    "questionNo": 3,
+    "question": {
+      "en": "The average age of 24 students is 15 years. If the teacher's age is included, the average age increases by 1 year. Later, another teacher joins, and the average age increases by another year. What is the age of the second teacher?",
+      "hi": "24 छात्रों की औसत आयु 15 वर्ष है। यदि शिक्षक की आयु भी शामिल कर ली जाए, तो औसत आयु 1 वर्ष बढ़ जाती है। बाद में, एक और शिक्षक जुड़ता है, और औसत आयु 1 वर्ष और बढ़ जाती है। दूसरे शिक्षक की आयु क्या है?"
+    },
+    "options": [
+      { "en": "42 years", "hi": "42 वर्ष" },
+      { "en": "44 years", "hi": "44 वर्ष" },
+      { "en": "40 years", "hi": "40 वर्ष" },
+      { "en": "46 years", "hi": "46 वर्ष" }
+    ],
+    "correctAnswer": { "en": "42 years", "hi": "42 वर्ष" }
+  },
+  {
+    "questionNo": 4,
+    "question": {
+      "en": "Two containers of equal capacity are each filled with a milk-water mixture. In the first container, the ratio of milk to water is 3:2, while in the second container the ratio is 4:1. If the contents of both containers are combined thoroughly in a larger vessel, what will be the resulting ratio of milk to water in the final mixture?",
+      "hi": "समान धारिता वाले दो बर्तन दूध-पानी के मिश्रण से भरे हैं। पहले बर्तन में दूध और पानी का अनुपात 3:2 है, जबकि दूसरे बर्तन में यह अनुपात 4:1 है। यदि दोनों बर्तनों की सामग्री को एक बड़े बर्तन में अच्छी तरह मिला दिया जाए, तो अंतिम मिश्रण में दूध और पानी का अनुपात क्या होगा?"
+    },
+    "options": [
+      { "en": "7:3", "hi": "7:3" },
+      { "en": "31:19", "hi": "31:19" },
+      { "en": "19:31", "hi": "19:31" },
+      { "en": "7:1", "hi": "7:1" }
+    ],
+    "correctAnswer": { "en": "7:3", "hi": "7:3" }
+  },
+  {
+    "questionNo": 5,
+    "question": {
+      "en": "In a rhombus, the diagonals are in the ratio 8:15. If the side of the rhombus is 17 cm, determine the exact lengths of both diagonals and the area.",
+      "hi": "एक समचतुर्भुज में, विकणों का अनुपात 8:15 है। यदि समचतुर्भुज की भुजा 17 सेमी है, तो दोनों विकणों की सटीक लंबाई और क्षेत्रफल ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "12 cm and 26 cm, 220 cm²", "hi": "12 सेमी और 26 सेमी, 220 सेमी²" },
+      { "en": "22 cm and 38 cm, 340 cm²", "hi": "22 सेमी और 38 सेमी, 340 सेमी²" },
+      { "en": "16 cm and 30 cm, 240 cm²", "hi": "16 सेमी और 30 सेमी, 240 सेमी²" },
+      { "en": "Can't be determined", "hi": "निर्धारित नहीं किया जा सकता" }
+    ],
+    "correctAnswer": { "en": "16 cm and 30 cm, 240 cm²", "hi": "16 सेमी और 30 सेमी, 240 सेमी²" }
+  },
+  {
+    "questionNo": 6,
+    "question": {
+      "en": "The floor of a building consists of 600 rhombus-shaped tiles. If the lengths of the diagonals of each tile are 16 cm and 19 cm, respectively, then find the cost of polishing the floor at a rate of Rs. 10 per m².",
+      "hi": "एक इमारत के फर्श में 600 समचतुर्भुजाकार टाइलें लगी हैं। यदि प्रत्येक टाइल के विकर्णों की लंबाई क्रमशः 16 सेमी और 19 सेमी है, तो 10 रुपये प्रति वर्ग मीटर की दर से फर्श को पॉलिश करने की लागत ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "Rs. 89.5", "hi": "₹89.5" },
+      { "en": "Rs. 98", "hi": "₹98" },
+      { "en": "Rs. 91.2", "hi": "₹91.2" },
+      { "en": "Rs. 102", "hi": "₹102" }
+    ],
+    "correctAnswer": { "en": "Rs. 91.2", "hi": "₹91.2" }
+  },
+  {
+    "questionNo": 7,
+    "question": {
+      "en": "Two friends sit at points A and B on the edge of a circular fountain. The arc between them subtends 100° at the center. What is the angle subtended by arc AB at a point on the opposite side of the circle?",
+      "hi": "दो दोस्त एक गोलाकार फव्वारे के किनारे पर बिंदु A और B पर बैठे हैं। उनके बीच का चाप केंद्र पर 100° का कोण अंतरित करता है। वृत्त के विपरीत दिशा में एक बिंदु पर चाप AB द्वारा अंतरित कोण कितना होगा?"
+    },
+    "options": [
+      { "en": "40°", "hi": "40°" },
+      { "en": "45°", "hi": "45°" },
+      { "en": "50°", "hi": "50°" },
+      { "en": "55°", "hi": "55°" }
+    ],
+    "correctAnswer": { "en": "50°", "hi": "50°" }
+  },
+  {
+    "questionNo": 8,
+    "question": {
+      "en": "A sphere is tightly enclosed inside a cube of side length a. If the cube is then inscribed inside another sphere, what is the ratio of the inner to outer sphere volumes?",
+      "hi": "एक गोला एक घन के अंदर इस प्रकार रखा गया है कि वह ठीक अंदर फिट हो जाए। फिर उस घन को एक बड़े गोले में अंकित किया जाता है। अंदर वाले गोले और बाहर वाले गोले के आयतनों का अनुपात क्या होगा?"
+    },
+    "options": [
+      { "en": "1:√2", "hi": "1:√2" },
+      { "en": "1:2√2", "hi": "1:2√2" },
+      { "en": "1:3√3", "hi": "1:3√3" },
+      { "en": "1:√6", "hi": "1:√6" }
+    ],
+    "correctAnswer": { "en": "1:3√3", "hi": "1:3√3" }
+  },
+  {
+    "questionNo": 9,
+    "question": {
+      "en": "A circular track of radius 17.5 m is to be covered with a uniform circular band of width 3.5 m to create a jogging path around it. Find the area of the jogging path (the ring-shaped region). (Use π=3.1416 and provide your answer correct to two decimal places)",
+      "hi": "17.5 मीटर त्रिज्या वाले एक वृत्ताकार पथ को 3.5 मीटर चौड़ाई की एक समान वृत्ताकार पट्टी से ढककर उसके चारों ओर एक जॉगिंग का पथ बनाना है। जॉगिंग पथ (वलयाकार क्षेत्र) का क्षेत्रफल ज्ञात कीजिए। (π=3.1416 का प्रयोग कीजिए और अपना उत्तर दो दशमलव स्थानों तक सही दीजिए)"
+    },
+    "options": [
+      { "en": "418.25 m²", "hi": "418.25 मी²" },
+      { "en": "423.33 m²", "hi": "423.33 मी²" },
+      { "en": "430.15 m²", "hi": "430.15 मी²" },
+      { "en": "412.00 m²", "hi": "412.00 मी²" }
+    ],
+    "correctAnswer": { "en": "423.33 m²", "hi": "423.33 मी²" }
+  },
+  {
+    "questionNo": 10,
+    "question": {
+      "en": "A land plot is defined by points A(0,0), B(4,0), C(5,3), D(1,3). What is the area of the parallelogram representing this plot?",
+      "hi": "एक भूमि प्लॉट बिंदुओं A(0,0), B(4,0), C(5,3), D(1,3) से परिभाषित है। इस प्लॉट का क्षेत्रफल ज्ञात कीजिए जो एक समांतर चतुर्भुज दर्शाता है।"
+    },
+    "options": [
+      { "en": "12", "hi": "12" },
+      { "en": "8", "hi": "8" },
+      { "en": "14", "hi": "14" },
+      { "en": "10", "hi": "10" }
+    ],
+    "correctAnswer": { "en": "12", "hi": "12" }
+  },
+  {
+    "questionNo": 11,
+    "question": {
+      "en": "A triangular pyramid is built on a triangular concrete base of sides 10 m, 10 m, 12 m. If the height of the pyramid is 6 m, what is the volume?",
+      "hi": "एक त्रिकोणीय पिरामिड 10m, 10m, 12m वाले त्रिकोणीय कंक्रीट आधार पर बनाया जाता है। यदि पिरामिड की ऊँचाई 6 m है, तो आयतन कितना होगा?"
+    },
+    "options": [
+      { "en": "96 m³", "hi": "96 मी³" },
+      { "en": "108 m³", "hi": "108 मी³" },
+      { "en": "112 m³", "hi": "112 मी³" },
+      { "en": "88 m³", "hi": "88 मी³" }
+    ],
+    "correctAnswer": { "en": "96 m³", "hi": "96 मी³" }
+  },
+  {
+    "questionNo": 12,
+    "question": {
+      "en": "A glass manufacturer designs prism-shaped display tanks for exotic fish. Each tank is in the shape of a right prism with a trapezium as the base. The parallel sides of the trapezium are 18 cm and 12 cm, and the distance between them is 10 cm. The height of the prism (tank) is 50 cm. If the company produces 25 such tanks, what is the total volume of glass used in all the tanks?",
+      "hi": "एक काँच निर्माता विदेशी मछलियों के लिए प्रिज्म के आकार के डिस्प्ले टैंक डिज़ाइन करता है। प्रत्येक टैंक एक समकोण प्रिज्म के आकार का है जिसका आधार एक समलम्ब चतुर्भुज है। समलम्ब चतुर्भुज की समांतर भुजाएँ 18 सेमी और 12 सेमी हैं, और उनके बीच की दूरी 10 सेमी है। प्रिज्म (टैंक) की ऊँचाई 50 सेमी है। अगर कंपनी ऐसे 25 टैंक बनाती है, तो सभी टैंकों में प्रयुक्त काँच का कुल आयतन कितना है?"
+    },
+    "options": [
+      { "en": "1,75,000 cm³", "hi": "1,75,000 सेमी³" },
+      { "en": "1,87,500 cm³", "hi": "1,87,500 सेमी³" },
+      { "en": "1,92,000 cm³", "hi": "1,92,000 सेमी³" },
+      { "en": "2,00,000 cm³", "hi": "2,00,000 सेमी³" }
+    ],
+    "correctAnswer": { "en": "1,87,500 cm³", "hi": "1,87,500 सेमी³" }
+  },
+  {
+    "questionNo": 13,
+    "question": {
+      "en": "A box in the shape of a right prism has a triangular base with sides 13 cm, 14 cm, and 15 cm. The height of the box is 20 cm. If a packaging company charges ₹0.75 per cm³ to fill the box with granules, find the total cost.",
+      "hi": "एक समकोण प्रिज्म के आकार के बॉक्स का आधार त्रिभुजाकार है जिसकी भुजाएँ 13 सेमी, 14 सेमी और 15 सेमी हैं। बॉक्स की ऊँचाई 20 सेमी है। अगर कोई पैकेजिंग कंपनी बॉक्स को दानों से भरने के लिए ₹0.75 प्रति सेमी³ लेती है, तो कुल लागत ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "₹1200", "hi": "₹1200" },
+      { "en": "₹1140", "hi": "₹1140" },
+      { "en": "₹1260", "hi": "₹1260" },
+      { "en": "₹1320", "hi": "₹1320" }
+    ],
+    "correctAnswer": { "en": "₹1260", "hi": "₹1260" }
+  },
+  {
+    "questionNo": 14,
+    "question": {
+      "en": "The average marks of 12 students in a mathematics test are 63.5. Later, it was found that one student's score was misread as 56 instead of 65. After correcting this error, another student's marks were removed for being invalid, and the average of the remaining 11 students rose to 64.2. Find the marks of the student whose score was removed.",
+      "hi": "गणित की एक परीक्षा में 12 छात्रों के औसत अंक 63.5 हैं। बाद में, यह पाया गया कि एक छात्र के अंक 65 के बजाय 56 पढ़ लिए गए थे। इस त्रुटि को सुधारने के बाद, एक अन्य छात्र के अंक अमान्य होने के कारण हटा दिए गए, और शेष 11 छात्रों का औसत 64.2 हो गया। उस छात्र के अंक ज्ञात कीजिए जिसके अंक हटा दिए गए थे।"
+    },
+    "options": [
+      { "en": "63.5", "hi": "63.5" },
+      { "en": "64.2", "hi": "64.2" },
+      { "en": "64.8", "hi": "64.8" },
+      { "en": "65.5", "hi": "65.5" }
+    ],
+    "correctAnswer": { "en": "64.8", "hi": "64.8" }
+  },
+  {
+    "questionNo": 15,
+    "question": {
+      "en": "If sec²θ=4 then find the value of sin²θ + cosec(90-θ) where 0°<θ<90°.",
+      "hi": "यदि sec²θ=4, तो sin²θ + cosec(90-θ) का मान ज्ञात करें, जहाँ 0°<θ<90° है।"
+    },
+    "options": [
+      { "en": "(7/2)", "hi": "(7/2)" },
+      { "en": "(15/4)", "hi": "(15/4)" },
+      { "en": "(11/4)", "hi": "(11/4)" },
+      { "en": "(7/4)", "hi": "(7/4)" }
+    ],
+    "correctAnswer": { "en": "(11/4)", "hi": "(11/4)" }
+  },
+  {
+    "questionNo": 16,
+    "question": {
+      "en": "A construction engineer designs a cone and a hemisphere, both with radius r, to be built from the same volume of concrete. If the volumes are equal, what is the height of the cone in terms of r?",
+      "hi": "एक निर्माण अभियंता एक शंकु (cone) और एक अर्धगोला (hemisphere) डिज़ाइन करता है, जिन दोनों की त्रिज्या r है और दोनों को समान मात्रा के कंक्रीट से बनाया जाना है। यदि दोनों के आयतन बराबर हों, तो r के रूप में शंकु की ऊँचाई कितनी होगी?"
+    },
+    "options": [
+      { "en": "r", "hi": "r" },
+      { "en": "2r", "hi": "2r" },
+      { "en": "3r", "hi": "3r" },
+      { "en": "4/3r", "hi": "4/3r" }
+    ],
+    "correctAnswer": { "en": "2r", "hi": "2r" }
+  },
+  {
+    "questionNo": 17,
+    "question": {
+      "en": "A trapezoid is formed by cutting a smaller triangle from the top of a larger similar triangle. If the height of the smaller triangle is 1/3 of the height of the larger triangle, what is the ratio of the area of the trapezoid to the area of the larger triangle?",
+      "hi": "एक समलंब (trapezoid) एक बड़े समान (similar) त्रिभुज के ऊपर से एक छोटे त्रिभुज को काटकर बनाया गया है। यदि छोटे त्रिभुज की ऊँचाई, बड़े त्रिभुज की ऊँचाई का 1/3 भाग है, तो समलंब के क्षेत्रफल और बड़े त्रिभुज के क्षेत्रफल का अनुपात क्या होगा?"
+    },
+    "options": [
+      { "en": "1:9", "hi": "1:9" },
+      { "en": "8:9", "hi": "8:9" },
+      { "en": "3:4", "hi": "3:4" },
+      { "en": "2:3", "hi": "2:3" }
+    ],
+    "correctAnswer": { "en": "8:9", "hi": "8:9" }
+  },
+  {
+    "questionNo": 18,
+    "question": {
+      "en": "A factory produces cylindrical cans, and each day it slightly increases the size of the label printed on the cans to match a design upgrade. On the first day, the label height is 1.2 cm, and each day, the height increases by 0.3 cm to improve visibility. What will be the height of the label on the 10th day?",
+      "hi": "एक फैक्ट्री बेलनाकार (cylindrical) डिब्बे बनाती है और हर दिन डिब्बों पर छपने वाले लेबल के आकार में थोड़ा-सा इज़ाफ़ा किया जाता है ताकि नए डिज़ाइन के अनुसार दृश्यता बेहतर हो सके। पहले दिन लेबल की ऊँचाई 1.2 सेमी है और प्रत्येक अगले दिन यह ऊँचाई 0.3 सेमी बढ़ा दी जाती है। 10वें दिन लेबल की ऊँचाई कितनी होगी?"
+    },
+    "options": [
+      { "en": "3 cm", "hi": "3 सेमी" },
+      { "en": "3.6 cm", "hi": "3.6 सेमी" },
+      { "en": "3.9 cm", "hi": "3.9 सेमी" },
+      { "en": "4.2 cm", "hi": "4.2 सेमी" }
+    ],
+    "correctAnswer": { "en": "3.9 cm", "hi": "3.9 सेमी" }
+  },
+  {
+    "questionNo": 19,
+    "question": {
+      "en": "A logistics company charges ₹15 per km for the first 80 km and ₹12.5 per km thereafter. A consignment was transported for a total of 132.5 km and the total cost was split in the ratio 2:3 between the sender and receiver. What amount did the receiver pay?",
+      "hi": "एक लॉजिस्टिक्स कंपनी पहले 80 किलोमीटर के लिए ₹15 प्रति किलोमीटर और उसके बाद के सफर के लिए ₹12.5 प्रति किलोमीटर शुल्क लेती है। एक खेप (consignment) को कुल 132.5 किलोमीटर तक ले जाया गया और कुल लागत को भेजने वाले (sender) और प्राप्त करने वाले (receiver) के बीच 2:3 के अनुपात में विभाजित किया गया। प्राप्त करने वाले ने कितनी राशि का भुगतान किया?"
+    },
+    "options": [
+      { "en": "₹1200", "hi": "₹1200" },
+      { "en": "₹1350", "hi": "₹1350" },
+      { "en": "₹1113.75", "hi": "₹1113.75" },
+      { "en": "₹1156", "hi": "₹1156" }
+    ],
+    "correctAnswer": { "en": "₹1113.75", "hi": "₹1113.75" }
+  },
+  {
+    "questionNo": 20,
+    "question": {
+      "en": "In a hostel, the average age of 30 students was 18 years. Later, 5 students left and 5 new students joined. The average age of the new group became 17.2 years. If the average age of the 5 students who left was 20.4 years, find the average age of the 5 students who joined.",
+      "hi": "एक हॉस्टल में, 30 छात्रों की औसत आयु 18 वर्ष थी। बाद में, 5 छात्र चले गए और 5 नए छात्र शामिल हुए। नए समूह की औसत आयु 17.2 वर्ष हो गई। यदि जाने वाले 5 छात्रों की औसत आयु 20.4 वर्ष थी, तो शामिल होने वाले 5 नए छात्रों की औसत आयु ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "14.8 years", "hi": "14.8 वर्ष" },
+      { "en": "15.6 years", "hi": "15.6 वर्ष" },
+      { "en": "16.2 years", "hi": "16.2 वर्ष" },
+      { "en": "14.2 years", "hi": "14.2 वर्ष" }
+    ],
+    "correctAnswer": { "en": "15.6 years", "hi": "15.6 वर्ष" }
+  },
+  {
+    "questionNo": 21,
+    "question": {
+      "en": "A point P is outside a circle with radius 8 units. A secant line passing through P and the circle's center O intersects the circle at points A and B, where B is the point on the secant closer to P. A tangent from P touches the circle at T, and PT=15 units. Find the length of the segment PB.",
+      "hi": "8 यूनिट त्रिज्या वाले एक वृत्त के बाहर एक बिंदु P है। P और वृत्त के केंद्र O से होकर गुजरने वाली एक छेदक रेखा वृत्त को A और B बिंदुओं पर काटती है, जहाँ B, छेदक रेखा पर P के सबसे निकट का बिंदु है। P से खींची गई एक स्पर्शरेखा वृत्त को बिंदु T पर स्पर्श करती है, और PT=15 यूनिट है। PB रेखाखंड की लंबाई ज्ञात करें।"
+    },
+    "options": [
+      { "en": "17 units", "hi": "17 यूनिट" },
+      { "en": "30 units", "hi": "30 यूनिट" },
+      { "en": "9 units", "hi": "9 यूनिट" },
+      { "en": "15 units", "hi": "15 यूनिट" }
+    ],
+    "correctAnswer": { "en": "9 units", "hi": "9 यूनिट" }
+  },
+  {
+    "questionNo": 22,
+    "question": {
+      "en": "A quality control officer tracks the defect rates in 4 different machines in a textile factory. The first machine produces fabrics with an average defect rate of 1.8%, the second with 2.4%, and the third with 1.6%. The fourth machine operated for 5 fewer hours than the average runtime of the first three, yet its total defective output was 0.92 units. If the total number of defective units from all four machines is 4.12, and each machine's total production was identical, find the defect percentage of the fourth machine.",
+      "hi": "एक कपड़ा कारखाने में एक गुणवत्ता नियंत्रण अधिकारी 4 अलग-अलग मशीनों में दोष दरों (defect rates) को ट्रैक करता है। पहली मशीन 1.8% की औसत दोष दर के साथ कपड़े का उत्पादन करती है, दूसरी 2.4% के साथ, और तीसरी 1.6% के साथ। चौथी मशीन पहली तीन मशीनों के औसत चलने के समय (runtime) से 5 घंटे कम चली, फिर भी इसका कुल दोषपूर्ण उत्पादन 0.92 यूनिट था। यदि चारों मशीनों से दोषपूर्ण इकाइयों की कुल संख्या 4.12 है, और प्रत्येक मशीन का कुल उत्पादन एक समान था, तो चौथी मशीन का दोष प्रतिशत ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "1.52%", "hi": "1.52%" },
+      { "en": "1.58%", "hi": "1.58%" },
+      { "en": "1.667%", "hi": "1.667%" },
+      { "en": "1.73%", "hi": "1.73%" }
+    ],
+    "correctAnswer": { "en": "1.667%", "hi": "1.667%" }
+  },
+  {
+    "questionNo": 23,
+    "question": {
+      "en": "A trader bought 120 scientific calculators, of which 50 were priced at ₹625.50 each, and the rest at ₹712.80 each. Due to a consignment delay, he had to pay an additional 6% storage cost on the total purchase price. He sold 40 of the cheaper ones at a profit of 15%, and the rest at a loss of 10%. All costlier calculators were sold at a 12% profit. What was his overall profit or loss percentage?",
+      "hi": "एक व्यापारी ने 120 वैज्ञानिक कैलकुलेटर खरीदे, जिनमें से 50 कैलकुलेटर ₹625.50 प्रति नग की दर से थे और शेष ₹712.80 प्रति नग की दर से। खेप में देरी होने के कारण उसे कुल क्रय मूल्य पर 6% अतिरिक्त भंडारण शुल्क देना पड़ा। उसने सस्ते कैलकुलेटरों में से 40 को 15% लाभ पर बेचा और शेष को 10% हानि पर बेचा। सभी महंगे कैलकुलेटर 12% लाभ पर बेचे गए। व्यापारी को कुल मिलाकर कितने प्रतिशत का लाभ या हानि हुई?"
+    },
+    "options": [
+      { "en": "4.68% loss", "hi": "4.68% हानि" },
+      { "en": "4.93% profit", "hi": "4.93% लाभ" },
+      { "en": "5.12% profit", "hi": "5.12% लाभ" },
+      { "en": "5.30% loss", "hi": "5.30% हानि" }
+    ],
+    "correctAnswer": { "en": "4.93% profit", "hi": "4.93% लाभ" }
+  },
+  {
+    "questionNo": 24,
+    "question": {
+      "en": "Which of the following equations represents a line parallel to 3x-2y=6?",
+      "hi": "निम्नलिखित में से कौन-सा समीकरण रेखा 3x-2y=6 के समांतर (parallel) रेखा को दर्शाता है?"
+    },
+    "options": [
+      { "en": "3x-2y=10", "hi": "3x-2y=10" },
+      { "en": "2x+3y=6", "hi": "2x+3y=6" },
+      { "en": "3x+5y=6", "hi": "3x+5y=6" },
+      { "en": "3x-5y=8", "hi": "3x-5y=8" }
+    ],
+    "correctAnswer": { "en": "3x-2y=10", "hi": "3x-2y=10" }
+  },
+  {
+    "questionNo": 25,
+    "question": {
+      "en": "A parallelogram has adjacent sides of 18 cm and 10 cm, and the angle between them is 60°. Find the exact area of the parallelogram and the height corresponding to the longer side.",
+      "hi": "एक समांतर चतुर्भुज की आसन्न भुजाएँ 18 सेमी और 10 सेमी हैं, और उनके बीच का कोण 60° है। समांतर चतुर्भुज का सटीक क्षेत्रफल और लंबी भुजा के संगत ऊँचाई ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "110√3 cm², 7√3 cm", "hi": "110√3 सेमी², 7√3 सेमी" },
+      { "en": "60√3 cm², 7√3 cm", "hi": "60√3 सेमी², 7√3 सेमी" },
+      { "en": "90√3 cm², 5√3 cm", "hi": "90√3 सेमी², 5√3 सेमी" },
+      { "en": "110√3 cm², 5√3 cm", "hi": "110√3 सेमी², 5√3 सेमी" }
+    ],
+    "correctAnswer": { "en": "90√3 cm², 5√3 cm", "hi": "90√3 सेमी², 5√3 सेमी" }
+  },
+  {
+    "questionNo": 26,
+    "question": {
+      "en": "Sum of A and B is 150 percent more than the sum of C and D. C is 25 percent more than D. If A is 100 percent more than B and D=400, then what is the value of A?",
+      "hi": "A और B का योग C और D के योग से 150 प्रतिशत ज़्यादा है। C, D से 25 प्रतिशत ज़्यादा है। अगर A, B से 100 प्रतिशत ज़्यादा है और D = 400 है, तो A का मान क्या है?"
+    },
+    "options": [
+      { "en": "1500", "hi": "1500" },
+      { "en": "1200", "hi": "1200" },
+      { "en": "1400", "hi": "1400" },
+      { "en": "1700", "hi": "1700" }
+    ],
+    "correctAnswer": { "en": "1500", "hi": "1500" }
+  },
+  {
+    "questionNo": 27,
+    "question": {
+      "en": "A right hexagonal prism has a base edge of 5.5 cm and a height of 12 cm. The lateral faces are all painted. If the cost of painting is ₹22.5 per cm², find the total painting cost. Use √3=1.732 where needed.",
+      "hi": "एक समकोणीय षट्भुज प्रिज़्म की आधार भुजा 5.5 सेमी और ऊँचाई 12 सेमी है। इसकी सभी पार्श्व सतहों पर रंग किया गया है। यदि रंग करने की लागत ₹22.5 प्रति सेमी² है, तो कुल रंगाई लागत ज्ञात कीजिए। जहाँ आवश्यक हो, √3=1.732 का प्रयोग करें।"
+    },
+    "options": [
+      { "en": "₹8,580", "hi": "₹8,580" },
+      { "en": "₹8,370", "hi": "₹8,370" },
+      { "en": "₹8,160", "hi": "₹8,160" },
+      { "en": "₹8,910", "hi": "₹8,910" }
+    ],
+    "correctAnswer": { "en": "₹8,910", "hi": "₹8,910" }
+  },
+  {
+    "questionNo": 28,
+    "question": {
+      "en": "A father deposited ₹60,000 in a compound interest scheme for his son's business when his son was 20 years old. The scheme offers 15% compound interest per annum compounded annually. What will be the total amount his son will receive when he turns 24?",
+      "hi": "जब उसके बेटे की उम्र 20 वर्ष थी, तब एक पिता ने अपने बेटे के व्यवसाय के लिए चक्रवृद्धि ब्याज योजना में ₹60,000 जमा किए। यह योजना प्रति वर्ष 15% की दर से वार्षिक चक्रवृद्धि ब्याज प्रदान करती है। जब उसका बेटा 24 वर्ष का होगा, तब उसे कुल कितनी राशि प्राप्त होगी?"
+    },
+    "options": [
+      { "en": "₹1,04,940.38", "hi": "₹1,04,940.38" },
+      { "en": "₹1,12,450", "hi": "₹1,12,450" },
+      { "en": "₹1,45,670.45", "hi": "₹1,45,670.45" },
+      { "en": "₹1,66,987", "hi": "₹1,66,987" }
+    ],
+    "correctAnswer": { "en": "₹1,04,940.38", "hi": "₹1,04,940.38" }
+  },
+  {
+    "questionNo": 29,
+    "question": {
+      "en": "Meena took a loan of Rs. 8,000 at 10% compound interest per annum for 3 years. She repaid Rs. 4,000 at the end of the 1st year and the rest at the end of the 3rd year. Find the total interest paid by Meena.",
+      "hi": "मीना ने 10% वार्षिक चक्रवृद्धि ब्याज की दर से 3 वर्षों के लिए ₹8,000 का ऋण लिया। उसने पहले वर्ष के अंत में ₹4,000 चुका दिए और शेष राशि तीसरे वर्ष के अंत में चुकाई। मीना द्वारा चुकाया गया कुल ब्याज ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "Rs. 1256", "hi": "₹1256" },
+      { "en": "Rs. 1622", "hi": "₹1622" },
+      { "en": "Rs. 1160", "hi": "₹1160" },
+      { "en": "Rs. 1808", "hi": "₹1808" }
+    ],
+    "correctAnswer": { "en": "Rs. 1808", "hi": "₹1808" }
+  },
+  {
+    "questionNo": 30,
+    "question": {
+      "en": "In a warehouse, 7 crates of goods have an average weight of 84.5 kg. One of the crates, weighing 79.2 kg, is replaced by a new crate. As a result, the average weight becomes 87.1 kg. Later, 3 more crates are added, each weighing 91.3 kg. What is the weight of the new crate that replaced the old one?",
+      "hi": "एक गोदाम में माल के 7 क्रेटों का औसत भार 84.5 किलोग्राम है। इनमें से 79.2 किलोग्राम वज़न वाले एक क्रेट को हटाकर उसकी जगह एक नया क्रेट रखा जाता है। इसके परिणामस्वरूप औसत भार 87.1 किलोग्राम हो जाता है। बाद में 3 और क्रेट जोड़े जाते हैं, जिनमें से प्रत्येक का भार 91.3 किलोग्राम है। उस नए क्रेट का भार ज्ञात कीजिए जिसने पुराने क्रेट का स्थान लिया।"
+    },
+    "options": [
+      { "en": "96.8 kg", "hi": "96.8 किग्रा" },
+      { "en": "98.1 kg", "hi": "98.1 किग्रा" },
+      { "en": "97.4 kg", "hi": "97.4 किग्रा" },
+      { "en": "95.7 kg", "hi": "95.7 किग्रा" }
+    ],
+    "correctAnswer": { "en": "97.4 kg", "hi": "97.4 किग्रा" }
+  },
+  {
+    "questionNo": 31,
+    "question": {
+      "en": "The outer diameter of a hollow cylindrical iron rod is 8.4 cm. The rod is 28 mm thick and is 30 cm long. If the weight of 1 cm³ of iron in the rod is 0.5 kg, then find the total weight of the rod.",
+      "hi": "एक खोखली बेलनाकार लोहे की रॉड का बाहरी व्यास 8.4 cm है। रॉड 28 mm मोटी और 30 cm लंबी है। अगर रॉड में 1 cm³ लोहे का वज़न 0.5 kg है, तो रॉड का कुल वज़न ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "726 kg", "hi": "726 किग्रा" },
+      { "en": "739.2 kg", "hi": "739.2 किग्रा" },
+      { "en": "783 kg", "hi": "783 किग्रा" },
+      { "en": "726.4 kg", "hi": "726.4 किग्रा" }
+    ],
+    "correctAnswer": { "en": "739.2 kg", "hi": "739.2 किग्रा" }
+  },
+  {
+    "questionNo": 32,
+    "question": {
+      "en": "Pipe A and B together can fill a tank in 12 minutes. Pipe B and C together can fill the same tank in 15 minutes. Pipe C and A together can fill the same tank in 20 minutes. Firstly pipe C is opened. After 'L' minutes, pipes A and B both are also opened. Remaining tank got filled in 5 minutes. What is the value of L?",
+      "hi": "पाइप A और B मिलकर एक टैंक को 12 मिनट में भर सकते हैं। पाइप B और C मिलकर उसी टैंक को 15 मिनट में भर सकते हैं। पाइप C और A मिलकर उसी टैंक को 20 मिनट में भर सकते हैं। सबसे पहले पाइप C को खोला जाता है। 'L' मिनट के बाद, पाइप A और B दोनों को भी खोल दिया जाता है। बचा हुआ टैंक 5 मिनट में भर गया। L का मान क्या है?"
+    },
+    "options": [
+      { "en": "20", "hi": "20" },
+      { "en": "30", "hi": "30" },
+      { "en": "25", "hi": "25" },
+      { "en": "35", "hi": "35" }
+    ],
+    "correctAnswer": { "en": "30", "hi": "30" }
+  },
+  {
+    "questionNo": 33,
+    "question": {
+      "en": "The simplified value of: (3√2)/(√6+√3) − (4√3)/(√6+√2) + (√6)/(√3+√2) is:",
+      "hi": "(3√2)/(√6+√3) − (4√3)/(√6+√2) + (√6)/(√3+√2) का सरलीकृत मान है:"
+    },
+    "options": [
+      { "en": "1", "hi": "1" },
+      { "en": "3/5", "hi": "3/5" },
+      { "en": "0", "hi": "0" },
+      { "en": "√1", "hi": "√1" }
+    ],
+    "correctAnswer": { "en": "0", "hi": "0" }
+  },
+  {
+    "questionNo": 34,
+    "question": {
+      "en": "Average of consecutive even natural numbers from 2 to 'N' is 36. What is the value of 'N'? (where N is an even natural number)",
+      "hi": "2 से 'N' तक लगातार सम प्राकृतिक संख्याओं का औसत 36 है। 'N' का मान क्या है? (जहाँ N एक सम प्राकृतिक संख्या है)"
+    },
+    "options": [
+      { "en": "72", "hi": "72" },
+      { "en": "70", "hi": "70" },
+      { "en": "68", "hi": "68" },
+      { "en": "65", "hi": "65" }
+    ],
+    "correctAnswer": { "en": "70", "hi": "70" }
+  },
+  {
+    "questionNo": 35,
+    "question": {
+      "en": "The amount received on a certain sum at the same annual rate of interest after 3 years and 5 years on compound interest (compounding annually) is Rs. 15972 and Rs. 19326.12 respectively. What is that sum?",
+      "hi": "एक निश्चित रकम पर समान सालाना ब्याज दर से 3 साल और 5 साल बाद कंपाउंड इंटरेस्ट (सालाना कंपाउंडिंग) पर मिलने वाली रकम क्रमशः ₹15972 और ₹19326.12 है। वह रकम क्या है?"
+    },
+    "options": [
+      { "en": "Rs. 10000", "hi": "₹10000" },
+      { "en": "Rs. 12000", "hi": "₹12000" },
+      { "en": "Rs. 11400", "hi": "₹11400" },
+      { "en": "Rs. 12100", "hi": "₹12100" }
+    ],
+    "correctAnswer": { "en": "Rs. 12000", "hi": "₹12000" }
+  },
+  {
+    "questionNo": 36,
+    "question": {
+      "en": "A bus is running 30 minutes late and increases its speed by 25 km/h to reach its destination 150 km away on time. What is the bus's normal speed?",
+      "hi": "एक बस 30 मिनट लेट चल रही है और 150 km दूर अपनी मंज़िल पर समय पर पहुँचने के लिए अपनी स्पीड 25 km/h बढ़ा देती है। बस की नॉर्मल स्पीड क्या है?"
+    },
+    "options": [
+      { "en": "70 km/h", "hi": "70 किमी/घंटा" },
+      { "en": "75 km/h", "hi": "75 किमी/घंटा" },
+      { "en": "80 km/h", "hi": "80 किमी/घंटा" },
+      { "en": "95 km/h", "hi": "95 किमी/घंटा" }
+    ],
+    "correctAnswer": { "en": "75 km/h", "hi": "75 किमी/घंटा" }
+  },
+  {
+    "questionNo": 37,
+    "question": {
+      "en": "A shopkeeper sells an article at a discount of 12%. Had he given only a 5% discount, he would have earned ₹504 more as profit. If the cost price of the article is ₹73,000, then find the marked price.",
+      "hi": "एक दुकानदार किसी वस्तु को 12% की छूट पर बेचता है। यदि वह केवल 5% की छूट देता, तो उसे ₹504 अधिक लाभ होता। यदि उस वस्तु का क्रय मूल्य ₹73,000 है, तो अंकित मूल्य ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "₹7,200", "hi": "₹7,200" },
+      { "en": "₹6,800", "hi": "₹6,800" },
+      { "en": "₹6,500", "hi": "₹6,500" },
+      { "en": "₹7,500", "hi": "₹7,500" }
+    ],
+    "correctAnswer": { "en": "₹7,200", "hi": "₹7,200" }
+  },
+  {
+    "questionNo": 38,
+    "question": {
+      "en": "A rectangular tile with a perimeter of 224 cm is used to tile a floor that is 25.6 meters long and 14.4 meters wide. If the ratio of the length to the width of each tile is 4:3, find the number of tiles required to completely cover the floor.",
+      "hi": "224 सेमी परिमाप वाली एक आयताकार टाइल का उपयोग 25.6 मीटर लंबी और 14.4 मीटर चौड़ी फर्श को ढकने के लिए किया जाता है। यदि प्रत्येक टाइल की लंबाई और चौड़ाई का अनुपात 4:3 है, तो फर्श को पूरी तरह ढकने के लिए आवश्यक टाइलों की संख्या ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "1200", "hi": "1200" },
+      { "en": "1050", "hi": "1050" },
+      { "en": "1140", "hi": "1140" },
+      { "en": "1540", "hi": "1540" }
+    ],
+    "correctAnswer": { "en": "1200", "hi": "1200" }
+  },
+  {
+    "questionNo": 39,
+    "question": {
+      "en": "The average salary of employees in a company is ₹20,000. If a new employee with a salary of ₹50,000 joins the company, the average salary increases by ₹500. Find the original number of employees in the company.",
+      "hi": "एक कंपनी में कर्मचारियों की औसत सैलरी ₹20,000 है। अगर ₹50,000 सैलरी वाला एक नया कर्मचारी कंपनी में शामिल होता है, तो औसत सैलरी ₹500 बढ़ जाती है। कंपनी में कर्मचारियों की शुरुआती संख्या पता करें।"
+    },
+    "options": [
+      { "en": "59", "hi": "59" },
+      { "en": "55", "hi": "55" },
+      { "en": "60", "hi": "60" },
+      { "en": "65", "hi": "65" }
+    ],
+    "correctAnswer": { "en": "59", "hi": "59" }
+  },
+  {
+    "questionNo": 40,
+    "question": {
+      "en": "In triangle PQR, two medians PS and QT intersect each other at point X at a right angle. If PS=18 cm and QT=7.5 cm, find the length of PQ.",
+      "hi": "त्रिकोण PQR में, दो माध्यिकाओं PS और QT एक-दूसरे को पॉइंट X पर 90 डिग्री के कोण पर काटते हैं। अगर PS=18 cm और QT=7.5 cm है, तो PQ की लंबाई ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "11 cm", "hi": "11 सेमी" },
+      { "en": "17 cm", "hi": "17 सेमी" },
+      { "en": "13 cm", "hi": "13 सेमी" },
+      { "en": "10 cm", "hi": "10 सेमी" }
+    ],
+    "correctAnswer": { "en": "13 cm", "hi": "13 सेमी" }
+  },
+  {
+    "questionNo": 41,
+    "question": {
+      "en": "Find the equation of the line with slope -2 passing through the point (3, 5).",
+      "hi": "बिंदु (3, 5) से गुजरने वाली ढलान -2 वाली रेखा का समीकरण ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "y=-4x-9", "hi": "y=-4x-9" },
+      { "en": "y=x-11", "hi": "y=x-11" },
+      { "en": "y=-2x+11", "hi": "y=-2x+11" },
+      { "en": "y=4x+19", "hi": "y=4x+19" }
+    ],
+    "correctAnswer": { "en": "y=-2x+11", "hi": "y=-2x+11" }
+  },
+  {
+    "questionNo": 42,
+    "question": {
+      "en": "A person lends 40% of a sum of money at 7.5% simple annual interest and the remaining 60% at 11.25% simple annual interest. After 2½ years, his total income from interest is ₹6,825. How much money did the person lend?",
+      "hi": "एक व्यक्ति किसी रकम का 40% हिस्सा 7.5% सिंपल सालाना ब्याज पर और बाकी 60% हिस्सा 11.25% सिंपल सालाना ब्याज पर उधार देता है। 2½ साल बाद, ब्याज से उसकी कुल इनकम ₹6,825 है। व्यक्ति ने कितना पैसा उधार दिया?"
+    },
+    "options": [
+      { "en": "Rs. 25000", "hi": "₹25000" },
+      { "en": "Rs. 28000", "hi": "₹28000" },
+      { "en": "Rs. 30000", "hi": "₹30000" },
+      { "en": "Rs. 27692.31", "hi": "₹27692.31" }
+    ],
+    "correctAnswer": { "en": "Rs. 28000", "hi": "₹28000" }
+  },
+  {
+    "questionNo": 43,
+    "question": {
+      "en": "A circle is inscribed in ∆ABC touching AB, BC and AC at the points P, Q and R, respectively. If BC=4 cm, AC=2 cm and the perimeter of ∆ABC=36 cm, then PB+AR (in cm) is:",
+      "hi": "एक वृत्त ∆ABC के अंदर बना है, जो AB, BC और AC को क्रमशः P, Q और R बिंदुओं पर स्पर्श करता है। यदि BC=4 cm, AC=2 cm और ∆ABC का परिमाप = 36 cm है, तो PB+AR (cm में) क्या होगा?"
+    },
+    "options": [
+      { "en": "12", "hi": "12" },
+      { "en": "10", "hi": "10" },
+      { "en": "14", "hi": "14" },
+      { "en": "15", "hi": "15" }
+    ],
+    "correctAnswer": { "en": "14", "hi": "14" }
+  },
+  {
+    "questionNo": 44,
+    "question": {
+      "en": "In a cricket series, Team A had a winning rate of 70% after playing x matches. Then they lost 20 matches consecutively, and their winning rate fell to 50%. Find the total matches played by Team A before the losing streak.",
+      "hi": "एक क्रिकेट सीरीज़ में, टीम A ने x मैच खेलने के बाद 70% मैच जीते थे। फिर वे लगातार 20 मैच हार गए, और उनकी जीत का रेट गिरकर 50% हो गया। हारने का सिलसिला शुरू होने से पहले टीम A ने कुल कितने मैच खेले थे, यह पता लगाएँ।"
+    },
+    "options": [
+      { "en": "40", "hi": "40" },
+      { "en": "60", "hi": "60" },
+      { "en": "80", "hi": "80" },
+      { "en": "50", "hi": "50" }
+    ],
+    "correctAnswer": { "en": "50", "hi": "50" }
+  },
+  {
+    "questionNo": 45,
+    "question": {
+      "en": "In an aerospace materials lab, a technician cuts a model of a right circular cone (height 12 cm, base radius 6 cm) horizontally at half its height to form a smaller, similar cone at the tip. What is the volume of the smaller cone formed?",
+      "hi": "एक एयरोस्पेस लैब में एक समकोण वृत्तीय शंकु (ऊँचाई 12 cm, आधार त्रिज्या 6 cm) को उसकी आधी ऊँचाई पर काटा गया है जिससे शीर्ष पर एक छोटा समान शंकु बनता है। छोटे शंकु का आयतन कितना होगा?"
+    },
+    "options": [
+      { "en": "90π cm³", "hi": "90π सेमी³" },
+      { "en": "18π cm³", "hi": "18π सेमी³" },
+      { "en": "36π cm³", "hi": "36π सेमी³" },
+      { "en": "72π cm³", "hi": "72π सेमी³" }
+    ],
+    "correctAnswer": { "en": "18π cm³", "hi": "18π सेमी³" }
+  },
+  {
+    "questionNo": 46,
+    "question": {
+      "en": "A circular lawn is surrounded by a path of uniform width 3.5 m. If the total area of the lawn plus path is 2.25 times the area of the lawn alone, find the radius of the lawn. (Use π=3.1416 and round your answer to one decimal place)",
+      "hi": "एक वृत्ताकार लॉन 3.5 मीटर की एक समान चौड़ाई वाले पथ से घिरा हुआ है। यदि लॉन और पथ का कुल क्षेत्रफल, अकेले लॉन के क्षेत्रफल का 2.25 गुना है, तो लॉन की त्रिज्या ज्ञात कीजिए। (π=3.1416 का प्रयोग करें और अपने उत्तर को एक दशमलव स्थान तक पूर्णांकित करें)"
+    },
+    "options": [
+      { "en": "6.5 m", "hi": "6.5 मी" },
+      { "en": "7.5 m", "hi": "7.5 मी" },
+      { "en": "7.0 m", "hi": "7.0 मी" },
+      { "en": "6.0 m", "hi": "6.0 मी" }
+    ],
+    "correctAnswer": { "en": "7.0 m", "hi": "7.0 मी" }
+  },
+  {
+    "questionNo": 47,
+    "question": {
+      "en": "Which of these number sets is NOT a subset of the Real Numbers?",
+      "hi": "इनमें से कौन सा नंबर सेट रियल नंबर्स का उपसमुच्चय नहीं है?"
+    },
+    "options": [
+      { "en": "Rational", "hi": "परिमेय संख्याएँ" },
+      { "en": "Irrational", "hi": "अपरिमेय संख्याएँ" },
+      { "en": "Integers", "hi": "पूर्णांक" },
+      { "en": "Complex", "hi": "सम्मिश्र संख्याएँ" }
+    ],
+    "correctAnswer": { "en": "Complex", "hi": "सम्मिश्र संख्याएँ" }
+  },
+  {
+    "questionNo": 48,
+    "question": {
+      "en": "A contractor estimated that a project would cost ₹5,00,000. He planned for 60% of the cost to go to materials, 25% to labor, and the rest as contingency. However, due to delays, material cost increased by 12.5%, labor cost increased by 10%, and contingency remained unchanged. What is the new total cost?",
+      "hi": "एक ठेकेदार ने अनुमान लगाया कि एक परियोजना की लागत ₹5,00,000 होगी। उसने योजना बनाई कि लागत का 60% सामग्री (materials) पर, 25% श्रम (labor) पर, और शेष आकस्मिक खर्च (contingency) के रूप में जाएगा। हालांकि, देरी के कारण, सामग्री की लागत में 12.5% की वृद्धि हुई, श्रम लागत में 10% की वृद्धि हुई, और आकस्मिक खर्च अपरिवर्तित रहा। नई कुल लागत क्या है?"
+    },
+    "options": [
+      { "en": "₹5,45,000", "hi": "₹5,45,000" },
+      { "en": "₹5,60,000", "hi": "₹5,60,000" },
+      { "en": "₹5,52,000", "hi": "₹5,52,000" },
+      { "en": "₹5,50,000", "hi": "₹5,50,000" }
+    ],
+    "correctAnswer": { "en": "₹5,50,000", "hi": "₹5,50,000" }
+  },
+  {
+    "questionNo": 49,
+    "question": {
+      "en": "A regular right square pyramid has a base side of 8 cm. An insect crawls from a base corner to the midpoint of an opposite slant edge along the surface by the shortest route. If the perpendicular height of the pyramid is 15 cm, find the slant height.",
+      "hi": "एक नियमित लंब वर्गाकार पिरामिड (regular right square pyramid) के आधार की भुजा 8 सेमी है। एक कीट (insect) सबसे छोटे रास्ते से सतह के साथ-साथ आधार के एक कोने से विपरीत तिरछी भुजा (slant edge) के मध्य बिंदु तक रेंगता है। यदि पिरामिड की लंबवत ऊंचाई 15 सेमी है, तो इसकी तिरछी ऊंचाई (slant height) ज्ञात कीजिए।"
+    },
+    "options": [
+      { "en": "23.68 cm", "hi": "23.68 सेमी" },
+      { "en": "15.52 cm", "hi": "15.52 सेमी" },
+      { "en": "10.27 cm", "hi": "10.27 सेमी" },
+      { "en": "22 cm", "hi": "22 सेमी" }
+    ],
+    "correctAnswer": { "en": "15.52 cm", "hi": "15.52 सेमी" }
+  },
+  {
+    "questionNo": 50,
+    "question": {
+      "en": "A metallic conical bowl with base radius 10 cm and height 24 cm is uniformly heated, increasing all dimensions by 10%. By how much does the volume increase?",
+      "hi": "धातु के एक शंक्वाकार कटोरे (conical bowl) की आधार त्रिज्या 10 सेमी और ऊँचाई 24 सेमी है। इसे समान रूप से गर्म किया जाता है, जिससे इसके सभी आयामों (dimensions) में 10% की वृद्धि हो जाती है। इसके आयतन (volume) में कितनी वृद्धि होगी?"
+    },
+    "options": [
+      { "en": "10%", "hi": "10%" },
+      { "en": "21%", "hi": "21%" },
+      { "en": "33.1%", "hi": "33.1%" },
+      { "en": "35%", "hi": "35%" }
+    ],
+    "correctAnswer": { "en": "33.1%", "hi": "33.1%" }
+ }
+],
 }

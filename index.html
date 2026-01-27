@@ -724,7 +724,7 @@
                 font-size: 1.8rem;
             }
         }
-    </style>
+</style>
 </head>
 <body>
 
@@ -766,6 +766,7 @@
         <div class="tab" data-subject="Reasoning">Reasoning</div>
         <div class="tab" data-subject="English">English</div>
         <div class="tab" data-subject="GK">GK</div>
+        <div class="tab chsl-only" data-subject="Top100Maths" style="display: none;">🔥 Maths Top 100</div>
     </div>
 
     <div id="test-grid-container" class="test-grid-container"></div>
@@ -773,6 +774,13 @@
 
 <div class="help-btn">💬</div>
 
+<!-- 1. API helper (defines ExamAxisAPI, updateNavigation, etc.) -->
+<script src="js/api.js"></script>
+
+<!-- 2. Tests list (defines ALL_TESTS) -->
+<script src="js/tests-list.js"></script>
+
+<!-- 3. Main page logic -->
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
     const mainTitle = document.getElementById('main-title');
@@ -796,7 +804,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         "Reasoning": 20,
         "English": 15,
         "GK": 10,
-        "General": 25
+        "General": 25,
+        "Top100Maths": 60
     };
 
     // --- DARK MODE LOGIC ---
@@ -842,7 +851,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const key = String(a.testId);
                     const existing = historyMap[key];
 
-                    // Keep the latest attempt per testId
                     if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
                         historyMap[key] = a;
                     }
@@ -856,6 +864,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- HELPER FUNCTIONS ---
     function getFilteredTests(exam, subject) {
+        // Special handling for CHSL Top 100 Maths
+        if (exam === 'CHSL' && subject === 'Top100Maths') {
+            return ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS');
+        }
         return ALL_TESTS.filter(test => test.exam === exam && test.subject === subject);
     }
 
@@ -865,7 +877,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newBadge = test.isNew ? '<div class="new-badge">NEW</div>' : '';
 
         const questions = test.questions || 25;
-        const time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
+        
+        // Special time for CHSL_TOP_100_MATHS (50 questions = 60 mins)
+        let time;
+        if (test.exam === 'CHSL_TOP_100_MATHS') {
+            time = 60;
+        } else {
+            time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
+        }
 
         const attempt = historyMap[String(test.id)];
         const attemptedBadge = attempt
@@ -875,9 +894,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
             : `<div class="last-score not-attempted">Not attempted yet</div>`;
 
+        // Special badge for CHSL_TOP_100_MATHS tests
+        const top100Badge = test.exam === 'CHSL_TOP_100_MATHS' 
+            ? '<div class="top100-badge">🔥 TOP 100</div>' 
+            : '';
+
         return `
-            <div class="test-card">
+            <div class="test-card ${test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : ''}">
                 ${newBadge}
+                ${top100Badge}
                 ${attemptedBadge}
                 <div class="card-title">${fullTitle}</div>
                 <hr>
@@ -914,18 +939,36 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         setTimeout(() => {
             if (filteredTests.length > 0) {
-                gridContainer.innerHTML = filteredTests.map(test => generateCardHTML(test)).join('');
+                // Add section header for Top 100 Maths
+                let headerHTML = '';
+                if (currentSubject === 'Top100Maths') {
+                    headerHTML = `
+                        <div class="section-header top100-header">
+                            <h2>🔥 MATHS TOP 100 - 2025</h2>
+                            <p>Master the most important 100 questions for SSC CHSL 2025</p>
+                        </div>
+                    `;
+                }
+                
+                gridContainer.innerHTML = headerHTML + filteredTests.map(test => generateCardHTML(test)).join('');
                 setTimeout(() => {
                     gridContainer.style.opacity = 1;
                     animateCards();
                 }, 50);
             } else {
-                gridContainer.innerHTML = `
-                    <div class="no-tests-message">
+                let message = currentSubject === 'Top100Maths' 
+                    ? `<div class="no-tests-message">
+                        <div class="icon">🔥</div>
+                        <h3>Maths Top 100 - Coming Soon!</h3>
+                        <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
+                    </div>`
+                    : `<div class="no-tests-message">
                         <div class="icon">📭</div>
                         <h3>Coming Soon!</h3>
                         <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
                     </div>`;
+                
+                gridContainer.innerHTML = message;
                 gridContainer.style.opacity = 1;
             }
         }, 200);
@@ -934,14 +977,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     function updateTabsForExam(exam) {
         tabs.forEach(tab => {
             const subject = tab.dataset.subject;
+            
+            // Hide English for DP
             if (exam === "DP" && subject === "English") {
                 tab.style.display = "none";
-            } else {
+            } 
+            // Show Top 100 Maths only for CHSL
+            else if (subject === "Top100Maths") {
+                tab.style.display = exam === "CHSL" ? "block" : "none";
+            }
+            else {
                 tab.style.display = "block";
             }
         });
 
+        // Reset to Maths if current subject is hidden
         if (exam === "DP" && currentSubject === "English") {
+            currentSubject = "Maths";
+            tabs.forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.subject === "Maths");
+            });
+        }
+        
+        if (exam !== "CHSL" && currentSubject === "Top100Maths") {
             currentSubject = "Maths";
             tabs.forEach(tab => {
                 tab.classList.toggle("active", tab.dataset.subject === "Maths");
@@ -991,25 +1049,78 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // --- INITIAL LOAD ---
-    // 1. Load history (if logged in)
     await loadHistory();
-    // 2. Show tests
     displayTests();
-    // 3. Update nav login/logout buttons
     if (window.updateNavigation) {
         updateNavigation();
     }
 });
 </script>
-<!-- 1. API helper (defines ExamAxisAPI, updateNavigation, etc.) -->
-<script src="js/api.js"></script>
 
-<!-- 2. Tests list (defines ALL_TESTS) -->
-<script src="js/tests-list.js"></script>
+<style>
+/* Additional styles for Top 100 Maths section */
+.tab.chsl-only {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    font-weight: 600;
+}
 
-<!-- 3. Main page logic (updated below) -->
-<script>
-  // ... (full JS from next section)
-</script>
+.tab.chsl-only:hover {
+    background: linear-gradient(135deg, #e55a2b, #e8841a);
+    transform: translateY(-2px);
+}
+
+.tab.chsl-only.active {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.section-header.top100-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.section-header.top100-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.8rem;
+}
+
+.section-header.top100-header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.top100-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.test-card.top100-card {
+    border: 2px solid #ff6b35;
+    background: linear-gradient(145deg, #fff8f5, #ffffff);
+}
+
+.dark-mode .test-card.top100-card {
+    background: linear-gradient(145deg, #2a2015, #1a1a1a);
+    border-color: #ff6b35;
+}
+
+.dark-mode .section-header.top100-header {
+    background: linear-gradient(135deg, #cc5529, #c67618);
+}
+</style>
+
 </body>
 </html>
