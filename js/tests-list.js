@@ -3400,7 +3400,7 @@ const ALL_TESTS = [
 {
   id: "CHSL_TOP_100_MATHS",          // must match question-db key & URL testId
   exam: "CHSL_TOP_100_MATHS",        // must match string in getFilteredTests
-  subject: "Maths",                  // you can keep this "Maths"
+  subject: "Maths Top 50",                  // you can keep this "Maths"
   title: "CHSL Top 100 Maths - Set 1",
   date: "2025",
   questions: 50,
