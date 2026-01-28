@@ -610,27 +610,7 @@
   opacity: 0;
   transition: opacity var(--transition-normal);
 }
-/* Faster, lighter animations */
-@keyframes cardFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px); /* Reduced from 20px */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-/* Remove heavy effects on mobile */
-@media (max-width: 768px) {
-    .test-card::before,
-    .test-card::after,
-    .attempt-btn::before,
-    .card-glow {
-        display: none !important; /* Force disable */
-    }
-}
 
 
         body.exam-chsl .test-card::before {
