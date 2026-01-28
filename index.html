@@ -10,8 +10,8 @@
     <!-- Preconnect for faster font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
-    
+<!-- Add font-display=swap for faster render -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">    
     <style>
         /* ============================================
            CSS VARIABLES - Light & Dark Theme
@@ -587,19 +587,51 @@
         }
 
         /* Card hover glow effect */
-        .test-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: var(--cgl-gradient);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-        }
+    .test-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--cgl-gradient);
+
+  /* 🔹 THIS LINE IS ALREADY THERE */
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+
+  /* 🔹 ADD THESE 2 LINES JUST BELOW */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+/* Faster, lighter animations */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* Reduced from 20px */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Remove heavy effects on mobile */
+@media (max-width: 768px) {
+    .test-card::before,
+    .test-card::after,
+    .attempt-btn::before,
+    .card-glow {
+        display: none !important; /* Force disable */
+    }
+}
+
 
         body.exam-chsl .test-card::before {
             background: var(--chsl-gradient);
@@ -1293,7 +1325,38 @@
             body::before {
                 display: none;
             }
+/* Loading State */
+.test-grid-container.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
 
+.loading-skeleton {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.skeleton-card {
+    width: 320px;
+    height: 400px;
+    background: linear-gradient(
+        90deg,
+        var(--bg-card) 0%,
+        var(--border-light) 50%,
+        var(--bg-card) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-xl);
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
             .test-card {
                 break-inside: avoid;
                 box-shadow: none;
@@ -1358,13 +1421,12 @@
 
 <!-- Help Button -->
 <button class="help-btn" aria-label="Get help">💬</button>
-
 <!-- Scripts -->
 <script src="js/api.js"></script>
 <script src="js/tests-list.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const mainTitle = document.getElementById('main-title');
     const gridContainer = document.getElementById('test-grid-container');
@@ -1378,6 +1440,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentExam = 'CGL';
     let currentSubject = 'Maths';
     let historyMap = {};
+    let isHistoryLoaded = false;
 
     // Configuration
     const SUBJECT_DISPLAY_TIMES = {
@@ -1395,7 +1458,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.body.classList.toggle('dark-mode', isDark);
         themeToggle.checked = isDark;
         
-        // Update meta theme color
         const metaTheme = document.querySelector('meta[name="theme-color"]');
         if (metaTheme) {
             metaTheme.setAttribute('content', isDark ? '#0f172a' : '#6366f1');
@@ -1408,12 +1470,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         applyTheme(newTheme);
     });
     
-    // Initialize theme
     const savedTheme = localStorage.getItem('theme') || 
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     applyTheme(savedTheme);
 
-    // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         if (!localStorage.getItem('theme')) {
             applyTheme(e.matches ? 'dark' : 'light');
@@ -1432,30 +1492,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // ==================== LOAD USER HISTORY ====================
-    async function loadHistory() {
+    // ==================== LOAD USER HISTORY (NON-BLOCKING) ====================
+    function loadHistory() {
+        // Don't block rendering - load in background
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
             historyMap = {};
-            return;
+            isHistoryLoaded = true;
+            return Promise.resolve();
         }
 
-        try {
-            const res = await ExamAxisAPI.getTestHistory();
-            historyMap = {};
-
-            if (res.success && res.data?.attempts) {
-                res.data.attempts.forEach(a => {
-                    const key = String(a.testId);
-                    const existing = historyMap[key];
-                    if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
-                        historyMap[key] = a;
-                    }
-                });
-            }
-        } catch (err) {
-            console.error('Failed to load history:', err);
-            historyMap = {};
-        }
+        return ExamAxisAPI.getTestHistory()
+            .then(res => {
+                historyMap = {};
+                if (res.success && res.data?.attempts) {
+                    res.data.attempts.forEach(a => {
+                        const key = String(a.testId);
+                        const existing = historyMap[key];
+                        if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
+                            historyMap[key] = a;
+                        }
+                    });
+                }
+                isHistoryLoaded = true;
+                // Update UI after history loads
+                displayTests();
+            })
+            .catch(err => {
+                console.error('Failed to load history:', err);
+                historyMap = {};
+                isHistoryLoaded = true;
+            });
     }
 
     // ==================== HELPER FUNCTIONS ====================
@@ -1477,16 +1543,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const badges = [];
         if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
         if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
-        if (attempt) badges.push('<div class="attempted-badge">Attempted</div>');
+        if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
 
-        const lastScoreHtml = attempt
-            ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
-            : `<div class="last-score not-attempted">Not attempted yet</div>`;
+        const lastScoreHtml = isHistoryLoaded 
+            ? (attempt
+                ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
+                : `<div class="last-score not-attempted">Not attempted yet</div>`)
+            : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading history...</div>`;
+
+        // Limit animation delay to prevent lag
+        const maxDelay = Math.min(index * 0.05, 0.4);
 
         return `
             <article class="test-card ${test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : ''}" 
                      role="listitem" 
-                     style="animation-delay: ${index * 0.08}s">
+                     style="animation-delay: ${maxDelay}s">
                 <div class="card-glow"></div>
                 ${badges.join('')}
                 <h3 class="card-title">${fullTitle}</h3>
@@ -1510,45 +1581,49 @@ document.addEventListener('DOMContentLoaded', async () => {
             </article>`;
     }
 
-    async function displayTests() {
+    // Optimized display with requestAnimationFrame
+    function displayTests() {
         const filteredTests = getFilteredTests(currentExam, currentSubject);
         
-        // Fade out
+        // Immediate feedback - no fade out delay
         gridContainer.style.opacity = '0';
 
-        await new Promise(resolve => setTimeout(resolve, 150));
-
-        if (filteredTests.length > 0) {
-            let html = '';
-            
-            // Add section header for Top 100 Maths
-            if (currentSubject === 'Top100Maths') {
-                html += `
-                    <div class="section-header top100-header">
-                        <h2>🔥 MATHS TOP 100 - 2025</h2>
-                        <p>Master the most important 100 questions for SSC CHSL 2025</p>
+        // Use requestAnimationFrame for smooth rendering
+        requestAnimationFrame(() => {
+            if (filteredTests.length > 0) {
+                let html = '';
+                
+                if (currentSubject === 'Top100Maths') {
+                    html += `
+                        <div class="section-header top100-header">
+                            <h2>🔥 MATHS TOP 100 - 2025</h2>
+                            <p>Master the most important 100 questions for SSC CHSL 2025</p>
+                        </div>`;
+                }
+                
+                // Batch render - faster than individual appends
+                html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
+                gridContainer.innerHTML = html;
+            } else {
+                const message = currentSubject === 'Top100Maths' 
+                    ? `<div class="no-tests-message">
+                        <div class="icon">🔥</div>
+                        <h3>Maths Top 100 - Coming Soon!</h3>
+                        <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
+                    </div>`
+                    : `<div class="no-tests-message">
+                        <div class="icon">📭</div>
+                        <h3>Coming Soon!</h3>
+                        <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
                     </div>`;
+                gridContainer.innerHTML = message;
             }
-            
-            html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
-            gridContainer.innerHTML = html;
-        } else {
-            const message = currentSubject === 'Top100Maths' 
-                ? `<div class="no-tests-message">
-                    <div class="icon">🔥</div>
-                    <h3>Maths Top 100 - Coming Soon!</h3>
-                    <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
-                </div>`
-                : `<div class="no-tests-message">
-                    <div class="icon">📭</div>
-                    <h3>Coming Soon!</h3>
-                    <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
-                </div>`;
-            gridContainer.innerHTML = message;
-        }
 
-        // Fade in
-        gridContainer.style.opacity = '1';
+            // Fade in immediately after render
+            requestAnimationFrame(() => {
+                gridContainer.style.opacity = '1';
+            });
+        });
     }
 
     function updateTabsForExam(exam) {
@@ -1564,7 +1639,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        // Reset to Maths if current subject is hidden
         if ((exam === "DP" && currentSubject === "English") || 
             (exam !== "CHSL" && currentSubject === "Top100Maths")) {
             currentSubject = "Maths";
@@ -1579,14 +1653,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     function switchExam(exam) {
         currentExam = exam;
 
-        // Update button states
         [btnCGL, btnCHSL, btnDP].forEach(btn => {
             const isActive = btn.dataset.exam === exam;
             btn.classList.toggle('active', isActive);
             btn.setAttribute('aria-selected', isActive);
         });
 
-        // Update body classes
         document.body.classList.remove('exam-chsl', 'exam-dp');
         
         const titles = {
@@ -1622,7 +1694,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     });
 
-    // Keyboard navigation for tabs
     document.querySelectorAll('[role="tablist"]').forEach(tablist => {
         tablist.addEventListener('keydown', (e) => {
             const tabs = [...tablist.querySelectorAll('[role="tab"]:not([style*="display: none"])')];
@@ -1647,9 +1718,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     });
 
-    // ==================== INITIAL LOAD ====================
-    await loadHistory();
+    // ==================== INITIAL LOAD (OPTIMIZED) ====================
+    // Display tests immediately without waiting for history
     displayTests();
+    
+    // Load history in background
+    loadHistory();
     
     if (window.updateNavigation) {
         updateNavigation();
