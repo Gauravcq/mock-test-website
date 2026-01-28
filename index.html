@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Exam-Axis - Professional SSC Mock Tests for CGL, CHSL, and DP Constable preparation">
+    <meta name="description" content="Exam-Axis - Professional SSC Mock Tests for CGL, CHSL, CPO, and more preparation">
     <meta name="theme-color" content="#6366f1">
-    <title>Exam-Axis | SSC Mock Tests</title>
+    <title>Exam-Axis | SSC Mock Tests - Complete Preparation Portal</title>
 
     <!-- Preconnect for faster font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,19 @@
             --dp-color: #f59e0b;
             --dp-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
             --dp-glow: rgba(245, 158, 11, 0.3);
+            
+            /* New Exam Colors */
+            --cpo-color: #dc2626;
+            --cpo-gradient: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            --cpo-glow: rgba(220, 38, 38, 0.3);
+            
+            --extra-color: #7c3aed;
+            --extra-gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            --extra-glow: rgba(124, 58, 237, 0.3);
+            
+            --phase-color: #0891b2;
+            --phase-gradient: linear-gradient(135deg, #0891b2 0%, #22d3ee 100%);
+            --phase-glow: rgba(8, 145, 178, 0.3);
             
             /* Status Colors */
             --success: #10b981;
@@ -139,6 +152,7 @@
                 radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.12), transparent);
         }
 
+        /* Exam-specific backgrounds */
         body.exam-chsl::before {
             background: 
                 radial-gradient(ellipse 80% 50% at 20% 40%, rgba(16, 185, 129, 0.08), transparent),
@@ -149,6 +163,24 @@
             background: 
                 radial-gradient(ellipse 80% 50% at 20% 40%, rgba(245, 158, 11, 0.08), transparent),
                 radial-gradient(ellipse 60% 40% at 80% 60%, rgba(251, 191, 36, 0.06), transparent);
+        }
+
+        body.exam-cpo::before {
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(220, 38, 38, 0.08), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(239, 68, 68, 0.06), transparent);
+        }
+
+        body.exam-extra::before {
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(124, 58, 237, 0.08), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(167, 139, 250, 0.06), transparent);
+        }
+
+        body.exam-phase::before {
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(8, 145, 178, 0.08), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(34, 211, 238, 0.06), transparent);
         }
 
         /* Custom Scrollbar */
@@ -171,7 +203,7 @@
         }
 
         /* ============================================
-           NAVIGATION BAR
+           NAVIGATION BAR - Enhanced Mobile Responsive
            ============================================ */
         .top-nav {
             position: sticky;
@@ -181,12 +213,13 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
-            height: var(--nav-height);
+            min-height: var(--nav-height);
             padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: all var(--transition-normal);
+            flex-wrap: wrap;
         }
 
         .dark-mode .top-nav {
@@ -219,6 +252,7 @@
             transform: scale(1.03);
         }
 
+        /* Dynamic brand logo colors */
         body.exam-chsl .brand-logo {
             background: var(--chsl-gradient);
             -webkit-background-clip: text;
@@ -231,13 +265,31 @@
             background-clip: text;
         }
 
+        body.exam-cpo .brand-logo {
+            background: var(--cpo-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-extra .brand-logo {
+            background: var(--extra-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-phase .brand-logo {
+            background: var(--phase-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
         .nav-right {
             display: flex;
             align-items: center;
             gap: 16px;
         }
 
-        /* Theme Switch */
+        /* Theme Switch - Enhanced Alignment */
         .theme-switch-wrapper {
             display: flex;
             align-items: center;
@@ -247,6 +299,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius-full);
             transition: all var(--transition-normal);
+            white-space: nowrap;
         }
 
         .theme-switch-wrapper:hover {
@@ -258,6 +311,7 @@
             line-height: 1;
             cursor: pointer;
             transition: transform var(--transition-normal);
+            user-select: none;
         }
 
         .theme-switch-wrapper:hover span:first-of-type {
@@ -272,6 +326,7 @@
             position: relative;
             width: 44px;
             height: 24px;
+            flex-shrink: 0;
         }
 
         .theme-switch input {
@@ -328,6 +383,7 @@
             align-items: center;
             gap: 6px;
             border: none;
+            white-space: nowrap;
         }
 
         .login-btn {
@@ -354,19 +410,20 @@
             box-shadow: 0 8px 20px var(--primary-glow);
         }
 
-        body.exam-chsl .login-btn {
-            color: var(--chsl-color);
-            border-color: var(--chsl-color);
+        /* Dynamic button colors */
+        body.exam-cpo .signup-btn {
+            background: var(--cpo-gradient);
+            box-shadow: 0 4px 12px var(--cpo-glow);
         }
 
-        body.exam-chsl .login-btn:hover {
-            background: var(--chsl-color);
-            box-shadow: 0 4px 12px var(--chsl-glow);
+        body.exam-extra .signup-btn {
+            background: var(--extra-gradient);
+            box-shadow: 0 4px 12px var(--extra-glow);
         }
 
-        body.exam-chsl .signup-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
+        body.exam-phase .signup-btn {
+            background: var(--phase-gradient);
+            box-shadow: 0 4px 12px var(--phase-glow);
         }
 
         /* ============================================
@@ -400,6 +457,7 @@
             background-clip: text;
         }
 
+        /* Dynamic title colors */
         body.exam-chsl .header-title-section strong {
             background: var(--chsl-gradient);
             -webkit-background-clip: text;
@@ -408,6 +466,24 @@
 
         body.exam-dp .header-title-section strong {
             background: var(--dp-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-cpo .header-title-section strong {
+            background: var(--cpo-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-extra .header-title-section strong {
+            background: var(--extra-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-phase .header-title-section strong {
+            background: var(--phase-gradient);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -432,18 +508,34 @@
         }
 
         /* ============================================
-           EXAM SELECTOR BUTTONS
+           EXAM SELECTOR BUTTONS - Enhanced
            ============================================ */
+        .exam-selector-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
         .exam-selector {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 32px;
             flex-wrap: wrap;
         }
 
+        .exam-selector-label {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
         .exam-btn {
-            padding: 14px 28px;
+            padding: 14px 24px;
             font-size: 0.9rem;
             font-weight: 600;
             border: 2px solid var(--border-color);
@@ -455,6 +547,23 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .exam-btn:hover::before {
+            left: 100%;
         }
 
         .exam-btn:hover {
@@ -481,8 +590,38 @@
             box-shadow: 0 8px 24px var(--dp-glow);
         }
 
+        .exam-btn.active.cpo {
+            background: var(--cpo-gradient);
+            box-shadow: 0 8px 24px var(--cpo-glow);
+        }
+
+        .exam-btn.active.extra {
+            background: var(--extra-gradient);
+            box-shadow: 0 8px 24px var(--extra-glow);
+        }
+
+        .exam-btn.active.phase {
+            background: var(--phase-gradient);
+            box-shadow: 0 8px 24px var(--phase-glow);
+        }
+
+        /* Exam button badges */
+        .exam-btn-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--error);
+            color: white;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
         /* ============================================
-           SUBJECT TABS
+           SUBJECT TABS - Enhanced
            ============================================ */
         .tabs-container {
             display: flex;
@@ -514,6 +653,7 @@
             white-space: nowrap;
             border: none;
             background: transparent;
+            position: relative;
         }
 
         .tab:hover:not(.active) {
@@ -527,6 +667,7 @@
             box-shadow: 0 4px 12px var(--cgl-glow);
         }
 
+        /* Dynamic tab colors */
         body.exam-chsl .tab.active {
             background: var(--chsl-gradient);
             box-shadow: 0 4px 12px var(--chsl-glow);
@@ -537,7 +678,22 @@
             box-shadow: 0 4px 12px var(--dp-glow);
         }
 
-        /* Top 100 Tab Special */
+        body.exam-cpo .tab.active {
+            background: var(--cpo-gradient);
+            box-shadow: 0 4px 12px var(--cpo-glow);
+        }
+
+        body.exam-extra .tab.active {
+            background: var(--extra-gradient);
+            box-shadow: 0 4px 12px var(--extra-glow);
+        }
+
+        body.exam-phase .tab.active {
+            background: var(--phase-gradient);
+            box-shadow: 0 4px 12px var(--phase-glow);
+        }
+
+        /* Special tabs */
         .tab.chsl-only {
             background: linear-gradient(135deg, #f97316, #ea580c);
             color: white;
@@ -545,6 +701,12 @@
 
         .tab.chsl-only:hover {
             transform: translateY(-2px);
+        }
+
+        /* Phase-specific tab */
+        .tab.phase-special {
+            background: linear-gradient(135deg, #0891b2, #22d3ee);
+            color: white;
         }
 
         /* ============================================
@@ -601,12 +763,25 @@
             transition: opacity var(--transition-normal);
         }
 
+        /* Dynamic card border colors */
         body.exam-chsl .test-card::before {
             background: var(--chsl-gradient);
         }
 
         body.exam-dp .test-card::before {
             background: var(--dp-gradient);
+        }
+
+        body.exam-cpo .test-card::before {
+            background: var(--cpo-gradient);
+        }
+
+        body.exam-extra .test-card::before {
+            background: var(--extra-gradient);
+        }
+
+        body.exam-phase .test-card::before {
+            background: var(--phase-gradient);
         }
 
         .test-card:hover::before {
@@ -637,12 +812,25 @@
             border-color: transparent;
         }
 
+        /* Dynamic card hover shadows */
         body.exam-chsl .test-card:hover {
             box-shadow: 0 20px 40px var(--chsl-glow);
         }
 
         body.exam-dp .test-card:hover {
             box-shadow: 0 20px 40px var(--dp-glow);
+        }
+
+        body.exam-cpo .test-card:hover {
+            box-shadow: 0 20px 40px var(--cpo-glow);
+        }
+
+        body.exam-extra .test-card:hover {
+            box-shadow: 0 20px 40px var(--extra-glow);
+        }
+
+        body.exam-phase .test-card:hover {
+            box-shadow: 0 20px 40px var(--phase-glow);
         }
 
         /* Card Glow Background */
@@ -665,7 +853,7 @@
         }
 
         /* Badges */
-        .new-badge, .attempted-badge, .top100-badge {
+        .new-badge, .attempted-badge, .top100-badge, .phase-badge {
             position: absolute;
             top: 16px;
             padding: 6px 12px;
@@ -706,6 +894,12 @@
             color: white;
         }
 
+        .phase-badge {
+            left: 16px;
+            background: var(--phase-gradient);
+            color: white;
+        }
+
         /* Card Title */
         .card-title {
             font-family: 'Poppins', sans-serif;
@@ -728,8 +922,21 @@
             opacity: 0.3;
         }
 
+        /* Dynamic hr colors */
         body.exam-chsl .test-card hr {
             background: linear-gradient(90deg, transparent, var(--chsl-color), transparent);
+        }
+
+        body.exam-cpo .test-card hr {
+            background: linear-gradient(90deg, transparent, var(--cpo-color), transparent);
+        }
+
+        body.exam-extra .test-card hr {
+            background: linear-gradient(90deg, transparent, var(--extra-color), transparent);
+        }
+
+        body.exam-phase .test-card hr {
+            background: linear-gradient(90deg, transparent, var(--phase-color), transparent);
         }
 
         /* Stats Grid */
@@ -754,6 +961,7 @@
             transition: all var(--transition-normal);
         }
 
+        /* Dynamic stat item colors */
         body.exam-chsl .stat-item {
             background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(52, 211, 153, 0.04));
             border-color: rgba(16, 185, 129, 0.1);
@@ -762,6 +970,21 @@
         body.exam-dp .stat-item {
             background: linear-gradient(145deg, rgba(245, 158, 11, 0.08), rgba(251, 191, 36, 0.04));
             border-color: rgba(245, 158, 11, 0.1);
+        }
+
+        body.exam-cpo .stat-item {
+            background: linear-gradient(145deg, rgba(220, 38, 38, 0.08), rgba(239, 68, 68, 0.04));
+            border-color: rgba(220, 38, 38, 0.1);
+        }
+
+        body.exam-extra .stat-item {
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.08), rgba(167, 139, 250, 0.04));
+            border-color: rgba(124, 58, 237, 0.1);
+        }
+
+        body.exam-phase .stat-item {
+            background: linear-gradient(145deg, rgba(8, 145, 178, 0.08), rgba(34, 211, 238, 0.04));
+            border-color: rgba(8, 145, 178, 0.1);
         }
 
         .stat-item:hover {
@@ -780,6 +1003,7 @@
             line-height: 1.2;
         }
 
+        /* Dynamic stat value colors */
         body.exam-chsl .stat-item .value {
             background: var(--chsl-gradient);
             -webkit-background-clip: text;
@@ -788,6 +1012,24 @@
 
         body.exam-dp .stat-item .value {
             background: var(--dp-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-cpo .stat-item .value {
+            background: var(--cpo-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-extra .stat-item .value {
+            background: var(--extra-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.exam-phase .stat-item .value {
+            background: var(--phase-gradient);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -886,6 +1128,7 @@
             box-shadow: 0 12px 28px var(--cgl-glow);
         }
 
+        /* Dynamic attempt button colors */
         body.exam-chsl .attempt-btn {
             background: var(--chsl-gradient);
             box-shadow: 0 8px 20px var(--chsl-glow);
@@ -898,6 +1141,37 @@
         body.exam-dp .attempt-btn {
             background: var(--dp-gradient);
             box-shadow: 0 8px 20px var(--dp-glow);
+        }
+
+        body.exam-dp .attempt-btn:hover {
+            box-shadow: 0 12px 28px var(--dp-glow);
+        }
+
+        body.exam-cpo .attempt-btn {
+            background: var(--cpo-gradient);
+            box-shadow: 0 8px 20px var(--cpo-glow);
+        }
+
+        body.exam-cpo .attempt-btn:hover {
+            box-shadow: 0 12px 28px var(--cpo-glow);
+        }
+
+        body.exam-extra .attempt-btn {
+            background: var(--extra-gradient);
+            box-shadow: 0 8px 20px var(--extra-glow);
+        }
+
+        body.exam-extra .attempt-btn:hover {
+            box-shadow: 0 12px 28px var(--extra-glow);
+        }
+
+        body.exam-phase .attempt-btn {
+            background: var(--phase-gradient);
+            box-shadow: 0 8px 20px var(--phase-glow);
+        }
+
+        body.exam-phase .attempt-btn:hover {
+            box-shadow: 0 12px 28px var(--phase-glow);
         }
 
         /* ============================================
@@ -933,23 +1207,41 @@
         }
 
         /* ============================================
-           TOP 100 SECTION HEADER
+           SPECIAL SECTION HEADERS
            ============================================ */
-        .section-header.top100-header {
+        .section-header {
             grid-column: 1 / -1;
             text-align: center;
             padding: 36px;
-            background: linear-gradient(135deg, #f97316, #ea580c);
             border-radius: var(--radius-xl);
             color: white;
             margin-bottom: 8px;
-            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.3);
             position: relative;
             overflow: hidden;
         }
 
-        .section-header.top100-header::before {
-            content: "🔥";
+        .section-header.top100-header {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.3);
+        }
+
+        .section-header.cpo-header {
+            background: var(--cpo-gradient);
+            box-shadow: 0 12px 32px var(--cpo-glow);
+        }
+
+        .section-header.extra-header {
+            background: var(--extra-gradient);
+            box-shadow: 0 12px 32px var(--extra-glow);
+        }
+
+        .section-header.phase-header {
+            background: var(--phase-gradient);
+            box-shadow: 0 12px 32px var(--phase-glow);
+        }
+
+        .section-header::before {
+            content: attr(data-icon);
             position: absolute;
             font-size: 8rem;
             opacity: 0.15;
@@ -958,26 +1250,67 @@
             transform: translateY(-50%);
         }
 
-        .section-header.top100-header h2 {
+        .section-header h2 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.75rem;
             font-weight: 800;
             margin: 0 0 8px;
         }
 
-        .section-header.top100-header p {
+        .section-header p {
             margin: 0;
             opacity: 0.9;
             font-size: 1rem;
         }
 
-        .test-card.top100-card {
-            border-color: #f97316;
+        /* Phase Information Cards */
+        .phase-info-grid {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        .test-card.top100-card::before {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            opacity: 1;
+        .phase-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+
+        .phase-info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--phase-color);
+        }
+
+        .phase-info-card .phase-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--phase-gradient);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .phase-info-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .phase-info-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
         }
 
         /* ============================================
@@ -1008,6 +1341,7 @@
             box-shadow: 0 12px 32px var(--cgl-glow);
         }
 
+        /* Dynamic help button colors */
         body.exam-chsl .help-btn {
             background: var(--chsl-gradient);
             box-shadow: 0 8px 24px var(--chsl-glow);
@@ -1016,6 +1350,21 @@
         body.exam-dp .help-btn {
             background: var(--dp-gradient);
             box-shadow: 0 8px 24px var(--dp-glow);
+        }
+
+        body.exam-cpo .help-btn {
+            background: var(--cpo-gradient);
+            box-shadow: 0 8px 24px var(--cpo-glow);
+        }
+
+        body.exam-extra .help-btn {
+            background: var(--extra-gradient);
+            box-shadow: 0 8px 24px var(--extra-glow);
+        }
+
+        body.exam-phase .help-btn {
+            background: var(--phase-gradient);
+            box-shadow: 0 8px 24px var(--phase-glow);
         }
 
         /* Footer decoration */
@@ -1029,6 +1378,7 @@
             z-index: 100;
         }
 
+        /* Dynamic footer colors */
         body.exam-chsl .footer-decoration {
             background: var(--chsl-gradient);
         }
@@ -1037,9 +1387,27 @@
             background: var(--dp-gradient);
         }
 
+        body.exam-cpo .footer-decoration {
+            background: var(--cpo-gradient);
+        }
+
+        body.exam-extra .footer-decoration {
+            background: var(--extra-gradient);
+        }
+
+        body.exam-phase .footer-decoration {
+            background: var(--phase-gradient);
+        }
+
         /* ============================================
-           RESPONSIVE DESIGN
+           ENHANCED RESPONSIVE DESIGN
            ============================================ */
+        @media (max-width: 1200px) {
+            .exam-selector {
+                padding: 0 16px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .main-container {
                 padding: 32px 20px 80px;
@@ -1049,32 +1417,44 @@
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 20px;
             }
+
+            .exam-btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
         }
 
         @media (max-width: 768px) {
+            /* Navigation improvements */
             .top-nav {
-                padding: 0 16px;
-                height: 64px;
+                padding: 12px 16px;
+                min-height: auto;
             }
 
             .brand-logo {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
             }
 
             .brand-logo::before {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .nav-right {
-                gap: 10px;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                width: 100%;
+                margin-top: 8px;
             }
 
+            /* Theme switch mobile optimization */
             .theme-switch-wrapper {
                 padding: 4px 10px;
+                gap: 6px;
             }
 
             .theme-switch-wrapper span {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .theme-switch {
@@ -1085,6 +1465,8 @@
             .slider::before {
                 height: 14px;
                 width: 14px;
+                left: 2px;
+                bottom: 2px;
             }
 
             input:checked + .slider::before {
@@ -1096,6 +1478,7 @@
                 font-size: 0.8rem;
             }
 
+            /* Main content adjustments */
             .main-container {
                 padding: 24px 16px 80px;
             }
@@ -1104,35 +1487,55 @@
                 margin-bottom: 28px;
             }
 
+            .sub-heading {
+                font-size: 0.9rem;
+            }
+
             .sub-heading::before,
             .sub-heading::after {
                 width: 24px;
             }
 
-            .exam-selector {
-                gap: 8px;
+            /* Exam selector mobile */
+            .exam-selector-wrapper {
+                gap: 12px;
                 margin-bottom: 24px;
             }
 
+            .exam-selector {
+                gap: 8px;
+                padding: 0 8px;
+            }
+
             .exam-btn {
-                padding: 10px 18px;
-                font-size: 0.85rem;
+                padding: 10px 16px;
+                font-size: 0.8rem;
                 flex: 1;
-                min-width: 100px;
+                min-width: 0;
                 justify-content: center;
             }
 
+            .exam-btn-badge {
+                top: -6px;
+                right: -6px;
+                padding: 1px 4px;
+                font-size: 0.6rem;
+            }
+
+            /* Tabs mobile optimization */
             .tabs-container {
                 padding: 6px;
                 margin-bottom: 28px;
                 justify-content: flex-start;
+                gap: 4px;
             }
 
             .tab {
-                padding: 10px 18px;
-                font-size: 0.8rem;
+                padding: 10px 16px;
+                font-size: 0.75rem;
             }
 
+            /* Test grid mobile */
             .test-grid-container {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -1143,11 +1546,19 @@
             }
 
             .card-title {
-                font-size: 1.05rem;
+                font-size: 1rem;
+            }
+
+            .stat-item {
+                padding: 12px 6px;
             }
 
             .stat-item .value {
-                font-size: 1.35rem;
+                font-size: 1.3rem;
+            }
+
+            .stat-item .label {
+                font-size: 0.6rem;
             }
 
             .attempt-btn {
@@ -1155,6 +1566,35 @@
                 font-size: 0.9rem;
             }
 
+            /* Section headers mobile */
+            .section-header {
+                padding: 28px 20px;
+            }
+
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .section-header p {
+                font-size: 0.9rem;
+            }
+
+            .section-header::before {
+                font-size: 5rem;
+                right: 10px;
+            }
+
+            /* Phase info mobile */
+            .phase-info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .phase-info-card {
+                padding: 12px;
+            }
+
+            /* Help button mobile */
             .help-btn {
                 width: 50px;
                 height: 50px;
@@ -1162,55 +1602,108 @@
                 bottom: 20px;
                 right: 20px;
             }
-
-            .section-header.top100-header {
-                padding: 28px 20px;
-            }
-
-            .section-header.top100-header h2 {
-                font-size: 1.4rem;
-            }
-
-            .section-header.top100-header::before {
-                font-size: 5rem;
-                right: 10px;
-            }
         }
 
         @media (max-width: 480px) {
+            /* Ultra-mobile optimization */
             .top-nav {
-                flex-wrap: wrap;
-                height: auto;
-                padding: 12px 16px;
-                gap: 12px;
+                padding: 10px 12px;
+            }
+
+            .brand-logo {
+                font-size: 1.1rem;
             }
 
             .nav-right {
-                width: 100%;
-                justify-content: space-between;
+                margin-top: 10px;
             }
 
+            /* Theme switch ultra-mobile */
+            .theme-switch-wrapper {
+                padding: 3px 8px;
+            }
+
+            .theme-switch {
+                width: 34px;
+                height: 18px;
+            }
+
+            .slider::before {
+                height: 12px;
+                width: 12px;
+            }
+
+            input:checked + .slider::before {
+                transform: translateX(16px);
+            }
+
+            .nav-btn {
+                padding: 7px 12px;
+                font-size: 0.75rem;
+                gap: 4px;
+            }
+
+            /* Header mobile */
+            .header-title-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .sub-heading {
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+
+            /* Exam buttons ultra-mobile */
             .exam-btn {
-                padding: 10px 14px;
-                font-size: 0.8rem;
+                padding: 9px 12px;
+                font-size: 0.75rem;
+                gap: 6px;
             }
 
+            /* Tabs ultra-mobile */
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+
+            /* Test card ultra-mobile */
             .test-card {
                 padding: 20px 16px;
             }
 
+            .card-title {
+                font-size: 0.95rem;
+                margin: 10px 0 16px;
+            }
+
+            .card-stats {
+                gap: 8px;
+            }
+
             .stat-item {
-                padding: 10px 6px;
+                padding: 10px 4px;
             }
 
             .stat-item .value {
-                font-size: 1.25rem;
+                font-size: 1.2rem;
             }
 
             .stat-item .label {
-                font-size: 0.6rem;
+                font-size: 0.55rem;
+                letter-spacing: 0.5px;
             }
 
+            .last-score {
+                font-size: 0.8rem;
+                padding: 8px 14px;
+            }
+
+            .attempt-btn {
+                padding: 11px 24px;
+                font-size: 0.85rem;
+            }
+
+            /* No tests message mobile */
             .no-tests-message {
                 padding: 60px 24px;
             }
@@ -1222,6 +1715,42 @@
             .no-tests-message h3 {
                 font-size: 1.25rem;
             }
+
+            .no-tests-message p {
+                font-size: 0.9rem;
+            }
+
+            /* Help button ultra-mobile */
+            .help-btn {
+                width: 46px;
+                height: 46px;
+                font-size: 18px;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+
+        /* Small device landscape mode */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .top-nav {
+                padding: 8px 16px;
+            }
+
+            .main-container {
+                padding: 20px 16px 60px;
+            }
+
+            .header-container {
+                margin-bottom: 20px;
+            }
+
+            .exam-selector-wrapper {
+                margin-bottom: 20px;
+            }
+
+            .tabs-container {
+                margin-bottom: 20px;
+            }
         }
 
         /* ============================================
@@ -1230,7 +1759,8 @@
         /* Reduce animations on mobile for better performance */
         @media (max-width: 768px) {
             .test-card::after,
-            .attempt-btn::before {
+            .attempt-btn::before,
+            .exam-btn::before {
                 display: none;
             }
 
@@ -1246,6 +1776,18 @@
                 to {
                     opacity: 1;
                     transform: translateY(0);
+                }
+            }
+
+            /* Disable hover effects on touch devices */
+            @media (hover: none) {
+                .test-card:hover {
+                    transform: none;
+                }
+
+                .exam-btn:hover,
+                .tab:hover {
+                    transform: none;
                 }
             }
         }
@@ -1276,9 +1818,20 @@
         .exam-btn:focus-visible,
         .tab:focus-visible,
         .attempt-btn:focus-visible,
-        .nav-btn:focus-visible {
+        .nav-btn:focus-visible,
+        .help-btn:focus-visible {
             outline: 3px solid var(--primary);
             outline-offset: 2px;
+        }
+
+        /* Touch-friendly tap targets */
+        @media (pointer: coarse) {
+            .exam-btn,
+            .tab,
+            .nav-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
         }
 
         /* Print styles */
@@ -1298,6 +1851,11 @@
                 break-inside: avoid;
                 box-shadow: none;
                 border: 1px solid #ccc;
+            }
+
+            .exam-selector,
+            .tabs-container {
+                display: none;
             }
         }
     </style>
@@ -1336,11 +1894,21 @@
         </div>
     </header>
 
-    <!-- Exam Selector -->
-    <div class="exam-selector" role="tablist" aria-label="Select exam type">
-        <button class="exam-btn active" data-exam="CGL" id="btn-cgl" role="tab" aria-selected="true">🎓 SSC CGL</button>
-        <button class="exam-btn chsl" data-exam="CHSL" id="btn-chsl" role="tab" aria-selected="false">📘 SSC CHSL</button>
-        <button class="exam-btn dp" data-exam="DP" id="btn-dp" role="tab" aria-selected="false">👮 DP Constable</button>
+    <!-- Exam Selector with New Sections -->
+    <div class="exam-selector-wrapper">
+        <div class="exam-selector-label">Main Exams</div>
+        <div class="exam-selector" role="tablist" aria-label="Select exam type">
+            <button class="exam-btn active" data-exam="CGL" id="btn-cgl" role="tab" aria-selected="true">🎓 SSC CGL</button>
+            <button class="exam-btn chsl" data-exam="CHSL" id="btn-chsl" role="tab" aria-selected="false">📘 SSC CHSL</button>
+            <button class="exam-btn cpo" data-exam="CPO" id="btn-cpo" role="tab" aria-selected="false">👮 SSC CPO<span class="exam-btn-badge">NEW</span></button>
+        </div>
+        
+        <div class="exam-selector-label">Additional Tests</div>
+        <div class="exam-selector" role="tablist" aria-label="Select additional exam type">
+            <button class="exam-btn dp" data-exam="DP" id="btn-dp" role="tab" aria-selected="false">🚔 DP Constable</button>
+            <button class="exam-btn extra" data-exam="EXTRA" id="btn-extra" role="tab" aria-selected="false">⭐ Extra Tests</button>
+            <button class="exam-btn phase" data-exam="PHASE" id="btn-phase" role="tab" aria-selected="false">📋 SSC Phase<span class="exam-btn-badge">HOT</span></button>
+        </div>
     </div>
 
     <!-- Subject Tabs -->
@@ -1350,6 +1918,8 @@
         <button class="tab" data-subject="English" role="tab" aria-selected="false">📖 English</button>
         <button class="tab" data-subject="GK" role="tab" aria-selected="false">🌍 GK</button>
         <button class="tab chsl-only" data-subject="Top100Maths" style="display: none;" role="tab" aria-selected="false">🔥 Maths Top 100</button>
+        <button class="tab phase-special" data-subject="PhaseI" style="display: none;" role="tab" aria-selected="false">1️⃣ Phase I</button>
+        <button class="tab phase-special" data-subject="PhaseII" style="display: none;" role="tab" aria-selected="false">2️⃣ Phase II</button>
     </div>
 
     <!-- Test Cards Grid -->
@@ -1373,6 +1943,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnCGL = document.getElementById('btn-cgl');
     const btnCHSL = document.getElementById('btn-chsl');
     const btnDP = document.getElementById('btn-dp');
+    const btnCPO = document.getElementById('btn-cpo');
+    const btnExtra = document.getElementById('btn-extra');
+    const btnPhase = document.getElementById('btn-phase');
 
     // State
     let currentExam = 'CGL';
@@ -1386,8 +1959,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         "English": 15,
         "GK": 10,
         "General": 25,
-        "Top100Maths": 60
+        "Top100Maths": 60,
+        "PhaseI": 60,
+        "PhaseII": 90
     };
+
+    // Extended test data for new sections
+    const EXTRA_TESTS_DATA = [
+        { id: 'extra_1', exam: 'EXTRA', subject: 'Maths', title: 'Advanced Mathematics', date: '2024', questions: 30, isNew: true },
+        { id: 'extra_2', exam: 'EXTRA', subject: 'Reasoning', title: 'Logical Puzzles', date: '2024', questions: 25, isNew: true },
+        { id: 'extra_3', exam: 'EXTRA', subject: 'English', title: 'Vocabulary Builder', date: '2024', questions: 40 },
+        { id: 'extra_4', exam: 'EXTRA', subject: 'GK', title: 'Current Affairs Special', date: '2024', questions: 50, isNew: true }
+    ];
+
+    const CPO_TESTS_DATA = [
+        { id: 'cpo_1', exam: 'CPO', subject: 'Maths', title: 'CPO Paper I - Quantitative', date: '2024', questions: 25, isNew: true },
+        { id: 'cpo_2', exam: 'CPO', subject: 'Reasoning', title: 'CPO Paper I - Reasoning', date: '2024', questions: 25, isNew: true },
+        { id: 'cpo_3', exam: 'CPO', subject: 'English', title: 'CPO Paper II', date: '2024', questions: 200 },
+        { id: 'cpo_4', exam: 'CPO', subject: 'GK', title: 'CPO General Knowledge', date: '2024', questions: 25, isNew: true }
+    ];
+
+    const PHASE_TESTS_DATA = [
+        { id: 'phase_1', exam: 'PHASE', subject: 'PhaseI', title: 'Preliminary Test', date: '2024', questions: 100, isPhase: true },
+        { id: 'phase_2', exam: 'PHASE', subject: 'PhaseII', title: 'Mains Examination', date: '2024', questions: 200, isPhase: true },
+        { id: 'phase_3', exam: 'PHASE', subject: 'Maths', title: 'Phase III - Skill Test', date: '2024', questions: 50 },
+        { id: 'phase_4', exam: 'PHASE', subject: 'English', title: 'Typing Speed Test', date: '2024', questions: 1, isPhase: true }
+    ];
+
+    // Merge all test data
+    const ALL_EXTENDED_TESTS = [
+        ...(typeof ALL_TESTS !== 'undefined' ? ALL_TESTS : []),
+        ...EXTRA_TESTS_DATA,
+        ...CPO_TESTS_DATA,
+        ...PHASE_TESTS_DATA
+    ];
 
     // ==================== THEME MANAGEMENT ====================
     function applyTheme(theme) {
@@ -1420,18 +2025,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // ==================== DATA VALIDATION ====================
-    if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
-        mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
-        gridContainer.innerHTML = `
-            <div class="no-tests-message">
-                <div class="icon">⚠️</div>
-                <h3>Data Not Found</h3>
-                <p>The test data file is missing or invalid. Please try again later.</p>
-            </div>`;
-        return;
-    }
-
     // ==================== LOAD USER HISTORY ====================
     async function loadHistory() {
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
@@ -1461,9 +2054,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ==================== HELPER FUNCTIONS ====================
     function getFilteredTests(exam, subject) {
         if (exam === 'CHSL' && subject === 'Top100Maths') {
-            return ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS');
+            return ALL_EXTENDED_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS');
         }
-        return ALL_TESTS.filter(test => test.exam === exam && test.subject === subject);
+        return ALL_EXTENDED_TESTS.filter(test => test.exam === exam && test.subject === subject);
     }
 
     function generateCardHTML(test, index) {
@@ -1477,14 +2070,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const badges = [];
         if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
         if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
+        if (test.isPhase) badges.push('<div class="phase-badge">📋 PHASE</div>');
         if (attempt) badges.push('<div class="attempted-badge">Attempted</div>');
 
         const lastScoreHtml = attempt
             ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
             : `<div class="last-score not-attempted">Not attempted yet</div>`;
 
+        const cardClass = test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : 
+                         test.isPhase ? 'phase-card' : '';
+
         return `
-            <article class="test-card ${test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : ''}" 
+            <article class="test-card ${cardClass}" 
                      role="listitem" 
                      style="animation-delay: ${index * 0.08}s">
                 <div class="card-glow"></div>
@@ -1521,30 +2118,87 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (filteredTests.length > 0) {
             let html = '';
             
-            // Add section header for Top 100 Maths
+            // Add section headers for special categories
             if (currentSubject === 'Top100Maths') {
                 html += `
-                    <div class="section-header top100-header">
+                    <div class="section-header top100-header" data-icon="🔥">
                         <h2>🔥 MATHS TOP 100 - 2025</h2>
                         <p>Master the most important 100 questions for SSC CHSL 2025</p>
                     </div>`;
+            } else if (currentExam === 'CPO' && currentSubject === 'Maths') {
+                html += `
+                    <div class="section-header cpo-header" data-icon="👮">
+                        <h2>SSC CPO - Central Police Organization</h2>
+                        <p>Prepare for Sub-Inspector and Assistant Sub-Inspector positions</p>
+                    </div>`;
+            } else if (currentExam === 'EXTRA' && currentSubject === 'Maths') {
+                html += `
+                    <div class="section-header extra-header" data-icon="⭐">
+                        <h2>Extra SSC Tests - Advanced Practice</h2>
+                        <p>Challenge yourself with additional practice tests</p>
+                    </div>`;
+            } else if (currentExam === 'PHASE') {
+                if (currentSubject === 'PhaseI' || currentSubject === 'PhaseII') {
+                    html += `
+                        <div class="section-header phase-header" data-icon="📋">
+                            <h2>SSC Phase Selection Tests</h2>
+                            <p>Complete phase-wise preparation for SSC examinations</p>
+                        </div>`;
+                    
+                    // Add phase information cards
+                    html += `
+                        <div class="phase-info-grid">
+                            <div class="phase-info-card">
+                                <div class="phase-number">1</div>
+                                <h4>Preliminary</h4>
+                                <p>Screening Test</p>
+                            </div>
+                            <div class="phase-info-card">
+                                <div class="phase-number">2</div>
+                                <h4>Mains</h4>
+                                <p>Detailed Exam</p>
+                            </div>
+                            <div class="phase-info-card">
+                                <div class="phase-number">3</div>
+                                <h4>Skill Test</h4>
+                                <p>Typing/Data Entry</p>
+                            </div>
+                            <div class="phase-info-card">
+                                <div class="phase-number">4</div>
+                                <h4>Document</h4>
+                                <p>Verification</p>
+                            </div>
+                        </div>`;
+                }
             }
             
             html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
             gridContainer.innerHTML = html;
         } else {
-            const message = currentSubject === 'Top100Maths' 
-                ? `<div class="no-tests-message">
-                    <div class="icon">🔥</div>
-                    <h3>Maths Top 100 - Coming Soon!</h3>
-                    <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
-                </div>`
-                : `<div class="no-tests-message">
+            const messages = {
+                'CPO': `<div class="no-tests-message">
+                    <div class="icon">👮</div>
+                    <h3>SSC CPO Tests Coming Soon!</h3>
+                    <p>Comprehensive preparation material for Central Police Organization exams will be available soon!</p>
+                </div>`,
+                'EXTRA': `<div class="no-tests-message">
+                    <div class="icon">⭐</div>
+                    <h3>Extra Tests Loading...</h3>
+                    <p>Additional practice tests and advanced materials are being prepared for you!</p>
+                </div>`,
+                'PHASE': `<div class="no-tests-message">
+                    <div class="icon">📋</div>
+                    <h3>Phase-wise Tests Coming!</h3>
+                    <p>Complete phase selection test series will be available shortly!</p>
+                </div>`,
+                'default': `<div class="no-tests-message">
                     <div class="icon">📭</div>
                     <h3>Coming Soon!</h3>
                     <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
-                </div>`;
-            gridContainer.innerHTML = message;
+                </div>`
+            };
+            
+            gridContainer.innerHTML = messages[currentExam] || messages['default'];
         }
 
         // Fade in
@@ -1555,21 +2209,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         tabs.forEach(tab => {
             const subject = tab.dataset.subject;
             
+            // Hide/show tabs based on exam
             if (exam === "DP" && subject === "English") {
                 tab.style.display = "none";
             } else if (subject === "Top100Maths") {
                 tab.style.display = exam === "CHSL" ? "block" : "none";
+            } else if (subject === "PhaseI" || subject === "PhaseII") {
+                tab.style.display = exam === "PHASE" ? "block" : "none";
             } else {
                 tab.style.display = "block";
             }
         });
 
-        // Reset to Maths if current subject is hidden
-        if ((exam === "DP" && currentSubject === "English") || 
-            (exam !== "CHSL" && currentSubject === "Top100Maths")) {
-            currentSubject = "Maths";
+        // Reset to appropriate default subject
+        const visibleTabs = [...tabs].filter(tab => tab.style.display !== "none");
+        if (!visibleTabs.find(tab => tab.dataset.subject === currentSubject)) {
+            currentSubject = exam === "PHASE" ? "PhaseI" : "Maths";
             tabs.forEach(tab => {
-                const isActive = tab.dataset.subject === "Maths";
+                const isActive = tab.dataset.subject === currentSubject;
                 tab.classList.toggle("active", isActive);
                 tab.setAttribute('aria-selected', isActive);
             });
@@ -1580,25 +2237,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentExam = exam;
 
         // Update button states
-        [btnCGL, btnCHSL, btnDP].forEach(btn => {
-            const isActive = btn.dataset.exam === exam;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-selected', isActive);
+        [btnCGL, btnCHSL, btnDP, btnCPO, btnExtra, btnPhase].forEach(btn => {
+            if (btn) {
+                const isActive = btn.dataset.exam === exam;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive);
+            }
         });
 
         // Update body classes
-        document.body.classList.remove('exam-chsl', 'exam-dp');
+        document.body.classList.remove('exam-chsl', 'exam-dp', 'exam-cpo', 'exam-extra', 'exam-phase');
         
         const titles = {
             'CGL': 'SSC <strong>CGL</strong> Mock Tests',
             'CHSL': 'SSC <strong>CHSL</strong> Mock Tests',
-            'DP': '<strong>DP Constable</strong> Mock Tests'
+            'DP': '<strong>DP Constable</strong> Mock Tests',
+            'CPO': 'SSC <strong>CPO</strong> Mock Tests',
+            'EXTRA': '<strong>Extra SSC</strong> Tests',
+            'PHASE': 'SSC <strong>Phase</strong> Selection Tests'
         };
 
         mainTitle.innerHTML = titles[exam];
 
-        if (exam === 'CHSL') document.body.classList.add('exam-chsl');
-        if (exam === 'DP') document.body.classList.add('exam-dp');
+        const examClasses = {
+            'CHSL': 'exam-chsl',
+            'DP': 'exam-dp',
+            'CPO': 'exam-cpo',
+            'EXTRA': 'exam-extra',
+            'PHASE': 'exam-phase'
+        };
+
+        if (examClasses[exam]) {
+            document.body.classList.add(examClasses[exam]);
+        }
 
         updateTabsForExam(exam);
         displayTests();
@@ -1608,6 +2279,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnCGL.addEventListener('click', () => switchExam('CGL'));
     btnCHSL.addEventListener('click', () => switchExam('CHSL'));
     btnDP.addEventListener('click', () => switchExam('DP'));
+    if (btnCPO) btnCPO.addEventListener('click', () => switchExam('CPO'));
+    if (btnExtra) btnExtra.addEventListener('click', () => switchExam('EXTRA'));
+    if (btnPhase) btnPhase.addEventListener('click', () => switchExam('PHASE'));
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
