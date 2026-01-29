@@ -1,5 +1,5 @@
-// test-logic.js - FINAL FIXED VERSION v7
-// Fix: Handle both string and object correctAnswer, better testId matching
+// test-logic.js - FINAL FIXED VERSION v8
+// Fixes: Syntax error, examType validation, complete functionality
 (function() {
     'use strict';
     
@@ -130,11 +130,9 @@
             let correctAnswerHi = '';
 
             if (typeof q.correctAnswer === 'string' && q.correctAnswer.trim()) {
-                // Simple string format: "√5 + 2"
                 correctAnswerEn = q.correctAnswer.trim();
                 correctAnswerHi = q.correctAnswer.trim();
             } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
-                // Object format: { en: "...", hi: "..." }
                 correctAnswerEn = q.correctAnswer.en || '';
                 correctAnswerHi = q.correctAnswer.hi || q.correctAnswer.en || '';
             } else if (typeof q.answer === 'string' && q.answer.trim()) {
@@ -253,7 +251,6 @@
                         
                         // Try to merge with local data
                         if (typeof QUESTIONS_DATABASE !== 'undefined') {
-                            // Try different key formats
                             const possibleKeys = [
                                 testId,
                                 testId.replace(/-/g, '_'),
@@ -274,7 +271,6 @@
                             if (localData) {
                                 const localQuestions = Array.isArray(localData) ? localData : (localData.questions || []);
                                 
-                                // Merge: Use API structure but add correctAnswer/explanation from local
                                 questions = apiQuestions.map((apiQ, i) => {
                                     const localQ = localQuestions[i];
                                     if (localQ) {
@@ -290,7 +286,6 @@
                                 console.log('✅ Merged API + Local answers');
                                 console.log('📋 Merged Q1 correctAnswer:', questions[0]?.correctAnswer);
                             } else {
-                                // No local data found - use API as-is
                                 questions = apiQuestions;
                                 console.warn('⚠️ No local data found to merge');
                             }
@@ -309,7 +304,6 @@
             const allKeys = Object.keys(QUESTIONS_DATABASE);
             console.log('🔍 Trying to find similar key for:', testId);
             
-            // Find key that contains testId or vice versa
             const similarKey = allKeys.find(key => 
                 key.includes(testId) || 
                 testId.includes(key) ||
@@ -673,6 +667,7 @@
                 };
             }
 
+            // ========== SUBMIT QUIZ ==========
             function submitQuiz() {
                 clearInterval(QD.timerInterval);
 
@@ -751,21 +746,46 @@
                 resultSummaryPage?.classList.remove('hidden');
                 document.body.classList.add('results-scroll');
 
+                // ========== SAVE ATTEMPT TO BACKEND ==========
                 if (window.ExamAxisAPI?.isLoggedIn()) {
-                    ExamAxisAPI.saveTestAttempt({
-                        testId: QD.testInfo.id || testId,
-                        testTitle: QD.testInfo.title,
-                        subject: subjectName,
-                        totalQuestions: questions.length,
-                        correct, incorrect, unattempted,
-                        score: Number(score.toFixed(2)),
-                        maxScore: questions.length * 2,
-                        accuracy: Number(accuracy.toFixed(1)),
-                        timeTakenMinutes: mins
-                    }).catch(console.error);
-                }
-            }
+                    const answersObj = {};
+                    QD.questionStates.forEach((state, i) => {
+                        answersObj[i] = {
+                            userAnswer: state.userAnswer,
+                            isCorrect: state.resultCategory === 'correct'
+                        };
+                    });
 
+                    const attemptData = {
+                        testId: String(QD.testInfo.id || testId),
+                        examType: 'CGL',  // ✅ Use 'CGL' to match validator
+                        subject: subjectName || 'Mathematics',
+                        score: Number(score.toFixed(2)),
+                        totalMarks: questions.length * 2,
+                        correctAnswers: correct,
+                        wrongAnswers: incorrect,
+                        unanswered: unattempted,
+                        timeTaken: mins,
+                        answers: answersObj
+                    };
+
+                    console.log('📤 Saving attempt:', attemptData);
+
+                    ExamAxisAPI.saveTestAttempt(attemptData)
+                        .then(result => {
+                            if (result.success) {
+                                console.log('✅ Test attempt saved successfully');
+                            } else {
+                                console.warn('⚠️ Could not save attempt:', result.message);
+                            }
+                        })
+                        .catch(err => {
+                            console.warn('⚠️ Save attempt failed:', err.message);
+                        });
+                }
+            } // ✅ End of submitQuiz
+
+            // ========== CREATE PALETTE ==========
             function createPalette() {
                 if (!questionPalette) return;
                 questionPalette.innerHTML = '';
@@ -778,6 +798,7 @@
                 });
             }
 
+            // ========== UPDATE PALETTE ==========
             function updatePalette() {
                 questionPalette?.querySelectorAll('.palette-btn').forEach((btn, i) => {
                     const st = QD.questionStates[i];
@@ -791,6 +812,7 @@
                 });
             }
 
+            // ========== SHOW QUESTION ==========
             function showQuestion(index) {
                 if (index < 0 || index >= questions.length) return;
                 QD.currentQuestionIndex = index;
@@ -833,11 +855,13 @@
                 if (window.MathJax) try { MathJax.typeset(); } catch(e) {}
             }
 
+            // ========== UPDATE NAV ==========
             function updateNav() {
                 if (prevBtn) prevBtn.disabled = QD.currentQuestionIndex === 0;
                 if (nextBtn) nextBtn.textContent = QD.currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Save & Next';
             }
 
+            // ========== SAVE ANSWER ==========
             function saveAnswer() {
                 const sel = document.querySelector('input[name="option"]:checked');
                 const state = QD.questionStates[QD.currentQuestionIndex];
@@ -846,6 +870,7 @@
                 updatePalette();
             }
 
+            // ========== BUTTON HANDLERS ==========
             if (nextBtn) nextBtn.onclick = () => {
                 saveAnswer();
                 if (QD.currentQuestionIndex < questions.length - 1) showQuestion(QD.currentQuestionIndex + 1);
@@ -871,6 +896,6 @@
             };
 
             console.log('✅ Quiz ready!');
-        }
-    });
-})();
+        } // ✅ End of initQuiz
+    }); // ✅ End of DOMContentLoaded
+})(); // ✅ End of IIFE
