@@ -1,5 +1,5 @@
-// test-logic.js - FINAL FIXED VERSION v5
-// Fixes: Correct answer preservation, Better debugging, Robust comparison
+// test-logic.js - FINAL FIXED VERSION v6
+// Fix: Prioritize local database with correctAnswer over API
 (function() {
     'use strict';
     
@@ -80,31 +80,24 @@
             return containsHTML(String(text)) ? String(text) : escapeHtml(text);
         }
 
-        // Robust text comparison
         function textsMatch(a, b) {
             if (!a || !b) return false;
             const normalize = (str) => {
                 return String(str)
                     .normalize('NFKC')
                     .replace(/\s+/g, ' ')
-                    .replace(/[√]/g, 'sqrt')  // Normalize special chars
                     .trim()
                     .toLowerCase();
             };
             return normalize(a) === normalize(b);
         }
 
-        // ========== IMPROVED NORMALIZE FUNCTION ==========
+        // ========== NORMALIZE QUESTION ==========
         function normalizeQuestion(raw, index) {
-            if (!raw) {
-                console.error(`Question ${index} is null/undefined`);
-                return null;
-            }
-            
-            // Don't re-normalize
+            if (!raw) return null;
             if (raw._normalized) return raw;
             
-            const q = JSON.parse(JSON.stringify(raw)); // Deep clone to avoid reference issues
+            const q = JSON.parse(JSON.stringify(raw));
 
             // Question
             if (typeof q.question === 'string') {
@@ -118,7 +111,7 @@
                 q.question = { en: '', hi: '' };
             }
 
-            // Options - DEEP CLONE each option
+            // Options
             q.options = (q.options || []).map((opt, i) => {
                 if (typeof opt === 'string') {
                     return { en: opt, hi: opt, index: i };
@@ -130,34 +123,54 @@
                 };
             });
 
-            // Correct Answer - CRITICAL FIX
-            if (typeof q.correctAnswer === 'string' && q.correctAnswer.trim()) {
-                q.correctAnswer = { en: q.correctAnswer.trim(), hi: q.correctAnswer.trim() };
-            } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
-                // Ensure we capture the values properly
-                const enAns = q.correctAnswer.en;
-                const hiAns = q.correctAnswer.hi;
-                q.correctAnswer = { 
-                    en: (enAns && typeof enAns === 'string') ? enAns.trim() : '', 
-                    hi: (hiAns && typeof hiAns === 'string') ? hiAns.trim() : ((enAns && typeof enAns === 'string') ? enAns.trim() : '')
-                };
-            } else if (typeof q.answer === 'string' && q.answer.trim()) {
-                const letter = q.answer.trim().toUpperCase();
-                if (letter.length === 1 && letter >= 'A' && letter <= 'D' && q.options[letter.charCodeAt(0) - 65]) {
-                    const idx = letter.charCodeAt(0) - 65;
-                    q.correctAnswer = { en: q.options[idx].en, hi: q.options[idx].hi };
-                } else {
-                    q.correctAnswer = { en: q.answer.trim(), hi: q.answer.trim() };
-                }
-            } else if (typeof q.correctOption === 'number' && q.options[q.correctOption]) {
-                // Support for correctOption index
-                q.correctAnswer = { 
-                    en: q.options[q.correctOption].en, 
-                    hi: q.options[q.correctOption].hi 
-                };
-            } else {
-                q.correctAnswer = { en: '', hi: '' };
+            // ===== CORRECT ANSWER - MULTIPLE STRATEGIES =====
+            let correctAnswerEn = '';
+            let correctAnswerHi = '';
+
+            // Strategy 1: Direct correctAnswer object
+            if (q.correctAnswer && typeof q.correctAnswer === 'object') {
+                correctAnswerEn = q.correctAnswer.en || '';
+                correctAnswerHi = q.correctAnswer.hi || q.correctAnswer.en || '';
             }
+            // Strategy 2: correctAnswer as string
+            else if (typeof q.correctAnswer === 'string' && q.correctAnswer.trim()) {
+                correctAnswerEn = q.correctAnswer.trim();
+                correctAnswerHi = q.correctAnswer.trim();
+            }
+            // Strategy 3: answer field (A, B, C, D)
+            else if (typeof q.answer === 'string' && q.answer.trim()) {
+                const letter = q.answer.trim().toUpperCase();
+                if (letter.length === 1 && letter >= 'A' && letter <= 'D') {
+                    const idx = letter.charCodeAt(0) - 65;
+                    if (q.options[idx]) {
+                        correctAnswerEn = q.options[idx].en;
+                        correctAnswerHi = q.options[idx].hi;
+                    }
+                } else {
+                    correctAnswerEn = q.answer.trim();
+                    correctAnswerHi = q.answer.trim();
+                }
+            }
+            // Strategy 4: correctOption index
+            else if (typeof q.correctOption === 'number' && q.options[q.correctOption]) {
+                correctAnswerEn = q.options[q.correctOption].en;
+                correctAnswerHi = q.options[q.correctOption].hi;
+            }
+            // Strategy 5: correct index
+            else if (typeof q.correct === 'number' && q.options[q.correct]) {
+                correctAnswerEn = q.options[q.correct].en;
+                correctAnswerHi = q.options[q.correct].hi;
+            }
+            // Strategy 6: correctIndex
+            else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
+                correctAnswerEn = q.options[q.correctIndex].en;
+                correctAnswerHi = q.options[q.correctIndex].hi;
+            }
+
+            q.correctAnswer = { 
+                en: correctAnswerEn.trim(), 
+                hi: (correctAnswerHi || correctAnswerEn).trim() 
+            };
 
             // Explanation
             if (typeof q.explanation === 'string') {
@@ -172,16 +185,15 @@
             }
 
             q._normalized = true;
-            
-            // Debug log for first 3 questions
+
+            // Debug first 3
             if (index < 3) {
-                console.log(`✅ Q${index + 1} normalized:`, {
-                    question: q.question.en.substring(0, 50) + '...',
-                    correctAnswer: q.correctAnswer,
-                    optionsCount: q.options.length
+                console.log(`✅ Q${index + 1}:`, {
+                    correctAnswer: q.correctAnswer.en,
+                    hasExplanation: !!q.explanation.en
                 });
             }
-            
+
             return q;
         }
 
@@ -204,21 +216,67 @@
 
         window.QUIZ_DATA.testInfo = testInfo;
 
-        // ========== LOAD QUESTIONS ==========
+        // ========== LOAD QUESTIONS - FIXED PRIORITY ==========
         let questions = [];
-        
-        try {
-            const response = await ExamAxisAPI.getQuestions(testId);
-            if (response?.success && response?.data?.questions?.length) {
-                questions = response.data.questions;
-                console.log('✅ API:', questions.length, 'questions loaded');
-            } else throw new Error('No API data');
-        } catch (e) {
-            console.warn('⚠️ API failed:', e.message);
-            if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
-                const raw = QUESTIONS_DATABASE[testId];
-                questions = Array.isArray(raw) ? raw : (raw.questions || []);
-                console.log('✅ Local:', questions.length, 'questions loaded');
+        let questionsSource = '';
+
+        // PRIORITY 1: Local database (has correctAnswer & explanation)
+        if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
+            const raw = QUESTIONS_DATABASE[testId];
+            questions = Array.isArray(raw) ? raw : (raw.questions || []);
+            questionsSource = 'LOCAL';
+            console.log('✅ LOCAL DB:', questions.length, 'questions');
+            
+            // Verify local data has correctAnswer
+            if (questions.length > 0 && questions[0].correctAnswer) {
+                console.log('✅ Local data has correctAnswer:', questions[0].correctAnswer);
+            } else {
+                console.warn('⚠️ Local data missing correctAnswer!');
+            }
+        }
+
+        // PRIORITY 2: API (fallback - may not have correctAnswer)
+        if (!questions.length) {
+            try {
+                const response = await ExamAxisAPI.getQuestions(testId);
+                if (response?.success && response?.data?.questions?.length) {
+                    questions = response.data.questions;
+                    questionsSource = 'API';
+                    console.log('📡 API:', questions.length, 'questions');
+                    
+                    // Check if API has correctAnswer
+                    if (questions[0].correctAnswer) {
+                        console.log('✅ API has correctAnswer');
+                    } else {
+                        console.warn('⚠️ API missing correctAnswer - Trying to merge with local...');
+                        
+                        // Try to get answers from local database
+                        if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
+                            const localRaw = QUESTIONS_DATABASE[testId];
+                            const localQuestions = Array.isArray(localRaw) ? localRaw : (localRaw.questions || []);
+                            
+                            // Merge: API questions + Local answers
+                            questions = questions.map((apiQ, i) => {
+                                const localQ = localQuestions[i] || localQuestions.find(lq => 
+                                    lq.questionNo === apiQ.questionNumber || 
+                                    lq.id === apiQ.id
+                                );
+                                
+                                if (localQ) {
+                                    return {
+                                        ...apiQ,
+                                        correctAnswer: localQ.correctAnswer,
+                                        explanation: localQ.explanation
+                                    };
+                                }
+                                return apiQ;
+                            });
+                            console.log('✅ Merged API + Local answers');
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('⚠️ API failed:', e.message);
             }
         }
 
@@ -227,81 +285,39 @@
             return;
         }
 
-        // DEBUG: Log raw question before normalization
-        console.log('📋 Raw question sample (Q1):', JSON.stringify(questions[0], null, 2));
+        // DEBUG: Show raw first question
+        console.log('📋 Raw Q1:', JSON.stringify(questions[0], null, 2));
 
         const subjectName = testInfo.subject || 'General';
         
-        // Normalize all questions
-        window.QUIZ_DATA.questions = questions.map((q, i) => {
-            const normalized = normalizeQuestion(q, i);
-            return {
-                ...normalized,
-                originalIndex: i,
-                subject: subjectName,
-                // PRESERVE ORIGINAL correctAnswer as backup
-                _originalCorrectAnswer: q.correctAnswer
-            };
-        }).filter(q => q !== null);
+        window.QUIZ_DATA.questions = questions.map((q, i) => ({
+            ...normalizeQuestion(q, i),
+            originalIndex: i,
+            subject: subjectName
+        })).filter(q => q !== null);
 
-        console.log('✅ Loaded and normalized', window.QUIZ_DATA.questions.length, 'questions');
-        
-        // Verify first question
-        const firstQ = window.QUIZ_DATA.questions[0];
-        console.log('📋 First question after normalization:', {
-            correctAnswer: firstQ.correctAnswer,
-            _originalCorrectAnswer: firstQ._originalCorrectAnswer,
-            options: firstQ.options.map(o => o.en)
-        });
+        console.log(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
+        console.log('📋 Normalized Q1 correctAnswer:', window.QUIZ_DATA.questions[0]?.correctAnswer);
 
-        // ========== GET CORRECT ANSWER (with fallback) ==========
+        // ========== HELPER FUNCTIONS ==========
         function getCorrectAnswer(q, lang) {
-            // Try normalized correctAnswer first
-            if (q.correctAnswer && q.correctAnswer[lang] && q.correctAnswer[lang].trim()) {
-                return q.correctAnswer[lang].trim();
-            }
-            if (q.correctAnswer && q.correctAnswer.en && q.correctAnswer.en.trim()) {
-                return q.correctAnswer.en.trim();
-            }
-            
-            // Fallback to original
-            if (q._originalCorrectAnswer) {
-                if (typeof q._originalCorrectAnswer === 'string') {
-                    return q._originalCorrectAnswer.trim();
-                }
-                if (q._originalCorrectAnswer[lang]) {
-                    return q._originalCorrectAnswer[lang].trim();
-                }
-                if (q._originalCorrectAnswer.en) {
-                    return q._originalCorrectAnswer.en.trim();
-                }
-            }
-            
-            console.warn('⚠️ No correct answer found for question');
+            if (q.correctAnswer?.[lang]?.trim()) return q.correctAnswer[lang].trim();
+            if (q.correctAnswer?.en?.trim()) return q.correctAnswer.en.trim();
             return '';
         }
 
-        // ========== FIND CORRECT OPTION INDEX ==========
         function findCorrectOptionIndex(q, lang) {
             const correctText = getCorrectAnswer(q, lang);
             if (!correctText) return -1;
             
             for (let i = 0; i < q.options.length; i++) {
                 const opt = q.options[i];
-                // Try exact match first
-                if (opt.en === correctText || opt[lang] === correctText) {
-                    return i;
-                }
-                // Try trimmed match
-                if (opt.en?.trim() === correctText || opt[lang]?.trim() === correctText) {
-                    return i;
-                }
-                // Try normalized match
-                if (textsMatch(opt.en, correctText) || textsMatch(opt[lang], correctText)) {
+                if (opt.en === correctText || opt[lang] === correctText ||
+                    opt.en?.trim() === correctText || opt[lang]?.trim() === correctText ||
+                    textsMatch(opt.en, correctText) || textsMatch(opt[lang], correctText)) {
                     return i;
                 }
             }
-            
             return -1;
         }
 
@@ -332,43 +348,37 @@
             if (!QD.reviewQuestionList.length || index < 0 || index >= QD.reviewQuestionList.length) return;
 
             const item = QD.reviewQuestionList[index];
-            const q = item; // item already has all question data from filterQuestions
+            const q = item;
             const state = item.state || QD.questionStates[item.index];
             const lang = QD.currentLanguage;
 
             console.log('========== REVIEW Q' + (item.index + 1) + ' ==========');
             console.log('correctAnswer:', q.correctAnswer);
-            console.log('_originalCorrectAnswer:', q._originalCorrectAnswer);
             console.log('userAnswer:', state.userAnswer);
 
             if (reviewQuestionTitle) {
-                reviewQuestionTitle.textContent = `Reviewing Question ${index + 1} of ${QD.reviewQuestionList.length} (Q${item.index + 1})`;
+                reviewQuestionTitle.textContent = `Question ${index + 1} of ${QD.reviewQuestionList.length} (Q${item.index + 1})`;
             }
 
-            // Get correct answer using helper function
             const correctText = getCorrectAnswer(q, lang);
             const correctIdx = findCorrectOptionIndex(q, lang);
             
-            console.log('Correct answer text:', `"${correctText}"`);
-            console.log('Correct option index:', correctIdx);
+            console.log('Correct text:', `"${correctText}"`);
+            console.log('Correct index:', correctIdx);
 
-            // Find user option index
             let userIdx = -1;
             if (state.userAnswer) {
                 for (let i = 0; i < q.options.length; i++) {
                     const opt = q.options[i];
-                    if (opt.en === state.userAnswer || 
-                        opt[lang] === state.userAnswer ||
-                        textsMatch(opt.en, state.userAnswer) ||
-                        textsMatch(opt[lang], state.userAnswer)) {
+                    if (opt.en === state.userAnswer || opt[lang] === state.userAnswer ||
+                        textsMatch(opt.en, state.userAnswer) || textsMatch(opt[lang], state.userAnswer)) {
                         userIdx = i;
                         break;
                     }
                 }
             }
-            console.log('User option index:', userIdx);
+            console.log('User index:', userIdx);
 
-            // Build options HTML
             let optionsHTML = '';
             
             q.options.forEach((opt, i) => {
@@ -384,15 +394,15 @@
                 if (isCorrect && isUser) {
                     bgColor = '#dcfce7';
                     borderColor = '#22c55e';
-                    indicatorHTML = `<span style="margin-left:auto;padding-left:12px;color:#16a34a;font-weight:700;white-space:nowrap;">✓ Your Answer (Correct!)</span>`;
+                    indicatorHTML = `<span style="margin-left:auto;padding-left:12px;color:#16a34a;font-weight:700;">✓ Correct!</span>`;
                 } else if (isCorrect) {
                     bgColor = '#dcfce7';
                     borderColor = '#22c55e';
-                    indicatorHTML = `<span style="margin-left:auto;padding-left:12px;color:#16a34a;font-weight:700;white-space:nowrap;">✓ Correct Answer</span>`;
+                    indicatorHTML = `<span style="margin-left:auto;padding-left:12px;color:#16a34a;font-weight:700;">✓ Correct Answer</span>`;
                 } else if (isUser) {
                     bgColor = '#fee2e2';
                     borderColor = '#ef4444';
-                    indicatorHTML = `<span style="margin-left:auto;padding-left:12px;color:#dc2626;font-weight:700;white-space:nowrap;">✗ Your Answer</span>`;
+                    indicatorHTML = `<span style="margin-left:auto;padding-left:12px;color:#dc2626;font-weight:700;">✗ Your Answer</span>`;
                 }
 
                 const radioColor = isUser ? (isCorrect ? '#22c55e' : '#ef4444') : '#d1d5db';
@@ -414,7 +424,7 @@
             
             let statusNote = '';
             if (state.userAnswer === null) {
-                statusNote = `<div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:10px;padding:14px 18px;margin-top:16px;color:#92400e;font-weight:500;">⚠️ NOT ATTEMPTED - Correct answer is highlighted in green above.</div>`;
+                statusNote = `<div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:10px;padding:14px 18px;margin-top:16px;color:#92400e;font-weight:500;">⚠️ Not Attempted - Correct answer highlighted above</div>`;
             }
 
             if (reviewQuestionCard) {
@@ -428,23 +438,13 @@
             }
 
             // Explanation
-            let explText = '';
-            if (q.explanation) {
-                if (typeof q.explanation === 'string') {
-                    explText = q.explanation;
-                } else {
-                    explText = q.explanation[lang] || q.explanation.en || q.explanation.hi || '';
-                }
-            }
-            
-            console.log('Explanation:', explText ? `"${explText.substring(0, 50)}..."` : 'NONE');
+            const explText = q.explanation?.[lang] || q.explanation?.en || '';
+            console.log('Explanation:', explText ? 'YES' : 'NONE');
 
             if (reviewSolutionText) {
-                if (explText && explText.trim()) {
-                    reviewSolutionText.innerHTML = `<div style="color:#374151;line-height:1.7;font-size:15px;">${safeRender(explText)}</div>`;
-                } else {
-                    reviewSolutionText.innerHTML = `<em style="color:#9ca3af;">No explanation available.</em>`;
-                }
+                reviewSolutionText.innerHTML = explText?.trim() 
+                    ? `<div style="color:#374151;line-height:1.7;">${safeRender(explText)}</div>`
+                    : `<em style="color:#9ca3af;">No explanation available.</em>`;
             }
 
             // Palette
@@ -639,15 +639,12 @@
                     const q = questions[i];
                     const correctText = getCorrectAnswer(q, 'en');
 
-                    console.log(`Q${i+1}: userAnswer="${state.userAnswer}", correctText="${correctText}"`);
-
                     if (state.userAnswer !== null) {
-                        // Use robust comparison
-                        const isCorrect = textsMatch(state.userAnswer, correctText) || 
-                                         state.userAnswer === correctText || 
-                                         state.userAnswer?.trim() === correctText?.trim();
+                        const isMatch = textsMatch(state.userAnswer, correctText) || 
+                                       state.userAnswer === correctText ||
+                                       state.userAnswer?.trim() === correctText?.trim();
                         
-                        if (isCorrect) {
+                        if (isMatch) {
                             correct++;
                             score += 2;
                             state.resultCategory = 'correct';
