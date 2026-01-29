@@ -1504,7 +1504,7 @@ body.results-scroll {
 })();
 </script>
 
-<!-- NEW: core wiring for start, submit, cancel, final submit + scroll mode -->
+<!-- UPDATED: Fixed "Start Test" button with proper event handling -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const instructions = document.getElementById('instructions-modal');
@@ -1519,6 +1519,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const cancelSubmit = document.getElementById('cancel-submit-btn');
     const finalSubmit  = document.getElementById('final-submit-btn');
 
+    // Track if test has started
+    let testStarted = false;
+
     function updateScrollMode() {
         const quizVisible   = quizUI   && !quizUI.classList.contains('hidden');
         const resultVisible = resultPage && !resultPage.classList.contains('hidden');
@@ -1531,12 +1534,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // FIXED: Start button with proper safeguards
     if (startBtn) {
-        startBtn.addEventListener('click', function () {
+        startBtn.addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent any default behavior
+            
+            // Prevent multiple clicks and double execution
+            if (testStarted || startBtn.disabled) {
+                console.log('Test already started or button disabled');
+                return;
+            }
+            
+            // Mark as started and disable button temporarily
+            testStarted = true;
+            startBtn.disabled = true;
+            
+            console.log('Starting test...');
+            
+            // Hide instructions and show quiz
             instructions.classList.add('hidden');
             quizUI.classList.remove('hidden');
             updateScrollMode();
-        });
+            
+            // Re-enable button after 2 seconds (optional safety measure)
+            setTimeout(() => {
+                startBtn.disabled = false;
+            }, 2000);
+            
+        }, { once: true }); // This ensures the event only fires once
     }
 
     function openSubmitModal() {
