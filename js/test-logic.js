@@ -1,5 +1,5 @@
-// test-logic.js (FIXED VERSION)
-// Supports bilingual JSON format with en/hi fields
+// test-logic.js (COMPLETE FIXED VERSION)
+// Supports: Images in questions, bilingual en/hi format, various answer formats
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const reviewSolutionText = document.getElementById('review-solution-text');
     const reviewPaletteClean = document.getElementById('review-palette-clean');
 
-    // --- GLOBAL STATE (Shared between quiz and review) ---
+    // --- GLOBAL STATE ---
     let QUIZ_DATA = {
         questions: [],
         questionStates: [],
@@ -57,7 +57,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentReviewIndex: 0
     };
 
-    // --- Question Normalizer (Handles your bilingual JSON format) ---
+    // --- UTILITY FUNCTIONS ---
+    function containsHTML(str) {
+        if (!str) return false;
+        return /<[a-z][\s\S]*>/i.test(str);
+    }
+
+    function escapeHtml(text) {
+        if (text === null || typeof text === 'undefined') return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function safeRender(text) {
+        if (!text) return '';
+        // If contains HTML (like img tags), don't escape
+        if (containsHTML(text)) {
+            return text;
+        }
+        return escapeHtml(text);
+    }
+
+    function normalizeString(str) {
+        if (str === null || typeof str === 'undefined') return '';
+        return String(str)
+            .replace(/<[^>]*>/g, '') // Remove HTML tags for comparison
+            .replace(/[\u20b9₹]/g, '')
+            .replace(/m\u00b2/g, 'm^2')
+            .replace(/\u00b0/g, 'deg')
+            .replace(/√/g, 'sqrt')
+            .replace(/\s+/g, '')
+            .toLowerCase()
+            .trim();
+    }
+
+    // --- QUESTION NORMALIZER ---
     function normalizeQuestion(raw) {
         if (!raw) return null;
         if (raw._normalized) return raw;
@@ -69,22 +107,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             q.question = { en: q.question, hi: q.question };
         } else if (q.question && typeof q.question === 'object') {
             q.question = {
-                en: (q.question.en || '').trim(),
-                hi: (q.question.hi || q.question.en || '').trim()
+                en: q.question.en || '',
+                hi: q.question.hi || q.question.en || ''
             };
         } else {
             q.question = { en: '', hi: '' };
         }
 
-        // OPTIONS - Handle array of objects with en/hi
+        // OPTIONS
         if (Array.isArray(q.options)) {
             q.options = q.options.map((opt, idx) => {
                 if (typeof opt === 'string') {
-                    return { en: opt.trim(), hi: opt.trim(), index: idx };
+                    return { en: opt, hi: opt, index: idx };
                 } else if (opt && typeof opt === 'object') {
                     return {
-                        en: (opt.en || '').trim(),
-                        hi: (opt.hi || opt.en || '').trim(),
+                        en: opt.en || '',
+                        hi: opt.hi || opt.en || '',
                         index: idx
                     };
                 }
@@ -94,21 +132,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             q.options = [];
         }
 
-        // CORRECT ANSWER - Handle object with en/hi
+        // CORRECT ANSWER
         if (typeof q.correctAnswer === 'string') {
-            q.correctAnswer = { en: q.correctAnswer.trim(), hi: q.correctAnswer.trim() };
+            q.correctAnswer = { en: q.correctAnswer, hi: q.correctAnswer };
         } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
             q.correctAnswer = {
-                en: (q.correctAnswer.en || '').trim(),
-                hi: (q.correctAnswer.hi || q.correctAnswer.en || '').trim()
-            };
-        } else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
-            q.correctAnswer = {
-                en: q.options[q.correctIndex].en,
-                hi: q.options[q.correctIndex].hi
+                en: q.correctAnswer.en || '',
+                hi: q.correctAnswer.hi || q.correctAnswer.en || ''
             };
         } else if (typeof q.answer === 'string') {
-            // Handle letter format like "A", "B", "C", "D"
             const letter = q.answer.trim().toUpperCase();
             if (letter.length === 1 && letter >= 'A' && letter <= 'Z') {
                 const idx = letter.charCodeAt(0) - 65;
@@ -117,10 +149,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         en: q.options[idx].en,
                         hi: q.options[idx].hi
                     };
+                } else {
+                    q.correctAnswer = { en: q.answer, hi: q.answer };
                 }
             } else {
-                q.correctAnswer = { en: q.answer.trim(), hi: q.answer.trim() };
+                q.correctAnswer = { en: q.answer, hi: q.answer };
             }
+        } else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
+            q.correctAnswer = {
+                en: q.options[q.correctIndex].en,
+                hi: q.options[q.correctIndex].hi
+            };
         } else {
             q.correctAnswer = { en: '', hi: '' };
         }
@@ -130,8 +169,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             q.explanation = { en: q.explanation, hi: q.explanation };
         } else if (q.explanation && typeof q.explanation === 'object') {
             q.explanation = {
-                en: (q.explanation.en || '').trim(),
-                hi: (q.explanation.hi || q.explanation.en || '').trim()
+                en: q.explanation.en || '',
+                hi: q.explanation.hi || q.explanation.en || ''
             };
         } else {
             q.explanation = { en: '', hi: '' };
@@ -161,7 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     QUIZ_DATA.testInfo = testInfo;
 
     // ====================================================================
-    // 🔒 LOAD QUESTIONS
+    // LOAD QUESTIONS
     // ====================================================================
     let questions = [];
     let loadedFromAPI = false;
@@ -178,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error('API returned no questions');
         }
     } catch (apiError) {
-        console.warn('⚠️ API failed, falling back to local QUESTIONS_DATABASE...', apiError.message);
+        console.warn('⚠️ API failed, falling back to local...', apiError.message);
         
         if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
             let rawData = QUESTIONS_DATABASE[testId];
@@ -206,12 +245,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    console.log(`📋 Total questions loaded: ${questions.length}, From API: ${loadedFromAPI}`);
+    console.log(`📋 Total questions loaded: ${questions.length}`);
 
     const singleSubjectName = testInfo.subject || 'General';
-    const totalQuestions = questions.length;
 
-    // Normalize all questions and store in QUIZ_DATA
+    // Normalize all questions
     QUIZ_DATA.questions = questions.map((q, index) => {
         const nq = normalizeQuestion(q);
         return {
@@ -219,64 +257,36 @@ document.addEventListener('DOMContentLoaded', async () => {
             originalIndex: index,
             subject: singleSubjectName,
             sectionQNum: index + 1,
-            sectionTotal: totalQuestions
+            sectionTotal: questions.length
         };
     });
 
     console.log('✅ Questions normalized. Sample:', QUIZ_DATA.questions[0]);
 
     // ====================================================================
-    // SHOW INSTRUCTIONS AND BIND START BUTTON
+    // SHOW INSTRUCTIONS
     // ====================================================================
-    if (instructionsModal) {
-        instructionsModal.classList.remove('hidden');
-    }
-    if (quizUI) {
-        quizUI.classList.add('hidden');
-    }
+    if (instructionsModal) instructionsModal.classList.remove('hidden');
+    if (quizUI) quizUI.classList.add('hidden');
 
     if (startTestBtn) {
         const newStartBtn = startTestBtn.cloneNode(true);
         startTestBtn.parentNode.replaceChild(newStartBtn, startTestBtn);
         
         newStartBtn.addEventListener('click', () => {
-            console.log('🚀 Starting test with', QUIZ_DATA.questions.length, 'questions');
+            console.log('🚀 Starting test...');
             if (instructionsModal) instructionsModal.classList.add('hidden');
             if (quizUI) quizUI.classList.remove('hidden');
             initializeQuiz();
         });
-        console.log('✅ Start button ready');
     } else {
-        console.warn('⚠️ No start button found, auto-starting...');
         if (quizUI) quizUI.classList.remove('hidden');
         setTimeout(() => initializeQuiz(), 100);
     }
 
     // ====================================================================
-    // HELPER FUNCTIONS (Use QUIZ_DATA for consistency)
+    // FILTER & REVIEW FUNCTIONS
     // ====================================================================
-    
-    function normalizeString(str) {
-        if (str === null || typeof str === 'undefined') return '';
-        return String(str)
-            .replace(/[\u20b9₹]/g, '')
-            .replace(/m\u00b2/g, 'm^2')
-            .replace(/\u00b0/g, 'deg')
-            .replace(/\s+/g, '')
-            .replace(/√/g, 'sqrt')
-            .toLowerCase();
-    }
-
-    function escapeHtml(text) {
-        if (text === null || typeof text === 'undefined') return '';
-        return String(text)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    }
-
     function filterQuestions(category) {
         const questionsWithState = QUIZ_DATA.questions.map((q, index) => ({
             ...q,
@@ -311,7 +321,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             QUIZ_DATA.reviewQuestionList.forEach((item, index) => {
                 const state = item.state || {};
                 const btn = document.createElement('button');
-
                 btn.className = cleanStyle ? 'qp-btn' : 'palette-btn';
                 btn.textContent = item.index + 1;
                 btn.dataset.index = index;
@@ -340,7 +349,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         QUIZ_DATA.currentReviewIndex = index;
 
         if (QUIZ_DATA.reviewQuestionList.length === 0 || index < 0 || index >= QUIZ_DATA.reviewQuestionList.length) {
-            console.warn('No questions to review at index:', index);
             return;
         }
 
@@ -348,10 +356,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const question = QUIZ_DATA.questions[reviewItem.index];
         const state = QUIZ_DATA.questionStates[reviewItem.index];
 
-        if (!question || !state) {
-            console.error('Missing question or state for index:', reviewItem.index);
-            return;
-        }
+        if (!question || !state) return;
 
         const lang = QUIZ_DATA.currentLanguage;
 
@@ -360,14 +365,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `Reviewing Question ${index + 1} of ${QUIZ_DATA.reviewQuestionList.length} (Original Q${reviewItem.index + 1})`;
         }
 
-        // Find correct answer text for comparison
-        const correctAnswerText = question.correctAnswer[lang] || question.correctAnswer.en;
+        // Get correct answer
+        let correctAnswerText = '';
+        if (typeof question.correctAnswer === 'object') {
+            correctAnswerText = question.correctAnswer[lang] || question.correctAnswer.en || '';
+        } else {
+            correctAnswerText = question.correctAnswer || '';
+        }
         const correctAnswerNormalized = normalizeString(correctAnswerText);
 
+        // Build options HTML
         const optionsHtml = question.options.map((optObj, optIdx) => {
-            const optionText = optObj[lang] || optObj.en;
-            const optionNormalized = normalizeString(optionText);
+            let optionText, optionValue;
             
+            if (typeof optObj === 'object') {
+                optionText = optObj[lang] || optObj.en || '';
+                optionValue = optObj.en || optionText;
+            } else {
+                optionText = optObj;
+                optionValue = optObj;
+            }
+            
+            const optionNormalized = normalizeString(optionValue);
             const isCorrect = optionNormalized === correctAnswerNormalized;
             const userAnswerNormalized = normalizeString(state.userAnswer);
             const isUserChoice = state.userAnswer !== null && optionNormalized === userAnswerNormalized;
@@ -386,21 +405,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 indicators = '<span class="user-pick-indicator">❌ Your Answer (Wrong)</span>';
             }
 
-            const optionLabel = String.fromCharCode(65 + optIdx); // A, B, C, D
+            const optionLabel = String.fromCharCode(65 + optIdx);
 
             return `
                 <div class="${optionClass}">
                     <div class="review-option-text">
                         <span class="option-letter">${optionLabel}.</span>
-                        <span class="option-label">${escapeHtml(optionText)}</span>
+                        <span class="option-label">${safeRender(optionText)}</span>
                     </div>
                     ${indicators}
                 </div>
             `;
         }).join('');
 
-        const questionText = question.question[lang] || question.question.en;
-        const explanationText = question.explanation[lang] || question.explanation.en;
+        // Get question text
+        let questionText = '';
+        if (typeof question.question === 'object') {
+            questionText = question.question[lang] || question.question.en || '';
+        } else {
+            questionText = question.question || '';
+        }
+        
+        // Get explanation
+        let explanationText = '';
+        if (typeof question.explanation === 'object') {
+            explanationText = question.explanation[lang] || question.explanation.en || '';
+        } else {
+            explanationText = question.explanation || '';
+        }
 
         let statusNote = '';
         if (state.userAnswer === null) {
@@ -409,27 +441,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (reviewQuestionCard) {
             reviewQuestionCard.innerHTML = `
-                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${escapeHtml(questionText)}</p>
+                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${safeRender(questionText)}</p>
                 <div class="options-container">${optionsHtml}</div>
                 ${statusNote}
             `;
         }
 
         if (reviewSolutionText) {
-            reviewSolutionText.innerHTML = explanationText ? escapeHtml(explanationText) : '<em>No explanation available.</em>';
+            reviewSolutionText.innerHTML = explanationText ? safeRender(explanationText) : '<em>No explanation available.</em>';
         }
 
         if (reviewArea && !reviewQuestionCard) {
             reviewArea.innerHTML = `
-                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${escapeHtml(questionText)}</p>
+                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${safeRender(questionText)}</p>
                 <div class="options-container">${optionsHtml}</div>
                 ${statusNote}
-                <div class="solution-box"><h4>Solution:</h4><p>${escapeHtml(explanationText) || 'No explanation available.'}</p></div>
+                <div class="solution-box"><h4>Solution:</h4><p>${safeRender(explanationText) || 'No explanation available.'}</p></div>
             `;
         }
 
         if (window.MathJax) {
-            try { window.MathJax.typeset(); } catch (e) { console.warn('MathJax error:', e); }
+            try { window.MathJax.typeset(); } catch (e) {}
         }
 
         if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
@@ -466,19 +498,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (QUIZ_DATA.reviewQuestionList.length > 0) {
             showReviewQuestion(0);
         } else {
-            if (reviewArea) {
-                reviewArea.innerHTML = `<p style="text-align:center; padding: 50px; color: #666;">No questions found in "${category}" category.</p>`;
-            }
-            if (reviewQuestionCard) {
-                reviewQuestionCard.innerHTML = `<p style="text-align:center; padding: 50px; color: #666;">No questions found in "${category}" category.</p>`;
-            }
+            const noQuestionsMsg = `<p style="text-align:center; padding: 50px; color: #666;">No questions found in "${category}" category.</p>`;
+            if (reviewArea) reviewArea.innerHTML = noQuestionsMsg;
+            if (reviewQuestionCard) reviewQuestionCard.innerHTML = noQuestionsMsg;
             if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question 0 of 0";
             if (reviewPrevBtn) reviewPrevBtn.disabled = true;
             if (reviewNextBtn) reviewNextBtn.disabled = true;
             
             const rpOld = document.getElementById('review-palette');
-            if (rpOld) rpOld.innerHTML = '<p style="text-align:center; color: #666;">No questions</p>';
-            if (reviewPaletteClean) reviewPaletteClean.innerHTML = '<p style="text-align:center; color: #666;">No questions</p>';
+            if (rpOld) rpOld.innerHTML = '';
+            if (reviewPaletteClean) reviewPaletteClean.innerHTML = '';
         }
     }
 
@@ -493,7 +522,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const testDuration = QUIZ_DATA.testInfo.duration || 25;
         const questions = QUIZ_DATA.questions;
 
-        // Initialize timing
         QUIZ_DATA.sectionTimeRemaining = {};
         QUIZ_DATA.totalInitialTime = 0;
 
@@ -517,22 +545,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-        // Update title
+        // Title
         const badgeHtml = QUIZ_DATA.testInfo.isNew ? '<span class="new-badge">NEW</span>' : '';
         const titleEl = document.getElementById('test-main-title');
         if (titleEl) {
             titleEl.innerHTML = `${QUIZ_DATA.testInfo.date || ''} - ${QUIZ_DATA.testInfo.title || 'Test'} ${badgeHtml}`;
         }
 
-        // Initialize question states
+        // Initialize states
         QUIZ_DATA.questionStates = questions.map(() => ({
             status: 'not-visited',
             userAnswer: null,
             markedForReview: false,
             resultCategory: null
         }));
-
-        console.log('✅ Question states initialized:', QUIZ_DATA.questionStates.length);
 
         createPalette();
         showQuestion(0);
@@ -565,15 +591,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                         timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                     }
                 } else {
-                    handleSectionTimeout(currentSubject);
+                    clearInterval(timerInterval);
+                    alert(`Time is up for ${currentSubject}!`);
+                    calculateAndShowResults(true);
                 }
             }, 1000);
-        }
-
-        function handleSectionTimeout(finishedSubject) {
-            clearInterval(timerInterval);
-            alert(`Time is up for ${finishedSubject}!`);
-            calculateAndShowResults(true);
         }
 
         function pauseTest() {
@@ -603,7 +625,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // ================================================================
-        // CALCULATE AND SHOW RESULTS
+        // CALCULATE RESULTS
         // ================================================================
         function calculateAndShowResults(autoSubmit = false) {
             clearInterval(timerInterval);
@@ -620,14 +642,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             QUIZ_DATA.questionStates.forEach((state, index) => {
                 const question = questions[index];
-                const correctAnswerText = question.correctAnswer.en;
+                
+                // Get correct answer text
+                let correctAnswerText = '';
+                if (typeof question.correctAnswer === 'object') {
+                    correctAnswerText = question.correctAnswer.en || '';
+                } else {
+                    correctAnswerText = question.correctAnswer || '';
+                }
                 const correctAnswerNormalized = normalizeString(correctAnswerText);
 
                 if (state.userAnswer !== null) {
                     const userAnswerNormalized = normalizeString(state.userAnswer);
-                    
-                    console.log(`Q${index + 1}: User="${state.userAnswer}" vs Correct="${correctAnswerText}"`);
-                    console.log(`  Normalized: "${userAnswerNormalized}" vs "${correctAnswerNormalized}"`);
                     
                     if (userAnswerNormalized === correctAnswerNormalized) {
                         correctCount++;
@@ -649,8 +675,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const attemptedCount = correctCount + incorrectCount;
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
 
-            // Send to backend (non-blocking)
-            const attemptSummary = {
+            // Send to backend
+            sendAttemptToServer({
                 testId: QUIZ_DATA.testInfo.id || testId,
                 testTitle: QUIZ_DATA.testInfo.title,
                 subject: QUIZ_DATA.testInfo.subject || singleSubjectName,
@@ -662,10 +688,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 maxScore: questions.length * 2,
                 accuracy: Number(accuracy.toFixed(1)),
                 timeTakenMinutes
-            };
-            sendAttemptToServer(attemptSummary);
+            });
 
-            // Initialize review list
             QUIZ_DATA.reviewQuestionList = filterQuestions('all');
 
             // Build results UI
@@ -699,13 +723,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             // Bind review button
-            const reviewTestBtn = document.querySelector('#review-test-btn');
-            if (reviewTestBtn) {
-                reviewTestBtn.addEventListener('click', () => {
-                    const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                    if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
-                });
-            }
+            setTimeout(() => {
+                const reviewTestBtn = document.querySelector('#review-test-btn');
+                if (reviewTestBtn) {
+                    reviewTestBtn.addEventListener('click', () => {
+                        const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
+                        if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
+                    });
+                }
+            }, 100);
 
             // Bind tab handlers
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
@@ -758,11 +784,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                 questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`;
             }
 
-            const questionText = question.question[lang] || question.question.en;
+            // Get question text (supports images)
+            let questionText = '';
+            if (typeof question.question === 'object') {
+                questionText = question.question[lang] || question.question.en || '';
+            } else {
+                questionText = question.question || '';
+            }
 
+            // Build options
             const optionsHtml = question.options.map((optObj, optIdx) => {
-                const optionText = optObj[lang] || optObj.en;
-                const optionValue = optObj.en; // Always use EN for value
+                let optionText, optionValue;
+                
+                if (typeof optObj === 'object') {
+                    optionText = optObj[lang] || optObj.en || '';
+                    optionValue = optObj.en || optionText;
+                } else {
+                    optionText = optObj;
+                    optionValue = optObj;
+                }
+                
                 const checked = (state.userAnswer === optionValue) ? 'checked' : '';
                 const optionLabel = String.fromCharCode(65 + optIdx);
                 
@@ -770,14 +811,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <label class="option">
                         <input type="radio" name="option" value="${escapeHtml(optionValue)}" ${checked}>
                         <span class="option-letter">${optionLabel}.</span>
-                        <span class="option-text">${escapeHtml(optionText)}</span>
+                        <span class="option-text">${safeRender(optionText)}</span>
                     </label>
                 `;
             }).join('');
 
             if (questionArea) {
                 questionArea.innerHTML = `
-                    <p class="question-text"><strong>Q${index + 1}.</strong> ${escapeHtml(questionText)}</p>
+                    <p class="question-text"><strong>Q${index + 1}.</strong> ${safeRender(questionText)}</p>
                     <div class="options-container">${optionsHtml}</div>
                 `;
             }
@@ -799,11 +840,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const state = QUIZ_DATA.questionStates[currentQuestionIndex];
             if (markReviewBtn) {
                 if (state.markedForReview && state.userAnswer !== null) {
-                    markReviewBtn.textContent = 'Unmark & Save (Answered)';
+                    markReviewBtn.textContent = 'Unmark & Save';
                 } else if (state.markedForReview) {
                     markReviewBtn.textContent = 'Unmark Review';
                 } else if (state.userAnswer !== null) {
-                    markReviewBtn.textContent = 'Mark for Review (Answered)';
+                    markReviewBtn.textContent = 'Mark for Review';
                 } else {
                     markReviewBtn.textContent = 'Mark for Review';
                 }
@@ -856,7 +897,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateNavigation();
         }
 
-        // ========== BIND EVENT HANDLERS ==========
+        // BIND EVENT HANDLERS
         if (pauseBtn) pauseBtn.addEventListener('click', pauseTest);
         if (resumeBtn) resumeBtn.addEventListener('click', resumeTest);
         if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
@@ -900,8 +941,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const state = QUIZ_DATA.questionStates[currentQuestionIndex];
                 state.markedForReview = !state.markedForReview;
                 saveCurrentAnswer();
-                updatePalette();
-                updateNavigation();
             });
         }
 
@@ -921,21 +960,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-        console.log('✅ Quiz initialized successfully!');
+        console.log('✅ Quiz initialized!');
     }
 
     function sendAttemptToServer(summary) {
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) return;
-
-        ExamAxisAPI.saveTestAttempt(summary)
-            .then(res => {
-                if (!res || !res.success) {
-                    console.warn('Failed to save attempt:', res);
-                }
-            })
-            .catch(err => {
-                console.error('Error saving attempt:', err);
-            });
+        ExamAxisAPI.saveTestAttempt(summary).catch(err => console.error('Save error:', err));
     }
 
 });
