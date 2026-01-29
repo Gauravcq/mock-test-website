@@ -1,18 +1,18 @@
-// test-logic.js (COMPLETE FIXED VERSION)
-// Supports: Images in questions, bilingual en/hi format, various answer formats
+// test-logic.js - COMPLETE FIXED VERSION
+// Handles: Images, bilingual format, all answer formats, proper tab filtering
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const testId = urlParams.get('testId') || urlParams.get('id');
 
-    // ====== REQUIRE LOGIN FOR TESTS ======
+    // ====== REQUIRE LOGIN ======
     if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
         localStorage.setItem('redirectAfterLogin', window.location.href);
         window.location.href = 'login.html';
         return;
     }
 
-    // --- DOM Element Declarations ---
+    // --- DOM Elements ---
     const instructionsModal = document.getElementById('instructions-modal');
     const startTestBtn = document.getElementById('start-test-btn');
     const quizUI = document.getElementById('quiz-ui');
@@ -34,19 +34,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const markReviewBtn = document.getElementById('mark-review-btn');
     const clearResponseBtn = document.getElementById('clear-response-btn');
     const submitTestBtn = document.getElementById('submit-test-btn');
+    const submitTestFooterBtn = document.getElementById('submit-test-footer-btn');
     const reviewPrevBtn = document.getElementById('review-prev-btn');
     const reviewNextBtn = document.getElementById('review-next-btn');
-    const resultTabsContainer = document.querySelector('#result-summary-page .results-header-nav');
-    const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
     const languageSelect = document.querySelector('.language-select');
+    
+    // Review page elements
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
     const reviewQuestionCard = document.getElementById('review-question-card');
     const reviewSolutionText = document.getElementById('review-solution-text');
     const reviewPaletteClean = document.getElementById('review-palette-clean');
 
+    // Tab containers - get from BOTH pages
+    const resultTabsContainer = document.querySelector('#result-summary-page .results-header-nav');
+    const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
+
     // --- GLOBAL STATE ---
-    let QUIZ_DATA = {
+    const QUIZ_DATA = {
         questions: [],
         questionStates: [],
         testInfo: null,
@@ -54,7 +59,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         sectionTimeRemaining: {},
         totalInitialTime: 0,
         reviewQuestionList: [],
-        currentReviewIndex: 0
+        currentReviewIndex: 0,
+        isQuizStarted: false,
+        isSubmitted: false
     };
 
     // --- UTILITY FUNCTIONS ---
@@ -75,17 +82,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function safeRender(text) {
         if (!text) return '';
-        // If contains HTML (like img tags), don't escape
-        if (containsHTML(text)) {
-            return text;
-        }
+        if (containsHTML(text)) return text;
         return escapeHtml(text);
     }
 
     function normalizeString(str) {
         if (str === null || typeof str === 'undefined') return '';
         return String(str)
-            .replace(/<[^>]*>/g, '') // Remove HTML tags for comparison
+            .replace(/<[^>]*>/g, '')
             .replace(/[\u20b9₹]/g, '')
             .replace(/m\u00b2/g, 'm^2')
             .replace(/\u00b0/g, 'deg')
@@ -95,7 +99,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             .trim();
     }
 
-    // --- QUESTION NORMALIZER ---
     function normalizeQuestion(raw) {
         if (!raw) return null;
         if (raw._normalized) return raw;
@@ -145,10 +148,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (letter.length === 1 && letter >= 'A' && letter <= 'Z') {
                 const idx = letter.charCodeAt(0) - 65;
                 if (q.options[idx]) {
-                    q.correctAnswer = {
-                        en: q.options[idx].en,
-                        hi: q.options[idx].hi
-                    };
+                    q.correctAnswer = { en: q.options[idx].en, hi: q.options[idx].hi };
                 } else {
                     q.correctAnswer = { en: q.answer, hi: q.answer };
                 }
@@ -156,10 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 q.correctAnswer = { en: q.answer, hi: q.answer };
             }
         } else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
-            q.correctAnswer = {
-                en: q.options[q.correctIndex].en,
-                hi: q.options[q.correctIndex].hi
-            };
+            q.correctAnswer = { en: q.options[q.correctIndex].en, hi: q.options[q.correctIndex].hi };
         } else {
             q.correctAnswer = { en: '', hi: '' };
         }
@@ -187,13 +184,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     if (typeof ALL_TESTS === 'undefined') {
-        document.body.innerHTML = "<h1>Fatal Error: ALL_TESTS list not found.</h1>";
+        document.body.innerHTML = "<h1>Fatal Error: ALL_TESTS not found.</h1>";
         return;
     }
 
     const testInfo = ALL_TESTS.find(t => String(t.id) === testId);
     if (!testInfo) {
-        document.body.innerHTML = `<h1>Error: Test with ID ${testId} not found.</h1>`;
+        document.body.innerHTML = `<h1>Error: Test ID ${testId} not found.</h1>`;
         return;
     }
 
@@ -203,99 +200,75 @@ document.addEventListener('DOMContentLoaded', async () => {
     // LOAD QUESTIONS
     // ====================================================================
     let questions = [];
-    let loadedFromAPI = false;
 
     try {
-        console.log(`🔒 Trying to load questions from API for test: ${testId}...`);
+        console.log(`🔒 Loading questions for: ${testId}`);
         const response = await ExamAxisAPI.getQuestions(testId);
         
         if (response.success && response.data?.questions?.length > 0) {
             questions = response.data.questions;
-            loadedFromAPI = true;
-            console.log(`✅ Loaded ${questions.length} questions from API`);
+            console.log(`✅ API: ${questions.length} questions`);
         } else {
             throw new Error('API returned no questions');
         }
     } catch (apiError) {
-        console.warn('⚠️ API failed, falling back to local...', apiError.message);
+        console.warn('⚠️ API failed, using local...', apiError.message);
         
         if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
             let rawData = QUESTIONS_DATABASE[testId];
-            
-            if (Array.isArray(rawData)) {
-                questions = rawData;
-            } else if (rawData.questions && Array.isArray(rawData.questions)) {
-                questions = rawData.questions;
-            }
-            
-            if (questions.length > 0) {
-                console.log(`✅ Loaded ${questions.length} questions from local database`);
-            }
+            questions = Array.isArray(rawData) ? rawData : (rawData.questions || []);
+            console.log(`✅ Local: ${questions.length} questions`);
         }
     }
 
-    if (!questions || questions.length === 0) {
+    if (!questions.length) {
         document.body.innerHTML = `
-            <div style="text-align: center; padding: 50px;">
-                <h1>❌ Error</h1>
-                <p>No questions found for test ID: ${testId}</p>
-                <a href="index.html" style="color: #6366f1;">Go Back to Tests</a>
-            </div>
-        `;
+            <div style="text-align:center;padding:50px;">
+                <h1>❌ No questions found for: ${testId}</h1>
+                <a href="index.html">Go Back</a>
+            </div>`;
         return;
     }
 
-    console.log(`📋 Total questions loaded: ${questions.length}`);
-
     const singleSubjectName = testInfo.subject || 'General';
 
-    // Normalize all questions
-    QUIZ_DATA.questions = questions.map((q, index) => {
-        const nq = normalizeQuestion(q);
-        return {
-            ...nq,
-            originalIndex: index,
-            subject: singleSubjectName,
-            sectionQNum: index + 1,
-            sectionTotal: questions.length
-        };
-    });
+    QUIZ_DATA.questions = questions.map((q, index) => ({
+        ...normalizeQuestion(q),
+        originalIndex: index,
+        subject: singleSubjectName,
+        sectionQNum: index + 1,
+        sectionTotal: questions.length
+    }));
 
-    console.log('✅ Questions normalized. Sample:', QUIZ_DATA.questions[0]);
+    console.log('✅ Normalized:', QUIZ_DATA.questions.length, 'questions');
 
     // ====================================================================
-    // SHOW INSTRUCTIONS
+    // FILTER & REVIEW FUNCTIONS (Defined at top level so they're accessible)
     // ====================================================================
-    if (instructionsModal) instructionsModal.classList.remove('hidden');
-    if (quizUI) quizUI.classList.add('hidden');
-
-    if (startTestBtn) {
-        const newStartBtn = startTestBtn.cloneNode(true);
-        startTestBtn.parentNode.replaceChild(newStartBtn, startTestBtn);
-        
-        newStartBtn.addEventListener('click', () => {
-            console.log('🚀 Starting test...');
-            if (instructionsModal) instructionsModal.classList.add('hidden');
-            if (quizUI) quizUI.classList.remove('hidden');
-            initializeQuiz();
-        });
-    } else {
-        if (quizUI) quizUI.classList.remove('hidden');
-        setTimeout(() => initializeQuiz(), 100);
-    }
-
-    // ====================================================================
-    // FILTER & REVIEW FUNCTIONS
-    // ====================================================================
+    
     function filterQuestions(category) {
+        const cat = category.toLowerCase().trim();
+        
         const questionsWithState = QUIZ_DATA.questions.map((q, index) => ({
             ...q,
             index,
             state: QUIZ_DATA.questionStates[index] || {}
         }));
 
-        switch (category) {
+        console.log(`🔍 Filtering by: "${cat}"`);
+        console.log(`   Total questions: ${questionsWithState.length}`);
+        
+        // Debug: show categories
+        const categories = {};
+        questionsWithState.forEach(item => {
+            const rc = item.state.resultCategory || 'undefined';
+            categories[rc] = (categories[rc] || 0) + 1;
+        });
+        console.log('   Categories:', categories);
+
+        switch (cat) {
             case 'all':
+                return questionsWithState;
             case 'overview':
                 return questionsWithState;
             case 'correct':
@@ -307,6 +280,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             case 'marked for review':
                 return questionsWithState.filter(item => item.state.markedForReview);
             default:
+                console.warn('Unknown filter:', cat);
                 return questionsWithState;
         }
     }
@@ -314,18 +288,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     function showReviewPalette() {
         const reviewPaletteOld = document.getElementById('review-palette');
         
-        function fillContainer(container, cleanStyle) {
+        function fillContainer(container, isCleanStyle) {
             if (!container) return;
             container.innerHTML = '';
+
+            if (QUIZ_DATA.reviewQuestionList.length === 0) {
+                container.innerHTML = '<p style="color:#888;text-align:center;">No questions</p>';
+                return;
+            }
 
             QUIZ_DATA.reviewQuestionList.forEach((item, index) => {
                 const state = item.state || {};
                 const btn = document.createElement('button');
-                btn.className = cleanStyle ? 'qp-btn' : 'palette-btn';
+                btn.className = isCleanStyle ? 'qp-btn' : 'palette-btn';
                 btn.textContent = item.index + 1;
                 btn.dataset.index = index;
 
-                if (!cleanStyle) {
+                if (!isCleanStyle) {
                     if (state.resultCategory === 'correct') btn.classList.add('answered');
                     else if (state.resultCategory === 'incorrect') btn.classList.add('not-answered');
                     else if (state.resultCategory === 'unattempted') btn.classList.add('not-visited');
@@ -348,7 +327,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     function showReviewQuestion(index) {
         QUIZ_DATA.currentReviewIndex = index;
 
-        if (QUIZ_DATA.reviewQuestionList.length === 0 || index < 0 || index >= QUIZ_DATA.reviewQuestionList.length) {
+        if (!QUIZ_DATA.reviewQuestionList.length || index < 0 || index >= QUIZ_DATA.reviewQuestionList.length) {
+            console.warn('Invalid review index:', index);
             return;
         }
 
@@ -356,37 +336,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         const question = QUIZ_DATA.questions[reviewItem.index];
         const state = QUIZ_DATA.questionStates[reviewItem.index];
 
-        if (!question || !state) return;
+        if (!question || !state) {
+            console.error('Missing question/state at index:', reviewItem.index);
+            return;
+        }
 
         const lang = QUIZ_DATA.currentLanguage;
 
+        // Update title
         if (reviewQuestionTitle) {
             reviewQuestionTitle.textContent = 
-                `Reviewing Question ${index + 1} of ${QUIZ_DATA.reviewQuestionList.length} (Original Q${reviewItem.index + 1})`;
+                `Reviewing Question ${index + 1} of ${QUIZ_DATA.reviewQuestionList.length} (Q${reviewItem.index + 1})`;
         }
 
         // Get correct answer
-        let correctAnswerText = '';
-        if (typeof question.correctAnswer === 'object') {
-            correctAnswerText = question.correctAnswer[lang] || question.correctAnswer.en || '';
-        } else {
-            correctAnswerText = question.correctAnswer || '';
-        }
+        const correctAnswerText = question.correctAnswer[lang] || question.correctAnswer.en || '';
         const correctAnswerNormalized = normalizeString(correctAnswerText);
 
         // Build options HTML
         const optionsHtml = question.options.map((optObj, optIdx) => {
-            let optionText, optionValue;
-            
-            if (typeof optObj === 'object') {
-                optionText = optObj[lang] || optObj.en || '';
-                optionValue = optObj.en || optionText;
-            } else {
-                optionText = optObj;
-                optionValue = optObj;
-            }
-            
+            const optionText = optObj[lang] || optObj.en || '';
+            const optionValue = optObj.en || optionText;
             const optionNormalized = normalizeString(optionValue);
+            
             const isCorrect = optionNormalized === correctAnswerNormalized;
             const userAnswerNormalized = normalizeString(state.userAnswer);
             const isUserChoice = state.userAnswer !== null && optionNormalized === userAnswerNormalized;
@@ -396,112 +368,137 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (isCorrect && isUserChoice) {
                 optionClass += ' correct correct-user-choice';
-                indicators = '<span class="correct-indicator">✅ Your Answer (Correct!)</span>';
+                indicators = '<span class="correct-indicator" style="color:#22c55e;margin-left:10px;">✅ Your Answer (Correct!)</span>';
             } else if (isCorrect) {
                 optionClass += ' correct';
-                indicators = '<span class="correct-indicator">✅ Correct Answer</span>';
+                indicators = '<span class="correct-indicator" style="color:#22c55e;margin-left:10px;">✅ Correct Answer</span>';
             } else if (isUserChoice) {
                 optionClass += ' incorrect';
-                indicators = '<span class="user-pick-indicator">❌ Your Answer (Wrong)</span>';
+                indicators = '<span class="user-pick-indicator" style="color:#ef4444;margin-left:10px;">❌ Your Answer (Wrong)</span>';
             }
 
-            const optionLabel = String.fromCharCode(65 + optIdx);
+            const letter = String.fromCharCode(65 + optIdx);
 
             return `
-                <div class="${optionClass}">
-                    <div class="review-option-text">
-                        <span class="option-letter">${optionLabel}.</span>
-                        <span class="option-label">${safeRender(optionText)}</span>
+                <div class="${optionClass}" style="padding:12px;margin:8px 0;border-radius:8px;background:${isCorrect ? 'rgba(34,197,94,0.15)' : isUserChoice ? 'rgba(239,68,68,0.15)' : '#f8f9fa'};border:2px solid ${isCorrect ? '#22c55e' : isUserChoice ? '#ef4444' : '#e5e7eb'};">
+                    <div style="display:flex;align-items:center;flex-wrap:wrap;">
+                        <span style="font-weight:bold;margin-right:8px;">${letter}.</span>
+                        <span>${safeRender(optionText)}</span>
+                        ${indicators}
                     </div>
-                    ${indicators}
                 </div>
             `;
         }).join('');
 
-        // Get question text
-        let questionText = '';
-        if (typeof question.question === 'object') {
-            questionText = question.question[lang] || question.question.en || '';
-        } else {
-            questionText = question.question || '';
-        }
+        // Question text
+        const questionText = question.question[lang] || question.question.en || '';
         
-        // Get explanation
-        let explanationText = '';
-        if (typeof question.explanation === 'object') {
-            explanationText = question.explanation[lang] || question.explanation.en || '';
-        } else {
-            explanationText = question.explanation || '';
-        }
+        // Explanation
+        const explanationText = question.explanation[lang] || question.explanation.en || '';
 
+        // Status note
         let statusNote = '';
         if (state.userAnswer === null) {
-            statusNote = '<p class="unattempted-note" style="color: #f59e0b; margin-top: 15px; font-weight: bold;">⚠️ This question was NOT ATTEMPTED. The correct answer is highlighted above.</p>';
+            statusNote = '<p style="color:#f59e0b;margin-top:15px;font-weight:bold;padding:10px;background:rgba(245,158,11,0.1);border-radius:8px;">⚠️ This question was NOT ATTEMPTED. The correct answer is highlighted in green above.</p>';
         }
 
+        // Update review card
         if (reviewQuestionCard) {
             reviewQuestionCard.innerHTML = `
-                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${safeRender(questionText)}</p>
+                <div style="font-size:16px;line-height:1.6;margin-bottom:20px;">
+                    <strong>Q${reviewItem.index + 1}.</strong> ${safeRender(questionText)}
+                </div>
                 <div class="options-container">${optionsHtml}</div>
                 ${statusNote}
             `;
         }
 
+        // Update solution
         if (reviewSolutionText) {
-            reviewSolutionText.innerHTML = explanationText ? safeRender(explanationText) : '<em>No explanation available.</em>';
+            reviewSolutionText.innerHTML = explanationText 
+                ? safeRender(explanationText) 
+                : '<em style="color:#888;">No explanation available.</em>';
         }
 
+        // Fallback for older HTML structure
         if (reviewArea && !reviewQuestionCard) {
             reviewArea.innerHTML = `
-                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${safeRender(questionText)}</p>
+                <div style="font-size:16px;line-height:1.6;margin-bottom:20px;">
+                    <strong>Q${reviewItem.index + 1}.</strong> ${safeRender(questionText)}
+                </div>
                 <div class="options-container">${optionsHtml}</div>
                 ${statusNote}
-                <div class="solution-box"><h4>Solution:</h4><p>${safeRender(explanationText) || 'No explanation available.'}</p></div>
+                <div style="margin-top:20px;padding:15px;background:#f0fdf4;border-radius:8px;">
+                    <strong>Solution:</strong>
+                    <p>${safeRender(explanationText) || 'No explanation available.'}</p>
+                </div>
             `;
         }
 
+        // MathJax
         if (window.MathJax) {
             try { window.MathJax.typeset(); } catch (e) {}
         }
 
+        // Update nav buttons
         if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
         if (reviewNextBtn) reviewNextBtn.disabled = index === QUIZ_DATA.reviewQuestionList.length - 1;
 
         showReviewPalette();
     }
 
-    function tabClickHandler(e) {
+    function handleTabClick(e) {
         e.preventDefault();
-        const category = e.target.textContent.toLowerCase().trim();
+        e.stopPropagation();
+        
+        const clickedTab = e.target;
+        if (clickedTab.tagName !== 'A') return;
+        
+        const category = clickedTab.textContent.toLowerCase().trim();
+        console.log(`📑 Tab clicked: "${category}"`);
 
+        // Update active state on BOTH nav containers
         [resultTabsContainer, reviewTabsContainer].forEach(container => {
             if (container) {
-                container.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-                const activeTab = Array.from(container.querySelectorAll('a'))
-                    .find(a => a.textContent.toLowerCase().trim() === category);
-                if (activeTab) activeTab.classList.add('active');
+                container.querySelectorAll('a').forEach(a => {
+                    a.classList.remove('active');
+                    if (a.textContent.toLowerCase().trim() === category) {
+                        a.classList.add('active');
+                    }
+                });
             }
         });
 
+        // Handle Overview tab
         if (category === 'overview') {
             if (reviewPage) reviewPage.classList.add('hidden');
             if (resultSummaryPage) resultSummaryPage.classList.remove('hidden');
             return;
         }
 
+        // Filter questions for the selected category
         QUIZ_DATA.reviewQuestionList = filterQuestions(category);
-        console.log(`📋 Filtered "${category}": ${QUIZ_DATA.reviewQuestionList.length} questions`);
+        console.log(`📋 Found ${QUIZ_DATA.reviewQuestionList.length} questions for "${category}"`);
 
+        // Switch to review page
         if (resultSummaryPage) resultSummaryPage.classList.add('hidden');
         if (reviewPage) reviewPage.classList.remove('hidden');
 
+        // Show questions or empty message
         if (QUIZ_DATA.reviewQuestionList.length > 0) {
             showReviewQuestion(0);
         } else {
-            const noQuestionsMsg = `<p style="text-align:center; padding: 50px; color: #666;">No questions found in "${category}" category.</p>`;
-            if (reviewArea) reviewArea.innerHTML = noQuestionsMsg;
-            if (reviewQuestionCard) reviewQuestionCard.innerHTML = noQuestionsMsg;
-            if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question 0 of 0";
+            const emptyMsg = `
+                <div style="text-align:center;padding:60px 20px;color:#666;">
+                    <div style="font-size:48px;margin-bottom:20px;">📭</div>
+                    <h3 style="margin-bottom:10px;">No questions found</h3>
+                    <p>There are no "${category}" questions to display.</p>
+                </div>
+            `;
+            
+            if (reviewQuestionCard) reviewQuestionCard.innerHTML = emptyMsg;
+            if (reviewArea) reviewArea.innerHTML = emptyMsg;
+            if (reviewQuestionTitle) reviewQuestionTitle.textContent = 'Reviewing Question 0 of 0';
             if (reviewPrevBtn) reviewPrevBtn.disabled = true;
             if (reviewNextBtn) reviewNextBtn.disabled = true;
             
@@ -509,6 +506,70 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (rpOld) rpOld.innerHTML = '';
             if (reviewPaletteClean) reviewPaletteClean.innerHTML = '';
         }
+    }
+
+    // Bind tabs immediately (they exist in HTML already)
+    function bindTabHandlers() {
+        [resultTabsContainer, reviewTabsContainer].forEach(container => {
+            if (container) {
+                container.querySelectorAll('a').forEach(tab => {
+                    // Remove existing to prevent duplicates
+                    tab.removeEventListener('click', handleTabClick);
+                    tab.addEventListener('click', handleTabClick);
+                });
+            }
+        });
+        console.log('✅ Tab handlers bound');
+    }
+
+    // Bind review navigation
+    if (reviewNextBtn) {
+        reviewNextBtn.addEventListener('click', () => {
+            if (QUIZ_DATA.currentReviewIndex < QUIZ_DATA.reviewQuestionList.length - 1) {
+                showReviewQuestion(QUIZ_DATA.currentReviewIndex + 1);
+            }
+        });
+    }
+    if (reviewPrevBtn) {
+        reviewPrevBtn.addEventListener('click', () => {
+            if (QUIZ_DATA.currentReviewIndex > 0) {
+                showReviewQuestion(QUIZ_DATA.currentReviewIndex - 1);
+            }
+        });
+    }
+
+    // ====================================================================
+    // SHOW INSTRUCTIONS & START BUTTON
+    // ====================================================================
+    if (instructionsModal) instructionsModal.classList.remove('hidden');
+    if (quizUI) quizUI.classList.add('hidden');
+    if (resultSummaryPage) resultSummaryPage.classList.add('hidden');
+    if (reviewPage) reviewPage.classList.add('hidden');
+
+    // Remove ALL existing click handlers from start button
+    if (startTestBtn) {
+        const newBtn = startTestBtn.cloneNode(true);
+        startTestBtn.parentNode.replaceChild(newBtn, startTestBtn);
+        
+        newBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (QUIZ_DATA.isQuizStarted) {
+                console.log('Quiz already started');
+                return;
+            }
+            
+            QUIZ_DATA.isQuizStarted = true;
+            console.log('🚀 Starting quiz...');
+            
+            if (instructionsModal) instructionsModal.classList.add('hidden');
+            if (quizUI) quizUI.classList.remove('hidden');
+            
+            initializeQuiz();
+        });
+        
+        console.log('✅ Start button ready');
     }
 
     // ====================================================================
@@ -525,31 +586,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         QUIZ_DATA.sectionTimeRemaining = {};
         QUIZ_DATA.totalInitialTime = 0;
 
-        const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
-        uniqueSubjects.forEach(subj => {
+        const subjects = [...new Set(questions.map(q => q.subject))];
+        subjects.forEach(subj => {
             QUIZ_DATA.sectionTimeRemaining[subj] = testDuration * 60;
-            QUIZ_DATA.totalInitialTime += (testDuration * 60);
+            QUIZ_DATA.totalInitialTime += testDuration * 60;
         });
 
-        console.log(`⏱️ Quiz Duration: ${testDuration} minutes`);
+        console.log(`⏱️ Duration: ${testDuration} min`);
 
-        // Language selector
+        // Language
         if (languageSelect) {
             languageSelect.value = QUIZ_DATA.currentLanguage;
             languageSelect.addEventListener('change', (e) => {
                 QUIZ_DATA.currentLanguage = e.target.value;
-                const isQuizActive = quizUI && !quizUI.classList.contains('hidden');
-                const isReviewActive = reviewPage && !reviewPage.classList.contains('hidden');
-                if (isQuizActive) showQuestion(currentQuestionIndex);
-                else if (isReviewActive) showReviewQuestion(QUIZ_DATA.currentReviewIndex);
+                showQuestion(currentQuestionIndex);
             });
         }
 
         // Title
-        const badgeHtml = QUIZ_DATA.testInfo.isNew ? '<span class="new-badge">NEW</span>' : '';
         const titleEl = document.getElementById('test-main-title');
         if (titleEl) {
-            titleEl.innerHTML = `${QUIZ_DATA.testInfo.date || ''} - ${QUIZ_DATA.testInfo.title || 'Test'} ${badgeHtml}`;
+            titleEl.innerHTML = `${QUIZ_DATA.testInfo.date || ''} - ${QUIZ_DATA.testInfo.title || 'Test'}`;
         }
 
         // Initialize states
@@ -564,297 +621,239 @@ document.addEventListener('DOMContentLoaded', async () => {
         showQuestion(0);
         startTimer();
 
-        window.addEventListener('beforeunload', (e) => {
-            if (!resultSummaryPage || resultSummaryPage.classList.contains('hidden')) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        });
-
-        function getCurrentSubject() {
-            return questions[currentQuestionIndex].subject;
-        }
-
+        // ========== TIMER ==========
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
             
             timerInterval = setInterval(() => {
                 if (isPaused) return;
                 
-                const currentSubject = getCurrentSubject();
-                if (QUIZ_DATA.sectionTimeRemaining[currentSubject] > 0) {
-                    QUIZ_DATA.sectionTimeRemaining[currentSubject]--;
-                    const t = QUIZ_DATA.sectionTimeRemaining[currentSubject];
-                    const minutes = Math.floor(t / 60);
-                    const seconds = t % 60;
+                const subj = questions[currentQuestionIndex].subject;
+                if (QUIZ_DATA.sectionTimeRemaining[subj] > 0) {
+                    QUIZ_DATA.sectionTimeRemaining[subj]--;
+                    const t = QUIZ_DATA.sectionTimeRemaining[subj];
+                    const m = Math.floor(t / 60);
+                    const s = t % 60;
                     if (timerEl) {
-                        timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                        timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
                     }
                 } else {
                     clearInterval(timerInterval);
-                    alert(`Time is up for ${currentSubject}!`);
-                    calculateAndShowResults(true);
+                    alert(`Time's up for ${subj}!`);
+                    calculateAndShowResults();
                 }
             }, 1000);
         }
 
-        function pauseTest() {
-            isPaused = true;
-            if (pauseOverlay) pauseOverlay.classList.remove('hidden');
+        // ========== PAUSE/RESUME ==========
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', () => {
+                isPaused = true;
+                if (pauseOverlay) pauseOverlay.classList.remove('hidden');
+            });
+        }
+        if (resumeBtn) {
+            resumeBtn.addEventListener('click', () => {
+                isPaused = false;
+                if (pauseOverlay) pauseOverlay.classList.add('hidden');
+            });
         }
 
-        function resumeTest() {
-            isPaused = false;
-            if (pauseOverlay) pauseOverlay.classList.add('hidden');
-        }
-
-        function showSubmissionSummary() {
+        // ========== SUBMIT MODAL ==========
+        function showSubmitModal() {
             const answered = QUIZ_DATA.questionStates.filter(s => s.userAnswer !== null).length;
             const marked = QUIZ_DATA.questionStates.filter(s => s.markedForReview).length;
-            const answeredAndMarked = QUIZ_DATA.questionStates.filter(s => s.userAnswer !== null && s.markedForReview).length;
             
             if (submissionStatsEl) {
                 submissionStatsEl.innerHTML = `
-                    <div>Answered: <span>${answered} / ${questions.length}</span></div>
-                    <div>Not Answered: <span>${questions.length - answered} / ${questions.length}</span></div>
-                    <div>Marked for Review: <span>${marked}</span></div>
-                    <div>Answered & Marked: <span>${answeredAndMarked}</span></div>
+                    <div>Answered: <strong>${answered} / ${questions.length}</strong></div>
+                    <div>Not Answered: <strong>${questions.length - answered} / ${questions.length}</strong></div>
+                    <div>Marked for Review: <strong>${marked}</strong></div>
                 `;
             }
             if (submitSummaryModal) submitSummaryModal.classList.remove('hidden');
         }
 
-        // ================================================================
-        // CALCULATE RESULTS
-        // ================================================================
-        function calculateAndShowResults(autoSubmit = false) {
-            clearInterval(timerInterval);
+        if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmitModal);
+        if (submitTestFooterBtn) submitTestFooterBtn.addEventListener('click', showSubmitModal);
+        
+        if (cancelSubmitBtn) {
+            cancelSubmitBtn.addEventListener('click', () => {
+                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+            });
+        }
 
-            let totalRemainingSeconds = 0;
-            for (let subj in QUIZ_DATA.sectionTimeRemaining) {
-                totalRemainingSeconds += QUIZ_DATA.sectionTimeRemaining[subj];
-            }
-            const timeTakenSecondsTotal = QUIZ_DATA.totalInitialTime - totalRemainingSeconds;
-            const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
-            const timeTakenSeconds = timeTakenSecondsTotal % 60;
-
-            let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
-
-            QUIZ_DATA.questionStates.forEach((state, index) => {
-                const question = questions[index];
+        // IMPORTANT: Final submit - calculate results FIRST
+        if (finalSubmitBtn) {
+            // Remove all existing handlers
+            const newFinalBtn = finalSubmitBtn.cloneNode(true);
+            finalSubmitBtn.parentNode.replaceChild(newFinalBtn, finalSubmitBtn);
+            
+            newFinalBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                // Get correct answer text
-                let correctAnswerText = '';
-                if (typeof question.correctAnswer === 'object') {
-                    correctAnswerText = question.correctAnswer.en || '';
-                } else {
-                    correctAnswerText = question.correctAnswer || '';
-                }
-                const correctAnswerNormalized = normalizeString(correctAnswerText);
+                if (QUIZ_DATA.isSubmitted) return;
+                QUIZ_DATA.isSubmitted = true;
+                
+                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+                calculateAndShowResults();
+            });
+        }
+
+        // ========== CALCULATE RESULTS ==========
+        function calculateAndShowResults() {
+            clearInterval(timerInterval);
+            console.log('📊 Calculating results...');
+
+            let totalRemaining = 0;
+            for (let subj in QUIZ_DATA.sectionTimeRemaining) {
+                totalRemaining += QUIZ_DATA.sectionTimeRemaining[subj];
+            }
+            const timeTakenSeconds = QUIZ_DATA.totalInitialTime - totalRemaining;
+            const timeTakenMin = Math.floor(timeTakenSeconds / 60);
+            const timeTakenSec = timeTakenSeconds % 60;
+
+            let correct = 0, incorrect = 0, unattempted = 0, score = 0;
+
+            QUIZ_DATA.questionStates.forEach((state, idx) => {
+                const q = questions[idx];
+                const correctText = q.correctAnswer.en || '';
+                const correctNorm = normalizeString(correctText);
 
                 if (state.userAnswer !== null) {
-                    const userAnswerNormalized = normalizeString(state.userAnswer);
+                    const userNorm = normalizeString(state.userAnswer);
                     
-                    if (userAnswerNormalized === correctAnswerNormalized) {
-                        correctCount++;
+                    if (userNorm === correctNorm) {
+                        correct++;
                         score += 2;
                         state.resultCategory = 'correct';
                     } else {
-                        incorrectCount++;
+                        incorrect++;
                         score -= 0.5;
                         state.resultCategory = 'incorrect';
                     }
                 } else {
-                    unattemptedCount++;
+                    unattempted++;
                     state.resultCategory = 'unattempted';
                 }
             });
 
-            console.log(`📊 Results: Correct=${correctCount}, Incorrect=${incorrectCount}, Unattempted=${unattemptedCount}`);
+            console.log(`✅ Results: Correct=${correct}, Incorrect=${incorrect}, Unattempted=${unattempted}`);
 
-            const attemptedCount = correctCount + incorrectCount;
-            const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
+            const attempted = correct + incorrect;
+            const accuracy = attempted > 0 ? (correct / attempted) * 100 : 0;
 
-            // Send to backend
-            sendAttemptToServer({
-                testId: QUIZ_DATA.testInfo.id || testId,
-                testTitle: QUIZ_DATA.testInfo.title,
-                subject: QUIZ_DATA.testInfo.subject || singleSubjectName,
-                totalQuestions: questions.length,
-                correct: correctCount,
-                incorrect: incorrectCount,
-                unattempted: unattemptedCount,
-                score: Number(score.toFixed(2)),
-                maxScore: questions.length * 2,
-                accuracy: Number(accuracy.toFixed(1)),
-                timeTakenMinutes
-            });
-
+            // Initialize review list
             QUIZ_DATA.reviewQuestionList = filterQuestions('all');
 
             // Build results UI
-            const testInfoAndActionsWrapper = document.getElementById('review-button-area');
-            if (testInfoAndActionsWrapper) {
-                testInfoAndActionsWrapper.innerHTML = `
-                    <div class="test-details">
+            const reviewButtonArea = document.getElementById('review-button-area');
+            if (reviewButtonArea) {
+                reviewButtonArea.innerHTML = `
+                    <div class="test-details" style="margin-bottom:20px;">
                         <h3>${QUIZ_DATA.testInfo.title || 'Test'}</h3>
-                        <p>Total Questions: ${questions.length}</p>
-                        <p>Max Marks: ${questions.length * 2}</p>
+                        <p>Total Questions: ${questions.length} | Max Marks: ${questions.length * 2}</p>
                     </div>
-                    <div class="action-buttons">
-                        <button id="review-test-btn" class="btn primary review">Review Test</button>
-                        <a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>
+                    <div class="action-buttons" style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button id="review-test-btn" class="btn primary" style="background:#6366f1;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;">📝 Review Test</button>
+                        <a href="index.html" class="btn secondary" style="background:#e5e7eb;color:#374151;padding:12px 24px;border-radius:8px;text-decoration:none;">🏠 Go to Tests</a>
                     </div>
                 `;
             }
 
-            const statsCardsArea = document.getElementById('stats-cards-area');
-            if (statsCardsArea) {
-                statsCardsArea.innerHTML = `
-                    <div class="stats-grid-container">
-                        <div class="stat-card total-score"><div class="stat-value">${score.toFixed(2)}</div><div class="stat-name">YOUR SCORE</div></div>
-                        <div class="stat-card correct"><div class="stat-value">${correctCount}</div><div class="stat-name">CORRECT</div></div>
-                        <div class="stat-card incorrect"><div class="stat-value">${incorrectCount}</div><div class="stat-name">INCORRECT</div></div>
-                        <div class="stat-card unattempted"><div class="stat-value">${unattemptedCount}</div><div class="stat-name">UNATTEMPTED</div></div>
-                        <div class="stat-card time-taken"><div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div><div class="stat-name">TIME TAKEN</div></div>
-                        <div class="stat-card accuracy"><div class="stat-value">${accuracy.toFixed(1)}%</div><div class="stat-name">ACCURACY</div></div>
+            const statsArea = document.getElementById('stats-cards-area');
+            if (statsArea) {
+                statsArea.innerHTML = `
+                    <div class="stats-grid-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:15px;margin-top:20px;">
+                        <div class="stat-card" style="background:#f0fdf4;padding:20px;border-radius:12px;text-align:center;">
+                            <div class="stat-value" style="font-size:28px;font-weight:bold;color:#166534;">${score.toFixed(1)}</div>
+                            <div class="stat-name" style="color:#666;margin-top:5px;">Score</div>
+                        </div>
+                        <div class="stat-card" style="background:#f0fdf4;padding:20px;border-radius:12px;text-align:center;">
+                            <div class="stat-value" style="font-size:28px;font-weight:bold;color:#22c55e;">${correct}</div>
+                            <div class="stat-name" style="color:#666;margin-top:5px;">Correct</div>
+                        </div>
+                        <div class="stat-card" style="background:#fef2f2;padding:20px;border-radius:12px;text-align:center;">
+                            <div class="stat-value" style="font-size:28px;font-weight:bold;color:#ef4444;">${incorrect}</div>
+                            <div class="stat-name" style="color:#666;margin-top:5px;">Incorrect</div>
+                        </div>
+                        <div class="stat-card" style="background:#fefce8;padding:20px;border-radius:12px;text-align:center;">
+                            <div class="stat-value" style="font-size:28px;font-weight:bold;color:#ca8a04;">${unattempted}</div>
+                            <div class="stat-name" style="color:#666;margin-top:5px;">Unattempted</div>
+                        </div>
+                        <div class="stat-card" style="background:#f8fafc;padding:20px;border-radius:12px;text-align:center;">
+                            <div class="stat-value" style="font-size:28px;font-weight:bold;color:#475569;">${String(timeTakenMin).padStart(2,'0')}:${String(timeTakenSec).padStart(2,'0')}</div>
+                            <div class="stat-name" style="color:#666;margin-top:5px;">Time</div>
+                        </div>
+                        <div class="stat-card" style="background:#eff6ff;padding:20px;border-radius:12px;text-align:center;">
+                            <div class="stat-value" style="font-size:28px;font-weight:bold;color:#3b82f6;">${accuracy.toFixed(1)}%</div>
+                            <div class="stat-name" style="color:#666;margin-top:5px;">Accuracy</div>
+                        </div>
                     </div>
                 `;
             }
 
             // Bind review button
             setTimeout(() => {
-                const reviewTestBtn = document.querySelector('#review-test-btn');
-                if (reviewTestBtn) {
-                    reviewTestBtn.addEventListener('click', () => {
-                        const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                        if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
+                const reviewBtn = document.getElementById('review-test-btn');
+                if (reviewBtn) {
+                    reviewBtn.addEventListener('click', () => {
+                        // Click "All" tab
+                        const allTab = resultTabsContainer?.querySelector('a:nth-child(2)');
+                        if (allTab) {
+                            handleTabClick({ preventDefault: () => {}, stopPropagation: () => {}, target: allTab });
+                        }
                     });
                 }
             }, 100);
 
-            // Bind tab handlers
-            [resultTabsContainer, reviewTabsContainer].forEach(container => {
-                if (container) {
-                    container.querySelectorAll('a').forEach(tab => {
-                        tab.removeEventListener('click', tabClickHandler);
-                        tab.addEventListener('click', tabClickHandler);
-                    });
-                }
+            // Bind tabs
+            bindTabHandlers();
+
+            // Send to server
+            sendAttemptToServer({
+                testId: QUIZ_DATA.testInfo.id || testId,
+                testTitle: QUIZ_DATA.testInfo.title,
+                subject: singleSubjectName,
+                totalQuestions: questions.length,
+                correct, incorrect, unattempted,
+                score: Number(score.toFixed(2)),
+                maxScore: questions.length * 2,
+                accuracy: Number(accuracy.toFixed(1)),
+                timeTakenMinutes: timeTakenMin
             });
 
+            // Show results page
             if (quizUI) quizUI.classList.add('hidden');
             if (resultSummaryPage) resultSummaryPage.classList.remove('hidden');
+            
+            document.body.classList.add('results-scroll');
         }
 
+        // ========== PALETTE ==========
         function createPalette() {
             if (!questionPalette) return;
             questionPalette.innerHTML = '';
             
-            questions.forEach((_, index) => {
+            questions.forEach((_, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'palette-btn not-visited';
-                btn.textContent = index + 1;
-                btn.dataset.index = index;
+                btn.textContent = idx + 1;
                 btn.addEventListener('click', () => {
                     saveCurrentAnswer();
-                    showQuestion(index);
+                    showQuestion(idx);
                 });
                 questionPalette.appendChild(btn);
             });
         }
 
-        function showQuestion(index) {
-            if (index < 0 || index >= questions.length) return;
-
-            const targetSubject = questions[index].subject;
-            if (QUIZ_DATA.sectionTimeRemaining[targetSubject] <= 0) {
-                alert(`Time for ${targetSubject} is over.`);
-                return;
-            }
-
-            currentQuestionIndex = index;
-            const question = questions[index];
-            const state = QUIZ_DATA.questionStates[index];
-            const lang = QUIZ_DATA.currentLanguage;
-
-            if (state.status === 'not-visited') state.status = 'not-answered';
-
-            if (questionTitle) {
-                questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`;
-            }
-
-            // Get question text (supports images)
-            let questionText = '';
-            if (typeof question.question === 'object') {
-                questionText = question.question[lang] || question.question.en || '';
-            } else {
-                questionText = question.question || '';
-            }
-
-            // Build options
-            const optionsHtml = question.options.map((optObj, optIdx) => {
-                let optionText, optionValue;
-                
-                if (typeof optObj === 'object') {
-                    optionText = optObj[lang] || optObj.en || '';
-                    optionValue = optObj.en || optionText;
-                } else {
-                    optionText = optObj;
-                    optionValue = optObj;
-                }
-                
-                const checked = (state.userAnswer === optionValue) ? 'checked' : '';
-                const optionLabel = String.fromCharCode(65 + optIdx);
-                
-                return `
-                    <label class="option">
-                        <input type="radio" name="option" value="${escapeHtml(optionValue)}" ${checked}>
-                        <span class="option-letter">${optionLabel}.</span>
-                        <span class="option-text">${safeRender(optionText)}</span>
-                    </label>
-                `;
-            }).join('');
-
-            if (questionArea) {
-                questionArea.innerHTML = `
-                    <p class="question-text"><strong>Q${index + 1}.</strong> ${safeRender(questionText)}</p>
-                    <div class="options-container">${optionsHtml}</div>
-                `;
-            }
-
-            if (window.MathJax) {
-                try { window.MathJax.typeset(); } catch (e) {}
-            }
-            
-            updateNavigation();
-            updatePalette();
-        }
-
-        function updateNavigation() {
-            if (prevBtn) prevBtn.disabled = currentQuestionIndex === 0;
-            if (nextBtn) {
-                nextBtn.textContent = (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
-            }
-
-            const state = QUIZ_DATA.questionStates[currentQuestionIndex];
-            if (markReviewBtn) {
-                if (state.markedForReview && state.userAnswer !== null) {
-                    markReviewBtn.textContent = 'Unmark & Save';
-                } else if (state.markedForReview) {
-                    markReviewBtn.textContent = 'Unmark Review';
-                } else if (state.userAnswer !== null) {
-                    markReviewBtn.textContent = 'Mark for Review';
-                } else {
-                    markReviewBtn.textContent = 'Mark for Review';
-                }
-            }
-        }
-
         function updatePalette() {
-            const paletteBtns = document.querySelectorAll('#question-palette .palette-btn');
-            paletteBtns.forEach((btn, index) => {
-                const state = QUIZ_DATA.questionStates[index];
+            const btns = questionPalette?.querySelectorAll('.palette-btn');
+            if (!btns) return;
+            
+            btns.forEach((btn, idx) => {
+                const state = QUIZ_DATA.questionStates[idx];
                 btn.className = 'palette-btn';
 
                 if (state.userAnswer !== null && state.markedForReview) {
@@ -869,60 +868,88 @@ document.addEventListener('DOMContentLoaded', async () => {
                     btn.classList.add('not-visited');
                 }
 
-                if (index === currentQuestionIndex) btn.classList.add('current');
+                if (idx === currentQuestionIndex) btn.classList.add('current');
             });
         }
 
+        // ========== SHOW QUESTION ==========
+        function showQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+
+            currentQuestionIndex = index;
+            const q = questions[index];
+            const state = QUIZ_DATA.questionStates[index];
+            const lang = QUIZ_DATA.currentLanguage;
+
+            if (state.status === 'not-visited') state.status = 'not-answered';
+
+            if (questionTitle) {
+                questionTitle.textContent = `${q.subject} | Q${index + 1} of ${questions.length}`;
+            }
+
+            const qText = q.question[lang] || q.question.en || '';
+
+            const optionsHtml = q.options.map((opt, i) => {
+                const optText = opt[lang] || opt.en || '';
+                const optValue = opt.en || optText;
+                const checked = state.userAnswer === optValue ? 'checked' : '';
+                const letter = String.fromCharCode(65 + i);
+                
+                return `
+                    <label class="option" style="display:flex;align-items:center;padding:12px;margin:8px 0;background:#f8f9fa;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;">
+                        <input type="radio" name="option" value="${escapeHtml(optValue)}" ${checked} style="margin-right:12px;">
+                        <span style="font-weight:bold;margin-right:8px;">${letter}.</span>
+                        <span>${safeRender(optText)}</span>
+                    </label>
+                `;
+            }).join('');
+
+            if (questionArea) {
+                questionArea.innerHTML = `
+                    <div style="font-size:17px;line-height:1.6;margin-bottom:20px;">
+                        <strong>Q${index + 1}.</strong> ${safeRender(qText)}
+                    </div>
+                    <div class="options-container">${optionsHtml}</div>
+                `;
+            }
+
+            if (window.MathJax) {
+                try { window.MathJax.typeset(); } catch(e) {}
+            }
+
+            updateNavigation();
+            updatePalette();
+        }
+
+        function updateNavigation() {
+            if (prevBtn) prevBtn.disabled = currentQuestionIndex === 0;
+            if (nextBtn) {
+                nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Submit Test' : 'Save & Next';
+            }
+        }
+
         function saveCurrentAnswer() {
-            const selectedOption = document.querySelector('input[name="option"]:checked');
+            const selected = document.querySelector('input[name="option"]:checked');
             const state = QUIZ_DATA.questionStates[currentQuestionIndex];
             
-            if (selectedOption) {
-                state.userAnswer = selectedOption.value;
+            if (selected) {
+                state.userAnswer = selected.value;
                 if (!state.markedForReview) state.status = 'answered';
             } else {
                 state.userAnswer = null;
                 if (!state.markedForReview) state.status = 'not-answered';
             }
             updatePalette();
-            updateNavigation();
         }
 
-        function clearCurrentAnswer() {
-            const state = QUIZ_DATA.questionStates[currentQuestionIndex];
-            state.userAnswer = null;
-            state.status = 'not-answered';
-            document.querySelectorAll('input[name="option"]:checked').forEach(r => r.checked = false);
-            updatePalette();
-            updateNavigation();
-        }
-
-        // BIND EVENT HANDLERS
-        if (pauseBtn) pauseBtn.addEventListener('click', pauseTest);
-        if (resumeBtn) resumeBtn.addEventListener('click', resumeTest);
-        if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
-        if (clearResponseBtn) clearResponseBtn.addEventListener('click', clearCurrentAnswer);
-
-        if (finalSubmitBtn) {
-            finalSubmitBtn.addEventListener('click', () => {
-                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-                calculateAndShowResults();
-            });
-        }
-
-        if (cancelSubmitBtn) {
-            cancelSubmitBtn.addEventListener('click', () => {
-                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-            });
-        }
-
+        // ========== NAVIGATION BUTTONS ==========
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
                 saveCurrentAnswer();
                 if (currentQuestionIndex < questions.length - 1) {
                     showQuestion(currentQuestionIndex + 1);
                 } else {
-                    showSubmissionSummary();
+                    showSubmitModal();
                 }
             });
         }
@@ -941,22 +968,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const state = QUIZ_DATA.questionStates[currentQuestionIndex];
                 state.markedForReview = !state.markedForReview;
                 saveCurrentAnswer();
-            });
-        }
-
-        if (reviewNextBtn) {
-            reviewNextBtn.addEventListener('click', () => {
-                if (QUIZ_DATA.currentReviewIndex < QUIZ_DATA.reviewQuestionList.length - 1) {
-                    showReviewQuestion(QUIZ_DATA.currentReviewIndex + 1);
+                
+                // Auto-advance
+                if (currentQuestionIndex < questions.length - 1) {
+                    showQuestion(currentQuestionIndex + 1);
                 }
             });
         }
 
-        if (reviewPrevBtn) {
-            reviewPrevBtn.addEventListener('click', () => {
-                if (QUIZ_DATA.currentReviewIndex > 0) {
-                    showReviewQuestion(QUIZ_DATA.currentReviewIndex - 1);
-                }
+        if (clearResponseBtn) {
+            clearResponseBtn.addEventListener('click', () => {
+                const state = QUIZ_DATA.questionStates[currentQuestionIndex];
+                state.userAnswer = null;
+                state.status = 'not-answered';
+                document.querySelectorAll('input[name="option"]:checked').forEach(r => r.checked = false);
+                updatePalette();
             });
         }
 
