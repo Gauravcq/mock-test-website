@@ -336,6 +336,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         fillContainer(reviewPaletteClean, true);
     }
 
+<<<<<<< HEAD
     function showReviewQuestion(index) {
         QUIZ_DATA.currentReviewIndex = index;
 
@@ -436,8 +437,169 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (reviewNextBtn) reviewNextBtn.disabled = index === QUIZ_DATA.reviewQuestionList.length - 1;
 
         showReviewPalette();
+=======
+   function showReviewQuestion(index) {
+    currentReviewIndex = index;
+
+    if (reviewQuestionList.length === 0 || index < 0 || index >= reviewQuestionList.length) return;
+
+    const reviewItem = reviewQuestionList[index];
+    const question = questions[reviewItem.index];
+    const state = questionStates[reviewItem.index];
+
+    // Update title
+    if (reviewQuestionTitle) {
+        reviewQuestionTitle.textContent =
+            "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length +
+            " (Original Q" + (reviewItem.index + 1) + ")";
+>>>>>>> aac6a8675507c510cb8f0d58ef0b4a10f5d2963f
     }
 
+    // Check if correct answer exists in options (data validation)
+    const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
+    let correctAnswerFound = false;
+
+    const optionsHtml = question.options.map((optObj, optIndex) => {
+        const optionEn = optObj.en || '';
+        const optionHi = optObj.hi || optionEn;
+        const optionLetter = String.fromCharCode(65 + optIndex); // A, B, C, D
+
+        const optionNormalized = normalizeString(optionEn);
+        const isCorrect = optionNormalized === correctAnswerNormalized;
+        
+        // Check if user selected this option
+        const userAnswerNormalized = state.userAnswer !== null ? normalizeString(state.userAnswer) : null;
+        const isUserChoice = userAnswerNormalized !== null && optionNormalized === userAnswerNormalized;
+
+        if (isCorrect) correctAnswerFound = true;
+
+        // Determine option styling class
+        let optionClass = 'review-option';
+        if (isCorrect) {
+            optionClass += ' correct'; // Green background
+        }
+        if (isUserChoice && !isCorrect) {
+            optionClass += ' incorrect'; // Red background for wrong pick
+        }
+        if (isUserChoice && isCorrect) {
+            optionClass += ' correct-user-choice'; // Green with extra highlight
+        }
+
+        // Build option HTML
+        let html = '<div class="' + optionClass + '">';
+        
+        // Option letter and text
+        html += '<div class="review-option-content">';
+        html += '<span class="option-letter">' + optionLetter + '.</span>';
+        html += '<span class="option-text-content">';
+        html += '<strong>' + escapeHtmlReview(optionEn) + '</strong>';
+        if (optionHi && optionHi !== optionEn) {
+            html += ' <small class="hi-text">(' + escapeHtmlReview(optionHi) + ')</small>';
+        }
+        html += '</span>';
+        html += '</div>';
+
+        // Indicators container
+        html += '<div class="review-indicators">';
+        
+        // ✅ ALWAYS show correct answer indicator on correct option
+        if (isCorrect) {
+            html += '<span class="correct-indicator">✅ Correct Answer</span>';
+        }
+        
+        // Show user's pick indicator
+        if (isUserChoice) {
+            if (isCorrect) {
+                html += '<span class="user-pick-correct">✔️ Your Pick (Correct!)</span>';
+            } else {
+                html += '<span class="user-pick-wrong">❌ Your Pick (Wrong)</span>';
+            }
+        }
+        
+        html += '</div>'; // end indicators
+        html += '</div>'; // end review-option
+        
+        return html;
+    }).join('');
+
+    // Get question text in current language
+    const questionText = (typeof question.question === 'object') 
+        ? (question.question[currentLanguage] || question.question.en)
+        : question.question;
+
+    // Get explanation in current language
+    const explanationText = (typeof question.explanation === 'object')
+        ? (question.explanation[currentLanguage] || question.explanation.en || 'No explanation available.')
+        : (question.explanation || 'No explanation available.');
+
+    // Build the complete question HTML
+    let questionHtml = '<div class="review-question-text">';
+    questionHtml += '<span class="q-number">Q' + (reviewItem.index + 1) + '.</span> ';
+    questionHtml += questionText;
+    questionHtml += '</div>';
+    questionHtml += '<div class="options-container">' + optionsHtml + '</div>';
+
+    // Show attempt status
+    if (state.userAnswer === null) {
+        questionHtml += '<div class="unattempted-note">⚠️ This question was <strong>NOT ATTEMPTED</strong>. The correct answer is highlighted in green above.</div>';
+    } else {
+        const wasCorrect = state.resultCategory === 'correct';
+        if (wasCorrect) {
+            questionHtml += '<div class="result-note correct-note">✅ You answered this question correctly! (+2 marks)</div>';
+        } else {
+            questionHtml += '<div class="result-note incorrect-note">❌ You answered this question incorrectly. (-0.5 marks)</div>';
+        }
+    }
+
+    // Warning if correct answer not found in options (data issue)
+    if (!correctAnswerFound) {
+        questionHtml += '<div class="data-error-note">⚠️ <strong>Data Issue:</strong> Correct answer "' + 
+            escapeHtmlReview(question.correctAnswer.en) + '" not found in options. Please report this question.</div>';
+        console.error('Q' + (reviewItem.index + 1) + ': Correct answer not in options!', {
+            correctAnswer: question.correctAnswer.en,
+            options: question.options.map(o => o.en)
+        });
+    }
+
+    // Update the review card
+    if (reviewQuestionCard) {
+        reviewQuestionCard.innerHTML = questionHtml;
+    }
+
+    // Update solution/explanation
+    if (reviewSolutionText) {
+        reviewSolutionText.innerHTML = '<strong>Explanation:</strong><br>' + explanationText;
+    }
+
+    // Fallback for old HTML structure
+    if (reviewArea && !reviewQuestionCard) {
+        reviewArea.innerHTML = questionHtml +
+            '<div class="solution-box"><h4>Solution:</h4><p>' + explanationText + '</p></div>';
+    }
+
+    // Re-render MathJax if present
+    if (window.MathJax) {
+        MathJax.typesetPromise && MathJax.typesetPromise();
+    }
+
+    // Update navigation buttons
+    if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
+    if (reviewNextBtn) reviewNextBtn.disabled = index === reviewQuestionList.length - 1;
+
+    // Update palette
+    showReviewPalette();
+}
+
+// Helper function for escaping HTML in review
+function escapeHtmlReview(text) {
+    if (text === null || typeof text === 'undefined') return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
     function tabClickHandler(e) {
         e.preventDefault();
         const category = e.target.textContent.toLowerCase().trim();
@@ -937,5 +1099,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Error saving attempt:', err);
             });
     }
+<<<<<<< HEAD
 
 });
+=======
+}); // end DOMContentLoaded
+>>>>>>> aac6a8675507c510cb8f0d58ef0b4a10f5d2963f
