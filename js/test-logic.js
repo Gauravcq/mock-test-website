@@ -1,5 +1,5 @@
-// test-logic.js - FINAL FIXED VERSION v4
-// Fixes: Correct answer highlighting, Explanation display, Radio button position
+// test-logic.js - FINAL FIXED VERSION v5
+// Fixes: Correct answer preservation, Better debugging, Robust comparison
 (function() {
     'use strict';
     
@@ -87,29 +87,42 @@
                 return String(str)
                     .normalize('NFKC')
                     .replace(/\s+/g, ' ')
+                    .replace(/[√]/g, 'sqrt')  // Normalize special chars
                     .trim()
                     .toLowerCase();
             };
             return normalize(a) === normalize(b);
         }
 
-        function normalizeQuestion(raw) {
-            if (!raw || raw._normalized) return raw;
-            const q = { ...raw };
+        // ========== IMPROVED NORMALIZE FUNCTION ==========
+        function normalizeQuestion(raw, index) {
+            if (!raw) {
+                console.error(`Question ${index} is null/undefined`);
+                return null;
+            }
+            
+            // Don't re-normalize
+            if (raw._normalized) return raw;
+            
+            const q = JSON.parse(JSON.stringify(raw)); // Deep clone to avoid reference issues
 
             // Question
             if (typeof q.question === 'string') {
                 q.question = { en: q.question, hi: q.question };
-            } else {
+            } else if (q.question && typeof q.question === 'object') {
                 q.question = { 
-                    en: q.question?.en || '', 
-                    hi: q.question?.hi || q.question?.en || '' 
+                    en: q.question.en || '', 
+                    hi: q.question.hi || q.question.en || '' 
                 };
+            } else {
+                q.question = { en: '', hi: '' };
             }
 
-            // Options
+            // Options - DEEP CLONE each option
             q.options = (q.options || []).map((opt, i) => {
-                if (typeof opt === 'string') return { en: opt, hi: opt, index: i };
+                if (typeof opt === 'string') {
+                    return { en: opt, hi: opt, index: i };
+                }
                 return { 
                     en: opt?.en || '', 
                     hi: opt?.hi || opt?.en || '', 
@@ -117,22 +130,31 @@
                 };
             });
 
-            // Correct Answer
-            if (typeof q.correctAnswer === 'string') {
-                q.correctAnswer = { en: q.correctAnswer, hi: q.correctAnswer };
+            // Correct Answer - CRITICAL FIX
+            if (typeof q.correctAnswer === 'string' && q.correctAnswer.trim()) {
+                q.correctAnswer = { en: q.correctAnswer.trim(), hi: q.correctAnswer.trim() };
             } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
+                // Ensure we capture the values properly
+                const enAns = q.correctAnswer.en;
+                const hiAns = q.correctAnswer.hi;
                 q.correctAnswer = { 
-                    en: q.correctAnswer.en || '', 
-                    hi: q.correctAnswer.hi || q.correctAnswer.en || '' 
+                    en: (enAns && typeof enAns === 'string') ? enAns.trim() : '', 
+                    hi: (hiAns && typeof hiAns === 'string') ? hiAns.trim() : ((enAns && typeof enAns === 'string') ? enAns.trim() : '')
                 };
-            } else if (typeof q.answer === 'string') {
+            } else if (typeof q.answer === 'string' && q.answer.trim()) {
                 const letter = q.answer.trim().toUpperCase();
                 if (letter.length === 1 && letter >= 'A' && letter <= 'D' && q.options[letter.charCodeAt(0) - 65]) {
                     const idx = letter.charCodeAt(0) - 65;
                     q.correctAnswer = { en: q.options[idx].en, hi: q.options[idx].hi };
                 } else {
-                    q.correctAnswer = { en: q.answer, hi: q.answer };
+                    q.correctAnswer = { en: q.answer.trim(), hi: q.answer.trim() };
                 }
+            } else if (typeof q.correctOption === 'number' && q.options[q.correctOption]) {
+                // Support for correctOption index
+                q.correctAnswer = { 
+                    en: q.options[q.correctOption].en, 
+                    hi: q.options[q.correctOption].hi 
+                };
             } else {
                 q.correctAnswer = { en: '', hi: '' };
             }
@@ -150,6 +172,16 @@
             }
 
             q._normalized = true;
+            
+            // Debug log for first 3 questions
+            if (index < 3) {
+                console.log(`✅ Q${index + 1} normalized:`, {
+                    question: q.question.en.substring(0, 50) + '...',
+                    correctAnswer: q.correctAnswer,
+                    optionsCount: q.options.length
+                });
+            }
+            
             return q;
         }
 
@@ -179,14 +211,14 @@
             const response = await ExamAxisAPI.getQuestions(testId);
             if (response?.success && response?.data?.questions?.length) {
                 questions = response.data.questions;
-                console.log('✅ API:', questions.length, 'questions');
+                console.log('✅ API:', questions.length, 'questions loaded');
             } else throw new Error('No API data');
         } catch (e) {
             console.warn('⚠️ API failed:', e.message);
             if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
                 const raw = QUESTIONS_DATABASE[testId];
                 questions = Array.isArray(raw) ? raw : (raw.questions || []);
-                console.log('✅ Local:', questions.length, 'questions');
+                console.log('✅ Local:', questions.length, 'questions loaded');
             }
         }
 
@@ -195,15 +227,83 @@
             return;
         }
 
+        // DEBUG: Log raw question before normalization
+        console.log('📋 Raw question sample (Q1):', JSON.stringify(questions[0], null, 2));
+
         const subjectName = testInfo.subject || 'General';
         
-        window.QUIZ_DATA.questions = questions.map((q, i) => ({
-            ...normalizeQuestion(q),
-            originalIndex: i,
-            subject: subjectName
-        }));
+        // Normalize all questions
+        window.QUIZ_DATA.questions = questions.map((q, i) => {
+            const normalized = normalizeQuestion(q, i);
+            return {
+                ...normalized,
+                originalIndex: i,
+                subject: subjectName,
+                // PRESERVE ORIGINAL correctAnswer as backup
+                _originalCorrectAnswer: q.correctAnswer
+            };
+        }).filter(q => q !== null);
 
-        console.log('✅ Loaded', window.QUIZ_DATA.questions.length, 'questions');
+        console.log('✅ Loaded and normalized', window.QUIZ_DATA.questions.length, 'questions');
+        
+        // Verify first question
+        const firstQ = window.QUIZ_DATA.questions[0];
+        console.log('📋 First question after normalization:', {
+            correctAnswer: firstQ.correctAnswer,
+            _originalCorrectAnswer: firstQ._originalCorrectAnswer,
+            options: firstQ.options.map(o => o.en)
+        });
+
+        // ========== GET CORRECT ANSWER (with fallback) ==========
+        function getCorrectAnswer(q, lang) {
+            // Try normalized correctAnswer first
+            if (q.correctAnswer && q.correctAnswer[lang] && q.correctAnswer[lang].trim()) {
+                return q.correctAnswer[lang].trim();
+            }
+            if (q.correctAnswer && q.correctAnswer.en && q.correctAnswer.en.trim()) {
+                return q.correctAnswer.en.trim();
+            }
+            
+            // Fallback to original
+            if (q._originalCorrectAnswer) {
+                if (typeof q._originalCorrectAnswer === 'string') {
+                    return q._originalCorrectAnswer.trim();
+                }
+                if (q._originalCorrectAnswer[lang]) {
+                    return q._originalCorrectAnswer[lang].trim();
+                }
+                if (q._originalCorrectAnswer.en) {
+                    return q._originalCorrectAnswer.en.trim();
+                }
+            }
+            
+            console.warn('⚠️ No correct answer found for question');
+            return '';
+        }
+
+        // ========== FIND CORRECT OPTION INDEX ==========
+        function findCorrectOptionIndex(q, lang) {
+            const correctText = getCorrectAnswer(q, lang);
+            if (!correctText) return -1;
+            
+            for (let i = 0; i < q.options.length; i++) {
+                const opt = q.options[i];
+                // Try exact match first
+                if (opt.en === correctText || opt[lang] === correctText) {
+                    return i;
+                }
+                // Try trimmed match
+                if (opt.en?.trim() === correctText || opt[lang]?.trim() === correctText) {
+                    return i;
+                }
+                // Try normalized match
+                if (textsMatch(opt.en, correctText) || textsMatch(opt[lang], correctText)) {
+                    return i;
+                }
+            }
+            
+            return -1;
+        }
 
         // ========== FILTER ==========
         function filterQuestions(category) {
@@ -211,7 +311,9 @@
             const QD = window.QUIZ_DATA;
             
             const all = QD.questions.map((q, i) => ({
-                ...q, index: i, state: QD.questionStates[i]
+                ...q,
+                index: i,
+                state: QD.questionStates[i]
             }));
 
             if (cat === 'all' || cat === 'overview') return all;
@@ -230,27 +332,22 @@
             if (!QD.reviewQuestionList.length || index < 0 || index >= QD.reviewQuestionList.length) return;
 
             const item = QD.reviewQuestionList[index];
-            const q = QD.questions[item.index];
-            const state = QD.questionStates[item.index];
+            const q = item; // item already has all question data from filterQuestions
+            const state = item.state || QD.questionStates[item.index];
             const lang = QD.currentLanguage;
 
             console.log('========== REVIEW Q' + (item.index + 1) + ' ==========');
             console.log('correctAnswer:', q.correctAnswer);
+            console.log('_originalCorrectAnswer:', q._originalCorrectAnswer);
             console.log('userAnswer:', state.userAnswer);
 
             if (reviewQuestionTitle) {
                 reviewQuestionTitle.textContent = `Reviewing Question ${index + 1} of ${QD.reviewQuestionList.length} (Q${item.index + 1})`;
             }
 
-            // Find correct option index
-            const correctText = q.correctAnswer?.en || '';
-            let correctIdx = -1;
-            
-            q.options.forEach((opt, i) => {
-                if (textsMatch(opt.en, correctText) || opt.en === correctText || opt.en?.trim() === correctText?.trim()) {
-                    correctIdx = i;
-                }
-            });
+            // Get correct answer using helper function
+            const correctText = getCorrectAnswer(q, lang);
+            const correctIdx = findCorrectOptionIndex(q, lang);
             
             console.log('Correct answer text:', `"${correctText}"`);
             console.log('Correct option index:', correctIdx);
@@ -258,11 +355,16 @@
             // Find user option index
             let userIdx = -1;
             if (state.userAnswer) {
-                q.options.forEach((opt, i) => {
-                    if (textsMatch(opt.en, state.userAnswer) || opt.en === state.userAnswer) {
+                for (let i = 0; i < q.options.length; i++) {
+                    const opt = q.options[i];
+                    if (opt.en === state.userAnswer || 
+                        opt[lang] === state.userAnswer ||
+                        textsMatch(opt.en, state.userAnswer) ||
+                        textsMatch(opt[lang], state.userAnswer)) {
                         userIdx = i;
+                        break;
                     }
-                });
+                }
             }
             console.log('User option index:', userIdx);
 
@@ -349,7 +451,7 @@
             if (reviewPaletteClean) {
                 reviewPaletteClean.innerHTML = '';
                 QD.reviewQuestionList.forEach((it, idx) => {
-                    const st = QD.questionStates[it.index];
+                    const st = it.state || QD.questionStates[it.index];
                     const btn = document.createElement('button');
                     btn.textContent = it.index + 1;
                     
@@ -535,11 +637,17 @@
 
                 QD.questionStates.forEach((state, i) => {
                     const q = questions[i];
-                    const correctText = q.correctAnswer?.en || '';
+                    const correctText = getCorrectAnswer(q, 'en');
+
+                    console.log(`Q${i+1}: userAnswer="${state.userAnswer}", correctText="${correctText}"`);
 
                     if (state.userAnswer !== null) {
                         // Use robust comparison
-                        if (textsMatch(state.userAnswer, correctText) || state.userAnswer === correctText || state.userAnswer?.trim() === correctText?.trim()) {
+                        const isCorrect = textsMatch(state.userAnswer, correctText) || 
+                                         state.userAnswer === correctText || 
+                                         state.userAnswer?.trim() === correctText?.trim();
+                        
+                        if (isCorrect) {
                             correct++;
                             score += 2;
                             state.resultCategory = 'correct';
