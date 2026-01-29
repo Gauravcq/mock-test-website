@@ -1,8 +1,370 @@
-// test-logic.js - FINAL FIXED VERSION v8
-// Fixes: Syntax error, examType validation, complete functionality
+// test-logic.js - FINAL VERSION v9 with SECURITY
+// Features: Anti-copy, Anti-console, Anti-inspect, Tab detection
 (function() {
     'use strict';
-    
+
+    // ========== SECURITY FEATURES ==========
+    const SECURITY = {
+        enabled: true,  // Set to false during development
+        
+        init() {
+            if (!this.enabled) {
+                console.log('⚠️ Security features disabled (dev mode)');
+                return;
+            }
+
+            this.disableCopyPaste();
+            this.disableRightClick();
+            this.disableTextSelection();
+            this.disableKeyboardShortcuts();
+            this.disableConsole();
+            this.detectDevTools();
+            this.detectTabSwitch();
+            this.disableDragDrop();
+            this.disablePrint();
+            
+            console.log('🔒 Security features enabled');
+        },
+
+        // 1. Disable Copy/Paste
+        disableCopyPaste() {
+            document.addEventListener('copy', (e) => {
+                e.preventDefault();
+                this.showWarning('Copying is not allowed during exam!');
+                return false;
+            });
+
+            document.addEventListener('cut', (e) => {
+                e.preventDefault();
+                this.showWarning('Cutting is not allowed during exam!');
+                return false;
+            });
+
+            document.addEventListener('paste', (e) => {
+                e.preventDefault();
+                this.showWarning('Pasting is not allowed during exam!');
+                return false;
+            });
+        },
+
+        // 2. Disable Right Click
+        disableRightClick() {
+            document.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                this.showWarning('Right-click is disabled during exam!');
+                return false;
+            });
+        },
+
+        // 3. Disable Text Selection
+        disableTextSelection() {
+            // CSS approach
+            const style = document.createElement('style');
+            style.textContent = `
+                body.exam-mode,
+                body.exam-mode * {
+                    -webkit-user-select: none !important;
+                    -moz-user-select: none !important;
+                    -ms-user-select: none !important;
+                    user-select: none !important;
+                }
+                body.exam-mode input[type="radio"],
+                body.exam-mode input[type="checkbox"],
+                body.exam-mode button {
+                    -webkit-user-select: auto !important;
+                    user-select: auto !important;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // JS approach
+            document.addEventListener('selectstart', (e) => {
+                if (document.body.classList.contains('exam-mode')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        },
+
+        // 4. Disable Keyboard Shortcuts
+        disableKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                // Ctrl/Cmd combinations
+                if (e.ctrlKey || e.metaKey) {
+                    const blockedKeys = [
+                        'c', 'C',  // Copy
+                        'v', 'V',  // Paste
+                        'x', 'X',  // Cut
+                        'a', 'A',  // Select All
+                        's', 'S',  // Save
+                        'p', 'P',  // Print
+                        'u', 'U',  // View Source
+                        'i', 'I',  // Dev Tools (Inspect)
+                        'j', 'J',  // Dev Tools (Console)
+                        'k', 'K',  // Dev Tools
+                    ];
+                    
+                    if (blockedKeys.includes(e.key)) {
+                        e.preventDefault();
+                        this.showWarning('This shortcut is disabled during exam!');
+                        return false;
+                    }
+
+                    // Ctrl+Shift combinations
+                    if (e.shiftKey) {
+                        const blockedShiftKeys = [
+                            'i', 'I',  // Dev Tools
+                            'j', 'J',  // Console
+                            'c', 'C',  // Inspect
+                        ];
+                        if (blockedShiftKeys.includes(e.key)) {
+                            e.preventDefault();
+                            this.showWarning('Developer tools are disabled during exam!');
+                            return false;
+                        }
+                    }
+                }
+
+                // F12 - Dev Tools
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                    this.showWarning('Developer tools are disabled during exam!');
+                    return false;
+                }
+
+                // F7 - Caret browsing
+                if (e.key === 'F7') {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // PrintScreen
+                if (e.key === 'PrintScreen') {
+                    e.preventDefault();
+                    this.showWarning('Screenshots are not allowed during exam!');
+                    // Clear clipboard
+                    navigator.clipboard.writeText('').catch(() => {});
+                    return false;
+                }
+            });
+        },
+
+        // 5. Disable/Detect Console
+        disableConsole() {
+            // Override console methods
+            const noop = () => {};
+            const methods = ['log', 'debug', 'info', 'warn', 'error', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 'clear', 'count', 'countReset', 'assert', 'profile', 'profileEnd', 'time', 'timeLog', 'timeEnd', 'timeStamp'];
+            
+            // Store original console for internal use
+            window._originalConsole = { ...console };
+            
+            methods.forEach(method => {
+                console[method] = noop;
+            });
+
+            // Detect if console is opened
+            const element = new Image();
+            Object.defineProperty(element, 'id', {
+                get: () => {
+                    this.handleDevToolsOpen();
+                }
+            });
+            
+            // Periodically check
+            setInterval(() => {
+                console.log(element);
+                console.clear();
+            }, 1000);
+        },
+
+        // 6. Detect DevTools
+        detectDevTools() {
+            const threshold = 160;
+            
+            const checkDevTools = () => {
+                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+                
+                if (widthThreshold || heightThreshold) {
+                    this.handleDevToolsOpen();
+                }
+            };
+
+            // Check on resize
+            window.addEventListener('resize', checkDevTools);
+            
+            // Periodic check
+            setInterval(checkDevTools, 1000);
+
+            // Debugger detection
+            setInterval(() => {
+                const startTime = performance.now();
+                debugger;
+                const endTime = performance.now();
+                if (endTime - startTime > 100) {
+                    this.handleDevToolsOpen();
+                }
+            }, 1000);
+        },
+
+        // 7. Detect Tab Switch / Visibility
+        detectTabSwitch() {
+            let tabSwitchCount = 0;
+            const maxTabSwitches = 3;
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && window.QUIZ_DATA?.isQuizStarted && !window.QUIZ_DATA?.isSubmitted) {
+                    tabSwitchCount++;
+                    
+                    if (tabSwitchCount >= maxTabSwitches) {
+                        this.showWarning(`⚠️ WARNING: You have switched tabs ${tabSwitchCount} times! Your test may be auto-submitted.`, 'error');
+                        // Optional: Auto-submit
+                        // document.getElementById('final-submit-btn')?.click();
+                    } else {
+                        this.showWarning(`⚠️ Tab switch detected! (${tabSwitchCount}/${maxTabSwitches}) Please stay on this page.`, 'warning');
+                    }
+
+                    // Log the event
+                    window._originalConsole?.warn?.(`Tab switch detected: ${tabSwitchCount}`);
+                }
+            });
+
+            // Detect window blur
+            window.addEventListener('blur', () => {
+                if (window.QUIZ_DATA?.isQuizStarted && !window.QUIZ_DATA?.isSubmitted) {
+                    window._originalConsole?.warn?.('Window lost focus');
+                }
+            });
+        },
+
+        // 8. Disable Drag and Drop
+        disableDragDrop() {
+            document.addEventListener('dragstart', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            document.addEventListener('drop', (e) => {
+                e.preventDefault();
+                return false;
+            });
+        },
+
+        // 9. Disable Print
+        disablePrint() {
+            // CSS to hide content when printing
+            const style = document.createElement('style');
+            style.textContent = `
+                @media print {
+                    body * {
+                        display: none !important;
+                    }
+                    body::after {
+                        content: "Printing is not allowed during exam.";
+                        display: block !important;
+                        font-size: 24px;
+                        text-align: center;
+                        padding: 50px;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Detect print attempt
+            window.addEventListener('beforeprint', (e) => {
+                e.preventDefault();
+                this.showWarning('Printing is not allowed during exam!');
+            });
+
+            // Override print function
+            window.print = () => {
+                this.showWarning('Printing is not allowed during exam!');
+            };
+        },
+
+        // Handle DevTools Open
+        handleDevToolsOpen() {
+            // You can customize this action
+            // Options: Show warning, blur content, submit test, etc.
+            if (!this._devToolsWarningShown) {
+                this._devToolsWarningShown = true;
+                this.showWarning('⚠️ Developer tools detected! This activity is being logged.', 'error');
+                
+                // Optional: Blur the exam content
+                // document.getElementById('quiz-ui')?.style.filter = 'blur(10px)';
+                
+                // Reset after 5 seconds
+                setTimeout(() => {
+                    this._devToolsWarningShown = false;
+                }, 5000);
+            }
+        },
+
+        // Show Warning Popup
+        showWarning(message, type = 'warning') {
+            // Remove existing warning
+            const existing = document.getElementById('security-warning');
+            if (existing) existing.remove();
+
+            const colors = {
+                warning: { bg: '#fef3c7', border: '#f59e0b', text: '#92400e' },
+                error: { bg: '#fee2e2', border: '#ef4444', text: '#991b1b' }
+            };
+
+            const color = colors[type] || colors.warning;
+
+            const warning = document.createElement('div');
+            warning.id = 'security-warning';
+            warning.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${color.bg};
+                    border: 2px solid ${color.border};
+                    color: ${color.text};
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 999999;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                    animation: slideDown 0.3s ease;
+                    max-width: 90%;
+                    text-align: center;
+                ">
+                    ${message}
+                </div>
+                <style>
+                    @keyframes slideDown {
+                        from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+                        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                    }
+                </style>
+            `;
+            document.body.appendChild(warning);
+
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                warning.remove();
+            }, 3000);
+        },
+
+        // Enable exam mode (call when quiz starts)
+        enableExamMode() {
+            document.body.classList.add('exam-mode');
+            window._originalConsole?.log?.('🔒 Exam mode enabled');
+        },
+
+        // Disable exam mode (call when quiz ends)
+        disableExamMode() {
+            document.body.classList.remove('exam-mode');
+            window._originalConsole?.log?.('🔓 Exam mode disabled');
+        }
+    };
+
+    // ========== QUIZ DATA ==========
     window.QUIZ_DATA = {
         questions: [],
         questionStates: [],
@@ -20,10 +382,13 @@
     };
 
     document.addEventListener('DOMContentLoaded', async () => {
+        // Initialize security (but don't enable exam mode yet)
+        SECURITY.init();
+
         const urlParams = new URLSearchParams(window.location.search);
         const testId = urlParams.get('testId') || urlParams.get('id');
 
-        console.log('🔍 TestId from URL:', testId);
+        window._originalConsole?.log?.('🔍 TestId from URL:', testId);
 
         if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
             localStorage.setItem('redirectAfterLogin', window.location.href);
@@ -94,14 +459,13 @@
             return normalize(a) === normalize(b);
         }
 
-        // ========== NORMALIZE - HANDLES ALL FORMATS ==========
+        // ========== NORMALIZE QUESTION ==========
         function normalizeQuestion(raw, index) {
             if (!raw) return null;
             if (raw._normalized) return raw;
             
             const q = JSON.parse(JSON.stringify(raw));
 
-            // Question - handle string or object
             if (typeof q.question === 'string') {
                 q.question = { en: q.question, hi: q.question };
             } else if (q.question && typeof q.question === 'object') {
@@ -113,7 +477,6 @@
                 q.question = { en: '', hi: '' };
             }
 
-            // Options - handle string array or object array
             q.options = (q.options || []).map((opt, i) => {
                 if (typeof opt === 'string') {
                     return { en: opt, hi: opt, index: i };
@@ -125,7 +488,6 @@
                 };
             });
 
-            // ===== CORRECT ANSWER - HANDLE STRING OR OBJECT =====
             let correctAnswerEn = '';
             let correctAnswerHi = '';
 
@@ -154,7 +516,6 @@
                 hi: (correctAnswerHi || correctAnswerEn).trim() 
             };
 
-            // ===== EXPLANATION - HANDLE STRING OR OBJECT =====
             if (typeof q.explanation === 'string') {
                 q.explanation = { en: q.explanation, hi: q.explanation };
             } else if (q.explanation && typeof q.explanation === 'object') {
@@ -168,9 +529,8 @@
 
             q._normalized = true;
 
-            // Debug first 3
             if (index < 3) {
-                console.log(`✅ Q${index + 1}:`, {
+                window._originalConsole?.log?.(`✅ Q${index + 1}:`, {
                     correctAnswer: q.correctAnswer.en || '(empty)',
                     hasExplanation: !!q.explanation.en
                 });
@@ -198,79 +558,48 @@
 
         window.QUIZ_DATA.testInfo = testInfo;
 
-        // ========== DEBUG: CHECK QUESTIONS_DATABASE ==========
-        console.log('📂 Checking QUESTIONS_DATABASE...');
-        if (typeof QUESTIONS_DATABASE !== 'undefined') {
-            console.log('✅ QUESTIONS_DATABASE exists');
-            console.log('📋 Available keys:', Object.keys(QUESTIONS_DATABASE));
-            console.log('🔍 Looking for testId:', testId);
-            
-            if (QUESTIONS_DATABASE[testId]) {
-                console.log('✅ Found matching key!');
-                const sample = QUESTIONS_DATABASE[testId][0];
-                console.log('📋 Sample Q1 correctAnswer:', sample?.correctAnswer);
-            } else {
-                console.warn('⚠️ No matching key found for testId:', testId);
-                console.log('💡 Try using one of these:', Object.keys(QUESTIONS_DATABASE));
-            }
-        } else {
-            console.warn('⚠️ QUESTIONS_DATABASE is NOT defined!');
-        }
-
         // ========== LOAD QUESTIONS ==========
         let questions = [];
         let questionsSource = '';
 
-        // PRIORITY 1: Local database (has correctAnswer & explanation)
         if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
             const raw = QUESTIONS_DATABASE[testId];
             questions = Array.isArray(raw) ? raw : (raw.questions || []);
             questionsSource = 'LOCAL';
-            console.log('✅ LOCAL DB:', questions.length, 'questions');
-            
-            if (questions.length > 0) {
-                console.log('📋 First question correctAnswer:', questions[0].correctAnswer);
-            }
+            window._originalConsole?.log?.('✅ LOCAL DB:', questions.length, 'questions');
         }
 
-        // PRIORITY 2: API (fallback)
         if (!questions.length) {
             try {
                 const response = await ExamAxisAPI.getQuestions(testId);
                 if (response?.success && response?.data?.questions?.length) {
                     let apiQuestions = response.data.questions;
                     questionsSource = 'API';
-                    console.log('📡 API:', apiQuestions.length, 'questions');
+                    window._originalConsole?.log?.('📡 API:', apiQuestions.length, 'questions');
                     
-                    // Check if API has correctAnswer
                     if (apiQuestions[0]?.correctAnswer) {
-                        console.log('✅ API has correctAnswer');
+                        window._originalConsole?.log?.('✅ API has correctAnswer');
                         questions = apiQuestions;
                     } else {
-                        console.warn('⚠️ API missing correctAnswer');
+                        window._originalConsole?.warn?.('⚠️ API missing correctAnswer');
                         
-                        // Try to merge with local data
                         if (typeof QUESTIONS_DATABASE !== 'undefined') {
                             const possibleKeys = [
                                 testId,
                                 testId.replace(/-/g, '_'),
-                                testId.replace(/_/g, '-'),
-                                testId.toLowerCase(),
-                                testId.toUpperCase()
+                                testId.replace(/_/g, '-')
                             ];
                             
                             let localData = null;
                             for (const key of possibleKeys) {
                                 if (QUESTIONS_DATABASE[key]) {
                                     localData = QUESTIONS_DATABASE[key];
-                                    console.log('✅ Found local data with key:', key);
                                     break;
                                 }
                             }
                             
                             if (localData) {
                                 const localQuestions = Array.isArray(localData) ? localData : (localData.questions || []);
-                                
                                 questions = apiQuestions.map((apiQ, i) => {
                                     const localQ = localQuestions[i];
                                     if (localQ) {
@@ -282,12 +611,8 @@
                                     }
                                     return apiQ;
                                 });
-                                
-                                console.log('✅ Merged API + Local answers');
-                                console.log('📋 Merged Q1 correctAnswer:', questions[0]?.correctAnswer);
                             } else {
                                 questions = apiQuestions;
-                                console.warn('⚠️ No local data found to merge');
                             }
                         } else {
                             questions = apiQuestions;
@@ -295,26 +620,7 @@
                     }
                 }
             } catch (e) {
-                console.warn('⚠️ API failed:', e.message);
-            }
-        }
-
-        // PRIORITY 3: If still no questions, try to find similar keys
-        if (!questions.length && typeof QUESTIONS_DATABASE !== 'undefined') {
-            const allKeys = Object.keys(QUESTIONS_DATABASE);
-            console.log('🔍 Trying to find similar key for:', testId);
-            
-            const similarKey = allKeys.find(key => 
-                key.includes(testId) || 
-                testId.includes(key) ||
-                key.toLowerCase() === testId.toLowerCase()
-            );
-            
-            if (similarKey) {
-                console.log('✅ Found similar key:', similarKey);
-                const raw = QUESTIONS_DATABASE[similarKey];
-                questions = Array.isArray(raw) ? raw : (raw.questions || []);
-                questionsSource = 'LOCAL (similar key)';
+                window._originalConsole?.warn?.('⚠️ API failed:', e.message);
             }
         }
 
@@ -322,14 +628,10 @@
             document.body.innerHTML = `
                 <div style="text-align:center;padding:50px;">
                     <h1>No questions for: ${testId}</h1>
-                    <p>Available keys: ${typeof QUESTIONS_DATABASE !== 'undefined' ? Object.keys(QUESTIONS_DATABASE).join(', ') : 'QUESTIONS_DATABASE not loaded'}</p>
                     <a href="index.html">Go Back</a>
                 </div>`;
             return;
         }
-
-        // DEBUG: Show raw first question
-        console.log('📋 Raw Q1:', JSON.stringify(questions[0], null, 2));
 
         const subjectName = testInfo.subject || 'General';
         
@@ -339,8 +641,7 @@
             subject: subjectName
         })).filter(q => q !== null);
 
-        console.log(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
-        console.log('📋 Final Q1 correctAnswer:', window.QUIZ_DATA.questions[0]?.correctAnswer);
+        window._originalConsole?.log?.(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
 
         // ========== HELPER FUNCTIONS ==========
         function getCorrectAnswer(q, lang) {
@@ -364,7 +665,6 @@
             return -1;
         }
 
-        // ========== FILTER ==========
         function filterQuestions(category) {
             const cat = category.toLowerCase().trim();
             const QD = window.QUIZ_DATA;
@@ -395,19 +695,12 @@
             const state = item.state || QD.questionStates[item.index];
             const lang = QD.currentLanguage;
 
-            console.log('========== REVIEW Q' + (item.index + 1) + ' ==========');
-            console.log('correctAnswer:', q.correctAnswer);
-            console.log('userAnswer:', state.userAnswer);
-
             if (reviewQuestionTitle) {
                 reviewQuestionTitle.textContent = `Question ${index + 1} of ${QD.reviewQuestionList.length} (Q${item.index + 1})`;
             }
 
             const correctText = getCorrectAnswer(q, lang);
             const correctIdx = findCorrectOptionIndex(q, lang);
-            
-            console.log('Correct text:', `"${correctText}"`);
-            console.log('Correct index:', correctIdx);
 
             let userIdx = -1;
             if (state.userAnswer) {
@@ -420,7 +713,6 @@
                     }
                 }
             }
-            console.log('User index:', userIdx);
 
             let optionsHTML = '';
             
@@ -480,9 +772,7 @@
                 `;
             }
 
-            // Explanation
             const explText = q.explanation?.[lang] || q.explanation?.en || '';
-            console.log('Explanation:', explText ? 'YES' : 'NONE');
 
             if (reviewSolutionText) {
                 reviewSolutionText.innerHTML = explText?.trim() 
@@ -490,7 +780,6 @@
                     : `<em style="color:#9ca3af;">No explanation available.</em>`;
             }
 
-            // Palette
             if (reviewPaletteClean) {
                 reviewPaletteClean.innerHTML = '';
                 QD.reviewQuestionList.forEach((it, idx) => {
@@ -535,7 +824,6 @@
             }
 
             window.QUIZ_DATA.reviewQuestionList = filterQuestions(cat);
-            console.log('Filter:', cat, '- Found:', window.QUIZ_DATA.reviewQuestionList.length);
 
             resultSummaryPage?.classList.add('hidden');
             reviewPage?.classList.remove('hidden');
@@ -579,6 +867,10 @@
                 e.preventDefault();
                 if (window.QUIZ_DATA.isQuizStarted) return;
                 window.QUIZ_DATA.isQuizStarted = true;
+                
+                // 🔒 Enable exam mode security
+                SECURITY.enableExamMode();
+                
                 instructionsModal?.classList.add('hidden');
                 quizUI?.classList.remove('hidden');
                 initQuiz();
@@ -670,6 +962,9 @@
             // ========== SUBMIT QUIZ ==========
             function submitQuiz() {
                 clearInterval(QD.timerInterval);
+                
+                // 🔓 Disable exam mode after submission
+                SECURITY.disableExamMode();
 
                 let remaining = 0;
                 for (let s in QD.sectionTimeRemaining) remaining += QD.sectionTimeRemaining[s];
@@ -703,7 +998,7 @@
                     }
                 });
 
-                console.log('✅ Results:', { correct, incorrect, unattempted, score });
+                window._originalConsole?.log?.('✅ Results:', { correct, incorrect, unattempted, score });
 
                 const accuracy = (correct + incorrect) > 0 ? (correct / (correct + incorrect)) * 100 : 0;
                 QD.reviewQuestionList = filterQuestions('all');
@@ -746,7 +1041,7 @@
                 resultSummaryPage?.classList.remove('hidden');
                 document.body.classList.add('results-scroll');
 
-                // ========== SAVE ATTEMPT TO BACKEND ==========
+                // Save to backend
                 if (window.ExamAxisAPI?.isLoggedIn()) {
                     const answersObj = {};
                     QD.questionStates.forEach((state, i) => {
@@ -758,7 +1053,7 @@
 
                     const attemptData = {
                         testId: String(QD.testInfo.id || testId),
-                        examType: 'CGL',  // ✅ Use 'CGL' to match validator
+                        examType: 'CGL',
                         subject: subjectName || 'Mathematics',
                         score: Number(score.toFixed(2)),
                         totalMarks: questions.length * 2,
@@ -769,23 +1064,16 @@
                         answers: answersObj
                     };
 
-                    console.log('📤 Saving attempt:', attemptData);
-
                     ExamAxisAPI.saveTestAttempt(attemptData)
                         .then(result => {
-                            if (result.success) {
-                                console.log('✅ Test attempt saved successfully');
-                            } else {
-                                console.warn('⚠️ Could not save attempt:', result.message);
-                            }
+                            window._originalConsole?.log?.(result.success ? '✅ Saved' : '⚠️ Failed:', result.message);
                         })
                         .catch(err => {
-                            console.warn('⚠️ Save attempt failed:', err.message);
+                            window._originalConsole?.warn?.('⚠️ Error:', err.message);
                         });
                 }
-            } // ✅ End of submitQuiz
+            }
 
-            // ========== CREATE PALETTE ==========
             function createPalette() {
                 if (!questionPalette) return;
                 questionPalette.innerHTML = '';
@@ -798,7 +1086,6 @@
                 });
             }
 
-            // ========== UPDATE PALETTE ==========
             function updatePalette() {
                 questionPalette?.querySelectorAll('.palette-btn').forEach((btn, i) => {
                     const st = QD.questionStates[i];
@@ -812,7 +1099,6 @@
                 });
             }
 
-            // ========== SHOW QUESTION ==========
             function showQuestion(index) {
                 if (index < 0 || index >= questions.length) return;
                 QD.currentQuestionIndex = index;
@@ -855,13 +1141,11 @@
                 if (window.MathJax) try { MathJax.typeset(); } catch(e) {}
             }
 
-            // ========== UPDATE NAV ==========
             function updateNav() {
                 if (prevBtn) prevBtn.disabled = QD.currentQuestionIndex === 0;
                 if (nextBtn) nextBtn.textContent = QD.currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Save & Next';
             }
 
-            // ========== SAVE ANSWER ==========
             function saveAnswer() {
                 const sel = document.querySelector('input[name="option"]:checked');
                 const state = QD.questionStates[QD.currentQuestionIndex];
@@ -870,7 +1154,6 @@
                 updatePalette();
             }
 
-            // ========== BUTTON HANDLERS ==========
             if (nextBtn) nextBtn.onclick = () => {
                 saveAnswer();
                 if (QD.currentQuestionIndex < questions.length - 1) showQuestion(QD.currentQuestionIndex + 1);
@@ -895,7 +1178,7 @@
                 updatePalette();
             };
 
-            console.log('✅ Quiz ready!');
-        } // ✅ End of initQuiz
-    }); // ✅ End of DOMContentLoaded
-})(); // ✅ End of IIFE
+            window._originalConsole?.log?.('✅ Quiz ready!');
+        }
+    });
+})();
