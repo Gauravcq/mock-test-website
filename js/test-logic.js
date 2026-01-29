@@ -252,146 +252,216 @@
         }
 
         // ========== SHOW REVIEW QUESTION ==========
-        function showReviewQuestion(index) {
-            const QD = window.QUIZ_DATA;
-            QD.currentReviewIndex = index;
+       // ========== SHOW REVIEW QUESTION - COMPLETELY FIXED ==========
+function showReviewQuestion(index) {
+    const QD = window.QUIZ_DATA;
+    QD.currentReviewIndex = index;
 
-            if (!QD.reviewQuestionList.length || index < 0 || index >= QD.reviewQuestionList.length) {
-                console.warn('Invalid review index:', index);
-                return;
-            }
+    if (!QD.reviewQuestionList.length || index < 0 || index >= QD.reviewQuestionList.length) {
+        console.warn('Invalid review index:', index);
+        return;
+    }
 
-            const item = QD.reviewQuestionList[index];
-            const q = QD.questions[item.index];
-            const state = QD.questionStates[item.index];
-            const lang = QD.currentLanguage;
+    const item = QD.reviewQuestionList[index];
+    const q = QD.questions[item.index];
+    const state = QD.questionStates[item.index];
+    const lang = QD.currentLanguage;
 
-            console.log('📖 Showing review Q' + (item.index + 1), {
-                correctAnswer: q.correctAnswer,
-                userAnswer: state.userAnswer,
-                resultCategory: state.resultCategory
-            });
+    console.log('📖 Review Q' + (item.index + 1));
+    console.log('   Options:', q.options.map(o => o.en));
+    console.log('   Correct Answer Object:', q.correctAnswer);
+    console.log('   User Answer:', state.userAnswer);
 
-            if (reviewQuestionTitle) {
-                reviewQuestionTitle.textContent = `Reviewing Question ${index + 1} of ${QD.reviewQuestionList.length} (Q${item.index + 1})`;
-            }
+    if (reviewQuestionTitle) {
+        reviewQuestionTitle.textContent = `Reviewing Question ${index + 1} of ${QD.reviewQuestionList.length} (Q${item.index + 1})`;
+    }
 
-            // Get correct answer
-            const correctText = q.correctAnswer[lang] || q.correctAnswer.en || '';
-            const correctNorm = normalizeString(correctText);
+    // Get correct answer text
+    const correctAnswerText = q.correctAnswer[lang] || q.correctAnswer.en || '';
+    
+    console.log('   Correct Answer Text:', correctAnswerText);
 
-            console.log('✓ Correct answer:', correctText, '| Normalized:', correctNorm);
-
-            // Build options HTML
-            let optionsHTML = '';
-            
-            q.options.forEach((opt, i) => {
-                const optText = opt[lang] || opt.en || '';
-                const optValue = opt.en || optText;
-                const optNorm = normalizeString(optValue);
-                
-                const isCorrect = correctNorm !== '' && optNorm === correctNorm;
-                const userAnswerNorm = state.userAnswer ? normalizeString(state.userAnswer) : '';
-                const isUser = userAnswerNorm !== '' && optNorm === userAnswerNorm;
-                
-                const letter = String.fromCharCode(65 + i);
-
-                console.log(`   ${letter}. "${optText.substring(0, 30)}..." | isCorrect:${isCorrect} | isUser:${isUser}`);
-
-                // Colors
-                let bgColor = '#f9fafb';
-                let borderColor = '#e5e7eb';
-                
-                if (isCorrect) {
-                    bgColor = '#dcfce7';
-                    borderColor = '#22c55e';
-                }
-                if (isUser && !isCorrect) {
-                    bgColor = '#fee2e2';
-                    borderColor = '#ef4444';
-                }
-
-                // Indicator
-                let indicator = '';
-                if (isCorrect && isUser) {
-                    indicator = '<span style="margin-left: 12px; color: #16a34a; font-weight: 600;">✓ Your Answer (Correct!)</span>';
-                } else if (isCorrect) {
-                    indicator = '<span style="margin-left: 12px; color: #16a34a; font-weight: 600;">✓ Correct Answer</span>';
-                } else if (isUser) {
-                    indicator = '<span style="margin-left: 12px; color: #dc2626; font-weight: 600;">✗ Your Answer (Wrong)</span>';
-                }
-
-                optionsHTML += `
-                    <div style="background: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 8px; padding: 14px 16px; margin: 0 0 12px 0;">
-                        <span style="font-weight: 700; margin-right: 10px;">${letter}.</span><span>${safeRender(optText)}</span>${indicator}
-                    </div>
-                `;
-            });
-
-            // Question text
-            const qText = q.question[lang] || q.question.en || '';
-            
-            // Status note
-            let statusNote = '';
-            if (state.userAnswer === null) {
-                statusNote = `
-                    <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 14px 16px; margin-top: 16px; color: #92400e; font-weight: 500;">
-                        ⚠️ This question was NOT ATTEMPTED. The correct answer is highlighted in green above.
-                    </div>
-                `;
-            }
-
-            // Update card
-            if (reviewQuestionCard) {
-                reviewQuestionCard.innerHTML = `
-                    <div style="font-size: 17px; line-height: 1.7; margin-bottom: 20px;">
-                        <span style="font-weight: 700; color: #4f46e5;">Q${item.index + 1}.</span> ${safeRender(qText)}
-                    </div>
-                    <div style="margin-top: 16px;">
-                        ${optionsHTML}
-                    </div>
-                    ${statusNote}
-                `;
-            }
-
-            // Explanation
-            const explText = q.explanation[lang] || q.explanation.en || '';
-            if (reviewSolutionText) {
-                reviewSolutionText.innerHTML = explText 
-                    ? safeRender(explText) 
-                    : '<em style="color: #9ca3af;">No explanation available.</em>';
-            }
-
-            // Palette
-            if (reviewPaletteClean) {
-                reviewPaletteClean.innerHTML = '';
-                QD.reviewQuestionList.forEach((it, idx) => {
-                    const st = QD.questionStates[it.index];
-                    const btn = document.createElement('button');
-                    btn.textContent = it.index + 1;
-                    
-                    let bg = '#fbbf24';
-                    if (st.resultCategory === 'correct') bg = '#22c55e';
-                    else if (st.resultCategory === 'incorrect') bg = '#ef4444';
-                    
-                    btn.style.cssText = `
-                        width: 40px; height: 40px; margin: 4px;
-                        border: none; border-radius: 8px;
-                        background: ${bg}; color: white;
-                        font-weight: 700; cursor: pointer;
-                        ${idx === QD.currentReviewIndex ? 'box-shadow: 0 0 0 3px #4f46e5;' : ''}
-                    `;
-                    
-                    btn.onclick = () => showReviewQuestion(idx);
-                    reviewPaletteClean.appendChild(btn);
-                });
-            }
-
-            if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
-            if (reviewNextBtn) reviewNextBtn.disabled = index >= QD.reviewQuestionList.length - 1;
-
-            if (window.MathJax) try { MathJax.typeset(); } catch(e) {}
+    // Find correct option INDEX by comparing with options
+    let correctOptionIndex = -1;
+    q.options.forEach((opt, i) => {
+        const optText = opt[lang] || opt.en || '';
+        // Compare both raw and trimmed versions
+        if (optText === correctAnswerText || 
+            optText.trim() === correctAnswerText.trim() ||
+            opt.en === q.correctAnswer.en ||
+            opt.en?.trim() === q.correctAnswer.en?.trim()) {
+            correctOptionIndex = i;
         }
+    });
+    
+    console.log('   Correct Option Index:', correctOptionIndex);
+
+    // Find user's selected option INDEX
+    let userOptionIndex = -1;
+    if (state.userAnswer !== null) {
+        q.options.forEach((opt, i) => {
+            const optText = opt.en || '';
+            if (optText === state.userAnswer || 
+                optText.trim() === state.userAnswer?.trim()) {
+                userOptionIndex = i;
+            }
+        });
+    }
+    
+    console.log('   User Option Index:', userOptionIndex);
+
+    // Build options HTML
+    let optionsHTML = '';
+    
+    q.options.forEach((opt, i) => {
+        const optText = opt[lang] || opt.en || '';
+        const letter = String.fromCharCode(65 + i);
+        
+        const isCorrect = (i === correctOptionIndex);
+        const isUser = (i === userOptionIndex);
+
+        console.log(`   ${letter}. isCorrect:${isCorrect}, isUser:${isUser}`);
+
+        // Determine styling
+        let bgColor = '#f9fafb';
+        let borderColor = '#d1d5db';
+        let indicator = '';
+
+        if (isCorrect && isUser) {
+            bgColor = '#d1fae5';
+            borderColor = '#10b981';
+            indicator = `<span style="margin-left: auto; color: #059669; font-weight: 600; white-space: nowrap;">✓ Your Answer (Correct!)</span>`;
+        } else if (isCorrect) {
+            bgColor = '#d1fae5';
+            borderColor = '#10b981';
+            indicator = `<span style="margin-left: auto; color: #059669; font-weight: 600; white-space: nowrap;">✓ Correct Answer</span>`;
+        } else if (isUser) {
+            bgColor = '#fee2e2';
+            borderColor = '#ef4444';
+            indicator = `<span style="margin-left: auto; color: #dc2626; font-weight: 600; white-space: nowrap;">✗ Your Answer (Wrong)</span>`;
+        }
+
+        optionsHTML += `
+            <div style="
+                display: flex;
+                align-items: center;
+                background: ${bgColor};
+                border: 2px solid ${borderColor};
+                border-radius: 10px;
+                padding: 14px 18px;
+                margin-bottom: 12px;
+            ">
+                <span style="font-weight: 700; margin-right: 8px; min-width: 24px;">${letter}.</span>
+                <span style="
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    border: 2px solid ${isUser ? (isCorrect ? '#10b981' : '#ef4444') : '#9ca3af'};
+                    border-radius: 50%;
+                    margin-right: 12px;
+                    flex-shrink: 0;
+                    background: ${isUser ? (isCorrect ? '#10b981' : '#ef4444') : 'transparent'};
+                    position: relative;
+                ">${isUser ? '<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:12px;">●</span>' : ''}</span>
+                <span style="flex: 1;">${safeRender(optText)}</span>
+                ${indicator}
+            </div>
+        `;
+    });
+
+    // Question text
+    const qText = q.question[lang] || q.question.en || '';
+    
+    // Status note for unattempted
+    let statusNote = '';
+    if (state.userAnswer === null) {
+        statusNote = `
+            <div style="
+                background: #fef3c7;
+                border: 2px solid #f59e0b;
+                border-radius: 10px;
+                padding: 14px 18px;
+                margin-top: 16px;
+                color: #92400e;
+                font-weight: 500;
+            ">
+                ⚠️ This question was NOT ATTEMPTED. The correct answer is highlighted in green above.
+            </div>
+        `;
+    }
+
+    // Update the card
+    if (reviewQuestionCard) {
+        reviewQuestionCard.innerHTML = `
+            <div style="font-size: 17px; line-height: 1.7; margin-bottom: 24px; color: #1f2937;">
+                <span style="font-weight: 700; color: #4f46e5;">Q${item.index + 1}.</span> ${safeRender(qText)}
+            </div>
+            <div>
+                ${optionsHTML}
+            </div>
+            ${statusNote}
+        `;
+    }
+
+    // EXPLANATION - Check all possible fields
+    let explText = '';
+    if (q.explanation) {
+        if (typeof q.explanation === 'string') {
+            explText = q.explanation;
+        } else if (typeof q.explanation === 'object') {
+            explText = q.explanation[lang] || q.explanation.en || q.explanation.hi || '';
+        }
+    }
+    
+    console.log('   Explanation:', explText ? explText.substring(0, 50) + '...' : 'NONE');
+
+    if (reviewSolutionText) {
+        if (explText && explText.trim() !== '') {
+            reviewSolutionText.innerHTML = `<div style="color: #374151; line-height: 1.6;">${safeRender(explText)}</div>`;
+        } else {
+            reviewSolutionText.innerHTML = `<em style="color: #9ca3af;">No explanation available.</em>`;
+        }
+    }
+
+    // Update palette
+    if (reviewPaletteClean) {
+        reviewPaletteClean.innerHTML = '';
+        QD.reviewQuestionList.forEach((it, idx) => {
+            const st = QD.questionStates[it.index];
+            const btn = document.createElement('button');
+            btn.textContent = it.index + 1;
+            
+            let bg = '#fbbf24'; // yellow - unattempted
+            if (st.resultCategory === 'correct') bg = '#22c55e'; // green
+            else if (st.resultCategory === 'incorrect') bg = '#ef4444'; // red
+            
+            btn.style.cssText = `
+                width: 40px;
+                height: 40px;
+                margin: 4px;
+                border: none;
+                border-radius: 8px;
+                background: ${bg};
+                color: white;
+                font-weight: 700;
+                cursor: pointer;
+                ${idx === QD.currentReviewIndex ? 'box-shadow: 0 0 0 3px #4f46e5;' : ''}
+            `;
+            
+            btn.onclick = () => showReviewQuestion(idx);
+            reviewPaletteClean.appendChild(btn);
+        });
+    }
+
+    // Nav buttons
+    if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
+    if (reviewNextBtn) reviewNextBtn.disabled = index >= QD.reviewQuestionList.length - 1;
+
+    // MathJax
+    if (window.MathJax) {
+        try { MathJax.typeset(); } catch(e) {}
+    }
+}
 
         // ========== TAB CLICK ==========
         function handleTabClick(e) {
@@ -755,50 +825,79 @@
             }
 
             // Show question
-            function showQuestion(index) {
-                if (index < 0 || index >= questions.length) return;
+           // ===== SHOW QUESTION - FIXED WITH RADIO AFTER LETTER =====
+function showQuestion(index) {
+    if (index < 0 || index >= questions.length) return;
 
-                QD.currentQuestionIndex = index;
-                const q = questions[index];
-                const state = QD.questionStates[index];
-                const lang = QD.currentLanguage;
+    QD.currentQuestionIndex = index;
+    const q = questions[index];
+    const state = QD.questionStates[index];
+    const lang = QD.currentLanguage;
 
-                if (state.status === 'not-visited') state.status = 'not-answered';
+    if (state.status === 'not-visited') state.status = 'not-answered';
 
-                if (questionTitle) {
-                    questionTitle.textContent = `${q.subject} | Q${index + 1} of ${questions.length}`;
-                }
+    if (questionTitle) {
+        questionTitle.textContent = `${q.subject} | Q${index + 1} of ${questions.length}`;
+    }
 
-                const qText = q.question[lang] || q.question.en || '';
+    const qText = q.question[lang] || q.question.en || '';
 
-                let optionsHTML = '';
-                q.options.forEach((opt, i) => {
-                    const text = opt[lang] || opt.en || '';
-                    const value = opt.en || text;
-                    const checked = state.userAnswer === value ? 'checked' : '';
-                    const letter = String.fromCharCode(65 + i);
+    let optionsHTML = '';
+    q.options.forEach((opt, i) => {
+        const text = opt[lang] || opt.en || '';
+        const value = opt.en || text;
+        const isChecked = state.userAnswer === value;
+        const letter = String.fromCharCode(65 + i);
 
-                    optionsHTML += `
-                        <label style="display: block; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 8px; padding: 14px 16px; margin: 0 0 10px 0; cursor: pointer;">
-                            <input type="radio" name="option" value="${escapeHtml(value)}" ${checked} style="margin-right: 12px; vertical-align: middle;">
-                            <span style="font-weight: 700; margin-right: 8px;">${letter}.</span><span>${safeRender(text)}</span>
-                        </label>
-                    `;
-                });
+        optionsHTML += `
+            <label style="
+                display: flex;
+                align-items: center;
+                background: ${isChecked ? '#eff6ff' : '#f8fafc'};
+                border: 2px solid ${isChecked ? '#3b82f6' : '#e2e8f0'};
+                border-radius: 10px;
+                padding: 14px 18px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                transition: all 0.2s;
+            ">
+                <span style="font-weight: 700; margin-right: 10px; min-width: 24px;">${letter}.</span>
+                <input 
+                    type="radio" 
+                    name="option" 
+                    value="${escapeHtml(value)}" 
+                    ${isChecked ? 'checked' : ''} 
+                    style="
+                        width: 20px;
+                        height: 20px;
+                        margin-right: 14px;
+                        cursor: pointer;
+                        accent-color: #3b82f6;
+                    "
+                >
+                <span style="flex: 1;">${safeRender(text)}</span>
+            </label>
+        `;
+    });
 
-                if (questionArea) {
-                    questionArea.innerHTML = `
-                        <div style="font-size: 17px; line-height: 1.7; margin-bottom: 24px;">
-                            <span style="font-weight: 700; color: #4f46e5;">Q${index + 1}.</span> ${safeRender(qText)}
-                        </div>
-                        <div style="margin-top: 16px;">${optionsHTML}</div>
-                    `;
-                }
+    if (questionArea) {
+        questionArea.innerHTML = `
+            <div style="font-size: 17px; line-height: 1.7; margin-bottom: 24px; color: #1f2937;">
+                <span style="font-weight: 700; color: #4f46e5;">Q${index + 1}.</span> ${safeRender(qText)}
+            </div>
+            <div>
+                ${optionsHTML}
+            </div>
+        `;
+    }
 
-                updateNav();
-                updatePalette();
-                if (window.MathJax) try { MathJax.typeset(); } catch(e) {}
-            }
+    updateNav();
+    updatePalette();
+    
+    if (window.MathJax) {
+        try { MathJax.typeset(); } catch(e) {}
+    }
+}
 
             function updateNav() {
                 if (prevBtn) prevBtn.disabled = QD.currentQuestionIndex === 0;
