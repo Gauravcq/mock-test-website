@@ -1,5 +1,5 @@
-// test-logic.js - FINAL FIXED VERSION v6
-// Fix: Prioritize local database with correctAnswer over API
+// test-logic.js - FINAL FIXED VERSION v7
+// Fix: Handle both string and object correctAnswer, better testId matching
 (function() {
     'use strict';
     
@@ -22,6 +22,8 @@
     document.addEventListener('DOMContentLoaded', async () => {
         const urlParams = new URLSearchParams(window.location.search);
         const testId = urlParams.get('testId') || urlParams.get('id');
+
+        console.log('🔍 TestId from URL:', testId);
 
         if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
             localStorage.setItem('redirectAfterLogin', window.location.href);
@@ -92,14 +94,14 @@
             return normalize(a) === normalize(b);
         }
 
-        // ========== NORMALIZE QUESTION ==========
+        // ========== NORMALIZE - HANDLES ALL FORMATS ==========
         function normalizeQuestion(raw, index) {
             if (!raw) return null;
             if (raw._normalized) return raw;
             
             const q = JSON.parse(JSON.stringify(raw));
 
-            // Question
+            // Question - handle string or object
             if (typeof q.question === 'string') {
                 q.question = { en: q.question, hi: q.question };
             } else if (q.question && typeof q.question === 'object') {
@@ -111,7 +113,7 @@
                 q.question = { en: '', hi: '' };
             }
 
-            // Options
+            // Options - handle string array or object array
             q.options = (q.options || []).map((opt, i) => {
                 if (typeof opt === 'string') {
                     return { en: opt, hi: opt, index: i };
@@ -123,22 +125,19 @@
                 };
             });
 
-            // ===== CORRECT ANSWER - MULTIPLE STRATEGIES =====
+            // ===== CORRECT ANSWER - HANDLE STRING OR OBJECT =====
             let correctAnswerEn = '';
             let correctAnswerHi = '';
 
-            // Strategy 1: Direct correctAnswer object
-            if (q.correctAnswer && typeof q.correctAnswer === 'object') {
-                correctAnswerEn = q.correctAnswer.en || '';
-                correctAnswerHi = q.correctAnswer.hi || q.correctAnswer.en || '';
-            }
-            // Strategy 2: correctAnswer as string
-            else if (typeof q.correctAnswer === 'string' && q.correctAnswer.trim()) {
+            if (typeof q.correctAnswer === 'string' && q.correctAnswer.trim()) {
+                // Simple string format: "√5 + 2"
                 correctAnswerEn = q.correctAnswer.trim();
                 correctAnswerHi = q.correctAnswer.trim();
-            }
-            // Strategy 3: answer field (A, B, C, D)
-            else if (typeof q.answer === 'string' && q.answer.trim()) {
+            } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
+                // Object format: { en: "...", hi: "..." }
+                correctAnswerEn = q.correctAnswer.en || '';
+                correctAnswerHi = q.correctAnswer.hi || q.correctAnswer.en || '';
+            } else if (typeof q.answer === 'string' && q.answer.trim()) {
                 const letter = q.answer.trim().toUpperCase();
                 if (letter.length === 1 && letter >= 'A' && letter <= 'D') {
                     const idx = letter.charCodeAt(0) - 65;
@@ -151,28 +150,13 @@
                     correctAnswerHi = q.answer.trim();
                 }
             }
-            // Strategy 4: correctOption index
-            else if (typeof q.correctOption === 'number' && q.options[q.correctOption]) {
-                correctAnswerEn = q.options[q.correctOption].en;
-                correctAnswerHi = q.options[q.correctOption].hi;
-            }
-            // Strategy 5: correct index
-            else if (typeof q.correct === 'number' && q.options[q.correct]) {
-                correctAnswerEn = q.options[q.correct].en;
-                correctAnswerHi = q.options[q.correct].hi;
-            }
-            // Strategy 6: correctIndex
-            else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
-                correctAnswerEn = q.options[q.correctIndex].en;
-                correctAnswerHi = q.options[q.correctIndex].hi;
-            }
 
             q.correctAnswer = { 
                 en: correctAnswerEn.trim(), 
                 hi: (correctAnswerHi || correctAnswerEn).trim() 
             };
 
-            // Explanation
+            // ===== EXPLANATION - HANDLE STRING OR OBJECT =====
             if (typeof q.explanation === 'string') {
                 q.explanation = { en: q.explanation, hi: q.explanation };
             } else if (q.explanation && typeof q.explanation === 'object') {
@@ -189,7 +173,7 @@
             // Debug first 3
             if (index < 3) {
                 console.log(`✅ Q${index + 1}:`, {
-                    correctAnswer: q.correctAnswer.en,
+                    correctAnswer: q.correctAnswer.en || '(empty)',
                     hasExplanation: !!q.explanation.en
                 });
             }
@@ -216,7 +200,26 @@
 
         window.QUIZ_DATA.testInfo = testInfo;
 
-        // ========== LOAD QUESTIONS - FIXED PRIORITY ==========
+        // ========== DEBUG: CHECK QUESTIONS_DATABASE ==========
+        console.log('📂 Checking QUESTIONS_DATABASE...');
+        if (typeof QUESTIONS_DATABASE !== 'undefined') {
+            console.log('✅ QUESTIONS_DATABASE exists');
+            console.log('📋 Available keys:', Object.keys(QUESTIONS_DATABASE));
+            console.log('🔍 Looking for testId:', testId);
+            
+            if (QUESTIONS_DATABASE[testId]) {
+                console.log('✅ Found matching key!');
+                const sample = QUESTIONS_DATABASE[testId][0];
+                console.log('📋 Sample Q1 correctAnswer:', sample?.correctAnswer);
+            } else {
+                console.warn('⚠️ No matching key found for testId:', testId);
+                console.log('💡 Try using one of these:', Object.keys(QUESTIONS_DATABASE));
+            }
+        } else {
+            console.warn('⚠️ QUESTIONS_DATABASE is NOT defined!');
+        }
+
+        // ========== LOAD QUESTIONS ==========
         let questions = [];
         let questionsSource = '';
 
@@ -227,51 +230,72 @@
             questionsSource = 'LOCAL';
             console.log('✅ LOCAL DB:', questions.length, 'questions');
             
-            // Verify local data has correctAnswer
-            if (questions.length > 0 && questions[0].correctAnswer) {
-                console.log('✅ Local data has correctAnswer:', questions[0].correctAnswer);
-            } else {
-                console.warn('⚠️ Local data missing correctAnswer!');
+            if (questions.length > 0) {
+                console.log('📋 First question correctAnswer:', questions[0].correctAnswer);
             }
         }
 
-        // PRIORITY 2: API (fallback - may not have correctAnswer)
+        // PRIORITY 2: API (fallback)
         if (!questions.length) {
             try {
                 const response = await ExamAxisAPI.getQuestions(testId);
                 if (response?.success && response?.data?.questions?.length) {
-                    questions = response.data.questions;
+                    let apiQuestions = response.data.questions;
                     questionsSource = 'API';
-                    console.log('📡 API:', questions.length, 'questions');
+                    console.log('📡 API:', apiQuestions.length, 'questions');
                     
                     // Check if API has correctAnswer
-                    if (questions[0].correctAnswer) {
+                    if (apiQuestions[0]?.correctAnswer) {
                         console.log('✅ API has correctAnswer');
+                        questions = apiQuestions;
                     } else {
-                        console.warn('⚠️ API missing correctAnswer - Trying to merge with local...');
+                        console.warn('⚠️ API missing correctAnswer');
                         
-                        // Try to get answers from local database
-                        if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
-                            const localRaw = QUESTIONS_DATABASE[testId];
-                            const localQuestions = Array.isArray(localRaw) ? localRaw : (localRaw.questions || []);
+                        // Try to merge with local data
+                        if (typeof QUESTIONS_DATABASE !== 'undefined') {
+                            // Try different key formats
+                            const possibleKeys = [
+                                testId,
+                                testId.replace(/-/g, '_'),
+                                testId.replace(/_/g, '-'),
+                                testId.toLowerCase(),
+                                testId.toUpperCase()
+                            ];
                             
-                            // Merge: API questions + Local answers
-                            questions = questions.map((apiQ, i) => {
-                                const localQ = localQuestions[i] || localQuestions.find(lq => 
-                                    lq.questionNo === apiQ.questionNumber || 
-                                    lq.id === apiQ.id
-                                );
-                                
-                                if (localQ) {
-                                    return {
-                                        ...apiQ,
-                                        correctAnswer: localQ.correctAnswer,
-                                        explanation: localQ.explanation
-                                    };
+                            let localData = null;
+                            for (const key of possibleKeys) {
+                                if (QUESTIONS_DATABASE[key]) {
+                                    localData = QUESTIONS_DATABASE[key];
+                                    console.log('✅ Found local data with key:', key);
+                                    break;
                                 }
-                                return apiQ;
-                            });
-                            console.log('✅ Merged API + Local answers');
+                            }
+                            
+                            if (localData) {
+                                const localQuestions = Array.isArray(localData) ? localData : (localData.questions || []);
+                                
+                                // Merge: Use API structure but add correctAnswer/explanation from local
+                                questions = apiQuestions.map((apiQ, i) => {
+                                    const localQ = localQuestions[i];
+                                    if (localQ) {
+                                        return {
+                                            ...apiQ,
+                                            correctAnswer: localQ.correctAnswer,
+                                            explanation: localQ.explanation
+                                        };
+                                    }
+                                    return apiQ;
+                                });
+                                
+                                console.log('✅ Merged API + Local answers');
+                                console.log('📋 Merged Q1 correctAnswer:', questions[0]?.correctAnswer);
+                            } else {
+                                // No local data found - use API as-is
+                                questions = apiQuestions;
+                                console.warn('⚠️ No local data found to merge');
+                            }
+                        } else {
+                            questions = apiQuestions;
                         }
                     }
                 }
@@ -280,8 +304,33 @@
             }
         }
 
+        // PRIORITY 3: If still no questions, try to find similar keys
+        if (!questions.length && typeof QUESTIONS_DATABASE !== 'undefined') {
+            const allKeys = Object.keys(QUESTIONS_DATABASE);
+            console.log('🔍 Trying to find similar key for:', testId);
+            
+            // Find key that contains testId or vice versa
+            const similarKey = allKeys.find(key => 
+                key.includes(testId) || 
+                testId.includes(key) ||
+                key.toLowerCase() === testId.toLowerCase()
+            );
+            
+            if (similarKey) {
+                console.log('✅ Found similar key:', similarKey);
+                const raw = QUESTIONS_DATABASE[similarKey];
+                questions = Array.isArray(raw) ? raw : (raw.questions || []);
+                questionsSource = 'LOCAL (similar key)';
+            }
+        }
+
         if (!questions.length) {
-            document.body.innerHTML = `<div style="text-align:center;padding:50px;"><h1>No questions for: ${testId}</h1><a href="index.html">Go Back</a></div>`;
+            document.body.innerHTML = `
+                <div style="text-align:center;padding:50px;">
+                    <h1>No questions for: ${testId}</h1>
+                    <p>Available keys: ${typeof QUESTIONS_DATABASE !== 'undefined' ? Object.keys(QUESTIONS_DATABASE).join(', ') : 'QUESTIONS_DATABASE not loaded'}</p>
+                    <a href="index.html">Go Back</a>
+                </div>`;
             return;
         }
 
@@ -297,7 +346,7 @@
         })).filter(q => q !== null);
 
         console.log(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
-        console.log('📋 Normalized Q1 correctAnswer:', window.QUIZ_DATA.questions[0]?.correctAnswer);
+        console.log('📋 Final Q1 correctAnswer:', window.QUIZ_DATA.questions[0]?.correctAnswer);
 
         // ========== HELPER FUNCTIONS ==========
         function getCorrectAnswer(q, lang) {
