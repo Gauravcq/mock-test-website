@@ -1,5 +1,5 @@
-// test-logic.js  (supports OLD + NEW + EN-only question formats)
-// Tries API first, falls back to local QUESTIONS_DATABASE
+// test-logic.js (FIXED VERSION)
+// Supports bilingual JSON format with en/hi fields
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'login.html';
         return;
     }
-    // =====================================
 
     // --- DOM Element Declarations ---
     const instructionsModal = document.getElementById('instructions-modal');
@@ -40,68 +39,88 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resultTabsContainer = document.querySelector('#result-summary-page .results-header-nav');
     const reviewTabsContainer = document.querySelector('#review-page .results-header-nav');
     const languageSelect = document.querySelector('.language-select');
-
     const reviewArea = document.getElementById('review-question-area');
     const reviewQuestionTitle = document.getElementById('review-question-title');
     const reviewQuestionCard = document.getElementById('review-question-card');
     const reviewSolutionText = document.getElementById('review-solution-text');
     const reviewPaletteClean = document.getElementById('review-palette-clean');
 
-    // --- Question Normalizer ---
+    // --- GLOBAL STATE (Shared between quiz and review) ---
+    let QUIZ_DATA = {
+        questions: [],
+        questionStates: [],
+        testInfo: null,
+        currentLanguage: 'en',
+        sectionTimeRemaining: {},
+        totalInitialTime: 0,
+        reviewQuestionList: [],
+        currentReviewIndex: 0
+    };
+
+    // --- Question Normalizer (Handles your bilingual JSON format) ---
     function normalizeQuestion(raw) {
-        if (!raw) return raw;
+        if (!raw) return null;
         if (raw._normalized) return raw;
 
         const q = { ...raw };
 
-        // QUESTION
+        // QUESTION TEXT
         if (typeof q.question === 'string') {
             q.question = { en: q.question, hi: q.question };
+        } else if (q.question && typeof q.question === 'object') {
+            q.question = {
+                en: (q.question.en || '').trim(),
+                hi: (q.question.hi || q.question.en || '').trim()
+            };
         } else {
-            const enQ = q.question?.en || '';
-            const hiQ = q.question?.hi || enQ;
-            q.question = { en: enQ, hi: hiQ };
+            q.question = { en: '', hi: '' };
         }
 
-        // OPTIONS
+        // OPTIONS - Handle array of objects with en/hi
         if (Array.isArray(q.options)) {
-            if (typeof q.options[0] === 'string') {
-                q.options = q.options.map(str => {
-                    const parts = String(str).split('|');
-                    const enPart = (parts[0] || '').trim();
-                    const hiRaw = (parts[1] || '').trim();
-                    const hiPart = hiRaw !== '' ? hiRaw : enPart;
-                    return { en: enPart, hi: hiPart };
-                });
-            } else if (typeof q.options[0] === 'object') {
-                q.options = q.options.map(o => {
-                    const en = (o.en || '').trim();
-                    const hiRaw = (o.hi || '').trim();
-                    const hi = hiRaw !== '' ? hiRaw : en;
-                    return { en, hi };
-                });
-            }
+            q.options = q.options.map((opt, idx) => {
+                if (typeof opt === 'string') {
+                    return { en: opt.trim(), hi: opt.trim(), index: idx };
+                } else if (opt && typeof opt === 'object') {
+                    return {
+                        en: (opt.en || '').trim(),
+                        hi: (opt.hi || opt.en || '').trim(),
+                        index: idx
+                    };
+                }
+                return { en: '', hi: '', index: idx };
+            });
         } else {
             q.options = [];
         }
 
-        // CORRECT ANSWER
+        // CORRECT ANSWER - Handle object with en/hi
         if (typeof q.correctAnswer === 'string') {
-            const parts = String(q.correctAnswer).split('|');
-            const enPart = (parts[0] || '').trim();
-            const hiRaw = (parts[1] || '').trim();
-            const hiPart = hiRaw !== '' ? hiRaw : enPart;
-            q.correctAnswer = { en: enPart, hi: hiPart };
+            q.correctAnswer = { en: q.correctAnswer.trim(), hi: q.correctAnswer.trim() };
         } else if (q.correctAnswer && typeof q.correctAnswer === 'object') {
-            const en = (q.correctAnswer.en || '').trim();
-            const hiRaw = (q.correctAnswer.hi || '').trim();
-            const hi = hiRaw !== '' ? hiRaw : en;
-            q.correctAnswer = { en, hi };
+            q.correctAnswer = {
+                en: (q.correctAnswer.en || '').trim(),
+                hi: (q.correctAnswer.hi || q.correctAnswer.en || '').trim()
+            };
         } else if (typeof q.correctIndex === 'number' && q.options[q.correctIndex]) {
             q.correctAnswer = {
                 en: q.options[q.correctIndex].en,
                 hi: q.options[q.correctIndex].hi
             };
+        } else if (typeof q.answer === 'string') {
+            // Handle letter format like "A", "B", "C", "D"
+            const letter = q.answer.trim().toUpperCase();
+            if (letter.length === 1 && letter >= 'A' && letter <= 'Z') {
+                const idx = letter.charCodeAt(0) - 65;
+                if (q.options[idx]) {
+                    q.correctAnswer = {
+                        en: q.options[idx].en,
+                        hi: q.options[idx].hi
+                    };
+                }
+            } else {
+                q.correctAnswer = { en: q.answer.trim(), hi: q.answer.trim() };
+            }
         } else {
             q.correctAnswer = { en: '', hi: '' };
         }
@@ -109,11 +128,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         // EXPLANATION
         if (typeof q.explanation === 'string') {
             q.explanation = { en: q.explanation, hi: q.explanation };
-        } else if (typeof q.explanation === 'object' && q.explanation !== null) {
-            const enE = q.explanation.en || '';
-            const hiRaw = q.explanation.hi || '';
-            const hiE = hiRaw !== '' ? hiRaw : enE;
-            q.explanation = { en: enE, hi: hiE };
+        } else if (q.explanation && typeof q.explanation === 'object') {
+            q.explanation = {
+                en: (q.explanation.en || '').trim(),
+                hi: (q.explanation.hi || q.explanation.en || '').trim()
+            };
         } else {
             q.explanation = { en: '', hi: '' };
         }
@@ -135,38 +154,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const testInfo = ALL_TESTS.find(t => String(t.id) === testId);
     if (!testInfo) {
-        document.body.innerHTML = "<h1>Error: Test with ID " + testId + " not found in tests list.</h1>";
+        document.body.innerHTML = `<h1>Error: Test with ID ${testId} not found.</h1>`;
         return;
     }
 
+    QUIZ_DATA.testInfo = testInfo;
+
     // ====================================================================
-    // 🔒 LOAD QUESTIONS - Try API first, fallback to local QUESTIONS_DATABASE
+    // 🔒 LOAD QUESTIONS
     // ====================================================================
     let questions = [];
-    let testResults = null;
     let loadedFromAPI = false;
 
-    // Try to load from API first
     try {
         console.log(`🔒 Trying to load questions from API for test: ${testId}...`);
-        
         const response = await ExamAxisAPI.getQuestions(testId);
         
         if (response.success && response.data?.questions?.length > 0) {
             questions = response.data.questions;
             loadedFromAPI = true;
-            console.log(`✅ Loaded ${questions.length} questions from API (secure)`);
+            console.log(`✅ Loaded ${questions.length} questions from API`);
         } else {
             throw new Error('API returned no questions');
         }
     } catch (apiError) {
         console.warn('⚠️ API failed, falling back to local QUESTIONS_DATABASE...', apiError.message);
         
-        // Fallback to local questions
         if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
             let rawData = QUESTIONS_DATABASE[testId];
             
-            // Support both old array format and new object format
             if (Array.isArray(rawData)) {
                 questions = rawData;
             } else if (rawData.questions && Array.isArray(rawData.questions)) {
@@ -179,7 +195,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Final check - if still no questions, show error
     if (!questions || questions.length === 0) {
         document.body.innerHTML = `
             <div style="text-align: center; padding: 50px;">
@@ -190,69 +205,57 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
         return;
     }
-console.log(`📋 Total questions loaded: ${questions.length}, From API: ${loadedFromAPI}`);
 
-const singleSubjectName = testInfo.subject;
-const totalQuestions = questions.length;
+    console.log(`📋 Total questions loaded: ${questions.length}, From API: ${loadedFromAPI}`);
 
-// Normalize every question + add subject/section metadata
-questions = questions.map((q, index) => {
-    const nq = normalizeQuestion(q);
-    return {
-        ...nq,
-        originalIndex: index,
-        subject: singleSubjectName,
-        sectionQNum: 1,
-        sectionTotal: totalQuestions
-    };
-});
+    const singleSubjectName = testInfo.subject || 'General';
+    const totalQuestions = questions.length;
 
-// ====================================================================
-// 🎯 SHOW INSTRUCTIONS AND BIND START BUTTON
-// ====================================================================
-// Make sure instructions modal is visible
-if (instructionsModal) {
-    instructionsModal.classList.remove('hidden');
-    console.log('✅ Instructions modal is now visible');
-}
-
-// Make sure quiz UI is hidden initially
-if (quizUI) {
-    quizUI.classList.add('hidden');
-}
-
-// Bind start button
-if (startTestBtn) {
-    // Remove any existing listeners
-    const newStartBtn = startTestBtn.cloneNode(true);
-    startTestBtn.parentNode.replaceChild(newStartBtn, startTestBtn);
-    
-    newStartBtn.addEventListener('click', () => {
-        console.log('🚀 Starting test with', questions.length, 'questions');
-        if (instructionsModal) instructionsModal.classList.add('hidden');
-        if (quizUI) quizUI.classList.remove('hidden');
-        initializeQuiz(questions, testInfo);
+    // Normalize all questions and store in QUIZ_DATA
+    QUIZ_DATA.questions = questions.map((q, index) => {
+        const nq = normalizeQuestion(q);
+        return {
+            ...nq,
+            originalIndex: index,
+            subject: singleSubjectName,
+            sectionQNum: index + 1,
+            sectionTotal: totalQuestions
+        };
     });
-    console.log('✅ Start button is ready - click it to begin!');
-} else {
-    console.error('❌ Start Test button (#start-test-btn) not found in HTML!');
-    // Fallback: Auto-start the quiz
-    console.log('🚀 Auto-starting quiz since no start button...');
-    if (quizUI) quizUI.classList.remove('hidden');
-    initializeQuiz(questions, testInfo);
-}
-// ====================================================================
+
+    console.log('✅ Questions normalized. Sample:', QUIZ_DATA.questions[0]);
+
     // ====================================================================
+    // SHOW INSTRUCTIONS AND BIND START BUTTON
+    // ====================================================================
+    if (instructionsModal) {
+        instructionsModal.classList.remove('hidden');
+    }
+    if (quizUI) {
+        quizUI.classList.add('hidden');
+    }
 
-    // --- Global Variables ---
-    let reviewQuestionList = [];
-    let questionStates = [];
-    let currentReviewIndex = 0;
-    let currentLanguage = 'en';
-    let sectionTimeRemaining = {};
-    let totalInitialTime = 0;
+    if (startTestBtn) {
+        const newStartBtn = startTestBtn.cloneNode(true);
+        startTestBtn.parentNode.replaceChild(newStartBtn, startTestBtn);
+        
+        newStartBtn.addEventListener('click', () => {
+            console.log('🚀 Starting test with', QUIZ_DATA.questions.length, 'questions');
+            if (instructionsModal) instructionsModal.classList.add('hidden');
+            if (quizUI) quizUI.classList.remove('hidden');
+            initializeQuiz();
+        });
+        console.log('✅ Start button ready');
+    } else {
+        console.warn('⚠️ No start button found, auto-starting...');
+        if (quizUI) quizUI.classList.remove('hidden');
+        setTimeout(() => initializeQuiz(), 100);
+    }
 
-    // --- Helper Functions ---
+    // ====================================================================
+    // HELPER FUNCTIONS (Use QUIZ_DATA for consistency)
+    // ====================================================================
+    
     function normalizeString(str) {
         if (str === null || typeof str === 'undefined') return '';
         return String(str)
@@ -260,11 +263,27 @@ if (startTestBtn) {
             .replace(/m\u00b2/g, 'm^2')
             .replace(/\u00b0/g, 'deg')
             .replace(/\s+/g, '')
+            .replace(/√/g, 'sqrt')
             .toLowerCase();
     }
 
+    function escapeHtml(text) {
+        if (text === null || typeof text === 'undefined') return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
     function filterQuestions(category) {
-        const questionsWithState = questions.map((q, index) => ({ ...q, index, state: questionStates[index] }));
+        const questionsWithState = QUIZ_DATA.questions.map((q, index) => ({
+            ...q,
+            index,
+            state: QUIZ_DATA.questionStates[index] || {}
+        }));
+
         switch (category) {
             case 'all':
             case 'overview':
@@ -278,19 +297,18 @@ if (startTestBtn) {
             case 'marked for review':
                 return questionsWithState.filter(item => item.state.markedForReview);
             default:
-                return [];
+                return questionsWithState;
         }
     }
 
     function showReviewPalette() {
         const reviewPaletteOld = document.getElementById('review-palette');
-        const reviewPaletteNew = reviewPaletteClean;
-
+        
         function fillContainer(container, cleanStyle) {
             if (!container) return;
             container.innerHTML = '';
 
-            reviewQuestionList.forEach((item, index) => {
+            QUIZ_DATA.reviewQuestionList.forEach((item, index) => {
                 const state = item.state || {};
                 const btn = document.createElement('button');
 
@@ -301,90 +319,121 @@ if (startTestBtn) {
                 if (!cleanStyle) {
                     if (state.resultCategory === 'correct') btn.classList.add('answered');
                     else if (state.resultCategory === 'incorrect') btn.classList.add('not-answered');
+                    else if (state.resultCategory === 'unattempted') btn.classList.add('not-visited');
 
                     if (state.markedForReview) {
-                        if (state.userAnswer !== null) {
-                            btn.classList.remove('answered', 'not-answered');
-                            btn.classList.add('answered-marked-review');
-                        } else {
-                            btn.classList.add('marked-review');
-                        }
+                        btn.classList.add(state.userAnswer !== null ? 'answered-marked-review' : 'marked-review');
                     }
-                    if (index === currentReviewIndex) btn.classList.add('current');
+                    if (index === QUIZ_DATA.currentReviewIndex) btn.classList.add('current');
                 }
 
-                btn.addEventListener('click', () => { showReviewQuestion(index); });
+                btn.addEventListener('click', () => showReviewQuestion(index));
                 container.appendChild(btn);
             });
         }
 
         fillContainer(reviewPaletteOld, false);
-        fillContainer(reviewPaletteNew, true);
+        fillContainer(reviewPaletteClean, true);
     }
 
     function showReviewQuestion(index) {
-        currentReviewIndex = index;
+        QUIZ_DATA.currentReviewIndex = index;
 
-        if (reviewQuestionList.length === 0 || index < 0 || index >= reviewQuestionList.length) return;
-
-        const reviewItem = reviewQuestionList[index];
-        const question = questions[reviewItem.index];
-        const state = questionStates[reviewItem.index];
-
-        if (reviewQuestionTitle) {
-            reviewQuestionTitle.textContent =
-                "Reviewing Question " + (index + 1) + " of " + reviewQuestionList.length +
-                " (Original Q" + (reviewItem.index + 1) + ")";
+        if (QUIZ_DATA.reviewQuestionList.length === 0 || index < 0 || index >= QUIZ_DATA.reviewQuestionList.length) {
+            console.warn('No questions to review at index:', index);
+            return;
         }
 
-        const optionsHtml = question.options.map(optObj => {
-            const optionEn = optObj.en;
-            const optionHi = optObj.hi || '';
+        const reviewItem = QUIZ_DATA.reviewQuestionList[index];
+        const question = QUIZ_DATA.questions[reviewItem.index];
+        const state = QUIZ_DATA.questionStates[reviewItem.index];
 
-            const isCorrect = normalizeString(optionEn) === normalizeString(question.correctAnswer.en);
-            const isUserChoice = normalizeString(optionEn) === normalizeString(state.userAnswer);
+        if (!question || !state) {
+            console.error('Missing question or state for index:', reviewItem.index);
+            return;
+        }
+
+        const lang = QUIZ_DATA.currentLanguage;
+
+        if (reviewQuestionTitle) {
+            reviewQuestionTitle.textContent = 
+                `Reviewing Question ${index + 1} of ${QUIZ_DATA.reviewQuestionList.length} (Original Q${reviewItem.index + 1})`;
+        }
+
+        // Find correct answer text for comparison
+        const correctAnswerText = question.correctAnswer[lang] || question.correctAnswer.en;
+        const correctAnswerNormalized = normalizeString(correctAnswerText);
+
+        const optionsHtml = question.options.map((optObj, optIdx) => {
+            const optionText = optObj[lang] || optObj.en;
+            const optionNormalized = normalizeString(optionText);
+            
+            const isCorrect = optionNormalized === correctAnswerNormalized;
+            const userAnswerNormalized = normalizeString(state.userAnswer);
+            const isUserChoice = state.userAnswer !== null && optionNormalized === userAnswerNormalized;
 
             let optionClass = 'review-option';
-            if (isCorrect) optionClass += ' correct';
-            if (isUserChoice && !isCorrect) optionClass += ' incorrect';
-            if (isUserChoice && isCorrect) optionClass += ' correct-user-choice';
+            let indicators = '';
 
-            let html = '<div class="' + optionClass + '">';
-            html += '<div class="review-option-text"><span class="radio-icon"></span><span class="option-label"><strong>' + optionEn + '</strong>';
-            if (optionHi) html += ' <small class="hi-text">(' + optionHi + ')</small>';
-            html += '</span></div>';
-            if (isUserChoice) html += '<span class="user-pick-indicator">✔️ Your Pick</span>';
-            if (isCorrect && !isUserChoice) html += '<span class="correct-indicator">✅ Correct Answer</span>';
-            html += '</div>';
-            return html;
+            if (isCorrect && isUserChoice) {
+                optionClass += ' correct correct-user-choice';
+                indicators = '<span class="correct-indicator">✅ Your Answer (Correct!)</span>';
+            } else if (isCorrect) {
+                optionClass += ' correct';
+                indicators = '<span class="correct-indicator">✅ Correct Answer</span>';
+            } else if (isUserChoice) {
+                optionClass += ' incorrect';
+                indicators = '<span class="user-pick-indicator">❌ Your Answer (Wrong)</span>';
+            }
+
+            const optionLabel = String.fromCharCode(65 + optIdx); // A, B, C, D
+
+            return `
+                <div class="${optionClass}">
+                    <div class="review-option-text">
+                        <span class="option-letter">${optionLabel}.</span>
+                        <span class="option-label">${escapeHtml(optionText)}</span>
+                    </div>
+                    ${indicators}
+                </div>
+            `;
         }).join('');
 
-        const questionText = (typeof question.question === 'object') ? question.question[currentLanguage] : question.question;
-        const explanationText = (typeof question.explanation === 'object') ? question.explanation[currentLanguage] : question.explanation;
+        const questionText = question.question[lang] || question.question.en;
+        const explanationText = question.explanation[lang] || question.explanation.en;
 
-        const baseQuestionHtml =
-            '<p class="question-text">' + (reviewItem.index + 1) + '. ' + questionText + '</p>' +
-            '<div class="options-container">' + optionsHtml + '</div>' +
-            (state.userAnswer === null ? '<p class="unattempted-note">**This question was unattempted.**</p>' : '');
+        let statusNote = '';
+        if (state.userAnswer === null) {
+            statusNote = '<p class="unattempted-note" style="color: #f59e0b; margin-top: 15px; font-weight: bold;">⚠️ This question was NOT ATTEMPTED. The correct answer is highlighted above.</p>';
+        }
 
         if (reviewQuestionCard) {
-            reviewQuestionCard.innerHTML = baseQuestionHtml;
+            reviewQuestionCard.innerHTML = `
+                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${escapeHtml(questionText)}</p>
+                <div class="options-container">${optionsHtml}</div>
+                ${statusNote}
+            `;
         }
 
         if (reviewSolutionText) {
-            reviewSolutionText.textContent = explanationText || '—';
+            reviewSolutionText.innerHTML = explanationText ? escapeHtml(explanationText) : '<em>No explanation available.</em>';
         }
 
         if (reviewArea && !reviewQuestionCard) {
-            reviewArea.innerHTML =
-                baseQuestionHtml +
-                '<div class="solution-box"><h4>Solution:</h4><p>' + explanationText + '</p></div>';
+            reviewArea.innerHTML = `
+                <p class="question-text"><strong>Q${reviewItem.index + 1}.</strong> ${escapeHtml(questionText)}</p>
+                <div class="options-container">${optionsHtml}</div>
+                ${statusNote}
+                <div class="solution-box"><h4>Solution:</h4><p>${escapeHtml(explanationText) || 'No explanation available.'}</p></div>
+            `;
         }
 
-        if (window.MathJax) { window.MathJax.typeset(); }
+        if (window.MathJax) {
+            try { window.MathJax.typeset(); } catch (e) { console.warn('MathJax error:', e); }
+        }
 
         if (reviewPrevBtn) reviewPrevBtn.disabled = index === 0;
-        if (reviewNextBtn) reviewNextBtn.disabled = index === reviewQuestionList.length - 1;
+        if (reviewNextBtn) reviewNextBtn.disabled = index === QUIZ_DATA.reviewQuestionList.length - 1;
 
         showReviewPalette();
     }
@@ -408,86 +457,92 @@ if (startTestBtn) {
             return;
         }
 
-        reviewQuestionList = filterQuestions(category);
+        QUIZ_DATA.reviewQuestionList = filterQuestions(category);
+        console.log(`📋 Filtered "${category}": ${QUIZ_DATA.reviewQuestionList.length} questions`);
 
         if (resultSummaryPage) resultSummaryPage.classList.add('hidden');
         if (reviewPage) reviewPage.classList.remove('hidden');
 
-        if (reviewQuestionList.length > 0) {
+        if (QUIZ_DATA.reviewQuestionList.length > 0) {
             showReviewQuestion(0);
         } else {
-            if (reviewArea) reviewArea.innerHTML =
-                '<p style="text-align:center; padding: 50px;">No questions found in this category.</p>';
+            if (reviewArea) {
+                reviewArea.innerHTML = `<p style="text-align:center; padding: 50px; color: #666;">No questions found in "${category}" category.</p>`;
+            }
+            if (reviewQuestionCard) {
+                reviewQuestionCard.innerHTML = `<p style="text-align:center; padding: 50px; color: #666;">No questions found in "${category}" category.</p>`;
+            }
             if (reviewQuestionTitle) reviewQuestionTitle.textContent = "Reviewing Question 0 of 0";
             if (reviewPrevBtn) reviewPrevBtn.disabled = true;
             if (reviewNextBtn) reviewNextBtn.disabled = true;
+            
             const rpOld = document.getElementById('review-palette');
-            if (rpOld) rpOld.innerHTML = '';
-            if (reviewPaletteClean) reviewPaletteClean.innerHTML = '';
+            if (rpOld) rpOld.innerHTML = '<p style="text-align:center; color: #666;">No questions</p>';
+            if (reviewPaletteClean) reviewPaletteClean.innerHTML = '<p style="text-align:center; color: #666;">No questions</p>';
         }
     }
 
-    // ==========================================================
-    //  INITIALIZE QUIZ (MAIN LOGIC)
-    // ==========================================================
-    function initializeQuiz(questions, testInfo) {
+    // ====================================================================
+    // INITIALIZE QUIZ
+    // ====================================================================
+    function initializeQuiz() {
         let currentQuestionIndex = 0;
-        let timerInterval;
+        let timerInterval = null;
         let isPaused = false;
 
-        const sectionDurations = {
-            "Maths": 25,
-            "Maths Top 50": 60,
-            "Reasoning": 20,
-            "English": 15,
-            "GK": 10,
-            "Time Left": 20
-        };
+        const testDuration = QUIZ_DATA.testInfo.duration || 25;
+        const questions = QUIZ_DATA.questions;
 
-        sectionTimeRemaining = {};
-        totalInitialTime = 0;
-
-        // Use testInfo duration or default
-        const testDuration = testInfo.duration || sectionDurations[singleSubjectName] || 25;
+        // Initialize timing
+        QUIZ_DATA.sectionTimeRemaining = {};
+        QUIZ_DATA.totalInitialTime = 0;
 
         const uniqueSubjects = [...new Set(questions.map(q => q.subject))];
         uniqueSubjects.forEach(subj => {
-            const minutes = testDuration;
-            sectionTimeRemaining[subj] = minutes * 60;
-            totalInitialTime += (minutes * 60);
+            QUIZ_DATA.sectionTimeRemaining[subj] = testDuration * 60;
+            QUIZ_DATA.totalInitialTime += (testDuration * 60);
         });
 
         console.log(`⏱️ Quiz Duration: ${testDuration} minutes`);
 
+        // Language selector
         if (languageSelect) {
-            languageSelect.value = currentLanguage;
+            languageSelect.value = QUIZ_DATA.currentLanguage;
             languageSelect.addEventListener('change', (e) => {
-                currentLanguage = e.target.value;
-                const isQuizActive = !quizUI.classList.contains('hidden');
-                const isReviewActive = !reviewPage.classList.contains('hidden');
+                QUIZ_DATA.currentLanguage = e.target.value;
+                const isQuizActive = quizUI && !quizUI.classList.contains('hidden');
+                const isReviewActive = reviewPage && !reviewPage.classList.contains('hidden');
                 if (isQuizActive) showQuestion(currentQuestionIndex);
-                else if (isReviewActive) showReviewQuestion(currentReviewIndex);
+                else if (isReviewActive) showReviewQuestion(QUIZ_DATA.currentReviewIndex);
             });
         }
 
-        const badgeHtml = testInfo.isNew ? '<span class="new-badge">NEW</span>' : '';
+        // Update title
+        const badgeHtml = QUIZ_DATA.testInfo.isNew ? '<span class="new-badge">NEW</span>' : '';
         const titleEl = document.getElementById('test-main-title');
-        if (titleEl) titleEl.innerHTML = testInfo.date + ' - ' + testInfo.title + ' ' + badgeHtml;
+        if (titleEl) {
+            titleEl.innerHTML = `${QUIZ_DATA.testInfo.date || ''} - ${QUIZ_DATA.testInfo.title || 'Test'} ${badgeHtml}`;
+        }
 
-        questionStates = questions.map(() => ({
+        // Initialize question states
+        QUIZ_DATA.questionStates = questions.map(() => ({
             status: 'not-visited',
             userAnswer: null,
             markedForReview: false,
             resultCategory: null
         }));
 
+        console.log('✅ Question states initialized:', QUIZ_DATA.questionStates.length);
+
         createPalette();
-        startTimer();
         showQuestion(0);
+        startTimer();
 
         window.addEventListener('beforeunload', (e) => {
-            e.preventDefault();
-            e.returnValue = '';
+            if (!resultSummaryPage || resultSummaryPage.classList.contains('hidden')) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
         });
 
         function getCurrentSubject() {
@@ -495,18 +550,19 @@ if (startTestBtn) {
         }
 
         function startTimer() {
-            clearInterval(timerInterval);
+            if (timerInterval) clearInterval(timerInterval);
+            
             timerInterval = setInterval(() => {
                 if (isPaused) return;
+                
                 const currentSubject = getCurrentSubject();
-                if (sectionTimeRemaining[currentSubject] > 0) {
-                    sectionTimeRemaining[currentSubject]--;
-                    const t = sectionTimeRemaining[currentSubject];
+                if (QUIZ_DATA.sectionTimeRemaining[currentSubject] > 0) {
+                    QUIZ_DATA.sectionTimeRemaining[currentSubject]--;
+                    const t = QUIZ_DATA.sectionTimeRemaining[currentSubject];
                     const minutes = Math.floor(t / 60);
                     const seconds = t % 60;
                     if (timerEl) {
-                        timerEl.textContent =
-                            `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                        timerEl.textContent = `${currentSubject}: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                     }
                 } else {
                     handleSectionTimeout(currentSubject);
@@ -531,63 +587,73 @@ if (startTestBtn) {
         }
 
         function showSubmissionSummary() {
-            const answered = questionStates.filter(s => s.userAnswer !== null).length;
-            const marked = questionStates.filter(s => s.markedForReview).length;
-            const answeredAndMarked = questionStates.filter(s => s.userAnswer !== null && s.markedForReview).length;
+            const answered = QUIZ_DATA.questionStates.filter(s => s.userAnswer !== null).length;
+            const marked = QUIZ_DATA.questionStates.filter(s => s.markedForReview).length;
+            const answeredAndMarked = QUIZ_DATA.questionStates.filter(s => s.userAnswer !== null && s.markedForReview).length;
+            
             if (submissionStatsEl) {
-                submissionStatsEl.innerHTML =
-                    '<div>Answered: <span>' + answered + ' / ' + questions.length + '</span></div>' +
-                    '<div>Not Answered: <span>' + (questions.length - answered) + ' / ' + questions.length + '</span></div>' +
-                    '<div>Marked for Review: <span>' + marked + '</span></div>' +
-                    '<div>Answered & Marked for Review: <span>' + answeredAndMarked + '</span></div>';
+                submissionStatsEl.innerHTML = `
+                    <div>Answered: <span>${answered} / ${questions.length}</span></div>
+                    <div>Not Answered: <span>${questions.length - answered} / ${questions.length}</span></div>
+                    <div>Marked for Review: <span>${marked}</span></div>
+                    <div>Answered & Marked: <span>${answeredAndMarked}</span></div>
+                `;
             }
             if (submitSummaryModal) submitSummaryModal.classList.remove('hidden');
         }
 
         // ================================================================
-        // CALCULATE AND SHOW RESULTS (Local scoring - works without API)
+        // CALCULATE AND SHOW RESULTS
         // ================================================================
         function calculateAndShowResults(autoSubmit = false) {
             clearInterval(timerInterval);
 
             let totalRemainingSeconds = 0;
-            for (let subj in sectionTimeRemaining) {
-                totalRemainingSeconds += sectionTimeRemaining[subj];
+            for (let subj in QUIZ_DATA.sectionTimeRemaining) {
+                totalRemainingSeconds += QUIZ_DATA.sectionTimeRemaining[subj];
             }
-            const timeTakenSecondsTotal = totalInitialTime - totalRemainingSeconds;
+            const timeTakenSecondsTotal = QUIZ_DATA.totalInitialTime - totalRemainingSeconds;
             const timeTakenMinutes = Math.floor(timeTakenSecondsTotal / 60);
             const timeTakenSeconds = timeTakenSecondsTotal % 60;
 
             let correctCount = 0, incorrectCount = 0, unattemptedCount = 0, score = 0;
 
-            questionStates.forEach((state, index) => {
+            QUIZ_DATA.questionStates.forEach((state, index) => {
                 const question = questions[index];
+                const correctAnswerText = question.correctAnswer.en;
+                const correctAnswerNormalized = normalizeString(correctAnswerText);
+
                 if (state.userAnswer !== null) {
                     const userAnswerNormalized = normalizeString(state.userAnswer);
-                    const correctAnswerNormalized = normalizeString(question.correctAnswer.en);
+                    
+                    console.log(`Q${index + 1}: User="${state.userAnswer}" vs Correct="${correctAnswerText}"`);
+                    console.log(`  Normalized: "${userAnswerNormalized}" vs "${correctAnswerNormalized}"`);
+                    
                     if (userAnswerNormalized === correctAnswerNormalized) {
-                        correctCount++; 
-                        score += 2; 
+                        correctCount++;
+                        score += 2;
                         state.resultCategory = 'correct';
                     } else {
-                        incorrectCount++; 
-                        score -= 0.5; 
+                        incorrectCount++;
+                        score -= 0.5;
                         state.resultCategory = 'incorrect';
                     }
                 } else {
-                    unattemptedCount++; 
+                    unattemptedCount++;
                     state.resultCategory = 'unattempted';
                 }
             });
 
+            console.log(`📊 Results: Correct=${correctCount}, Incorrect=${incorrectCount}, Unattempted=${unattemptedCount}`);
+
             const attemptedCount = correctCount + incorrectCount;
             const accuracy = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
 
-            // Send summary to backend (non-blocking)
+            // Send to backend (non-blocking)
             const attemptSummary = {
-                testId: testInfo.id || testId,
-                testTitle: testInfo.title,
-                subject: testInfo.subject || singleSubjectName,
+                testId: QUIZ_DATA.testInfo.id || testId,
+                testTitle: QUIZ_DATA.testInfo.title,
+                subject: QUIZ_DATA.testInfo.subject || singleSubjectName,
                 totalQuestions: questions.length,
                 correct: correctCount,
                 incorrect: incorrectCount,
@@ -599,53 +665,49 @@ if (startTestBtn) {
             };
             sendAttemptToServer(attemptSummary);
 
-            reviewQuestionList = filterQuestions('all');
+            // Initialize review list
+            QUIZ_DATA.reviewQuestionList = filterQuestions('all');
 
+            // Build results UI
             const testInfoAndActionsWrapper = document.getElementById('review-button-area');
-            const testDetailsHtml =
-                '<div class="test-details">' +
-                '<h3>' + (testInfo.title || 'Shift 1') + '</h3>' +
-                '<p>Total Questions: ' + questions.length + '</p>' +
-                '<p>Max Marks: ' + (questions.length * 2) + '</p>' +
-                '</div>';
-
-            const reviewButtonHtml =
-                '<div class="action-buttons">' +
-                '<button id="review-test-btn" class="btn primary review">Review Test</button>' +
-                '<a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>' +
-                '</div>';
-
             if (testInfoAndActionsWrapper) {
-                testInfoAndActionsWrapper.innerHTML = testDetailsHtml + reviewButtonHtml;
+                testInfoAndActionsWrapper.innerHTML = `
+                    <div class="test-details">
+                        <h3>${QUIZ_DATA.testInfo.title || 'Test'}</h3>
+                        <p>Total Questions: ${questions.length}</p>
+                        <p>Max Marks: ${questions.length * 2}</p>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="review-test-btn" class="btn primary review">Review Test</button>
+                        <a href="index.html" class="btn secondary go-to-tests">Go to Tests</a>
+                    </div>
+                `;
             }
 
             const statsCardsArea = document.getElementById('stats-cards-area');
-            const statsCardsHtml =
-                '<div class="stats-grid-container">' +
-                '<div class="stat-card total-score"><div class="stat-value">' + score.toFixed(2) + '</div><div class="stat-name">YOUR SCORE</div></div>' +
-                '<div class="stat-card correct"><div class="stat-value">' + correctCount + '</div><div class="stat-name">CORRECT</div></div>' +
-                '<div class="stat-card incorrect"><div class="stat-value">' + incorrectCount + '</div><div class="stat-name">INCORRECT</div></div>' +
-                '<div class="stat-card unattempted"><div class="stat-value">' + unattemptedCount + '</div><div class="stat-name">UNATTEMPTED</div></div>' +
-                '<div class="stat-card time-taken"><div class="stat-value">' +
-                    String(timeTakenMinutes).padStart(2, '0') + ':' +
-                    String(timeTakenSeconds).padStart(2, '0') +
-                    '</div><div class="stat-name">TIME TAKEN</div></div>' +
-                '<div class="stat-card accuracy"><div class="stat-value">' + accuracy.toFixed(1) + '%</div><div class="stat-name">ACCURACY</div></div>' +
-                '</div>';
+            if (statsCardsArea) {
+                statsCardsArea.innerHTML = `
+                    <div class="stats-grid-container">
+                        <div class="stat-card total-score"><div class="stat-value">${score.toFixed(2)}</div><div class="stat-name">YOUR SCORE</div></div>
+                        <div class="stat-card correct"><div class="stat-value">${correctCount}</div><div class="stat-name">CORRECT</div></div>
+                        <div class="stat-card incorrect"><div class="stat-value">${incorrectCount}</div><div class="stat-name">INCORRECT</div></div>
+                        <div class="stat-card unattempted"><div class="stat-value">${unattemptedCount}</div><div class="stat-name">UNATTEMPTED</div></div>
+                        <div class="stat-card time-taken"><div class="stat-value">${String(timeTakenMinutes).padStart(2, '0')}:${String(timeTakenSeconds).padStart(2, '0')}</div><div class="stat-name">TIME TAKEN</div></div>
+                        <div class="stat-card accuracy"><div class="stat-value">${accuracy.toFixed(1)}%</div><div class="stat-name">ACCURACY</div></div>
+                    </div>
+                `;
+            }
 
-            if (statsCardsArea) statsCardsArea.innerHTML = statsCardsHtml;
-
+            // Bind review button
             const reviewTestBtn = document.querySelector('#review-test-btn');
             if (reviewTestBtn) {
-                reviewTestBtn.removeEventListener('click', handleReviewTestClick);
-                reviewTestBtn.addEventListener('click', handleReviewTestClick);
+                reviewTestBtn.addEventListener('click', () => {
+                    const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
+                    if (allTab) tabClickHandler({ preventDefault: () => {}, target: allTab });
+                });
             }
 
-            function handleReviewTestClick() {
-                const allTab = document.querySelector('#result-summary-page .results-header-nav a:nth-child(2)');
-                if (allTab) tabClickHandler({ preventDefault: () => { }, target: allTab });
-            }
-
+            // Bind tab handlers
             [resultTabsContainer, reviewTabsContainer].forEach(container => {
                 if (container) {
                     container.querySelectorAll('a').forEach(tab => {
@@ -655,16 +717,17 @@ if (startTestBtn) {
                 }
             });
 
-            quizUI.classList.add('hidden');
-            resultSummaryPage.classList.remove('hidden');
+            if (quizUI) quizUI.classList.add('hidden');
+            if (resultSummaryPage) resultSummaryPage.classList.remove('hidden');
         }
 
         function createPalette() {
             if (!questionPalette) return;
             questionPalette.innerHTML = '';
+            
             questions.forEach((_, index) => {
                 const btn = document.createElement('button');
-                btn.className = 'palette-btn';
+                btn.className = 'palette-btn not-visited';
                 btn.textContent = index + 1;
                 btn.dataset.index = index;
                 btn.addEventListener('click', () => {
@@ -676,79 +739,94 @@ if (startTestBtn) {
         }
 
         function showQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+
             const targetSubject = questions[index].subject;
-            if (sectionTimeRemaining[targetSubject] <= 0) {
-                alert(`Time for ${targetSubject} is over. You cannot access this section.`);
+            if (QUIZ_DATA.sectionTimeRemaining[targetSubject] <= 0) {
+                alert(`Time for ${targetSubject} is over.`);
                 return;
             }
 
             currentQuestionIndex = index;
             const question = questions[index];
-            const state = questionStates[index];
+            const state = QUIZ_DATA.questionStates[index];
+            const lang = QUIZ_DATA.currentLanguage;
 
             if (state.status === 'not-visited') state.status = 'not-answered';
 
-            if (questionTitle) questionTitle.textContent =
-                `${question.subject} | Q${index + 1} of ${questions.length}`;
+            if (questionTitle) {
+                questionTitle.textContent = `${question.subject} | Q${index + 1} of ${questions.length}`;
+            }
 
-            const questionText = (typeof question.question === 'object')
-                ? question.question[currentLanguage]
-                : question.question;
+            const questionText = question.question[lang] || question.question.en;
 
-            const optionsHtml = question.options.map(optObj => {
-                const optionEn = optObj.en;
-                const checked = (state.userAnswer === optionEn) ? 'checked' : '';
+            const optionsHtml = question.options.map((optObj, optIdx) => {
+                const optionText = optObj[lang] || optObj.en;
+                const optionValue = optObj.en; // Always use EN for value
+                const checked = (state.userAnswer === optionValue) ? 'checked' : '';
+                const optionLabel = String.fromCharCode(65 + optIdx);
+                
                 return `
                     <label class="option">
-                        <input type="radio" name="option" value="${escapeHtml(optionEn)}" ${checked}>
-                        <span class="option-text"><strong>${escapeHtml(optObj[currentLanguage])}</strong></span>
+                        <input type="radio" name="option" value="${escapeHtml(optionValue)}" ${checked}>
+                        <span class="option-letter">${optionLabel}.</span>
+                        <span class="option-text">${escapeHtml(optionText)}</span>
                     </label>
                 `;
             }).join('');
 
             if (questionArea) {
-                questionArea.innerHTML =
-                    '<p class="question-text">' + (index + 1) + '. ' + questionText + '</p>' +
-                    '<div class="options-container">' + optionsHtml + '</div>';
+                questionArea.innerHTML = `
+                    <p class="question-text"><strong>Q${index + 1}.</strong> ${escapeHtml(questionText)}</p>
+                    <div class="options-container">${optionsHtml}</div>
+                `;
             }
 
-            if (window.MathJax) window.MathJax.typeset();
+            if (window.MathJax) {
+                try { window.MathJax.typeset(); } catch (e) {}
+            }
+            
             updateNavigation();
             updatePalette();
-            startTimer();
         }
 
         function updateNavigation() {
             if (prevBtn) prevBtn.disabled = currentQuestionIndex === 0;
             if (nextBtn) {
-                nextBtn.textContent =
-                    (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
+                nextBtn.textContent = (currentQuestionIndex === questions.length - 1) ? 'Submit Test' : 'Save & Next';
             }
 
-            const state = questionStates[currentQuestionIndex];
-            const isMarked = state.markedForReview;
-            const isAnswered = state.userAnswer !== null;
-
+            const state = QUIZ_DATA.questionStates[currentQuestionIndex];
             if (markReviewBtn) {
-                if (isMarked && isAnswered) markReviewBtn.textContent = 'Unmark & Save (Answered)';
-                else if (isMarked) markReviewBtn.textContent = 'Unmark Review';
-                else if (isAnswered) markReviewBtn.textContent = 'Mark for Review (Answered)';
-                else markReviewBtn.textContent = 'Mark for Review';
+                if (state.markedForReview && state.userAnswer !== null) {
+                    markReviewBtn.textContent = 'Unmark & Save (Answered)';
+                } else if (state.markedForReview) {
+                    markReviewBtn.textContent = 'Unmark Review';
+                } else if (state.userAnswer !== null) {
+                    markReviewBtn.textContent = 'Mark for Review (Answered)';
+                } else {
+                    markReviewBtn.textContent = 'Mark for Review';
+                }
             }
         }
 
         function updatePalette() {
-            document.querySelectorAll('#question-palette .palette-btn').forEach((btn, index) => {
-                const state = questionStates[index];
+            const paletteBtns = document.querySelectorAll('#question-palette .palette-btn');
+            paletteBtns.forEach((btn, index) => {
+                const state = QUIZ_DATA.questionStates[index];
                 btn.className = 'palette-btn';
-                const isAnswered = state.userAnswer !== null;
-                const isMarked = state.markedForReview;
 
-                if (isAnswered && isMarked) btn.classList.add('answered-marked-review');
-                else if (isMarked && !isAnswered) btn.classList.add('marked-review');
-                else if (isAnswered) btn.classList.add('answered');
-                else if (state.status === 'not-answered') btn.classList.add('not-answered');
-                else btn.classList.add('not-visited');
+                if (state.userAnswer !== null && state.markedForReview) {
+                    btn.classList.add('answered-marked-review');
+                } else if (state.markedForReview) {
+                    btn.classList.add('marked-review');
+                } else if (state.userAnswer !== null) {
+                    btn.classList.add('answered');
+                } else if (state.status === 'not-answered') {
+                    btn.classList.add('not-answered');
+                } else {
+                    btn.classList.add('not-visited');
+                }
 
                 if (index === currentQuestionIndex) btn.classList.add('current');
             });
@@ -756,7 +834,8 @@ if (startTestBtn) {
 
         function saveCurrentAnswer() {
             const selectedOption = document.querySelector('input[name="option"]:checked');
-            const state = questionStates[currentQuestionIndex];
+            const state = QUIZ_DATA.questionStates[currentQuestionIndex];
+            
             if (selectedOption) {
                 state.userAnswer = selectedOption.value;
                 if (!state.markedForReview) state.status = 'answered';
@@ -769,73 +848,81 @@ if (startTestBtn) {
         }
 
         function clearCurrentAnswer() {
-            const state = questionStates[currentQuestionIndex];
+            const state = QUIZ_DATA.questionStates[currentQuestionIndex];
             state.userAnswer = null;
             state.status = 'not-answered';
-            document.querySelectorAll('input[name="option"]:checked')
-                .forEach(radio => radio.checked = false);
+            document.querySelectorAll('input[name="option"]:checked').forEach(r => r.checked = false);
             updatePalette();
             updateNavigation();
         }
 
-        function escapeHtml(text) {
-            if (text === null || typeof text === 'undefined') return '';
-            return String(text)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-
-        // Bind controls
+        // ========== BIND EVENT HANDLERS ==========
         if (pauseBtn) pauseBtn.addEventListener('click', pauseTest);
         if (resumeBtn) resumeBtn.addEventListener('click', resumeTest);
         if (submitTestBtn) submitTestBtn.addEventListener('click', showSubmissionSummary);
         if (clearResponseBtn) clearResponseBtn.addEventListener('click', clearCurrentAnswer);
 
-        if (finalSubmitBtn) finalSubmitBtn.addEventListener('click', () => {
-            if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-            calculateAndShowResults();
-        });
+        if (finalSubmitBtn) {
+            finalSubmitBtn.addEventListener('click', () => {
+                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+                calculateAndShowResults();
+            });
+        }
 
-        if (cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => {
-            if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
-        });
+        if (cancelSubmitBtn) {
+            cancelSubmitBtn.addEventListener('click', () => {
+                if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
+            });
+        }
 
-        if (nextBtn) nextBtn.addEventListener('click', () => {
-            saveCurrentAnswer();
-            updatePalette();
-            if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1);
-            else if (currentQuestionIndex === questions.length - 1) showSubmissionSummary();
-        });
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                saveCurrentAnswer();
+                if (currentQuestionIndex < questions.length - 1) {
+                    showQuestion(currentQuestionIndex + 1);
+                } else {
+                    showSubmissionSummary();
+                }
+            });
+        }
 
-        if (markReviewBtn) markReviewBtn.addEventListener('click', () => {
-            const state = questionStates[currentQuestionIndex];
-            state.markedForReview = !state.markedForReview;
-            saveCurrentAnswer();
-            updatePalette();
-            updateNavigation();
-        });
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                saveCurrentAnswer();
+                if (currentQuestionIndex > 0) {
+                    showQuestion(currentQuestionIndex - 1);
+                }
+            });
+        }
 
-        if (prevBtn) prevBtn.addEventListener('click', () => {
-            saveCurrentAnswer();
-            updatePalette();
-            if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
-        });
+        if (markReviewBtn) {
+            markReviewBtn.addEventListener('click', () => {
+                const state = QUIZ_DATA.questionStates[currentQuestionIndex];
+                state.markedForReview = !state.markedForReview;
+                saveCurrentAnswer();
+                updatePalette();
+                updateNavigation();
+            });
+        }
 
-        if (reviewNextBtn) reviewNextBtn.addEventListener('click', () => {
-            if (currentReviewIndex < reviewQuestionList.length - 1) {
-                showReviewQuestion(currentReviewIndex + 1);
-            }
-        });
+        if (reviewNextBtn) {
+            reviewNextBtn.addEventListener('click', () => {
+                if (QUIZ_DATA.currentReviewIndex < QUIZ_DATA.reviewQuestionList.length - 1) {
+                    showReviewQuestion(QUIZ_DATA.currentReviewIndex + 1);
+                }
+            });
+        }
 
-        if (reviewPrevBtn) reviewPrevBtn.addEventListener('click', () => {
-            if (currentReviewIndex > 0) {
-                showReviewQuestion(currentReviewIndex - 1);
-            }
-        });
-    } // end initializeQuiz
+        if (reviewPrevBtn) {
+            reviewPrevBtn.addEventListener('click', () => {
+                if (QUIZ_DATA.currentReviewIndex > 0) {
+                    showReviewQuestion(QUIZ_DATA.currentReviewIndex - 1);
+                }
+            });
+        }
+
+        console.log('✅ Quiz initialized successfully!');
+    }
 
     function sendAttemptToServer(summary) {
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) return;
@@ -850,4 +937,5 @@ if (startTestBtn) {
                 console.error('Error saving attempt:', err);
             });
     }
-}); // end DOMContentLoaded
+
+});
