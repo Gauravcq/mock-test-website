@@ -2,7 +2,6 @@
 
 const ALL_TESTS = [
 
-// --- Maths Tests ---
 {
     id: "ssc_cgl_12_sep_s1", // Unique ID for the test
     date: "12 Sep",
