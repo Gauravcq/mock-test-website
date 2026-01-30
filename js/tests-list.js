@@ -1107,7 +1107,7 @@ const ALL_TESTS = [
     // --- CPO English Chapterwise ---
     { id: "cpo_chapter_english_vocab_001", title: "Vocabulary Test 01", subject: "English", chapter: "vocabulary", exam: "CPO", testType: "chapterwise", questions: 25, time: 10, difficulty: "easy", isNew: true },
     { id: "cpo_chapter_english_synonyms_001", title: "Synonyms Test 01", subject: "English", chapter: "synonyms", exam: "CPO", testType: "chapterwise", questions: 25, time: 10, difficulty: "easy", isNew: true },
-    { id: "cpo_chapter_english_antonyms_001", title: "Antonyms Test 01", subject: "English", chapter: "antonyms", exam: "CPO", testType: "chapterwise", questions
+    { id: "cpo_chapter_english_antonyms_001", title: "Antonyms Test 01", subject: "English", chapter: "antonyms", exam: "CPO", testType: "chapterwise", questions: 25, time: 10, difficulty: "easy", isNew: true },
 
         // ============================================
     // DP CONSTABLE - SHIFTWISE SUBJECT TESTS
@@ -1507,10 +1507,13 @@ const ALL_TESTS = [
     { id: "dp_chapter_gk_current_001", title: "Current Affairs Jan 2026", subject: "GK", chapter: "currentAffairs", exam: "DP", testType: "chapterwise", questions: 25, time: 8, difficulty: "easy", isNew: true },
     { id: "dp_chapter_gk_static_001", title: "Static GK Test 01", subject: "GK", chapter: "staticGK", exam: "DP", testType: "chapterwise", questions: 25, time: 8, difficulty: "easy", isNew: true },
     { id: "dp_chapter_gk_computer_001", title: "Computer Knowledge Test 01", subject: "GK", chapter: "computer", exam: "DP", testType: "chapterwise", questions: 25, time: 8, difficulty: "easy", isNew: true },
-// ============================================
+
+];
+    // ============================================
 // CHAPTERS CONFIGURATION (for UI display)
 // ============================================
 const CHAPTERS_CONFIG = {
+    
     Maths: [
         { id: 'percentage', name: 'Percentage', icon: '📊' },
         { id: 'profitLoss', name: 'Profit & Loss', icon: '💰' },
@@ -1525,6 +1528,7 @@ const CHAPTERS_CONFIG = {
         { id: 'mensuration', name: 'Mensuration', icon: '📦' },
         { id: 'dataInterpretation', name: 'Data Interpretation', icon: '📉' }
     ],
+    
     Reasoning: [
         { id: 'analogy', name: 'Analogy', icon: '🔗' },
         { id: 'classification', name: 'Classification', icon: '📁' },
