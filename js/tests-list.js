@@ -1,9 +1,6 @@
-// File: js/tests-list.js
-// This file is just for the homepage cards.
+
 
 const ALL_TESTS = [
-
-text
 
 // --- Maths Tests ---
 {
