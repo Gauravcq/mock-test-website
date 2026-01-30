@@ -964,6 +964,104 @@
             background: linear-gradient(90deg, transparent, var(--chsl-color), transparent);
         }
 
+
+.test-type-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 0 1rem;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.type-btn:hover {
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+}
+
+.type-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.chapter-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.chapter-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.chapter-tests {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.chapter-test-link {
+    padding: 0.5rem;
+    background: var(--hover-bg);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.chapter-test-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.fullmock-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--hover-bg) 100%);
+    border: 2px solid var(--primary);
+}
+
+.fullmock-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.subjects-included {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: var(--hover-bg);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
         body.exam-cpo .test-card hr {
             background: linear-gradient(90deg, transparent, var(--cpo-color), transparent);
         }
@@ -2403,106 +2501,6 @@ document.addEventListener('DOMContentLoaded', () => {
     displayTests();
 });
 </script>
-
-<!-- Additional CSS for new structure -->
-<style>
-.test-type-selector {
-    display: flex;
-    gap: 1rem;
-    margin: 2rem auto;
-    max-width: 600px;
-    padding: 0 1rem;
-}
-
-.type-btn {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--border);
-    background: var(--card-bg);
-    color: var(--text-secondary);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.type-btn:hover {
-    background: var(--hover-bg);
-    transform: translateY(-2px);
-}
-
-.type-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-.chapter-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-}
-
-.chapter-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.chapter-tests {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.chapter-test-link {
-    padding: 0.5rem;
-    background: var(--hover-bg);
-    border-radius: 6px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.chapter-test-link:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.fullmock-card {
-    background: linear-gradient(135deg, var(--card-bg) 0%, var(--hover-bg) 100%);
-    border: 2px solid var(--primary);
-}
-
-.fullmock-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--primary);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.subjects-included {
-    margin: 1rem 0;
-    padding: 0.75rem;
-    background: var(--hover-bg);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-align: center;
-}
-</style>
 
 </body>
 </html>
