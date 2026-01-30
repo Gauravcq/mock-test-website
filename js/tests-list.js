@@ -3507,5 +3507,96 @@ isNew: true
 { id: "dp_constable_reasoning_s1", date: "6 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
 { id: "dp_constable_reasoning_s2", date: "6 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
 { id: "dp_constable_reasoning_s3", date: "6 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+]
+    // Chapter-wise Test IDs - These will be added to your tests-list.js
+    const CHAPTER_TEST_IDS = {
+        Maths: {
+            'percentage': ['CW_MATH_PER_1', 'CW_MATH_PER_2', 'CW_MATH_PER_3'],
+            'profit-loss': ['CW_MATH_PL_1', 'CW_MATH_PL_2'],
+            'si-ci': ['CW_MATH_SICI_1', 'CW_MATH_SICI_2'],
+            'ratio-proportion': ['CW_MATH_RP_1', 'CW_MATH_RP_2'],
+            'time-work': ['CW_MATH_TW_1', 'CW_MATH_TW_2'],
+            'time-distance': ['CW_MATH_TD_1', 'CW_MATH_TD_2'],
+            'number-system': ['CW_MATH_NS_1', 'CW_MATH_NS_2'],
+            'algebra': ['CW_MATH_ALG_1', 'CW_MATH_ALG_2'],
+            'geometry': ['CW_MATH_GEO_1', 'CW_MATH_GEO_2'],
+            'trigonometry': ['CW_MATH_TRIG_1', 'CW_MATH_TRIG_2'],
+            'mensuration': ['CW_MATH_MENS_1', 'CW_MATH_MENS_2'],
+            'data-interpretation': ['CW_MATH_DI_1', 'CW_MATH_DI_2']
+        },
+        Reasoning: {
+            'analogy': ['CW_REAS_ANA_1', 'CW_REAS_ANA_2'],
+            'classification': ['CW_REAS_CLASS_1', 'CW_REAS_CLASS_2'],
+            'series': ['CW_REAS_SER_1', 'CW_REAS_SER_2'],
+            'coding-decoding': ['CW_REAS_CD_1', 'CW_REAS_CD_2'],
+            'blood-relation': ['CW_REAS_BR_1', 'CW_REAS_BR_2'],
+            'direction': ['CW_REAS_DIR_1', 'CW_REAS_DIR_2']
+        },
+        English: {
+            'vocab': ['CW_ENG_VOC_1', 'CW_ENG_VOC_2'],
+            'synonyms': ['CW_ENG_SYN_1', 'CW_ENG_SYN_2'],
+            'antonyms': ['CW_ENG_ANT_1', 'CW_ENG_ANT_2'],
+            'idioms': ['CW_ENG_IDI_1', 'CW_ENG_IDI_2'],
+            'error-spotting': ['CW_ENG_ERR_1', 'CW_ENG_ERR_2'],
+            'fill-blanks': ['CW_ENG_FB_1', 'CW_ENG_FB_2']
+        },
+        GK: {
+            'history': ['CW_GK_HIST_1', 'CW_GK_HIST_2'],
+            'geography': ['CW_GK_GEO_1', 'CW_GK_GEO_2'],
+            'polity': ['CW_GK_POL_1', 'CW_GK_POL_2'],
+            'economy': ['CW_GK_ECO_1', 'CW_GK_ECO_2'],
+            'science': ['CW_GK_SCI_1', 'CW_GK_SCI_2'],
+            'current-affairs': ['CW_GK_CA_1', 'CW_GK_CA_2']
+        }
+    };
 
-]; update
+    // Full Mock Test IDs
+    const FULLMOCK_TEST_IDS = {
+        'CGL': ['FULL_MOCK_CGL_1', 'FULL_MOCK_CGL_2', 'FULL_MOCK_CGL_3'],
+        'CHSL': ['FULL_MOCK_CHSL_1', 'FULL_MOCK_CHSL_2'],
+        'CPO': ['FULL_MOCK_CPO_1', 'FULL_MOCK_CPO_2'],
+        'DP': ['FULL_MOCK_DP_1', 'FULL_MOCK_DP_2']
+    };
+
+    // Chapter Information
+    const CHAPTER_INFO = {
+        Maths: [
+            { id: 'percentage', name: 'Percentage', icon: '📊' },
+            { id: 'profit-loss', name: 'Profit & Loss', icon: '💰' },
+            { id: 'si-ci', name: 'SI & CI', icon: '🏦' },
+            { id: 'ratio-proportion', name: 'Ratio & Proportion', icon: '⚖️' },
+            { id: 'time-work', name: 'Time & Work', icon: '⏱️' },
+            { id: 'time-distance', name: 'Time & Distance', icon: '🚗' },
+            { id: 'number-system', name: 'Number System', icon: '🔢' },
+            { id: 'algebra', name: 'Algebra', icon: '📈' },
+            { id: 'geometry', name: 'Geometry', icon: '📐' },
+            { id: 'trigonometry', name: 'Trigonometry', icon: '📏' },
+            { id: 'mensuration', name: 'Mensuration', icon: '📦' },
+            { id: 'data-interpretation', name: 'Data Interpretation', icon: '📉' }
+        ],
+        Reasoning: [
+            { id: 'analogy', name: 'Analogy', icon: '🔗' },
+            { id: 'classification', name: 'Classification', icon: '📁' },
+            { id: 'series', name: 'Series', icon: '🔢' },
+            { id: 'coding-decoding', name: 'Coding-Decoding', icon: '🔐' },
+            { id: 'blood-relation', name: 'Blood Relation', icon: '👨‍👩‍👧' },
+            { id: 'direction', name: 'Direction', icon: '🧭' }
+        ],
+        English: [
+            { id: 'vocab', name: 'Vocabulary', icon: '📖' },
+            { id: 'synonyms', name: 'Synonyms', icon: '🔤' },
+            { id: 'antonyms', name: 'Antonyms', icon: '🔡' },
+            { id: 'idioms', name: 'Idioms & Phrases', icon: '💬' },
+            { id: 'error-spotting', name: 'Error Spotting', icon: '🔍' },
+            { id: 'fill-blanks', name: 'Fill in the Blanks', icon: '📝' }
+        ],
+        GK: [
+            { id: 'history', name: 'History', icon: '🏛️' },
+            { id: 'geography', name: 'Geography', icon: '🌍' },
+            { id: 'polity', name: 'Polity', icon: '⚖️' },
+            { id: 'economy', name: 'Economy', icon: '💹' },
+            { id: 'science', name: 'General Science', icon: '🔬' },
+            { id: 'current-affairs', name: 'Current Affairs', icon: '📰' }
+        ]
+    };
+; update
