@@ -1995,49 +1995,26 @@
         <button class="exam-btn dp" data-exam="DP" id="btn-dp" role="tab" aria-selected="false">👮 DP Constable</button>
     </div>
 
-    <!-- Test Mode Selector -->
-    <div class="mode-selector" role="tablist" aria-label="Select test mode">
-        <button class="mode-btn active" data-mode="mock" id="btn-mock-mode" role="tab" aria-selected="true">
-            📝 Full Mock Tests
+    <!-- Test Type Selector (3 Sections) -->
+    <div class="test-type-selector" role="tablist" aria-label="Select test type">
+        <button class="type-btn active" data-type="shiftwise" id="btn-shiftwise" role="tab" aria-selected="true">
+            📊 Shift-wise Tests
         </button>
-        <button class="mode-btn" data-mode="chapterwise" id="btn-chapterwise-mode" role="tab" aria-selected="false">
-            📚 Chapterwise Tests
+        <button class="type-btn" data-type="chapterwise" id="btn-chapterwise" role="tab" aria-selected="false">
+            📚 Chapter-wise Tests
+        </button>
+        <button class="type-btn" data-type="fullmock" id="btn-fullmock" role="tab" aria-selected="false">
+            📝 Full Mock Tests
         </button>
     </div>
 
-    <!-- Subject Tabs (for Mock Tests) -->
-    <div class="tabs-container" id="mock-tabs" role="tablist" aria-label="Select subject">
+    <!-- Subject Tabs (for Shift-wise and Chapter-wise) -->
+    <div class="tabs-container" id="subject-tabs" role="tablist" aria-label="Select subject">
         <button class="tab active" data-subject="Maths" role="tab" aria-selected="true">📐 Maths</button>
         <button class="tab" data-subject="Reasoning" role="tab" aria-selected="false">🧩 Reasoning</button>
         <button class="tab" data-subject="English" role="tab" aria-selected="false">📖 English</button>
         <button class="tab" data-subject="GK" role="tab" aria-selected="false">🌍 GK</button>
-        <button class="tab chsl-only" data-subject="Top100Maths" style="display: none;" role="tab" aria-selected="false">🔥 Maths Top 100</button>
     </div>
-
-    <!-- Chapterwise Tests Section -->
-    <section class="chapterwise-container" id="chapterwise-section" style="display: none;" aria-label="Chapterwise Tests">
-        
-        <!-- Subject Selection for Chapterwise -->
-        <div class="chapterwise-subjects" role="tablist" aria-label="Select subject for chapterwise tests">
-            <button class="chapter-subject-btn active" data-chapter-subject="Maths" role="tab" aria-selected="true">
-                📐 Maths
-            </button>
-            <button class="chapter-subject-btn" data-chapter-subject="Reasoning" role="tab" aria-selected="false">
-                🧩 Reasoning
-            </button>
-            <button class="chapter-subject-btn" data-chapter-subject="English" role="tab" aria-selected="false">
-                📖 English
-            </button>
-            <button class="chapter-subject-btn" data-chapter-subject="GK" role="tab" aria-selected="false">
-                🌍 GK
-            </button>
-        </div>
-
-        <!-- Chapters Grid -->
-        <div class="chapters-grid" id="chapters-grid" role="list" aria-label="Available chapters">
-            <!-- Chapters will be dynamically loaded -->
-        </div>
-    </section>
 
     <!-- Test Cards Grid -->
     <div id="test-grid-container" class="test-grid-container" role="list" aria-label="Available tests"></div>
@@ -2062,19 +2039,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCPO = document.getElementById('btn-cpo');
     const btnDP = document.getElementById('btn-dp');
     
-    // Mode selector elements
-    const btnMockMode = document.getElementById('btn-mock-mode');
-    const btnChapterwiseMode = document.getElementById('btn-chapterwise-mode');
-    const mockTabs = document.getElementById('mock-tabs');
-    const chapterwiseSection = document.getElementById('chapterwise-section');
-    const chaptersGrid = document.getElementById('chapters-grid');
-    const chapterSubjectBtns = document.querySelectorAll('.chapter-subject-btn');
+    // Test type selector elements
+    const btnShiftwise = document.getElementById('btn-shiftwise');
+    const btnChapterwise = document.getElementById('btn-chapterwise');
+    const btnFullmock = document.getElementById('btn-fullmock');
+    const subjectTabs = document.getElementById('subject-tabs');
 
     // State
     let currentExam = 'CGL';
     let currentSubject = 'Maths';
-    let currentMode = 'mock'; // 'mock' or 'chapterwise'
-    let currentChapterSubject = 'Maths';
+    let currentTestType = 'shiftwise'; // 'shiftwise', 'chapterwise', 'fullmock'
     let historyMap = {};
     let isHistoryLoaded = false;
 
@@ -2084,67 +2058,99 @@ document.addEventListener('DOMContentLoaded', () => {
         "Reasoning": 20,
         "English": 15,
         "GK": 10,
-        "General": 25,
-        "Top100Maths": 60
+        "General": 60,
+        "FullMock": 60
     };
 
-    // Chapterwise Test Data Configuration
-    const CHAPTERWISE_DATA = {
+    // Chapterwise Test IDs Configuration (to be added to tests-list.js)
+    const CHAPTER_TEST_IDS = {
+        Maths: {
+            'percentage': ['CGL_MATH_PER_1', 'CGL_MATH_PER_2', 'CGL_MATH_PER_3'],
+            'profit-loss': ['CGL_MATH_PL_1', 'CGL_MATH_PL_2', 'CGL_MATH_PL_3'],
+            'si-ci': ['CGL_MATH_SICI_1', 'CGL_MATH_SICI_2'],
+            'ratio-proportion': ['CGL_MATH_RP_1', 'CGL_MATH_RP_2'],
+            'time-work': ['CGL_MATH_TW_1', 'CGL_MATH_TW_2'],
+            'time-distance': ['CGL_MATH_TD_1', 'CGL_MATH_TD_2'],
+            'number-system': ['CGL_MATH_NS_1', 'CGL_MATH_NS_2', 'CGL_MATH_NS_3'],
+            'algebra': ['CGL_MATH_ALG_1', 'CGL_MATH_ALG_2'],
+            'geometry': ['CGL_MATH_GEO_1', 'CGL_MATH_GEO_2', 'CGL_MATH_GEO_3'],
+            'trigonometry': ['CGL_MATH_TRIG_1', 'CGL_MATH_TRIG_2'],
+            'mensuration': ['CGL_MATH_MENS_1', 'CGL_MATH_MENS_2'],
+            'data-interpretation': ['CGL_MATH_DI_1', 'CGL_MATH_DI_2']
+        },
+        Reasoning: {
+            'analogy': ['CGL_REAS_ANA_1', 'CGL_REAS_ANA_2'],
+            'classification': ['CGL_REAS_CLASS_1', 'CGL_REAS_CLASS_2'],
+            'series': ['CGL_REAS_SER_1', 'CGL_REAS_SER_2'],
+            'coding-decoding': ['CGL_REAS_CD_1', 'CGL_REAS_CD_2'],
+            'blood-relation': ['CGL_REAS_BR_1', 'CGL_REAS_BR_2'],
+            'direction': ['CGL_REAS_DIR_1', 'CGL_REAS_DIR_2']
+        },
+        English: {
+            'vocab': ['CGL_ENG_VOC_1', 'CGL_ENG_VOC_2'],
+            'synonyms': ['CGL_ENG_SYN_1', 'CGL_ENG_SYN_2'],
+            'antonyms': ['CGL_ENG_ANT_1', 'CGL_ENG_ANT_2'],
+            'idioms': ['CGL_ENG_IDI_1', 'CGL_ENG_IDI_2'],
+            'error-spotting': ['CGL_ENG_ERR_1', 'CGL_ENG_ERR_2'],
+            'fill-blanks': ['CGL_ENG_FB_1', 'CGL_ENG_FB_2']
+        },
+        GK: {
+            'history': ['CGL_GK_HIST_1', 'CGL_GK_HIST_2'],
+            'geography': ['CGL_GK_GEO_1', 'CGL_GK_GEO_2'],
+            'polity': ['CGL_GK_POL_1', 'CGL_GK_POL_2'],
+            'economy': ['CGL_GK_ECO_1', 'CGL_GK_ECO_2'],
+            'science': ['CGL_GK_SCI_1', 'CGL_GK_SCI_2'],
+            'current-affairs': ['CGL_GK_CA_1', 'CGL_GK_CA_2']
+        }
+    };
+
+    // Full Mock Test IDs Configuration
+    const FULLMOCK_TEST_IDS = {
+        'CGL': ['CGL_FULL_MOCK_1', 'CGL_FULL_MOCK_2', 'CGL_FULL_MOCK_3', 'CGL_FULL_MOCK_4', 'CGL_FULL_MOCK_5'],
+        'CHSL': ['CHSL_FULL_MOCK_1', 'CHSL_FULL_MOCK_2', 'CHSL_FULL_MOCK_3', 'CHSL_FULL_MOCK_4'],
+        'CPO': ['CPO_FULL_MOCK_1', 'CPO_FULL_MOCK_2', 'CPO_FULL_MOCK_3'],
+        'DP': ['DP_FULL_MOCK_1', 'DP_FULL_MOCK_2', 'DP_FULL_MOCK_3']
+    };
+
+    // Chapter Information
+    const CHAPTER_INFO = {
         Maths: [
-            { id: 'percentage', name: 'Percentage', icon: '📊', tests: 12 },
-            { id: 'profit-loss', name: 'Profit & Loss', icon: '💰', tests: 10 },
-            { id: 'si-ci', name: 'SI & CI', icon: '🏦', tests: 8 },
-            { id: 'ratio-proportion', name: 'Ratio & Proportion', icon: '⚖️', tests: 9 },
-            { id: 'time-work', name: 'Time & Work', icon: '⏱️', tests: 11 },
-            { id: 'time-distance', name: 'Time & Distance', icon: '🚗', tests: 10 },
-            { id: 'number-system', name: 'Number System', icon: '🔢', tests: 14 },
-            { id: 'algebra', name: 'Algebra', icon: '📈', tests: 12 },
-            { id: 'geometry', name: 'Geometry', icon: '📐', tests: 15 },
-            { id: 'trigonometry', name: 'Trigonometry', icon: '📏', tests: 10 },
-            { id: 'mensuration', name: 'Mensuration', icon: '📦', tests: 8 },
-            { id: 'dI', name: 'Data Interpretation', icon: '📉', tests: 7 }
+            { id: 'percentage', name: 'Percentage', icon: '📊' },
+            { id: 'profit-loss', name: 'Profit & Loss', icon: '💰' },
+            { id: 'si-ci', name: 'SI & CI', icon: '🏦' },
+            { id: 'ratio-proportion', name: 'Ratio & Proportion', icon: '⚖️' },
+            { id: 'time-work', name: 'Time & Work', icon: '⏱️' },
+            { id: 'time-distance', name: 'Time & Distance', icon: '🚗' },
+            { id: 'number-system', name: 'Number System', icon: '🔢' },
+            { id: 'algebra', name: 'Algebra', icon: '📈' },
+            { id: 'geometry', name: 'Geometry', icon: '📐' },
+            { id: 'trigonometry', name: 'Trigonometry', icon: '📏' },
+            { id: 'mensuration', name: 'Mensuration', icon: '📦' },
+            { id: 'data-interpretation', name: 'Data Interpretation', icon: '📉' }
         ],
         Reasoning: [
-            { id: 'analogy', name: 'Analogy', icon: '🔗', tests: 10 },
-            { id: 'classification', name: 'Classification', icon: '📁', tests: 8 },
-            { id: 'series', name: 'Series', icon: '🔢', tests: 12 },
-            { id: 'coding-decoding', name: 'Coding-Decoding', icon: '🔐', tests: 11 },
-            { id: 'blood-relation', name: 'Blood Relation', icon: '👨‍👩‍👧', tests: 7 },
-            { id: 'direction', name: 'Direction', icon: '🧭', tests: 6 },
-            { id: 'syllogism', name: 'Syllogism', icon: '🎯', tests: 9 },
-            { id: 'puzzle', name: 'Puzzle', icon: '🧩', tests: 10 },
-            { id: 'venn-diagram', name: 'Venn Diagram', icon: '⭕', tests: 5 },
-            { id: 'mirror-image', name: 'Mirror & Water Image', icon: '🪞', tests: 8 },
-            { id: 'paper-folding', name: 'Paper Folding', icon: '📄', tests: 6 },
-            { id: 'dice', name: 'Dice & Cube', icon: '🎲', tests: 7 }
+            { id: 'analogy', name: 'Analogy', icon: '🔗' },
+            { id: 'classification', name: 'Classification', icon: '📁' },
+            { id: 'series', name: 'Series', icon: '🔢' },
+            { id: 'coding-decoding', name: 'Coding-Decoding', icon: '🔐' },
+            { id: 'blood-relation', name: 'Blood Relation', icon: '👨‍👩‍👧' },
+            { id: 'direction', name: 'Direction', icon: '🧭' }
         ],
         English: [
-            { id: 'vocab', name: 'Vocabulary', icon: '📖', tests: 15 },
-            { id: 'synonyms', name: 'Synonyms', icon: '🔤', tests: 10 },
-            { id: 'antonyms', name: 'Antonyms', icon: '🔡', tests: 10 },
-            { id: 'idioms', name: 'Idioms & Phrases', icon: '💬', tests: 12 },
-            { id: 'one-word', name: 'One Word Substitution', icon: '✏️', tests: 11 },
-            { id: 'error-spotting', name: 'Error Spotting', icon: '🔍', tests: 14 },
-            { id: 'fill-blanks', name: 'Fill in the Blanks', icon: '📝', tests: 10 },
-            { id: 'cloze-test', name: 'Cloze Test', icon: '📋', tests: 8 },
-            { id: 'reading-comp', name: 'Reading Comprehension', icon: '📚', tests: 9 },
-            { id: 'sentence-improve', name: 'Sentence Improvement', icon: '✨', tests: 12 },
-            { id: 'active-passive', name: 'Active-Passive Voice', icon: '🔄', tests: 7 },
-            { id: 'direct-indirect', name: 'Direct-Indirect Speech', icon: '💭', tests: 7 }
+            { id: 'vocab', name: 'Vocabulary', icon: '📖' },
+            { id: 'synonyms', name: 'Synonyms', icon: '🔤' },
+            { id: 'antonyms', name: 'Antonyms', icon: '🔡' },
+            { id: 'idioms', name: 'Idioms & Phrases', icon: '💬' },
+            { id: 'error-spotting', name: 'Error Spotting', icon: '🔍' },
+            { id: 'fill-blanks', name: 'Fill in the Blanks', icon: '📝' }
         ],
         GK: [
-            { id: 'history', name: 'History', icon: '🏛️', tests: 15 },
-            { id: 'geography', name: 'Geography', icon: '🌍', tests: 14 },
-            { id: 'polity', name: 'Polity', icon: '⚖️', tests: 12 },
-            { id: 'economy', name: 'Economy', icon: '💹', tests: 10 },
-            { id: 'science', name: 'General Science', icon: '🔬', tests: 16 },
-            { id: 'physics', name: 'Physics', icon: '⚡', tests: 8 },
-            { id: 'chemistry', name: 'Chemistry', icon: '🧪', tests: 8 },
-            { id: 'biology', name: 'Biology', icon: '🧬', tests: 10 },
-            { id: 'current-affairs', name: 'Current Affairs', icon: '📰', tests: 20 },
-            { id: 'static-gk', name: 'Static GK', icon: '📌', tests: 12 },
-            { id: 'computer', name: 'Computer Knowledge', icon: '💻', tests: 6 },
-            { id: 'awards', name: 'Awards & Honours', icon: '🏆', tests: 5 }
+            { id: 'history', name: 'History', icon: '🏛️' },
+            { id: 'geography', name: 'Geography', icon: '🌍' },
+            { id: 'polity', name: 'Polity', icon: '⚖️' },
+            { id: 'economy', name: 'Economy', icon: '💹' },
+            { id: 'science', name: 'General Science', icon: '🔬' },
+            { id: 'current-affairs', name: 'Current Affairs', icon: '📰' }
         ]
     };
 
@@ -2170,187 +2176,51 @@ document.addEventListener('DOMContentLoaded', () => {
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     applyTheme(savedTheme);
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches ? 'dark' : 'light');
-        }
-    });
+    // ==================== DISPLAY FUNCTIONS ====================
+    function displayTests() {
+        gridContainer.style.opacity = '0';
 
-    // ==================== DATA VALIDATION ====================
-    if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
-        mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
-        gridContainer.innerHTML = `
-            <div class="no-tests-message">
-                <div class="icon">⚠️</div>
-                <h3>Data Not Found</h3>
-                <p>The test data file is missing or invalid. Please try again later.</p>
-            </div>`;
-        return;
-    }
-
-    // ==================== LOAD USER HISTORY (NON-BLOCKING) ====================
-    function loadHistory() {
-        if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
-            historyMap = {};
-            isHistoryLoaded = true;
-            return Promise.resolve();
-        }
-
-        return ExamAxisAPI.getTestHistory()
-            .then(res => {
-                historyMap = {};
-                if (res.success && res.data?.attempts) {
-                    res.data.attempts.forEach(a => {
-                        const key = String(a.testId);
-                        const existing = historyMap[key];
-                        if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
-                            historyMap[key] = a;
-                        }
-                    });
-                }
-                isHistoryLoaded = true;
-                displayTests();
-            })
-            .catch(err => {
-                console.error('Failed to load history:', err);
-                historyMap = {};
-                isHistoryLoaded = true;
-            });
-    }
-
-    // ==================== MODE SWITCHING ====================
-    function switchMode(mode) {
-        currentMode = mode;
-        
-        // Update mode buttons
-        btnMockMode.classList.toggle('active', mode === 'mock');
-        btnChapterwiseMode.classList.toggle('active', mode === 'chapterwise');
-        btnMockMode.setAttribute('aria-selected', mode === 'mock');
-        btnChapterwiseMode.setAttribute('aria-selected', mode === 'chapterwise');
-        
-        // Update title
-        updateTitle();
-        
-        if (mode === 'mock') {
-            mockTabs.style.display = 'flex';
-            chapterwiseSection.style.display = 'none';
-            gridContainer.style.display = 'grid';
-            displayTests();
-        } else {
-            mockTabs.style.display = 'none';
-            chapterwiseSection.style.display = 'block';
-            gridContainer.style.display = 'none';
-            displayChapters();
-        }
-    }
-
-    // ==================== CHAPTERWISE FUNCTIONS ====================
-    function displayChapters() {
-        const chapters = CHAPTERWISE_DATA[currentChapterSubject] || [];
-        
-        chaptersGrid.style.opacity = '0';
-        
         requestAnimationFrame(() => {
-            if (chapters.length > 0) {
-                const html = chapters.map((chapter, index) => generateChapterCardHTML(chapter, index)).join('');
-                chaptersGrid.innerHTML = html;
-            } else {
-                chaptersGrid.innerHTML = `
-                    <div class="no-tests-message">
-                        <div class="icon">📚</div>
-                        <h3>Coming Soon!</h3>
-                        <p>Chapterwise tests for ${currentChapterSubject} will be available soon!</p>
-                    </div>`;
-            }
+            let html = '';
             
-            requestAnimationFrame(() => {
-                chaptersGrid.style.opacity = '1';
-            });
-        });
-    }
-
-    function generateChapterCardHTML(chapter, index) {
-        const maxDelay = Math.min(index * 0.05, 0.4);
-        
-        return `
-            <article class="chapter-card" role="listitem" style="animation-delay: ${maxDelay}s">
-                <div class="card-glow"></div>
-                <div class="chapter-icon">${chapter.icon}</div>
-                <h3 class="chapter-title">${chapter.name}</h3>
-                <div class="chapter-stats">
-                    <span class="chapter-test-count">${chapter.tests} Tests Available</span>
-                </div>
-                <div class="chapter-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
-                    <span class="progress-text">0/${chapter.tests} Completed</span>
-                </div>
-                <a href="chapterwise.html?exam=${currentExam}&subject=${currentChapterSubject}&chapter=${chapter.id}" 
-                   class="attempt-btn">
-                    Start Practice
-                </a>
-            </article>`;
-    }
-
-    function updateChapterSubjectTabs() {
-        // Hide English for DP exam in chapterwise mode too
-        chapterSubjectBtns.forEach(btn => {
-            const subject = btn.dataset.chapterSubject;
-            if (currentExam === "DP" && subject === "English") {
-                btn.style.display = "none";
-            } else {
-                btn.style.display = "block";
+            if (currentTestType === 'shiftwise') {
+                const filteredTests = ALL_TESTS.filter(test => 
+                    test.exam === currentExam && test.subject === currentSubject && test.testType === 'shiftwise'
+                );
+                html = filteredTests.map((test, i) => generateShiftwiseCardHTML(test, i)).join('');
+            } 
+            else if (currentTestType === 'chapterwise') {
+                const chapters = CHAPTER_INFO[currentSubject] || [];
+                html = chapters.map((chapter, i) => generateChapterCardHTML(chapter, i)).join('');
+            } 
+            else if (currentTestType === 'fullmock') {
+                const mockTestIds = FULLMOCK_TEST_IDS[currentExam] || [];
+                const mockTests = mockTestIds.map(id => ALL_TESTS.find(t => t.id === id)).filter(Boolean);
+                html = mockTests.map((test, i) => generateFullMockCardHTML(test, i)).join('');
             }
-        });
 
-        // Reset to Maths if current subject is hidden
-        if (currentExam === "DP" && currentChapterSubject === "English") {
-            currentChapterSubject = "Maths";
-            chapterSubjectBtns.forEach(btn => {
-                const isActive = btn.dataset.chapterSubject === "Maths";
-                btn.classList.toggle("active", isActive);
-                btn.setAttribute('aria-selected', isActive);
+            gridContainer.innerHTML = html || `
+                <div class="no-tests-message">
+                    <div class="icon">📭</div>
+                    <h3>Coming Soon!</h3>
+                    <p>Tests will be available soon!</p>
+                </div>`;
+
+            requestAnimationFrame(() => {
+                gridContainer.style.opacity = '1';
             });
-        }
+        });
     }
 
-    // ==================== HELPER FUNCTIONS ====================
-    function getFilteredTests(exam, subject) {
-        if (exam === 'CHSL' && subject === 'Top100Maths') {
-            return ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS');
-        }
-        return ALL_TESTS.filter(test => test.exam === exam && test.subject === subject);
-    }
-
-    function generateCardHTML(test, index) {
-        const fullTitle = `${test.date} ${test.title}`;
+    function generateShiftwiseCardHTML(test, index) {
         const questions = test.questions || 25;
-        const time = test.exam === 'CHSL_TOP_100_MATHS' ? 60 : 
-            (SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"]);
-        
-        const attempt = historyMap[String(test.id)];
-        
-        const badges = [];
-        if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
-        if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
-        if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
-
-        const lastScoreHtml = isHistoryLoaded 
-            ? (attempt
-                ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
-                : `<div class="last-score not-attempted">Not attempted yet</div>`)
-            : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading history...</div>`;
-
+        const time = SUBJECT_DISPLAY_TIMES[test.subject] || 25;
         const maxDelay = Math.min(index * 0.05, 0.4);
 
         return `
-            <article class="test-card ${test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : ''}" 
-                     role="listitem" 
-                     style="animation-delay: ${maxDelay}s">
+            <article class="test-card" role="listitem" style="animation-delay: ${maxDelay}s">
                 <div class="card-glow"></div>
-                ${badges.join('')}
-                <h3 class="card-title">${fullTitle}</h3>
+                <h3 class="card-title">${test.date} ${test.title}</h3>
                 <hr>
                 <div class="card-stats">
                     <div class="stat-item">
@@ -2366,49 +2236,62 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="label">Minutes</div>
                     </div>
                 </div>
-                ${lastScoreHtml}
                 <a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>
             </article>`;
     }
 
-    function displayTests() {
-        const filteredTests = getFilteredTests(currentExam, currentSubject);
+    function generateChapterCardHTML(chapter, index) {
+        const testIds = CHAPTER_TEST_IDS[currentSubject]?.[chapter.id] || [];
+        const maxDelay = Math.min(index * 0.05, 0.4);
         
-        gridContainer.style.opacity = '0';
+        return `
+            <article class="chapter-card" role="listitem" style="animation-delay: ${maxDelay}s">
+                <div class="card-glow"></div>
+                <div class="chapter-icon">${chapter.icon}</div>
+                <h3 class="chapter-title">${chapter.name}</h3>
+                <div class="chapter-stats">
+                    <span class="chapter-test-count">${testIds.length} Tests Available</span>
+                </div>
+                <div class="chapter-tests">
+                    ${testIds.map((testId, i) => `
+                        <a href="test.html?testId=${testId}" class="chapter-test-link">
+                            Test ${i + 1}
+                        </a>
+                    `).join('')}
+                </div>
+            </article>`;
+    }
 
-        requestAnimationFrame(() => {
-            if (filteredTests.length > 0) {
-                let html = '';
-                
-                if (currentSubject === 'Top100Maths') {
-                    html += `
-                        <div class="section-header top100-header">
-                            <h2>🔥 MATHS TOP 100 - 2025</h2>
-                            <p>Master the most important 100 questions for SSC CHSL 2025</p>
-                        </div>`;
-                }
-                
-                html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
-                gridContainer.innerHTML = html;
-            } else {
-                const message = currentSubject === 'Top100Maths' 
-                    ? `<div class="no-tests-message">
-                        <div class="icon">🔥</div>
-                        <h3>Maths Top 100 - Coming Soon!</h3>
-                        <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
-                    </div>`
-                    : `<div class="no-tests-message">
-                        <div class="icon">📭</div>
-                        <h3>Coming Soon!</h3>
-                        <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
-                    </div>`;
-                gridContainer.innerHTML = message;
-            }
+    function generateFullMockCardHTML(test, index) {
+        const questions = 100; // Full mock has 100 questions
+        const time = 60; // 60 minutes for full mock
+        const maxDelay = Math.min(index * 0.05, 0.4);
 
-            requestAnimationFrame(() => {
-                gridContainer.style.opacity = '1';
-            });
-        });
+        return `
+            <article class="test-card fullmock-card" role="listitem" style="animation-delay: ${maxDelay}s">
+                <div class="card-glow"></div>
+                <div class="fullmock-badge">📝 FULL MOCK</div>
+                <h3 class="card-title">Full Mock Test ${index + 1}</h3>
+                <hr>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <div class="value">${questions}</div>
+                        <div class="label">Questions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">${questions * 2}</div>
+                        <div class="label">Marks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">${time}</div>
+                        <div class="label">Minutes</div>
+                    </div>
+                </div>
+                <div class="subjects-included">
+                    📐 Maths | 🧩 Reasoning | ${currentExam !== 'DP' ? '📖 English | ' : ''}🌍 GK
+                </div>
+                <a href="test.html?testId=${test.id}" class="attempt-btn">Start Full Mock</a>
+            </article>`;
     }
 
     function updateTitle() {
@@ -2419,35 +2302,57 @@ document.addEventListener('DOMContentLoaded', () => {
             'DP': '<strong>DP Constable</strong>'
         };
         
-        const modeText = currentMode === 'mock' ? 'Mock Tests' : 'Chapterwise Tests';
-        mainTitle.innerHTML = `${examNames[currentExam]} ${modeText}`;
+        const typeText = {
+            'shiftwise': 'Shift-wise Tests',
+            'chapterwise': 'Chapter-wise Tests',
+            'fullmock': 'Full Mock Tests'
+        }[currentTestType];
+        
+        mainTitle.innerHTML = `${examNames[currentExam]} ${typeText}`;
     }
 
-    function updateTabsForExam(exam) {
-        tabs.forEach(tab => {
-            const subject = tab.dataset.subject;
+    function updateSubjectTabs() {
+        // Show/hide subject tabs based on test type
+        if (currentTestType === 'fullmock') {
+            subjectTabs.style.display = 'none';
+        } else {
+            subjectTabs.style.display = 'flex';
             
-            if (exam === "DP" && subject === "English") {
-                tab.style.display = "none";
-            } else if (subject === "Top100Maths") {
-                tab.style.display = exam === "CHSL" ? "block" : "none";
-            } else {
-                tab.style.display = "block";
-            }
-        });
-
-        if ((exam === "DP" && currentSubject === "English") || 
-            (exam !== "CHSL" && currentSubject === "Top100Maths")) {
-            currentSubject = "Maths";
+            // Hide English for DP exam
             tabs.forEach(tab => {
-                const isActive = tab.dataset.subject === "Maths";
-                tab.classList.toggle("active", isActive);
-                tab.setAttribute('aria-selected', isActive);
+                const subject = tab.dataset.subject;
+                if (currentExam === "DP" && subject === "English") {
+                    tab.style.display = "none";
+                } else {
+                    tab.style.display = "block";
+                }
             });
+
+            // Reset to Maths if current subject is hidden
+            if (currentExam === "DP" && currentSubject === "English") {
+                currentSubject = "Maths";
+                tabs.forEach(tab => {
+                    const isActive = tab.dataset.subject === "Maths";
+                    tab.classList.toggle("active", isActive);
+                    tab.setAttribute('aria-selected', isActive);
+                });
+            }
         }
+    }
+
+    function switchTestType(type) {
+        currentTestType = type;
         
-        // Update chapterwise subject tabs too
-        updateChapterSubjectTabs();
+        // Update buttons
+        [btnShiftwise, btnChapterwise, btnFullmock].forEach(btn => {
+            const isActive = btn.dataset.type === type;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-selected', isActive);
+        });
+        
+        updateTitle();
+        updateSubjectTabs();
+        displayTests();
     }
 
     function switchExam(exam) {
@@ -2460,19 +2365,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.body.classList.remove('exam-chsl', 'exam-cpo', 'exam-dp');
-
         if (exam === 'CHSL') document.body.classList.add('exam-chsl');
         if (exam === 'CPO') document.body.classList.add('exam-cpo');
         if (exam === 'DP') document.body.classList.add('exam-dp');
 
         updateTitle();
-        updateTabsForExam(exam);
-        
-        if (currentMode === 'mock') {
-            displayTests();
-        } else {
-            displayChapters();
-        }
+        updateSubjectTabs();
+        displayTests();
     }
 
     // ==================== EVENT LISTENERS ====================
@@ -2481,11 +2380,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCPO.addEventListener('click', () => switchExam('CPO'));
     btnDP.addEventListener('click', () => switchExam('DP'));
     
-    // Mode switching
-    btnMockMode.addEventListener('click', () => switchMode('mock'));
-    btnChapterwiseMode.addEventListener('click', () => switchMode('chapterwise'));
+    // Test type switching
+    btnShiftwise.addEventListener('click', () => switchTestType('shiftwise'));
+    btnChapterwise.addEventListener('click', () => switchTestType('chapterwise'));
+    btnFullmock.addEventListener('click', () => switchTestType('fullmock'));
 
-    // Subject tabs for mock tests
+    // Subject tabs
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => {
@@ -2499,54 +2399,110 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Subject tabs for chapterwise tests
-    chapterSubjectBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            chapterSubjectBtns.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-            currentChapterSubject = btn.dataset.chapterSubject;
-            displayChapters();
-        });
-    });
-
-    // Keyboard navigation
-    document.querySelectorAll('[role="tablist"]').forEach(tablist => {
-        tablist.addEventListener('keydown', (e) => {
-            const tabs = [...tablist.querySelectorAll('[role="tab"]:not([style*="display: none"])')];
-            const currentIndex = tabs.indexOf(document.activeElement);
-            
-            let newIndex;
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                newIndex = (currentIndex + 1) % tabs.length;
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-            } else if (e.key === 'Home') {
-                newIndex = 0;
-            } else if (e.key === 'End') {
-                newIndex = tabs.length - 1;
-            } else {
-                return;
-            }
-            
-            e.preventDefault();
-            tabs[newIndex].focus();
-            tabs[newIndex].click();
-        });
-    });
-
-    // ==================== INITIAL LOAD (OPTIMIZED) ====================
+    // ==================== INITIAL LOAD ====================
     displayTests();
-    loadHistory();
-    
-    if (window.updateNavigation) {
-        updateNavigation();
-    }
 });
 </script>
+
+<!-- Additional CSS for new structure -->
+<style>
+.test-type-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 0 1rem;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.type-btn:hover {
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+}
+
+.type-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.chapter-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.chapter-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.chapter-tests {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.chapter-test-link {
+    padding: 0.5rem;
+    background: var(--hover-bg);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.chapter-test-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.fullmock-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--hover-bg) 100%);
+    border: 2px solid var(--primary);
+}
+
+.fullmock-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.subjects-included {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: var(--hover-bg);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+</style>
 
 </body>
 </html>
