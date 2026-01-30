@@ -3508,7 +3508,6 @@ isNew: true
 { id: "dp_constable_reasoning_s2", date: "6 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
 { id: "dp_constable_reasoning_s3", date: "6 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
 
-]; displayTests();
-window.displayTests = displayTests;
+];
 
 
