@@ -542,9 +542,9 @@
         }
 
         /* ============================================
-           MODE SELECTOR (Mock / Chapterwise Toggle)
+           TEST TYPE SELECTOR (Shiftwise/Chapterwise/Fullmock)
            ============================================ */
-        .mode-selector {
+        .test-type-selector {
             display: flex;
             justify-content: center;
             gap: 8px;
@@ -554,14 +554,14 @@
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-light);
-            max-width: 480px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .mode-btn {
+        .type-btn {
             flex: 1;
-            padding: 14px 24px;
+            padding: 14px 20px;
             font-weight: 600;
             font-size: 0.9rem;
             color: var(--text-secondary);
@@ -577,30 +577,30 @@
             gap: 8px;
         }
 
-        .mode-btn:hover:not(.active) {
+        .type-btn:hover:not(.active) {
             background: var(--border-light);
             color: var(--text-primary);
             border-color: var(--border-color);
         }
 
-        .mode-btn.active {
+        .type-btn.active {
             background: var(--cgl-gradient);
             color: white;
             box-shadow: 0 4px 16px var(--cgl-glow);
             border-color: transparent;
         }
 
-        body.exam-chsl .mode-btn.active {
+        body.exam-chsl .type-btn.active {
             background: var(--chsl-gradient);
             box-shadow: 0 4px 16px var(--chsl-glow);
         }
 
-        body.exam-cpo .mode-btn.active {
+        body.exam-cpo .type-btn.active {
             background: var(--cpo-gradient);
             box-shadow: 0 4px 16px var(--cpo-glow);
         }
 
-        body.exam-dp .mode-btn.active {
+        body.exam-dp .type-btn.active {
             background: var(--dp-gradient);
             box-shadow: 0 4px 16px var(--dp-glow);
         }
@@ -664,106 +664,6 @@
         body.exam-dp .tab.active {
             background: var(--dp-gradient);
             box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        /* Top 100 Tab Special */
-        .tab.chsl-only {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            color: white;
-        }
-
-        .tab.chsl-only:hover {
-            transform: translateY(-2px);
-        }
-
-        /* ============================================
-           CHAPTERWISE SECTION CONTAINER
-           ============================================ */
-        .chapterwise-container {
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Chapterwise Subject Tabs */
-        .chapterwise-subjects {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 32px;
-            padding: 8px;
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            overflow-x: auto;
-            justify-content: center;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .chapterwise-subjects::-webkit-scrollbar {
-            display: none;
-        }
-
-        .chapter-subject-btn {
-            padding: 14px 28px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            border-radius: var(--radius-lg);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            white-space: nowrap;
-            border: 2px solid transparent;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .chapter-subject-btn:hover:not(.active) {
-            background: var(--border-light);
-            color: var(--text-primary);
-        }
-
-        .chapter-subject-btn.active {
-            background: var(--cgl-gradient);
-            color: white;
-            box-shadow: 0 4px 12px var(--cgl-glow);
-        }
-
-        body.exam-chsl .chapter-subject-btn.active {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-cpo .chapter-subject-btn.active {
-            background: var(--cpo-gradient);
-            box-shadow: 0 4px 12px var(--cpo-glow);
-        }
-
-        body.exam-dp .chapter-subject-btn.active {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        /* ============================================
-           CHAPTERS GRID
-           ============================================ */
-        .chapters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            transition: opacity var(--transition-normal);
         }
 
         /* ============================================
@@ -889,7 +789,7 @@
             opacity: 0;
             transition: opacity var(--transition-normal);
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
         }
 
         .test-card:hover .card-glow {
@@ -897,7 +797,7 @@
         }
 
         /* Badges */
-        .new-badge, .attempted-badge, .top100-badge {
+        .new-badge, .attempted-badge {
             position: absolute;
             top: 16px;
             padding: 6px 12px;
@@ -932,10 +832,11 @@
             content: "✓ ";
         }
 
-        .top100-badge {
+        /* When both badges exist, position them */
+        .new-badge + .attempted-badge,
+        .attempted-badge + .new-badge {
+            right: auto;
             left: 16px;
-            background: linear-gradient(135deg, #f97316, #dc2626);
-            color: white;
         }
 
         /* Card Title */
@@ -963,104 +864,6 @@
         body.exam-chsl .test-card hr {
             background: linear-gradient(90deg, transparent, var(--chsl-color), transparent);
         }
-
-
-.test-type-selector {
-    display: flex;
-    gap: 1rem;
-    margin: 2rem auto;
-    max-width: 600px;
-    padding: 0 1rem;
-}
-
-.type-btn {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--border);
-    background: var(--card-bg);
-    color: var(--text-secondary);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.type-btn:hover {
-    background: var(--hover-bg);
-    transform: translateY(-2px);
-}
-
-.type-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-.chapter-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-}
-
-.chapter-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.chapter-tests {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.chapter-test-link {
-    padding: 0.5rem;
-    background: var(--hover-bg);
-    border-radius: 6px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.chapter-test-link:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.fullmock-card {
-    background: linear-gradient(135deg, var(--card-bg) 0%, var(--hover-bg) 100%);
-    border: 2px solid var(--primary);
-}
-
-.fullmock-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--primary);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.subjects-included {
-    margin: 1rem 0;
-    padding: 0.75rem;
-    background: var(--hover-bg);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-align: center;
-}
 
         body.exam-cpo .test-card hr {
             background: linear-gradient(90deg, transparent, var(--cpo-color), transparent);
@@ -1281,7 +1084,24 @@
             overflow: hidden;
         }
 
-        /* Chapter card hover glow effect */
+        .chapter-card .card-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, var(--primary-glow), transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .chapter-card:hover .card-glow {
+            opacity: 0.5;
+        }
+
         .chapter-card::before {
             content: '';
             position: absolute;
@@ -1293,46 +1113,13 @@
                 linear-gradient(#fff 0 0) content-box,
                 linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
-            mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
             mask-composite: exclude;
             opacity: 0;
             transition: opacity var(--transition-normal);
         }
 
-        body.exam-chsl .chapter-card::before {
-            background: var(--chsl-gradient);
-        }
-
-        body.exam-cpo .chapter-card::before {
-            background: var(--cpo-gradient);
-        }
-
-        body.exam-dp .chapter-card::before {
-            background: var(--dp-gradient);
-        }
-
         .chapter-card:hover::before {
             opacity: 1;
-        }
-
-        /* Shine effect */
-        .chapter-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-25deg);
-            transition: left 0.6s ease;
-            pointer-events: none;
-        }
-
-        .chapter-card:hover::after {
-            left: 125%;
         }
 
         .chapter-card:hover {
@@ -1341,19 +1128,14 @@
             border-color: transparent;
         }
 
-        body.exam-chsl .chapter-card:hover {
-            box-shadow: 0 20px 40px var(--chsl-glow);
-        }
+        body.exam-chsl .chapter-card::before { background: var(--chsl-gradient); }
+        body.exam-cpo .chapter-card::before { background: var(--cpo-gradient); }
+        body.exam-dp .chapter-card::before { background: var(--dp-gradient); }
 
-        body.exam-cpo .chapter-card:hover {
-            box-shadow: 0 20px 40px var(--cpo-glow);
-        }
+        body.exam-chsl .chapter-card:hover { box-shadow: 0 20px 40px var(--chsl-glow); }
+        body.exam-cpo .chapter-card:hover { box-shadow: 0 20px 40px var(--cpo-glow); }
+        body.exam-dp .chapter-card:hover { box-shadow: 0 20px 40px var(--dp-glow); }
 
-        body.exam-dp .chapter-card:hover {
-            box-shadow: 0 20px 40px var(--dp-glow);
-        }
-
-        /* Chapter Icon */
         .chapter-icon {
             font-size: 3rem;
             margin-bottom: 16px;
@@ -1368,7 +1150,6 @@
             transform: scale(1.15) rotate(5deg);
         }
 
-        /* Chapter Title */
         .chapter-title {
             font-family: 'Poppins', sans-serif;
             font-size: 1.15rem;
@@ -1380,7 +1161,6 @@
             line-height: 1.3;
         }
 
-        /* Chapter Stats */
         .chapter-stats {
             margin-bottom: 16px;
             position: relative;
@@ -1418,77 +1198,150 @@
             border-color: rgba(245, 158, 11, 0.2);
         }
 
-        /* ============================================
-           PROGRESS BAR
-           ============================================ */
-        .chapter-progress {
+        /* Chapter Tests Grid - THE BUTTONS */
+        .chapter-tests {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 8px;
+            margin-top: 16px;
             width: 100%;
-            margin-bottom: 20px;
             position: relative;
             z-index: 1;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 8px;
+        .chapter-test-link {
+            padding: 10px 8px;
             background: var(--border-light);
-            border-radius: var(--radius-full);
-            overflow: hidden;
-            margin-bottom: 8px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+            border: 1px solid var(--border-color);
         }
 
-        .progress-fill {
-            height: 100%;
+        .chapter-test-link:hover {
             background: var(--cgl-gradient);
-            border-radius: var(--radius-full);
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--cgl-glow);
+            border-color: transparent;
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.3),
-                transparent
-            );
-            animation: progressShine 2s infinite;
-        }
-
-        @keyframes progressShine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        body.exam-chsl .progress-fill {
+        body.exam-chsl .chapter-test-link:hover {
             background: var(--chsl-gradient);
+            box-shadow: 0 4px 12px var(--chsl-glow);
         }
 
-        body.exam-cpo .progress-fill {
+        body.exam-cpo .chapter-test-link:hover {
             background: var(--cpo-gradient);
+            box-shadow: 0 4px 12px var(--cpo-glow);
         }
 
-        body.exam-dp .progress-fill {
+        body.exam-dp .chapter-test-link:hover {
             background: var(--dp-gradient);
+            box-shadow: 0 4px 12px var(--dp-glow);
         }
 
-        .progress-text {
+        /* ============================================
+           FULL MOCK TEST CARD
+           ============================================ */
+        .fullmock-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--border-light) 100%);
+            border: 2px solid var(--primary);
+        }
+
+        .fullmock-card:hover {
+            border-color: transparent;
+        }
+
+        body.exam-chsl .fullmock-card { border-color: var(--chsl-color); }
+        body.exam-cpo .fullmock-card { border-color: var(--cpo-color); }
+        body.exam-dp .fullmock-card { border-color: var(--dp-color); }
+
+        .fullmock-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--cgl-gradient);
+            color: white;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
             font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 10;
+            box-shadow: 0 4px 12px var(--cgl-glow);
         }
 
-        /* Chapter Card Attempt Button */
-        .chapter-card .attempt-btn {
-            padding: 12px 32px;
-            font-size: 0.9rem;
-            max-width: 200px;
+        body.exam-chsl .fullmock-badge {
+            background: var(--chsl-gradient);
+            box-shadow: 0 4px 12px var(--chsl-glow);
+        }
+
+        body.exam-cpo .fullmock-badge {
+            background: var(--cpo-gradient);
+            box-shadow: 0 4px 12px var(--cpo-glow);
+        }
+
+        body.exam-dp .fullmock-badge {
+            background: var(--dp-gradient);
+            box-shadow: 0 4px 12px var(--dp-glow);
+        }
+
+        .subjects-included {
+            margin: 16px 0;
+            padding: 12px 16px;
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        body.exam-chsl .subjects-included {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.15);
+        }
+
+        body.exam-cpo .subjects-included {
+            background: rgba(236, 72, 153, 0.08);
+            border-color: rgba(236, 72, 153, 0.15);
+        }
+
+        body.exam-dp .subjects-included {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.15);
+        }
+
+        /* Disabled/Placeholder State */
+        .attempt-btn.disabled {
+            background: var(--border-color) !important;
+            color: var(--text-muted) !important;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+
+        .attempt-btn.disabled:hover {
+            transform: none;
+        }
+
+        .attempt-btn.disabled::after {
+            content: "🔒";
+        }
+
+        .test-card.placeholder {
+            opacity: 0.7;
+        }
+
+        .test-card.placeholder::before {
+            opacity: 0.3;
         }
 
         /* ============================================
@@ -1521,54 +1374,6 @@
             font-size: 1rem;
             max-width: 400px;
             margin: 0 auto;
-        }
-
-        /* ============================================
-           TOP 100 SECTION HEADER
-           ============================================ */
-        .section-header.top100-header {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 36px;
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            border-radius: var(--radius-xl);
-            color: white;
-            margin-bottom: 8px;
-            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-header.top100-header::before {
-            content: "🔥";
-            position: absolute;
-            font-size: 8rem;
-            opacity: 0.15;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .section-header.top100-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin: 0 0 8px;
-        }
-
-        .section-header.top100-header p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1rem;
-        }
-
-        .test-card.top100-card {
-            border-color: #f97316;
-        }
-
-        .test-card.top100-card::before {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            opacity: 1;
         }
 
         /* ============================================
@@ -1638,41 +1443,6 @@
         }
 
         /* ============================================
-           LOADING STATE
-           ============================================ */
-        .test-grid-container.loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .loading-skeleton {
-            grid-column: 1 / -1;
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .skeleton-card {
-            width: 320px;
-            height: 400px;
-            background: linear-gradient(
-                90deg,
-                var(--bg-card) 0%,
-                var(--border-light) 50%,
-                var(--bg-card) 100%
-            );
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: var(--radius-xl);
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        /* ============================================
            RESPONSIVE DESIGN
            ============================================ */
         @media (max-width: 1024px) {
@@ -1682,11 +1452,6 @@
 
             .test-grid-container {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 20px;
-            }
-
-            .chapters-grid {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
                 gap: 20px;
             }
         }
@@ -1762,16 +1527,17 @@
                 justify-content: center;
             }
 
-            .mode-selector {
+            .test-type-selector {
+                flex-direction: column;
                 max-width: 100%;
                 gap: 6px;
-                padding: 5px;
+                padding: 8px;
             }
-
-            .mode-btn {
+            
+            .type-btn {
+                width: 100%;
                 padding: 12px 16px;
-                font-size: 0.8rem;
-                gap: 6px;
+                font-size: 0.85rem;
             }
 
             .tabs-container {
@@ -1785,24 +1551,8 @@
                 font-size: 0.8rem;
             }
 
-            .chapterwise-subjects {
-                padding: 6px;
-                gap: 6px;
-                justify-content: flex-start;
-            }
-
-            .chapter-subject-btn {
-                padding: 10px 18px;
-                font-size: 0.8rem;
-            }
-
             .test-grid-container {
                 grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .chapters-grid {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
                 gap: 16px;
             }
 
@@ -1822,9 +1572,13 @@
                 font-size: 1.05rem;
             }
 
-            .chapter-card .attempt-btn {
-                padding: 10px 24px;
-                font-size: 0.85rem;
+            .chapter-tests {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .chapter-test-link {
+                padding: 8px 6px;
+                font-size: 0.8rem;
             }
 
             .card-title {
@@ -1848,127 +1602,6 @@
                 right: 20px;
             }
 
-.test-type-selector {
-    display: flex;
-    gap: 1rem;
-    margin: 2rem auto;
-    max-width: 600px;
-    padding: 0 1rem;
-}
-
-.type-btn {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--border);
-    background: var(--card-bg);
-    color: var(--text-secondary);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.type-btn:hover {
-    background: var(--hover-bg);
-    transform: translateY(-2px);
-}
-
-.type-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-.chapter-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    animation: cardSlideUp 0.6s ease-out forwards;
-}
-
-.chapter-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.chapter-tests {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.chapter-test-link {
-    padding: 0.5rem;
-    background: var(--hover-bg);
-    border-radius: 6px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.chapter-test-link:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.fullmock-card {
-    background: linear-gradient(135deg, var(--card-bg) 0%, var(--hover-bg) 100%);
-    border: 2px solid var(--primary);
-}
-
-.fullmock-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--primary);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.subjects-included {
-    margin: 1rem 0;
-    padding: 0.75rem;
-    background: var(--hover-bg);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
-.attempt-btn.disabled {
-    background: var(--text-muted);
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.test-card.placeholder {
-    opacity: 0.7;
-}
-
-            .section-header.top100-header {
-                padding: 28px 20px;
-            }
-
-            .section-header.top100-header h2 {
-                font-size: 1.4rem;
-            }
-
-            .section-header.top100-header::before {
-                font-size: 5rem;
-                right: 10px;
-            }
-
             /* Reduce animations on mobile */
             .test-card::after,
             .chapter-card::after,
@@ -1983,10 +1616,6 @@
 
             .chapter-card:hover .chapter-icon {
                 transform: scale(1.1);
-            }
-
-            .progress-fill::after {
-                display: none;
             }
         }
 
@@ -2008,23 +1637,8 @@
                 font-size: 0.8rem;
             }
 
-            .mode-selector {
-                flex-direction: column;
-            }
-
-            .mode-btn {
-                width: 100%;
-            }
-
-            .chapterwise-subjects {
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-            }
-
-            .chapter-subject-btn {
-                padding: 10px 16px;
-                font-size: 0.75rem;
-                min-width: max-content;
+            .chapter-tests {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .test-card {
@@ -2047,14 +1661,6 @@
             .chapter-test-count {
                 font-size: 0.8rem;
                 padding: 6px 12px;
-            }
-
-            .progress-text {
-                font-size: 0.7rem;
-            }
-
-            .chapters-grid {
-                grid-template-columns: 1fr;
             }
 
             .stat-item {
@@ -2083,9 +1689,8 @@
         }
 
         /* ============================================
-           ACCESSIBILITY & PERFORMANCE
+           ACCESSIBILITY
            ============================================ */
-        /* Reduce motion for accessibility */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -2094,71 +1699,18 @@
             }
         }
 
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .test-card,
-            .chapter-card {
-                border-width: 2px;
-            }
-
-            .tab.active,
-            .exam-btn.active,
-            .mode-btn.active,
-            .chapter-subject-btn.active {
-                outline: 2px solid white;
-                outline-offset: 2px;
-            }
-        }
-
-        /* Focus visible for keyboard navigation */
         .exam-btn:focus-visible,
         .tab:focus-visible,
         .attempt-btn:focus-visible,
         .nav-btn:focus-visible,
-        .mode-btn:focus-visible,
-        .chapter-subject-btn:focus-visible {
+        .type-btn:focus-visible,
+        .chapter-test-link:focus-visible {
             outline: 3px solid var(--primary);
             outline-offset: 2px;
         }
-
-        body.exam-cpo .mode-btn:focus-visible,
-        body.exam-cpo .chapter-subject-btn:focus-visible {
-            outline-color: var(--cpo-color);
-        }
-
-        /* ============================================
-           PRINT STYLES
-           ============================================ */
-        @media print {
-            .top-nav,
-            .help-btn,
-            .footer-decoration,
-            .theme-switch-wrapper,
-            .mode-selector,
-            .chapterwise-subjects {
-                display: none !important;
-            }
-
-            body::before {
-                display: none;
-            }
-
-            .test-card,
-            .chapter-card {
-                break-inside: avoid;
-                box-shadow: none;
-                border: 1px solid #ccc;
-            }
-
-            .test-card::before,
-            .test-card::after,
-            .chapter-card::before,
-            .chapter-card::after {
-                display: none;
-            }
-        }
     </style>
 </head>
+
 <body>
 
 <!-- Footer decoration line -->
@@ -2230,10 +1782,234 @@
 <button class="help-btn" aria-label="Get help">💬</button>
 
 <!-- Scripts -->
-<script src="js/api.js"></script>
-<script src="js/tests-list.js"></script>
+<script>
+// ============================================
+// TEST DATA (tests-list.js content)
+// ============================================
+const ALL_TESTS = [
+
+    // ========================================
+    // SSC CGL - SHIFT-WISE TESTS (Maths)
+    // ========================================
+    {
+        id: "ssc_cgl_12_sep_s1",
+        date: "12 Sep",
+        title: "Shift 1",
+        subject: "Maths",
+        exam: "CGL",
+        questions: 25,
+        isNew: true
+    },
+    {
+        id: "ssc_cgl_12_sep_s2",
+        date: "12 Sep",
+        title: "Shift 2",
+        subject: "Maths",
+        exam: "CGL",
+        questions: 25,
+        isNew: true
+    },
+    {
+        id: "ssc_cgl_12_sep_s3",
+        date: "12 Sep",
+        title: "Shift 3",
+        subject: "Maths",
+        exam: "CGL",
+        questions: 25,
+        isNew: true
+    },
+    {
+        id: "ssc_cgl_13_sep_s1",
+        date: "13 Sep",
+        title: "Shift 1",
+        subject: "Maths",
+        exam: "CGL",
+        questions: 25,
+        isNew: true
+    },
+
+    // ========================================
+    // SSC CGL - FULL MOCK TESTS
+    // ========================================
+    {
+        id: "FULL_MOCK_CGL_1",
+        title: "Full Mock Test 1",
+        subject: "FullMock",
+        exam: "CGL",
+        questions: 100,
+        duration: 60,
+        isFullMock: true,
+        isNew: true
+    },
+    {
+        id: "FULL_MOCK_CGL_2",
+        title: "Full Mock Test 2",
+        subject: "FullMock",
+        exam: "CGL",
+        questions: 100,
+        duration: 60,
+        isFullMock: true
+    },
+    {
+        id: "FULL_MOCK_CGL_3",
+        title: "Full Mock Test 3",
+        subject: "FullMock",
+        exam: "CGL",
+        questions: 100,
+        duration: 60,
+        isFullMock: true
+    },
+
+    // ========================================
+    // SSC CHSL - FULL MOCK TESTS
+    // ========================================
+    {
+        id: "FULL_MOCK_CHSL_1",
+        title: "Full Mock Test 1",
+        subject: "FullMock",
+        exam: "CHSL",
+        questions: 100,
+        duration: 60,
+        isFullMock: true,
+        isNew: true
+    },
+    {
+        id: "FULL_MOCK_CHSL_2",
+        title: "Full Mock Test 2",
+        subject: "FullMock",
+        exam: "CHSL",
+        questions: 100,
+        duration: 60,
+        isFullMock: true
+    },
+
+    // ========================================
+    // SSC CPO - FULL MOCK TESTS
+    // ========================================
+    {
+        id: "FULL_MOCK_CPO_1",
+        title: "Full Mock Test 1",
+        subject: "FullMock",
+        exam: "CPO",
+        questions: 100,
+        duration: 60,
+        isFullMock: true
+    },
+    {
+        id: "FULL_MOCK_CPO_2",
+        title: "Full Mock Test 2",
+        subject: "FullMock",
+        exam: "CPO",
+        questions: 100,
+        duration: 60,
+        isFullMock: true
+    },
+
+    // ========================================
+    // DP CONSTABLE - FULL MOCK TESTS
+    // ========================================
+    {
+        id: "FULL_MOCK_DP_1",
+        title: "Full Mock Test 1",
+        subject: "FullMock",
+        exam: "DP",
+        questions: 75,
+        duration: 60,
+        isFullMock: true
+    },
+    {
+        id: "FULL_MOCK_DP_2",
+        title: "Full Mock Test 2",
+        subject: "FullMock",
+        exam: "DP",
+        questions: 75,
+        duration: 60,
+        isFullMock: true
+    },
+
+    // ========================================
+    // CHAPTER-WISE TESTS - MATHS
+    // ========================================
+    { id: "CW_MATH_PER_1", title: "Percentage Test 1", subject: "Maths", chapter: "percentage", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_PER_2", title: "Percentage Test 2", subject: "Maths", chapter: "percentage", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_PER_3", title: "Percentage Test 3", subject: "Maths", chapter: "percentage", exam: "CGL", questions: 25, isChapterwise: true, isNew: true },
+    { id: "CW_MATH_PL_1", title: "Profit & Loss Test 1", subject: "Maths", chapter: "profit-loss", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_PL_2", title: "Profit & Loss Test 2", subject: "Maths", chapter: "profit-loss", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_SICI_1", title: "SI & CI Test 1", subject: "Maths", chapter: "si-ci", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_SICI_2", title: "SI & CI Test 2", subject: "Maths", chapter: "si-ci", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_RP_1", title: "Ratio & Proportion Test 1", subject: "Maths", chapter: "ratio-proportion", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_RP_2", title: "Ratio & Proportion Test 2", subject: "Maths", chapter: "ratio-proportion", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_TW_1", title: "Time & Work Test 1", subject: "Maths", chapter: "time-work", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_TW_2", title: "Time & Work Test 2", subject: "Maths", chapter: "time-work", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_TD_1", title: "Time & Distance Test 1", subject: "Maths", chapter: "time-distance", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_TD_2", title: "Time & Distance Test 2", subject: "Maths", chapter: "time-distance", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_NS_1", title: "Number System Test 1", subject: "Maths", chapter: "number-system", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_NS_2", title: "Number System Test 2", subject: "Maths", chapter: "number-system", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_ALG_1", title: "Algebra Test 1", subject: "Maths", chapter: "algebra", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_ALG_2", title: "Algebra Test 2", subject: "Maths", chapter: "algebra", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_GEO_1", title: "Geometry Test 1", subject: "Maths", chapter: "geometry", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_GEO_2", title: "Geometry Test 2", subject: "Maths", chapter: "geometry", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_TRIG_1", title: "Trigonometry Test 1", subject: "Maths", chapter: "trigonometry", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_TRIG_2", title: "Trigonometry Test 2", subject: "Maths", chapter: "trigonometry", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_MENS_1", title: "Mensuration Test 1", subject: "Maths", chapter: "mensuration", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_MENS_2", title: "Mensuration Test 2", subject: "Maths", chapter: "mensuration", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_DI_1", title: "Data Interpretation Test 1", subject: "Maths", chapter: "data-interpretation", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_MATH_DI_2", title: "Data Interpretation Test 2", subject: "Maths", chapter: "data-interpretation", exam: "CGL", questions: 25, isChapterwise: true },
+
+    // ========================================
+    // CHAPTER-WISE TESTS - REASONING
+    // ========================================
+    { id: "CW_REAS_ANA_1", title: "Analogy Test 1", subject: "Reasoning", chapter: "analogy", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_ANA_2", title: "Analogy Test 2", subject: "Reasoning", chapter: "analogy", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_CLASS_1", title: "Classification Test 1", subject: "Reasoning", chapter: "classification", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_CLASS_2", title: "Classification Test 2", subject: "Reasoning", chapter: "classification", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_SER_1", title: "Series Test 1", subject: "Reasoning", chapter: "series", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_SER_2", title: "Series Test 2", subject: "Reasoning", chapter: "series", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_CD_1", title: "Coding-Decoding Test 1", subject: "Reasoning", chapter: "coding-decoding", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_CD_2", title: "Coding-Decoding Test 2", subject: "Reasoning", chapter: "coding-decoding", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_BR_1", title: "Blood Relation Test 1", subject: "Reasoning", chapter: "blood-relation", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_BR_2", title: "Blood Relation Test 2", subject: "Reasoning", chapter: "blood-relation", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_DIR_1", title: "Direction Test 1", subject: "Reasoning", chapter: "direction", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_REAS_DIR_2", title: "Direction Test 2", subject: "Reasoning", chapter: "direction", exam: "CGL", questions: 25, isChapterwise: true },
+
+    // ========================================
+    // CHAPTER-WISE TESTS - ENGLISH
+    // ========================================
+    { id: "CW_ENG_VOC_1", title: "Vocabulary Test 1", subject: "English", chapter: "vocab", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_VOC_2", title: "Vocabulary Test 2", subject: "English", chapter: "vocab", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_SYN_1", title: "Synonyms Test 1", subject: "English", chapter: "synonyms", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_SYN_2", title: "Synonyms Test 2", subject: "English", chapter: "synonyms", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_ANT_1", title: "Antonyms Test 1", subject: "English", chapter: "antonyms", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_ANT_2", title: "Antonyms Test 2", subject: "English", chapter: "antonyms", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_IDI_1", title: "Idioms Test 1", subject: "English", chapter: "idioms", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_IDI_2", title: "Idioms Test 2", subject: "English", chapter: "idioms", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_ERR_1", title: "Error Spotting Test 1", subject: "English", chapter: "error-spotting", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_ERR_2", title: "Error Spotting Test 2", subject: "English", chapter: "error-spotting", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_FB_1", title: "Fill in Blanks Test 1", subject: "English", chapter: "fill-blanks", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_ENG_FB_2", title: "Fill in Blanks Test 2", subject: "English", chapter: "fill-blanks", exam: "CGL", questions: 25, isChapterwise: true },
+
+    // ========================================
+    // CHAPTER-WISE TESTS - GK
+    // ========================================
+    { id: "CW_GK_HIST_1", title: "History Test 1", subject: "GK", chapter: "history", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_HIST_2", title: "History Test 2", subject: "GK", chapter: "history", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_GEO_1", title: "Geography Test 1", subject: "GK", chapter: "geography", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_GEO_2", title: "Geography Test 2", subject: "GK", chapter: "geography", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_POL_1", title: "Polity Test 1", subject: "GK", chapter: "polity", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_POL_2", title: "Polity Test 2", subject: "GK", chapter: "polity", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_ECO_1", title: "Economy Test 1", subject: "GK", chapter: "economy", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_ECO_2", title: "Economy Test 2", subject: "GK", chapter: "economy", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_SCI_1", title: "General Science Test 1", subject: "GK", chapter: "science", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_SCI_2", title: "General Science Test 2", subject: "GK", chapter: "science", exam: "CGL", questions: 25, isChapterwise: true },
+    { id: "CW_GK_CA_1", title: "Current Affairs Test 1", subject: "GK", chapter: "current-affairs", exam: "CGL", questions: 25, isChapterwise: true, isNew: true },
+    { id: "CW_GK_CA_2", title: "Current Affairs Test 2", subject: "GK", chapter: "current-affairs", exam: "CGL", questions: 25, isChapterwise: true, isNew: true }
+];
+</script>
 
 <script>
+// ============================================
+// MAIN APPLICATION SCRIPT
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const mainTitle = document.getElementById('main-title');
@@ -2254,7 +2030,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // State
     let currentExam = 'CGL';
     let currentSubject = 'Maths';
-    let currentTestType = 'shiftwise'; // 'shiftwise', 'chapterwise', 'fullmock'
+    let currentTestType = 'shiftwise';
     let historyMap = {};
     let isHistoryLoaded = false;
 
@@ -2268,7 +2044,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "FullMock": 60
     };
 
-    // Chapter-wise Test IDs - These will be added to your tests-list.js
+    // Chapter-wise Test IDs
     const CHAPTER_TEST_IDS = {
         Maths: {
             'percentage': ['CW_MATH_PER_1', 'CW_MATH_PER_2', 'CW_MATH_PER_3'],
@@ -2384,32 +2160,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==================== LOAD USER HISTORY ====================
     function loadHistory() {
-        if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
+        // Simulated - replace with actual API call if you have one
+        if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.isLoggedIn && ExamAxisAPI.isLoggedIn()) {
+            return ExamAxisAPI.getTestHistory()
+                .then(res => {
+                    historyMap = {};
+                    if (res.success && res.data?.attempts) {
+                        res.data.attempts.forEach(a => {
+                            const key = String(a.testId);
+                            const existing = historyMap[key];
+                            if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
+                                historyMap[key] = a;
+                            }
+                        });
+                    }
+                    isHistoryLoaded = true;
+                    displayTests();
+                })
+                .catch(err => {
+                    console.error('Failed to load history:', err);
+                    historyMap = {};
+                    isHistoryLoaded = true;
+                });
+        } else {
             historyMap = {};
             isHistoryLoaded = true;
             return Promise.resolve();
         }
-
-        return ExamAxisAPI.getTestHistory()
-            .then(res => {
-                historyMap = {};
-                if (res.success && res.data?.attempts) {
-                    res.data.attempts.forEach(a => {
-                        const key = String(a.testId);
-                        const existing = historyMap[key];
-                        if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
-                            historyMap[key] = a;
-                        }
-                    });
-                }
-                isHistoryLoaded = true;
-                displayTests();
-            })
-            .catch(err => {
-                console.error('Failed to load history:', err);
-                historyMap = {};
-                isHistoryLoaded = true;
-            });
     }
 
     // ==================== DISPLAY FUNCTIONS ====================
@@ -2420,12 +2197,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let html = '';
             
             if (currentTestType === 'shiftwise') {
-                // Use your existing filter logic for shift-wise tests
                 const filteredTests = ALL_TESTS.filter(test => {
-                    // Filter out full mock and chapter-wise tests if they have specific IDs
-                    if (test.id && (test.id.includes('FULL_MOCK') || test.id.includes('CW_'))) {
-                        return false;
-                    }
+                    if (test.isFullMock || test.isChapterwise) return false;
                     return test.exam === currentExam && test.subject === currentSubject;
                 });
                 
@@ -2458,8 +2231,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (mockTests.length > 0) {
                     html = mockTests.map((test, i) => generateFullMockCardHTML(test, i)).join('');
                 } else {
-                    // Show placeholder cards if tests don't exist yet
-                    html = mockTestIds.map((id, i) => generateFullMockPlaceholderHTML(i)).join('');
+                    html = `<div class="no-tests-message">
+                        <div class="icon">📝</div>
+                        <h3>Coming Soon!</h3>
+                        <p>Full mock tests for SSC ${currentExam} will be available soon!</p>
+                    </div>`;
                 }
             }
 
@@ -2538,23 +2314,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generateFullMockCardHTML(test, index) {
-        const questions = 100; // Full mock has 100 questions (75 for DP)
-        const time = 60; // 60 minutes for full mock
+        const questions = test.questions || (currentExam === 'DP' ? 75 : 100);
+        const time = test.duration || 60;
         const maxDelay = Math.min(index * 0.05, 0.4);
+        
+        const attempt = historyMap[String(test.id)];
+        
+        const badges = [];
+        if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
+        if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
 
         return `
             <article class="test-card fullmock-card" role="listitem" style="animation-delay: ${maxDelay}s">
                 <div class="card-glow"></div>
                 <div class="fullmock-badge">📝 FULL MOCK</div>
-                <h3 class="card-title">Full Mock Test ${index + 1}</h3>
+                ${badges.join('')}
+                <h3 class="card-title">${test.title}</h3>
                 <hr>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <div class="value">${currentExam === 'DP' ? 75 : 100}</div>
+                        <div class="value">${questions}</div>
                         <div class="label">Questions</div>
                     </div>
                     <div class="stat-item">
-                        <div class="value">${currentExam === 'DP' ? 150 : 200}</div>
+                        <div class="value">${questions * 2}</div>
                         <div class="label">Marks</div>
                     </div>
                     <div class="stat-item">
@@ -2566,36 +2349,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     📐 Maths | 🧩 Reasoning | ${currentExam !== 'DP' ? '📖 English | ' : ''}🌍 GK
                 </div>
                 <a href="test.html?testId=${test.id}" class="attempt-btn">Start Full Mock</a>
-            </article>`;
-    }
-
-    function generateFullMockPlaceholderHTML(index) {
-        const maxDelay = Math.min(index * 0.05, 0.4);
-        
-        return `
-            <article class="test-card fullmock-card placeholder" role="listitem" style="animation-delay: ${maxDelay}s">
-                <div class="card-glow"></div>
-                <div class="fullmock-badge">📝 FULL MOCK</div>
-                <h3 class="card-title">Full Mock Test ${index + 1}</h3>
-                <hr>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <div class="value">${currentExam === 'DP' ? 75 : 100}</div>
-                        <div class="label">Questions</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">${currentExam === 'DP' ? 150 : 200}</div>
-                        <div class="label">Marks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">60</div>
-                        <div class="label">Minutes</div>
-                    </div>
-                </div>
-                <div class="subjects-included">
-                    📐 Maths | 🧩 Reasoning | ${currentExam !== 'DP' ? '📖 English | ' : ''}🌍 GK
-                </div>
-                <button class="attempt-btn disabled" disabled>Coming Soon</button>
             </article>`;
     }
 
@@ -2617,13 +2370,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateSubjectTabs() {
-        // Show/hide subject tabs based on test type
         if (currentTestType === 'fullmock') {
             subjectTabs.style.display = 'none';
         } else {
             subjectTabs.style.display = 'flex';
             
-            // Hide English for DP exam
             tabs.forEach(tab => {
                 const subject = tab.dataset.subject;
                 if (currentExam === "DP" && subject === "English") {
@@ -2633,7 +2384,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Reset to Maths if current subject is hidden
             if (currentExam === "DP" && currentSubject === "English") {
                 currentSubject = "Maths";
                 tabs.forEach(tab => {
@@ -2648,7 +2398,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function switchTestType(type) {
         currentTestType = type;
         
-        // Update buttons
         [btnShiftwise, btnChapterwise, btnFullmock].forEach(btn => {
             const isActive = btn.dataset.type === type;
             btn.classList.toggle('active', isActive);
@@ -2685,12 +2434,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCPO.addEventListener('click', () => switchExam('CPO'));
     btnDP.addEventListener('click', () => switchExam('DP'));
     
-    // Test type switching
     btnShiftwise.addEventListener('click', () => switchTestType('shiftwise'));
     btnChapterwise.addEventListener('click', () => switchTestType('chapterwise'));
     btnFullmock.addEventListener('click', () => switchTestType('fullmock'));
 
-    // Subject tabs
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => {
@@ -2713,8 +2460,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
-
-
 
 </body>
 </html>
