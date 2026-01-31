@@ -2,2463 +2,1102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Exam-Axis - Professional SSC Mock Tests for CGL, CHSL, CPO and DP Constable preparation">
-    <meta name="theme-color" content="#6366f1">
-    <title>Exam-Axis | SSC Mock Tests</title>
-
-    <!-- Preconnect for faster font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Exam-Axis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ============================================
-           CSS VARIABLES - Light & Dark Theme
-           ============================================ */
         :root {
-            /* Light Theme Colors */
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            --border-color: #e2e8f0;
-            --border-light: #f1f5f9;
-            
-            /* Brand Colors */
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --primary-glow: rgba(99, 102, 241, 0.25);
-            
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
-            
-            /* Exam Colors - CGL */
-            --cgl-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --cgl-glow: rgba(99, 102, 241, 0.3);
-            
-            /* Exam Colors - CHSL */
-            --chsl-color: #10b981;
-            --chsl-gradient: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            --chsl-glow: rgba(16, 185, 129, 0.3);
-            
-            /* Exam Colors - CPO */
-            --cpo-color: #ec4899;
-            --cpo-gradient: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
-            --cpo-glow: rgba(236, 72, 153, 0.3);
-            
-            /* Exam Colors - DP */
-            --dp-color: #f59e0b;
-            --dp-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            --dp-glow: rgba(245, 158, 11, 0.3);
-            
-            /* Status Colors */
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --info: #3b82f6;
-            
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
-            --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.15);
-            
-            /* Spacing & Sizing */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-full: 9999px;
-            
-            /* Transitions */
-            --transition-fast: 150ms ease;
-            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Container */
-            --container-max: 1320px;
-            --nav-height: 72px;
+            --light-bg: #f7f8fc;
+            --light-card-bg: #ffffff;
+            --light-text-primary: #1a202c;
+            --light-text-secondary: #4a5568;
+            --light-border: #e2e8f0;
+            --dark-bg: #0f172a;
+            --dark-card-bg: #1e293b;
+            --dark-text-primary: #f8fafc;
+            --dark-text-secondary: #94a3b8;
+            --dark-border: #334155;
+            --primary-brand: #4A00E0;
+            --secondary-brand: #8E2DE2;
+            --success-color: #00b894;
+            --error-color: #e74c3c;
+            --warning-color: #f39c12;
         }
 
-        /* Dark Theme */
-        .dark-mode {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border-color: #334155;
-            --border-light: #1e293b;
-            
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
-            --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        /* ============================================
-           GLOBAL RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background: var(--light-bg);
+            color: var(--light-text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
-            transition: background-color var(--transition-slow), color var(--transition-slow);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Subtle animated background */
-        body::before {
-            content: '';
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--dark-text-primary);
+        }
+
+        /* Admin Layout */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--light-card-bg);
+            border-right: 1px solid var(--light-border);
+            padding: 20px;
             position: fixed;
-            inset: 0;
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99, 102, 241, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.06), transparent);
-            pointer-events: none;
-            z-index: -1;
-            transition: opacity var(--transition-slow);
+            height: 100vh;
+            overflow-y: auto;
         }
 
-        .dark-mode::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99, 102, 241, 0.15), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.12), transparent);
+        body.dark-mode .sidebar {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border);
         }
 
-        body.exam-chsl::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(16, 185, 129, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(52, 211, 153, 0.06), transparent);
-        }
-
-        body.exam-cpo::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(236, 72, 153, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(244, 114, 182, 0.06), transparent);
-        }
-
-        body.exam-dp::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(245, 158, 11, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(251, 191, 36, 0.06), transparent);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: var(--radius-full);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
-        /* ============================================
-           NAVIGATION BAR
-           ============================================ */
-        .top-nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
-            height: var(--nav-height);
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all var(--transition-normal);
-        }
-
-        .dark-mode .top-nav {
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom-color: var(--border-color);
-        }
-
-        .brand-logo {
-            font-family: 'Poppins', sans-serif;
+        .sidebar-logo {
             font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-brand);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: var(--light-text-secondary);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        body.dark-mode .sidebar-subtitle {
+            color: var(--dark-text-secondary);
+            border-color: var(--dark-border);
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--light-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        body.dark-mode .nav-section-title {
+            color: var(--dark-text-secondary);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: var(--light-text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        body.dark-mode .nav-item {
+            color: var(--dark-text-primary);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            color: white;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 30px;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 28px;
             font-weight: 800;
-            background: var(--cgl-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--light-card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--light-border);
+        }
+
+        body.dark-mode .stat-card {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border);
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: var(--light-text-secondary);
+            font-size: 14px;
+        }
+
+        body.dark-mode .stat-card p {
+            color: var(--dark-text-secondary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--light-card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--light-border);
+            margin-bottom: 25px;
+        }
+
+        body.dark-mode .card {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: transform var(--transition-normal);
         }
 
-        .brand-logo::before {
-            content: "📚";
-            font-size: 1.4rem;
-            -webkit-text-fill-color: initial;
+        .card-title i {
+            color: var(--primary-brand);
         }
 
-        .brand-logo:hover {
-            transform: scale(1.03);
+        /* Table */
+        .table-container {
+            overflow-x: auto;
         }
 
-        body.exam-chsl .brand-logo {
-            background: var(--chsl-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        body.exam-cpo .brand-logo {
-            background: var(--cpo-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-border);
         }
 
-        body.exam-dp .brand-logo {
-            background: var(--dp-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
+        body.dark-mode th, body.dark-mode td {
+            border-color: var(--dark-border);
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        /* Theme Switch */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-full);
-            transition: all var(--transition-normal);
-        }
-
-        .theme-switch-wrapper:hover {
-            border-color: var(--primary);
-        }
-
-        .theme-switch-wrapper span {
-            font-size: 1rem;
-            line-height: 1;
-            cursor: pointer;
-            transition: transform var(--transition-normal);
-        }
-
-        .theme-switch-wrapper:hover span:first-of-type {
-            transform: rotate(-15deg) scale(1.1);
-        }
-
-        .theme-switch-wrapper:hover span:last-of-type {
-            transform: rotate(15deg) scale(1.1);
-        }
-
-        .theme-switch {
-            position: relative;
-            width: 44px;
-            height: 24px;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            inset: 0;
-            background: var(--border-color);
-            border-radius: var(--radius-full);
-            transition: var(--transition-normal);
-        }
-
-        .slider::before {
-            content: "";
-            position: absolute;
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
-            border-radius: 50%;
-            transition: var(--transition-normal);
-            box-shadow: var(--shadow-sm);
-        }
-
-        input:checked + .slider {
-            background: var(--primary);
-        }
-
-        input:checked + .slider::before {
-            transform: translateX(20px);
-        }
-
-        /* Nav Buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            padding: 10px 20px;
+        th {
             font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            transition: all var(--transition-normal);
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--light-text-secondary);
+        }
+
+        body.dark-mode th {
+            color: var(--dark-text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(74, 0, 224, 0.03);
+        }
+
+        body.dark-mode tr:hover {
+            background: rgba(74, 0, 224, 0.08);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
+            border: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(74, 0, 224, 0.3);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-brand);
+            color: var(--primary-brand);
+        }
+
+        /* Badge */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success { background: rgba(0, 184, 148, 0.15); color: #00b894; }
+        .badge-warning { background: rgba(243, 156, 18, 0.15); color: #f39c12; }
+        .badge-danger { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+        .badge-primary { background: rgba(74, 0, 224, 0.15); color: var(--primary-brand); }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 2px solid var(--light-border);
+            border-radius: 10px;
+            background: var(--light-bg);
+            color: var(--light-text-primary);
+        }
+
+        body.dark-mode .form-control {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text-primary);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-brand);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--light-card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .modal {
+            background: var(--dark-card-bg);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
             border: none;
-        }
-
-        .login-btn {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .login-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--primary-glow);
-        }
-
-        .signup-btn {
-            background: var(--cgl-gradient);
-            color: white;
-            box-shadow: 0 4px 12px var(--primary-glow);
-        }
-
-        .signup-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px var(--primary-glow);
-        }
-
-        body.exam-chsl .login-btn {
-            color: var(--chsl-color);
-            border-color: var(--chsl-color);
-        }
-
-        body.exam-chsl .login-btn:hover {
-            background: var(--chsl-color);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-chsl .signup-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-cpo .login-btn {
-            color: var(--cpo-color);
-            border-color: var(--cpo-color);
-        }
-
-        body.exam-cpo .login-btn:hover {
-            background: var(--cpo-color);
-            box-shadow: 0 4px 12px var(--cpo-glow);
-        }
-
-        body.exam-cpo .signup-btn {
-            background: var(--cpo-gradient);
-            box-shadow: 0 4px 12px var(--cpo-glow);
-        }
-
-        body.exam-dp .login-btn {
-            color: var(--dp-color);
-            border-color: var(--dp-color);
-        }
-
-        body.exam-dp .login-btn:hover {
-            background: var(--dp-color);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        body.exam-dp .signup-btn {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        /* ============================================
-           MAIN CONTAINER
-           ============================================ */
-        .main-container {
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding: 40px 24px 100px;
-        }
-
-        /* Header Section */
-        .header-container {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header-title-section h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(1.75rem, 5vw, 2.75rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            line-height: 1.2;
-        }
-
-        .header-title-section strong {
-            background: var(--cgl-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        body.exam-chsl .header-title-section strong {
-            background: var(--chsl-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.exam-cpo .header-title-section strong {
-            background: var(--cpo-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.exam-dp .header-title-section strong {
-            background: var(--dp-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        .sub-heading {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .sub-heading::before,
-        .sub-heading::after {
-            content: '';
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            border-radius: 1px;
-        }
-
-        /* ============================================
-           EXAM SELECTOR BUTTONS
-           ============================================ */
-        .exam-selector {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
-        .exam-btn {
-            padding: 14px 28px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            background: var(--bg-card);
-            color: var(--text-secondary);
+            font-size: 24px;
             cursor: pointer;
-            transition: all var(--transition-normal);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--light-text-secondary);
         }
 
-        .exam-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .exam-btn.active {
-            background: var(--cgl-gradient);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 8px 24px var(--cgl-glow);
-        }
-
-        .exam-btn.active.chsl {
-            background: var(--chsl-gradient);
-            box-shadow: 0 8px 24px var(--chsl-glow);
-        }
-
-        .exam-btn.active.cpo {
-            background: var(--cpo-gradient);
-            box-shadow: 0 8px 24px var(--cpo-glow);
-        }
-
-        .exam-btn.active.dp {
-            background: var(--dp-gradient);
-            box-shadow: 0 8px 24px var(--dp-glow);
-        }
-
-        /* ============================================
-           TEST TYPE SELECTOR (Shiftwise/Chapterwise/Fullmock)
-           ============================================ */
-        .test-type-selector {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 24px;
-            padding: 6px;
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .type-btn {
-            flex: 1;
-            padding: 14px 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            border-radius: var(--radius-lg);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            white-space: nowrap;
-            border: 2px solid transparent;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .type-btn:hover:not(.active) {
-            background: var(--border-light);
-            color: var(--text-primary);
-            border-color: var(--border-color);
-        }
-
-        .type-btn.active {
-            background: var(--cgl-gradient);
-            color: white;
-            box-shadow: 0 4px 16px var(--cgl-glow);
-            border-color: transparent;
-        }
-
-        body.exam-chsl .type-btn.active {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 16px var(--chsl-glow);
-        }
-
-        body.exam-cpo .type-btn.active {
-            background: var(--cpo-gradient);
-            box-shadow: 0 4px 16px var(--cpo-glow);
-        }
-
-        body.exam-dp .type-btn.active {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 16px var(--dp-glow);
-        }
-
-        /* ============================================
-           SUBJECT TABS
-           ============================================ */
-        .tabs-container {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 36px;
-            padding: 8px;
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            overflow-x: auto;
-            justify-content: center;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .tabs-container::-webkit-scrollbar {
+        /* Content Sections */
+        .content-section {
             display: none;
         }
 
-        .tab {
-            padding: 12px 24px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            white-space: nowrap;
-            border: none;
-            background: transparent;
-        }
-
-        .tab:hover:not(.active) {
-            background: var(--border-light);
-            color: var(--text-primary);
-        }
-
-        .tab.active {
-            background: var(--cgl-gradient);
-            color: white;
-            box-shadow: 0 4px 12px var(--cgl-glow);
-        }
-
-        body.exam-chsl .tab.active {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-cpo .tab.active {
-            background: var(--cpo-gradient);
-            box-shadow: 0 4px 12px var(--cpo-glow);
-        }
-
-        body.exam-dp .tab.active {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        /* ============================================
-           TEST CARDS GRID
-           ============================================ */
-        .test-grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-            transition: opacity var(--transition-normal);
-        }
-
-        /* ============================================
-           TEST CARD - Premium Design
-           ============================================ */
-        .test-card {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-xl);
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all var(--transition-normal);
-            animation: cardFadeIn 0.5s ease forwards;
-            opacity: 0;
-            overflow: hidden;
-        }
-
-        @keyframes cardFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Card hover glow effect */
-        .test-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: var(--cgl-gradient);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-        }
-
-        body.exam-chsl .test-card::before {
-            background: var(--chsl-gradient);
-        }
-
-        body.exam-cpo .test-card::before {
-            background: var(--cpo-gradient);
-        }
-
-        body.exam-dp .test-card::before {
-            background: var(--dp-gradient);
-        }
-
-        .test-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Shine effect */
-        .test-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-25deg);
-            transition: left 0.6s ease;
-            pointer-events: none;
-        }
-
-        .test-card:hover::after {
-            left: 125%;
-        }
-
-        .test-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px var(--cgl-glow);
-            border-color: transparent;
-        }
-
-        body.exam-chsl .test-card:hover {
-            box-shadow: 0 20px 40px var(--chsl-glow);
-        }
-
-        body.exam-cpo .test-card:hover {
-            box-shadow: 0 20px 40px var(--cpo-glow);
-        }
-
-        body.exam-dp .test-card:hover {
-            box-shadow: 0 20px 40px var(--dp-glow);
-        }
-
-        /* Card Glow Background */
-        .card-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle, var(--primary-glow), transparent 70%);
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .test-card:hover .card-glow {
-            opacity: 0.5;
-        }
-
-        /* Badges */
-        .new-badge, .attempted-badge {
-            position: absolute;
-            top: 16px;
-            padding: 6px 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            border-radius: var(--radius-sm);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            z-index: 10;
-        }
-
-        .new-badge {
-            right: 16px;
-            background: linear-gradient(135deg, #ef4444, #f97316);
-            color: white;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .attempted-badge {
-            right: 16px;
-            background: var(--success);
-            color: white;
-        }
-
-        .attempted-badge::before {
-            content: "✓ ";
-        }
-
-        /* When both badges exist, position them */
-        .new-badge + .attempted-badge,
-        .attempted-badge + .new-badge {
-            right: auto;
-            left: 16px;
-        }
-
-        /* Card Title */
-        .card-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 12px 0 20px;
-            color: var(--text-primary);
-            line-height: 1.4;
-            position: relative;
-            z-index: 1;
-        }
-
-        .test-card hr {
-            width: 50%;
-            height: 2px;
-            border: none;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            margin: 0 auto 24px;
-            opacity: 0.3;
-        }
-
-        body.exam-chsl .test-card hr {
-            background: linear-gradient(90deg, transparent, var(--chsl-color), transparent);
-        }
-
-        body.exam-cpo .test-card hr {
-            background: linear-gradient(90deg, transparent, var(--cpo-color), transparent);
-        }
-
-        body.exam-dp .test-card hr {
-            background: linear-gradient(90deg, transparent, var(--dp-color), transparent);
-        }
-
-        /* Stats Grid */
-        .card-stats {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-item {
-            flex: 1;
-            max-width: 90px;
-            padding: 14px 8px;
-            background: linear-gradient(145deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.04));
-            border-radius: var(--radius-md);
-            text-align: center;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            transition: all var(--transition-normal);
-        }
-
-        body.exam-chsl .stat-item {
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(52, 211, 153, 0.04));
-            border-color: rgba(16, 185, 129, 0.1);
-        }
-
-        body.exam-cpo .stat-item {
-            background: linear-gradient(145deg, rgba(236, 72, 153, 0.08), rgba(244, 114, 182, 0.04));
-            border-color: rgba(236, 72, 153, 0.1);
-        }
-
-        body.exam-dp .stat-item {
-            background: linear-gradient(145deg, rgba(245, 158, 11, 0.08), rgba(251, 191, 36, 0.04));
-            border-color: rgba(245, 158, 11, 0.1);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-item .value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--cgl-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        body.exam-chsl .stat-item .value {
-            background: var(--chsl-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.exam-cpo .stat-item .value {
-            background: var(--cpo-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.exam-dp .stat-item .value {
-            background: var(--dp-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        .stat-item .label {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* Last Score */
-        .last-score {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            padding: 10px 18px;
-            background: rgba(16, 185, 129, 0.08);
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            font-weight: 500;
-            position: relative;
-            z-index: 1;
-        }
-
-        .last-score::before {
-            content: "📊";
-        }
-
-        .last-score.not-attempted {
-            background: rgba(148, 163, 184, 0.08);
-            border-color: rgba(148, 163, 184, 0.15);
-        }
-
-        .last-score.not-attempted::before {
-            content: "📝";
-        }
-
-        /* Attempt Button */
-        .attempt-btn {
-            background: var(--cgl-gradient);
-            color: white;
-            text-decoration: none;
-            padding: 14px 40px;
-            border-radius: var(--radius-lg);
-            font-weight: 700;
-            font-size: 0.95rem;
-            width: 100%;
-            max-width: 260px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all var(--transition-normal);
-            box-shadow: 0 8px 20px var(--cgl-glow);
-            border: none;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .attempt-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .attempt-btn:hover::before {
-            left: 100%;
-        }
-
-        .attempt-btn::after {
-            content: "→";
-            font-size: 1.1rem;
-            transition: transform var(--transition-normal);
-        }
-
-        .attempt-btn:hover::after {
-            transform: translateX(4px);
-        }
-
-        .attempt-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px var(--cgl-glow);
-        }
-
-        body.exam-chsl .attempt-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 8px 20px var(--chsl-glow);
-        }
-
-        body.exam-chsl .attempt-btn:hover {
-            box-shadow: 0 12px 28px var(--chsl-glow);
-        }
-
-        body.exam-cpo .attempt-btn {
-            background: var(--cpo-gradient);
-            box-shadow: 0 8px 20px var(--cpo-glow);
-        }
-
-        body.exam-cpo .attempt-btn:hover {
-            box-shadow: 0 12px 28px var(--cpo-glow);
-        }
-
-        body.exam-dp .attempt-btn {
-            background: var(--dp-gradient);
-            box-shadow: 0 8px 20px var(--dp-glow);
-        }
-
-        body.exam-dp .attempt-btn:hover {
-            box-shadow: 0 12px 28px var(--dp-glow);
-        }
-
-        /* ============================================
-           CHAPTER CARD - Premium Design
-           ============================================ */
-        .chapter-card {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-xl);
-            padding: 28px 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: all var(--transition-normal);
-            animation: cardFadeIn 0.5s ease forwards;
-            opacity: 0;
-            overflow: hidden;
-        }
-
-        .chapter-card .card-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle, var(--primary-glow), transparent 70%);
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .chapter-card:hover .card-glow {
-            opacity: 0.5;
-        }
-
-        .chapter-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: var(--cgl-gradient);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-        }
-
-        .chapter-card:hover::before {
-            opacity: 1;
-        }
-
-        .chapter-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px var(--cgl-glow);
-            border-color: transparent;
-        }
-
-        body.exam-chsl .chapter-card::before { background: var(--chsl-gradient); }
-        body.exam-cpo .chapter-card::before { background: var(--cpo-gradient); }
-        body.exam-dp .chapter-card::before { background: var(--dp-gradient); }
-
-        body.exam-chsl .chapter-card:hover { box-shadow: 0 20px 40px var(--chsl-glow); }
-        body.exam-cpo .chapter-card:hover { box-shadow: 0 20px 40px var(--cpo-glow); }
-        body.exam-dp .chapter-card:hover { box-shadow: 0 20px 40px var(--dp-glow); }
-
-        .chapter-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            line-height: 1;
-            position: relative;
-            z-index: 1;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-            transition: transform var(--transition-normal);
-        }
-
-        .chapter-card:hover .chapter-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .chapter-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            position: relative;
-            z-index: 1;
-            line-height: 1.3;
-        }
-
-        .chapter-stats {
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .chapter-test-count {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary);
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: var(--radius-full);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        body.exam-chsl .chapter-test-count {
-            color: var(--chsl-color);
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.2);
-        }
-
-        body.exam-cpo .chapter-test-count {
-            color: var(--cpo-color);
-            background: rgba(236, 72, 153, 0.1);
-            border-color: rgba(236, 72, 153, 0.2);
-        }
-
-        body.exam-dp .chapter-test-count {
-            color: var(--dp-color);
-            background: rgba(245, 158, 11, 0.1);
-            border-color: rgba(245, 158, 11, 0.2);
-        }
-
-        /* Chapter Tests Grid - THE BUTTONS */
-        .chapter-tests {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 8px;
-            margin-top: 16px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .chapter-test-link {
-            padding: 10px 8px;
-            background: var(--border-light);
-            border-radius: var(--radius-md);
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all var(--transition-normal);
-            border: 1px solid var(--border-color);
-        }
-
-        .chapter-test-link:hover {
-            background: var(--cgl-gradient);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--cgl-glow);
-            border-color: transparent;
-        }
-
-        body.exam-chsl .chapter-test-link:hover {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-cpo .chapter-test-link:hover {
-            background: var(--cpo-gradient);
-            box-shadow: 0 4px 12px var(--cpo-glow);
-        }
-
-        body.exam-dp .chapter-test-link:hover {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        /* ============================================
-           FULL MOCK TEST CARD
-           ============================================ */
-        .fullmock-card {
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--border-light) 100%);
-            border: 2px solid var(--primary);
-        }
-
-        .fullmock-card:hover {
-            border-color: transparent;
-        }
-
-        body.exam-chsl .fullmock-card { border-color: var(--chsl-color); }
-        body.exam-cpo .fullmock-card { border-color: var(--cpo-color); }
-        body.exam-dp .fullmock-card { border-color: var(--dp-color); }
-
-        .fullmock-badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: var(--cgl-gradient);
-            color: white;
-            padding: 6px 14px;
-            border-radius: var(--radius-full);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            z-index: 10;
-            box-shadow: 0 4px 12px var(--cgl-glow);
-        }
-
-        body.exam-chsl .fullmock-badge {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-cpo .fullmock-badge {
-            background: var(--cpo-gradient);
-            box-shadow: 0 4px 12px var(--cpo-glow);
-        }
-
-        body.exam-dp .fullmock-badge {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        .subjects-included {
-            margin: 16px 0;
-            padding: 12px 16px;
-            background: rgba(99, 102, 241, 0.08);
-            border-radius: var(--radius-md);
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-align: center;
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            position: relative;
-            z-index: 1;
-        }
-
-        body.exam-chsl .subjects-included {
-            background: rgba(16, 185, 129, 0.08);
-            border-color: rgba(16, 185, 129, 0.15);
-        }
-
-        body.exam-cpo .subjects-included {
-            background: rgba(236, 72, 153, 0.08);
-            border-color: rgba(236, 72, 153, 0.15);
-        }
-
-        body.exam-dp .subjects-included {
-            background: rgba(245, 158, 11, 0.08);
-            border-color: rgba(245, 158, 11, 0.15);
-        }
-
-        /* Disabled/Placeholder State */
-        .attempt-btn.disabled {
-            background: var(--border-color) !important;
-            color: var(--text-muted) !important;
-            cursor: not-allowed;
-            box-shadow: none !important;
-        }
-
-        .attempt-btn.disabled:hover {
-            transform: none;
-        }
-
-        .attempt-btn.disabled::after {
-            content: "🔒";
-        }
-
-        .test-card.placeholder {
-            opacity: 0.7;
-        }
-
-        .test-card.placeholder::before {
-            opacity: 0.3;
-        }
-
-        /* ============================================
-           NO TESTS MESSAGE
-           ============================================ */
-        .no-tests-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 80px 40px;
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            border: 2px dashed var(--border-color);
-        }
-
-        .no-tests-message .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+        .content-section.active {
             display: block;
         }
 
-        .no-tests-message h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--light-text-secondary);
         }
 
-        .no-tests-message p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        /* ============================================
-           HELP BUTTON
-           ============================================ */
-        .help-btn {
-            position: fixed;
-            bottom: 28px;
-            right: 28px;
-            width: 56px;
-            height: 56px;
-            background: var(--cgl-gradient);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+            padding: 8px 14px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 8px 24px var(--cgl-glow);
-            transition: all var(--transition-normal);
-            z-index: 999;
-            border: none;
+            font-size: 16px;
         }
 
-        .help-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 12px 32px var(--cgl-glow);
+        body.dark-mode .theme-toggle {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
         }
 
-        body.exam-chsl .help-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 8px 24px var(--chsl-glow);
+        /* Alert */
+        .alert {
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
         }
 
-        body.exam-cpo .help-btn {
-            background: var(--cpo-gradient);
-            box-shadow: 0 8px 24px var(--cpo-glow);
-        }
+        .alert.show { display: flex; }
+        .alert-success { background: rgba(0,184,148,0.1); color: #00b894; }
+        .alert-error { background: rgba(231,76,60,0.1); color: #c0392b; }
 
-        body.exam-dp .help-btn {
-            background: var(--dp-gradient);
-            box-shadow: 0 8px 24px var(--dp-glow);
-        }
-
-        /* Footer decoration */
-        .footer-decoration {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--cgl-gradient);
-            z-index: 100;
-        }
-
-        body.exam-chsl .footer-decoration {
-            background: var(--chsl-gradient);
-        }
-
-        body.exam-cpo .footer-decoration {
-            background: var(--cpo-gradient);
-        }
-
-        body.exam-dp .footer-decoration {
-            background: var(--dp-gradient);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            .main-container {
-                padding: 32px 20px 80px;
-            }
-
-            .test-grid-container {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 20px;
-            }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .top-nav {
-                padding: 0 16px;
-                height: 64px;
-            }
-
-            .brand-logo {
-                font-size: 1.3rem;
-            }
-
-            .brand-logo::before {
-                font-size: 1.2rem;
-            }
-
-            .nav-right {
-                gap: 10px;
-            }
-
-            .theme-switch-wrapper {
-                padding: 4px 10px;
-            }
-
-            .theme-switch-wrapper span {
-                font-size: 0.9rem;
-            }
-
-            .theme-switch {
-                width: 38px;
-                height: 20px;
-            }
-
-            .slider::before {
-                height: 14px;
-                width: 14px;
-            }
-
-            input:checked + .slider::before {
-                transform: translateX(18px);
-            }
-
-            .nav-btn {
-                padding: 8px 14px;
-                font-size: 0.8rem;
-            }
-
-            .main-container {
-                padding: 24px 16px 80px;
-            }
-
-            .header-container {
-                margin-bottom: 28px;
-            }
-
-            .sub-heading::before,
-            .sub-heading::after {
-                width: 24px;
-            }
-
-            .exam-selector {
-                gap: 8px;
-                margin-bottom: 24px;
-            }
-
-            .exam-btn {
-                padding: 10px 18px;
-                font-size: 0.85rem;
-                flex: 1;
-                min-width: 100px;
-                justify-content: center;
-            }
-
-            .test-type-selector {
-                flex-direction: column;
-                max-width: 100%;
-                gap: 6px;
-                padding: 8px;
-            }
-            
-            .type-btn {
+            .sidebar {
                 width: 100%;
-                padding: 12px 16px;
-                font-size: 0.85rem;
-            }
-
-            .tabs-container {
-                padding: 6px;
-                margin-bottom: 28px;
-                justify-content: flex-start;
-            }
-
-            .tab {
-                padding: 10px 18px;
-                font-size: 0.8rem;
-            }
-
-            .test-grid-container {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .test-card {
-                padding: 24px 20px;
-            }
-
-            .chapter-card {
-                padding: 24px 20px;
-            }
-
-            .chapter-icon {
-                font-size: 2.5rem;
-            }
-
-            .chapter-title {
-                font-size: 1.05rem;
-            }
-
-            .chapter-tests {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .chapter-test-link {
-                padding: 8px 6px;
-                font-size: 0.8rem;
-            }
-
-            .card-title {
-                font-size: 1.05rem;
-            }
-
-            .stat-item .value {
-                font-size: 1.35rem;
-            }
-
-            .attempt-btn {
-                padding: 12px 32px;
-                font-size: 0.9rem;
-            }
-
-            .help-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-                bottom: 20px;
-                right: 20px;
-            }
-
-            /* Reduce animations on mobile */
-            .test-card::after,
-            .chapter-card::after,
-            .attempt-btn::before {
-                display: none;
-            }
-
-            .test-card:hover,
-            .chapter-card:hover {
-                transform: translateY(-4px);
-            }
-
-            .chapter-card:hover .chapter-icon {
-                transform: scale(1.1);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-nav {
-                flex-wrap: wrap;
                 height: auto;
-                padding: 12px 16px;
-                gap: 12px;
+                position: relative;
             }
-
-            .nav-right {
-                width: 100%;
-                justify-content: space-between;
+            .main-content {
+                margin-left: 0;
             }
-
-            .exam-btn {
-                padding: 10px 14px;
-                font-size: 0.8rem;
+            .admin-layout {
+                flex-direction: column;
             }
-
-            .chapter-tests {
-                grid-template-columns: repeat(2, 1fr);
+            .form-row {
+                grid-template-columns: 1fr;
             }
-
-            .test-card {
-                padding: 20px 16px;
-            }
-
-            .chapter-card {
-                padding: 20px 16px;
-            }
-
-            .chapter-icon {
-                font-size: 2.2rem;
-                margin-bottom: 12px;
-            }
-
-            .chapter-title {
-                font-size: 1rem;
-            }
-
-            .chapter-test-count {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-
-            .stat-item {
-                padding: 10px 6px;
-            }
-
-            .stat-item .value {
-                font-size: 1.25rem;
-            }
-
-            .stat-item .label {
-                font-size: 0.6rem;
-            }
-
-            .no-tests-message {
-                padding: 60px 24px;
-            }
-
-            .no-tests-message .icon {
-                font-size: 3rem;
-            }
-
-            .no-tests-message h3 {
-                font-size: 1.25rem;
-            }
-        }
-
-        /* ============================================
-           ACCESSIBILITY
-           ============================================ */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        .exam-btn:focus-visible,
-        .tab:focus-visible,
-        .attempt-btn:focus-visible,
-        .nav-btn:focus-visible,
-        .type-btn:focus-visible,
-        .chapter-test-link:focus-visible {
-            outline: 3px solid var(--primary);
-            outline-offset: 2px;
         }
     </style>
 </head>
-
 <body>
 
-<!-- Footer decoration line -->
-<div class="footer-decoration"></div>
+<div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">EXAM-AXIS</a>
+        <p class="sidebar-subtitle">Admin Panel</p>
 
-<!-- Navigation Bar -->
-<nav class="top-nav">
-    <a href="#" class="brand-logo">EXAM-AXIS</a>
-    <div class="nav-right">
-        <div class="theme-switch-wrapper">
-            <span>☀️</span>
-            <label class="theme-switch">
-                <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode">
-                <span class="slider"></span>
-            </label>
-            <span>🌙</span>
+        <div class="nav-section">
+            <p class="nav-section-title">Overview</p>
+            <button class="nav-item active" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </button>
         </div>
-        <div class="nav-buttons">
-            <a href="login.html" class="nav-btn login-btn">Login</a>
-            <a href="signup.html" class="nav-btn signup-btn">Create Account</a>
+
+        <div class="nav-section">
+            <p class="nav-section-title">Management</p>
+            <button class="nav-item" onclick="showSection('tests')">
+                <i class="fas fa-file-alt"></i> Tests
+            </button>
+            <button class="nav-item" onclick="showSection('users')">
+                <i class="fas fa-users"></i> Users
+            </button>
+            <button class="nav-item" onclick="showSection('add-test')">
+                <i class="fas fa-plus-circle"></i> Add New Test
+            </button>
         </div>
-    </div>
-</nav>
 
-<!-- Main Content -->
-<main class="main-container">
-    <!-- Header Section -->
-    <header class="header-container">
-        <div class="header-title-section">
-            <h1 id="main-title">SSC <strong>CGL</strong> Mock Tests</h1>
-            <p class="sub-heading">Assess Your Preparation: Start a Test Now</p>
+        <div class="nav-section">
+            <p class="nav-section-title">Logs</p>
+            <button class="nav-item" onclick="showSection('login-logs')">
+                <i class="fas fa-sign-in-alt"></i> Login Logs
+            </button>
+            <button class="nav-item" onclick="showSection('error-logs')">
+                <i class="fas fa-bug"></i> Error Logs
+            </button>
         </div>
-    </header>
 
-    <!-- Exam Selector -->
-    <div class="exam-selector" role="tablist" aria-label="Select exam type">
-        <button class="exam-btn active" data-exam="CGL" id="btn-cgl" role="tab" aria-selected="true">🎓 SSC CGL</button>
-        <button class="exam-btn chsl" data-exam="CHSL" id="btn-chsl" role="tab" aria-selected="false">📘 SSC CHSL</button>
-        <button class="exam-btn cpo" data-exam="CPO" id="btn-cpo" role="tab" aria-selected="false">🚔 SSC CPO</button>
-        <button class="exam-btn dp" data-exam="DP" id="btn-dp" role="tab" aria-selected="false">👮 DP Constable</button>
-    </div>
+        <div class="nav-section">
+            <p class="nav-section-title">Account</p>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-arrow-left"></i> Back to Site
+            </a>
+            <button class="nav-item" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
 
-    <!-- Test Type Selector (3 Sections) -->
-    <div class="test-type-selector" role="tablist" aria-label="Select test type">
-        <button class="type-btn active" data-type="shiftwise" id="btn-shiftwise" role="tab" aria-selected="true">
-            📊 Shift-wise Tests
-        </button>
-        <button class="type-btn" data-type="chapterwise" id="btn-chapterwise" role="tab" aria-selected="false">
-            📚 Chapter-wise Tests
-        </button>
-        <button class="type-btn" data-type="fullmock" id="btn-fullmock" role="tab" aria-selected="false">
-            📝 Full Mock Tests
-        </button>
-    </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Alert -->
+        <div class="alert alert-success" id="successAlert">
+            <i class="fas fa-check-circle"></i>
+            <span id="successMessage"></span>
+        </div>
+        <div class="alert alert-error" id="errorAlert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorMessage"></span>
+        </div>
 
-    <!-- Subject Tabs (for Shift-wise and Chapter-wise) -->
-    <div class="tabs-container" id="subject-tabs" role="tablist" aria-label="Select subject">
-        <button class="tab active" data-subject="Maths" role="tab" aria-selected="true">📐 Maths</button>
-        <button class="tab" data-subject="Reasoning" role="tab" aria-selected="false">🧩 Reasoning</button>
-        <button class="tab" data-subject="English" role="tab" aria-selected="false">📖 English</button>
-        <button class="tab" data-subject="GK" role="tab" aria-selected="false">🌍 GK</button>
-    </div>
+        <!-- Dashboard Section -->
+        <section class="content-section active" id="section-dashboard">
+            <div class="page-header">
+                <h1 class="page-title">📊 Dashboard</h1>
+                <div class="header-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+                </div>
+            </div>
 
-    <!-- Test Cards Grid -->
-    <div id="test-grid-container" class="test-grid-container" role="list" aria-label="Available tests"></div>
-</main>
+            <div class="stats-grid" id="dashboardStats">
+                <div class="stat-card">
+                    <h3 id="statTotalUsers">-</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statNewUsers">-</h3>
+                    <p>New Today</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statTotalTests">-</h3>
+                    <p>Total Tests</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statTotalAttempts">-</h3>
+                    <p>Total Attempts</p>
+                </div>
+            </div>
 
-<!-- Help Button -->
-<button class="help-btn" aria-label="Get help">💬</button>
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-clock"></i> Recent Logins</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>IP Address</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentLoginsTable">
+                            <tr><td colspan="3" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
-<!-- Scripts -->
+        <!-- Tests Section -->
+        <section class="content-section" id="section-tests">
+            <div class="page-header">
+                <h1 class="page-title">📝 Tests Management</h1>
+                <button class="btn btn-primary" onclick="showSection('add-test')">
+                    <i class="fas fa-plus"></i> Add New Test
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test ID</th>
+                                <th>Title</th>
+                                <th>Exam</th>
+                                <th>Subject</th>
+                                <th>Questions</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="testsTable">
+                            <tr><td colspan="7" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section class="content-section" id="section-users">
+            <div class="page-header">
+                <h1 class="page-title">👥 Users Management</h1>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <tr><td colspan="7" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Test Section -->
+        <section class="content-section" id="section-add-test">
+            <div class="page-header">
+                <h1 class="page-title">➕ Add New Test</h1>
+            </div>
+
+            <div class="card">
+                <form id="addTestForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Test ID *</label>
+                            <input type="text" class="form-control" id="testId" placeholder="e.g., CGL-MATHS-001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" class="form-control" id="testTitle" placeholder="e.g., 15 Jan 2025 Maths" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Exam Type *</label>
+                            <select class="form-control" id="testExamType" required>
+                                <option value="CGL">SSC CGL</option>
+                                <option value="CHSL">SSC CHSL</option>
+                                <option value="DP">DP Constable</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject *</label>
+                            <select class="form-control" id="testSubject" required>
+                                <option value="Maths">Maths</option>
+                                <option value="Reasoning">Reasoning</option>
+                                <option value="English">English</option>
+                                <option value="GK">GK</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Duration (minutes)</label>
+                            <input type="number" class="form-control" id="testDuration" value="25">
+                        </div>
+                        <div class="form-group">
+                            <label>Difficulty</label>
+                            <select class="form-control" id="testDifficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="testDescription" rows="3" placeholder="Optional description..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Questions (JSON Array)</label>
+                        <textarea class="form-control" id="testQuestions" rows="10" placeholder='[
+  {
+    "id": 1,
+    "question": "What is 2 + 2?",
+    "options": ["3", "4", "5", "6"],
+    "correctAnswer": 1,
+    "explanation": "2 + 2 = 4"
+  }
+]'></textarea>
+                        <small style="color: var(--light-text-secondary);">Enter questions as JSON array. correctAnswer is 0-indexed.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Create Test
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Login Logs Section -->
+        <section class="content-section" id="section-login-logs">
+            <div class="page-header">
+                <h1 class="page-title">🔐 Login Logs</h1>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>IP Address</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loginLogsTable">
+                            <tr><td colspan="5" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Logs Section -->
+        <section class="content-section" id="section-error-logs">
+            <div class="page-header">
+                <h1 class="page-title">🐛 Error Logs</h1>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>Message</th>
+                                <th>Endpoint</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="errorLogsTable">
+                            <tr><td colspan="4" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="js/api.js"></script>
 <script>
-// ============================================
-// TEST DATA (tests-list.js content)
-// ============================================
-const ALL_TESTS = [
+    // ==================== Theme ====================
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
 
-    // ========================================
-    // SSC CGL - SHIFT-WISE TESTS (Maths)
-    // ========================================
-    {
-        id: "ssc_cgl_12_sep_s1",
-        date: "12 Sep",
-        title: "Shift 1",
-        subject: "Maths",
-        exam: "CGL",
-        questions: 25,
-        isNew: true
-    },
-    {
-        id: "ssc_cgl_12_sep_s2",
-        date: "12 Sep",
-        title: "Shift 2",
-        subject: "Maths",
-        exam: "CGL",
-        questions: 25,
-        isNew: true
-    },
-    {
-        id: "ssc_cgl_12_sep_s3",
-        date: "12 Sep",
-        title: "Shift 3",
-        subject: "Maths",
-        exam: "CGL",
-        questions: 25,
-        isNew: true
-    },
-    {
-        id: "ssc_cgl_13_sep_s1",
-        date: "13 Sep",
-        title: "Shift 1",
-        subject: "Maths",
-        exam: "CGL",
-        questions: 25,
-        isNew: true
-    },
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
 
-    // ========================================
-    // SSC CGL - FULL MOCK TESTS
-    // ========================================
-    {
-        id: "FULL_MOCK_CGL_1",
-        title: "Full Mock Test 1",
-        subject: "FullMock",
-        exam: "CGL",
-        questions: 100,
-        duration: 60,
-        isFullMock: true,
-        isNew: true
-    },
-    {
-        id: "FULL_MOCK_CGL_2",
-        title: "Full Mock Test 2",
-        subject: "FullMock",
-        exam: "CGL",
-        questions: 100,
-        duration: 60,
-        isFullMock: true
-    },
-    {
-        id: "FULL_MOCK_CGL_3",
-        title: "Full Mock Test 3",
-        subject: "FullMock",
-        exam: "CGL",
-        questions: 100,
-        duration: 60,
-        isFullMock: true
-    },
-
-    // ========================================
-    // SSC CHSL - FULL MOCK TESTS
-    // ========================================
-    {
-        id: "FULL_MOCK_CHSL_1",
-        title: "Full Mock Test 1",
-        subject: "FullMock",
-        exam: "CHSL",
-        questions: 100,
-        duration: 60,
-        isFullMock: true,
-        isNew: true
-    },
-    {
-        id: "FULL_MOCK_CHSL_2",
-        title: "Full Mock Test 2",
-        subject: "FullMock",
-        exam: "CHSL",
-        questions: 100,
-        duration: 60,
-        isFullMock: true
-    },
-
-    // ========================================
-    // SSC CPO - FULL MOCK TESTS
-    // ========================================
-    {
-        id: "FULL_MOCK_CPO_1",
-        title: "Full Mock Test 1",
-        subject: "FullMock",
-        exam: "CPO",
-        questions: 100,
-        duration: 60,
-        isFullMock: true
-    },
-    {
-        id: "FULL_MOCK_CPO_2",
-        title: "Full Mock Test 2",
-        subject: "FullMock",
-        exam: "CPO",
-        questions: 100,
-        duration: 60,
-        isFullMock: true
-    },
-
-    // ========================================
-    // DP CONSTABLE - FULL MOCK TESTS
-    // ========================================
-    {
-        id: "FULL_MOCK_DP_1",
-        title: "Full Mock Test 1",
-        subject: "FullMock",
-        exam: "DP",
-        questions: 75,
-        duration: 60,
-        isFullMock: true
-    },
-    {
-        id: "FULL_MOCK_DP_2",
-        title: "Full Mock Test 2",
-        subject: "FullMock",
-        exam: "DP",
-        questions: 75,
-        duration: 60,
-        isFullMock: true
-    },
-
-    // ========================================
-    // CHAPTER-WISE TESTS - MATHS
-    // ========================================
-    { id: "CW_MATH_PER_1", title: "Percentage Test 1", subject: "Maths", chapter: "percentage", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_PER_2", title: "Percentage Test 2", subject: "Maths", chapter: "percentage", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_PER_3", title: "Percentage Test 3", subject: "Maths", chapter: "percentage", exam: "CGL", questions: 25, isChapterwise: true, isNew: true },
-    { id: "CW_MATH_PL_1", title: "Profit & Loss Test 1", subject: "Maths", chapter: "profit-loss", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_PL_2", title: "Profit & Loss Test 2", subject: "Maths", chapter: "profit-loss", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_SICI_1", title: "SI & CI Test 1", subject: "Maths", chapter: "si-ci", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_SICI_2", title: "SI & CI Test 2", subject: "Maths", chapter: "si-ci", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_RP_1", title: "Ratio & Proportion Test 1", subject: "Maths", chapter: "ratio-proportion", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_RP_2", title: "Ratio & Proportion Test 2", subject: "Maths", chapter: "ratio-proportion", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_TW_1", title: "Time & Work Test 1", subject: "Maths", chapter: "time-work", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_TW_2", title: "Time & Work Test 2", subject: "Maths", chapter: "time-work", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_TD_1", title: "Time & Distance Test 1", subject: "Maths", chapter: "time-distance", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_TD_2", title: "Time & Distance Test 2", subject: "Maths", chapter: "time-distance", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_NS_1", title: "Number System Test 1", subject: "Maths", chapter: "number-system", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_NS_2", title: "Number System Test 2", subject: "Maths", chapter: "number-system", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_ALG_1", title: "Algebra Test 1", subject: "Maths", chapter: "algebra", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_ALG_2", title: "Algebra Test 2", subject: "Maths", chapter: "algebra", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_GEO_1", title: "Geometry Test 1", subject: "Maths", chapter: "geometry", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_GEO_2", title: "Geometry Test 2", subject: "Maths", chapter: "geometry", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_TRIG_1", title: "Trigonometry Test 1", subject: "Maths", chapter: "trigonometry", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_TRIG_2", title: "Trigonometry Test 2", subject: "Maths", chapter: "trigonometry", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_MENS_1", title: "Mensuration Test 1", subject: "Maths", chapter: "mensuration", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_MENS_2", title: "Mensuration Test 2", subject: "Maths", chapter: "mensuration", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_DI_1", title: "Data Interpretation Test 1", subject: "Maths", chapter: "data-interpretation", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_MATH_DI_2", title: "Data Interpretation Test 2", subject: "Maths", chapter: "data-interpretation", exam: "CGL", questions: 25, isChapterwise: true },
-
-    // ========================================
-    // CHAPTER-WISE TESTS - REASONING
-    // ========================================
-    { id: "CW_REAS_ANA_1", title: "Analogy Test 1", subject: "Reasoning", chapter: "analogy", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_ANA_2", title: "Analogy Test 2", subject: "Reasoning", chapter: "analogy", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_CLASS_1", title: "Classification Test 1", subject: "Reasoning", chapter: "classification", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_CLASS_2", title: "Classification Test 2", subject: "Reasoning", chapter: "classification", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_SER_1", title: "Series Test 1", subject: "Reasoning", chapter: "series", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_SER_2", title: "Series Test 2", subject: "Reasoning", chapter: "series", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_CD_1", title: "Coding-Decoding Test 1", subject: "Reasoning", chapter: "coding-decoding", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_CD_2", title: "Coding-Decoding Test 2", subject: "Reasoning", chapter: "coding-decoding", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_BR_1", title: "Blood Relation Test 1", subject: "Reasoning", chapter: "blood-relation", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_BR_2", title: "Blood Relation Test 2", subject: "Reasoning", chapter: "blood-relation", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_DIR_1", title: "Direction Test 1", subject: "Reasoning", chapter: "direction", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_REAS_DIR_2", title: "Direction Test 2", subject: "Reasoning", chapter: "direction", exam: "CGL", questions: 25, isChapterwise: true },
-
-    // ========================================
-    // CHAPTER-WISE TESTS - ENGLISH
-    // ========================================
-    { id: "CW_ENG_VOC_1", title: "Vocabulary Test 1", subject: "English", chapter: "vocab", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_VOC_2", title: "Vocabulary Test 2", subject: "English", chapter: "vocab", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_SYN_1", title: "Synonyms Test 1", subject: "English", chapter: "synonyms", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_SYN_2", title: "Synonyms Test 2", subject: "English", chapter: "synonyms", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_ANT_1", title: "Antonyms Test 1", subject: "English", chapter: "antonyms", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_ANT_2", title: "Antonyms Test 2", subject: "English", chapter: "antonyms", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_IDI_1", title: "Idioms Test 1", subject: "English", chapter: "idioms", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_IDI_2", title: "Idioms Test 2", subject: "English", chapter: "idioms", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_ERR_1", title: "Error Spotting Test 1", subject: "English", chapter: "error-spotting", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_ERR_2", title: "Error Spotting Test 2", subject: "English", chapter: "error-spotting", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_FB_1", title: "Fill in Blanks Test 1", subject: "English", chapter: "fill-blanks", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_ENG_FB_2", title: "Fill in Blanks Test 2", subject: "English", chapter: "fill-blanks", exam: "CGL", questions: 25, isChapterwise: true },
-
-    // ========================================
-    // CHAPTER-WISE TESTS - GK
-    // ========================================
-    { id: "CW_GK_HIST_1", title: "History Test 1", subject: "GK", chapter: "history", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_HIST_2", title: "History Test 2", subject: "GK", chapter: "history", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_GEO_1", title: "Geography Test 1", subject: "GK", chapter: "geography", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_GEO_2", title: "Geography Test 2", subject: "GK", chapter: "geography", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_POL_1", title: "Polity Test 1", subject: "GK", chapter: "polity", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_POL_2", title: "Polity Test 2", subject: "GK", chapter: "polity", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_ECO_1", title: "Economy Test 1", subject: "GK", chapter: "economy", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_ECO_2", title: "Economy Test 2", subject: "GK", chapter: "economy", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_SCI_1", title: "General Science Test 1", subject: "GK", chapter: "science", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_SCI_2", title: "General Science Test 2", subject: "GK", chapter: "science", exam: "CGL", questions: 25, isChapterwise: true },
-    { id: "CW_GK_CA_1", title: "Current Affairs Test 1", subject: "GK", chapter: "current-affairs", exam: "CGL", questions: 25, isChapterwise: true, isNew: true },
-    { id: "CW_GK_CA_2", title: "Current Affairs Test 2", subject: "GK", chapter: "current-affairs", exam: "CGL", questions: 25, isChapterwise: true, isNew: true }
-];
-</script>
-
-<script>
-// ============================================
-// MAIN APPLICATION SCRIPT
-// ============================================
-document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
-    const mainTitle = document.getElementById('main-title');
-    const gridContainer = document.getElementById('test-grid-container');
-    const tabs = document.querySelectorAll('.tab');
-    const themeToggle = document.getElementById('theme-toggle');
-    const btnCGL = document.getElementById('btn-cgl');
-    const btnCHSL = document.getElementById('btn-chsl');
-    const btnCPO = document.getElementById('btn-cpo');
-    const btnDP = document.getElementById('btn-dp');
-    
-    // Test type selector elements
-    const btnShiftwise = document.getElementById('btn-shiftwise');
-    const btnChapterwise = document.getElementById('btn-chapterwise');
-    const btnFullmock = document.getElementById('btn-fullmock');
-    const subjectTabs = document.getElementById('subject-tabs');
-
-    // State
-    let currentExam = 'CGL';
-    let currentSubject = 'Maths';
-    let currentTestType = 'shiftwise';
-    let historyMap = {};
-    let isHistoryLoaded = false;
-
-    // Configuration
-    const SUBJECT_DISPLAY_TIMES = {
-        "Maths": 25,
-        "Reasoning": 20,
-        "English": 15,
-        "GK": 10,
-        "General": 60,
-        "FullMock": 60
-    };
-
-    // Chapter-wise Test IDs
-    const CHAPTER_TEST_IDS = {
-        Maths: {
-            'percentage': ['CW_MATH_PER_1', 'CW_MATH_PER_2', 'CW_MATH_PER_3'],
-            'profit-loss': ['CW_MATH_PL_1', 'CW_MATH_PL_2'],
-            'si-ci': ['CW_MATH_SICI_1', 'CW_MATH_SICI_2'],
-            'ratio-proportion': ['CW_MATH_RP_1', 'CW_MATH_RP_2'],
-            'time-work': ['CW_MATH_TW_1', 'CW_MATH_TW_2'],
-            'time-distance': ['CW_MATH_TD_1', 'CW_MATH_TD_2'],
-            'number-system': ['CW_MATH_NS_1', 'CW_MATH_NS_2'],
-            'algebra': ['CW_MATH_ALG_1', 'CW_MATH_ALG_2'],
-            'geometry': ['CW_MATH_GEO_1', 'CW_MATH_GEO_2'],
-            'trigonometry': ['CW_MATH_TRIG_1', 'CW_MATH_TRIG_2'],
-            'mensuration': ['CW_MATH_MENS_1', 'CW_MATH_MENS_2'],
-            'data-interpretation': ['CW_MATH_DI_1', 'CW_MATH_DI_2']
-        },
-        Reasoning: {
-            'analogy': ['CW_REAS_ANA_1', 'CW_REAS_ANA_2'],
-            'classification': ['CW_REAS_CLASS_1', 'CW_REAS_CLASS_2'],
-            'series': ['CW_REAS_SER_1', 'CW_REAS_SER_2'],
-            'coding-decoding': ['CW_REAS_CD_1', 'CW_REAS_CD_2'],
-            'blood-relation': ['CW_REAS_BR_1', 'CW_REAS_BR_2'],
-            'direction': ['CW_REAS_DIR_1', 'CW_REAS_DIR_2']
-        },
-        English: {
-            'vocab': ['CW_ENG_VOC_1', 'CW_ENG_VOC_2'],
-            'synonyms': ['CW_ENG_SYN_1', 'CW_ENG_SYN_2'],
-            'antonyms': ['CW_ENG_ANT_1', 'CW_ENG_ANT_2'],
-            'idioms': ['CW_ENG_IDI_1', 'CW_ENG_IDI_2'],
-            'error-spotting': ['CW_ENG_ERR_1', 'CW_ENG_ERR_2'],
-            'fill-blanks': ['CW_ENG_FB_1', 'CW_ENG_FB_2']
-        },
-        GK: {
-            'history': ['CW_GK_HIST_1', 'CW_GK_HIST_2'],
-            'geography': ['CW_GK_GEO_1', 'CW_GK_GEO_2'],
-            'polity': ['CW_GK_POL_1', 'CW_GK_POL_2'],
-            'economy': ['CW_GK_ECO_1', 'CW_GK_ECO_2'],
-            'science': ['CW_GK_SCI_1', 'CW_GK_SCI_2'],
-            'current-affairs': ['CW_GK_CA_1', 'CW_GK_CA_2']
+    // ==================== Auth Check ====================
+    async function checkAdminAuth() {
+        if (!ExamAxisAPI.isLoggedIn()) {
+            window.location.href = 'login.html';
+            return false;
         }
-    };
 
-    // Full Mock Test IDs
-    const FULLMOCK_TEST_IDS = {
-        'CGL': ['FULL_MOCK_CGL_1', 'FULL_MOCK_CGL_2', 'FULL_MOCK_CGL_3'],
-        'CHSL': ['FULL_MOCK_CHSL_1', 'FULL_MOCK_CHSL_2'],
-        'CPO': ['FULL_MOCK_CPO_1', 'FULL_MOCK_CPO_2'],
-        'DP': ['FULL_MOCK_DP_1', 'FULL_MOCK_DP_2']
-    };
+        const user = ExamAxisAPI.getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'superadmin')) {
+            showError('Admin access required');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+            return false;
+        }
 
-    // Chapter Information
-    const CHAPTER_INFO = {
-        Maths: [
-            { id: 'percentage', name: 'Percentage', icon: '📊' },
-            { id: 'profit-loss', name: 'Profit & Loss', icon: '💰' },
-            { id: 'si-ci', name: 'SI & CI', icon: '🏦' },
-            { id: 'ratio-proportion', name: 'Ratio & Proportion', icon: '⚖️' },
-            { id: 'time-work', name: 'Time & Work', icon: '⏱️' },
-            { id: 'time-distance', name: 'Time & Distance', icon: '🚗' },
-            { id: 'number-system', name: 'Number System', icon: '🔢' },
-            { id: 'algebra', name: 'Algebra', icon: '📈' },
-            { id: 'geometry', name: 'Geometry', icon: '📐' },
-            { id: 'trigonometry', name: 'Trigonometry', icon: '📏' },
-            { id: 'mensuration', name: 'Mensuration', icon: '📦' },
-            { id: 'data-interpretation', name: 'Data Interpretation', icon: '📉' }
-        ],
-        Reasoning: [
-            { id: 'analogy', name: 'Analogy', icon: '🔗' },
-            { id: 'classification', name: 'Classification', icon: '📁' },
-            { id: 'series', name: 'Series', icon: '🔢' },
-            { id: 'coding-decoding', name: 'Coding-Decoding', icon: '🔐' },
-            { id: 'blood-relation', name: 'Blood Relation', icon: '👨‍👩‍👧' },
-            { id: 'direction', name: 'Direction', icon: '🧭' }
-        ],
-        English: [
-            { id: 'vocab', name: 'Vocabulary', icon: '📖' },
-            { id: 'synonyms', name: 'Synonyms', icon: '🔤' },
-            { id: 'antonyms', name: 'Antonyms', icon: '🔡' },
-            { id: 'idioms', name: 'Idioms & Phrases', icon: '💬' },
-            { id: 'error-spotting', name: 'Error Spotting', icon: '🔍' },
-            { id: 'fill-blanks', name: 'Fill in the Blanks', icon: '📝' }
-        ],
-        GK: [
-            { id: 'history', name: 'History', icon: '🏛️' },
-            { id: 'geography', name: 'Geography', icon: '🌍' },
-            { id: 'polity', name: 'Polity', icon: '⚖️' },
-            { id: 'economy', name: 'Economy', icon: '💹' },
-            { id: 'science', name: 'General Science', icon: '🔬' },
-            { id: 'current-affairs', name: 'Current Affairs', icon: '📰' }
-        ]
-    };
+        return true;
+    }
 
-    // ==================== THEME MANAGEMENT ====================
-    function applyTheme(theme) {
-        const isDark = theme === 'dark';
-        document.body.classList.toggle('dark-mode', isDark);
-        themeToggle.checked = isDark;
+    // ==================== Navigation ====================
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
         
-        const metaTheme = document.querySelector('meta[name="theme-color"]');
-        if (metaTheme) {
-            metaTheme.setAttribute('content', isDark ? '#0f172a' : '#6366f1');
-        }
+        // Show selected section
+        document.getElementById(`section-${sectionId}`).classList.add('active');
+        
+        // Update nav items
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        event.target.closest('.nav-item')?.classList.add('active');
+        
+        // Load data for section
+        loadSectionData(sectionId);
     }
-    
-    themeToggle.addEventListener('change', () => {
-        const newTheme = themeToggle.checked ? 'dark' : 'light';
-        localStorage.setItem('theme', newTheme);
-        applyTheme(newTheme);
-    });
-    
-    const savedTheme = localStorage.getItem('theme') || 
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    applyTheme(savedTheme);
 
-    // ==================== LOAD USER HISTORY ====================
-    function loadHistory() {
-        // Simulated - replace with actual API call if you have one
-        if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.isLoggedIn && ExamAxisAPI.isLoggedIn()) {
-            return ExamAxisAPI.getTestHistory()
-                .then(res => {
-                    historyMap = {};
-                    if (res.success && res.data?.attempts) {
-                        res.data.attempts.forEach(a => {
-                            const key = String(a.testId);
-                            const existing = historyMap[key];
-                            if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
-                                historyMap[key] = a;
-                            }
-                        });
-                    }
-                    isHistoryLoaded = true;
-                    displayTests();
-                })
-                .catch(err => {
-                    console.error('Failed to load history:', err);
-                    historyMap = {};
-                    isHistoryLoaded = true;
-                });
-        } else {
-            historyMap = {};
-            isHistoryLoaded = true;
-            return Promise.resolve();
+    function loadSectionData(section) {
+        switch(section) {
+            case 'dashboard': loadDashboard(); break;
+            case 'tests': loadTests(); break;
+            case 'users': loadUsers(); break;
+            case 'login-logs': loadLoginLogs(); break;
+            case 'error-logs': loadErrorLogs(); break;
         }
     }
 
-    // ==================== DISPLAY FUNCTIONS ====================
-    function displayTests() {
-        gridContainer.style.opacity = '0';
+    // ==================== API Calls ====================
+    async function adminRequest(endpoint, options = {}) {
+        const token = ExamAxisAPI.getToken();
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            }
+        });
+        return response.json();
+    }
 
-        requestAnimationFrame(() => {
-            let html = '';
+    // ==================== Dashboard ====================
+    async function loadDashboard() {
+        try {
+            const data = await adminRequest('/api/admin/dashboard');
             
-            if (currentTestType === 'shiftwise') {
-                const filteredTests = ALL_TESTS.filter(test => {
-                    if (test.isFullMock || test.isChapterwise) return false;
-                    return test.exam === currentExam && test.subject === currentSubject;
-                });
+            if (data.success) {
+                document.getElementById('statTotalUsers').textContent = data.data.stats.totalUsers;
+                document.getElementById('statNewUsers').textContent = data.data.stats.newUsersToday;
+                document.getElementById('statTotalTests').textContent = data.data.stats.totalTests;
+                document.getElementById('statTotalAttempts').textContent = data.data.stats.totalAttempts;
                 
-                html = filteredTests.map((test, i) => generateShiftwiseCardHTML(test, i)).join('');
-                
-                if (filteredTests.length === 0) {
-                    html = `<div class="no-tests-message">
-                        <div class="icon">📭</div>
-                        <h3>Coming Soon!</h3>
-                        <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
-                    </div>`;
-                }
-            } 
-            else if (currentTestType === 'chapterwise') {
-                const chapters = CHAPTER_INFO[currentSubject] || [];
-                html = chapters.map((chapter, i) => generateChapterCardHTML(chapter, i)).join('');
-                
-                if (chapters.length === 0) {
-                    html = `<div class="no-tests-message">
-                        <div class="icon">📚</div>
-                        <h3>Coming Soon!</h3>
-                        <p>Chapter-wise tests will be available soon!</p>
-                    </div>`;
-                }
-            } 
-            else if (currentTestType === 'fullmock') {
-                const mockTestIds = FULLMOCK_TEST_IDS[currentExam] || [];
-                const mockTests = mockTestIds.map(id => ALL_TESTS.find(t => t.id === id)).filter(Boolean);
-                
-                if (mockTests.length > 0) {
-                    html = mockTests.map((test, i) => generateFullMockCardHTML(test, i)).join('');
+                // Recent logins
+                const tbody = document.getElementById('recentLoginsTable');
+                if (data.data.recentLogins.length > 0) {
+                    tbody.innerHTML = data.data.recentLogins.map(log => `
+                        <tr>
+                            <td>${log.user?.username || 'Unknown'}</td>
+                            <td>${log.ipAddress}</td>
+                            <td>${new Date(log.createdAt).toLocaleString()}</td>
+                        </tr>
+                    `).join('');
                 } else {
-                    html = `<div class="no-tests-message">
-                        <div class="icon">📝</div>
-                        <h3>Coming Soon!</h3>
-                        <p>Full mock tests for SSC ${currentExam} will be available soon!</p>
-                    </div>`;
+                    tbody.innerHTML = '<tr><td colspan="3">No recent logins</td></tr>';
                 }
             }
-
-            gridContainer.innerHTML = html;
-
-            requestAnimationFrame(() => {
-                gridContainer.style.opacity = '1';
-            });
-        });
+        } catch (error) {
+            console.error('Dashboard error:', error);
+        }
     }
 
-    function generateShiftwiseCardHTML(test, index) {
-        const fullTitle = `${test.date} ${test.title}`;
-        const questions = test.questions || 25;
-        const time = SUBJECT_DISPLAY_TIMES[test.subject] || 25;
-        
-        const attempt = historyMap[String(test.id)];
-        
-        const badges = [];
-        if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
-        if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
-
-        const lastScoreHtml = isHistoryLoaded 
-            ? (attempt
-                ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
-                : `<div class="last-score not-attempted">Not attempted yet</div>`)
-            : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading history...</div>`;
-
-        const maxDelay = Math.min(index * 0.05, 0.4);
-
-        return `
-            <article class="test-card" role="listitem" style="animation-delay: ${maxDelay}s">
-                <div class="card-glow"></div>
-                ${badges.join('')}
-                <h3 class="card-title">${fullTitle}</h3>
-                <hr>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <div class="value">${questions}</div>
-                        <div class="label">Questions</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">${questions * 2}</div>
-                        <div class="label">Marks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">${time}</div>
-                        <div class="label">Minutes</div>
-                    </div>
-                </div>
-                ${lastScoreHtml}
-                <a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>
-            </article>`;
+    // ==================== Tests ====================
+    async function loadTests() {
+        try {
+            const data = await adminRequest('/api/admin/tests');
+            
+            const tbody = document.getElementById('testsTable');
+            if (data.success && data.data.tests.length > 0) {
+                tbody.innerHTML = data.data.tests.map(test => `
+                    <tr>
+                        <td><strong>${test.testId}</strong></td>
+                        <td>${test.title}</td>
+                        <td><span class="badge badge-primary">${test.examType}</span></td>
+                        <td>${test.subject}</td>
+                        <td>${test.totalQuestions}</td>
+                        <td>
+                            <span class="badge ${test.isActive ? 'badge-success' : 'badge-danger'}">
+                                ${test.isActive ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="editTest(${test.id})">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteTest(${test.id})">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="7">No tests found</td></tr>';
+            }
+        } catch (error) {
+            console.error('Tests error:', error);
+        }
     }
 
-    function generateChapterCardHTML(chapter, index) {
-        const testIds = CHAPTER_TEST_IDS[currentSubject]?.[chapter.id] || [];
-        const maxDelay = Math.min(index * 0.05, 0.4);
-        
-        return `
-            <article class="chapter-card" role="listitem" style="animation-delay: ${maxDelay}s">
-                <div class="card-glow"></div>
-                <div class="chapter-icon">${chapter.icon}</div>
-                <h3 class="chapter-title">${chapter.name}</h3>
-                <div class="chapter-stats">
-                    <span class="chapter-test-count">${testIds.length} Tests Available</span>
-                </div>
-                <div class="chapter-tests">
-                    ${testIds.map((testId, i) => `
-                        <a href="test.html?testId=${testId}" class="chapter-test-link">
-                            Test ${i + 1}
-                        </a>
-                    `).join('')}
-                </div>
-            </article>`;
+    // ==================== Users ====================
+    async function loadUsers() {
+        try {
+            const data = await adminRequest('/api/admin/users');
+            
+            const tbody = document.getElementById('usersTable');
+            if (data.success && data.data.users.length > 0) {
+                tbody.innerHTML = data.data.users.map(user => `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.fullName || user.username}</td>
+                        <td>${user.email}</td>
+                        <td><span class="badge badge-primary">${user.role}</span></td>
+                        <td>
+                            <span class="badge ${user.isActive ? 'badge-success' : 'badge-danger'}">
+                                ${user.isActive ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="toggleUserStatus(${user.id})">
+                                ${user.isActive ? 'Deactivate' : 'Activate'}
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="7">No users found</td></tr>';
+            }
+        } catch (error) {
+            console.error('Users error:', error);
+        }
     }
 
-    function generateFullMockCardHTML(test, index) {
-        const questions = test.questions || (currentExam === 'DP' ? 75 : 100);
-        const time = test.duration || 60;
-        const maxDelay = Math.min(index * 0.05, 0.4);
-        
-        const attempt = historyMap[String(test.id)];
-        
-        const badges = [];
-        if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
-        if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
-
-        return `
-            <article class="test-card fullmock-card" role="listitem" style="animation-delay: ${maxDelay}s">
-                <div class="card-glow"></div>
-                <div class="fullmock-badge">📝 FULL MOCK</div>
-                ${badges.join('')}
-                <h3 class="card-title">${test.title}</h3>
-                <hr>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <div class="value">${questions}</div>
-                        <div class="label">Questions</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">${questions * 2}</div>
-                        <div class="label">Marks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">${time}</div>
-                        <div class="label">Minutes</div>
-                    </div>
-                </div>
-                <div class="subjects-included">
-                    📐 Maths | 🧩 Reasoning | ${currentExam !== 'DP' ? '📖 English | ' : ''}🌍 GK
-                </div>
-                <a href="test.html?testId=${test.id}" class="attempt-btn">Start Full Mock</a>
-            </article>`;
+    // ==================== Login Logs ====================
+    async function loadLoginLogs() {
+        try {
+            const data = await adminRequest('/api/admin/logs/logins');
+            
+            const tbody = document.getElementById('loginLogsTable');
+            if (data.success && data.data.logs.length > 0) {
+                tbody.innerHTML = data.data.logs.map(log => `
+                    <tr>
+                        <td>${log.user?.username || 'Unknown'}</td>
+                        <td>${log.ipAddress}</td>
+                        <td>
+                            <span class="badge ${log.status === 'success' ? 'badge-success' : 'badge-danger'}">
+                                ${log.status}
+                            </span>
+                        </td>
+                        <td>${log.failureReason || '-'}</td>
+                        <td>${new Date(log.createdAt).toLocaleString()}</td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="5">No logs found</td></tr>';
+            }
+        } catch (error) {
+            console.error('Login logs error:', error);
+        }
     }
 
-    function updateTitle() {
-        const examNames = {
-            'CGL': 'SSC <strong>CGL</strong>',
-            'CHSL': 'SSC <strong>CHSL</strong>',
-            'CPO': 'SSC <strong>CPO</strong>',
-            'DP': '<strong>DP Constable</strong>'
+    // ==================== Error Logs ====================
+    async function loadErrorLogs() {
+        try {
+            const data = await adminRequest('/api/admin/logs/errors');
+            
+            const tbody = document.getElementById('errorLogsTable');
+            if (data.success && data.data.logs.length > 0) {
+                tbody.innerHTML = data.data.logs.map(log => `
+                    <tr>
+                        <td><span class="badge badge-${log.level === 'error' ? 'danger' : 'warning'}">${log.level}</span></td>
+                        <td>${log.message}</td>
+                        <td>${log.endpoint || '-'}</td>
+                        <td>${new Date(log.createdAt).toLocaleString()}</td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="4">No error logs</td></tr>';
+            }
+        } catch (error) {
+            console.error('Error logs error:', error);
+        }
+    }
+
+    // ==================== Add Test Form ====================
+    document.getElementById('addTestForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        let questions = [];
+        try {
+            const questionsText = document.getElementById('testQuestions').value.trim();
+            if (questionsText) {
+                questions = JSON.parse(questionsText);
+            }
+        } catch (err) {
+            showError('Invalid JSON format for questions');
+            return;
+        }
+        
+        const testData = {
+            testId: document.getElementById('testId').value,
+            title: document.getElementById('testTitle').value,
+            examType: document.getElementById('testExamType').value,
+            subject: document.getElementById('testSubject').value,
+            duration: parseInt(document.getElementById('testDuration').value) || 25,
+            difficulty: document.getElementById('testDifficulty').value,
+            description: document.getElementById('testDescription').value,
+            questions: questions,
+            totalQuestions: questions.length,
+            totalMarks: questions.length * 2
         };
         
-        const typeText = {
-            'shiftwise': 'Shift-wise Tests',
-            'chapterwise': 'Chapter-wise Tests',
-            'fullmock': 'Full Mock Tests'
-        }[currentTestType];
-        
-        mainTitle.innerHTML = `${examNames[currentExam]} ${typeText}`;
-    }
-
-    function updateSubjectTabs() {
-        if (currentTestType === 'fullmock') {
-            subjectTabs.style.display = 'none';
-        } else {
-            subjectTabs.style.display = 'flex';
-            
-            tabs.forEach(tab => {
-                const subject = tab.dataset.subject;
-                if (currentExam === "DP" && subject === "English") {
-                    tab.style.display = "none";
-                } else {
-                    tab.style.display = "block";
-                }
+        try {
+            const data = await adminRequest('/api/admin/tests', {
+                method: 'POST',
+                body: JSON.stringify(testData)
             });
-
-            if (currentExam === "DP" && currentSubject === "English") {
-                currentSubject = "Maths";
-                tabs.forEach(tab => {
-                    const isActive = tab.dataset.subject === "Maths";
-                    tab.classList.toggle("active", isActive);
-                    tab.setAttribute('aria-selected', isActive);
-                });
+            
+            if (data.success) {
+                showSuccess('Test created successfully!');
+                document.getElementById('addTestForm').reset();
+                showSection('tests');
+            } else {
+                showError(data.message);
             }
+        } catch (error) {
+            showError('Failed to create test');
+        }
+    });
+
+    // ==================== Actions ====================
+    async function deleteTest(id) {
+        if (!confirm('Are you sure you want to delete this test?')) return;
+        
+        try {
+            const data = await adminRequest(`/api/admin/tests/${id}`, { method: 'DELETE' });
+            if (data.success) {
+                showSuccess('Test deleted');
+                loadTests();
+            } else {
+                showError(data.message);
+            }
+        } catch (error) {
+            showError('Failed to delete test');
         }
     }
 
-    function switchTestType(type) {
-        currentTestType = type;
-        
-        [btnShiftwise, btnChapterwise, btnFullmock].forEach(btn => {
-            const isActive = btn.dataset.type === type;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-selected', isActive);
-        });
-        
-        updateTitle();
-        updateSubjectTabs();
-        displayTests();
+    async function toggleUserStatus(id) {
+        try {
+            const data = await adminRequest(`/api/admin/users/${id}/toggle-active`, { method: 'PUT' });
+            if (data.success) {
+                showSuccess(data.message);
+                loadUsers();
+            } else {
+                showError(data.message);
+            }
+        } catch (error) {
+            showError('Failed to update user');
+        }
     }
 
-    function switchExam(exam) {
-        currentExam = exam;
-
-        [btnCGL, btnCHSL, btnCPO, btnDP].forEach(btn => {
-            const isActive = btn.dataset.exam === exam;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-selected', isActive);
-        });
-
-        document.body.classList.remove('exam-chsl', 'exam-cpo', 'exam-dp');
-        if (exam === 'CHSL') document.body.classList.add('exam-chsl');
-        if (exam === 'CPO') document.body.classList.add('exam-cpo');
-        if (exam === 'DP') document.body.classList.add('exam-dp');
-
-        updateTitle();
-        updateSubjectTabs();
-        displayTests();
+    function editTest(id) {
+        alert('Edit functionality coming soon! Test ID: ' + id);
     }
 
-    // ==================== EVENT LISTENERS ====================
-    btnCGL.addEventListener('click', () => switchExam('CGL'));
-    btnCHSL.addEventListener('click', () => switchExam('CHSL'));
-    btnCPO.addEventListener('click', () => switchExam('CPO'));
-    btnDP.addEventListener('click', () => switchExam('DP'));
-    
-    btnShiftwise.addEventListener('click', () => switchTestType('shiftwise'));
-    btnChapterwise.addEventListener('click', () => switchTestType('chapterwise'));
-    btnFullmock.addEventListener('click', () => switchTestType('fullmock'));
+    // ==================== Alerts ====================
+    function showSuccess(message) {
+        document.getElementById('successMessage').textContent = message;
+        document.getElementById('successAlert').classList.add('show');
+        setTimeout(() => document.getElementById('successAlert').classList.remove('show'), 3000);
+    }
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-            currentSubject = tab.dataset.subject;
-            displayTests();
-        });
+    function showError(message) {
+        document.getElementById('errorMessage').textContent = message;
+        document.getElementById('errorAlert').classList.add('show');
+        setTimeout(() => document.getElementById('errorAlert').classList.remove('show'), 5000);
+    }
+
+    // ==================== Logout ====================
+    async function handleLogout() {
+        await ExamAxisAPI.logout();
+        window.location.href = 'login.html';
+    }
+
+    // ==================== Initialize ====================
+    document.addEventListener('DOMContentLoaded', async () => {
+        if (await checkAdminAuth()) {
+            loadDashboard();
+        }
     });
-
-    // ==================== INITIAL LOAD ====================
-    displayTests();
-    loadHistory();
-    
-    if (window.updateNavigation) {
-        updateNavigation();
-    }
-});
 </script>
 
 </body>
