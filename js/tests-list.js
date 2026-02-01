@@ -3952,7 +3952,6 @@ const ALL_TESTS = [
     exam: "CGL",
     section: "fullmock",
     questions: 100,
-    isNew: true
   }
 
 
