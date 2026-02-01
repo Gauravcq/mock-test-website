@@ -10,8 +10,8 @@
     <!-- Preconnect for faster font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Add font-display=swap for faster render -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         /* ============================================
            CSS VARIABLES - Light & Dark Theme
@@ -47,6 +47,16 @@
             --dp-color: #f59e0b;
             --dp-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
             --dp-glow: rgba(245, 158, 11, 0.3);
+            
+            /* Section Colors */
+            --sectional-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --sectional-glow: rgba(99, 102, 241, 0.3);
+            
+            --fullmock-gradient: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            --fullmock-glow: rgba(245, 158, 11, 0.3);
+            
+            --chapterwise-gradient: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+            --chapterwise-glow: rgba(16, 185, 129, 0.3);
             
             /* Status Colors */
             --success: #10b981;
@@ -487,7 +497,7 @@
         .tabs-container {
             display: flex;
             gap: 6px;
-            margin-bottom: 36px;
+            margin-bottom: 24px;
             padding: 8px;
             background: var(--bg-card);
             border-radius: var(--radius-xl);
@@ -548,6 +558,168 @@
         }
 
         /* ============================================
+           SECTION TABS (NEW - Sectional/Full Mock/Chapterwise)
+           ============================================ */
+        .section-tabs-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .section-tabs-container {
+            display: flex;
+            gap: 12px;
+            padding: 10px;
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .section-tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .section-tab {
+            flex: 1;
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 20px;
+            border: 2px solid transparent;
+            border-radius: var(--radius-lg);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .section-tab:hover:not(.active) {
+            background: var(--border-light);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .section-tab.active {
+            color: white;
+            border-color: transparent;
+        }
+
+        .section-tab.active[data-section="sectional"] {
+            background: var(--sectional-gradient);
+            box-shadow: 0 6px 20px var(--sectional-glow);
+        }
+
+        .section-tab.active[data-section="fullmock"] {
+            background: var(--fullmock-gradient);
+            box-shadow: 0 6px 20px var(--fullmock-glow);
+        }
+
+        .section-tab.active[data-section="chapterwise"] {
+            background: var(--chapterwise-gradient);
+            box-shadow: 0 6px 20px var(--chapterwise-glow);
+        }
+
+        .section-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .section-text {
+            font-weight: 700;
+        }
+
+        .section-count {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .section-tab:not(.active) .section-count {
+            background: var(--border-light);
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           SECTION INFO BANNER
+           ============================================ */
+        .section-info-banner {
+            margin-bottom: 28px;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-info-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 24px;
+            border-radius: var(--radius-lg);
+            border-left: 5px solid;
+        }
+
+        .section-info-banner.section-sectional .section-info-content {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.05));
+            border-left-color: var(--primary);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-left: 5px solid var(--primary);
+        }
+
+        .section-info-banner.section-fullmock .section-info-content {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(249, 115, 22, 0.05));
+            border-left-color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-left: 5px solid #f59e0b;
+        }
+
+        .section-info-banner.section-chapterwise .section-info-content {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(20, 184, 166, 0.05));
+            border-left-color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-left: 5px solid var(--success);
+        }
+
+        .section-info-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .section-info-text h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .section-info-text p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* ============================================
            TEST CARDS GRID
            ============================================ */
         .test-grid-container {
@@ -587,31 +759,24 @@
         }
 
         /* Card hover glow effect */
-    .test-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: var(--cgl-gradient);
-
-  /* 🔹 THIS LINE IS ALREADY THERE */
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-
-  /* 🔹 ADD THESE 2 LINES JUST BELOW */
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
-
+        .test-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: var(--cgl-gradient);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
 
         body.exam-chsl .test-card::before {
             background: var(--chsl-gradient);
@@ -657,6 +822,23 @@
             box-shadow: 0 20px 40px var(--dp-glow);
         }
 
+        /* Section-specific card styles */
+        .test-card.section-fullmock-card::before {
+            background: var(--fullmock-gradient);
+        }
+
+        .test-card.section-fullmock-card:hover {
+            box-shadow: 0 20px 40px var(--fullmock-glow);
+        }
+
+        .test-card.section-chapterwise-card::before {
+            background: var(--chapterwise-gradient);
+        }
+
+        .test-card.section-chapterwise-card:hover {
+            box-shadow: 0 20px 40px var(--chapterwise-glow);
+        }
+
         /* Card Glow Background */
         .card-glow {
             position: absolute;
@@ -677,7 +859,7 @@
         }
 
         /* Badges */
-        .new-badge, .attempted-badge, .top100-badge {
+        .new-badge, .attempted-badge, .top100-badge, .fullmock-badge, .chapter-badge {
             position: absolute;
             top: 16px;
             padding: 6px 12px;
@@ -718,6 +900,22 @@
             color: white;
         }
 
+        .fullmock-badge {
+            left: 16px;
+            background: var(--fullmock-gradient);
+            color: white;
+            box-shadow: 0 4px 12px var(--fullmock-glow);
+        }
+
+        .chapter-badge {
+            left: 16px;
+            background: var(--chapterwise-gradient);
+            color: white;
+            box-shadow: 0 4px 12px var(--chapterwise-glow);
+            text-transform: none;
+            font-weight: 600;
+        }
+
         /* Card Title */
         .card-title {
             font-family: 'Poppins', sans-serif;
@@ -742,6 +940,14 @@
 
         body.exam-chsl .test-card hr {
             background: linear-gradient(90deg, transparent, var(--chsl-color), transparent);
+        }
+
+        .section-fullmock-card hr {
+            background: linear-gradient(90deg, transparent, #f59e0b, transparent) !important;
+        }
+
+        .section-chapterwise-card hr {
+            background: linear-gradient(90deg, transparent, var(--success), transparent) !important;
         }
 
         /* Stats Grid */
@@ -776,6 +982,16 @@
             border-color: rgba(245, 158, 11, 0.1);
         }
 
+        .section-fullmock-card .stat-item {
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.08), rgba(249, 115, 22, 0.04));
+            border-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .section-chapterwise-card .stat-item {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(20, 184, 166, 0.04));
+            border-color: rgba(16, 185, 129, 0.1);
+        }
+
         .stat-item:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-md);
@@ -800,6 +1016,18 @@
 
         body.exam-dp .stat-item .value {
             background: var(--dp-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .section-fullmock-card .stat-item .value {
+            background: var(--fullmock-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .section-chapterwise-card .stat-item .value {
+            background: var(--chapterwise-gradient);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -912,6 +1140,24 @@
             box-shadow: 0 8px 20px var(--dp-glow);
         }
 
+        .section-fullmock-card .attempt-btn {
+            background: var(--fullmock-gradient);
+            box-shadow: 0 8px 20px var(--fullmock-glow);
+        }
+
+        .section-fullmock-card .attempt-btn:hover {
+            box-shadow: 0 12px 28px var(--fullmock-glow);
+        }
+
+        .section-chapterwise-card .attempt-btn {
+            background: var(--chapterwise-gradient);
+            box-shadow: 0 8px 20px var(--chapterwise-glow);
+        }
+
+        .section-chapterwise-card .attempt-btn:hover {
+            box-shadow: 0 12px 28px var(--chapterwise-glow);
+        }
+
         /* ============================================
            NO TESTS MESSAGE
            ============================================ */
@@ -942,6 +1188,41 @@
             font-size: 1rem;
             max-width: 400px;
             margin: 0 auto;
+        }
+
+        /* Section-specific no tests messages */
+        .no-tests-message.section-fullmock {
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .no-tests-message.section-fullmock .icon {
+            color: #f59e0b;
+        }
+
+        .no-tests-message.section-chapterwise {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .no-tests-message.section-chapterwise .icon {
+            color: var(--success);
+        }
+
+        .coming-soon-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .coming-soon-features span {
+            background: var(--border-light);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
         }
 
         /* ============================================
@@ -1136,13 +1417,52 @@
 
             .tabs-container {
                 padding: 6px;
-                margin-bottom: 28px;
+                margin-bottom: 20px;
                 justify-content: flex-start;
             }
 
             .tab {
                 padding: 10px 18px;
                 font-size: 0.8rem;
+            }
+
+            /* Section tabs responsive */
+            .section-tabs-container {
+                padding: 8px;
+                gap: 8px;
+            }
+
+            .section-tab {
+                min-width: 130px;
+                padding: 12px 14px;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .section-text {
+                font-size: 0.8rem;
+            }
+
+            .section-count {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+            }
+
+            .section-info-content {
+                padding: 14px 18px;
+                gap: 12px;
+            }
+
+            .section-info-icon {
+                font-size: 2rem;
+            }
+
+            .section-info-text h3 {
+                font-size: 1rem;
+            }
+
+            .section-info-text p {
+                font-size: 0.85rem;
             }
 
             .test-grid-container {
@@ -1207,6 +1527,24 @@
                 font-size: 0.8rem;
             }
 
+            .section-tab {
+                min-width: 100px;
+                padding: 10px 10px;
+            }
+
+            .section-icon {
+                font-size: 1.1rem;
+            }
+
+            .section-text {
+                font-size: 0.7rem;
+            }
+
+            .section-info-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
             .test-card {
                 padding: 20px 16px;
             }
@@ -1234,12 +1572,16 @@
             .no-tests-message h3 {
                 font-size: 1.25rem;
             }
+
+            .coming-soon-features span {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
         }
 
         /* ============================================
            PERFORMANCE OPTIMIZATIONS
            ============================================ */
-        /* Reduce animations on mobile for better performance */
         @media (max-width: 768px) {
             .test-card::after,
             .attempt-btn::before {
@@ -1262,7 +1604,6 @@
             }
         }
 
-        /* Reduce motion for accessibility */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -1271,80 +1612,83 @@
             }
         }
 
-        /* High contrast mode support */
         @media (prefers-contrast: high) {
             .test-card {
                 border-width: 2px;
             }
 
             .tab.active,
-            .exam-btn.active {
+            .exam-btn.active,
+            .section-tab.active {
                 outline: 2px solid white;
                 outline-offset: 2px;
             }
         }
 
-        /* Focus visible for keyboard navigation */
         .exam-btn:focus-visible,
         .tab:focus-visible,
+        .section-tab:focus-visible,
         .attempt-btn:focus-visible,
         .nav-btn:focus-visible {
             outline: 3px solid var(--primary);
             outline-offset: 2px;
         }
 
-        /* Print styles */
         @media print {
             .top-nav,
             .help-btn,
             .footer-decoration,
-            .theme-switch-wrapper {
+            .theme-switch-wrapper,
+            .section-tabs-wrapper {
                 display: none !important;
             }
 
             body::before {
                 display: none;
             }
-/* Loading State */
-.test-grid-container.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
 
-.loading-skeleton {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.skeleton-card {
-    width: 320px;
-    height: 400px;
-    background: linear-gradient(
-        90deg,
-        var(--bg-card) 0%,
-        var(--border-light) 50%,
-        var(--bg-card) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: var(--radius-xl);
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
             .test-card {
                 break-inside: avoid;
                 box-shadow: none;
                 border: 1px solid #ccc;
             }
         }
+
+        /* Loading State */
+        .test-grid-container.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading-skeleton {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .skeleton-card {
+            width: 320px;
+            height: 400px;
+            background: linear-gradient(
+                90deg,
+                var(--bg-card) 0%,
+                var(--border-light) 50%,
+                var(--bg-card) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-xl);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
     </style>
 </head>
+
 <body>
 
 <!-- Footer decoration line -->
@@ -1395,12 +1739,45 @@
         <button class="tab chsl-only" data-subject="Top100Maths" style="display: none;" role="tab" aria-selected="false">🔥 Maths Top 100</button>
     </div>
 
+    <!-- Section Tabs (NEW - Sectional/Full Mock/Chapterwise) -->
+    <div class="section-tabs-wrapper">
+        <div class="section-tabs-container" role="tablist" aria-label="Select test type">
+            <button class="section-tab active" data-section="sectional" role="tab" aria-selected="true">
+                <span class="section-icon">📋</span>
+                <span class="section-text">Sectional Tests</span>
+                <span class="section-count" id="sectional-count">0</span>
+            </button>
+            <button class="section-tab" data-section="fullmock" role="tab" aria-selected="false">
+                <span class="section-icon">📝</span>
+                <span class="section-text">Full Mock Tests</span>
+                <span class="section-count" id="fullmock-count">0</span>
+            </button>
+            <button class="section-tab" data-section="chapterwise" role="tab" aria-selected="false">
+                <span class="section-icon">📚</span>
+                <span class="section-text">Chapterwise Tests</span>
+                <span class="section-count" id="chapterwise-count">0</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Section Info Banner -->
+    <div class="section-info-banner section-sectional" id="section-info-banner">
+        <div class="section-info-content">
+            <span class="section-info-icon" id="section-info-icon">📋</span>
+            <div class="section-info-text">
+                <h3 id="section-info-title">Sectional Tests</h3>
+                <p id="section-info-desc">Practice topic-wise questions to strengthen your fundamentals</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Test Cards Grid -->
     <div id="test-grid-container" class="test-grid-container" role="list" aria-label="Available tests"></div>
 </main>
 
 <!-- Help Button -->
 <button class="help-btn" aria-label="Get help">💬</button>
+
 <!-- Scripts -->
 <script src="js/api.js"></script>
 <script src="js/tests-list.js"></script>
@@ -1411,14 +1788,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainTitle = document.getElementById('main-title');
     const gridContainer = document.getElementById('test-grid-container');
     const tabs = document.querySelectorAll('.tab');
+    const sectionTabs = document.querySelectorAll('.section-tab');
     const themeToggle = document.getElementById('theme-toggle');
     const btnCGL = document.getElementById('btn-cgl');
     const btnCHSL = document.getElementById('btn-chsl');
     const btnDP = document.getElementById('btn-dp');
+    
+    // Section info elements
+    const sectionInfoBanner = document.getElementById('section-info-banner');
+    const sectionInfoIcon = document.getElementById('section-info-icon');
+    const sectionInfoTitle = document.getElementById('section-info-title');
+    const sectionInfoDesc = document.getElementById('section-info-desc');
 
     // State
     let currentExam = 'CGL';
     let currentSubject = 'Maths';
+    let currentSection = 'sectional';
     let historyMap = {};
     let isHistoryLoaded = false;
 
@@ -1430,6 +1815,25 @@ document.addEventListener('DOMContentLoaded', () => {
         "GK": 10,
         "General": 25,
         "Top100Maths": 60
+    };
+
+    // Section Configuration
+    const SECTION_CONFIG = {
+        sectional: {
+            icon: '📋',
+            title: 'Sectional Tests',
+            description: 'Practice topic-wise questions to strengthen your fundamentals'
+        },
+        fullmock: {
+            icon: '📝',
+            title: 'Full Mock Tests',
+            description: 'Complete exam simulation with all subjects and real exam pattern'
+        },
+        chapterwise: {
+            icon: '📚',
+            title: 'Chapterwise Tests',
+            description: 'Master each chapter with focused practice tests'
+        }
     };
 
     // ==================== THEME MANAGEMENT ====================
@@ -1474,7 +1878,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==================== LOAD USER HISTORY (NON-BLOCKING) ====================
     function loadHistory() {
-        // Don't block rendering - load in background
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
             historyMap = {};
             isHistoryLoaded = true;
@@ -1494,7 +1897,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 isHistoryLoaded = true;
-                // Update UI after history loads
                 displayTests();
             })
             .catch(err => {
@@ -1505,11 +1907,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================== HELPER FUNCTIONS ====================
-    function getFilteredTests(exam, subject) {
+    function getFilteredTests(exam, subject, section) {
         if (exam === 'CHSL' && subject === 'Top100Maths') {
-            return ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS');
+            return ALL_TESTS.filter(test => 
+                test.exam === 'CHSL_TOP_100_MATHS' && 
+                (test.section === section || (!test.section && section === 'sectional'))
+            );
         }
-        return ALL_TESTS.filter(test => test.exam === exam && test.subject === subject);
+        
+        return ALL_TESTS.filter(test => {
+            const examMatch = test.exam === exam;
+            const subjectMatch = test.subject === subject;
+            const sectionMatch = (test.section === section) || 
+                                 (!test.section && section === 'sectional');
+            return examMatch && subjectMatch && sectionMatch;
+        });
+    }
+
+    function getTestCountBySection(exam, subject) {
+        const counts = { sectional: 0, fullmock: 0, chapterwise: 0 };
+
+        if (exam === 'CHSL' && subject === 'Top100Maths') {
+            ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS').forEach(test => {
+                const section = test.section || 'sectional';
+                if (counts[section] !== undefined) counts[section]++;
+            });
+        } else {
+            ALL_TESTS.filter(test => test.exam === exam && test.subject === subject).forEach(test => {
+                const section = test.section || 'sectional';
+                if (counts[section] !== undefined) counts[section]++;
+            });
+        }
+
+        return counts;
+    }
+
+    function updateSectionCounts() {
+        const counts = getTestCountBySection(currentExam, currentSubject);
+        document.getElementById('sectional-count').textContent = counts.sectional;
+        document.getElementById('fullmock-count').textContent = counts.fullmock;
+        document.getElementById('chapterwise-count').textContent = counts.chapterwise;
+    }
+
+    function updateSectionInfoBanner() {
+        const config = SECTION_CONFIG[currentSection];
+        sectionInfoIcon.textContent = config.icon;
+        sectionInfoTitle.textContent = config.title;
+        sectionInfoDesc.textContent = config.description;
+        
+        sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
     }
 
     function generateCardHTML(test, index) {
@@ -1524,6 +1970,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
         if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
         if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
+        
+        // Section-specific badges
+        if (currentSection === 'fullmock') {
+            badges.push('<div class="fullmock-badge">📝 Full Mock</div>');
+        } else if (currentSection === 'chapterwise' && test.chapter) {
+            badges.push(`<div class="chapter-badge">📖 ${test.chapter}</div>`);
+        }
 
         const lastScoreHtml = isHistoryLoaded 
             ? (attempt
@@ -1531,11 +1984,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 : `<div class="last-score not-attempted">Not attempted yet</div>`)
             : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading history...</div>`;
 
-        // Limit animation delay to prevent lag
         const maxDelay = Math.min(index * 0.05, 0.4);
 
+        const cardClasses = [
+            'test-card',
+            test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : '',
+            `section-${currentSection}-card`
+        ].filter(Boolean).join(' ');
+
         return `
-            <article class="test-card ${test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : ''}" 
+            <article class="${cardClasses}" 
                      role="listitem" 
                      style="animation-delay: ${maxDelay}s">
                 <div class="card-glow"></div>
@@ -1561,14 +2019,14 @@ document.addEventListener('DOMContentLoaded', () => {
             </article>`;
     }
 
-    // Optimized display with requestAnimationFrame
     function displayTests() {
-        const filteredTests = getFilteredTests(currentExam, currentSubject);
+        const filteredTests = getFilteredTests(currentExam, currentSubject, currentSection);
         
-        // Immediate feedback - no fade out delay
+        updateSectionCounts();
+        updateSectionInfoBanner();
+        
         gridContainer.style.opacity = '0';
 
-        // Use requestAnimationFrame for smooth rendering
         requestAnimationFrame(() => {
             if (filteredTests.length > 0) {
                 let html = '';
@@ -1581,25 +2039,51 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>`;
                 }
                 
-                // Batch render - faster than individual appends
                 html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
                 gridContainer.innerHTML = html;
             } else {
-                const message = currentSubject === 'Top100Maths' 
-                    ? `<div class="no-tests-message">
+                const sectionName = SECTION_CONFIG[currentSection].title;
+                const sectionIcon = SECTION_CONFIG[currentSection].icon;
+                
+                let message;
+                if (currentSubject === 'Top100Maths') {
+                    message = `<div class="no-tests-message">
                         <div class="icon">🔥</div>
                         <h3>Maths Top 100 - Coming Soon!</h3>
                         <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
-                    </div>`
-                    : `<div class="no-tests-message">
+                    </div>`;
+                } else if (currentSection === 'fullmock') {
+                    message = `<div class="no-tests-message section-fullmock">
+                        <div class="icon">${sectionIcon}</div>
+                        <h3>Full Mock Tests Coming Soon!</h3>
+                        <p>Complete exam simulations for SSC ${currentExam} ${currentSubject} are being prepared.</p>
+                        <div class="coming-soon-features">
+                            <span>✓ Real exam pattern</span>
+                            <span>✓ Timed sessions</span>
+                            <span>✓ Detailed analysis</span>
+                        </div>
+                    </div>`;
+                } else if (currentSection === 'chapterwise') {
+                    message = `<div class="no-tests-message section-chapterwise">
+                        <div class="icon">${sectionIcon}</div>
+                        <h3>Chapterwise Tests Coming Soon!</h3>
+                        <p>Master each chapter of ${currentSubject} with focused practice.</p>
+                        <div class="coming-soon-features">
+                            <span>✓ Topic-wise practice</span>
+                            <span>✓ Difficulty levels</span>
+                            <span>✓ Progress tracking</span>
+                        </div>
+                    </div>`;
+                } else {
+                    message = `<div class="no-tests-message">
                         <div class="icon">📭</div>
                         <h3>Coming Soon!</h3>
-                        <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
+                        <p>No ${currentSubject} ${sectionName.toLowerCase()} for SSC ${currentExam} yet. Check back soon!</p>
                     </div>`;
+                }
                 gridContainer.innerHTML = message;
             }
 
-            // Fade in immediately after render
             requestAnimationFrame(() => {
                 gridContainer.style.opacity = '1';
             });
@@ -1656,6 +2140,18 @@ document.addEventListener('DOMContentLoaded', () => {
         displayTests();
     }
 
+    function switchSection(section) {
+        currentSection = section;
+        
+        sectionTabs.forEach(tab => {
+            const isActive = tab.dataset.section === section;
+            tab.classList.toggle('active', isActive);
+            tab.setAttribute('aria-selected', isActive);
+        });
+        
+        displayTests();
+    }
+
     // ==================== EVENT LISTENERS ====================
     btnCGL.addEventListener('click', () => switchExam('CGL'));
     btnCHSL.addEventListener('click', () => switchExam('CHSL'));
@@ -1674,6 +2170,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Section tabs event listeners
+    sectionTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchSection(tab.dataset.section);
+        });
+    });
+
+    // Keyboard navigation
     document.querySelectorAll('[role="tablist"]').forEach(tablist => {
         tablist.addEventListener('keydown', (e) => {
             const tabs = [...tablist.querySelectorAll('[role="tab"]:not([style*="display: none"])')];
@@ -1698,11 +2202,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ==================== INITIAL LOAD (OPTIMIZED) ====================
-    // Display tests immediately without waiting for history
+    // ==================== INITIAL LOAD ====================
     displayTests();
-    
-    // Load history in background
     loadHistory();
     
     if (window.updateNavigation) {
