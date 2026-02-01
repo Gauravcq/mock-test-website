@@ -2,1714 +2,919 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Exam-Axis - Professional SSC Mock Tests for CGL, CHSL, and DP Constable preparation">
-    <meta name="theme-color" content="#6366f1">
-    <title>Exam-Axis | SSC Mock Tests</title>
-
-    <!-- Preconnect for faster font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Add font-display=swap for faster render -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Axis | Mock Test Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* ============================================
-           CSS VARIABLES - Light & Dark Theme
-           ============================================ */
         :root {
-            /* Light Theme Colors */
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            --border-color: #e2e8f0;
-            --border-light: #f1f5f9;
-            
-            /* Brand Colors */
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --primary-glow: rgba(99, 102, 241, 0.25);
-            
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
-            
-            /* Exam Colors */
-            --cgl-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --cgl-glow: rgba(99, 102, 241, 0.3);
-            
-            --chsl-color: #10b981;
-            --chsl-gradient: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            --chsl-glow: rgba(16, 185, 129, 0.3);
-            
-            --dp-color: #f59e0b;
-            --dp-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            --dp-glow: rgba(245, 158, 11, 0.3);
-            
-            /* Status Colors */
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --info: #3b82f6;
-            
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
-            --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.15);
-            
-            /* Spacing & Sizing */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-full: 9999px;
-            
-            /* Transitions */
-            --transition-fast: 150ms ease;
-            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Container */
-            --container-max: 1320px;
-            --nav-height: 72px;
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #ff6b6b;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --border-color: #e1e5eb;
         }
-
-        /* Dark Theme */
-        .dark-mode {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border-color: #334155;
-            --border-light: #1e293b;
-            
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
-            --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        /* ============================================
-           GLOBAL RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            box-sizing: border-box;
+        
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
-
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            overflow-x: hidden;
-            transition: background-color var(--transition-slow), color var(--transition-slow);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            color: var(--dark-text);
         }
-
-        /* Subtle animated background */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99, 102, 241, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.06), transparent);
-            pointer-events: none;
-            z-index: -1;
-            transition: opacity var(--transition-slow);
-        }
-
-        .dark-mode::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99, 102, 241, 0.15), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.12), transparent);
-        }
-
-        body.exam-chsl::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(16, 185, 129, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(52, 211, 153, 0.06), transparent);
-        }
-
-        body.exam-dp::before {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(245, 158, 11, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(251, 191, 36, 0.06), transparent);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: var(--radius-full);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
-        /* ============================================
-           NAVIGATION BAR
-           ============================================ */
+        
+        /* Navigation Bar */
         .top-nav {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
-            height: var(--nav-height);
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all var(--transition-normal);
         }
-
-        .dark-mode .top-nav {
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom-color: var(--border-color);
-        }
-
+        
         .brand-logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--cgl-gradient);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
+            color: transparent;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform var(--transition-normal);
         }
-
-        .brand-logo::before {
-            content: "📚";
-            font-size: 1.4rem;
-            -webkit-text-fill-color: initial;
-        }
-
-        .brand-logo:hover {
-            transform: scale(1.03);
-        }
-
-        body.exam-chsl .brand-logo {
-            background: var(--chsl-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.exam-dp .brand-logo {
-            background: var(--dp-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
+        
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
-
-        /* Theme Switch */
+        
         .theme-switch-wrapper {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-full);
-            transition: all var(--transition-normal);
+            gap: 10px;
         }
-
-        .theme-switch-wrapper:hover {
-            border-color: var(--primary);
-        }
-
-        .theme-switch-wrapper span {
-            font-size: 1rem;
-            line-height: 1;
-            cursor: pointer;
-            transition: transform var(--transition-normal);
-        }
-
-        .theme-switch-wrapper:hover span:first-of-type {
-            transform: rotate(-15deg) scale(1.1);
-        }
-
-        .theme-switch-wrapper:hover span:last-of-type {
-            transform: rotate(15deg) scale(1.1);
-        }
-
+        
         .theme-switch {
             position: relative;
-            width: 44px;
+            display: inline-block;
+            width: 50px;
             height: 24px;
         }
-
+        
         .theme-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-
+        
         .slider {
             position: absolute;
             cursor: pointer;
-            inset: 0;
-            background: var(--border-color);
-            border-radius: var(--radius-full);
-            transition: var(--transition-normal);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
         }
-
-        .slider::before {
-            content: "";
+        
+        .slider:before {
             position: absolute;
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
             border-radius: 50%;
-            transition: var(--transition-normal);
-            box-shadow: var(--shadow-sm);
         }
-
+        
         input:checked + .slider {
-            background: var(--primary);
+            background-color: var(--primary-color);
         }
-
-        input:checked + .slider::before {
-            transform: translateX(20px);
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
         }
-
-        /* Nav Buttons */
+        
         .nav-buttons {
             display: flex;
             gap: 10px;
         }
-
+        
         .nav-btn {
-            padding: 10px 20px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: var(--radius-md);
+            padding: 8px 20px;
+            border-radius: 5px;
             text-decoration: none;
-            transition: all var(--transition-normal);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-
+        
         .login-btn {
             background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
         }
-
+        
         .login-btn:hover {
-            background: var(--primary);
+            background: var(--primary-color);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--primary-glow);
         }
-
+        
         .signup-btn {
-            background: var(--cgl-gradient);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
-            box-shadow: 0 4px 12px var(--primary-glow);
+            border: none;
         }
-
+        
         .signup-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px var(--primary-glow);
+            box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
         }
-
-        body.exam-chsl .login-btn {
-            color: var(--chsl-color);
-            border-color: var(--chsl-color);
-        }
-
-        body.exam-chsl .login-btn:hover {
-            background: var(--chsl-color);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-chsl .signup-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        /* ============================================
-           MAIN CONTAINER
-           ============================================ */
+        
+        /* Main Content */
         .main-container {
-            max-width: var(--container-max);
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 24px 100px;
+            padding: 20px;
         }
-
+        
         /* Header Section */
         .header-container {
             text-align: center;
-            margin-bottom: 40px;
+            margin: 40px 0 30px;
         }
-
+        
         .header-title-section h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(1.75rem, 5vw, 2.75rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            line-height: 1.2;
-        }
-
-        .header-title-section strong {
-            background: var(--cgl-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        body.exam-chsl .header-title-section strong {
-            background: var(--chsl-gradient);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             background-clip: text;
+            color: transparent;
         }
-
-        body.exam-dp .header-title-section strong {
-            background: var(--dp-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
+        
         .sub-heading {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
+            color: #666;
+            font-size: 1.1rem;
         }
-
-        .sub-heading::before,
-        .sub-heading::after {
-            content: '';
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            border-radius: 1px;
-        }
-
-        /* ============================================
-           EXAM SELECTOR BUTTONS
-           ============================================ */
+        
+        /* Exam Selector - Hide CHSL and DP Constable */
         .exam-selector {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
         }
-
+        
         .exam-btn {
-            padding: 14px 28px;
-            font-size: 0.9rem;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: #666;
             font-weight: 600;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            background: var(--bg-card);
-            color: var(--text-secondary);
             cursor: pointer;
-            transition: all var(--transition-normal);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
-
-        .exam-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
+        
         .exam-btn.active {
-            background: var(--cgl-gradient);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
-            border-color: transparent;
-            box-shadow: 0 8px 24px var(--cgl-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
         }
-
-        .exam-btn.active.chsl {
-            background: var(--chsl-gradient);
-            box-shadow: 0 8px 24px var(--chsl-glow);
+        
+        .exam-btn.chsl, .exam-btn.dp {
+            display: none !important; /* Hide CHSL and DP Constable */
         }
-
-        .exam-btn.active.dp {
-            background: var(--dp-gradient);
-            box-shadow: 0 8px 24px var(--dp-glow);
-        }
-
-        /* ============================================
-           SUBJECT TABS
-           ============================================ */
+        
+        /* Subject Tabs */
         .tabs-container {
             display: flex;
-            gap: 6px;
-            margin-bottom: 36px;
-            padding: 8px;
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            overflow-x: auto;
-            justify-content: center;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .tabs-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .tab {
-            padding: 12px 24px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            white-space: nowrap;
-            border: none;
-            background: transparent;
-        }
-
-        .tab:hover:not(.active) {
-            background: var(--border-light);
-            color: var(--text-primary);
-        }
-
-        .tab.active {
-            background: var(--cgl-gradient);
-            color: white;
-            box-shadow: 0 4px 12px var(--cgl-glow);
-        }
-
-        body.exam-chsl .tab.active {
-            background: var(--chsl-gradient);
-            box-shadow: 0 4px 12px var(--chsl-glow);
-        }
-
-        body.exam-dp .tab.active {
-            background: var(--dp-gradient);
-            box-shadow: 0 4px 12px var(--dp-glow);
-        }
-
-        /* Top 100 Tab Special */
-        .tab.chsl-only {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            color: white;
-        }
-
-        .tab.chsl-only:hover {
-            transform: translateY(-2px);
-        }
-
-        /* ============================================
-           TEST CARDS GRID
-           ============================================ */
-        .test-grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-            transition: opacity var(--transition-normal);
-        }
-
-        /* ============================================
-           TEST CARD - Premium Design
-           ============================================ */
-        .test-card {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-xl);
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all var(--transition-normal);
-            animation: cardFadeIn 0.5s ease forwards;
-            opacity: 0;
-            overflow: hidden;
-        }
-
-        @keyframes cardFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Card hover glow effect */
-    .test-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: var(--cgl-gradient);
-
-  /* 🔹 THIS LINE IS ALREADY THERE */
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-
-  /* 🔹 ADD THESE 2 LINES JUST BELOW */
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
-
-
-        body.exam-chsl .test-card::before {
-            background: var(--chsl-gradient);
-        }
-
-        body.exam-dp .test-card::before {
-            background: var(--dp-gradient);
-        }
-
-        .test-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Shine effect */
-        .test-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-25deg);
-            transition: left 0.6s ease;
-            pointer-events: none;
-        }
-
-        .test-card:hover::after {
-            left: 125%;
-        }
-
-        .test-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px var(--cgl-glow);
-            border-color: transparent;
-        }
-
-        body.exam-chsl .test-card:hover {
-            box-shadow: 0 20px 40px var(--chsl-glow);
-        }
-
-        body.exam-dp .test-card:hover {
-            box-shadow: 0 20px 40px var(--dp-glow);
-        }
-
-        /* Card Glow Background */
-        .card-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle, var(--primary-glow), transparent 70%);
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .test-card:hover .card-glow {
-            opacity: 0.5;
-        }
-
-        /* Badges */
-        .new-badge, .attempted-badge, .top100-badge {
-            position: absolute;
-            top: 16px;
-            padding: 6px 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            border-radius: var(--radius-sm);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            z-index: 10;
-        }
-
-        .new-badge {
-            right: 16px;
-            background: linear-gradient(135deg, #ef4444, #f97316);
-            color: white;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .attempted-badge {
-            right: 16px;
-            background: var(--success);
-            color: white;
-        }
-
-        .attempted-badge::before {
-            content: "✓ ";
-        }
-
-        .top100-badge {
-            left: 16px;
-            background: linear-gradient(135deg, #f97316, #dc2626);
-            color: white;
-        }
-
-        /* Card Title */
-        .card-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 12px 0 20px;
-            color: var(--text-primary);
-            line-height: 1.4;
-            position: relative;
-            z-index: 1;
-        }
-
-        .test-card hr {
-            width: 50%;
-            height: 2px;
-            border: none;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            margin: 0 auto 24px;
-            opacity: 0.3;
-        }
-
-        body.exam-chsl .test-card hr {
-            background: linear-gradient(90deg, transparent, var(--chsl-color), transparent);
-        }
-
-        /* Stats Grid */
-        .card-stats {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-item {
-            flex: 1;
-            max-width: 90px;
-            padding: 14px 8px;
-            background: linear-gradient(145deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.04));
-            border-radius: var(--radius-md);
-            text-align: center;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            transition: all var(--transition-normal);
-        }
-
-        body.exam-chsl .stat-item {
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(52, 211, 153, 0.04));
-            border-color: rgba(16, 185, 129, 0.1);
-        }
-
-        body.exam-dp .stat-item {
-            background: linear-gradient(145deg, rgba(245, 158, 11, 0.08), rgba(251, 191, 36, 0.04));
-            border-color: rgba(245, 158, 11, 0.1);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-item .value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--cgl-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        body.exam-chsl .stat-item .value {
-            background: var(--chsl-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.exam-dp .stat-item .value {
-            background: var(--dp-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        .stat-item .label {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* Last Score */
-        .last-score {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            padding: 10px 18px;
-            background: rgba(16, 185, 129, 0.08);
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            font-weight: 500;
-            position: relative;
-            z-index: 1;
-        }
-
-        .last-score::before {
-            content: "📊";
-        }
-
-        .last-score.not-attempted {
-            background: rgba(148, 163, 184, 0.08);
-            border-color: rgba(148, 163, 184, 0.15);
-        }
-
-        .last-score.not-attempted::before {
-            content: "📝";
-        }
-
-        /* Attempt Button */
-        .attempt-btn {
-            background: var(--cgl-gradient);
-            color: white;
-            text-decoration: none;
-            padding: 14px 40px;
-            border-radius: var(--radius-lg);
-            font-weight: 700;
-            font-size: 0.95rem;
-            width: 100%;
-            max-width: 260px;
-            text-align: center;
-            display: flex;
-            align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all var(--transition-normal);
-            box-shadow: 0 8px 20px var(--cgl-glow);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 10px 20px;
             border: none;
+            border-radius: 6px;
+            background: white;
+            color: #666;
+            font-weight: 500;
             cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
-
-        .attempt-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .attempt-btn:hover::before {
-            left: 100%;
-        }
-
-        .attempt-btn::after {
-            content: "→";
-            font-size: 1.1rem;
-            transition: transform var(--transition-normal);
-        }
-
-        .attempt-btn:hover::after {
-            transform: translateX(4px);
-        }
-
-        .attempt-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px var(--cgl-glow);
-        }
-
-        body.exam-chsl .attempt-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 8px 20px var(--chsl-glow);
-        }
-
-        body.exam-chsl .attempt-btn:hover {
-            box-shadow: 0 12px 28px var(--chsl-glow);
-        }
-
-        body.exam-dp .attempt-btn {
-            background: var(--dp-gradient);
-            box-shadow: 0 8px 20px var(--dp-glow);
-        }
-
-        /* ============================================
-           NO TESTS MESSAGE
-           ============================================ */
-        .no-tests-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 80px 40px;
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            border: 2px dashed var(--border-color);
-        }
-
-        .no-tests-message .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .no-tests-message h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .no-tests-message p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        /* ============================================
-           TOP 100 SECTION HEADER
-           ============================================ */
-        .section-header.top100-header {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 36px;
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            border-radius: var(--radius-xl);
+        
+        .tab.active {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
-            margin-bottom: 8px;
-            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.3);
-            position: relative;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(78, 84, 200, 0.3);
+        }
+        
+        /* SSC CGL Sections */
+        .ssc-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+        }
+        
+        /* Test Cards */
+        .test-card {
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            height: 100%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e1e5eb;
         }
-
-        .section-header.top100-header::before {
-            content: "🔥";
-            position: absolute;
-            font-size: 8rem;
-            opacity: 0.15;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
+        
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: var(--secondary-color);
         }
-
-        .section-header.top100-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin: 0 0 8px;
+        
+        .test-card .card-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px;
+            border: none;
         }
-
-        .section-header.top100-header p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1rem;
+        
+        .test-card .card-body {
+            padding: 20px;
         }
-
-        .test-card.top100-card {
-            border-color: #f97316;
+        
+        .subject-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 3px;
         }
-
-        .test-card.top100-card::before {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            opacity: 1;
+        
+        .maths { background: #4e54c8; color: white; }
+        .english { background: #ff6b6b; color: white; }
+        .reasoning { background: #1dd1a1; color: white; }
+        .gk { background: #feca57; color: #333; }
+        
+        .btn-test {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-
-        /* ============================================
-           HELP BUTTON
-           ============================================ */
+        
+        .btn-test:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer-decoration {
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin-top: 40px;
+        }
+        
         .help-btn {
             position: fixed;
-            bottom: 28px;
-            right: 28px;
-            width: 56px;
-            height: 56px;
-            background: var(--cgl-gradient);
-            color: white;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px var(--cgl-glow);
-            transition: all var(--transition-normal);
-            z-index: 999;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
             border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
-
+        
         .help-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 12px 32px var(--cgl-glow);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(78, 84, 200, 0.4);
         }
-
-        body.exam-chsl .help-btn {
-            background: var(--chsl-gradient);
-            box-shadow: 0 8px 24px var(--chsl-glow);
-        }
-
-        body.exam-dp .help-btn {
-            background: var(--dp-gradient);
-            box-shadow: 0 8px 24px var(--dp-glow);
-        }
-
-        /* Footer decoration */
-        .footer-decoration {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--cgl-gradient);
-            z-index: 100;
-        }
-
-        body.exam-chsl .footer-decoration {
-            background: var(--chsl-gradient);
-        }
-
-        body.exam-dp .footer-decoration {
-            background: var(--dp-gradient);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            .main-container {
-                padding: 32px 20px 80px;
-            }
-
-            .test-grid-container {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 20px;
-            }
-        }
-
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .top-nav {
-                padding: 0 16px;
-                height: 64px;
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
             }
-
-            .brand-logo {
-                font-size: 1.3rem;
-            }
-
-            .brand-logo::before {
-                font-size: 1.2rem;
-            }
-
+            
             .nav-right {
-                gap: 10px;
+                flex-direction: column;
+                gap: 15px;
             }
-
-            .theme-switch-wrapper {
-                padding: 4px 10px;
-            }
-
-            .theme-switch-wrapper span {
-                font-size: 0.9rem;
-            }
-
-            .theme-switch {
-                width: 38px;
-                height: 20px;
-            }
-
-            .slider::before {
-                height: 14px;
-                width: 14px;
-            }
-
-            input:checked + .slider::before {
-                transform: translateX(18px);
-            }
-
-            .nav-btn {
-                padding: 8px 14px;
-                font-size: 0.8rem;
-            }
-
-            .main-container {
-                padding: 24px 16px 80px;
-            }
-
-            .header-container {
-                margin-bottom: 28px;
-            }
-
-            .sub-heading::before,
-            .sub-heading::after {
-                width: 24px;
-            }
-
-            .exam-selector {
-                gap: 8px;
-                margin-bottom: 24px;
-            }
-
-            .exam-btn {
-                padding: 10px 18px;
-                font-size: 0.85rem;
-                flex: 1;
-                min-width: 100px;
+            
+            .nav-buttons {
+                width: 100%;
                 justify-content: center;
             }
-
+            
+            .header-title-section h1 {
+                font-size: 1.8rem;
+            }
+            
+            .ssc-section {
+                padding: 20px 15px;
+            }
+            
+            .exam-selector {
+                flex-wrap: wrap;
+            }
+            
             .tabs-container {
-                padding: 6px;
-                margin-bottom: 28px;
-                justify-content: flex-start;
+                gap: 5px;
             }
-
+            
             .tab {
-                padding: 10px 18px;
-                font-size: 0.8rem;
-            }
-
-            .test-grid-container {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .test-card {
-                padding: 24px 20px;
-            }
-
-            .card-title {
-                font-size: 1.05rem;
-            }
-
-            .stat-item .value {
-                font-size: 1.35rem;
-            }
-
-            .attempt-btn {
-                padding: 12px 32px;
+                padding: 8px 15px;
                 font-size: 0.9rem;
             }
-
-            .help-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .section-header.top100-header {
-                padding: 28px 20px;
-            }
-
-            .section-header.top100-header h2 {
+            
+            .section-title {
                 font-size: 1.4rem;
             }
-
-            .section-header.top100-header::before {
-                font-size: 5rem;
-                right: 10px;
+            
+            .test-card {
+                margin-bottom: 15px;
             }
         }
-
-        @media (max-width: 480px) {
-            .top-nav {
-                flex-wrap: wrap;
-                height: auto;
-                padding: 12px 16px;
-                gap: 12px;
+        
+        @media (max-width: 576px) {
+            .header-title-section h1 {
+                font-size: 1.5rem;
             }
-
-            .nav-right {
-                width: 100%;
-                justify-content: space-between;
+            
+            .sub-heading {
+                font-size: 0.9rem;
             }
-
+            
             .exam-btn {
-                padding: 10px 14px;
-                font-size: 0.8rem;
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
-
-            .test-card {
-                padding: 20px 16px;
-            }
-
-            .stat-item {
-                padding: 10px 6px;
-            }
-
-            .stat-item .value {
-                font-size: 1.25rem;
-            }
-
-            .stat-item .label {
-                font-size: 0.6rem;
-            }
-
-            .no-tests-message {
-                padding: 60px 24px;
-            }
-
-            .no-tests-message .icon {
-                font-size: 3rem;
-            }
-
-            .no-tests-message h3 {
-                font-size: 1.25rem;
+            
+            .btn-test {
+                padding: 8px 20px;
+                font-size: 0.9rem;
             }
         }
-
-        /* ============================================
-           PERFORMANCE OPTIMIZATIONS
-           ============================================ */
-        /* Reduce animations on mobile for better performance */
-        @media (max-width: 768px) {
-            .test-card::after,
-            .attempt-btn::before {
-                display: none;
-            }
-
-            .test-card:hover {
-                transform: translateY(-4px);
-            }
-
-            @keyframes cardFadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
         }
-
-        /* Reduce motion for accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .test-card {
-                border-width: 2px;
-            }
-
-            .tab.active,
-            .exam-btn.active {
-                outline: 2px solid white;
-                outline-offset: 2px;
-            }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        /* Focus visible for keyboard navigation */
-        .exam-btn:focus-visible,
-        .tab:focus-visible,
-        .attempt-btn:focus-visible,
-        .nav-btn:focus-visible {
-            outline: 3px solid var(--primary);
-            outline-offset: 2px;
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+            background: white;
+            border-radius: 8px;
         }
-
-        /* Print styles */
-        @media print {
-            .top-nav,
-            .help-btn,
-            .footer-decoration,
-            .theme-switch-wrapper {
-                display: none !important;
-            }
-
-            body::before {
-                display: none;
-            }
-/* Loading State */
-.test-grid-container.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.loading-skeleton {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.skeleton-card {
-    width: 320px;
-    height: 400px;
-    background: linear-gradient(
-        90deg,
-        var(--bg-card) 0%,
-        var(--border-light) 50%,
-        var(--bg-card) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: var(--radius-xl);
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-            .test-card {
-                break-inside: avoid;
-                box-shadow: none;
-                border: 1px solid #ccc;
-            }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #bdc3c7;
         }
     </style>
 </head>
 <body>
-
-<!-- Footer decoration line -->
-<div class="footer-decoration"></div>
-
-<!-- Navigation Bar -->
-<nav class="top-nav">
-    <a href="#" class="brand-logo">EXAM-AXIS</a>
-    <div class="nav-right">
-        <div class="theme-switch-wrapper">
-            <span>☀️</span>
-            <label class="theme-switch">
-                <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode">
-                <span class="slider"></span>
-            </label>
-            <span>🌙</span>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <a href="#" class="brand-logo">EXAM-AXIS</a>
+        <div class="nav-right">
+            <div class="theme-switch-wrapper">
+                <span>☀️</span>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="slider"></span>
+                </label>
+                <span>🌙</span>
+            </div>
+            <div class="nav-buttons">
+                <a href="login.html" class="nav-btn login-btn">Login</a>
+                <a href="signup.html" class="nav-btn signup-btn">Create Account</a>
+            </div>
         </div>
-        <div class="nav-buttons">
-            <a href="login.html" class="nav-btn login-btn">Login</a>
-            <a href="signup.html" class="nav-btn signup-btn">Create Account</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Header Section -->
+        <header class="header-container">
+            <div class="header-title-section">
+                <h1 id="main-title">SSC <strong>CGL</strong> Mock Tests</h1>
+                <p class="sub-heading">Assess Your Preparation: Start a Test Now</p>
+            </div>
+        </header>
+
+        <!-- Exam Selector - Only SSC CGL -->
+        <div class="exam-selector" role="tablist" aria-label="Select exam type">
+            <button class="exam-btn active" data-exam="CGL" id="btn-cgl" role="tab" aria-selected="true">🎓 SSC CGL</button>
+            <!-- CHSL and DP Constable buttons are hidden -->
+            <button class="exam-btn chsl" data-exam="CHSL" id="btn-chsl" role="tab" aria-selected="false">📘 SSC CHSL</button>
+            <button class="exam-btn dp" data-exam="DP" id="btn-dp" role="tab" aria-selected="false">👮 DP Constable</button>
         </div>
-    </div>
-</nav>
 
-<!-- Main Content -->
-<main class="main-container">
-    <!-- Header Section -->
-    <header class="header-container">
-        <div class="header-title-section">
-            <h1 id="main-title">SSC <strong>CGL</strong> Mock Tests</h1>
-            <p class="sub-heading">Assess Your Preparation: Start a Test Now</p>
-        </div>
-    </header>
-
-    <!-- Exam Selector -->
-    <div class="exam-selector" role="tablist" aria-label="Select exam type">
-        <button class="exam-btn active" data-exam="CGL" id="btn-cgl" role="tab" aria-selected="true">🎓 SSC CGL</button>
-        <button class="exam-btn chsl" data-exam="CHSL" id="btn-chsl" role="tab" aria-selected="false">📘 SSC CHSL</button>
-        <button class="exam-btn dp" data-exam="DP" id="btn-dp" role="tab" aria-selected="false">👮 DP Constable</button>
-    </div>
-
-    <!-- Subject Tabs -->
-    <div class="tabs-container" role="tablist" aria-label="Select subject">
-        <button class="tab active" data-subject="Maths" role="tab" aria-selected="true">📐 Maths</button>
-        <button class="tab" data-subject="Reasoning" role="tab" aria-selected="false">🧩 Reasoning</button>
-        <button class="tab" data-subject="English" role="tab" aria-selected="false">📖 English</button>
-        <button class="tab" data-subject="GK" role="tab" aria-selected="false">🌍 GK</button>
-        <button class="tab chsl-only" data-subject="Top100Maths" style="display: none;" role="tab" aria-selected="false">🔥 Maths Top 100</button>
-    </div>
-
-    <!-- Test Cards Grid -->
-    <div id="test-grid-container" class="test-grid-container" role="list" aria-label="Available tests"></div>
-</main>
-
-<!-- Help Button -->
-<button class="help-btn" aria-label="Get help">💬</button>
-<!-- Scripts -->
-<script src="js/api.js"></script>
-<script src="js/tests-list.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
-    const mainTitle = document.getElementById('main-title');
-    const gridContainer = document.getElementById('test-grid-container');
-    const tabs = document.querySelectorAll('.tab');
-    const themeToggle = document.getElementById('theme-toggle');
-    const btnCGL = document.getElementById('btn-cgl');
-    const btnCHSL = document.getElementById('btn-chsl');
-    const btnDP = document.getElementById('btn-dp');
-
-    // State
-    let currentExam = 'CGL';
-    let currentSubject = 'Maths';
-    let historyMap = {};
-    let isHistoryLoaded = false;
-
-    // Configuration
-    const SUBJECT_DISPLAY_TIMES = {
-        "Maths": 25,
-        "Reasoning": 20,
-        "English": 15,
-        "GK": 10,
-        "General": 25,
-        "Top100Maths": 60
-    };
-
-    // ==================== THEME MANAGEMENT ====================
-    function applyTheme(theme) {
-        const isDark = theme === 'dark';
-        document.body.classList.toggle('dark-mode', isDark);
-        themeToggle.checked = isDark;
-        
-        const metaTheme = document.querySelector('meta[name="theme-color"]');
-        if (metaTheme) {
-            metaTheme.setAttribute('content', isDark ? '#0f172a' : '#6366f1');
-        }
-    }
-    
-    themeToggle.addEventListener('change', () => {
-        const newTheme = themeToggle.checked ? 'dark' : 'light';
-        localStorage.setItem('theme', newTheme);
-        applyTheme(newTheme);
-    });
-    
-    const savedTheme = localStorage.getItem('theme') || 
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    applyTheme(savedTheme);
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches ? 'dark' : 'light');
-        }
-    });
-
-    // ==================== DATA VALIDATION ====================
-    if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
-        mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
-        gridContainer.innerHTML = `
-            <div class="no-tests-message">
-                <div class="icon">⚠️</div>
-                <h3>Data Not Found</h3>
-                <p>The test data file is missing or invalid. Please try again later.</p>
-            </div>`;
-        return;
-    }
-
-    // ==================== LOAD USER HISTORY (NON-BLOCKING) ====================
-    function loadHistory() {
-        // Don't block rendering - load in background
-        if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
-            historyMap = {};
-            isHistoryLoaded = true;
-            return Promise.resolve();
-        }
-
-        return ExamAxisAPI.getTestHistory()
-            .then(res => {
-                historyMap = {};
-                if (res.success && res.data?.attempts) {
-                    res.data.attempts.forEach(a => {
-                        const key = String(a.testId);
-                        const existing = historyMap[key];
-                        if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
-                            historyMap[key] = a;
-                        }
-                    });
-                }
-                isHistoryLoaded = true;
-                // Update UI after history loads
-                displayTests();
-            })
-            .catch(err => {
-                console.error('Failed to load history:', err);
-                historyMap = {};
-                isHistoryLoaded = true;
-            });
-    }
-
-    // ==================== HELPER FUNCTIONS ====================
-    function getFilteredTests(exam, subject) {
-        if (exam === 'CHSL' && subject === 'Top100Maths') {
-            return ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS');
-        }
-        return ALL_TESTS.filter(test => test.exam === exam && test.subject === subject);
-    }
-
-    function generateCardHTML(test, index) {
-        const fullTitle = `${test.date} ${test.title}`;
-        const questions = test.questions || 25;
-        const time = test.exam === 'CHSL_TOP_100_MATHS' ? 60 : 
-            (SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"]);
-        
-        const attempt = historyMap[String(test.id)];
-        
-        const badges = [];
-        if (test.isNew) badges.push('<div class="new-badge">✨ NEW</div>');
-        if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
-        if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
-
-        const lastScoreHtml = isHistoryLoaded 
-            ? (attempt
-                ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
-                : `<div class="last-score not-attempted">Not attempted yet</div>`)
-            : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading history...</div>`;
-
-        // Limit animation delay to prevent lag
-        const maxDelay = Math.min(index * 0.05, 0.4);
-
-        return `
-            <article class="test-card ${test.exam === 'CHSL_TOP_100_MATHS' ? 'top100-card' : ''}" 
-                     role="listitem" 
-                     style="animation-delay: ${maxDelay}s">
-                <div class="card-glow"></div>
-                ${badges.join('')}
-                <h3 class="card-title">${fullTitle}</h3>
-                <hr>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <div class="value">${questions}</div>
-                        <div class="label">Questions</div>
+        <!-- SSC CGL Sections -->
+        <div id="ssc-sections">
+            <!-- Section 1: Sectional Tests -->
+            <div class="ssc-section">
+                <h2 class="section-title">
+                    <i class="fas fa-puzzle-piece me-2"></i>Sectional Tests
+                </h2>
+                <p class="text-muted mb-4">Practice subject-wise to strengthen your weak areas</p>
+                
+                <div class="row" id="sectionalTestsContainer">
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="sectionalLoading">
+                        <div class="spinner"></div>
+                        <p>Loading sectional tests...</p>
                     </div>
-                    <div class="stat-item">
-                        <div class="value">${questions * 2}</div>
-                        <div class="label">Marks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="value">${time}</div>
-                        <div class="label">Minutes</div>
-                    </div>
+                    
+                    <!-- Sectional tests will be loaded here by JavaScript -->
                 </div>
-                ${lastScoreHtml}
-                <a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>
-            </article>`;
-    }
-
-    // Optimized display with requestAnimationFrame
-    function displayTests() {
-        const filteredTests = getFilteredTests(currentExam, currentSubject);
-        
-        // Immediate feedback - no fade out delay
-        gridContainer.style.opacity = '0';
-
-        // Use requestAnimationFrame for smooth rendering
-        requestAnimationFrame(() => {
-            if (filteredTests.length > 0) {
-                let html = '';
-                
-                if (currentSubject === 'Top100Maths') {
-                    html += `
-                        <div class="section-header top100-header">
-                            <h2>🔥 MATHS TOP 100 - 2025</h2>
-                            <p>Master the most important 100 questions for SSC CHSL 2025</p>
-                        </div>`;
-                }
-                
-                // Batch render - faster than individual appends
-                html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
-                gridContainer.innerHTML = html;
-            } else {
-                const message = currentSubject === 'Top100Maths' 
-                    ? `<div class="no-tests-message">
-                        <div class="icon">🔥</div>
-                        <h3>Maths Top 100 - Coming Soon!</h3>
-                        <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
-                    </div>`
-                    : `<div class="no-tests-message">
-                        <div class="icon">📭</div>
-                        <h3>Coming Soon!</h3>
-                        <p>No ${currentSubject} tests for SSC ${currentExam} yet. Check back soon!</p>
-                    </div>`;
-                gridContainer.innerHTML = message;
-            }
-
-            // Fade in immediately after render
-            requestAnimationFrame(() => {
-                gridContainer.style.opacity = '1';
-            });
-        });
-    }
-
-    function updateTabsForExam(exam) {
-        tabs.forEach(tab => {
-            const subject = tab.dataset.subject;
+            </div>
             
-            if (exam === "DP" && subject === "English") {
-                tab.style.display = "none";
-            } else if (subject === "Top100Maths") {
-                tab.style.display = exam === "CHSL" ? "block" : "none";
-            } else {
-                tab.style.display = "block";
+            <!-- Section 2: Full Mock Tests -->
+            <div class="ssc-section">
+                <h2 class="section-title">
+                    <i class="fas fa-clipboard-list me-2"></i>Full Mock Tests
+                </h2>
+                <p class="text-muted mb-4">Simulate actual exam experience with complete mock tests</p>
+                
+                <div class="row" id="mockTestsContainer">
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="mockLoading">
+                        <div class="spinner"></div>
+                        <p>Loading mock tests...</p>
+                    </div>
+                    
+                    <!-- Mock tests will be loaded here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Section 3: Chapterwise Tests -->
+            <div class="ssc-section">
+                <h2 class="section-title">
+                    <i class="fas fa-layer-group me-2"></i>Chapterwise Tests
+                </h2>
+                <p class="text-muted mb-4">Master each topic with focused chapter-wise practice</p>
+                
+                <div class="row" id="chapterwiseTestsContainer">
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="chapterwiseLoading">
+                        <div class="spinner"></div>
+                        <p>Loading chapterwise tests...</p>
+                    </div>
+                    
+                    <!-- Chapterwise tests will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Decoration -->
+    <div class="footer-decoration"></div>
+
+    <!-- Help Button -->
+    <button class="help-btn" aria-label="Get help">💬</button>
+    
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/tests-list.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // DOM Elements
+        const mainTitle = document.getElementById('main-title');
+        const themeToggle = document.getElementById('theme-toggle');
+        const btnCGL = document.getElementById('btn-cgl');
+        
+        // Test containers
+        const sectionalContainer = document.getElementById('sectionalTestsContainer');
+        const mockContainer = document.getElementById('mockTestsContainer');
+        const chapterwiseContainer = document.getElementById('chapterwiseTestsContainer');
+        
+        // State
+        let currentExam = 'CGL';
+        let historyMap = {};
+
+        // ==================== THEME MANAGEMENT ====================
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+            document.body.classList.toggle('dark-mode', isDark);
+            themeToggle.checked = isDark;
+            
+            const metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) {
+                metaTheme.setAttribute('content', isDark ? '#0f172a' : '#6366f1');
+            }
+        }
+        
+        themeToggle.addEventListener('change', () => {
+            const newTheme = themeToggle.checked ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        });
+        
+        const savedTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        applyTheme(savedTheme);
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
             }
         });
 
-        if ((exam === "DP" && currentSubject === "English") || 
-            (exam !== "CHSL" && currentSubject === "Top100Maths")) {
-            currentSubject = "Maths";
-            tabs.forEach(tab => {
-                const isActive = tab.dataset.subject === "Maths";
-                tab.classList.toggle("active", isActive);
-                tab.setAttribute('aria-selected', isActive);
+        // ==================== DATA VALIDATION ====================
+        if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
+            mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
+            sectionalContainer.innerHTML = `
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Data Not Found</h4>
+                        <p>The test data file is missing or invalid. Please try again later.</p>
+                    </div>
+                </div>`;
+            return;
+        }
+
+        // ==================== HELPER FUNCTIONS ====================
+        function getFilteredTests(exam, testType) {
+            return ALL_TESTS.filter(test => {
+                // First filter by exam
+                if (test.exam !== exam) return false;
+                
+                // Then filter by test type based on test properties
+                switch(testType) {
+                    case 'sectional':
+                        // Sectional tests are single-subject tests
+                        return test.subject && test.questions === 25;
+                    case 'mock':
+                        // Mock tests are multi-subject or full-length
+                        return test.isMock || test.title.toLowerCase().includes('mock') || 
+                               (test.subjects && test.subjects.length > 1);
+                    case 'chapterwise':
+                        // Chapterwise tests have chapter/topic info
+                        return test.chapter || test.topic || 
+                               test.title.toLowerCase().includes('chapter') ||
+                               test.title.toLowerCase().includes('topic');
+                    default:
+                        return false;
+                }
             });
         }
-    }
 
-    function switchExam(exam) {
-        currentExam = exam;
-
-        [btnCGL, btnCHSL, btnDP].forEach(btn => {
-            const isActive = btn.dataset.exam === exam;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-selected', isActive);
-        });
-
-        document.body.classList.remove('exam-chsl', 'exam-dp');
-        
-        const titles = {
-            'CGL': 'SSC <strong>CGL</strong> Mock Tests',
-            'CHSL': 'SSC <strong>CHSL</strong> Mock Tests',
-            'DP': '<strong>DP Constable</strong> Mock Tests'
-        };
-
-        mainTitle.innerHTML = titles[exam];
-
-        if (exam === 'CHSL') document.body.classList.add('exam-chsl');
-        if (exam === 'DP') document.body.classList.add('exam-dp');
-
-        updateTabsForExam(exam);
-        displayTests();
-    }
-
-    // ==================== EVENT LISTENERS ====================
-    btnCGL.addEventListener('click', () => switchExam('CGL'));
-    btnCHSL.addEventListener('click', () => switchExam('CHSL'));
-    btnDP.addEventListener('click', () => switchExam('DP'));
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-            currentSubject = tab.dataset.subject;
-            displayTests();
-        });
-    });
-
-    document.querySelectorAll('[role="tablist"]').forEach(tablist => {
-        tablist.addEventListener('keydown', (e) => {
-            const tabs = [...tablist.querySelectorAll('[role="tab"]:not([style*="display: none"])')];
-            const currentIndex = tabs.indexOf(document.activeElement);
+        function generateTestCard(test, index) {
+            const maxDelay = Math.min(index * 0.05, 0.4);
             
-            let newIndex;
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                newIndex = (currentIndex + 1) % tabs.length;
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-            } else if (e.key === 'Home') {
-                newIndex = 0;
-            } else if (e.key === 'End') {
-                newIndex = tabs.length - 1;
-            } else {
-                return;
+            // Get subjects badges
+            let subjectBadges = '';
+            if (test.subject) {
+                const subjectClass = test.subject.toLowerCase();
+                subjectBadges = `<span class="subject-badge ${subjectClass}">${test.subject}</span>`;
+            } else if (test.subjects && Array.isArray(test.subjects)) {
+                subjectBadges = test.subjects.map(sub => 
+                    `<span class="subject-badge ${sub.toLowerCase()}">${sub}</span>`
+                ).join('');
             }
             
-            e.preventDefault();
-            tabs[newIndex].focus();
-            tabs[newIndex].click();
+            // Get questions count
+            const questions = test.questions || 25;
+            
+            // Calculate time based on subject
+            const getTimeForSubject = (subject) => {
+                const times = {
+                    'Maths': 45,
+                    'English': 30,
+                    'Reasoning': 35,
+                    'GK': 20,
+                    'General': 25
+                };
+                return times[subject] || 30;
+            };
+            
+            const time = test.time || (test.subject ? getTimeForSubject(test.subject) : 60);
+            const marks = questions * 2;
+            
+            return `
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="test-card" style="animation-delay: ${maxDelay}s">
+                        <div class="card-header">
+                            <h5 class="mb-0">${test.title}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted small mb-3">${test.description || 'Practice test for ' + (test.subject || 'all subjects')}</p>
+                            <div class="mb-3">
+                                ${subjectBadges}
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <div>
+                                    <small class="text-muted">Questions</small>
+                                    <div class="fw-bold">${questions}</div>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Time</small>
+                                    <div class="fw-bold">${time} min</div>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Marks</small>
+                                    <div class="fw-bold">${marks}</div>
+                                </div>
+                            </div>
+                            <a href="test.html?testId=${test.id}" class="btn-test w-100 text-center">
+                                Start Test <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        // ==================== LOAD TESTS FUNCTIONS ====================
+        function loadSectionalTests() {
+            const container = sectionalContainer;
+            const loading = document.getElementById('sectionalLoading');
+            
+            if (loading) loading.style.display = 'block';
+            
+            setTimeout(() => {
+                const tests = getFilteredTests(currentExam, 'sectional');
+                
+                if (tests.length > 0) {
+                    // Group by subject
+                    const groupedBySubject = {};
+                    tests.forEach(test => {
+                        const subject = test.subject || 'General';
+                        if (!groupedBySubject[subject]) {
+                            groupedBySubject[subject] = [];
+                        }
+                        groupedBySubject[subject].push(test);
+                    });
+                    
+                    let html = '';
+                    
+                    // Create a row for each subject
+                    Object.keys(groupedBySubject).forEach(subject => {
+                        const subjectTests = groupedBySubject[subject];
+                        
+                        html += `
+                            <div class="col-12 mb-4">
+                                <h4 class="mb-3">${subject} Tests</h4>
+                                <div class="row">
+                        `;
+                        
+                        subjectTests.forEach((test, index) => {
+                            html += generateTestCard(test, index);
+                        });
+                        
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `
+                        <div class="col-12">
+                            <div class="empty-state">
+                                <i class="fas fa-clipboard-list"></i>
+                                <h4>No Sectional Tests Available</h4>
+                                <p>Sectional tests for ${currentExam} will be added soon.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (loading) loading.style.display = 'none';
+            }, 500);
+        }
+
+        function loadMockTests() {
+            const container = mockContainer;
+            const loading = document.getElementById('mockLoading');
+            
+            if (loading) loading.style.display = 'block';
+            
+            setTimeout(() => {
+                const tests = getFilteredTests(currentExam, 'mock');
+                
+                if (tests.length > 0) {
+                    let html = '<div class="col-12"><div class="row">';
+                    
+                    tests.forEach((test, index) => {
+                        html += generateTestCard(test, index);
+                    });
+                    
+                    html += '</div></div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `
+                        <div class="col-12">
+                            <div class="empty-state">
+                                <i class="fas fa-file-alt"></i>
+                                <h4>No Mock Tests Available</h4>
+                                <p>Mock tests for ${currentExam} will be added soon.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (loading) loading.style.display = 'none';
+            }, 500);
+        }
+
+        function loadChapterwiseTests() {
+            const container = chapterwiseContainer;
+            const loading = document.getElementById('chapterwiseLoading');
+            
+            if (loading) loading.style.display = 'block';
+            
+            setTimeout(() => {
+                const tests = getFilteredTests(currentExam, 'chapterwise');
+                
+                if (tests.length > 0) {
+                    // Group by chapter/topic
+                    const groupedByTopic = {};
+                    tests.forEach(test => {
+                        const topic = test.chapter || test.topic || 'General';
+                        if (!groupedByTopic[topic]) {
+                            groupedByTopic[topic] = [];
+                        }
+                        groupedByTopic[topic].push(test);
+                    });
+                    
+                    let html = '';
+                    
+                    // Create a section for each topic
+                    Object.keys(groupedByTopic).forEach(topic => {
+                        const topicTests = groupedByTopic[topic];
+                        
+                        html += `
+                            <div class="col-12 mb-4">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-book me-2"></i>${topic}
+                                </h5>
+                                <div class="row">
+                        `;
+                        
+                        topicTests.forEach((test, index) => {
+                            html += generateTestCard(test, index);
+                        });
+                        
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `
+                        <div class="col-12">
+                            <div class="empty-state">
+                                <i class="fas fa-layer-group"></i>
+                                <h4>No Chapterwise Tests Available</h4>
+                                <p>Chapterwise tests for ${currentExam} will be added soon.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (loading) loading.style.display = 'none';
+            }, 500);
+        }
+
+        // ==================== LOAD USER HISTORY ====================
+        function loadHistory() {
+            if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
+                historyMap = {};
+                return Promise.resolve();
+            }
+
+            return ExamAxisAPI.getTestHistory()
+                .then(res => {
+                    historyMap = {};
+                    if (res.success && res.data?.attempts) {
+                        res.data.attempts.forEach(a => {
+                            historyMap[String(a.testId)] = a;
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.error('Failed to load history:', err);
+                    historyMap = {};
+                });
+        }
+
+        // ==================== INITIAL LOAD ====================
+        function initializePage() {
+            // Hide CHSL and DP Constable tabs
+            document.querySelectorAll('.chsl-only').forEach(el => el.style.display = 'none');
+            
+            // Set active exam
+            btnCGL.classList.add('active');
+            
+            // Load all tests
+            loadSectionalTests();
+            loadMockTests();
+            loadChapterwiseTests();
+            
+            // Load history in background
+            loadHistory();
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        btnCGL.addEventListener('click', () => {
+            currentExam = 'CGL';
+            mainTitle.innerHTML = 'SSC <strong>CGL</strong> Mock Tests';
+            initializePage();
         });
+
+        // Help button functionality
+        document.querySelector('.help-btn').addEventListener('click', () => {
+            alert('Need help? Contact us at support@examaxis.com');
+        });
+
+        // Initialize the page
+        initializePage();
+        
+        // Check if user is logged in and update navigation
+        if (window.updateNavigation) {
+            updateNavigation();
+        }
     });
-
-    // ==================== INITIAL LOAD (OPTIMIZED) ====================
-    // Display tests immediately without waiting for history
-    displayTests();
-    
-    // Load history in background
-    loadHistory();
-    
-    if (window.updateNavigation) {
-        updateNavigation();
-    }
-});
-</script>
-
+    </script>
 </body>
 </html>

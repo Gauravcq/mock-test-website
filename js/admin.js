@@ -53,10 +53,24 @@ async function loadDashboard() {
 // ==================== TAB NAVIGATION ====================
 
 function showTab(tabName) {
-  const allTabs = document.querySelectorAll('.tab-content');
-  allTabs.forEach(tab => {
-    tab.style.display = 'none';
-  });
+  // ... existing code ...
+
+  switch (tabName) {
+    case 'dashboard':
+      loadDashboard();
+      break;
+    case 'users':
+      loadUsers();
+      break;
+    case 'tests':
+      loadTests();
+      break;
+    case 'questions':
+      loadTestsForQuestions();
+      initQuickTextEntry(); // ← ADD THIS LINE
+      break;
+  }
+}
 
   const allBtns = document.querySelectorAll('.tab-btn');
   allBtns.forEach(btn => {
@@ -86,7 +100,6 @@ function showTab(tabName) {
       loadTestsForQuestions();
       break;
   }
-}
 
 // ==================== USERS MANAGEMENT ====================
 
@@ -526,6 +539,194 @@ async function adminLogout() {
   await ExamAxisAPI.logout();
   window.location.href = 'login.html';
 }
+// ==================== QUICK TEXT ENTRY ====================
+
+async function loadTestsForQuickEntry() {
+  const select = document.getElementById('quick-text-test-select');
+  if (!select) return;
+
+  const result = await ExamAxisAPI.getAdminTests();
+
+  if (!result.success) {
+    select.innerHTML = '<option value="">Error loading tests</option>';
+    return;
+  }
+
+  const tests = result.data?.tests || result.data || [];
+
+  select.innerHTML = '<option value="">Select a test</option>' + 
+    tests.map(test => `<option value="${test.id}">${test.title} (${test.testId})</option>`).join('');
+}
+
+function parseQuickTextQuestions(text) {
+  const questions = [];
+  const lines = text.trim().split('\n');
+  
+  let currentQuestion = null;
+  let currentOptions = [];
+  let questionNumber = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    if (!line) continue; // Skip empty lines
+    
+    // Check if line starts with a number (e.g., "1.", "2.", etc.)
+    const questionMatch = line.match(/^(\d+)\.\s*(.+)/);
+    
+    if (questionMatch) {
+      // Save previous question if exists
+      if (currentQuestion) {
+        questions.push({
+          question: currentQuestion,
+          options: currentOptions,
+          correctAnswer: currentAnswer
+        });
+      }
+      
+      // Start new question
+      questionNumber = parseInt(questionMatch[1]);
+      currentQuestion = questionMatch[2];
+      currentOptions = [];
+      currentAnswer = null;
+    }
+    // Check if line is an option (A), B), C), D))
+    else if (line.match(/^[A-D]\)/)) {
+      const optionText = line.substring(2).trim(); // Remove "A) " part
+      currentOptions.push(optionText);
+    }
+    // Check if line is answer (Answer: A, Answer: B, etc.)
+    else if (line.match(/^Answer:\s*[A-D]/i)) {
+      const answerMatch = line.match(/Answer:\s*([A-D])/i);
+      if (answerMatch) {
+        currentAnswer = answerMatch[1].toUpperCase();
+      }
+    }
+  }
+  
+  // Don't forget the last question
+  if (currentQuestion && currentOptions.length >= 2) {
+    questions.push({
+      question: currentQuestion,
+      options: currentOptions,
+      correctAnswer: currentAnswer
+    });
+  }
+  
+  return questions;
+}
+
+function previewParsedQuestions() {
+  const text = document.getElementById('quick-text-input').value;
+  
+  if (!text.trim()) {
+    alert('❌ Please paste some questions first!');
+    return;
+  }
+  
+  const questions = parseQuickTextQuestions(text);
+  
+  if (questions.length === 0) {
+    alert('❌ No valid questions found. Please check the format.');
+    return;
+  }
+  
+  // Show preview
+  const previewArea = document.getElementById('preview-area');
+  const previewContent = document.getElementById('preview-content');
+  
+  let html = `<p><strong>Found ${questions.length} questions</strong></p>`;
+  
+  questions.forEach((q, index) => {
+    const hasError = !q.correctAnswer || q.options.length < 2;
+    
+    html += `
+      <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid ${hasError ? '#e74c3c' : '#27ae60'};">
+        <strong>Q${index + 1}:</strong> ${q.question || '<span style="color: red;">Missing question</span>'}
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          ${q.options.map((opt, i) => `
+            <li style="${q.correctAnswer === String.fromCharCode(65 + i) ? 'font-weight: bold; color: #27ae60;' : ''}">
+              ${String.fromCharCode(65 + i)}) ${opt}
+            </li>
+          `).join('')}
+        </ul>
+        <div style="color: ${q.correctAnswer ? '#27ae60' : '#e74c3c'};">
+          ✓ Correct Answer: ${q.correctAnswer || '<strong>MISSING!</strong>'}
+        </div>
+        ${hasError ? '<div style="color: #e74c3c; margin-top: 5px;">⚠️ This question has errors!</div>' : ''}
+      </div>
+    `;
+  });
+  
+  previewContent.innerHTML = html;
+  previewArea.style.display = 'block';
+  previewArea.scrollIntoView({ behavior: 'smooth' });
+}
+
+async function handleQuickTextEntry(event) {
+  event.preventDefault();
+  
+  const testId = document.getElementById('quick-text-test-select').value;
+  const text = document.getElementById('quick-text-input').value;
+  const replace = document.getElementById('quick-replace-questions').checked;
+  
+  if (!testId) {
+    alert('❌ Please select a test');
+    return;
+  }
+  
+  if (!text.trim()) {
+    alert('❌ Please paste questions');
+    return;
+  }
+  
+  // Parse questions
+  const questions = parseQuickTextQuestions(text);
+  
+  if (questions.length === 0) {
+    alert('❌ No valid questions found. Please check the format.');
+    return;
+  }
+  
+  // Check for errors
+  const invalidQuestions = questions.filter(q => !q.correctAnswer || q.options.length < 2);
+  
+  if (invalidQuestions.length > 0) {
+    const proceed = confirm(
+      `⚠️ Warning: ${invalidQuestions.length} questions have errors (missing answer or options).\n\n` +
+      `Do you want to continue anyway?`
+    );
+    if (!proceed) return;
+  }
+  
+  // Confirm upload
+  const confirmMsg = replace 
+    ? `⚠️ This will REPLACE all existing questions with ${questions.length} new questions. Continue?`
+    : `Upload ${questions.length} questions to the test?`;
+  
+  if (!confirm(confirmMsg)) return;
+  
+  // Upload
+  const result = await ExamAxisAPI.bulkUploadQuestions(testId, questions, replace);
+  
+  if (result.success) {
+    alert(`✅ Successfully uploaded ${questions.length} questions!`);
+    document.getElementById('quick-text-input').value = '';
+    document.getElementById('preview-area').style.display = 'none';
+    
+    // Refresh questions list if test is selected
+    if (currentTestId === testId) {
+      loadQuestionsForTest();
+    }
+  } else {
+    alert('❌ Error: ' + result.message);
+  }
+}
+
+// Call this when Questions tab is opened
+function initQuickTextEntry() {
+  loadTestsForQuickEntry();
+}
 
 // ==================== INITIALIZE ====================
 
@@ -550,3 +751,6 @@ window.deleteQuestionConfirm = deleteQuestionConfirm;
 window.handleBulkUpload = handleBulkUpload;
 window.downloadSampleJSON = downloadSampleJSON;
 window.adminLogout = adminLogout;
+// Add these to the existing window assignments
+window.previewParsedQuestions = previewParsedQuestions;
+window.handleQuickTextEntry = handleQuickTextEntry;
