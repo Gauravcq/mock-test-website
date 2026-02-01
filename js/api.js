@@ -405,13 +405,11 @@ class ExamAxisAPI {
   static async requireAdmin() {
     const token = this.getToken();
 
-    // Not logged in
     if (!token) {
       window.location.href = 'login.html';
       return false;
     }
 
-    // Verify with server
     const result = await this.verifyAdmin();
 
     if (!result.isAdmin) {
@@ -631,6 +629,176 @@ class ExamAxisAPI {
     }
   }
 
+  // ==================== NEW ADMIN TEST FEATURES ====================
+
+  // Duplicate a test
+  static async duplicateTest(testId, newTestId, title) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/duplicate`, {
+        method: 'POST',
+        body: JSON.stringify({ newTestId, title })
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to duplicate test' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to duplicate test' };
+    }
+  }
+
+  // Bulk upload questions (JSON array)
+  static async bulkUploadQuestions(testId, questions, replace = false) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/bulk-questions`, {
+        method: 'POST',
+        body: JSON.stringify({ questions, replace })
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to upload questions' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to upload questions' };
+    }
+  }
+
+  // Toggle test active/inactive
+  static async toggleTestActive(testId) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/toggle-active`, {
+        method: 'PUT'
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to toggle test status' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to toggle test status' };
+    }
+  }
+
+  // Get single test with full details
+  static async getTestById(testId) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}`);
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to get test' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to get test' };
+    }
+  }
+
+  // Delete a question from test
+  static async deleteQuestion(testId, questionIndex) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/questions/${questionIndex}`, {
+        method: 'DELETE'
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to delete question' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to delete question' };
+    }
+  }
+
+  // Update a single question
+  static async updateQuestion(testId, questionIndex, questionData) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/questions/${questionIndex}`, {
+        method: 'PUT',
+        body: JSON.stringify(questionData)
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to update question' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to update question' };
+    }
+  }
+
+  // Get test statistics
+  static async getTestStats(testId) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/stats`);
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to get test stats' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to get test stats' };
+    }
+  }
+
+  // Add single question to test
+  static async addSingleQuestion(testId, questionData) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/questions`, {
+        method: 'POST',
+        body: JSON.stringify({ questions: [questionData] })
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to add question' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to add question' };
+    }
+  }
+
   // ==================== HELPERS ====================
 
   static isLoggedIn() {
@@ -657,7 +825,6 @@ async function updateNavigation() {
   const isLoggedIn = ExamAxisAPI.isLoggedIn();
 
   if (isLoggedIn && user) {
-    // Show admin link only if user is admin
     const adminLink = (user.role === 'admin' || user.role === 'superadmin')
       ? '<a href="admin.html" class="nav-btn admin-btn">👑 Admin</a>'
       : '';
