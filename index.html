@@ -1970,17 +1970,22 @@ function getTestCountBySection(exam, subject) {
         sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
     }
 
-    function generateCardHTML(test, index) {
-        let questions = test.questions || 100;
-        let fullTitle = test.name || test.title || 'Unnamed Test';
-        let time;
-        if (currentSection === 'fullmock') {
-            time = 60; // Full Mock Tests = 60 minutes
-        } else if (test.exam === 'CHSL_TOP_100_MATHS') {
-            time = 60; // Top 100 = 60 minutes
-        } else {
-            time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
-        }
+function generateCardHTML(test, index) {
+    // Handle missing date
+    const fullTitle = test.date ? `${test.date} ${test.title}` : test.title;
+    const questions = test.questions || 25;
+    
+    // Timer logic
+    let time;
+    if (currentSection === 'fullmock') {
+        time = 60;
+    } else if (test.exam === 'CHSL_TOP_100_MATHS') {
+        time = 60;
+    } else {
+        time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
+    }
+    
+    // ... rest of the function remains same
         
         const attempt = historyMap[String(test.id)];
         
