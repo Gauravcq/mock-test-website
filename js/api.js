@@ -6,7 +6,6 @@ const API_BASE_URL = 'https://exam-axis-backend.vercel.app';
 class ExamAxisAPI {
   // ==================== CORE REQUEST HELPER ====================
   static async request(endpoint, options = {}) {
-    // Ensure endpoint starts with a slash
     const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
     const url = `${API_BASE_URL}${path}`;
 
@@ -14,10 +13,9 @@ class ExamAxisAPI {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include', // Important for cookies
+      credentials: 'include',
     };
 
-    // Add auth token if it exists
     const token = localStorage.getItem('token');
     if (token) {
       defaultOptions.headers['Authorization'] = `Bearer ${token}`;
@@ -30,12 +28,10 @@ class ExamAxisAPI {
       response = await fetch(url, { ...defaultOptions, ...options });
     } catch (err) {
       console.error('Fetch error:', err);
-      // Network-level failure (no HTTP response)
       return { response: null, data: null, error: 'NETWORK_ERROR' };
     }
 
     try {
-      // Try to parse JSON; if body is empty or not JSON, keep data = null
       data = await response.json();
     } catch (err) {
       data = null;
@@ -46,7 +42,6 @@ class ExamAxisAPI {
 
   // ==================== AUTH ====================
 
-  // Register new user
   static async register(userData) {
     try {
       const { response, data, error } = await this.request('/api/auth/register', {
@@ -59,7 +54,6 @@ class ExamAxisAPI {
       }
 
       if (!response.ok) {
-        // Backend returned 4xx/5xx
         const msg =
           (data && (data.message || data.error)) ||
           `Registration failed (${response.status})`;
@@ -78,7 +72,6 @@ class ExamAxisAPI {
     }
   }
 
-  // Login user
   static async login(identifier, password) {
     try {
       const { response, data, error } = await this.request('/api/auth/login', {
@@ -109,7 +102,6 @@ class ExamAxisAPI {
     }
   }
 
-  // Logout user
   static async logout() {
     try {
       await this.request('/api/auth/logout', { method: 'POST' });
@@ -122,7 +114,6 @@ class ExamAxisAPI {
     return { success: true };
   }
 
-  // Check auth status
   static async checkAuth() {
     try {
       const { response, data } = await this.request('/api/auth/check');
@@ -142,7 +133,6 @@ class ExamAxisAPI {
     }
   }
 
-  // Get current user
   static async getMe() {
     try {
       const { response, data } = await this.request('/api/auth/me');
@@ -302,88 +292,345 @@ class ExamAxisAPI {
       return { success: false, message: 'Failed to get leaderboard' };
     }
   }
-// ==================== TESTS ====================
 
-// ... your existing test methods ...
+  // ==================== QUESTIONS ====================
 
-// Get questions for a test (secure - no answers)
-static async getQuestions(testId) {
-  try {
-    const { response, data, error } = await this.request(`/api/questions/${testId}`);
+  static async getQuestions(testId) {
+    try {
+      const { response, data, error } = await this.request(`/api/questions/${testId}`);
 
-    if (error === 'NETWORK_ERROR') {
-      return { success: false, message: 'Network error. Please check your connection.' };
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error. Please check your connection.' };
+      }
+
+      if (!response.ok) {
+        const msg = (data && (data.message || data.error)) ||
+          `Failed to load questions (${response.status})`;
+        return { success: false, message: msg };
+      }
+
+      return data || { success: false, message: 'No questions found' };
+    } catch (error) {
+      console.error('Get questions error:', error);
+      return { success: false, message: 'Failed to load questions' };
     }
-
-    if (!response.ok) {
-      const msg = (data && (data.message || data.error)) || 
-                  `Failed to load questions (${response.status})`;
-      return { success: false, message: msg };
-    }
-
-    return data || { success: false, message: 'No questions found' };
-  } catch (error) {
-    console.error('Get questions error:', error);
-    return { success: false, message: 'Failed to load questions' };
   }
-}
 
-// Submit test and get results
-static async submitTest(testId, answers) {
-  try {
-    const { response, data, error } = await this.request(`/api/questions/${testId}/submit`, {
-      method: 'POST',
-      body: JSON.stringify({ answers }),
-    });
+  static async submitTest(testId, answers) {
+    try {
+      const { response, data, error } = await this.request(`/api/questions/${testId}/submit`, {
+        method: 'POST',
+        body: JSON.stringify({ answers }),
+      });
 
-    if (error === 'NETWORK_ERROR') {
-      return { success: false, message: 'Network error. Please check your connection.' };
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error. Please check your connection.' };
+      }
+
+      if (!response.ok) {
+        const msg = (data && (data.message || data.error)) ||
+          `Failed to submit test (${response.status})`;
+        return { success: false, message: msg };
+      }
+
+      return data || { success: false, message: 'Failed to get results' };
+    } catch (error) {
+      console.error('Submit test error:', error);
+      return { success: false, message: 'Failed to submit test' };
     }
-
-    if (!response.ok) {
-      const msg = (data && (data.message || data.error)) || 
-                  `Failed to submit test (${response.status})`;
-      return { success: false, message: msg };
-    }
-
-    return data || { success: false, message: 'Failed to get results' };
-  } catch (error) {
-    console.error('Submit test error:', error);
-    return { success: false, message: 'Failed to submit test' };
   }
-}
 
-// Check if a test exists
-static async checkTestExists(testId) {
-  try {
-    const { response, data } = await this.request(`/api/questions/check/${testId}`);
+  static async checkTestExists(testId) {
+    try {
+      const { response, data } = await this.request(`/api/questions/check/${testId}`);
 
-    if (!response.ok) {
+      if (!response.ok) {
+        return { success: false, exists: false };
+      }
+
+      return data || { success: false, exists: false };
+    } catch (error) {
       return { success: false, exists: false };
     }
-
-    return data || { success: false, exists: false };
-  } catch (error) {
-    return { success: false, exists: false };
   }
-}
 
-// Get list of available tests
-static async getAvailableTests() {
-  try {
-    const { response, data } = await this.request('/api/questions/list');
+  static async getAvailableTests() {
+    try {
+      const { response, data } = await this.request('/api/questions/list');
 
-    if (!response.ok) {
-      const msg = (data && (data.message || data.error)) || 
-                  `Failed to get tests (${response.status})`;
-      return { success: false, message: msg };
+      if (!response.ok) {
+        const msg = (data && (data.message || data.error)) ||
+          `Failed to get tests (${response.status})`;
+        return { success: false, message: msg };
+      }
+
+      return data || { success: false, message: 'No tests available' };
+    } catch (error) {
+      return { success: false, message: 'Failed to get available tests' };
+    }
+  }
+
+  // ==================== ADMIN FUNCTIONS ====================
+
+  // Check if current user is admin (quick check from localStorage)
+  static isAdmin() {
+    const user = this.getCurrentUser();
+    return user?.role === 'admin' || user?.role === 'superadmin';
+  }
+
+  // Verify admin status from server (secure check)
+  static async verifyAdmin() {
+    try {
+      const { response, data, error } = await this.request('/api/admin/verify');
+
+      if (error === 'NETWORK_ERROR') {
+        return { isAdmin: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { isAdmin: false, message: data?.message || 'Not authorized' };
+      }
+
+      return {
+        isAdmin: data?.data?.isAdmin || false,
+        user: data?.data?.user
+      };
+    } catch (error) {
+      console.error('Admin verify error:', error);
+      return { isAdmin: false, message: 'Verification failed' };
+    }
+  }
+
+  // Require admin access - redirects if not admin
+  static async requireAdmin() {
+    const token = this.getToken();
+
+    // Not logged in
+    if (!token) {
+      window.location.href = 'login.html';
+      return false;
     }
 
-    return data || { success: false, message: 'No tests available' };
-  } catch (error) {
-    return { success: false, message: 'Failed to get available tests' };
+    // Verify with server
+    const result = await this.verifyAdmin();
+
+    if (!result.isAdmin) {
+      alert('⛔ Access Denied! Admins only.');
+      window.location.href = 'dashboard.html';
+      return false;
+    }
+
+    return true;
   }
-}
+
+  // Get admin dashboard stats
+  static async getAdminDashboard() {
+    try {
+      const { response, data, error } = await this.request('/api/admin/dashboard');
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to load dashboard' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to load dashboard' };
+    }
+  }
+
+  // Get all users (admin)
+  static async getAdminUsers() {
+    try {
+      const { response, data, error } = await this.request('/api/admin/users');
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to load users' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to load users' };
+    }
+  }
+
+  // Toggle user active status
+  static async toggleUserActive(userId) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/users/${userId}/toggle-active`, {
+        method: 'PUT'
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to update user' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to update user' };
+    }
+  }
+
+  // Update user role (superadmin only)
+  static async updateUserRole(userId, role) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/users/${userId}/role`, {
+        method: 'PUT',
+        body: JSON.stringify({ role })
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to update role' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to update role' };
+    }
+  }
+
+  // Delete user (superadmin only)
+  static async deleteUser(userId) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/users/${userId}`, {
+        method: 'DELETE'
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to delete user' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to delete user' };
+    }
+  }
+
+  // Get all tests (admin)
+  static async getAdminTests() {
+    try {
+      const { response, data, error } = await this.request('/api/admin/tests');
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to load tests' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to load tests' };
+    }
+  }
+
+  // Create new test
+  static async createTest(testData) {
+    try {
+      const { response, data, error } = await this.request('/api/admin/tests', {
+        method: 'POST',
+        body: JSON.stringify(testData)
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to create test' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to create test' };
+    }
+  }
+
+  // Update test
+  static async updateTest(testId, testData) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}`, {
+        method: 'PUT',
+        body: JSON.stringify(testData)
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to update test' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to update test' };
+    }
+  }
+
+  // Delete test
+  static async deleteTest(testId) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}`, {
+        method: 'DELETE'
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to delete test' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to delete test' };
+    }
+  }
+
+  // Add questions to test
+  static async addQuestionsToTest(testId, questions) {
+    try {
+      const { response, data, error } = await this.request(`/api/admin/tests/${testId}/questions`, {
+        method: 'POST',
+        body: JSON.stringify({ questions })
+      });
+
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to add questions' };
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to add questions' };
+    }
+  }
+
   // ==================== HELPERS ====================
 
   static isLoggedIn() {
@@ -400,7 +647,8 @@ static async getAvailableTests() {
   }
 }
 
-// Update navigation based on auth status
+// ==================== NAVIGATION ====================
+
 async function updateNavigation() {
   const navButtons = document.querySelector('.nav-buttons');
   if (!navButtons) return;
@@ -409,7 +657,13 @@ async function updateNavigation() {
   const isLoggedIn = ExamAxisAPI.isLoggedIn();
 
   if (isLoggedIn && user) {
+    // Show admin link only if user is admin
+    const adminLink = (user.role === 'admin' || user.role === 'superadmin')
+      ? '<a href="admin.html" class="nav-btn admin-btn">👑 Admin</a>'
+      : '';
+
     navButtons.innerHTML = `
+      ${adminLink}
       <a href="dashboard.html" class="nav-btn login-btn">
         👤 ${user.fullName || user.username}
       </a>
