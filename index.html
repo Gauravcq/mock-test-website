@@ -262,52 +262,11 @@
             gap: 16px;
         }
 
-        /* Theme Switch */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-full);
-            transition: all var(--transition-normal);
-        }
-
-        .theme-switch-wrapper:hover {
-            border-color: var(--primary);
-        }
-
-        .theme-switch-wrapper span {
-            font-size: 1rem;
-            line-height: 1;
-            cursor: pointer;
-            transition: transform var(--transition-normal);
-        }
-
-/* Remove tilting - cleaner interaction */
-.theme-switch-wrapper:hover span:first-of-type,
-.theme-switch-wrapper:hover span:last-of-type {
-    transform: scale(1.05);
-}
-
-/* Prevent layout shift */
-.theme-switch-wrapper span {
-    font-size: 1rem;
-    line-height: 1;
-    cursor: pointer;
-    transition: transform var(--transition-normal);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-}
-
+        /* Theme Switch - defined in style.css */
         .theme-switch {
             position: relative;
-            width: 44px;
-            height: 24px;
+            width: 56px;
+            height: 28px;
         }
 
         .theme-switch input {
@@ -557,31 +516,7 @@
     animation: cardFadeIn 0.3s ease forwards;
 }
 
-/* Fix theme toggle - no tilting */
-.theme-switch-wrapper span {
-    font-size: 1rem;
-    line-height: 1;
-    cursor: pointer;
-    transition: transform 0.15s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-}
-
-.theme-switch-wrapper:hover span {
-    transform: scale(1.1);
-}
-
-/* Prevent layout shift */
-.theme-switch {
-    position: relative;
-    width: 44px;
-    height: 24px;
-    flex-shrink: 0;
-}
+/* Theme toggle styles defined in style.css */
 
 .theme-switch-wrapper {
     display: flex;
@@ -1865,16 +1800,7 @@
     }
 }
     </style>
-    <script>
-    // Instant theme application - prevents flash
-    (function() {
-        const theme = localStorage.getItem('theme') || 
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark-mode');
-        }
-    })();
-</script>
+
 </head>
 
 <body>
@@ -1886,14 +1812,15 @@
 <nav class="top-nav">
     <a href="#" class="brand-logo">EXAM-AXIS</a>
     <div class="nav-right">
-        <div class="theme-switch-wrapper">
-            <span>☀️</span>
-            <label class="theme-switch">
-                <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode">
-                <span class="slider"></span>
-            </label>
-            <span>🌙</span>
-        </div>
+     <div class="theme-switch-wrapper">
+  <span class="theme-icon sun">☀️</span>
+  <label class="theme-switch">
+    <input type="checkbox" id="themeToggle">
+    <span class="slider"></span>
+  </label>
+  <span class="theme-icon moon">🌙</span>
+</div>
+
         <div class="nav-buttons">
             <a href="login.html" class="nav-btn login-btn">Login</a>
             <a href="signup.html" class="nav-btn signup-btn">Create Account</a>
@@ -1987,7 +1914,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gridContainer: document.getElementById('test-grid-container'),
         tabs: document.querySelectorAll('.tab'),
         sectionTabs: document.querySelectorAll('.section-tab'),
-        themeToggle: document.getElementById('theme-toggle'),
+        themeToggle: document.getElementById('themeToggle'),
         btnCGL: document.getElementById('btn-cgl'),
         btnCHSL: document.getElementById('btn-chsl'),
         btnDP: document.getElementById('btn-dp'),
@@ -2060,13 +1987,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==================== THEME MANAGEMENT (Optimized) ====================
     function applyTheme(theme) {
         const isDark = theme === 'dark';
-        document.body.classList.toggle('dark-mode', isDark);
-        elements.themeToggle.checked = isDark;
         
-        const metaTheme = document.querySelector('meta[name="theme-color"]');
-        if (metaTheme) {
-            metaTheme.setAttribute('content', isDark ? '#0f172a' : '#6366f1');
-        }
+        // Use requestAnimationFrame to prevent layout thrashing
+        requestAnimationFrame(() => {
+            document.body.classList.toggle('dark-mode', isDark);
+            elements.themeToggle.checked = isDark;
+            
+            const metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) {
+                metaTheme.setAttribute('content', isDark ? '#0f172a' : '#6366f1');
+            }
+        });
     }
     
     elements.themeToggle.addEventListener('change', () => {
