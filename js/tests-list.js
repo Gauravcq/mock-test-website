@@ -3509,7 +3509,364 @@ const ALL_TESTS = [
 { id: "dp_constable_reasoning_s1", date: "6 Jan", title: "Shift 1", subject: "Reasoning", exam: "DP", isNew: true },
 { id: "dp_constable_reasoning_s2", date: "6 Jan", title: "Shift 2", subject: "Reasoning", exam: "DP", isNew: true },
 { id: "dp_constable_reasoning_s3", date: "6 Jan", title: "Shift 3", subject: "Reasoning", exam: "DP", isNew: true },
+{
+    id: "ssc_cgl_fullmock_12_sep_s1",
+    date: "12 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_12_sep_s2",
+    date: "12 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_12_sep_s3",
+    date: "12 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
 
+  // ==================== 13 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_13_sep_s1",
+    date: "13 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_13_sep_s2",
+    date: "13 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_13_sep_s3",
+    date: "13 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 14 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_14_sep_s1",
+    date: "14 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_14_sep_s2",
+    date: "14 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_14_sep_s3",
+    date: "14 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 17 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_17_sep_s1",
+    date: "17 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_17_sep_s2",
+    date: "17 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_17_sep_s3",
+    date: "17 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 18 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_18_sep_s1",
+    date: "18 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_18_sep_s2",
+    date: "18 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_18_sep_s3",
+    date: "18 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 19 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_19_sep_s1",
+    date: "19 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_19_sep_s2",
+    date: "19 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_19_sep_s3",
+    date: "19 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 20 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_20_sep_s1",
+    date: "20 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_20_sep_s2",
+    date: "20 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_20_sep_s3",
+    date: "20 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 21 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_21_sep_s1",
+    date: "21 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_21_sep_s2",
+    date: "21 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_21_sep_s3",
+    date: "21 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 23 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_23_sep_s1",
+    date: "23 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_23_sep_s2",
+    date: "23 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_23_sep_s3",
+    date: "23 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 24 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_24_sep_s1",
+    date: "24 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_24_sep_s2",
+    date: "24 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_24_sep_s3",
+    date: "24 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 25 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_25_sep_s1",
+    date: "25 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_25_sep_s2",
+    date: "25 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_25_sep_s3",
+    date: "25 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 26 SEPTEMBER 2024 ====================
+  {
+    id: "ssc_cgl_fullmock_26_sep_s1",
+    date: "26 Sep",
+    title: "Shift 1",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_26_sep_s2",
+    date: "26 Sep",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+  {
+    id: "ssc_cgl_fullmock_26_sep_s3",
+    date: "26 Sep",
+    title: "Shift 3",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100
+  },
+
+  // ==================== 14 OCTOBER 2024 (Only Shift 2) ====================
+  {
+    id: "ssc_cgl_fullmock_14_oct_s2",
+    date: "14 Oct",
+    title: "Shift 2",
+    subject: "Maths",
+    exam: "CGL",
+    section: "fullmock",
+    questions: 100,
+    isNew: true
+  },
 ];
 
 
