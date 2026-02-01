@@ -1907,40 +1907,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================== HELPER FUNCTIONS ====================
-    function getFilteredTests(exam, subject, section) {
-        if (exam === 'CHSL' && subject === 'Top100Maths') {
-            return ALL_TESTS.filter(test => 
-                test.exam === 'CHSL_TOP_100_MATHS' && 
-                (test.section === section || (!test.section && section === 'sectional'))
-            );
-        }
+function getFilteredTests(exam, subject, section) {
+    // Handle special case for Top100Maths
+    if (exam === 'CHSL' && subject === 'Top100Maths') {
+        return ALL_TESTS.filter(test => 
+            test.exam === 'CHSL_TOP_100_MATHS' && 
+            (test.section === section || (!test.section && section === 'sectional'))
+        );
+    }
+    
+    return ALL_TESTS.filter(test => {
+        const examMatch = test.exam === exam;
         
-        return ALL_TESTS.filter(test => {
+        // For fullmock section: show tests with subject "All" OR matching subject
+        const subjectMatch = (section === 'fullmock' && test.subject === 'All') 
+                             || test.subject === subject;
+        
+        const sectionMatch = (test.section === section) || 
+                             (!test.section && section === 'sectional');
+        
+        return examMatch && subjectMatch && sectionMatch;
+    });
+}
+
+function getTestCountBySection(exam, subject) {
+    const counts = { sectional: 0, fullmock: 0, chapterwise: 0 };
+
+    if (exam === 'CHSL' && subject === 'Top100Maths') {
+        ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS').forEach(test => {
+            const section = test.section || 'sectional';
+            if (counts[section] !== undefined) counts[section]++;
+        });
+    } else {
+        ALL_TESTS.filter(test => {
             const examMatch = test.exam === exam;
-            const subjectMatch = test.subject === subject;
-            const sectionMatch = (test.section === section) || 
-                                 (!test.section && section === 'sectional');
-            return examMatch && subjectMatch && sectionMatch;
+            // For fullmock: count tests with subject "All" OR matching subject
+            const subjectMatch = (test.section === 'fullmock' && test.subject === 'All') 
+                                 || test.subject === subject;
+            return examMatch && subjectMatch;
+        }).forEach(test => {
+            const section = test.section || 'sectional';
+            if (counts[section] !== undefined) counts[section]++;
         });
     }
 
-    function getTestCountBySection(exam, subject) {
-        const counts = { sectional: 0, fullmock: 0, chapterwise: 0 };
-
-        if (exam === 'CHSL' && subject === 'Top100Maths') {
-            ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS').forEach(test => {
-                const section = test.section || 'sectional';
-                if (counts[section] !== undefined) counts[section]++;
-            });
-        } else {
-            ALL_TESTS.filter(test => test.exam === exam && test.subject === subject).forEach(test => {
-                const section = test.section || 'sectional';
-                if (counts[section] !== undefined) counts[section]++;
-            });
-        }
-
-        return counts;
-    }
+    return counts;
+}
 
     function updateSectionCounts() {
         const counts = getTestCountBySection(currentExam, currentSubject);
