@@ -1907,7 +1907,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================== HELPER FUNCTIONS ====================
-function getFilteredTests(exam, subject, section) {
+    function getFilteredTests(exam, subject, section) {
     // Handle special case for Top100Maths
     if (exam === 'CHSL' && subject === 'Top100Maths') {
         return ALL_TESTS.filter(test => 
@@ -1952,7 +1952,7 @@ function getTestCountBySection(exam, subject) {
     }
 
     return counts;
-}
+    }
 
     function updateSectionCounts() {
         const counts = getTestCountBySection(currentExam, currentSubject);
@@ -1971,10 +1971,16 @@ function getTestCountBySection(exam, subject) {
     }
 
     function generateCardHTML(test, index) {
-        const fullTitle = `${test.date} ${test.title}`;
-        const questions = test.questions || 25;
-        const time = test.exam === 'CHSL_TOP_100_MATHS' ? 60 : 
-            (SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"]);
+        let questions = test.questions || 100;
+        let fullTitle = test.name || test.title || 'Unnamed Test';
+        let time;
+        if (currentSection === 'fullmock') {
+            time = 60; // Full Mock Tests = 60 minutes
+        } else if (test.exam === 'CHSL_TOP_100_MATHS') {
+            time = 60; // Top 100 = 60 minutes
+        } else {
+            time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
+        }
         
         const attempt = historyMap[String(test.id)];
         
