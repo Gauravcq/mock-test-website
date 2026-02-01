@@ -7,11 +7,14 @@
     <meta name="theme-color" content="#6366f1">
     <title>Exam-Axis | SSC Mock Tests</title>
 
-    <!-- Preconnect for faster font loading -->
+    <!-- Preload critical fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Preload critical scripts -->
+    <link rel="preload" href="js/tests-list.js" as="script">
     <style>
         /* ============================================
            CSS VARIABLES - Light & Dark Theme
@@ -26,6 +29,18 @@
             --text-muted: #94a3b8;
             --border-color: #e2e8f0;
             --border-light: #f1f5f9;
+
+            html.dark-mode body,
+            body.dark-mode {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+    --border-light: #1e293b;
+}
             
             /* Brand Colors */
             --primary: #6366f1;
@@ -270,13 +285,24 @@
             transition: transform var(--transition-normal);
         }
 
-        .theme-switch-wrapper:hover span:first-of-type {
-            transform: rotate(-15deg) scale(1.1);
-        }
+/* Remove tilting - cleaner interaction */
+.theme-switch-wrapper:hover span:first-of-type,
+.theme-switch-wrapper:hover span:last-of-type {
+    transform: scale(1.05);
+}
 
-        .theme-switch-wrapper:hover span:last-of-type {
-            transform: rotate(15deg) scale(1.1);
-        }
+/* Prevent layout shift */
+.theme-switch-wrapper span {
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform var(--transition-normal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
 
         .theme-switch {
             position: relative;
@@ -490,6 +516,132 @@
             background: var(--dp-gradient);
             box-shadow: 0 8px 24px var(--dp-glow);
         }
+        /* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU acceleration for animated elements */
+.test-card,
+.tab,
+.section-tab,
+.exam-btn,
+.attempt-btn {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Reduce repaints on hover */
+.test-card {
+    contain: layout style paint;
+}
+
+/* Faster transitions */
+.test-grid-container {
+    transition: opacity 0.15s ease-out;
+}
+
+/* Optimize card animations - faster */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.test-card {
+    animation: cardFadeIn 0.3s ease forwards;
+}
+
+/* Fix theme toggle - no tilting */
+.theme-switch-wrapper span {
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.theme-switch-wrapper:hover span {
+    transform: scale(1.1);
+}
+
+/* Prevent layout shift */
+.theme-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    transition: border-color 0.15s ease;
+    flex-shrink: 0;
+}
+
+/* Disable heavy effects on mobile */
+@media (max-width: 768px) {
+    .test-card::after,
+    .attempt-btn::before,
+    .card-glow {
+        display: none !important;
+    }
+    
+    .test-card {
+        will-change: auto;
+        animation-duration: 0.2s;
+    }
+    
+    .test-card:hover {
+        transform: translateY(-4px);
+    }
+    
+    /* Faster mobile transitions */
+    .test-card,
+    .tab,
+    .section-tab,
+    .exam-btn {
+        transition-duration: 0.15s;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .test-card {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* Content visibility for off-screen cards */
+.test-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 400px;
+}
 
         /* ============================================
            SUBJECT TABS
@@ -1713,6 +1865,16 @@
     }
 }
     </style>
+    <script>
+    // Instant theme application - prevents flash
+    (function() {
+        const theme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    })();
+</script>
 </head>
 
 <body>
@@ -1810,21 +1972,30 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
-    const mainTitle = document.getElementById('main-title');
-    const gridContainer = document.getElementById('test-grid-container');
-    const tabs = document.querySelectorAll('.tab');
-    const sectionTabs = document.querySelectorAll('.section-tab');
-    const themeToggle = document.getElementById('theme-toggle');
-    const btnCGL = document.getElementById('btn-cgl');
-    const btnCHSL = document.getElementById('btn-chsl');
-    const btnDP = document.getElementById('btn-dp');
-    
-    // Section info elements
-    const sectionInfoBanner = document.getElementById('section-info-banner');
-    const sectionInfoIcon = document.getElementById('section-info-icon');
-    const sectionInfoTitle = document.getElementById('section-info-title');
-    const sectionInfoDesc = document.getElementById('section-info-desc');
+    // ==================== PERFORMANCE: Apply theme BEFORE paint ====================
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    })();
+
+    // DOM Elements - Cache all at once
+    const elements = {
+        mainTitle: document.getElementById('main-title'),
+        gridContainer: document.getElementById('test-grid-container'),
+        tabs: document.querySelectorAll('.tab'),
+        sectionTabs: document.querySelectorAll('.section-tab'),
+        themeToggle: document.getElementById('theme-toggle'),
+        btnCGL: document.getElementById('btn-cgl'),
+        btnCHSL: document.getElementById('btn-chsl'),
+        btnDP: document.getElementById('btn-dp'),
+        sectionInfoBanner: document.getElementById('section-info-banner'),
+        sectionInfoIcon: document.getElementById('section-info-icon'),
+        sectionInfoTitle: document.getElementById('section-info-title'),
+        sectionInfoDesc: document.getElementById('section-info-desc')
+    };
 
     // State
     let currentExam = 'CGL';
@@ -1832,6 +2003,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSection = 'sectional';
     let historyMap = {};
     let isHistoryLoaded = false;
+    
+    // ==================== PERFORMANCE: Debounce function ====================
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // ==================== PERFORMANCE: Throttle for scroll events ====================
+    function throttle(func, limit) {
+        let inThrottle;
+        return function(...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    }
 
     // Configuration
     const SUBJECT_DISPLAY_TIMES = {
@@ -1843,7 +2039,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "Top100Maths": 60
     };
 
-    // Section Configuration
     const SECTION_CONFIG = {
         sectional: {
             icon: '📋',
@@ -1862,11 +2057,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // ==================== THEME MANAGEMENT ====================
+    // ==================== THEME MANAGEMENT (Optimized) ====================
     function applyTheme(theme) {
         const isDark = theme === 'dark';
         document.body.classList.toggle('dark-mode', isDark);
-        themeToggle.checked = isDark;
+        elements.themeToggle.checked = isDark;
         
         const metaTheme = document.querySelector('meta[name="theme-color"]');
         if (metaTheme) {
@@ -1874,8 +2069,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    themeToggle.addEventListener('change', () => {
-        const newTheme = themeToggle.checked ? 'dark' : 'light';
+    elements.themeToggle.addEventListener('change', () => {
+        const newTheme = elements.themeToggle.checked ? 'dark' : 'light';
         localStorage.setItem('theme', newTheme);
         applyTheme(newTheme);
     });
@@ -1884,16 +2079,10 @@ document.addEventListener('DOMContentLoaded', () => {
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     applyTheme(savedTheme);
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches ? 'dark' : 'light');
-        }
-    });
-
     // ==================== DATA VALIDATION ====================
     if (typeof ALL_TESTS === 'undefined' || !Array.isArray(ALL_TESTS)) {
-        mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
-        gridContainer.innerHTML = `
+        elements.mainTitle.innerHTML = `Tests are currently <strong>Unavailable</strong>`;
+        elements.gridContainer.innerHTML = `
             <div class="no-tests-message">
                 <div class="icon">⚠️</div>
                 <h3>Data Not Found</h3>
@@ -1934,50 +2123,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==================== HELPER FUNCTIONS ====================
     function getFilteredTests(exam, subject, section) {
-    // Handle special case for Top100Maths
-    if (exam === 'CHSL' && subject === 'Top100Maths') {
-        return ALL_TESTS.filter(test => 
-            test.exam === 'CHSL_TOP_100_MATHS' && 
-            (test.section === section || (!test.section && section === 'sectional'))
-        );
-    }
-    
-    return ALL_TESTS.filter(test => {
-        const examMatch = test.exam === exam;
+        if (exam === 'CHSL' && subject === 'Top100Maths') {
+            return ALL_TESTS.filter(test => 
+                test.exam === 'CHSL_TOP_100_MATHS' && 
+                (test.section === section || (!test.section && section === 'sectional'))
+            );
+        }
         
-        // For fullmock section: show tests with subject "All" OR matching subject
-        const subjectMatch = (section === 'fullmock' && test.subject === 'All') 
-                             || test.subject === subject;
-        
-        const sectionMatch = (test.section === section) || 
-                             (!test.section && section === 'sectional');
-        
-        return examMatch && subjectMatch && sectionMatch;
-    });
-}
-
-function getTestCountBySection(exam, subject) {
-    const counts = { sectional: 0, fullmock: 0, chapterwise: 0 };
-
-    if (exam === 'CHSL' && subject === 'Top100Maths') {
-        ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS').forEach(test => {
-            const section = test.section || 'sectional';
-            if (counts[section] !== undefined) counts[section]++;
-        });
-    } else {
-        ALL_TESTS.filter(test => {
+        return ALL_TESTS.filter(test => {
             const examMatch = test.exam === exam;
-            // For fullmock: count tests with subject "All" OR matching subject
-            const subjectMatch = (test.section === 'fullmock' && test.subject === 'All') 
+            const subjectMatch = (section === 'fullmock' && test.subject === 'All') 
                                  || test.subject === subject;
-            return examMatch && subjectMatch;
-        }).forEach(test => {
-            const section = test.section || 'sectional';
-            if (counts[section] !== undefined) counts[section]++;
+            const sectionMatch = (test.section === section) || 
+                                 (!test.section && section === 'sectional');
+            return examMatch && subjectMatch && sectionMatch;
         });
     }
 
-    return counts;
+    function getTestCountBySection(exam, subject) {
+        const counts = { sectional: 0, fullmock: 0, chapterwise: 0 };
+
+        if (exam === 'CHSL' && subject === 'Top100Maths') {
+            ALL_TESTS.filter(test => test.exam === 'CHSL_TOP_100_MATHS').forEach(test => {
+                const section = test.section || 'sectional';
+                if (counts[section] !== undefined) counts[section]++;
+            });
+        } else {
+            ALL_TESTS.filter(test => {
+                const examMatch = test.exam === exam;
+                const subjectMatch = (test.section === 'fullmock' && test.subject === 'All') 
+                                     || test.subject === subject;
+                return examMatch && subjectMatch;
+            }).forEach(test => {
+                const section = test.section || 'sectional';
+                if (counts[section] !== undefined) counts[section]++;
+            });
+        }
+
+        return counts;
     }
 
     function updateSectionCounts() {
@@ -1989,29 +2172,25 @@ function getTestCountBySection(exam, subject) {
 
     function updateSectionInfoBanner() {
         const config = SECTION_CONFIG[currentSection];
-        sectionInfoIcon.textContent = config.icon;
-        sectionInfoTitle.textContent = config.title;
-        sectionInfoDesc.textContent = config.description;
-        
-        sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
+        elements.sectionInfoIcon.textContent = config.icon;
+        elements.sectionInfoTitle.textContent = config.title;
+        elements.sectionInfoDesc.textContent = config.description;
+        elements.sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
     }
 
-function generateCardHTML(test, index) {
-    // Handle missing date
-    const fullTitle = test.date ? `${test.date} ${test.title}` : test.title;
-    const questions = test.questions || 25;
-    
-    // Timer logic
-    let time;
-    if (currentSection === 'fullmock') {
-        time = 60;
-    } else if (test.exam === 'CHSL_TOP_100_MATHS') {
-        time = 60;
-    } else {
-        time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
-    }
-    
-    // ... rest of the function remains same
+    // ==================== PERFORMANCE: Use DocumentFragment for batch DOM updates ====================
+    function generateCardHTML(test, index) {
+        const fullTitle = test.date ? `${test.date} ${test.title}` : test.title;
+        const questions = test.questions || 25;
+        
+        let time;
+        if (currentSection === 'fullmock') {
+            time = 60;
+        } else if (test.exam === 'CHSL_TOP_100_MATHS') {
+            time = 60;
+        } else {
+            time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
+        }
         
         const attempt = historyMap[String(test.id)];
         
@@ -2020,10 +2199,7 @@ function generateCardHTML(test, index) {
         if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
         if (attempt && isHistoryLoaded) badges.push('<div class="attempted-badge">Attempted</div>');
         
-        // Section-specific badges
-        if (currentSection === 'fullmock') {
-            badges.push('<div class="fullmock-badge">📝 Full Mock</div>');
-        } else if (currentSection === 'chapterwise' && test.chapter) {
+        if (currentSection === 'chapterwise' && test.chapter) {
             badges.push(`<div class="chapter-badge">📖 ${test.chapter}</div>`);
         }
 
@@ -2033,7 +2209,8 @@ function generateCardHTML(test, index) {
                 : `<div class="last-score not-attempted">Not attempted yet</div>`)
             : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading history...</div>`;
 
-        const maxDelay = Math.min(index * 0.05, 0.4);
+        // Limit animation delay to max 0.3s for faster perceived load
+        const maxDelay = Math.min(index * 0.03, 0.3);
 
         const cardClasses = [
             'test-card',
@@ -2068,79 +2245,85 @@ function generateCardHTML(test, index) {
             </article>`;
     }
 
-    function displayTests() {
+    // ==================== PERFORMANCE: Optimized displayTests ====================
+    const displayTests = debounce(function() {
         const filteredTests = getFilteredTests(currentExam, currentSubject, currentSection);
         
         updateSectionCounts();
         updateSectionInfoBanner();
         
-        gridContainer.style.opacity = '0';
-
+        // Use requestAnimationFrame for smooth rendering
         requestAnimationFrame(() => {
-            if (filteredTests.length > 0) {
-                let html = '';
-                
-                if (currentSubject === 'Top100Maths') {
-                    html += `
-                        <div class="section-header top100-header">
-                            <h2>🔥 MATHS TOP 100 - 2025</h2>
-                            <p>Master the most important 100 questions for SSC CHSL 2025</p>
-                        </div>`;
-                }
-                
-                html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
-                gridContainer.innerHTML = html;
-            } else {
-                const sectionName = SECTION_CONFIG[currentSection].title;
-                const sectionIcon = SECTION_CONFIG[currentSection].icon;
-                
-                let message;
-                if (currentSubject === 'Top100Maths') {
-                    message = `<div class="no-tests-message">
-                        <div class="icon">🔥</div>
-                        <h3>Maths Top 100 - Coming Soon!</h3>
-                        <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
-                    </div>`;
-                } else if (currentSection === 'fullmock') {
-                    message = `<div class="no-tests-message section-fullmock">
-                        <div class="icon">${sectionIcon}</div>
-                        <h3>Full Mock Tests Coming Soon!</h3>
-                        <p>Complete exam simulations for SSC ${currentExam} ${currentSubject} are being prepared.</p>
-                        <div class="coming-soon-features">
-                            <span>✓ Real exam pattern</span>
-                            <span>✓ Timed sessions</span>
-                            <span>✓ Detailed analysis</span>
-                        </div>
-                    </div>`;
-                } else if (currentSection === 'chapterwise') {
-                    message = `<div class="no-tests-message section-chapterwise">
-                        <div class="icon">${sectionIcon}</div>
-                        <h3>Chapterwise Tests Coming Soon!</h3>
-                        <p>Master each chapter of ${currentSubject} with focused practice.</p>
-                        <div class="coming-soon-features">
-                            <span>✓ Topic-wise practice</span>
-                            <span>✓ Difficulty levels</span>
-                            <span>✓ Progress tracking</span>
-                        </div>
-                    </div>`;
-                } else {
-                    message = `<div class="no-tests-message">
-                        <div class="icon">📭</div>
-                        <h3>Coming Soon!</h3>
-                        <p>No ${currentSubject} ${sectionName.toLowerCase()} for SSC ${currentExam} yet. Check back soon!</p>
-                    </div>`;
-                }
-                gridContainer.innerHTML = message;
-            }
-
+            elements.gridContainer.style.opacity = '0';
+            
             requestAnimationFrame(() => {
-                gridContainer.style.opacity = '1';
+                if (filteredTests.length > 0) {
+                    let html = '';
+                    
+                    if (currentSubject === 'Top100Maths') {
+                        html += `
+                            <div class="section-header top100-header">
+                                <h2>🔥 MATHS TOP 100 - 2025</h2>
+                                <p>Master the most important 100 questions for SSC CHSL 2025</p>
+                            </div>`;
+                    }
+                    
+                    // Build HTML string (faster than multiple DOM operations)
+                    html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
+                    elements.gridContainer.innerHTML = html;
+                } else {
+                    const sectionName = SECTION_CONFIG[currentSection].title;
+                    const sectionIcon = SECTION_CONFIG[currentSection].icon;
+                    
+                    let message;
+                    if (currentSubject === 'Top100Maths') {
+                        message = `<div class="no-tests-message">
+                            <div class="icon">🔥</div>
+                            <h3>Maths Top 100 - Coming Soon!</h3>
+                            <p>Top 100 most important Maths questions for SSC CHSL 2025 will be available soon!</p>
+                        </div>`;
+                    } else if (currentSection === 'fullmock') {
+                        message = `<div class="no-tests-message section-fullmock">
+                            <div class="icon">${sectionIcon}</div>
+                            <h3>Full Mock Tests Coming Soon!</h3>
+                            <p>Complete exam simulations for SSC ${currentExam} ${currentSubject} are being prepared.</p>
+                            <div class="coming-soon-features">
+                                <span>✓ Real exam pattern</span>
+                                <span>✓ Timed sessions</span>
+                                <span>✓ Detailed analysis</span>
+                            </div>
+                        </div>`;
+                    } else if (currentSection === 'chapterwise') {
+                        message = `<div class="no-tests-message section-chapterwise">
+                            <div class="icon">${sectionIcon}</div>
+                            <h3>Chapterwise Tests Coming Soon!</h3>
+                            <p>Master each chapter of ${currentSubject} with focused practice.</p>
+                            <div class="coming-soon-features">
+                                <span>✓ Topic-wise practice</span>
+                                <span>✓ Difficulty levels</span>
+                                <span>✓ Progress tracking</span>
+                            </div>
+                        </div>`;
+                    } else {
+                        message = `<div class="no-tests-message">
+                            <div class="icon">📭</div>
+                            <h3>Coming Soon!</h3>
+                            <p>No ${currentSubject} ${sectionName.toLowerCase()} for SSC ${currentExam} yet. Check back soon!</p>
+                        </div>`;
+                    }
+                    elements.gridContainer.innerHTML = message;
+                }
+
+                // Fade in
+                requestAnimationFrame(() => {
+                    elements.gridContainer.style.opacity = '1';
+                });
             });
         });
-    }
+    }, 50); // 50ms debounce
 
     function updateTabsForExam(exam) {
-        tabs.forEach(tab => {
+        elements.tabs.forEach(tab => {
             const subject = tab.dataset.subject;
             
             if (exam === "DP" && subject === "English") {
@@ -2155,7 +2338,7 @@ function generateCardHTML(test, index) {
         if ((exam === "DP" && currentSubject === "English") || 
             (exam !== "CHSL" && currentSubject === "Top100Maths")) {
             currentSubject = "Maths";
-            tabs.forEach(tab => {
+            elements.tabs.forEach(tab => {
                 const isActive = tab.dataset.subject === "Maths";
                 tab.classList.toggle("active", isActive);
                 tab.setAttribute('aria-selected', isActive);
@@ -2164,9 +2347,11 @@ function generateCardHTML(test, index) {
     }
 
     function switchExam(exam) {
+        if (currentExam === exam) return; // Prevent unnecessary updates
+        
         currentExam = exam;
 
-        [btnCGL, btnCHSL, btnDP].forEach(btn => {
+        [elements.btnCGL, elements.btnCHSL, elements.btnDP].forEach(btn => {
             const isActive = btn.dataset.exam === exam;
             btn.classList.toggle('active', isActive);
             btn.setAttribute('aria-selected', isActive);
@@ -2180,7 +2365,7 @@ function generateCardHTML(test, index) {
             'DP': '<strong>DP Constable</strong> Mock Tests'
         };
 
-        mainTitle.innerHTML = titles[exam];
+        elements.mainTitle.innerHTML = titles[exam];
 
         if (exam === 'CHSL') document.body.classList.add('exam-chsl');
         if (exam === 'DP') document.body.classList.add('exam-dp');
@@ -2190,9 +2375,11 @@ function generateCardHTML(test, index) {
     }
 
     function switchSection(section) {
+        if (currentSection === section) return; // Prevent unnecessary updates
+        
         currentSection = section;
         
-        sectionTabs.forEach(tab => {
+        elements.sectionTabs.forEach(tab => {
             const isActive = tab.dataset.section === section;
             tab.classList.toggle('active', isActive);
             tab.setAttribute('aria-selected', isActive);
@@ -2201,14 +2388,16 @@ function generateCardHTML(test, index) {
         displayTests();
     }
 
-    // ==================== EVENT LISTENERS ====================
-    btnCGL.addEventListener('click', () => switchExam('CGL'));
-    btnCHSL.addEventListener('click', () => switchExam('CHSL'));
-    btnDP.addEventListener('click', () => switchExam('DP'));
+    // ==================== EVENT LISTENERS (Optimized) ====================
+    elements.btnCGL.addEventListener('click', () => switchExam('CGL'));
+    elements.btnCHSL.addEventListener('click', () => switchExam('CHSL'));
+    elements.btnDP.addEventListener('click', () => switchExam('DP'));
 
-    tabs.forEach(tab => {
+    elements.tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            tabs.forEach(t => {
+            if (tab.classList.contains('active')) return; // Prevent unnecessary updates
+            
+            elements.tabs.forEach(t => {
                 t.classList.remove('active');
                 t.setAttribute('aria-selected', 'false');
             });
@@ -2219,8 +2408,7 @@ function generateCardHTML(test, index) {
         });
     });
 
-    // Section tabs event listeners
-    sectionTabs.forEach(tab => {
+    elements.sectionTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             switchSection(tab.dataset.section);
         });
@@ -2253,7 +2441,9 @@ function generateCardHTML(test, index) {
 
     // ==================== INITIAL LOAD ====================
     displayTests();
-    loadHistory();
+    
+    // Load history in background (non-blocking)
+    requestIdleCallback ? requestIdleCallback(loadHistory) : setTimeout(loadHistory, 100);
     
     if (window.updateNavigation) {
         updateNavigation();
