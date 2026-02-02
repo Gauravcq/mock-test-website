@@ -1496,10 +1496,12 @@
             }
 
             .theme-switch-wrapper {
-                padding: 4px 10px;
+                padding: 6px 10px;
+                align-items: center;
+                order: 0;
             }
 
-            .theme-switch-wrapper span {
+            .theme-switch-wrapper .theme-icon {
                 font-size: 0.9rem;
             }
 
@@ -1679,8 +1681,30 @@
             }
 
             .theme-switch-wrapper {
-                padding: 4px 8px;
+                padding: 6px 8px;
+                gap: 6px;
                 flex-shrink: 0;
+                min-height: 40px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .theme-switch-wrapper .theme-icon.sun,
+            .theme-switch-wrapper .theme-icon.moon {
+                display: none;
+            }
+
+            .theme-switch-wrapper .theme-switch {
+                margin: 0;
+            }
+
+            .nav-right {
+                align-items: center;
+                gap: 8px;
+            }
+
+            .nav-right .theme-switch-wrapper {
+                align-self: center;
             }
 
             .brand-logo {

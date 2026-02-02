@@ -151,10 +151,25 @@
                     return false;
                 }
 
-                // PrintScreen / Screenshot keys
-                if (e.key === 'PrintScreen' || (e.metaKey && (e.key === '3' || e.key === '4' || e.key === '5'))) {
+                // PrintScreen / Screenshot keys (only during running test - not on review/result page)
+                const isScreenshotKey = e.key === 'PrintScreen' ||
+                    (e.keyCode === 44) ||
+                    (e.metaKey && e.shiftKey && ['3', '4', '5'].includes(e.key));
+                if (isScreenshotKey) {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.showWarning('Screenshots are not allowed during exam!');
+                    navigator.clipboard.writeText('').catch(() => {});
+                    return false;
+                }
+            });
+
+            // keyup: some systems fire PrintScreen on keyup
+            document.addEventListener('keyup', (e) => {
+                if (!document.body.classList.contains('exam-mode')) return;
+                if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     navigator.clipboard.writeText('').catch(() => {});
                     return false;
                 }
