@@ -60,11 +60,9 @@ function getToken() {
 }
 
 // ========== DATA LOADING ==========
-// ========== DATA LOADING ==========
 async function loadUserData() {
     try {
-        // ✅ Changed from /api/auth/me to /api/users/me
-        const response = await fetch(`${DASHBOARD_API}/users/me`, {
+        const response = await fetch(`${DASHBOARD_API}/auth/me`, {
             headers: {
                 'Authorization': `Bearer ${getToken()}`,
                 'Content-Type': 'application/json'
@@ -80,9 +78,7 @@ async function loadUserData() {
         }
         
         const data = await response.json();
-        
-        // ✅ Handle different response formats
-        currentUser = data.data || data.user || data;
+        currentUser = data.data.user;
         
         updateUserUI();
         
@@ -94,42 +90,33 @@ async function loadUserData() {
 
 async function loadDashboardData() {
     try {
-        // ✅ Use the correct endpoint
-        const response = await fetch(`${DASHBOARD_API}/users/dashboard`, {
-            headers: {
-                'Authorization': `Bearer ${getToken()}`,
-                'Content-Type': 'application/json'
-            }
-        });
+        // Fetch test attempts/statistics
+        const [attemptsRes, statsRes] = await Promise.all([
+            fetch(`${DASHBOARD_API}/users/test-attempts`, {
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`,
+                    'Content-Type': 'application/json'
+                }
+            }),
+            fetch(`${DASHBOARD_API}/users/stats`, {
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`,
+                    'Content-Type': 'application/json'
+                }
+            }).catch(() => null) // Stats endpoint might not exist
+        ]);
         
         let attempts = [];
         let stats = null;
         
-        if (response.ok) {
-            const data = await response.json();
-            
-            // Extract user and stats from response
-            if (data.data) {
-                currentUser = data.data.user || currentUser;
-                stats = data.data.stats || null;
-            }
-            
-            // Try to get test attempts separately
-            try {
-                const attemptsRes = await fetch(`${DASHBOARD_API}/tests/my-attempts`, {
-                    headers: {
-                        'Authorization': `Bearer ${getToken()}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (attemptsRes.ok) {
-                    const attemptsData = await attemptsRes.json();
-                    attempts = attemptsData.data || attemptsData.attempts || [];
-                }
-            } catch (e) {
-                console.log('Could not fetch test attempts:', e.message);
-            }
+        if (attemptsRes.ok) {
+            const attemptsData = await attemptsRes.json();
+            attempts = attemptsData.data || attemptsData.attempts || [];
+        }
+        
+        if (statsRes && statsRes.ok) {
+            const statsData = await statsRes.json();
+            stats = statsData.data || statsData;
         }
         
         // Calculate dashboard data from attempts
