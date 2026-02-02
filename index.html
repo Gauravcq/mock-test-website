@@ -259,6 +259,13 @@
             transform: scale(1.03);
         }
 
+        .nav-brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
         body.exam-chsl .brand-logo {
             background: var(--chsl-gradient);
             -webkit-background-clip: text;
@@ -1484,6 +1491,12 @@
                 gap: 12px;
             }
 
+            .nav-brand-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
             .brand-logo {
                 font-size: 1.25rem;
                 flex-shrink: 0;
@@ -1662,6 +1675,12 @@
                 gap: 8px;
                 align-items: center;
                 justify-content: space-between;
+            }
+
+            .nav-brand-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
             }
 
             .brand-logo {
@@ -2163,20 +2182,21 @@
 
 <!-- Navigation Bar -->
 <nav class="top-nav">
-    <a href="#" class="brand-logo">EXAM-AXIS</a>
+    <div class="nav-brand-wrap">
+        <a href="#" class="brand-logo">EXAM-AXIS</a>
+        <div class="theme-switch-wrapper">
+            <span class="theme-icon sun">☀️</span>
+            <label class="theme-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="theme-icon moon">🌙</span>
+        </div>
+    </div>
     <div class="nav-right">
-     <div class="theme-switch-wrapper">
-  <span class="theme-icon sun">☀️</span>
-  <label class="theme-switch">
-    <input type="checkbox" id="themeToggle">
-    <span class="slider"></span>
-  </label>
-  <span class="theme-icon moon">🌙</span>
-</div>
-<a href="pricing.html" class="nav-btn primary" id="goPremiumBtn">
-    <i class="fas fa-crown"></i> Go Premium
-</a>
-
+        <a href="pricing.html" class="nav-btn primary" id="goPremiumBtn">
+            <i class="fas fa-crown"></i> Go Premium
+        </a>
         <div class="nav-buttons" id="navButtons">
             <a href="login.html" class="nav-btn login-btn">Login</a>
             <a href="register.html" class="nav-btn signup-btn">Create Account</a>
