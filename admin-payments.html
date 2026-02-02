@@ -1337,9 +1337,11 @@
     }
 
     function getActions(payment) {
-        // Screenshot button (always shown if screenshot exists)
-        const screenshotBtn = payment.screenshot 
-            ? `<button class="view-screenshot-btn" onclick="viewScreenshot('${payment.screenshot}', '${payment.email}', '${payment.transactionId}')">
+        // Screenshot: support multiple API field names (screenshot, screenshotUrl, paymentScreenshot, image, imageUrl)
+        const screenshotVal = payment.screenshot || payment.screenshotUrl || payment.paymentScreenshot || payment.image || payment.imageUrl;
+        const paymentId = payment._id || payment.id;
+        const screenshotBtn = screenshotVal 
+            ? `<button class="view-screenshot-btn" data-screenshot="${encodeURIComponent(screenshotVal)}" data-email="${encodeURIComponent(payment.email || '')}" data-txn="${encodeURIComponent(payment.transactionId || '')}" data-payment-id="${paymentId || ''}" onclick="viewScreenshotFromBtn(this)">
                     <i class="fas fa-image"></i> View Screenshot
                </button>`
             : `<span class="no-screenshot"><i class="fas fa-image"></i> No screenshot</span>`;
@@ -1374,25 +1376,79 @@
     }
 
     // ========== SCREENSHOT MODAL ==========
-    function viewScreenshot(screenshotUrl, email, transactionId) {
+    function viewScreenshotFromBtn(btn) {
+        const screenshotUrl = decodeURIComponent(btn.getAttribute('data-screenshot') || '');
+        const email = decodeURIComponent(btn.getAttribute('data-email') || '');
+        const transactionId = decodeURIComponent(btn.getAttribute('data-txn') || '');
+        const paymentId = btn.getAttribute('data-payment-id') || '';
+        viewScreenshot(screenshotUrl, email, transactionId, paymentId);
+    }
+
+    function viewScreenshot(screenshotUrl, email, transactionId, paymentId) {
         const modal = document.getElementById('screenshotModal');
         const img = document.getElementById('screenshotImage');
         const info = document.getElementById('screenshotInfo');
+        const infoWrap = info.parentElement;
         
-        // Handle different screenshot URL formats
-        let fullUrl = screenshotUrl;
-        if (!screenshotUrl.startsWith('http')) {
-            // If it's a relative path, prepend the API base URL
-            fullUrl = `${API_URL.replace('/api', '')}/uploads/${screenshotUrl}`;
+        if (!screenshotUrl || !screenshotUrl.trim()) {
+            img.src = '';
+            img.style.display = 'none';
+            info.innerHTML = '<span class="no-screenshot">No screenshot available</span>';
+            modal.classList.add('show');
+            return;
         }
-        
+
+        // Build full URL: already absolute, or relative to backend
+        let fullUrl = screenshotUrl.trim();
+        if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+            const base = API_URL.replace(/\/api\/?$/, '');
+            if (fullUrl.startsWith('/')) {
+                fullUrl = base + fullUrl;
+            } else if (fullUrl.toLowerCase().startsWith('uploads/')) {
+                fullUrl = base + '/' + fullUrl;
+            } else {
+                fullUrl = base + '/uploads/' + fullUrl;
+            }
+        }
+
+        img.style.display = '';
+        img.alt = 'Payment Screenshot';
+        img.onerror = function() {
+            img.style.display = 'none';
+            const fallback = document.createElement('p');
+            fallback.className = 'no-screenshot';
+            fallback.innerHTML = 'Image could not be loaded. <br>URL: ' + fullUrl.replace(/</g, '&lt;');
+            info.innerHTML = '';
+            info.appendChild(fallback);
+            if (paymentId) {
+                const tryApi = document.createElement('p');
+                tryApi.style.marginTop = '10px';
+                tryApi.innerHTML = '<a href="' + fullUrl + '" target="_blank" rel="noopener" style="color:#818cf8;">Open in new tab</a>';
+                info.appendChild(tryApi);
+            }
+        };
+        img.onload = function() {
+            info.innerHTML = '';
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>Email:</strong> ${email || 'N/A'} | <strong>Transaction ID:</strong> ${transactionId || 'N/A'}`;
+            info.appendChild(p);
+        };
+
+        info.innerHTML = '<p>Loading...</p>';
         img.src = fullUrl;
-        info.innerHTML = `<strong>Email:</strong> ${email} | <strong>Transaction ID:</strong> ${transactionId || 'N/A'}`;
         modal.classList.add('show');
     }
 
     function closeScreenshotModal() {
-        document.getElementById('screenshotModal').classList.remove('show');
+        const modal = document.getElementById('screenshotModal');
+        const img = document.getElementById('screenshotImage');
+        const info = document.getElementById('screenshotInfo');
+        img.src = '';
+        img.onerror = null;
+        img.onload = null;
+        img.style.display = '';
+        info.innerHTML = '<p id="screenshotInfo">Payment Screenshot</p>';
+        modal.classList.remove('show');
     }
 
     // Close screenshot modal on outside click
