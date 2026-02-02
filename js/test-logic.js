@@ -364,6 +364,84 @@
         }
     };
 
+    // ========== PREMIUM ACCESS CHECK ==========
+    async function checkPremiumAccess(testId) {
+        // If no testId, allow (will fail later with different error)
+        if (!testId) return true;
+        
+        // Define free test IDs for each category
+        // These are the FIRST tests in each category that are free
+        const FREE_TESTS = {
+            // CGL - First sectional of each subject + first full mock
+            CGL_MATHS: 'ssc_cgl_12_sep_s1',
+            CGL_REASONING: 'ssc_cgl_12_sep_s1-r',
+            CGL_ENGLISH: 'ssc_cgl_eng_12_sep_s1',
+            CGL_GK: 'ssc_cgl_gk_12_sep_s1',
+            CGL_FULLMOCK: 'ssc_cgl_fullmock_12_sep_s1',
+            
+            // CHSL - First sectional of each subject + first full mock
+            CHSL_MATHS: 'ssc_chsl_maths_12_nov_s1',
+            CHSL_REASONING: 'ssc_chsl_reasoning_12_nov_s1',
+            CHSL_ENGLISH: 'ssc_chsl_eng_12_nov_s1',
+            CHSL_GK: 'ssc_chsl_gk_12_nov_s1',
+            CHSL_TOP100: 'CHSL_TOP_100_MATHS',
+            
+            // DP - First sectional of each subject
+            DP_REASONING: 'dp_constable_reasoning_s1'
+        };
+        
+        // Check if this test is in the free list
+        const freeTestIds = Object.values(FREE_TESTS);
+        const isFreeTest = freeTestIds.includes(testId);
+        
+        // If it's a free test, allow access
+        if (isFreeTest) {
+            window._originalConsole?.log?.('✅ Free test - access granted');
+            return true;
+        }
+        
+        // Check premium status from API
+        try {
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000/api'
+                : 'https://exam-axis-backend.vercel.app/api';
+            
+            const response = await fetch(`${API_URL}/payment/premium-status`, {
+                headers: {
+                    'Authorization': `Bearer ${ExamAxisAPI.getToken()}`
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success && data.data && data.data.isPremium) {
+                window._originalConsole?.log?.('✅ Premium user - access granted');
+                return true;
+            }
+        } catch (error) {
+            window._originalConsole?.error?.('Premium check error:', error);
+        }
+        
+        // User is not premium and test is not free - show upgrade message
+        window._originalConsole?.warn?.('🔒 Premium test - access denied');
+        
+        // Show alert and redirect
+        const userChoice = confirm(
+            '🔒 Premium Content\n\n' +
+            'This test is available for Premium Members only.\n\n' +
+            'Would you like to upgrade to Premium for just ₹99 (Lifetime Access)?\n\n' +
+            'Click OK to upgrade, or Cancel to go back.'
+        );
+        
+        if (userChoice) {
+            window.location.href = 'payment.html';
+        } else {
+            window.location.href = 'index.html';
+        }
+        
+        return false;
+    }
+
     // ========== QUIZ DATA ==========
     window.QUIZ_DATA = {
         questions: [],
@@ -394,6 +472,13 @@
             localStorage.setItem('redirectAfterLogin', window.location.href);
             window.location.href = 'login.html';
             return;
+        }
+        
+        // ========== PREMIUM ACCESS CHECK ==========
+        // Check if user has access to this test
+        const premiumCheckPassed = await checkPremiumAccess(testId);
+        if (!premiumCheckPassed) {
+            return; // User redirected to payment or index page
         }
 
         const $ = id => document.getElementById(id);
