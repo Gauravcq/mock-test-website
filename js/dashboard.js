@@ -803,7 +803,7 @@ function setupEventListeners() {
     document.addEventListener('click', (e) => {
         const dropdown = document.getElementById('userDropdown');
         if (!dropdown.contains(e.target)) {
-            dropdown.classList.remove('active');
+            dropdown.classList.remove('open');
         }
     });
 }
@@ -832,7 +832,7 @@ function toggleTheme() {
 
 // ========== USER ACTIONS ==========
 function toggleDropdown() {
-    document.getElementById('userDropdown').classList.toggle('active');
+    document.getElementById('userDropdown').classList.toggle('open');
 }
 
 function handleLogout() {
