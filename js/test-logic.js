@@ -138,6 +138,15 @@
                     }
                 }
 
+                // Win+Shift+S (Windows Snipping Tool / screenshot) - block Shift+S in exam
+                if (e.shiftKey && (e.key === 's' || e.key === 'S')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.showWarning('Screenshots are not allowed during exam!');
+                    navigator.clipboard.writeText('').catch(() => {});
+                    return false;
+                }
+
                 // F12 - Dev Tools
                 if (e.key === 'F12') {
                     e.preventDefault();
