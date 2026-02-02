@@ -769,113 +769,160 @@
     });
 
     // Step 1: Send OTP
-    document.getElementById('emailForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
+   // Step 1: Send OTP
+document.getElementById('emailForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('resetEmail').value;
+    const btn = document.getElementById('sendOtpBtn');
+    
+    btn.classList.add('loading');
+    btn.disabled = true;
+    hideModalAlerts();
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
         
-        const email = document.getElementById('resetEmail').value;
-        const btn = document.getElementById('sendOtpBtn');
+        const data = await response.json();
         
-        btn.classList.add('loading');
-        btn.disabled = true;
-        hideModalAlerts();
-        
-        try {
-            const response = await fetch('http://localhost:3000/api/forgot-password', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                userEmail = email;
-                document.getElementById('emailDisplay').textContent = maskEmail(email);
-                showModalSuccess('OTP sent successfully!');
-                setTimeout(() => {
-                    goToStep(2);
-                    startCountdown();
-                }, 1000);
-            } else {
-                showModalError(data.message || 'Failed to send OTP');
-            }
-        } catch (error) {
-            showModalError('Network error. Please try again.');
-        }
-        
-        btn.classList.remove('loading');
-        btn.disabled = false;
-    });
-
-    // Step 2: Verify OTP
-    document.getElementById('otpForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const otp = getOTPValue();
-        const btn = document.getElementById('verifyOtpBtn');
-        
-        if (otp.length !== 6) {
-            showModalError('Please enter complete 6-digit OTP');
-            return;
-        }
-        
-        btn.classList.add('loading');
-        btn.disabled = true;
-        hideModalAlerts();
-        
-        try {
-            const response = await fetch('http://localhost:3000/api/verify-otp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: userEmail, otp })
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                clearInterval(countdownTimer);
-                showModalSuccess('OTP verified successfully!');
-                setTimeout(() => {
-                    goToStep(3);
-                }, 1000);
-            } else {
-                showModalError(data.message || 'Invalid OTP');
-            }
-        } catch (error) {
-            showModalError('Network error. Please try again.');
-        }
-        
-        btn.classList.remove('loading');
-        btn.disabled = false;
-    });
-
-    // Resend OTP
-    async function resendOTP() {
-        const btn = document.getElementById('resendBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        
-        try {
-            const response = await fetch('http://localhost:3000/api/forgot-password', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: userEmail })
-            });
-            
-            if (response.ok) {
-                showModalSuccess('OTP resent successfully!');
-                clearOTPInputs();
+        if (response.ok) {
+            userEmail = email;
+            document.getElementById('emailDisplay').textContent = maskEmail(email);
+            showModalSuccess('OTP sent successfully!');
+            setTimeout(() => {
+                goToStep(2);
                 startCountdown();
-            } else {
-                showModalError('Failed to resend OTP');
-            }
-        } catch (error) {
-            showModalError('Network error. Please try again.');
+            }, 1000);
+        } else {
+            showModalError(data.message || 'Failed to send OTP');
         }
-        
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-redo"></i> Resend OTP';
+    } catch (error) {
+        console.error('Error:', error);
+        showModalError('Network error. Please try again.');
     }
+    
+    btn.classList.remove('loading');
+    btn.disabled = false;
+});
+
+// Step 2: Verify OTP
+document.getElementById('otpForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const otp = getOTPValue();
+    const btn = document.getElementById('verifyOtpBtn');
+    
+    if (otp.length !== 6) {
+        showModalError('Please enter complete 6-digit OTP');
+        return;
+    }
+    
+    btn.classList.add('loading');
+    btn.disabled = true;
+    hideModalAlerts();
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/auth/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail, otp })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            clearInterval(countdownTimer);
+            showModalSuccess('OTP verified successfully!');
+            setTimeout(() => {
+                goToStep(3);
+            }, 1000);
+        } else {
+            showModalError(data.message || 'Invalid OTP');
+        }
+    } catch (error) {
+        showModalError('Network error. Please try again.');
+    }
+    
+    btn.classList.remove('loading');
+    btn.disabled = false;
+});
+
+// Step 3: Reset Password
+document.getElementById('resetPasswordForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const btn = document.getElementById('resetPasswordBtn');
+    
+    hideModalAlerts();
+    
+    if (newPassword.length < 8) {
+        showModalError('Password must be at least 8 characters');
+        return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+        showModalError('Passwords do not match');
+        return;
+    }
+    
+    btn.classList.add('loading');
+    btn.disabled = true;
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/auth/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail, newPassword })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            goToStep(4);
+        } else {
+            showModalError(data.message || 'Failed to reset password');
+        }
+    } catch (error) {
+        showModalError('Network error. Please try again.');
+    }
+    
+    btn.classList.remove('loading');
+    btn.disabled = false;
+});
+
+// Resend OTP
+async function resendOTP() {
+    const btn = document.getElementById('resendBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail })
+        });
+        
+        if (response.ok) {
+            showModalSuccess('OTP resent successfully!');
+            clearOTPInputs();
+            startCountdown();
+        } else {
+            showModalError('Failed to resend OTP');
+        }
+    } catch (error) {
+        showModalError('Network error. Please try again.');
+    }
+    
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-redo"></i> Resend OTP';
+}
 
     // Password strength checker
     document.getElementById('newPassword').addEventListener('input', (e) => {
