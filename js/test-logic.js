@@ -26,30 +26,34 @@
             console.log('🔒 Security features enabled');
         },
 
-        // 1. Disable Copy/Paste
+        // 1. Disable Copy/Paste (only when exam is running)
         disableCopyPaste() {
             document.addEventListener('copy', (e) => {
+                if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
                 this.showWarning('Copying is not allowed during exam!');
                 return false;
             });
 
             document.addEventListener('cut', (e) => {
+                if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
                 this.showWarning('Cutting is not allowed during exam!');
                 return false;
             });
 
             document.addEventListener('paste', (e) => {
+                if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
                 this.showWarning('Pasting is not allowed during exam!');
                 return false;
             });
         },
 
-        // 2. Disable Right Click
+        // 2. Disable Right Click (only when exam is running)
         disableRightClick() {
             document.addEventListener('contextmenu', (e) => {
+                if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
                 this.showWarning('Right-click is disabled during exam!');
                 return false;
@@ -86,9 +90,11 @@
             });
         },
 
-        // 4. Disable Keyboard Shortcuts
+        // 4. Disable Keyboard Shortcuts (only when exam is running)
         disableKeyboardShortcuts() {
             document.addEventListener('keydown', (e) => {
+                if (!document.body.classList.contains('exam-mode')) return;
+
                 // Ctrl/Cmd combinations
                 if (e.ctrlKey || e.metaKey) {
                     const blockedKeys = [
@@ -107,6 +113,13 @@
                     if (blockedKeys.includes(e.key)) {
                         e.preventDefault();
                         this.showWarning('This shortcut is disabled during exam!');
+                        return false;
+                    }
+
+                    // Ctrl+Shift+S / Cmd+Shift+3/4/5 - Screenshot (Mac/Windows)
+                    if (e.shiftKey && (e.key === 's' || e.key === 'S' || e.key === '3' || e.key === '4' || e.key === '5')) {
+                        e.preventDefault();
+                        this.showWarning('Screenshots are not allowed during exam!');
                         return false;
                     }
 
@@ -138,11 +151,10 @@
                     return false;
                 }
 
-                // PrintScreen
-                if (e.key === 'PrintScreen') {
+                // PrintScreen / Screenshot keys
+                if (e.key === 'PrintScreen' || (e.metaKey && (e.key === '3' || e.key === '4' || e.key === '5'))) {
                     e.preventDefault();
                     this.showWarning('Screenshots are not allowed during exam!');
-                    // Clear clipboard
                     navigator.clipboard.writeText('').catch(() => {});
                     return false;
                 }
