@@ -38,9 +38,8 @@ async function initAdmin() {
       adminNameEl.textContent = user?.fullName || user?.username || 'Admin';
     }
 
-    // Load dashboard data
-    await loadDashboard();
-    await loadUsers();
+    // Load data
+    await loadAllData();
 
   } catch (error) {
     console.error('Admin init error:', error);
@@ -49,23 +48,11 @@ async function initAdmin() {
   }
 }
 
-// ==================== DASHBOARD ====================
+// ==================== LOAD ALL DATA ====================
 
-async function loadDashboard() {
-  try {
-    const result = await ExamAxisAPI.getAdminDashboard();
-
-    if (result.success && result.data) {
-      const stats = result.data.stats || result.data;
-      
-      document.getElementById('total-users').textContent = stats.totalUsers || 0;
-      document.getElementById('total-tests').textContent = stats.totalTests || 0;
-      document.getElementById('paid-users').textContent = stats.paidUsers || 0;
-      document.getElementById('total-revenue').textContent = '₹' + (stats.totalRevenue || 0);
-    }
-  } catch (error) {
-    console.error('Dashboard error:', error);
-  }
+async function loadAllData() {
+  await loadUsers();
+  await loadTestsCount();
 }
 
 // ==================== USERS MANAGEMENT ====================
@@ -85,6 +72,24 @@ async function loadUsers() {
     }
 
     const users = result.data?.users || result.data || [];
+
+    // ✅ UPDATE STATS FROM USERS DATA
+    const totalUsersEl = document.getElementById('total-users');
+    const paidUsersEl = document.getElementById('paid-users');
+    const totalRevenueEl = document.getElementById('total-revenue');
+    
+    if (totalUsersEl) totalUsersEl.textContent = users.length;
+    
+    if (paidUsersEl) {
+      const paidCount = users.filter(u => u.isPaid).length;
+      paidUsersEl.textContent = paidCount;
+    }
+
+    // Calculate revenue (assuming you have paidAmount field)
+    if (totalRevenueEl) {
+      const revenue = users.reduce((sum, u) => sum + (u.paidAmount || 0), 0);
+      totalRevenueEl.textContent = '₹' + revenue;
+    }
 
     if (users.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No users found</td></tr>';
@@ -120,6 +125,23 @@ async function loadUsers() {
   }
 }
 
+// ==================== TESTS COUNT ====================
+
+async function loadTestsCount() {
+  try {
+    const result = await ExamAxisAPI.getAvailableTests();
+    
+    if (result.success && result.data) {
+      const totalTestsEl = document.getElementById('total-tests');
+      if (totalTestsEl) {
+        totalTestsEl.textContent = result.data.totalTests || result.data.tests?.length || 0;
+      }
+    }
+  } catch (error) {
+    console.error('Tests count error:', error);
+  }
+}
+
 // ==================== REFRESH DATA ====================
 
 async function refreshData() {
@@ -129,8 +151,7 @@ async function refreshData() {
     btn.textContent = '🔄 Refreshing...';
   }
 
-  await loadDashboard();
-  await loadUsers();
+  await loadAllData();
 
   if (btn) {
     btn.disabled = false;
