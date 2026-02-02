@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Payment Management | Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,12 +23,16 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
+        html { overflow-x: hidden; width: 100%; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--light-bg);
             color: var(--light-text-primary);
             min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         body.dark-mode {
@@ -105,13 +109,17 @@
         .top-nav {
             background: var(--light-card-bg);
             border-bottom: 1px solid var(--light-border);
-            padding: 15px 30px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
+            max-width: 100vw;
         }
 
         body.dark-mode .top-nav {
@@ -144,7 +152,8 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            flex-shrink: 0;
         }
 
         .theme-toggle {
@@ -527,6 +536,16 @@
             transform: translateY(-2px);
         }
 
+        .action-btn.revoke {
+            background: #9ca3af;
+            color: white;
+        }
+
+        .action-btn.revoke:hover {
+            background: #6b7280;
+            transform: translateY(-2px);
+        }
+
         .action-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -868,6 +887,9 @@
         }
 
         @media (max-width: 480px) {
+            .top-nav { padding: 10px 16px; }
+            .brand-logo { font-size: 1.25rem; }
+            .logout-btn { padding: 8px 14px; font-size: 13px; }
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -1359,8 +1381,12 @@
         }
         
         if (payment.status === 'approved') {
+            const pid = payment._id || payment.id;
             return `
                 ${screenshotBtn}
+                <button class="action-btn revoke" data-payment-id="${pid}" data-email="${encodeURIComponent(payment.email || '')}" onclick="revokePremiumFromBtn(this)" title="Remove premium access from this user">
+                    <i class="fas fa-user-minus"></i> Remove premium
+                </button>
                 <span class="status-badge approved"><i class="fas fa-check-circle"></i> Verified</span>
             `;
         }
@@ -1398,16 +1424,14 @@
             return;
         }
 
-        // Build full URL: already absolute, or relative to backend
+        // Build full URL: backend serves uploads at /api/uploads/ (not /uploads/)
         let fullUrl = screenshotUrl.trim();
         if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
-            const base = API_URL.replace(/\/api\/?$/, '');
+            const apiBase = API_URL.replace(/\/$/, '');
             if (fullUrl.startsWith('/')) {
-                fullUrl = base + fullUrl;
-            } else if (fullUrl.toLowerCase().startsWith('uploads/')) {
-                fullUrl = base + '/' + fullUrl;
+                fullUrl = apiBase + fullUrl;
             } else {
-                fullUrl = base + '/uploads/' + fullUrl;
+                fullUrl = apiBase + '/uploads/' + fullUrl.replace(/^uploads\//i, '');
             }
         }
 
@@ -1457,6 +1481,54 @@
             closeScreenshotModal();
         }
     });
+
+    // ========== REVOKE PREMIUM ==========
+    function revokePremiumFromBtn(btn) {
+        const paymentId = btn.getAttribute('data-payment-id');
+        const email = decodeURIComponent(btn.getAttribute('data-email') || '');
+        if (!paymentId) {
+            showToast('Invalid payment ID', 'error');
+            return;
+        }
+        if (!confirm(`Remove premium access from ${email || 'this user'}? They will lose access to premium tests.`)) return;
+        revokePremium(paymentId, btn);
+    }
+
+    async function revokePremium(paymentId, btnElement) {
+        const btn = btnElement && btnElement.nodeType ? btnElement : document.querySelector(`[data-payment-id="${paymentId}"]`);
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Revoking...';
+        }
+        try {
+            const response = await fetch(`${API_URL}/payment/revoke-premium/${paymentId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                showToast('Premium access removed. User is no longer premium.', 'success');
+                loadPayments();
+                loadStats();
+            } else {
+                showToast(data.message || 'Failed to revoke premium', 'error');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-user-minus"></i> Remove premium';
+                }
+            }
+        } catch (error) {
+            console.error('Revoke error:', error);
+            showToast('Failed to revoke premium. Backend may not support this yet.', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-minus"></i> Remove premium';
+            }
+        }
+    }
 
     // ========== APPROVE PAYMENT ==========
     async function approvePayment(paymentId) {
