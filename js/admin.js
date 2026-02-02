@@ -51,8 +51,37 @@ async function initAdmin() {
 // ==================== LOAD ALL DATA ====================
 
 async function loadAllData() {
-  await loadUsers();
-  await loadTestsCount();
+  await Promise.all([
+    loadDashboardStats(),
+    loadUsers()
+  ]);
+}
+
+// ==================== DASHBOARD STATS ====================
+
+async function loadDashboardStats() {
+  try {
+    const result = await ExamAxisAPI.getAdminDashboard();
+
+    if (result.success && result.data) {
+      const stats = result.data.stats || result.data;
+      
+      // Update stat cards
+      updateStatCard('total-users', stats.totalUsers);
+      updateStatCard('paid-users', stats.paidUsers);
+      updateStatCard('total-tests', stats.totalTests);
+      updateStatCard('total-revenue', '₹' + (stats.totalRevenue || 0));
+    }
+  } catch (error) {
+    console.error('Dashboard stats error:', error);
+  }
+}
+
+function updateStatCard(id, value) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.textContent = value !== undefined ? value : 0;
+  }
 }
 
 // ==================== USERS MANAGEMENT ====================
@@ -73,24 +102,6 @@ async function loadUsers() {
 
     const users = result.data?.users || result.data || [];
 
-    // ✅ UPDATE STATS FROM USERS DATA
-    const totalUsersEl = document.getElementById('total-users');
-    const paidUsersEl = document.getElementById('paid-users');
-    const totalRevenueEl = document.getElementById('total-revenue');
-    
-    if (totalUsersEl) totalUsersEl.textContent = users.length;
-    
-    if (paidUsersEl) {
-      const paidCount = users.filter(u => u.isPaid).length;
-      paidUsersEl.textContent = paidCount;
-    }
-
-    // Calculate revenue (assuming you have paidAmount field)
-    if (totalRevenueEl) {
-      const revenue = users.reduce((sum, u) => sum + (u.paidAmount || 0), 0);
-      totalRevenueEl.textContent = '₹' + revenue;
-    }
-
     if (users.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No users found</td></tr>';
       return;
@@ -102,7 +113,7 @@ async function loadUsers() {
         <td>${user.fullName || user.username || 'N/A'}</td>
         <td>${user.email}</td>
         <td>
-          <span class="badge ${user.role === 'admin' ? 'badge-admin' : 'badge-user'}">
+          <span class="badge ${user.role === 'admin' || user.role === 'superadmin' ? 'badge-admin' : 'badge-user'}">
             ${user.role || 'user'}
           </span>
         </td>
@@ -112,8 +123,8 @@ async function loadUsers() {
           </span>
         </td>
         <td>
-          <span class="badge ${user.isActive ? 'badge-active' : 'badge-inactive'}">
-            ${user.isActive ? '✓ Active' : '✗ Inactive'}
+          <span class="badge ${user.isActive !== false ? 'badge-active' : 'badge-inactive'}">
+            ${user.isActive !== false ? '✓ Active' : '✗ Inactive'}
           </span>
         </td>
       </tr>
@@ -122,23 +133,6 @@ async function loadUsers() {
   } catch (error) {
     console.error('Load users error:', error);
     tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: red;">Failed to load users</td></tr>';
-  }
-}
-
-// ==================== TESTS COUNT ====================
-
-async function loadTestsCount() {
-  try {
-    const result = await ExamAxisAPI.getAvailableTests();
-    
-    if (result.success && result.data) {
-      const totalTestsEl = document.getElementById('total-tests');
-      if (totalTestsEl) {
-        totalTestsEl.textContent = result.data.totalTests || result.data.tests?.length || 0;
-      }
-    }
-  } catch (error) {
-    console.error('Tests count error:', error);
   }
 }
 
@@ -157,6 +151,8 @@ async function refreshData() {
     btn.disabled = false;
     btn.textContent = '🔄 Refresh';
   }
+  
+  alert('✅ Data refreshed!');
 }
 
 // ==================== LOGOUT ====================
