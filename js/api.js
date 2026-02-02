@@ -818,29 +818,38 @@ class ExamAxisAPI {
 // ==================== NAVIGATION ====================
 
 async function updateNavigation() {
-  const navButtons = document.querySelector('.nav-buttons');
-  if (!navButtons) return;
+  const navButtons = document.querySelector('.nav-buttons') || document.getElementById('navButtons');
+  if (!navButtons) {
+    console.log('No navigation buttons element found');
+    return;
+  }
 
   const user = ExamAxisAPI.getCurrentUser();
   const isLoggedIn = ExamAxisAPI.isLoggedIn();
 
   if (isLoggedIn && user) {
     const adminLink = (user.role === 'admin' || user.role === 'superadmin')
-      ? '<a href="admin.html" class="nav-btn admin-btn">👑 Admin</a>'
+      ? '<a href="admin.html" class="nav-btn admin-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; border: none;">👑 Admin</a>'
       : '';
+
+    const firstName = user.fullName ? user.fullName.split(' ')[0] : user.username;
 
     navButtons.innerHTML = `
       ${adminLink}
       <a href="dashboard.html" class="nav-btn login-btn">
-        👤 ${user.fullName || user.username}
+        👤 ${firstName}
       </a>
       <button onclick="handleLogout()" class="nav-btn signup-btn">Logout</button>
     `;
+    
+    console.log('Navigation updated for logged-in user:', firstName);
   } else {
     navButtons.innerHTML = `
       <a href="login.html" class="nav-btn login-btn">Login</a>
       <a href="register.html" class="nav-btn signup-btn">Create Account</a>
     `;
+    
+    console.log('Navigation updated for guest user');
   }
 }
 
@@ -849,8 +858,15 @@ async function handleLogout() {
   window.location.href = 'index.html';
 }
 
+// Auto-update navigation on page load
 document.addEventListener('DOMContentLoaded', () => {
-  updateNavigation();
+  // Small delay to ensure DOM is fully loaded
+  setTimeout(() => {
+    updateNavigation();
+  }, 100);
 });
 
+// Make functions globally available
 window.ExamAxisAPI = ExamAxisAPI;
+window.updateNavigation = updateNavigation;
+window.handleLogout = handleLogout;

@@ -497,8 +497,10 @@
     <a href="index.html" class="brand-logo">EXAM-AXIS</a>
     <div class="nav-right">
         <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-        <a href="login.html" class="nav-btn outline">Login</a>
-        <a href="register.html" class="nav-btn primary">Sign Up</a>
+        <div class="nav-buttons" id="navButtons">
+            <a href="login.html" class="nav-btn outline">Login</a>
+            <a href="register.html" class="nav-btn primary">Sign Up</a>
+        </div>
     </div>
 </nav>
 
@@ -719,9 +721,29 @@
         }
     }
     
-    // Check on page load
-    checkPremiumStatus();
+    // Logout handler
+    async function handleLogout() {
+        if (typeof ExamAxisAPI !== 'undefined') {
+            await ExamAxisAPI.logout();
+        } else {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
+        window.location.href = 'index.html';
+    }
+    
+    // Page initialization
+    document.addEventListener('DOMContentLoaded', () => {
+        // Update navigation to show logged-in user
+        if (window.updateNavigation) {
+            updateNavigation();
+        }
+        
+        // Check premium status
+        checkPremiumStatus();
+    });
 </script>
+<script src="js/api.js"></script>
 
 </body>
 </html>

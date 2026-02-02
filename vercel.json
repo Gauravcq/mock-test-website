@@ -1,5 +1,8 @@
 {
   "rewrites": [
+    { "source": "/admin/payments.html", "destination": "/admin-payments.html" },
+    { "source": "/admin/payments", "destination": "/admin-payments.html" },
+    { "source": "/payments", "destination": "/admin-payments.html" },
     { "source": "/(.*)", "destination": "/$1" }
   ],
   "headers": [
