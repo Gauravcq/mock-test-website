@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Exam-Axis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --light-bg: #f7f8fc;
+            --light-card-bg: #ffffff;
+            --light-text-primary: #1a202c;
+            --light-text-secondary: #4a5568;
+            --light-border: #e2e8f0;
+            --dark-bg: #0f172a;
+            --dark-card-bg: #1e293b;
+            --dark-text-primary: #f8fafc;
+            --dark-text-secondary: #94a3b8;
+            --dark-border: #334155;
+            --primary-brand: #4A00E0;
+            --secondary-brand: #8E2DE2;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-bg);
+            color: var(--light-text-primary);
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--dark-text-primary);
+        }
+
+        /* Navigation */
+        .top-nav {
+            background: var(--light-card-bg);
+            border-bottom: 1px solid var(--light-border);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        body.dark-mode .top-nav {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border);
+        }
+
+        .brand-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-brand);
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+            padding: 8px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.outline {
+            border: 2px solid var(--primary-brand);
+            color: var(--primary-brand);
+            background: transparent;
+        }
+
+        .nav-btn.primary {
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            color: white;
+            border: none;
+        }
+
+        /* Hero Section */
+        .pricing-hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, rgba(74, 0, 224, 0.05), rgba(142, 45, 226, 0.05));
+        }
+
+        body.dark-mode .pricing-hero {
+            background: linear-gradient(135deg, rgba(74, 0, 224, 0.1), rgba(142, 45, 226, 0.1));
+        }
+
+        .pricing-hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-hero p {
+            font-size: 18px;
+            color: var(--light-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        body.dark-mode .pricing-hero p {
+            color: var(--dark-text-secondary);
+        }
+
+        /* Pricing Cards Container */
+        .pricing-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Pricing Card */
+        .pricing-card {
+            background: var(--light-card-bg);
+            border-radius: 24px;
+            padding: 40px 30px;
+            border: 2px solid var(--light-border);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .pricing-card {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(74, 0, 224, 0.15);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary-brand);
+            background: linear-gradient(135deg, rgba(74, 0, 224, 0.03), rgba(142, 45, 226, 0.03));
+        }
+
+        body.dark-mode .pricing-card.featured {
+            background: linear-gradient(135deg, rgba(74, 0, 224, 0.1), rgba(142, 45, 226, 0.1));
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            color: white;
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .plan-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .plan-icon.free {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+        }
+
+        .plan-icon.premium {
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .plan-description {
+            color: var(--light-text-secondary);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        body.dark-mode .plan-description {
+            color: var(--dark-text-secondary);
+        }
+
+        .plan-price {
+            margin-bottom: 30px;
+        }
+
+        .price-amount {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary-brand);
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: var(--light-text-secondary);
+        }
+
+        body.dark-mode .price-period {
+            color: var(--dark-text-secondary);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .plan-features li {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        body.dark-mode .plan-features li {
+            border-color: var(--dark-border);
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-features li i {
+            font-size: 14px;
+        }
+
+        .plan-features li i.fa-check {
+            color: #27ae60;
+        }
+
+        .plan-features li i.fa-times {
+            color: #e74c3c;
+        }
+
+        .plan-features li.disabled {
+            color: var(--light-text-secondary);
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        body.dark-mode .plan-features li.disabled {
+            color: var(--dark-text-secondary);
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .plan-btn.outline {
+            background: transparent;
+            border: 2px solid var(--light-border);
+            color: var(--light-text-primary);
+        }
+
+        body.dark-mode .plan-btn.outline {
+            border-color: var(--dark-border);
+            color: var(--dark-text-primary);
+        }
+
+        .plan-btn.primary {
+            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            border: none;
+            color: white;
+            box-shadow: 0 10px 30px rgba(74, 0, 224, 0.3);
+        }
+
+        .plan-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(74, 0, 224, 0.4);
+        }
+
+        .plan-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--light-card-bg);
+            padding: 60px 20px;
+        }
+
+        body.dark-mode .features-section {
+            background: var(--dark-card-bg);
+        }
+
+        .features-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            padding: 25px;
+            border-radius: 16px;
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+        }
+
+        body.dark-mode .feature-card {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+        }
+
+        .feature-card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--light-text-secondary);
+            line-height: 1.6;
+        }
+
+        body.dark-mode .feature-card p {
+            color: var(--dark-text-secondary);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background: var(--light-card-bg);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--light-border);
+            overflow: hidden;
+        }
+
+        body.dark-mode .faq-item {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question:hover {
+            background: rgba(74, 0, 224, 0.05);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: var(--light-text-secondary);
+        }
+
+        body.dark-mode .faq-answer {
+            color: var(--dark-text-secondary);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        .pricing-footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--light-text-secondary);
+            font-size: 14px;
+        }
+
+        body.dark-mode .pricing-footer {
+            color: var(--dark-text-secondary);
+        }
+
+        /* Guarantee Badge */
+        .guarantee-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #27ae60;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 32px;
+            }
+            
+            .pricing-container {
+                grid-template-columns: 1fr;
+            }
+
+            .price-amount {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <a href="index.html" class="brand-logo">EXAM-AXIS</a>
+    <div class="nav-right">
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        <a href="login.html" class="nav-btn outline">Login</a>
+        <a href="register.html" class="nav-btn primary">Sign Up</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pricing-hero">
+    <h1>🎓 Choose Your Plan</h1>
+    <p>Start with free tests or unlock unlimited access with our affordable premium plan</p>
+</section>
+
+<!-- Pricing Cards -->
+<section class="pricing-container">
+    
+    <!-- Free Plan -->
+    <div class="pricing-card">
+        <div class="plan-icon free">📚</div>
+        <h3 class="plan-name">Free</h3>
+        <p class="plan-description">Perfect for trying out Exam-Axis</p>
+        
+        <div class="plan-price">
+            <span class="price-amount">₹0</span>
+            <span class="price-period">/ forever</span>
+        </div>
+        
+        <ul class="plan-features">
+            <li><i class="fas fa-check"></i> 1 Mathematics Test</li>
+            <li><i class="fas fa-check"></i> 1 English Test</li>
+            <li><i class="fas fa-check"></i> 1 Reasoning Test</li>
+            <li><i class="fas fa-check"></i> 1 General Knowledge Test</li>
+            <li><i class="fas fa-check"></i> Basic Performance Stats</li>
+            <li class="disabled"><i class="fas fa-times"></i> Unlimited Tests</li>
+            <li class="disabled"><i class="fas fa-times"></i> Detailed Analytics</li>
+            <li class="disabled"><i class="fas fa-times"></i> All Solutions</li>
+        </ul>
+        
+        <a href="index.html" class="plan-btn outline">
+            <i class="fas fa-play"></i> Start Free
+        </a>
+    </div>
+    
+    <!-- Premium Plan -->
+    <div class="pricing-card featured">
+        <div class="popular-badge">🔥 Most Popular</div>
+        <div class="plan-icon premium">👑</div>
+        <h3 class="plan-name">Premium</h3>
+        <p class="plan-description">Unlimited access to all tests & features</p>
+        
+        <div class="plan-price">
+            <span class="price-amount">₹99</span>
+            <span class="price-period">/ one-time</span>
+        </div>
+        
+        <ul class="plan-features">
+            <li><i class="fas fa-check"></i> <strong>Unlimited Tests</strong> in All Subjects</li>
+            <li><i class="fas fa-check"></i> <strong>500+</strong> Practice Questions</li>
+            <li><i class="fas fa-check"></i> Detailed Performance Analytics</li>
+            <li><i class="fas fa-check"></i> Complete Solutions & Explanations</li>
+            <li><i class="fas fa-check"></i> Subject-wise Performance Tracking</li>
+            <li><i class="fas fa-check"></i> All Future Tests & Updates</li>
+            <li><i class="fas fa-check"></i> Priority Support</li>
+            <li><i class="fas fa-check"></i> <strong>Lifetime Access</strong></li>
+        </ul>
+        
+        <a href="payment.html" class="plan-btn primary" id="upgradeBtn">
+            <i class="fas fa-crown"></i> Upgrade Now
+        </a>
+        
+        <div class="guarantee-badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>100% Secure Payment</span>
+        </div>
+    </div>
+    
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="features-container">
+        <h2 class="features-title">Why Choose Premium?</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-card-icon">📊</div>
+                <h4>Detailed Analytics</h4>
+                <p>Track your progress with in-depth performance analytics. Know your strengths and weaknesses.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">🎯</div>
+                <h4>Unlimited Practice</h4>
+                <p>Access unlimited tests in Mathematics, English, Reasoning, and General Knowledge.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">💡</div>
+                <h4>Complete Solutions</h4>
+                <p>Get detailed explanations for every question to understand concepts better.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">🔄</div>
+                <h4>Lifetime Updates</h4>
+                <p>Get access to all new tests and features added in the future, at no extra cost.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">📱</div>
+                <h4>Learn Anywhere</h4>
+                <p>Access your tests on any device - mobile, tablet, or desktop.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">🏆</div>
+                <h4>Exam Pattern</h4>
+                <p>Tests designed as per the latest SSC exam pattern for real exam experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How do I make the payment?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>You can pay using any UPI app (GPay, PhonePe, Paytm, etc.) or by scanning the QR code. After payment, submit the transaction ID for verification.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How long does verification take?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Usually within 1-2 hours during business hours. You'll receive an email once your premium access is activated.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Is this a one-time payment or subscription?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>It's a one-time payment of ₹99. You get lifetime access to all premium features with no recurring charges.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What if I face any issues?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>You can reach out to us at gouravssc77@gmail.com for any queries or issues. We're happy to help!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="pricing-footer">
+    <p>© 2024 Exam-Axis. All rights reserved. | Made with ❤️ for SSC aspirants</p>
+</footer>
+
+<script>
+    // Theme toggle
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+    
+    // Apply saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.theme-toggle').textContent = '☀️';
+    }
+    
+    // FAQ toggle
+    function toggleFaq(element) {
+        const faqItem = element.parentElement;
+        faqItem.classList.toggle('active');
+    }
+    
+    // Check if user is already premium
+    async function checkPremiumStatus() {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        
+        try {
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000/api'
+                : 'https://exam-axis-backend.vercel.app/api';
+                
+            const response = await fetch(`${API_URL}/payment/premium-status`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success && data.data.isPremium) {
+                const upgradeBtn = document.getElementById('upgradeBtn');
+                upgradeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Already Premium';
+                upgradeBtn.classList.remove('primary');
+                upgradeBtn.classList.add('outline');
+                upgradeBtn.style.pointerEvents = 'none';
+            }
+        } catch (error) {
+            console.log('Could not check premium status');
+        }
+    }
+    
+    // Check on page load
+    checkPremiumStatus();
+</script>
+
+</body>
+</html>
