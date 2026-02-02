@@ -564,9 +564,13 @@
 
 <script src="js/api.js"></script>
 <script>
-    // ========== DYNAMIC API URL ==========
-    // Automatically uses correct URL based on environment
-    const API_BASE_URL = (function() {
+    // ========== USE EXISTING API URL OR SET NEW ONE ==========
+    const AUTH_API_URL = (function() {
+        // If ExamAxisAPI exists, use its base URL
+        if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.baseURL) {
+            return ExamAxisAPI.baseURL + '/auth';
+        }
+        
         const hostname = window.location.hostname;
         
         // Local development
@@ -574,15 +578,13 @@
             return 'http://localhost:5000/api/auth';
         }
         
-        // Production (Vercel) - UPDATE THIS WITH YOUR BACKEND URL
+        // Production - UPDATE THIS WITH YOUR BACKEND URL
         return 'https://exam-axis-backend.vercel.app/api/auth';
     })();
 
-    console.log('🔗 API URL:', API_BASE_URL);
+    console.log('🔗 Auth API URL:', AUTH_API_URL);
 
-    // ========== EXISTING LOGIN FUNCTIONALITY ==========
-    
-    // Theme toggle
+    // ========== THEME FUNCTIONS ==========
     function toggleTheme() {
         document.body.classList.toggle('dark-mode');
         document.querySelector('.theme-toggle').textContent = 
@@ -590,10 +592,21 @@
         localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
     }
     
-    // Password toggle
     function togglePassword() {
         const pw = document.getElementById('password');
         const icon = document.getElementById('toggleIcon');
+        if (pw.type === 'password') {
+            pw.type = 'text';
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            pw.type = 'password';
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    }
+
+    function toggleNewPassword() {
+        const pw = document.getElementById('newPassword');
+        const icon = document.getElementById('newToggleIcon');
         if (pw.type === 'password') {
             pw.type = 'text';
             icon.classList.replace('fa-eye', 'fa-eye-slash');
@@ -614,7 +627,7 @@
         window.location.href = 'dashboard.html';
     }
     
-    // Form submission
+    // ========== LOGIN FORM ==========
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -649,26 +662,23 @@
         }
     });
 
-    // ========== FORGOT PASSWORD FUNCTIONALITY ==========
-    
+    // ========== FORGOT PASSWORD VARIABLES ==========
     let userEmail = '';
     let countdownTimer = null;
-    let otpResendTime = 60;
+    const otpResendTime = 60;
 
-    // Open forgot password modal
+    // ========== FORGOT PASSWORD FUNCTIONS ==========
     function openForgotPassword(event) {
         event.preventDefault();
         document.getElementById('forgotPasswordModal').classList.add('show');
         resetModal();
     }
 
-    // Close forgot password modal
     function closeForgotPassword() {
         document.getElementById('forgotPasswordModal').classList.remove('show');
         resetModal();
     }
 
-    // Reset modal to initial state
     function resetModal() {
         goToStep(1);
         document.getElementById('resetEmail').value = '';
@@ -681,7 +691,6 @@
         }
     }
 
-    // Go to specific step
     function goToStep(stepNum) {
         document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
         document.getElementById(`step${stepNum}`).classList.add('active');
@@ -700,34 +709,29 @@
         hideModalAlerts();
     }
 
-    // Hide modal alerts
     function hideModalAlerts() {
         document.getElementById('modalErrorAlert').classList.remove('show');
         document.getElementById('modalSuccessAlert').classList.remove('show');
     }
 
-    // Show modal error
     function showModalError(message) {
         document.getElementById('modalErrorMessage').textContent = message;
         document.getElementById('modalErrorAlert').classList.add('show');
         document.getElementById('modalSuccessAlert').classList.remove('show');
     }
 
-    // Show modal success
     function showModalSuccess(message) {
         document.getElementById('modalSuccessMessage').textContent = message;
         document.getElementById('modalSuccessAlert').classList.add('show');
         document.getElementById('modalErrorAlert').classList.remove('show');
     }
 
-    // Mask email for display
     function maskEmail(email) {
         const [name, domain] = email.split('@');
         const maskedName = name.charAt(0) + '***' + name.charAt(name.length - 1);
         return `${maskedName}@${domain}`;
     }
 
-    // Start countdown timer
     function startCountdown() {
         let seconds = otpResendTime;
         document.getElementById('timerDisplay').style.display = 'inline';
@@ -746,17 +750,15 @@
         }, 1000);
     }
 
-    // Clear OTP inputs
     function clearOTPInputs() {
         document.querySelectorAll('.otp-input').forEach(input => input.value = '');
     }
 
-    // Get OTP value from inputs
     function getOTPValue() {
         return Array.from(document.querySelectorAll('.otp-input')).map(input => input.value).join('');
     }
 
-    // OTP input handling
+    // ========== OTP INPUT HANDLING ==========
     document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
         input.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -782,7 +784,7 @@
         });
     });
 
-    // Step 1: Send OTP
+    // ========== STEP 1: SEND OTP ==========
     document.getElementById('emailForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -794,7 +796,7 @@
         hideModalAlerts();
         
         try {
-            const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+            const response = await fetch(`${AUTH_API_URL}/forgot-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })
@@ -822,7 +824,7 @@
         btn.disabled = false;
     });
 
-    // Step 2: Verify OTP
+    // ========== STEP 2: VERIFY OTP ==========
     document.getElementById('otpForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -839,7 +841,7 @@
         hideModalAlerts();
         
         try {
-            const response = await fetch(`${API_BASE_URL}/verify-otp`, {
+            const response = await fetch(`${AUTH_API_URL}/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: userEmail, otp })
@@ -864,7 +866,7 @@
         btn.disabled = false;
     });
 
-    // Step 3: Reset Password
+    // ========== STEP 3: RESET PASSWORD ==========
     document.getElementById('resetPasswordForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -909,7 +911,7 @@
         btn.disabled = true;
         
         try {
-            const response = await fetch(`${API_BASE_URL}/reset-password`, {
+            const response = await fetch(`${AUTH_API_URL}/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: userEmail, newPassword })
@@ -930,14 +932,14 @@
         btn.disabled = false;
     });
 
-    // Resend OTP
+    // ========== RESEND OTP ==========
     async function resendOTP() {
         const btn = document.getElementById('resendBtn');
         btn.disabled = true;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         
         try {
-            const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+            const response = await fetch(`${AUTH_API_URL}/forgot-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: userEmail })
@@ -958,7 +960,7 @@
         btn.innerHTML = '<i class="fas fa-redo"></i> Resend OTP';
     }
 
-    // Password strength checker
+    // ========== PASSWORD STRENGTH CHECKER ==========
     document.getElementById('newPassword').addEventListener('input', (e) => {
         const password = e.target.value;
         const strengthFill = document.getElementById('strengthFill');
@@ -986,27 +988,13 @@
         strengthText.style.color = strength < 3 ? '#e74c3c' : strength < 4 ? '#f39c12' : '#27ae60';
     });
 
-    // Toggle new password visibility
-    function toggleNewPassword() {
-        const pw = document.getElementById('newPassword');
-        const icon = document.getElementById('newToggleIcon');
-        if (pw.type === 'password') {
-            pw.type = 'text';
-            icon.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            pw.type = 'password';
-            icon.classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    }
-
-    // Close modal on overlay click
+    // ========== MODAL CLOSE HANDLERS ==========
     document.getElementById('forgotPasswordModal').addEventListener('click', (e) => {
         if (e.target.id === 'forgotPasswordModal') {
             closeForgotPassword();
         }
     });
 
-    // Close modal on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeForgotPassword();
