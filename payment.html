@@ -1,342 +1,187 @@
+<!-- premium.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment | Exam-Axis Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Get Premium - Exam Axis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --light-bg: #f7f8fc;
-            --light-card-bg: #ffffff;
-            --light-text-primary: #1a202c;
-            --light-text-secondary: #4a5568;
-            --light-border: #e2e8f0;
-            --dark-bg: #0f172a;
-            --dark-card-bg: #1e293b;
-            --dark-text-primary: #f8fafc;
-            --dark-text-secondary: #94a3b8;
-            --dark-border: #334155;
-            --primary-brand: #4A00E0;
-            --secondary-brand: #8E2DE2;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--light-bg);
-            color: var(--light-text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 20px;
         }
 
-        body.dark-mode {
-            background: var(--dark-bg);
-            color: var(--dark-text-primary);
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 12px;
-            background: #27ae60;
-            color: white;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .toast.show { transform: translateX(0); }
-        .toast.error { background: #e74c3c; }
-        .toast.info { background: #3498db; }
-
-        /* Navigation */
-        .top-nav {
-            background: var(--light-card-bg);
-            border-bottom: 1px solid var(--light-border);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        body.dark-mode .top-nav {
-            background: var(--dark-card-bg);
-            border-color: var(--dark-border);
-        }
-
-        .brand-logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-brand);
-            text-decoration: none;
-        }
-
-        .theme-toggle {
-            background: var(--light-bg);
-            border: 1px solid var(--light-border);
-            padding: 8px 14px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        body.dark-mode .theme-toggle {
-            background: var(--dark-bg);
-            border-color: var(--dark-border);
-        }
-
-        /* Main Container */
-        .payment-container {
+        .container {
             max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
 
         @media (max-width: 768px) {
-            .payment-container {
+            .content-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* QR Card */
-        .qr-card {
-            background: var(--light-card-bg);
-            border-radius: 24px;
-            padding: 40px 30px;
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-card {
             text-align: center;
-            border: 1px solid var(--light-border);
         }
 
-        body.dark-mode .qr-card {
-            background: var(--dark-card-bg);
-            border-color: var(--dark-border);
-        }
-
-        .qr-header {
+        .price-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
             margin-bottom: 25px;
         }
 
-        .qr-header h2 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 5px;
+        .price-tag .old-price {
+            font-size: 18px;
+            text-decoration: line-through;
+            opacity: 0.7;
         }
 
-        .qr-header .amount {
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--primary-brand);
+        .price-tag .new-price {
+            font-size: 48px;
+            font-weight: bold;
         }
 
-        .qr-image-container {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            display: inline-block;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        .price-tag .period {
+            font-size: 16px;
+            opacity: 0.9;
         }
 
-        .qr-image-container img {
+        .features-list {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-item i {
+            color: #10b981;
+            font-size: 18px;
+        }
+
+        .feature-item span {
+            color: #475569;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .qr-code {
             width: 200px;
             height: 200px;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 10px;
+            margin: 0 auto 15px;
+            background: white;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
 
-        .upi-details {
-            background: var(--light-bg);
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+        .upi-id {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
         }
 
-        body.dark-mode .upi-details {
-            background: var(--dark-bg);
-        }
-
-        .upi-details p {
-            font-size: 14px;
-            color: var(--light-text-secondary);
+        .upi-id label {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
             margin-bottom: 5px;
         }
 
-        body.dark-mode .upi-details p {
-            color: var(--dark-text-secondary);
-        }
-
-        .upi-id {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary-brand);
+        .upi-id-text {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+        }
+
+        .upi-id span {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
         }
 
         .copy-btn {
-            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+            background: #667eea;
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
+            font-size: 14px;
         }
 
         .copy-btn:hover {
-            transform: scale(1.05);
+            background: #5558e3;
         }
 
-        .payment-name {
-            font-size: 14px;
-            color: var(--light-text-secondary);
-            margin-top: 10px;
-        }
-
-        body.dark-mode .payment-name {
-            color: var(--dark-text-secondary);
-        }
-
-        .scan-text {
-            font-size: 14px;
-            color: var(--light-text-secondary);
-            margin-top: 15px;
-        }
-
-        body.dark-mode .scan-text {
-            color: var(--dark-text-secondary);
-        }
-
-        .scan-text i {
-            margin-right: 5px;
-        }
-
-        .upi-apps {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .upi-apps img {
-            height: 30px;
-            opacity: 0.8;
-        }
-
-        .upi-apps span {
-            background: var(--light-bg);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        body.dark-mode .upi-apps span {
-            background: var(--dark-bg);
-        }
-
-        /* Form Card */
-        .form-card {
-            background: var(--light-card-bg);
-            border-radius: 24px;
-            padding: 40px 30px;
-            border: 1px solid var(--light-border);
-        }
-
-        body.dark-mode .form-card {
-            background: var(--dark-card-bg);
-            border-color: var(--dark-border);
-        }
-
-        .form-header {
-            margin-bottom: 25px;
-        }
-
-        .form-header h2 {
+        /* Form */
+        .form-card h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
             font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .form-header p {
-            font-size: 14px;
-            color: var(--light-text-secondary);
-        }
-
-        body.dark-mode .form-header p {
-            color: var(--dark-text-secondary);
-        }
-
-        .steps {
-            display: flex;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--light-border);
-            color: var(--light-text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            margin: 0 auto 8px;
-        }
-
-        body.dark-mode .step-number {
-            background: var(--dark-border);
-            color: var(--dark-text-secondary);
-        }
-
-        .step.active .step-number {
-            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
-            color: white;
-        }
-
-        .step-text {
-            font-size: 12px;
-            color: var(--light-text-secondary);
-        }
-
-        body.dark-mode .step-text {
-            color: var(--dark-text-secondary);
-        }
-
-        .step.active .step-text {
-            color: var(--primary-brand);
-            font-weight: 600;
         }
 
         .form-group {
@@ -345,503 +190,373 @@
 
         .form-group label {
             display: block;
-            font-size: 14px;
-            font-weight: 600;
             margin-bottom: 8px;
-            color: var(--light-text-secondary);
+            color: #475569;
+            font-weight: 500;
         }
 
-        body.dark-mode .form-group label {
-            color: var(--dark-text-secondary);
-        }
-
-        .required {
-            color: #e74c3c;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--light-text-secondary);
-        }
-
-        body.dark-mode .input-wrapper i {
-            color: var(--dark-text-secondary);
-        }
-
-        .form-control {
+        .form-group input {
             width: 100%;
-            padding: 14px 14px 14px 45px;
-            font-size: 15px;
-            font-family: inherit;
-            border: 2px solid var(--light-border);
-            border-radius: 12px;
-            background: var(--light-bg);
-            color: var(--light-text-primary);
-            transition: all 0.3s;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
 
-        body.dark-mode .form-control {
-            background: var(--dark-bg);
-            border-color: var(--dark-border);
-            color: var(--dark-text-primary);
-        }
-
-        .form-control:focus {
+        .form-group input:focus {
             outline: none;
-            border-color: var(--primary-brand);
+            border-color: #667eea;
         }
 
-        .form-control::placeholder {
-            color: var(--light-text-secondary);
-        }
-
-        body.dark-mode .form-control::placeholder {
-            color: var(--dark-text-secondary);
-        }
-
-        .help-text {
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #64748b;
             font-size: 12px;
-            color: var(--light-text-secondary);
-            margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        body.dark-mode .help-text {
-            color: var(--dark-text-secondary);
         }
 
         .submit-btn {
             width: 100%;
             padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            font-family: inherit;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
-            border: none;
-            color: white;
-            box-shadow: 0 10px 30px rgba(74, 0, 224, 0.3);
-            margin-top: 10px;
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(74, 0, 224, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
         .submit-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.7;
             cursor: not-allowed;
             transform: none;
         }
 
-        .submit-btn .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
+        .steps-info {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
         }
 
-        .submit-btn.loading .spinner { display: block; }
-        .submit-btn.loading .btn-text { display: none; }
+        .steps-info h4 {
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
 
-        .secure-badge {
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #27ae60;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
-        .note-box {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #856404;
-        }
-
-        body.dark-mode .note-box {
-            background: rgba(255, 193, 7, 0.1);
-            border-color: rgba(255, 193, 7, 0.3);
-            color: #ffc107;
-        }
-
-        .note-box i {
-            margin-right: 8px;
-        }
-
-        /* Back Link */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--light-text-secondary);
-            text-decoration: none;
+        .step-item p {
+            color: #475569;
             font-size: 14px;
-            margin-bottom: 20px;
-            transition: color 0.3s;
         }
 
-        body.dark-mode .back-link {
-            color: var(--dark-text-secondary);
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
         }
 
         .back-link:hover {
-            color: var(--primary-brand);
+            text-decoration: underline;
         }
 
-        /* Alert */
-        .alert {
-            padding: 14px 16px;
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e293b;
+            color: white;
+            padding: 15px 25px;
             border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
             display: none;
             align-items: center;
             gap: 10px;
+            z-index: 1000;
         }
 
-        .alert.show { display: flex; }
-
-        .alert-error {
-            background: rgba(220,53,69,0.1);
-            color: #c0392b;
-            border: 1px solid rgba(220,53,69,0.2);
+        .toast.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
         }
 
-        .alert-success {
-            background: rgba(0,184,148,0.1);
-            color: #00a884;
-            border: 1px solid rgba(0,184,148,0.2);
+        .toast.success {
+            background: #10b981;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Upgrade to Premium</h1>
+            <p>Unlock all tests and boost your exam preparation</p>
+        </div>
 
-<!-- Toast -->
-<div class="toast" id="toast">
-    <i class="fas fa-check-circle" id="toastIcon"></i>
-    <span id="toastMessage">Success!</span>
-</div>
-
-<!-- Navigation -->
-<nav class="top-nav">
-    <a href="index.html" class="brand-logo">EXAM-AXIS</a>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-</nav>
-
-<!-- Main Container -->
-<div class="payment-container">
-    
-    <!-- QR Code Card -->
-    <div class="qr-card">
-        <div class="qr-header">
-            <h2>🎓 Exam-Axis Premium</h2>
-            <div class="amount">₹99</div>
-        </div>
-        
-        <div class="qr-image-container">
-<img src="images/qr-code.jpg" alt="Payment QR Code" id="qrImage">        </div>
-        
-        <div class="upi-details">
-            <p>UPI ID</p>
-            <div class="upi-id">
-                <span id="upiId">rajeshbhadu2627-1@okhdfcbank</span>
-                <button class="copy-btn" onclick="copyUPI()">
-                    <i class="fas fa-copy"></i> Copy
-                </button>
-            </div>
-            <p class="payment-name">Rajesh Bhadu</p>
-        </div>
-        
-        <p class="scan-text">
-            <i class="fas fa-qrcode"></i> Scan with any UPI app
-        </p>
-        
-        <div class="upi-apps">
-            <span>GPay</span>
-            <span>PhonePe</span>
-            <span>Paytm</span>
-            <span>BHIM</span>
-        </div>
-    </div>
-    
-    <!-- Form Card -->
-    <div class="form-card">
-        <a href="pricing.html" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to Pricing
-        </a>
-        
-        <div class="form-header">
-            <h2><i class="fas fa-receipt"></i> Submit Payment Details</h2>
-            <p>After making payment, fill the details below for verification</p>
-        </div>
-        
-        <div class="steps">
-            <div class="step active">
-                <div class="step-number">1</div>
-                <div class="step-text">Pay ₹99</div>
-            </div>
-            <div class="step active">
-                <div class="step-number">2</div>
-                <div class="step-text">Fill Details</div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-text">Get Premium</div>
-            </div>
-        </div>
-        
-        <!-- Alert -->
-        <div class="alert alert-error" id="errorAlert">
-            <i class="fas fa-exclamation-circle"></i>
-            <span id="errorMessage"></span>
-        </div>
-        
-        <div class="alert alert-success" id="successAlert">
-            <i class="fas fa-check-circle"></i>
-            <span id="successMessage"></span>
-        </div>
-        
-        <form id="paymentForm">
-            <div class="form-group">
-                <label>Email Address <span class="required">*</span></label>
-                <div class="input-wrapper">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control" id="email" 
-                           placeholder="Your registered email" required>
+        <div class="content-grid">
+            <!-- Pricing Card -->
+            <div class="card pricing-card">
+                <div class="price-tag">
+                    <div class="old-price">₹299</div>
+                    <div class="new-price">₹99</div>
+                    <div class="period">Lifetime Access</div>
                 </div>
-                <p class="help-text">
-                    <i class="fas fa-info-circle"></i>
-                    Use the email you registered with on Exam-Axis
-                </p>
-            </div>
-            
-            <div class="form-group">
-                <label>Phone Number (Optional)</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-phone"></i>
-                    <input type="tel" class="form-control" id="phone" 
-                           placeholder="Your phone number">
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>All Premium Mock Tests</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>SSC CGL, CHSL, MTS, CPO Tests</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Previous Year Papers</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Detailed Solutions</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Performance Analytics</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>All India Ranking</span>
+                    </div>
+                </div>
+
+                <div class="qr-section">
+                    <h3 style="margin-bottom: 15px; color: #1e293b;">Scan to Pay</h3>
+                    <div class="qr-code">
+                        <!-- Replace with your actual QR code -->
+<img src="images/qr-code.jpg" alt="Payment QR Code">
+
+                    </div>
+                    
+                    <div class="upi-id">
+                        <label>UPI ID</label>
+                        <div class="upi-id-text">
+                            <span id="upiId">rajeshbhadu0406@okhdfcbank
+
+</span>
+                            <button class="copy-btn" onclick="copyUPI()">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label>UPI Transaction ID / UTR <span class="required">*</span></label>
-                <div class="input-wrapper">
-                    <i class="fas fa-hashtag"></i>
-                    <input type="text" class="form-control" id="transactionId" 
-                           placeholder="e.g., 1234567890 or UTR number" required>
-                </div>
-                <p class="help-text">
-                    <i class="fas fa-info-circle"></i>
-                    Find this in your UPI app payment history
-                </p>
-            </div>
-            
-            <button type="submit" class="submit-btn" id="submitBtn">
-                <span class="btn-text"><i class="fas fa-paper-plane"></i> Submit for Verification</span>
-                <span class="spinner"></span>
-            </button>
-        </form>
-        
-        <div class="secure-badge">
-            <i class="fas fa-shield-alt"></i>
-            <span>Your payment details are secure</span>
-        </div>
-        
-        <div class="note-box">
-            <i class="fas fa-clock"></i>
-            <strong>Verification Time:</strong> Usually within 1-2 hours during business hours. 
-            You'll receive an email once your premium access is activated.
-        </div>
-    </div>
-    
-</div>
 
-<script>
-    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:5000/api'
-        : 'https://exam-axis-backend.vercel.app/api';
-
-    // Theme toggle
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-    
-    // Apply saved theme
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.querySelector('.theme-toggle').textContent = '☀️';
-    }
-    
-    // Copy UPI ID
-    function copyUPI() {
-        const upiId = document.getElementById('upiId').textContent;
-        navigator.clipboard.writeText(upiId).then(() => {
-            showToast('UPI ID copied!', 'success');
-        }).catch(() => {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = upiId;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            showToast('UPI ID copied!', 'success');
-        });
-    }
-    
-    // Toast notification
-    function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-        const toastIcon = document.getElementById('toastIcon');
-        
-        toastMessage.textContent = message;
-        
-        const icons = {
-            success: 'fa-check-circle',
-            error: 'fa-times-circle',
-            info: 'fa-info-circle'
-        };
-        
-        toast.className = `toast show ${type}`;
-        toastIcon.className = `fas ${icons[type] || icons.success}`;
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    }
-    
-    // Show/hide alerts
-    function showError(message) {
-        document.getElementById('errorMessage').textContent = message;
-        document.getElementById('errorAlert').classList.add('show');
-        document.getElementById('successAlert').classList.remove('show');
-    }
-    
-    function showSuccess(message) {
-        document.getElementById('successMessage').textContent = message;
-        document.getElementById('successAlert').classList.add('show');
-        document.getElementById('errorAlert').classList.remove('show');
-    }
-    
-    function hideAlerts() {
-        document.getElementById('errorAlert').classList.remove('show');
-        document.getElementById('successAlert').classList.remove('show');
-    }
-    
-    // Pre-fill email if logged in
-    function prefillEmail() {
-        const user = localStorage.getItem('user');
-        if (user) {
-            try {
-                const userData = JSON.parse(user);
-                if (userData.email) {
-                    document.getElementById('email').value = userData.email;
-                }
-            } catch (e) {
-                console.log('Could not parse user data');
-            }
-        }
-    }
-    
-    prefillEmail();
-    
-    // Form submission
-    document.getElementById('paymentForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const transactionId = document.getElementById('transactionId').value.trim();
-        const btn = document.getElementById('submitBtn');
-        
-        hideAlerts();
-        
-        // Validation
-        if (!email) {
-            showError('Please enter your email address');
-            return;
-        }
-        
-        if (!transactionId) {
-            showError('Please enter the transaction ID');
-            return;
-        }
-        
-        if (transactionId.length < 6) {
-            showError('Please enter a valid transaction ID');
-            return;
-        }
-        
-        btn.classList.add('loading');
-        btn.disabled = true;
-        
-        try {
-            const response = await fetch(`${API_URL}/payment/submit`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    phone,
-                    transactionId
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                showSuccess(data.message);
-                showToast('Payment submitted successfully!', 'success');
+            <!-- Payment Form -->
+            <div class="card form-card">
+                <h2>Submit Payment Details</h2>
                 
-                // Redirect to pending page after 2 seconds
-                setTimeout(() => {
-                    window.location.href = `payment-pending.html?email=${encodeURIComponent(email)}`;
-                }, 2000);
-            } else {
-                showError(data.message || 'Failed to submit payment');
-            }
-        } catch (error) {
-            console.error('Payment submission error:', error);
-            showError('Network error. Please try again.');
-        }
-        
-        btn.classList.remove('loading');
-        btn.disabled = false;
-    });
-</script>
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        <small>Use the same email you registered with</small>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="9876543210">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transactionId">Transaction ID / UTR Number *</label>
+                        <input type="text" id="transactionId" name="transactionId" required placeholder="Enter 12-digit UTR">
+                        <small>Find this in your payment app after successful payment</small>
+                    </div>
+<div class="form-group">
+    <label for="screenshot">Payment Screenshot *</label>
+    <input 
+        type="file" 
+        id="screenshot" 
+        name="screenshot" 
+        accept="image/*" 
+        required
+    >
+    <small>Upload payment confirmation screenshot (JPG/PNG)</small>
+</div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Submit Payment
+                    </button>
+                </form>
+
+                <div class="steps-info">
+                    <h4>How to complete payment:</h4>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <p>Scan the QR code or copy UPI ID</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <p>Pay ₹99 using any UPI app</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <p>Copy the Transaction ID from payment confirmation</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <p>Fill the form above and submit</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <center>
+            <a href="dashboard.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </center>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle" id="toastIcon"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script>
+        // Configuration
+        const API_URL = (function() {
+            const hostname = window.location.hostname;
+            if (hostname === 'localhost' || hostname === '127.0.0.1') {
+                return 'http://localhost:5000/api';
+            }
+            return 'https://exam-axis-backend.vercel.app/api';
+        })();
+
+        // Pre-fill email if user is logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.email) {
+                document.getElementById('email').value = user.email;
+            }
+        });
+
+        // Copy UPI ID
+        function copyUPI() {
+            const upiId = document.getElementById('upiId').textContent;
+            navigator.clipboard.writeText(upiId).then(() => {
+                showToast('UPI ID copied!', 'success');
+            });
+        }
+
+        // Form submission
+       document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const transactionId = document.getElementById('transactionId').value.trim();
+    const screenshot = document.getElementById('screenshot').files[0];
+
+    if (!email || !transactionId || !screenshot) {
+        showToast('Please fill all required fields', 'error');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('transactionId', transactionId);
+    formData.append('screenshot', screenshot);
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    try {
+        const response = await fetch(`${API_URL}/payment/submit`, {
+            method: 'POST',
+            body: formData   // ❗ NO headers here
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast('Payment submitted successfully!', 'success');
+            setTimeout(() => {
+                window.location.href = `payment-pending.html?email=${encodeURIComponent(email)}`;
+            }, 1500);
+        } else {
+            showToast(data.message || 'Submission failed', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Payment';
+        }
+    } catch (error) {
+        console.error(error);
+        showToast('Network error. Please try again.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Payment';
+    }
+});
+
+        // Toast function
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMessage.textContent = message;
+            toastIcon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-times-circle';
+            toast.className = `toast show ${type}`;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
