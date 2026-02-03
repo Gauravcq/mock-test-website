@@ -2886,17 +2886,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ==================== TELEGRAM FLOAT BUTTON FUNCTIONS ====================
 function initializeTelegramFloatButton() {
-    alert('Initializing Telegram float button...');
     const telegramBtn = document.getElementById('telegramFloatBtn');
-    if (!telegramBtn) {
-        alert('Telegram button not found!');
+    if (!telegramBtn) return;
+
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    if (!token) {
+        telegramBtn.classList.add('hidden');
         return;
     }
-    alert('Telegram button found: ' + telegramBtn.className);
 
     // Check if user is premium
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    alert('User data: ' + JSON.stringify(user));
+    console.log('User data for Telegram button:', user);
     const isPremium = 
         user.plan === 'premium' || 
         user.isPremium === true || 
@@ -2909,27 +2911,23 @@ function initializeTelegramFloatButton() {
         (user.plan && user.plan.toLowerCase().includes('premium')) ||
         (user.subscription && user.subscription.toLowerCase().includes('premium'));
 
-    alert('Is premium: ' + isPremium);
+    console.log('Is premium for Telegram button:', isPremium);
 
     // Only show button for premium users
     if (!isPremium) {
         telegramBtn.classList.add('hidden');
-        alert('Button hidden - not premium');
         return;
     }
 
     // Check if already joined - if yes, hide button completely
     const hasJoined = localStorage.getItem('telegramJoined') === 'true';
-    alert('Has joined: ' + hasJoined);
     if (hasJoined) {
         telegramBtn.classList.add('joined');
-        alert('Button hidden - already joined');
         return;
     }
 
     // Show button for premium users who haven't joined
     telegramBtn.title = 'Join Premium Telegram Group';
-    alert('Button should be visible now!');
 }
 
 function handleTelegramFloatClick() {
@@ -2965,6 +2963,7 @@ async function checkAndUpdatePremiumButton() {
     
     // Get user data from localStorage (same logic as other functions)
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log('User data for premium button:', user);
     const isPremium = 
         user.plan === 'premium' || 
         user.isPremium === true || 
@@ -2976,6 +2975,8 @@ async function checkAndUpdatePremiumButton() {
         user.access === 'premium' ||
         (user.plan && user.plan.toLowerCase().includes('premium')) ||
         (user.subscription && user.subscription.toLowerCase().includes('premium'));
+    
+    console.log('Is premium for button:', isPremium);
     
     if (isPremium) {
         const btn = document.getElementById('goPremiumBtn');
