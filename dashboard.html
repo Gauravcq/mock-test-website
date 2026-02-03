@@ -1200,13 +1200,30 @@
             }
 
             updateUserInfo() {
-                console.log('Updating user info with data:', this.userData);
-                const userName = this.userData.name || this.userData.email?.split('@')[0] || this.userData.username || 'Student';
+                console.log('=== DASHBOARD USER INFO DEBUG ===');
+                console.log('Full user data:', JSON.stringify(this.userData, null, 2));
+                console.log('Available fields:', Object.keys(this.userData));
+                console.log('Name field:', this.userData.name);
+                console.log('Email field:', this.userData.email);
+                console.log('Username field:', this.userData.username);
+                console.log('FullName field:', this.userData.fullName);
+                
+                // Try multiple possible name fields
+                const userName = this.userData.name || 
+                               this.userData.fullName || 
+                               this.userData.username || 
+                               this.userData.email?.split('@')[0] || 
+                               'Student';
+                
                 const firstLetter = userName.charAt(0).toUpperCase();
                 
-                console.log('Username:', userName, 'First letter:', firstLetter);
+                console.log('Final username:', userName);
+                console.log('Final first letter:', firstLetter);
+                
                 document.getElementById('userName').textContent = userName;
                 document.getElementById('userAvatar').textContent = firstLetter;
+                
+                console.log('=== END DEBUG ===');
             }
 
             updateStats() {
