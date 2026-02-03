@@ -7,15 +7,33 @@ class TelegramIntegration {
     static isUserPremium() {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         
+        // Log user data for debugging
+        console.log('Checking premium status for user:', user);
+        
         // Multiple ways to check premium status
         const isPremium = 
             user.plan === 'premium' || 
             user.isPremium === true || 
             user.subscription === 'premium' ||
             user.premium === true ||
-            user.role === 'premium';
+            user.role === 'premium' ||
+            user.userType === 'premium' ||
+            user.membership === 'premium' ||
+            user.access === 'premium' ||
+            (user.plan && user.plan.toLowerCase().includes('premium')) ||
+            (user.subscription && user.subscription.toLowerCase().includes('premium'));
         
-        console.log('Premium check:', { user, isPremium });
+        console.log('Premium check result:', { user, isPremium, checks: {
+            plan: user.plan,
+            isPremium: user.isPremium,
+            subscription: user.subscription,
+            premium: user.premium,
+            role: user.role,
+            userType: user.userType,
+            membership: user.membership,
+            access: user.access
+        }});
+        
         return isPremium;
     }
     
@@ -284,7 +302,10 @@ class TelegramIntegration {
         console.log('Initializing Telegram Integration...');
         
         // Check user premium status
-        if (this.isUserPremium()) {
+        const isPremium = this.isUserPremium();
+        console.log('User premium status:', isPremium);
+        
+        if (isPremium) {
             console.log('User is premium, checking telegram status...');
             
             // Show popup if not joined
@@ -294,11 +315,30 @@ class TelegramIntegration {
                 setTimeout(() => {
                     this.showTelegramPopup();
                 }, 2000);
+            } else {
+                console.log('User already joined telegram');
+            }
+        } else {
+            console.log('User is not premium, not showing popup');
+            
+            // For testing - you can manually trigger popup
+            // Remove this in production if needed
+            if (window.location.search.includes('testtelegram=true')) {
+                console.log('Test mode - showing telegram popup');
+                setTimeout(() => {
+                    this.showTelegramPopup();
+                }, 1000);
             }
         }
         
         // Initialize dashboard-specific section if on dashboard
         this.initializeTelegramSection();
+    }
+    
+    // Manual trigger for testing (call from console: TelegramIntegration.forceShowPopup())
+    static forceShowPopup() {
+        console.log('Force showing telegram popup for testing');
+        this.createTelegramPopup();
     }
     
     // Show telegram section for premium users only (dashboard specific)

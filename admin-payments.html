@@ -278,43 +278,105 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .section-title {
-            font-size: 22px;
+        .header-actions {
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .refresh-btn {
-            background: var(--light-card-bg);
-            border: 1px solid var(--light-border);
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
+        .payment-search-container {
             display: flex;
+            gap: 10px;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            color: var(--light-text-primary);
         }
 
-        body.dark-mode .refresh-btn {
-            background: var(--dark-card-bg);
+        .payment-search-input {
+            padding: 12px 15px;
+            border: 2px solid var(--light-border);
+            border-radius: 10px;
+            background: var(--light-bg);
+            color: var(--light-text-primary);
+            font-size: 14px;
+            min-width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .payment-search-input {
+            background: var(--dark-bg);
             border-color: var(--dark-border);
             color: var(--dark-text-primary);
         }
 
-        .refresh-btn:hover {
+        .payment-search-input:focus {
+            outline: none;
             border-color: var(--primary-brand);
-            color: var(--primary-brand);
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .payment-search-input::placeholder {
+            color: var(--light-text-secondary);
+        }
+
+        body.dark-mode .payment-search-input::placeholder {
+            color: var(--dark-text-secondary);
+        }
+
+        .clear-search-btn {
+            background: var(--light-bg);
+            color: var(--light-text-primary);
+            border: 1px solid var(--light-border);
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        body.dark-mode .clear-search-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text-primary);
+            border-color: var(--dark-border);
+        }
+
+        .clear-search-btn:hover {
+            background: var(--primary-brand);
+            color: white;
+            border-color: var(--primary-brand);
+            transform: translateY(-1px);
+        }
+
+        .refresh-btn {
+            background: var(--primary-brand);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .refresh-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         .refresh-btn.loading i {
@@ -1007,9 +1069,21 @@
         <h2 class="section-title">
             <i class="fas fa-list"></i> Payment Requests
         </h2>
-        <button class="refresh-btn" id="refreshBtn" onclick="loadPayments()">
-            <i class="fas fa-sync-alt"></i> Refresh
-        </button>
+        <div class="header-actions">
+            <div class="payment-search-container">
+                <input 
+                    type="text" 
+                    id="paymentSearchInput" 
+                    placeholder="🔍 Search by email, transaction ID, or phone..."
+                    class="payment-search-input"
+                    onkeyup="searchPayments()"
+                >
+                <button class="clear-search-btn" onclick="clearPaymentSearch()">✖ Clear</button>
+            </div>
+            <button class="refresh-btn" id="refreshBtn" onclick="loadPayments()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
     </div>
     
     <!-- Tabs -->
@@ -1644,6 +1718,94 @@
             closeRejectModal();
         }
     });
+
+    // ========== PAYMENT SEARCH FUNCTIONALITY ==========
+
+    // Global variable to store all payments for search
+    let allPaymentsData = [];
+
+    // Update the loadPayments function to store all payments
+    const originalLoadPayments = loadPayments;
+    loadPayments = async function() {
+        await originalLoadPayments();
+        // Store all payments for search
+        allPaymentsData = [...allPayments];
+    };
+
+    // Search payments function
+    function searchPayments() {
+        const searchInput = document.getElementById('paymentSearchInput');
+        if (!searchInput || !allPaymentsData.length) return;
+
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        if (searchTerm === '') {
+            // If search is empty, show filtered payments by current tab
+            filterPayments(currentFilter);
+            return;
+        }
+
+        // Filter payments based on search term
+        const filteredPayments = allPaymentsData.filter(payment => {
+            // Search by email
+            const email = (payment.email || '').toLowerCase();
+            // Search by transaction ID
+            const transactionId = (payment.transactionId || payment.transaction_id || '').toLowerCase();
+            // Search by phone
+            const phone = (payment.phone || payment.mobile || '').toLowerCase();
+
+            return email.includes(searchTerm) ||
+                   transactionId.includes(searchTerm) ||
+                   phone.includes(searchTerm);
+        });
+
+        // Apply current filter to search results
+        const finalFiltered = filterPaymentsByStatus(filteredPayments, currentFilter);
+        renderPayments(finalFiltered);
+
+        // Update empty state message for search
+        const emptyState = document.getElementById('emptyState');
+        if (finalFiltered.length === 0) {
+            const container = document.getElementById('paymentsList');
+            container.innerHTML = '';
+            emptyState.style.display = 'block';
+            emptyState.innerHTML = `
+                <div class="icon">🔍</div>
+                <h3>No payments found</h3>
+                <p>No payments match your search criteria: "${searchTerm}"</p>
+            `;
+        }
+    }
+
+    // Clear search function
+    function clearPaymentSearch() {
+        const searchInput = document.getElementById('paymentSearchInput');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        // Reset to show all payments for current filter
+        filterPayments(currentFilter);
+    }
+
+    // Helper function to filter payments by status
+    function filterPaymentsByStatus(payments, status) {
+        if (status === 'all') {
+            return payments;
+        }
+        return payments.filter(payment => payment.status === status);
+    }
+
+    // Add event listener to search input
+    const searchInput = document.getElementById('paymentSearchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', searchPayments);
+    }
+
+    // Add event listener to clear search button
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', clearPaymentSearch);
+    }
 </script>
 
 </body>
