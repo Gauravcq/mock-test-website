@@ -2880,6 +2880,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializeWithPremiumCheck();
     
+    // Update premium button
+    checkAndUpdatePremiumButton();
+    
     // Load history in background (non-blocking)
     requestIdleCallback ? requestIdleCallback(loadHistory) : setTimeout(loadHistory, 100);
 });
