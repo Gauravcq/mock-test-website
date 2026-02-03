@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Exam-Axis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        
+        .profile-section {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        
+        .avatar-section {
+            text-align: center;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .info-section h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #1e293b;
+            font-weight: 600;
+        }
+        
+        .back-btn {
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .back-btn:hover {
+            background: #5558e3;
+        }
+        
+        .premium-badge {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .free-badge {
+            background: #64748b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Profile</h1>
+            <p style="color: #64748b;">Manage your account information</p>
+        </div>
+        
+        <div class="profile-section">
+            <div class="avatar-section">
+                <div class="avatar" id="userAvatar">?</div>
+                <h3 id="userName">Loading...</h3>
+                <span id="userBadge" class="free-badge">Free User</span>
+            </div>
+            
+            <div class="info-section">
+                <h3>Account Information</h3>
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <span class="info-value" id="userEmail">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Phone</span>
+                    <span class="info-value" id="userPhone">Not provided</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Plan</span>
+                    <span class="info-value" id="userPlan">Free</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Member Since</span>
+                    <span class="info-value" id="memberSince">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tests Completed</span>
+                    <span class="info-value" id="testsCompleted">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <center>
+            <a href="dashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </center>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script>
+        // Load user profile data
+        async function loadProfile() {
+            try {
+                // Get user from localStorage
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                
+                if (!user.email) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+                
+                // Update UI with user data
+                document.getElementById('userName').textContent = user.name || user.email.split('@')[0] || 'User';
+                document.getElementById('userEmail').textContent = user.email;
+                document.getElementById('userPhone').textContent = user.phone || 'Not provided';
+                
+                // Update avatar with first letter
+                const firstLetter = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                document.getElementById('userAvatar').textContent = firstLetter;
+                
+                // Update plan badge
+                const isPremium = user.plan === 'premium' || user.isPremium === true;
+                const badgeElement = document.getElementById('userBadge');
+                const planElement = document.getElementById('userPlan');
+                
+                if (isPremium) {
+                    badgeElement.className = 'premium-badge';
+                    badgeElement.textContent = 'Premium User';
+                    planElement.textContent = 'Premium';
+                } else {
+                    badgeElement.className = 'free-badge';
+                    badgeElement.textContent = 'Free User';
+                    planElement.textContent = 'Free';
+                }
+                
+                // Set member since date
+                const joinDate = user.createdAt || user.joinDate || new Date().toISOString();
+                const date = new Date(joinDate);
+                document.getElementById('memberSince').textContent = date.toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // Load test statistics
+                try {
+                    const stats = await ExamAxisAPI.getUserStats();
+                    if (stats.success) {
+                        document.getElementById('testsCompleted').textContent = stats.data?.testsCompleted || 0;
+                    }
+                } catch (error) {
+                    console.log('Could not load test statistics');
+                }
+                
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                alert('Failed to load profile. Please try again.');
+            }
+        }
+        
+        // Load profile when page loads
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>
