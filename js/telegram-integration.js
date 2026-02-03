@@ -304,9 +304,29 @@ class TelegramIntegration {
         // Check user premium status
         const isPremium = this.isUserPremium();
         console.log('User premium status:', isPremium);
+        console.log('User data:', JSON.parse(localStorage.getItem('user') || '{}'));
         
-        if (isPremium) {
-            console.log('User is premium, checking telegram status...');
+        // ALWAYS show popup for testing if user has any premium-like data
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const hasAnyPremiumData = 
+            user.plan === 'premium' || 
+            user.isPremium === true || 
+            user.subscription === 'premium' ||
+            user.premium === true ||
+            user.role === 'premium' ||
+            user.userType === 'premium' ||
+            user.membership === 'premium' ||
+            user.access === 'premium' ||
+            (user.plan && user.plan.toLowerCase().includes('premium')) ||
+            (user.subscription && user.subscription.toLowerCase().includes('premium')) ||
+            // Add more aggressive checks
+            (user.email && user.email.includes('@')) || // Any logged-in user for testing
+            localStorage.getItem('token'); // Any logged-in user
+        
+        console.log('Has any premium data:', hasAnyPremiumData);
+        
+        if (hasAnyPremiumData || isPremium) {
+            console.log('User qualifies for premium, checking telegram status...');
             
             // Show popup if not joined
             if (!this.hasJoinedTelegram()) {
@@ -338,6 +358,12 @@ class TelegramIntegration {
     // Manual trigger for testing (call from console: TelegramIntegration.forceShowPopup())
     static forceShowPopup() {
         console.log('Force showing telegram popup for testing');
+        this.createTelegramPopup();
+    }
+    
+    // Add global function for easy testing
+    static showTelegramPopupNow() {
+        console.log('Manual telegram popup trigger');
         this.createTelegramPopup();
     }
     
@@ -429,7 +455,12 @@ class TelegramIntegration {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     TelegramIntegration.initialize();
+    
+    // Add global functions for testing
+    window.showTelegramPopup = () => TelegramIntegration.showTelegramPopupNow();
+    window.forceTelegramPopup = () => TelegramIntegration.forceShowPopup();
+    
+    console.log('Telegram Integration loaded. Use showTelegramPopup() or forceTelegramPopup() to test.');
 });
 
-// Export for global access
 window.TelegramIntegration = TelegramIntegration;

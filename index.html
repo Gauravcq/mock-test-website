@@ -2523,6 +2523,21 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const attempt = historyMap[String(test.id)];
         
+        // Debug logging for maths tests
+        if (test.id && (test.id.toLowerCase().includes('maths') || test.id.toLowerCase().includes('math'))) {
+            console.log('Maths test attempt data:', {
+                testId: test.id,
+                attempt: attempt,
+                hasAttempt: !!attempt,
+                score: attempt?.score,
+                totalMarks: attempt?.totalMarks,
+                maxScore: attempt?.maxScore,
+                totalQuestions: attempt?.totalQuestions,
+                correctAnswers: attempt?.correctAnswers,
+                allFields: attempt ? Object.keys(attempt) : []
+            });
+        }
+        
         // Check premium access status
         const accessStatus = window.PremiumAccess ? 
             PremiumAccess.getTestAccessStatusSync(test, ALL_TESTS) : 
@@ -2551,7 +2566,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const lastScoreHtml = isHistoryLoaded 
             ? (attempt && !isLocked
-                ? `<div class="last-score">Last score: <strong>${attempt.score}/${attempt.maxScore}</strong></div>`
+                ? `<div class="last-score">Last score: <strong>${attempt.score || attempt.totalMarks || 0}/${attempt.maxScore || attempt.totalQuestions || 100}</strong></div>`
                 : `<div class="last-score not-attempted">${isLocked ? 'Unlock with Premium' : 'Not attempted yet'}</div>`)
             : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading...</div>`;
 

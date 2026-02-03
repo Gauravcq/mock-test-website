@@ -1679,12 +1679,14 @@ body.results-scroll {
 
     if (testId) {
         const lowerTestId = testId.toLowerCase();
-        if (lowerTestId.includes('reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
+        if (lowerTestId.includes('maths') || lowerTestId.includes('math') || lowerTestId.includes('mat')) {
+            subjectName = 'Maths'; 
+        } else if (lowerTestId.includes('reasoning') || lowerTestId.includes('logic') || lowerTestId.includes('reas') || lowerTestId.includes('r')) {
             subjectName = 'Reasoning'; 
         } else if (lowerTestId.includes('english') || lowerTestId.includes('verbal') || lowerTestId.includes('eng')) {
             subjectName = 'English'; 
         } else {
-            subjectName = 'Maths'; 
+            subjectName = 'Maths'; // Default to Maths
         }
     }
     
