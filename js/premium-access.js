@@ -217,7 +217,7 @@
                 <div class="premium-modal">
                     <div class="premium-modal-header">
                         <span class="premium-crown">👑</span>
-                        <h2>Premium Content</h2>
+                        <h2>Unlock Premium Test</h2>
                     </div>
                     <div class="premium-modal-body">
                         <p>This test is available for <strong>Premium Members</strong> only.</p>
@@ -229,14 +229,17 @@
                             <div class="benefit-item">✓ Performance Analytics</div>
                         </div>
                         <div class="premium-price">
-                            <span class="old-price">₹299</span>
-                            <span class="new-price">₹99</span>
-                            <span class="lifetime">Lifetime Access</span>
+                            <div class="price-tag">
+                                <span class="old-price">₹299</span>
+                                <span class="new-price">₹99</span>
+                                <span class="lifetime-badge">LIFETIME</span>
+                            </div>
+                            <p class="price-description">One-time payment, lifetime access</p>
                         </div>
                     </div>
                     <div class="premium-modal-footer">
                         <button class="btn-upgrade" onclick="window.location.href='payment.html'">
-                            🚀 Upgrade to Premium
+                            🚀 Upgrade for ₹99
                         </button>
                         <button class="btn-close" onclick="PremiumAccess.closeModal()">
                             Maybe Later

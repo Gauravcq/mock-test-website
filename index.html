@@ -2095,27 +2095,47 @@
 }
 
 .premium-price {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.premium-price .price-tag {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .premium-price .old-price {
     color: var(--text-muted);
     text-decoration: line-through;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .premium-price .new-price {
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 800;
     color: #f59e0b;
+    text-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
 }
 
-.premium-price .lifetime {
+.premium-price .lifetime-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.premium-price .price-description {
     color: var(--text-secondary);
     font-size: 14px;
+    margin: 0;
+    font-weight: 500;
 }
 
 .premium-modal-footer {
