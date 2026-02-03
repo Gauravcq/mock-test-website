@@ -1429,9 +1429,19 @@
         if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
             const apiBase = API_URL.replace(/\/$/, '');
             if (fullUrl.startsWith('/')) {
-                fullUrl = apiBase + fullUrl;
+                // If it starts with /uploads/, add /api/ prefix
+                if (fullUrl.startsWith('/uploads/')) {
+                    fullUrl = apiBase + '/api' + fullUrl;
+                } else {
+                    fullUrl = apiBase + fullUrl;
+                }
             } else {
-                fullUrl = apiBase + '/uploads/' + fullUrl.replace(/^uploads\//i, '');
+                // If it doesn't start with /, assume it's a relative path
+                if (fullUrl.startsWith('uploads/')) {
+                    fullUrl = apiBase + '/api/' + fullUrl;
+                } else {
+                    fullUrl = apiBase + '/api/uploads/' + fullUrl;
+                }
             }
         }
 
