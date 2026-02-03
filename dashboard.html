@@ -634,7 +634,7 @@
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-link active">Dashboard</a>
                 <a href="index.html" class="nav-link">Tests</a>
-                <a href="payment.html" class="nav-link">Upgrade</a>
+                <a href="payment.html" class="nav-link" id="upgradeNavLink" style="display: none;">Upgrade</a>
                 <div class="user-menu">
                     <div class="user-avatar" id="userAvatar">?</div>
                 </div>
@@ -787,13 +787,13 @@
                     <i class="fas fa-play"></i>
                     Start Test
                 </a>
-                <a href="payment.html" class="action-btn success">
-                    <i class="fas fa-crown"></i>
-                    Upgrade
-                </a>
                 <a href="profile.html" class="action-btn">
                     <i class="fas fa-user"></i>
                     Profile
+                </a>
+                <a href="payment.html" class="action-btn success" id="upgradeActionBtn" style="display: none;">
+                    <i class="fas fa-crown"></i>
+                    Upgrade
                 </a>
                 <a href="#" class="action-btn warning" onclick="showToast('Coming soon!', 'info'); return false;">
                     <i class="fas fa-chart-line"></i>
@@ -876,12 +876,61 @@
                     const testHistory = JSON.parse(localStorage.getItem('testHistory') || '[]');
                     this.testHistory = testHistory;
 
+                    // Hide upgrade sections for premium users
+                    this.hideUpgradeForPremium();
+
                     // Calculate real stats from test history
                     this.calculateRealStats();
 
                 } catch (error) {
                     console.error('Error loading user data:', error);
                     this.showToast('Failed to load user data', 'error');
+                }
+            }
+
+            hideUpgradeForPremium() {
+                const user = this.userData;
+                const isPremium = 
+                    user.plan === 'premium' || 
+                    user.isPremium === true || 
+                    user.subscription === 'premium' ||
+                    user.premium === true ||
+                    user.role === 'premium' ||
+                    user.userType === 'premium' ||
+                    user.membership === 'premium' ||
+                    user.access === 'premium' ||
+                    (user.plan && user.plan.toLowerCase().includes('premium')) ||
+                    (user.subscription && user.subscription.toLowerCase().includes('premium'));
+
+                console.log('Checking premium status for upgrade hiding:', { user, isPremium });
+
+                if (isPremium) {
+                    // Hide upgrade navigation link
+                    const upgradeNavLink = document.getElementById('upgradeNavLink');
+                    if (upgradeNavLink) {
+                        upgradeNavLink.style.display = 'none';
+                    }
+
+                    // Hide upgrade action button
+                    const upgradeActionBtn = document.getElementById('upgradeActionBtn');
+                    if (upgradeActionBtn) {
+                        upgradeActionBtn.style.display = 'none';
+                    }
+
+                    console.log('Upgrade sections hidden for premium user');
+                } else {
+                    // Show upgrade sections for non-premium users
+                    const upgradeNavLink = document.getElementById('upgradeNavLink');
+                    if (upgradeNavLink) {
+                        upgradeNavLink.style.display = 'block';
+                    }
+
+                    const upgradeActionBtn = document.getElementById('upgradeActionBtn');
+                    if (upgradeActionBtn) {
+                        upgradeActionBtn.style.display = 'block';
+                    }
+
+                    console.log('Upgrade sections shown for non-premium user');
                 }
             }
 

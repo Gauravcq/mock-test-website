@@ -305,6 +305,16 @@ class TelegramIntegration {
         const isPremium = this.isUserPremium();
         console.log('User premium status:', isPremium);
         console.log('User data:', JSON.parse(localStorage.getItem('user') || '{}'));
+        console.log('Has token:', !!localStorage.getItem('token'));
+        
+        // FORCE SHOW POPUP FOR TESTING - Remove this line in production
+        if (localStorage.getItem('token')) {
+            console.log('User is logged in, showing popup for testing...');
+            setTimeout(() => {
+                this.showTelegramPopup();
+            }, 1000);
+            return;
+        }
         
         // ALWAYS show popup for testing if user has any premium-like data
         const user = JSON.parse(localStorage.getItem('user') || '{}');

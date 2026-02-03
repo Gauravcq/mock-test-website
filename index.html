@@ -2523,6 +2523,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const attempt = historyMap[String(test.id)];
         
+        // Function to get max score for test
+        function getMaxScoreForTest(test) {
+            // Full mock tests have 200 marks
+            if (currentSection === 'fullmock' || test.exam === 'CHSL_TOP_100_MATHS') {
+                return 200;
+            }
+            // Sectional tests have 50 marks
+            return 50;
+        }
+        
         // Debug logging for maths tests
         if (test.id && (test.id.toLowerCase().includes('maths') || test.id.toLowerCase().includes('math'))) {
             console.log('Maths test attempt data:', {
@@ -2534,6 +2544,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 maxScore: attempt?.maxScore,
                 totalQuestions: attempt?.totalQuestions,
                 correctAnswers: attempt?.correctAnswers,
+                wrongAnswers: attempt?.wrongAnswers,
+                unanswered: attempt?.unanswered,
                 allFields: attempt ? Object.keys(attempt) : []
             });
         }
@@ -2566,7 +2578,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const lastScoreHtml = isHistoryLoaded 
             ? (attempt && !isLocked
-                ? `<div class="last-score">Last score: <strong>${attempt.score || attempt.totalMarks || 0}/${attempt.maxScore || attempt.totalQuestions || 100}</strong></div>`
+                ? `<div class="last-score">Last score: <strong>${attempt.score || attempt.totalMarks || 0}/${attempt.totalMarks || getMaxScoreForTest(test)}</strong></div>`
                 : `<div class="last-score not-attempted">${isLocked ? 'Unlock with Premium' : 'Not attempted yet'}</div>`)
             : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading...</div>`;
 
