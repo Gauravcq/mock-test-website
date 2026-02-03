@@ -890,6 +890,9 @@
 
             hideUpgradeForPremium() {
                 const user = this.userData;
+                console.log('Dashboard checking premium status for user:', user);
+                
+                // Check multiple premium indicators (same logic as telegram integration)
                 const isPremium = 
                     user.plan === 'premium' || 
                     user.isPremium === true || 
@@ -900,9 +903,20 @@
                     user.membership === 'premium' ||
                     user.access === 'premium' ||
                     (user.plan && user.plan.toLowerCase().includes('premium')) ||
-                    (user.subscription && user.subscription.toLowerCase().includes('premium'));
+                    (user.subscription && user.subscription.toLowerCase().includes('premium')) ||
+                    (user.membership && user.membership.toLowerCase().includes('premium'));
 
-                console.log('Checking premium status for upgrade hiding:', { user, isPremium });
+                console.log('Dashboard premium check result:', {
+                    plan: user.plan,
+                    isPremium: user.isPremium,
+                    subscription: user.subscription,
+                    premium: user.premium,
+                    role: user.role,
+                    userType: user.userType,
+                    membership: user.membership,
+                    access: user.access,
+                    finalResult: isPremium
+                });
 
                 if (isPremium) {
                     // Hide upgrade navigation link
@@ -917,7 +931,7 @@
                         upgradeActionBtn.style.display = 'none';
                     }
 
-                    console.log('Upgrade sections hidden for premium user');
+                    console.log('Dashboard: Upgrade sections hidden for premium user');
                 } else {
                     // Show upgrade sections for non-premium users
                     const upgradeNavLink = document.getElementById('upgradeNavLink');
@@ -930,7 +944,7 @@
                         upgradeActionBtn.style.display = 'block';
                     }
 
-                    console.log('Upgrade sections shown for non-premium user');
+                    console.log('Dashboard: Upgrade sections shown for non-premium user');
                 }
             }
 
