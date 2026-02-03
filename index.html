@@ -1196,6 +1196,18 @@
             content: "📝";
         }
 
+        /* Availability label for scheduled premium tests */
+        .availability-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: -8px 0 12px;
+            text-align: center;
+        }
+
+        .availability-label.available-now {
+            color: var(--text-muted);
+        }
+
         /* Attempt Button */
         .attempt-btn {
             background: var(--cgl-gradient);
@@ -2307,6 +2319,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSection = 'sectional';
     let historyMap = {};
     let isHistoryLoaded = false;
+    // Availability schedule for premium tests on the homepage
+    const testAvailabilityMap = {};
     
     // ==================== PERFORMANCE: Debounce function ====================
     function debounce(func, wait) {
@@ -2486,6 +2500,40 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
     }
 
+    // ==================== AVAILABILITY SCHEDULE FOR PREMIUM TESTS ====================
+    /**
+     * Build availability schedule for premium tests in the current filtered view.
+     * First (free) test is available now; premium tests unlock with a 2-day gap
+     * starting 5 days from today: +5, +7, +9, +11, ...
+     */
+    function buildAvailabilitySchedule(testsForView) {
+        // Clear previous schedule
+        for (const key in testAvailabilityMap) {
+            if (Object.prototype.hasOwnProperty.call(testAvailabilityMap, key)) {
+                delete testAvailabilityMap[key];
+            }
+        }
+
+        if (!window.PremiumAccess || !Array.isArray(testsForView) || testsForView.length === 0) {
+            return;
+        }
+
+        const today = new Date();
+        // Base date: 5 days from today
+        const baseDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5);
+        let premiumIndex = 0;
+
+        testsForView.forEach((test) => {
+            const accessStatus = PremiumAccess.getTestAccessStatusSync(test, ALL_TESTS);
+            if (!accessStatus.isFree) {
+                const d = new Date(baseDate);
+                d.setDate(baseDate.getDate() + premiumIndex * 2); // 2-day gap between premium tests
+                testAvailabilityMap[test.id] = d.toISOString();
+                premiumIndex++;
+            }
+        });
+    }
+
     // ==================== PERFORMANCE: Use DocumentFragment for batch DOM updates ====================
     function generateCardHTML(test, index) {
         const fullTitle = test.date ? `${test.date} ${test.title}` : test.title;
@@ -2544,10 +2592,37 @@ document.addEventListener('DOMContentLoaded', () => {
             isLocked ? 'locked' : ''
         ].filter(Boolean).join(' ');
 
-        // Button - either starts test or shows premium modal
-        const buttonHtml = isLocked
-            ? `<a href="#" class="attempt-btn" onclick="PremiumAccess.handlePremiumTestClick(event, '${test.id}')">Unlock Test</a>`
-            : `<a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>`;
+        // Availability label for premium tests (only when scheduled)
+        let availabilityLabel = '';
+        let availabilityText = '';
+        let isBeforeAvailability = false;
+
+        const availabilityIso = testAvailabilityMap[test.id];
+        if (availabilityIso && !accessStatus.isFree) {
+            const availDate = new Date(availabilityIso);
+            const now = new Date();
+            availabilityText = availDate.toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'short'
+            });
+
+            if (now < availDate) {
+                isBeforeAvailability = true;
+                availabilityLabel = `<div class="availability-label">Available from <strong>${availabilityText}</strong></div>`;
+            } else {
+                availabilityLabel = `<div class="availability-label available-now">Available from ${availabilityText}</div>`;
+            }
+        }
+
+        // Button - either starts test, unlocks premium, or shows coming soon
+        let buttonHtml;
+        if (isBeforeAvailability && !accessStatus.isFree) {
+            buttonHtml = `<button class="attempt-btn coming-soon" disabled>Available from ${availabilityText}</button>`;
+        } else if (isLocked) {
+            buttonHtml = `<a href="#" class="attempt-btn" onclick="PremiumAccess.handlePremiumTestClick(event, '${test.id}')">Unlock Test</a>`;
+        } else {
+            buttonHtml = `<a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>`;
+        }
 
         return `
             <article class="${cardClasses}" 
@@ -2572,6 +2647,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 ${lastScoreHtml}
+                ${availabilityLabel}
                 ${buttonHtml}
             </article>`;
     }
@@ -2580,6 +2656,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayTests = debounce(function() {
         const filteredTests = getFilteredTests(currentExam, currentSubject, currentSection);
         
+        // Build availability schedule for premium tests in this view
+        buildAvailabilitySchedule(filteredTests);
+
         updateSectionCounts();
         updateSectionInfoBanner();
         
