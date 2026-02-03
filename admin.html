@@ -309,11 +309,40 @@
               <th>Role</th>
               <th>Plan</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="users-tbody">
             <tr>
-              <td colspan="6" style="text-align: center;">Loading users...</td>
+              <td colspan="7" style="text-align: center;">Loading users...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tests Management Section -->
+    <div class="section">
+      <div class="section-header">
+        <h2>📝 Test Management</h2>
+        <button class="btn btn-primary" onclick="loadTests()">🔄 Refresh Tests</button>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Test ID</th>
+              <th>Title</th>
+              <th>Subject</th>
+              <th>Exam</th>
+              <th>Status</th>
+              <th>Questions</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tests-tbody">
+            <tr>
+              <td colspan="7" style="text-align: center;">Loading tests...</td>
             </tr>
           </tbody>
         </table>

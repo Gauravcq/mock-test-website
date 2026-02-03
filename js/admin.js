@@ -53,7 +53,8 @@ async function initAdmin() {
 async function loadAllData() {
   await Promise.all([
     loadDashboardStats(),
-    loadUsers()
+    loadUsers(),
+    loadTests()
   ]);
 }
 
@@ -136,6 +137,75 @@ async function loadUsers() {
   }
 }
 
+// ==================== TESTS MANAGEMENT ====================
+
+async function loadTests() {
+  const tbody = document.getElementById('tests-tbody');
+  if (!tbody) return;
+
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Loading tests...</td></tr>';
+
+  try {
+    const result = await ExamAxisAPI.getAdminTests();
+
+    if (!result.success) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
+      return;
+    }
+
+    const tests = result.data?.tests || result.data || [];
+
+    if (tests.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No tests found</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = tests.map(test => `
+      <tr>
+        <td><code>${test.id || test.testId}</code></td>
+        <td>${test.title || test.name || 'N/A'}</td>
+        <td>${test.subject || 'N/A'}</td>
+        <td>${test.exam || 'N/A'}</td>
+        <td>
+          <span class="badge ${test.isActive !== false ? 'badge-active' : 'badge-inactive'}">
+            ${test.isActive !== false ? '✓ Active' : '✗ Locked'}
+          </span>
+        </td>
+        <td>${test.questionCount || test.questions?.length || 'N/A'}</td>
+        <td>
+          <button class="btn btn-primary" onclick="toggleTestStatus('${test.id || test.testId}')" style="padding: 5px 10px; font-size: 12px;">
+            ${test.isActive !== false ? '🔒 Lock' : '🔓 Unlock'}
+          </button>
+        </td>
+      </tr>
+    `).join('');
+
+  } catch (error) {
+    console.error('Load tests error:', error);
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">Failed to load tests</td></tr>';
+  }
+}
+
+async function toggleTestStatus(testId) {
+  if (!confirm(`Are you sure you want to ${event.target.textContent.includes('Lock') ? 'lock' : 'unlock'} this test?`)) {
+    return;
+  }
+
+  try {
+    const result = await ExamAxisAPI.toggleTestActive(testId);
+    
+    if (result.success) {
+      alert(`✅ Test ${result.data?.isActive ? 'unlocked' : 'locked'} successfully!`);
+      await loadTests(); // Refresh the tests list
+    } else {
+      alert(`❌ Error: ${result.message}`);
+    }
+  } catch (error) {
+    console.error('Toggle test status error:', error);
+    alert('❌ Failed to update test status');
+  }
+}
+
 // ==================== REFRESH DATA ====================
 
 async function refreshData() {
@@ -170,3 +240,5 @@ document.addEventListener('DOMContentLoaded', initAdmin);
 window.refreshData = refreshData;
 window.adminLogout = adminLogout;
 window.loadUsers = loadUsers;
+window.loadTests = loadTests;
+window.toggleTestStatus = toggleTestStatus;
