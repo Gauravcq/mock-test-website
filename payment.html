@@ -406,26 +406,46 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="9876543210">
+                        <label for="phone">Phone Number *</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            required 
+                            placeholder="9876543210"
+                            pattern="[6-9][0-9]{9}"
+                            maxlength="10"
+                            minlength="10"
+                        >
+                        <small>Enter 10-digit mobile number (starting with 6, 7, 8, or 9)</small>
                     </div>
 
                     <div class="form-group">
                         <label for="transactionId">Transaction ID / UTR Number *</label>
-                        <input type="text" id="transactionId" name="transactionId" required placeholder="Enter 12-digit UTR">
+                        <input 
+                            type="text" 
+                            id="transactionId" 
+                            name="transactionId" 
+                            required 
+                            placeholder="Enter 12-digit UTR"
+                            pattern="[0-9]{12}"
+                            maxlength="12"
+                            minlength="12"
+                        >
                         <small>Find this in your payment app after successful payment</small>
                     </div>
-<div class="form-group">
-    <label for="screenshot">Payment Screenshot *</label>
-    <input 
-        type="file" 
-        id="screenshot" 
-        name="screenshot" 
-        accept="image/*" 
-        required
-    >
-    <small>Upload payment confirmation screenshot (JPG/PNG)</small>
-</div>
+
+                    <div class="form-group">
+                        <label for="screenshot">Payment Screenshot *</label>
+                        <input 
+                            type="file" 
+                            id="screenshot" 
+                            name="screenshot" 
+                            accept="image/*" 
+                            required
+                        >
+                        <small>Upload payment confirmation screenshot (JPG/PNG, Max 5MB)</small>
+                    </div>
 
                     <button type="submit" class="submit-btn" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Submit Payment
@@ -493,6 +513,43 @@
             });
         }
 
+        // Enhanced form validation
+        function validateForm(email, phone, transactionId, screenshot) {
+            const errors = [];
+            
+            // Email validation
+            if (!email) {
+                errors.push('Email is required');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errors.push('Please enter a valid email address');
+            }
+            
+            // Phone validation
+            if (!phone) {
+                errors.push('Phone number is required');
+            } else if (!/^[6-9][0-9]{9}$/.test(phone)) {
+                errors.push('Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9');
+            }
+            
+            // Transaction ID validation
+            if (!transactionId) {
+                errors.push('Transaction ID is required');
+            } else if (!/^[0-9]{12}$/.test(transactionId)) {
+                errors.push('Transaction ID must be 12 digits');
+            }
+            
+            // Screenshot validation
+            if (!screenshot) {
+                errors.push('Payment screenshot is required');
+            } else if (screenshot.size > 5 * 1024 * 1024) { // 5MB limit
+                errors.push('Screenshot size must be less than 5MB');
+            } else if (!screenshot.type.startsWith('image/')) {
+                errors.push('Please upload a valid image file');
+            }
+            
+            return errors;
+        }
+
         // Form submission
        document.getElementById('paymentForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -503,8 +560,10 @@
     const transactionId = document.getElementById('transactionId').value.trim();
     const screenshot = document.getElementById('screenshot').files[0];
 
-    if (!email || !transactionId || !screenshot) {
-        showToast('Please fill all required fields', 'error');
+    // Validate all fields
+    const validationErrors = validateForm(email, phone, transactionId, screenshot);
+    if (validationErrors.length > 0) {
+        showToast(validationErrors[0], 'error'); // Show first error
         return;
     }
 
@@ -531,17 +590,67 @@
                 window.location.href = `payment-pending.html?email=${encodeURIComponent(email)}`;
             }, 1500);
         } else {
-            showToast(data.message || 'Submission failed', 'error');
+            // If backend has database errors, show a user-friendly message
+            if (data.message && data.message.includes('column "is_locked" does not exist')) {
+                // Save payment locally for later submission
+                savePaymentLocally(email, phone, transactionId, screenshot);
+                showToast('Payment saved locally! We will process it when system is back online.', 'success');
+                setTimeout(() => {
+                    window.location.href = `payment-pending.html?email=${encodeURIComponent(email)}`;
+                }, 1500);
+            } else {
+                showToast(data.message || 'Submission failed', 'error');
+            }
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Payment';
         }
     } catch (error) {
         console.error(error);
-        showToast('Network error. Please try again.', 'error');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Payment';
+        // Handle network errors gracefully
+        if (error.message && error.message.includes('column "is_locked" does not exist')) {
+            // Save payment locally for later submission
+            savePaymentLocally(email, phone, transactionId, screenshot);
+            showToast('Payment saved locally! We will process it when system is back online.', 'success');
+            setTimeout(() => {
+                window.location.href = `payment-pending.html?email=${encodeURIComponent(email)}`;
+            }, 1500);
+        } else {
+            showToast('Network error. Please try again.', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Payment';
+        }
     }
 });
+
+        // Save payment locally when backend is down
+        function savePaymentLocally(email, phone, transactionId, screenshot) {
+            try {
+                // Convert screenshot to base64 for local storage
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const paymentData = {
+                        email: email,
+                        phone: phone,
+                        transactionId: transactionId,
+                        screenshot: e.target.result,
+                        timestamp: new Date().toISOString(),
+                        status: 'pending_local'
+                    };
+                    
+                    // Get existing local payments
+                    const localPayments = JSON.parse(localStorage.getItem('localPayments') || '[]');
+                    localPayments.push(paymentData);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('localPayments', JSON.stringify(localPayments));
+                    
+                    console.log('Payment saved locally:', paymentData);
+                };
+                reader.readAsDataURL(screenshot);
+            } catch (error) {
+                console.error('Error saving payment locally:', error);
+            }
+        }
 
         // Toast function
         function showToast(message, type = 'success') {

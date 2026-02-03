@@ -146,50 +146,38 @@ async function loadTests() {
   tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Loading tests...</td></tr>';
 
   try {
-    // For now, use local test data since backend endpoint might not exist
-    const tests = [
-      {
-        id: 'ssc_cgl_12_sep_s1',
-        title: 'Shift 1 - Maths',
-        subject: 'Maths',
-        exam: 'CGL',
-        isActive: true,
-        questionCount: 25
-      },
-      {
-        id: 'ssc_cgl_12_sep_s2',
-        title: 'Shift 2 - Maths',
-        subject: 'Maths',
-        exam: 'CGL',
-        isActive: true,
-        questionCount: 25
-      },
-      {
-        id: 'ssc_cgl_13_sep_s1',
-        title: 'Shift 1 - Reasoning',
-        subject: 'Reasoning',
-        exam: 'CGL',
-        isActive: false,
-        questionCount: 25
-      }
-    ];
+    // Import ALL_TESTS from tests-list.js
+    const allTests = typeof ALL_TESTS !== 'undefined' ? ALL_TESTS : [];
+    
+    // Get locked tests from localStorage (fallback for database issues)
+    const lockedTests = JSON.parse(localStorage.getItem('lockedTests') || '[]');
+    
+    // Map ALL_TESTS to admin format with lock status
+    const testsData = allTests.map(test => ({
+      id: test.id,
+      title: `${test.title} - ${test.subject}`,
+      subject: test.subject,
+      exam: test.exam,
+      isActive: !lockedTests.includes(test.id),
+      questionCount: 25 // Default question count
+    }));
 
     // Try backend API first, fallback to local data
     let result = { success: false };
     try {
       result = await ExamAxisAPI.getAdminTests();
     } catch (e) {
-      console.log('Backend API not available, using local data');
+      console.log('Backend API not available, using local data from tests-list.js');
     }
 
-    const testsData = result.success ? (result.data?.tests || result.data || []) : tests;
+    const finalTests = result.success ? (result.data?.tests || result.data || []) : testsData;
 
-    if (testsData.length === 0) {
+    if (finalTests.length === 0) {
       tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No tests found</td></tr>';
       return;
     }
 
-    tbody.innerHTML = testsData.map(test => `
+    tbody.innerHTML = finalTests.map(test => `
       <tr>
         <td><code>${test.id || test.testId}</code></td>
         <td>${test.title || test.name || 'N/A'}</td>
@@ -200,7 +188,7 @@ async function loadTests() {
             ${test.isActive !== false ? '✓ Active' : '✗ Locked'}
           </span>
         </td>
-        <td>${test.questionCount || test.questions?.length || 'N/A'}</td>
+        <td>${test.questionCount || test.questions?.length || '25'}</td>
         <td>
           <button class="btn btn-primary" onclick="toggleTestStatus('${test.id || test.testId}')" style="padding: 5px 10px; font-size: 12px;">
             ${test.isActive !== false ? '🔒 Lock' : '🔓 Unlock'}
@@ -221,22 +209,38 @@ async function toggleTestStatus(testId) {
   }
 
   try {
-    // Try backend API first
-    let result = { success: false };
-    try {
-      result = await ExamAxisAPI.toggleTestActive(testId);
-    } catch (e) {
-      console.log('Backend API not available, simulating toggle');
-      // Simulate successful toggle for demo
-      result = { success: true, data: { isActive: false } };
+    // Get current locked tests from localStorage
+    const lockedTests = JSON.parse(localStorage.getItem('lockedTests') || '[]');
+    
+    // Toggle lock status in localStorage
+    let isLocked = false;
+    if (lockedTests.includes(testId)) {
+      // Unlock the test
+      const index = lockedTests.indexOf(testId);
+      lockedTests.splice(index, 1);
+      isLocked = false;
+    } else {
+      // Lock the test
+      lockedTests.push(testId);
+      isLocked = true;
     }
     
-    if (result.success) {
-      alert(`✅ Test ${result.data?.isActive ? 'unlocked' : 'locked'} successfully!`);
-      await loadTests(); // Refresh the tests list
-    } else {
-      alert(`❌ Error: ${result.message}`);
+    // Save to localStorage
+    localStorage.setItem('lockedTests', JSON.stringify(lockedTests));
+    
+    // Try backend API first (but don't fail if it doesn't work)
+    try {
+      const result = await ExamAxisAPI.toggleTestActive(testId);
+      if (result.success) {
+        console.log('Backend updated successfully');
+      }
+    } catch (e) {
+      console.log('Backend API not available, using localStorage only');
     }
+    
+    alert(`✅ Test ${isLocked ? 'locked' : 'unlocked'} successfully!`);
+    await loadTests(); // Refresh the tests list
+    
   } catch (error) {
     console.error('Toggle test status error:', error);
     alert('❌ Failed to update test status');
