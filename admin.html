@@ -215,6 +215,51 @@
       color: white;
     }
 
+    /* User Search */
+    .user-search-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .user-search-input {
+      padding: 10px 15px;
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      min-width: 300px;
+      transition: all 0.3s ease;
+    }
+
+    .user-search-input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+    }
+
+    .user-search-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .admin-header {
@@ -298,6 +343,16 @@
     <div class="section">
       <div class="section-header">
         <h2>👥 Registered Users</h2>
+        <div class="user-search-container">
+          <input 
+            type="text" 
+            id="userSearchInput" 
+            placeholder="🔍 Search by name, email, or mobile..."
+            class="user-search-input"
+            onkeyup="searchUsers()"
+          >
+          <button class="btn btn-secondary" onclick="clearUserSearch()">✖ Clear</button>
+        </div>
       </div>
       <div style="overflow-x: auto;">
         <table>
@@ -306,6 +361,7 @@
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Mobile</th>
               <th>Role</th>
               <th>Plan</th>
               <th>Status</th>
@@ -314,10 +370,13 @@
           </thead>
           <tbody id="users-tbody">
             <tr>
-              <td colspan="7" style="text-align: center;">Loading users...</td>
+              <td colspan="8" style="text-align: center;">Loading users...</td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div id="noUsersFound" style="display: none; text-align: center; padding: 20px; color: #666;">
+        <p>🔍 No users found matching your search criteria.</p>
       </div>
     </div>
 

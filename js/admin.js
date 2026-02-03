@@ -87,53 +87,130 @@ function updateStatCard(id, value) {
 
 // ==================== USERS MANAGEMENT ====================
 
+// Global variable to store all users
+let allUsers = [];
+
 async function loadUsers() {
   const tbody = document.getElementById('users-tbody');
   if (!tbody) return;
 
-  tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Loading...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Loading...</td></tr>';
 
   try {
     const result = await ExamAxisAPI.getAdminUsers();
 
     if (!result.success) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
       return;
     }
 
-    const users = result.data?.users || result.data || [];
+    allUsers = result.data?.users || result.data || [];
 
-    if (users.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No users found</td></tr>';
+    if (allUsers.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No users found</td></tr>';
       return;
     }
 
-    tbody.innerHTML = users.map(user => `
-      <tr>
-        <td>${user.id}</td>
-        <td>${user.fullName || user.username || 'N/A'}</td>
-        <td>${user.email}</td>
-        <td>
-          <span class="badge ${user.role === 'admin' || user.role === 'superadmin' ? 'badge-admin' : 'badge-user'}">
-            ${user.role || 'user'}
-          </span>
-        </td>
-        <td>
-          <span class="badge ${user.isPaid ? 'badge-paid' : 'badge-free'}">
-            ${user.isPaid ? '💎 Paid' : 'Free'}
-          </span>
-        </td>
-        <td>
-          <span class="badge ${user.isActive !== false ? 'badge-active' : 'badge-inactive'}">
-            ${user.isActive !== false ? '✓ Active' : '✗ Inactive'}
-          </span>
-        </td>
-      </tr>
-    `).join('');
+    // Display all users initially
+    displayUsers(allUsers);
 
   } catch (error) {
     console.error('Load users error:', error);
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: red;">Failed to load users</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: red;">Failed to load users</td></tr>';
+  }
+}
+
+// Function to display users in table
+function displayUsers(users) {
+  const tbody = document.getElementById('users-tbody');
+  const noUsersFound = document.getElementById('noUsersFound');
+  
+  if (!tbody) return;
+
+  if (users.length === 0) {
+    tbody.innerHTML = '';
+    if (noUsersFound) {
+      noUsersFound.style.display = 'block';
+    }
+    return;
+  }
+
+  if (noUsersFound) {
+    noUsersFound.style.display = 'none';
+  }
+
+  tbody.innerHTML = users.map(user => `
+    <tr>
+      <td>${user.id}</td>
+      <td>${user.fullName || user.username || 'N/A'}</td>
+      <td>${user.email}</td>
+      <td>${user.phone || user.mobile || 'N/A'}</td>
+      <td>
+        <span class="badge ${user.role === 'admin' || user.role === 'superadmin' ? 'badge-admin' : 'badge-user'}">
+          ${user.role || 'user'}
+        </span>
+      </td>
+      <td>
+        <span class="badge ${user.isPaid ? 'badge-paid' : 'badge-free'}">
+          ${user.isPaid ? '💎 Paid' : 'Free'}
+        </span>
+      </td>
+      <td>
+        <span class="badge ${user.isActive !== false ? 'badge-active' : 'badge-inactive'}">
+          ${user.isActive !== false ? '✓ Active' : '✗ Inactive'}
+        </span>
+      </td>
+      <td>
+        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;" onclick="viewUserDetails('${user.id}')">
+          👁️ View
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// Search users function
+function searchUsers() {
+  const searchInput = document.getElementById('userSearchInput');
+  if (!searchInput || !allUsers.length) return;
+
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  
+  if (searchTerm === '') {
+    displayUsers(allUsers);
+    return;
+  }
+
+  const filteredUsers = allUsers.filter(user => {
+    // Search by name
+    const name = (user.fullName || user.username || '').toLowerCase();
+    // Search by email
+    const email = (user.email || '').toLowerCase();
+    // Search by mobile
+    const mobile = (user.phone || user.mobile || '').toLowerCase();
+    
+    return name.includes(searchTerm) || 
+           email.includes(searchTerm) || 
+           mobile.includes(searchTerm);
+  });
+
+  displayUsers(filteredUsers);
+}
+
+// Clear search function
+function clearUserSearch() {
+  const searchInput = document.getElementById('userSearchInput');
+  if (searchInput) {
+    searchInput.value = '';
+  }
+  displayUsers(allUsers);
+}
+
+// View user details (optional function for future enhancement)
+function viewUserDetails(userId) {
+  const user = allUsers.find(u => u.id === userId);
+  if (user) {
+    alert(`User Details:\n\nName: ${user.fullName || user.username || 'N/A'}\nEmail: ${user.email || 'N/A'}\nMobile: ${user.phone || user.mobile || 'N/A'}\nRole: ${user.role || 'user'}\nPlan: ${user.isPaid ? 'Paid' : 'Free'}\nStatus: ${user.isActive !== false ? 'Active' : 'Inactive'}`);
   }
 }
 
