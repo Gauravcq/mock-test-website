@@ -2898,7 +2898,6 @@ function initializeTelegramFloatButton() {
 
     // Check if user is premium
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log('User data for Telegram button:', user);
     const isPremium = 
         user.plan === 'premium' || 
         user.isPremium === true || 
@@ -2911,8 +2910,6 @@ function initializeTelegramFloatButton() {
         user.access === 'premium' ||
         (user.plan && user.plan.toLowerCase().includes('premium')) ||
         (user.subscription && user.subscription.toLowerCase().includes('premium'));
-
-    console.log('Is premium for Telegram button:', isPremium);
 
     // Only show button for premium users
     if (!isPremium) {
@@ -2964,7 +2961,6 @@ async function checkAndUpdatePremiumButton() {
     
     // Get user data from localStorage (same logic as other functions)
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log('User data for premium button:', user);
     const isPremium = 
         user.plan === 'premium' || 
         user.isPremium === true || 
@@ -2977,8 +2973,6 @@ async function checkAndUpdatePremiumButton() {
         user.access === 'premium' ||
         (user.plan && user.plan.toLowerCase().includes('premium')) ||
         (user.subscription && user.subscription.toLowerCase().includes('premium'));
-    
-    console.log('Is premium for button:', isPremium);
     
     if (isPremium) {
         const btn = document.getElementById('goPremiumBtn');

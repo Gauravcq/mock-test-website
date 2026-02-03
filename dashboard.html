@@ -880,21 +880,7 @@
                     </div>
                 </div>
 
-                <!-- Telegram Section -->
-                <div class="telegram-card" id="telegramSection" style="margin-top: 2rem;">
-                    <div class="telegram-icon">
-                        <i class="fab fa-telegram"></i>
-                    </div>
-                    <h3 class="telegram-title">Join Our Telegram Channel</h3>
-                    <p class="telegram-description">Get daily updates, study materials, and exam notifications</p>
-                    <a href="https://t.me/+wkVQs6V5sEkyODI9" target="_blank" class="telegram-btn" id="telegramBtn">
-                        <i class="fab fa-telegram"></i> Join Channel
-                    </a>
-                    <div class="support-info">
-                        <p><strong>Need Help?</strong></p>
-                        <p>Payment issues: DM @Stoiccx or @RajeshhBhadu</p>
-                    </div>
-                </div>
+                <!-- Telegram Section - REMOVED -->
             </div>
         </div>
 
@@ -1214,9 +1200,11 @@
             }
 
             updateUserInfo() {
-                const userName = this.userData.name || this.userData.email?.split('@')[0] || 'Student';
+                console.log('Updating user info with data:', this.userData);
+                const userName = this.userData.name || this.userData.email?.split('@')[0] || this.userData.username || 'Student';
                 const firstLetter = userName.charAt(0).toUpperCase();
                 
+                console.log('Username:', userName, 'First letter:', firstLetter);
                 document.getElementById('userName').textContent = userName;
                 document.getElementById('userAvatar').textContent = firstLetter;
             }
