@@ -643,21 +643,24 @@
         // Get test results from URL parameters or localStorage
         function getTestResults() {
             const urlParams = new URLSearchParams(window.location.search);
-            const score = urlParams.get('score') || localStorage.getItem('testScore') || '0';
-            const correct = urlParams.get('correct') || localStorage.getItem('testCorrect') || '0';
-            const incorrect = urlParams.get('incorrect') || localStorage.getItem('testIncorrect') || '0';
-            const unattempted = urlParams.get('unattempted') || localStorage.getItem('testUnattempted') || '0';
-            const totalQuestions = urlParams.get('total') || localStorage.getItem('testTotal') || '100';
+            const resultData = localStorage.getItem('testResult');
+            if (!resultData) {
+                console.error('❌ No test results found');
+                return {
+                    score: 0,
+                    correct: 0,
+                    incorrect: 0,
+                    unattempted: 0,
+                    totalQuestions: 100,
+                    accuracy: 0,
+                    timestamp: new Date().toISOString()
+                };
+            }
             
-            return {
-                score: parseFloat(score),
-                correct: parseInt(correct),
-                incorrect: parseInt(incorrect),
-                unattempted: parseInt(unattempted),
-                totalQuestions: parseInt(totalQuestions),
-                accuracy: ((parseInt(correct) / (parseInt(correct) + parseInt(incorrect))) * 100).toFixed(1),
-                timestamp: new Date().toISOString()
-            };
+            const results = JSON.parse(resultData);
+            console.log('📈 Results loaded:', results);
+            
+            return results;
         }
 
         // Save test results to Firebase
@@ -815,6 +818,15 @@
             
             const results = getTestResults();
             updateResults(results);
+            
+            // Update test-specific elements
+            const testTitle = document.getElementById('test-title');
+            const testSubject = document.getElementById('test-subject');
+            const testDate = document.getElementById('test-date');
+            
+            if (testTitle) testTitle.textContent = results.title || 'Test';
+            if (testSubject) testSubject.textContent = results.subject || 'Mathematics';
+            if (testDate) testDate.textContent = new Date(results.timestamp).toLocaleDateString();
             
             // Save results to Firebase for real-time rankings
             saveResultsToFirebase(results);

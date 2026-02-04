@@ -42,58 +42,111 @@
         console.log('✅ Quiz system initialized successfully');
     }
 
-    // Load questions from tests-list.js
+    // Load questions from backend API
     function loadQuestions() {
         try {
-            if (typeof testsList !== 'undefined' && testsList.length > 0) {
-                const urlParams = new URLSearchParams(window.location.search);
-                const testId = urlParams.get('testId') || 'math_test_1';
-                
-                const test = testsList.find(t => t.id === testId) || testsList[0];
-                window.QUIZ_DATA.questions = test.questions || [];
-                window.QUIZ_DATA.testInfo = {
-                    id: test.id,
-                    title: test.title || 'Test',
-                    duration: test.duration || 25,
-                    subject: test.subject || 'Mathematics'
-                };
-                
-                console.log(`📚 Loaded ${window.QUIZ_DATA.questions.length} questions from ${test.title}`);
-            } else {
-                // Fallback questions
-                window.QUIZ_DATA.questions = createFallbackQuestions();
-                window.QUIZ_DATA.testInfo = {
-                    id: 'fallback',
-                    title: 'Sample Test',
-                    duration: 25,
-                    subject: 'Mathematics'
-                };
-                console.log('📚 Using fallback questions');
-            }
+            const urlParams = new URLSearchParams(window.location.search);
+            const testId = urlParams.get('testId') || 'math_test_1';
+            
+            console.log(`📡 Loading questions for test: ${testId}`);
+            
+            // Try to load from backend API first
+            fetch(`/api/questions/${testId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.questions && data.questions.length > 0) {
+                        window.QUIZ_DATA.questions = data.questions;
+                        window.QUIZ_DATA.testInfo = {
+                            id: testId,
+                            title: data.title || 'Test',
+                            duration: data.duration || 25,
+                            subject: data.subject || 'Mathematics'
+                        };
+                        console.log(`✅ Loaded ${data.questions.length} questions from backend API`);
+                    } else {
+                        throw new Error('No questions in API response');
+                    }
+                })
+                .catch(error => {
+                    console.warn('⚠️ Backend API failed, trying fallback:', error.message);
+                    loadFallbackQuestions(testId);
+                });
+            
         } catch (error) {
             console.error('❌ Error loading questions:', error);
-            window.QUIZ_DATA.questions = createFallbackQuestions();
+            loadFallbackQuestions(testId);
         }
     }
 
-    // Create fallback questions
-    function createFallbackQuestions() {
+    // Load fallback questions from tests-list.js (if available)
+    function loadFallbackQuestions(testId) {
+        try {
+            if (typeof ALL_TESTS !== 'undefined' && ALL_TESTS.length > 0) {
+                const test = ALL_TESTS.find(t => t.id === testId) || ALL_TESTS[0];
+                
+                // Create placeholder questions that will be loaded by the original system
+                window.QUIZ_DATA.questions = createPlaceholderQuestions(test);
+                window.QUIZ_DATA.testInfo = {
+                    id: test.id,
+                    title: `${test.subject} - ${test.title}`,
+                    duration: 25,
+                    subject: test.subject || 'Mathematics'
+                };
+                
+                console.log(`📚 Using placeholder questions for ${test.title}`);
+            } else {
+                // Last resort - minimal questions
+                window.QUIZ_DATA.questions = createMinimalQuestions();
+                window.QUIZ_DATA.testInfo = {
+                    id: testId,
+                    title: 'Test',
+                    duration: 25,
+                    subject: 'Mathematics'
+                };
+                console.log('📚 Using minimal questions as last resort');
+            }
+        } catch (error) {
+            console.error('❌ Error in fallback:', error);
+            window.QUIZ_DATA.questions = createMinimalQuestions();
+        }
+    }
+
+    // Create placeholder questions (will be replaced by actual loading)
+    function createPlaceholderQuestions(test) {
+        const questions = [];
+        const numQuestions = 25; // Standard test size
+        
+        for (let i = 0; i < numQuestions; i++) {
+            questions.push({
+                question: { en: `Question ${i + 1} - Loading from backend...` },
+                options: [
+                    { en: "Option A" }, { en: "Option B" }, 
+                    { en: "Option C" }, { en: "Option D" }
+                ],
+                correctAnswer: { en: "Option A" },
+                subject: test.subject || 'Mathematics'
+            });
+        }
+        
+        return questions;
+    }
+
+    // Create minimal questions (last resort)
+    function createMinimalQuestions() {
         return [
             {
-                question: { en: "What is 2 + 2?" },
+                question: { en: "Loading questions from backend..." },
                 options: [
-                    { en: "3" }, { en: "4" }, { en: "5" }, { en: "6" }
+                    { en: "Please wait" }, { en: "Questions loading" },
+                    { en: "From server" }, { en: "API call" }
                 ],
-                correctAnswer: { en: "4" },
+                correctAnswer: { en: "Please wait" },
                 subject: "Mathematics"
-            },
-            {
-                question: { en: "What is the capital of India?" },
-                options: [
-                    { en: "Mumbai" }, { en: "Delhi" }, { en: "Kolkata" }, { en: "Chennai" }
-                ],
-                correctAnswer: { en: "Delhi" },
-                subject: "General Knowledge"
             }
         ];
     }
@@ -450,60 +503,28 @@
         
         console.log('📊 Results:', { correct, incorrect, unattempted, score, accuracy });
         
-        // Save to localStorage
-        localStorage.setItem('testScore', score.toString());
-        localStorage.setItem('testCorrect', correct.toString());
-        localStorage.setItem('testIncorrect', incorrect.toString());
-        localStorage.setItem('testUnattempted', unattempted.toString());
-        localStorage.setItem('testTotal', window.QUIZ_DATA.questions.length.toString());
+        // Save to localStorage for result page
+        const resultData = {
+            testId: window.QUIZ_DATA.testInfo.id,
+            title: window.QUIZ_DATA.testInfo.title,
+            subject: window.QUIZ_DATA.testInfo.subject,
+            totalQuestions: window.QUIZ_DATA.questions.length,
+            correct: correct,
+            incorrect: incorrect,
+            unattempted: unattempted,
+            score: score,
+            accuracy: accuracy,
+            timeTaken: window.QUIZ_DATA.totalInitialTime - (window.QUIZ_DATA.sectionTimeRemaining.default || 0),
+            timestamp: new Date().toISOString(),
+            questionStates: window.QUIZ_DATA.questionStates,
+            questions: window.QUIZ_DATA.questions
+        };
         
-        // Show results
-        showResults(correct, incorrect, unattempted, score, accuracy);
-    }
-
-    // Show results
-    function showResults(correct, incorrect, unattempted, score, accuracy) {
-        const quizUI = document.getElementById('quiz-ui');
-        const resultPage = document.getElementById('result-summary-page');
+        localStorage.setItem('testResult', JSON.stringify(resultData));
         
-        if (quizUI) {
-            quizUI.classList.add('hidden');
-        }
-        
-        if (resultPage) {
-            resultPage.classList.remove('hidden');
-            
-            // Update result display
-            const reviewArea = document.getElementById('review-button-area');
-            if (reviewArea) {
-                reviewArea.innerHTML = `
-                    <div style="margin-bottom:20px;">
-                        <h3>${window.QUIZ_DATA.testInfo.title}</h3>
-                        <p style="color:#6b7280;">Questions: ${window.QUIZ_DATA.questions.length} | Max: ${window.QUIZ_DATA.questions.length * 2}</p>
-                    </div>
-                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                        <a href="review.html" style="background:#4f46e5;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-weight:600;text-decoration:none;">📝 Review</a>
-                        <a href="result.html" style="background:#16a34a;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-weight:600;text-decoration:none;">📊 Results</a>
-                        <a href="index.html" style="background:#e5e7eb;color:#374151;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">🏠 Tests</a>
-                    </div>
-                `;
-            }
-            
-            const statsArea = document.getElementById('stats-cards-area');
-            if (statsArea) {
-                statsArea.innerHTML = `
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-top:20px;">
-                        <div style="background:#f0fdf4;padding:20px;border-radius:12px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#166534;">${score.toFixed(1)}</div><div style="color:#6b7280;">Score</div></div>
-                        <div style="background:#dcfce7;padding:20px;border-radius:12px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#16a34a;">${correct}</div><div style="color:#6b7280;">Correct</div></div>
-                        <div style="background:#fee2e2;padding:20px;border-radius:12px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#dc2626;">${incorrect}</div><div style="color:#6b7280;">Incorrect</div></div>
-                        <div style="background:#fef3c7;padding:20px;border-radius:12px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#d97706;">${unattempted}</div><div style="color:#6b7280;">Skipped</div></div>
-                        <div style="background:#eff6ff;padding:20px;border-radius:12px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#2563eb;">${accuracy.toFixed(0)}%</div><div style="color:#6b7280;">Accuracy</div></div>
-                    </div>
-                `;
-            }
-        }
-        
-        console.log('🎉 Results displayed');
+        // Redirect to separate result page
+        console.log('🔄 Redirecting to result page...');
+        window.location.href = 'result.html';
     }
 
     // Initialize when DOM is ready
