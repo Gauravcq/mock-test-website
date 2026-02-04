@@ -973,7 +973,78 @@
             if (window.QUIZ_DATA.currentReviewIndex < window.QUIZ_DATA.reviewQuestionList.length - 1) showReviewQuestion(window.QUIZ_DATA.currentReviewIndex + 1);
         };
 
-        // ========== INIT UI ==========
+        // ========== START BUTTON ==========
+        const startBtn = $('start-test-btn');
+        if (startBtn) {
+            // Remove any existing event listeners by cloning
+            const newBtn = startBtn.cloneNode(true);
+            startBtn.parentNode.replaceChild(newBtn, startBtn);
+            
+            // Add fresh event listener
+            newBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Start test button clicked');
+                
+                if (window.QUIZ_DATA.isQuizStarted) {
+                    console.log('Quiz already started');
+                    return;
+                }
+                
+                console.log('Starting quiz...');
+                window.QUIZ_DATA.isQuizStarted = true;
+                
+                // 🔒 Enable exam mode security
+                SECURITY.enableExamMode();
+                
+                // Hide instructions and show quiz
+                const instructionsModal = $('instructions-modal');
+                const quizUI = $('quiz-ui');
+                
+                if (instructionsModal) {
+                    instructionsModal.classList.add('hidden');
+                }
+                
+                if (quizUI) {
+                    quizUI.classList.remove('hidden');
+                }
+                
+                // Initialize the quiz
+                initQuiz();
+            });
+            
+            // Also add fallback onclick for compatibility
+            newBtn.onclick = function(e) {
+                e.preventDefault();
+                console.log('Start test onclick triggered');
+                
+                if (window.QUIZ_DATA.isQuizStarted) {
+                    console.log('Quiz already started');
+                    return;
+                }
+                
+                console.log('Starting quiz via onclick...');
+                window.QUIZ_DATA.isQuizStarted = true;
+                
+                // 🔒 Enable exam mode security
+                SECURITY.enableExamMode();
+                
+                // Hide instructions and show quiz
+                const instructionsModal = $('instructions-modal');
+                const quizUI = $('quiz-ui');
+                
+                if (instructionsModal) {
+                    instructionsModal.classList.add('hidden');
+                }
+                
+                if (quizUI) {
+                    quizUI.classList.remove('hidden');
+                }
+                
+                // Initialize the quiz
+                initQuiz();
+            };
+        }
+
         quizUI?.classList.add('hidden');
         resultSummaryPage?.classList.remove('hidden');
         document.body.classList.add('results-scroll');
@@ -985,6 +1056,13 @@
                 answersObj[i] = {
                     userAnswer: state.userAnswer,
                     isCorrect: state.resultCategory === 'correct'
+                };
+            });
+        }
+
+        // ========== INIT QUIZ ==========
+        function initQuiz() {
+            const QD = window.QUIZ_DATA;
             const questions = QD.questions;
             const duration = QD.testInfo.duration || 25;
 
@@ -1007,40 +1085,6 @@
                 languageSelect.onchange = (e) => {
                     QD.currentLanguage = e.target.value;
                     showQuestion(QD.currentQuestionIndex);
-                };
-            }
-
-            const titleEl = $('test-main-title');
-            if (titleEl) titleEl.textContent = `${QD.testInfo.date || ''} - ${QD.testInfo.title || 'Test'}`;
-
-            createPalette();
-            showQuestion(0);
-            startTimer();
-
-            function startTimer() {
-                if (QD.timerInterval) clearInterval(QD.timerInterval);
-                QD.timerInterval = setInterval(() => {
-                    if (QD.isPaused) return;
-                    const subj = questions[QD.currentQuestionIndex].subject;
-                    if (QD.sectionTimeRemaining[subj] > 0) {
-                        QD.sectionTimeRemaining[subj]--;
-                        const t = QD.sectionTimeRemaining[subj];
-                        if (timerEl) timerEl.textContent = `${Math.floor(t/60).toString().padStart(2,'0')}:${(t%60).toString().padStart(2,'0')}`;
-                    } else {
-                        clearInterval(QD.timerInterval);
-                        alert('Time up!');
-                        submitQuiz();
-                    }
-                }, 1000);
-            }
-
-            if (pauseBtn) pauseBtn.onclick = () => { QD.isPaused = true; pauseOverlay?.classList.remove('hidden'); };
-            if (resumeBtn) resumeBtn.onclick = () => { QD.isPaused = false; pauseOverlay?.classList.add('hidden'); };
-
-            function showSubmitModal() {
-                const answered = QD.questionStates.filter(s => s.userAnswer !== null).length;
-                if (submissionStatsEl) {
-                    submissionStatsEl.innerHTML = `
                         <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
                         <div>Unanswered: <strong>${questions.length - answered}</strong></div>
                     `;
