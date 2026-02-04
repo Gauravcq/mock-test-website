@@ -12,7 +12,7 @@
     }
 
     // Initialize quiz functionality
-    function initializeQuiz() {
+    async function initializeQuiz() {
         
         // Set up global quiz data
         if (!window.QUIZ_DATA) {
@@ -23,14 +23,15 @@
                 questions: [],
                 questionStates: [],
                 timerInterval: null,
-                isPaused: false,
                 sectionTimeRemaining: {},
-                totalInitialTime: 0
+                totalInitialTime: 0,
+                startTime: null,
+                testInfo: null
             };
         }
 
         // Load questions from tests-list.js
-        loadQuestions();
+        await loadQuestions();
         
         // Set up start button
         setupStartButton();
@@ -40,61 +41,94 @@
         
     }
 
-    // Load questions using your existing system
-    function loadQuestions() {
+    // Load questions using your EXACT original logic
+    async function loadQuestions() {
         try {
             const urlParams = new URLSearchParams(window.location.search);
             const testId = urlParams.get('testId') || 'math_test_1';
             
-            // Use your existing question loading logic - FAST PATH
+            // Use EXACT same logic as your original test-logic.js
+            let questions = [];
+            let questionsSource = '';
+
+            // First try QUESTIONS_DATABASE (LOCAL)
             if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
                 const raw = QUESTIONS_DATABASE[testId];
-                const questions = Array.isArray(raw) ? raw : (raw.questions || []);
-                
-                window.QUIZ_DATA.questions = questions;
-                window.QUIZ_DATA.testInfo = {
-                    id: testId,
-                    title: `${testId.replace(/_/g, ' ').toUpperCase()}`,
-                    duration: 25,
-                    subject: 'Mathematics'
-                };
-                
-                // Initialize immediately if quiz already started
-                if (window.QUIZ_DATA.isQuizStarted) {
-                    initializeQuizInterface();
-                }
-                return;
+                questions = Array.isArray(raw) ? raw : (raw.questions || []);
+                questionsSource = 'LOCAL';
             }
-            
-            // Try API if available - FAST PATH
-            if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getQuestions) {
-                ExamAxisAPI.getQuestions(testId)
-                    .then(response => {
-                        if (response?.success && response?.data?.questions?.length) {
-                            window.QUIZ_DATA.questions = response.data.questions;
-                            window.QUIZ_DATA.testInfo = {
-                                id: testId,
-                                title: response.data.title || testId,
-                                duration: response.data.duration || 25,
-                                subject: response.data.subject || 'Mathematics'
-                            };
-                            
-                            // Initialize quiz after questions load
-                            if (window.QUIZ_DATA.isQuizStarted) {
-                                initializeQuizInterface();
-                            }
+
+            // If no questions, try API
+            if (!questions.length) {
+                try {
+                    const response = await ExamAxisAPI.getQuestions(testId);
+                    if (response?.success && response?.data?.questions?.length) {
+                        let apiQuestions = response.data.questions;
+                        questionsSource = 'API';
+                        
+                        if (apiQuestions[0]?.correctAnswer) {
+                            questions = apiQuestions;
                         } else {
-                            loadFallbackQuestions(testId);
+                            // Handle API missing correctAnswer
+                            if (typeof QUESTIONS_DATABASE !== 'undefined') {
+                                const possibleKeys = [
+                                    testId,
+                                    testId.replace(/-/g, '_'),
+                                    testId.replace(/_/g, '-')
+                                ];
+                                
+                                let localData = null;
+                                for (const key of possibleKeys) {
+                                    if (QUESTIONS_DATABASE[key]) {
+                                        localData = QUESTIONS_DATABASE[key];
+                                        break;
+                                    }
+                                }
+                                
+                                if (localData) {
+                                    const localQuestions = Array.isArray(localData) ? localData : (localData.questions || []);
+                                    questions = apiQuestions.map((apiQ, i) => {
+                                        const localQ = localQuestions[i];
+                                        if (localQ) {
+                                            return {
+                                                ...apiQ,
+                                                correctAnswer: localQ.correctAnswer
+                                            };
+                                        }
+                                        return apiQ;
+                                    });
+                                } else {
+                                    questions = apiQuestions;
+                                }
+                            } else {
+                                questions = apiQuestions;
+                            }
                         }
-                    })
-                    .catch(() => {
-                        loadFallbackQuestions(testId);
-                    });
+                    }
+                } catch (error) {
+                    // API failed, continue to fallback
+                }
+            }
+
+            // If still no questions, use fallback
+            if (!questions.length) {
+                loadFallbackQuestions(testId);
                 return;
             }
+
+            // Set the questions and test info
+            window.QUIZ_DATA.questions = questions;
+            window.QUIZ_DATA.testInfo = {
+                id: testId,
+                title: `${testId.replace(/_/g, ' ').toUpperCase()}`,
+                duration: 25,
+                subject: 'Mathematics'
+            };
             
-            // Fallback if nothing works
-            loadFallbackQuestions(testId);
+            // Initialize immediately if quiz already started
+            if (window.QUIZ_DATA.isQuizStarted) {
+                initializeQuizInterface();
+            }
             
         } catch (error) {
             loadFallbackQuestions(testId);
@@ -184,7 +218,7 @@
     }
 
     // Handle start test click
-    function handleStartTest(e) {
+    async function handleStartTest(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -207,21 +241,14 @@
             quizUI.classList.remove('hidden');
         }
         
-        // Load questions and initialize immediately
-        loadQuestions();
+        // Load questions and wait for them to load
+        await loadQuestions();
         
-        // Try to initialize immediately if questions are already loaded
+        // Initialize after questions are loaded
         if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
             initializeQuizInterface();
         } else {
-            // Quick retry for questions that might load instantly
-            setTimeout(() => {
-                if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
-                    initializeQuizInterface();
-                } else {
-                    showLoadingMessage();
-                }
-            }, 100); // Reduced from 1000ms to 100ms
+            showLoadingMessage();
         }
     }
 
