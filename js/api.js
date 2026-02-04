@@ -912,7 +912,7 @@ function updateHeaderAuthUI() {
   if (isAdmin && !existingAdminBtn) {
     const a = document.createElement('a');
     a.id = 'headerAdminBtn';
-    a.href = 'admin-panel.html';
+    a.href = 'admin.html';
     a.className = 'nav-btn login-btn';
     a.textContent = 'Admin';
     navButtons.appendChild(a);
