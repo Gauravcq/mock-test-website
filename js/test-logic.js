@@ -983,14 +983,11 @@
             // Add fresh event listener
             newBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                console.log('Start test button clicked');
                 
                 if (window.QUIZ_DATA.isQuizStarted) {
-                    console.log('Quiz already started');
                     return;
                 }
                 
-                console.log('Starting quiz...');
                 window.QUIZ_DATA.isQuizStarted = true;
                 
                 // 🔒 Enable exam mode security
@@ -1015,14 +1012,11 @@
             // Also add fallback onclick for compatibility
             newBtn.onclick = function(e) {
                 e.preventDefault();
-                console.log('Start test onclick triggered');
                 
                 if (window.QUIZ_DATA.isQuizStarted) {
-                    console.log('Quiz already started');
                     return;
                 }
                 
-                console.log('Starting quiz via onclick...');
                 window.QUIZ_DATA.isQuizStarted = true;
                 
                 // 🔒 Enable exam mode security
@@ -1045,9 +1039,8 @@
             };
         }
 
-        quizUI?.classList.add('hidden');
-        resultSummaryPage?.classList.remove('hidden');
-        document.body.classList.add('results-scroll');
+        // IMPORTANT: Do NOT force results mode on page load.
+        // Results UI should be shown only after submission.
 
         // Save to backend
         if (window.ExamAxisAPI?.isLoggedIn()) {
