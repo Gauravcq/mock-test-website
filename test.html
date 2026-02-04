@@ -1702,6 +1702,9 @@ body.results-scroll {
     }
     updateTestNameDisplay(subjectName, ''); 
 </script>
+    <!-- jQuery (required for test-logic.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <!-- API helper (must be loaded BEFORE test-logic.js) -->
 <script src="js/api.js"></script>
 
@@ -1710,49 +1713,6 @@ body.results-scroll {
 <!-- Use ORIGINAL test-logic.js -->
 <script src="js/test-logic.js"></script>
 <script src="js/attempt-sync.js"></script>
-
-<!-- Simple start button fix -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const startBtn = document.getElementById('start-test-btn');
-    if (startBtn) {
-        // Remove existing listeners
-        const newBtn = startBtn.cloneNode(true);
-        startBtn.parentNode.replaceChild(newBtn, startBtn);
-        
-        // Add working listener
-        newBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (window.QUIZ_DATA && window.QUIZ_DATA.isQuizStarted) {
-                return;
-            }
-            
-            // Hide instructions modal
-            const instructionsModal = document.getElementById('instructions-modal');
-            if (instructionsModal) {
-                instructionsModal.classList.add('hidden');
-            }
-            
-            // Show quiz UI
-            const quizUI = document.getElementById('quiz-ui');
-            if (quizUI) {
-                quizUI.classList.remove('hidden');
-            }
-            
-            // Mark quiz as started
-            if (window.QUIZ_DATA) {
-                window.QUIZ_DATA.isQuizStarted = true;
-            }
-            
-            // Initialize quiz using your existing logic
-            if (typeof initQuiz === 'function') {
-                initQuiz();
-            }
-        });
-    }
-});
-</script>
 
 <script>
 /**
