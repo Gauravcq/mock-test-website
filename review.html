@@ -622,10 +622,9 @@
             if (testResult) {
                 try {
                     const result = JSON.parse(testResult);
+                    
                     const questions = result.questions || [];
                     const questionStates = result.questionStates || [];
-                    
-                    console.log('📋 Loading questions from test result:', questions.length);
                     
                     // Map questions with their states
                     allQuestions = questions.map((question, index) => {
@@ -640,7 +639,7 @@
                         
                         return {
                             id: index + 1,
-                            question: question.question || {},
+                            question: question.question || question, // Handle different structures
                             options: question.options || [],
                             correctAnswer: correctAnswer,
                             userAnswer: userAnswer,
@@ -649,15 +648,11 @@
                         };
                     });
                     
-                    console.log('✅ Loaded', allQuestions.length, 'questions from test result');
-                    
                 } catch (e) {
-                    console.error('Error loading test result data:', e);
                     allQuestions = sampleQuestions;
                 }
             } else {
                 // Fallback to sample data for demo
-                console.warn('⚠️ No test result found, using sample data');
                 allQuestions = sampleQuestions;
             }
             

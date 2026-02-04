@@ -13,7 +13,6 @@
 
     // Initialize quiz functionality
     function initializeQuiz() {
-        console.log('🚀 Initializing robust quiz system...');
         
         // Set up global quiz data
         if (!window.QUIZ_DATA) {
@@ -39,7 +38,6 @@
         // Set up navigation buttons
         setupNavigationButtons();
         
-        console.log('✅ Quiz system initialized successfully');
     }
 
     // Load questions using your existing system
@@ -48,9 +46,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const testId = urlParams.get('testId') || 'math_test_1';
             
-            console.log(`📡 Loading questions for test: ${testId}`);
-            
-            // Use your existing question loading logic
+            // Use your existing question loading logic - FAST PATH
             if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
                 const raw = QUESTIONS_DATABASE[testId];
                 const questions = Array.isArray(raw) ? raw : (raw.questions || []);
@@ -63,11 +59,14 @@
                     subject: 'Mathematics'
                 };
                 
-                console.log(`✅ Loaded ${questions.length} questions from QUESTIONS_DATABASE`);
+                // Initialize immediately if quiz already started
+                if (window.QUIZ_DATA.isQuizStarted) {
+                    initializeQuizInterface();
+                }
                 return;
             }
             
-            // Try API if available
+            // Try API if available - FAST PATH
             if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getQuestions) {
                 ExamAxisAPI.getQuestions(testId)
                     .then(response => {
@@ -79,16 +78,16 @@
                                 duration: response.data.duration || 25,
                                 subject: response.data.subject || 'Mathematics'
                             };
-                            console.log(`✅ Loaded ${response.data.questions.length} questions from API`);
                             
                             // Initialize quiz after questions load
                             if (window.QUIZ_DATA.isQuizStarted) {
                                 initializeQuizInterface();
                             }
+                        } else {
+                            loadFallbackQuestions(testId);
                         }
                     })
-                    .catch(error => {
-                        console.warn('⚠️ API failed, using fallback:', error.message);
+                    .catch(() => {
                         loadFallbackQuestions(testId);
                     });
                 return;
@@ -98,7 +97,6 @@
             loadFallbackQuestions(testId);
             
         } catch (error) {
-            console.error('❌ Error loading questions:', error);
             loadFallbackQuestions(testId);
         }
     }
@@ -118,7 +116,6 @@
                     subject: test.subject || 'Mathematics'
                 };
                 
-                console.log(`📚 Using placeholder questions for ${test.title}`);
             } else {
                 // Last resort - minimal questions
                 window.QUIZ_DATA.questions = createMinimalQuestions();
@@ -128,10 +125,8 @@
                     duration: 25,
                     subject: 'Mathematics'
                 };
-                console.log('📚 Using minimal questions as last resort');
             }
         } catch (error) {
-            console.error('❌ Error in fallback:', error);
             window.QUIZ_DATA.questions = createMinimalQuestions();
         }
     }
@@ -175,11 +170,8 @@
     function setupStartButton() {
         const startBtn = document.getElementById('start-test-btn');
         if (!startBtn) {
-            console.error('❌ Start test button not found!');
             return;
         }
-
-        console.log('🔧 Setting up start test button...');
         
         // Remove all existing event listeners
         const newBtn = startBtn.cloneNode(true);
@@ -189,7 +181,6 @@
         newBtn.addEventListener('click', handleStartTest);
         newBtn.onclick = handleStartTest;
         
-        console.log('✅ Start test button setup complete');
     }
 
     // Handle start test click
@@ -197,10 +188,7 @@
         e.preventDefault();
         e.stopPropagation();
         
-        console.log('🚀 Start test button clicked!');
-        
         if (window.QUIZ_DATA.isQuizStarted) {
-            console.log('⚠️ Quiz already started');
             return;
         }
         
@@ -211,36 +199,30 @@
         const instructionsModal = document.getElementById('instructions-modal');
         if (instructionsModal) {
             instructionsModal.classList.add('hidden');
-            console.log('✅ Hidden instructions modal');
         }
         
         // Show quiz UI
         const quizUI = document.getElementById('quiz-ui');
         if (quizUI) {
             quizUI.classList.remove('hidden');
-            console.log('✅ Shown quiz UI');
         }
         
-        // Load questions first, then initialize
-        console.log('📚 Loading questions...');
+        // Load questions and initialize immediately
         loadQuestions();
         
         // Try to initialize immediately if questions are already loaded
         if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
             initializeQuizInterface();
         } else {
-            // Wait a bit for questions to load
+            // Quick retry for questions that might load instantly
             setTimeout(() => {
                 if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
                     initializeQuizInterface();
                 } else {
-                    console.warn('⚠️ Questions not loaded yet, showing loading message');
                     showLoadingMessage();
                 }
-            }, 1000);
+            }, 100); // Reduced from 1000ms to 100ms
         }
-        
-        console.log('🎯 Quiz started successfully!');
     }
 
     // Show loading message while questions load
@@ -258,30 +240,27 @@
 
     // Initialize quiz interface
     function initializeQuizInterface() {
-        console.log('🔧 Initializing quiz interface...');
-        
         // Initialize question states
         const questions = window.QUIZ_DATA.questions;
         window.QUIZ_DATA.questionStates = questions.map(() => ({
             status: 'not-visited',
             userAnswer: null,
             markedForReview: false,
-            resultCategory: null
+            timeSpent: 0
         }));
-        
-        // Set up timer
-        setupTimer();
-        
-        // Create question palette
-        createQuestionPalette();
-        
-        // Show first question
+
+        window.QUIZ_DATA.currentQuestionIndex = 0;
+        window.QUIZ_DATA.startTime = Date.now();
+        window.QUIZ_DATA.timeRemaining = (window.QUIZ_DATA.testInfo.duration || 25) * 60;
+
+        // Display first question
         showQuestion(0);
         
-        // Set up question navigation
-        setupQuestionNavigation();
+        // Setup navigation
+        setupNavigation();
         
-        console.log('✅ Quiz interface initialized');
+        // Start timer
+        startTimer();
     }
 
     // Setup timer
@@ -314,7 +293,6 @@
             }
         }, 1000);
         
-        console.log('⏱️ Timer started');
     }
 
     // Create question palette
@@ -332,7 +310,6 @@
             palette.appendChild(btn);
         });
         
-        console.log('🎨 Question palette created');
     }
 
     // Show question
@@ -363,7 +340,6 @@
         // Update navigation
         updateNavigation();
         
-        console.log(`📖 Showing question ${index + 1}`);
     }
 
     // Display question and options
@@ -403,7 +379,6 @@
                 state.userAnswer = this.value;
                 state.status = 'answered';
                 updatePalette();
-                console.log('✅ Answer saved:', this.value);
             });
         });
     }
@@ -492,7 +467,6 @@
             });
         }
         
-        console.log('🧭 Question navigation setup complete');
     }
 
     // Setup navigation buttons
@@ -514,12 +488,10 @@
             submitFooterBtn.addEventListener('click', handleSubmit);
         }
         
-        console.log('🔘 Navigation buttons setup complete');
     }
 
     // Submit quiz
     function submitQuiz() {
-        console.log('📤 Submitting quiz...');
         
         if (window.QUIZ_DATA.timerInterval) {
             clearInterval(window.QUIZ_DATA.timerInterval);
@@ -550,7 +522,6 @@
         
         const accuracy = (correct + incorrect) > 0 ? (correct / (correct + incorrect)) * 100 : 0;
         
-        console.log('📊 Results:', { correct, incorrect, unattempted, score, accuracy });
         
         // Save to localStorage for result page
         const resultData = {
@@ -572,7 +543,6 @@
         localStorage.setItem('testResult', JSON.stringify(resultData));
         
         // Redirect to separate result page
-        console.log('🔄 Redirecting to result page...');
         window.location.href = 'result.html';
     }
 
