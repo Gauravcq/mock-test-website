@@ -1714,6 +1714,44 @@ body.results-scroll {
 <script src="js/test-logic.js"></script>
 <script src="js/attempt-sync.js"></script>
 
+<!-- Debug and fix quiz initialization -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔧 Initializing debug script...');
+    
+    // Wait for everything to load
+    setTimeout(function() {
+        console.log('🔍 Checking quiz data...');
+        
+        if (typeof window.QUIZ_DATA !== 'undefined') {
+            console.log('✅ QUIZ_DATA found:', window.QUIZ_DATA);
+            console.log('📋 Questions loaded:', window.QUIZ_DATA.questions ? window.QUIZ_DATA.questions.length : 'No questions');
+            console.log('📋 Test info:', window.QUIZ_DATA.testInfo);
+            
+            // If questions are loaded but quiz-ui is still hidden, show it
+            if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
+                const quizUI = document.getElementById('quiz-ui');
+                if (quizUI && quizUI.classList.contains('hidden')) {
+                    console.log('👁 Showing quiz-ui...');
+                    quizUI.classList.remove('hidden');
+                }
+                
+                // If quiz is not started but questions are loaded, start it
+                if (!window.QUIZ_DATA.isQuizStarted) {
+                    console.log('🚀 Auto-starting quiz...');
+                    const startBtn = document.getElementById('start-test-btn');
+                    if (startBtn) {
+                        startBtn.click();
+                    }
+                }
+            }
+        } else {
+            console.log('❌ QUIZ_DATA not found');
+        }
+    }, 1000);
+});
+</script>
+
 <script>
 /**
  * Auto‑update palette legend counts based on classes on .palette-btn
