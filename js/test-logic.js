@@ -974,33 +974,17 @@
         };
 
         // ========== INIT UI ==========
-        instructionsModal?.classList.remove('hidden');
         quizUI?.classList.add('hidden');
-        resultSummaryPage?.classList.add('hidden');
-        reviewPage?.classList.add('hidden');
+        resultSummaryPage?.classList.remove('hidden');
+        document.body.classList.add('results-scroll');
 
-        // ========== START BUTTON ==========
-        const startBtn = $('start-test-btn');
-        if (startBtn) {
-            const newBtn = startBtn.cloneNode(true);
-            startBtn.parentNode.replaceChild(newBtn, startBtn);
-            newBtn.onclick = (e) => {
-                e.preventDefault();
-                if (window.QUIZ_DATA.isQuizStarted) return;
-                window.QUIZ_DATA.isQuizStarted = true;
-                
-                // 🔒 Enable exam mode security
-                SECURITY.enableExamMode();
-                
-                instructionsModal?.classList.add('hidden');
-                quizUI?.classList.remove('hidden');
-                initQuiz();
-            };
-        }
-
-        // ========== INIT QUIZ ==========
-        function initQuiz() {
-            const QD = window.QUIZ_DATA;
+        // Save to backend
+        if (window.ExamAxisAPI?.isLoggedIn()) {
+            const answersObj = {};
+            QD.questionStates.forEach((state, i) => {
+                answersObj[i] = {
+                    userAnswer: state.userAnswer,
+                    isCorrect: state.resultCategory === 'correct'
             const questions = QD.questions;
             const duration = QD.testInfo.duration || 25;
 
