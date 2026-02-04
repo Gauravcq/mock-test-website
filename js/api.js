@@ -842,6 +842,86 @@ async function updateNavigation() {
   }
 }
 
+function updateHeaderAuthUI() {
+  const navButtons = document.getElementById('navButtons');
+  if (!navButtons) return;
+
+  const token = localStorage.getItem('token');
+  const isLoggedIn = !!token;
+  const user = ExamAxisAPI.getCurrentUser() || {};
+
+  const loginBtn = navButtons.querySelector('a[href="login.html"], a.login-btn');
+  const signupBtn = navButtons.querySelector('a[href="register.html"], a.signup-btn');
+
+  const existingUserBtn = navButtons.querySelector('#headerUserBtn');
+  const existingLogoutBtn = navButtons.querySelector('#headerLogoutBtn');
+  const existingAdminBtn = navButtons.querySelector('#headerAdminBtn');
+
+  if (!isLoggedIn) {
+    if (loginBtn) loginBtn.style.display = '';
+    if (signupBtn) signupBtn.style.display = '';
+    if (existingUserBtn) existingUserBtn.remove();
+    if (existingLogoutBtn) existingLogoutBtn.remove();
+    if (existingAdminBtn) existingAdminBtn.remove();
+    return;
+  }
+
+  if (loginBtn) loginBtn.style.display = 'none';
+  if (signupBtn) signupBtn.style.display = 'none';
+
+  const fullName = user.fullName || user.name || user.username || user.email || 'User';
+  const firstName = String(fullName).split(' ')[0];
+  const initials = String(fullName)
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(s => s[0].toUpperCase())
+    .join('') || 'U';
+
+  if (!existingUserBtn) {
+    const a = document.createElement('a');
+    a.id = 'headerUserBtn';
+    a.href = 'dashboard.html';
+    a.className = 'nav-btn login-btn';
+    a.style.display = 'inline-flex';
+    a.style.alignItems = 'center';
+    a.style.gap = '10px';
+    a.innerHTML = `
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:#eef2ff;color:#4f46e5;font-weight:800;">
+        ${initials}
+      </span>
+      <span>${firstName}</span>
+    `;
+    navButtons.appendChild(a);
+  }
+
+  if (!existingLogoutBtn) {
+    const a = document.createElement('a');
+    a.id = 'headerLogoutBtn';
+    a.href = '#';
+    a.className = 'nav-btn signup-btn';
+    a.textContent = 'Logout';
+    a.onclick = async (e) => {
+      e.preventDefault();
+      await handleLogout();
+    };
+    navButtons.appendChild(a);
+  }
+
+  const isAdmin = ExamAxisAPI.isAdmin();
+  if (isAdmin && !existingAdminBtn) {
+    const a = document.createElement('a');
+    a.id = 'headerAdminBtn';
+    a.href = 'admin-panel.html';
+    a.className = 'nav-btn login-btn';
+    a.textContent = 'Admin';
+    navButtons.appendChild(a);
+  }
+  if (!isAdmin && existingAdminBtn) {
+    existingAdminBtn.remove();
+  }
+}
+
 async function handleLogout() {
   await ExamAxisAPI.logout();
   window.location.href = 'index.html';
@@ -852,6 +932,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Small delay to ensure DOM is fully loaded
   setTimeout(() => {
     updateNavigation();
+    updateHeaderAuthUI();
   }, 100);
 });
 
@@ -859,3 +940,4 @@ document.addEventListener('DOMContentLoaded', () => {
 window.ExamAxisAPI = ExamAxisAPI;
 window.updateNavigation = updateNavigation;
 window.handleLogout = handleLogout;
+window.updateHeaderAuthUI = updateHeaderAuthUI;
