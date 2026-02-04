@@ -818,38 +818,27 @@ class ExamAxisAPI {
 // ==================== NAVIGATION ====================
 
 async function updateNavigation() {
-  const navButtons = document.querySelector('.nav-buttons') || document.getElementById('navButtons');
+  // Look for the correct navigation button IDs from your HTML
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const navButtons = prevBtn && nextBtn ? { prevBtn, nextBtn } : null;
+  
   if (!navButtons) {
-    console.log('No navigation buttons element found');
-    return;
+    // Try fallback selectors
+    const fallbackNav = document.querySelector('.nav-buttons') || document.getElementById('navButtons');
+    if (!fallbackNav) {
+      return; // Silently return if no navigation found
+    }
   }
-
-  const user = ExamAxisAPI.getCurrentUser();
-  const isLoggedIn = ExamAxisAPI.isLoggedIn();
-
-  if (isLoggedIn && user) {
-    const adminLink = (user.role === 'admin' || user.role === 'superadmin')
-      ? '<a href="admin.html" class="nav-btn admin-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; border: none;">👑 Admin</a>'
-      : '';
-
-    const firstName = user.fullName ? user.fullName.split(' ')[0] : user.username;
-
-    navButtons.innerHTML = `
-      ${adminLink}
-      <a href="dashboard.html" class="nav-btn login-btn">
-        👤 ${firstName}
-      </a>
-      <button onclick="handleLogout()" class="nav-btn signup-btn">Logout</button>
-    `;
-    
-    console.log('Navigation updated for logged-in user:', firstName);
-  } else {
-    navButtons.innerHTML = `
-      <a href="login.html" class="nav-btn login-btn">Login</a>
-      <a href="register.html" class="nav-btn signup-btn">Create Account</a>
-    `;
-    
-    console.log('Navigation updated for guest user');
+  
+  // Update navigation states
+  if (prevBtn && window.QUIZ_DATA) {
+    prevBtn.disabled = window.QUIZ_DATA.currentQuestionIndex === 0;
+  }
+  
+  if (nextBtn && window.QUIZ_DATA) {
+    const questions = window.QUIZ_DATA.questions || [];
+    nextBtn.textContent = window.QUIZ_DATA.currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Save & Next';
   }
 }
 

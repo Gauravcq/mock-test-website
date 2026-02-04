@@ -1085,10 +1085,15 @@
                 languageSelect.onchange = (e) => {
                     QD.currentLanguage = e.target.value;
                     showQuestion(QD.currentQuestionIndex);
-                        <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
-                        <div>Unanswered: <strong>${questions.length - answered}</strong></div>
-                    `;
-                }
+                };
+            }
+            
+            if (submitSummaryModal) {
+                const answered = QD.questionStates.filter(s => s.status === 'answered').length;
+                submitSummaryModal.innerHTML = `
+                    <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
+                    <div>Unanswered: <strong>${questions.length - answered}</strong></div>
+                `;
                 submitSummaryModal?.classList.remove('hidden');
             }
 
