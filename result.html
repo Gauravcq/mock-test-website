@@ -874,31 +874,128 @@
         function saveResultsToFirebase(results) {
             if (!isFirebaseEnabled) return;
             
-            const testId = localStorage.getItem('testId') || 'default';
-            const userId = localStorage.getItem('userId') || 'anonymous_' + Date.now();
-            const userName = localStorage.getItem('userName') || 'Anonymous User';
+            // Get user info from multiple sources
+            const userId = localStorage.getItem('userId') || 
+                          localStorage.getItem('user_id') || 
+                          `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            
+            const userName = localStorage.getItem('userName') || 
+                           localStorage.getItem('name') || 
+                           localStorage.getItem('user_name') || 
+                           `User_${userId.substr(-6)}`;
+            
+            const testId = results.testId || 'default_test';
             
             const resultData = {
                 userId: userId,
                 userName: userName,
-                score: results.score,
-                correct: results.correct,
-                incorrect: results.incorrect,
-                unattempted: results.unattempted,
-                totalQuestions: results.totalQuestions,
-                accuracy: results.accuracy,
-                timestamp: results.timestamp,
-                testId: testId
+                score: results.score || 0,
+                correct: results.correct || 0,
+                incorrect: results.incorrect || 0,
+                unattempted: results.unattempted || 0,
+                totalQuestions: results.totalQuestions || 0,
+                accuracy: results.accuracy || 0,
+                timeTaken: results.timeTaken || 0,
+                timestamp: results.timestamp || new Date().toISOString(),
+                testId: testId,
+                testTitle: results.title || 'Test',
+                subject: results.subject || 'Mathematics'
             };
             
-            // Save to Firebase
-            database.ref('results/' + testId + '/' + userId).set(resultData)
+            // Save to Firebase with proper structure
+            database.ref('testResults/' + testId + '/' + userId).set(resultData)
                 .then(() => {
                     console.log('✅ Results saved to Firebase');
+                    // Update real-time rankings after saving
+                    updateRealtimeRankings(testId, userId);
                 })
                 .catch((error) => {
                     console.error('❌ Error saving results:', error);
+                    // Show user-friendly error
+                    showNotification('Unable to save results to leaderboard', 'error');
                 });
+        }
+
+        // Update real-time rankings
+        function updateRealtimeRankings(testId, currentUserId) {
+            if (!isFirebaseEnabled) return;
+            
+            database.ref('testResults/' + testId).once('value')
+                .then((snapshot) => {
+                    const allResults = snapshot.val() || {};
+                    const resultsArray = Object.values(allResults);
+                    
+                    // Sort by score (descending)
+                    resultsArray.sort((a, b) => b.score - a.score);
+                    
+                    // Find current user rank
+                    const userRank = resultsArray.findIndex(r => r.userId === currentUserId) + 1;
+                    const totalUsers = resultsArray.length;
+                    
+                    // Calculate percentile
+                    const percentile = totalUsers > 0 ? ((totalUsers - userRank + 1) / totalUsers * 100) : 0;
+                    
+                    // Update UI
+                    updateRankingDisplay(userRank, totalUsers, percentile);
+                    
+                    // Store for comparison feature
+                    localStorage.setItem('currentRank', userRank.toString());
+                    localStorage.setItem('totalUsers', totalUsers.toString());
+                    localStorage.setItem('percentile', percentile.toFixed(1));
+                })
+                .catch((error) => {
+                    console.error('❌ Error updating rankings:', error);
+                });
+        }
+
+        // Update ranking display
+        function updateRankingDisplay(rank, totalUsers, percentile) {
+            const rankElement = document.getElementById('user-rank');
+            const percentileElement = document.getElementById('user-percentile');
+            const totalUsersElement = document.getElementById('total-users');
+            
+            if (rankElement) rankElement.textContent = rank;
+            if (percentileElement) percentileElement.textContent = percentile.toFixed(1) + '%';
+            if (totalUsersElement) totalUsersElement.textContent = totalUsers;
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 1000;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+                background: ${type === 'error' ? '#dc2626' : '#16a34a'};
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
         }
 
         // Update UI with test results
@@ -1176,7 +1273,247 @@
             displayQuestions(questions, questionStates, filter);
         }
 
-        // Listen for real-time updates if Firebase is enabled
+        // Show previous attempts
+        function showPreviousAttempts() {
+            if (!isFirebaseEnabled) {
+                showNotification('Previous attempts require Firebase connection', 'error');
+                return;
+            }
+            
+            const testId = localStorage.getItem('testId') || 'default_test';
+            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            
+            if (!userId) {
+                showNotification('User ID not found', 'error');
+                return;
+            }
+            
+            // Get all user's attempts for this test
+            database.ref('userAttempts/' + userId + '/' + testId).once('value')
+                .then((snapshot) => {
+                    const attempts = snapshot.val() || {};
+                    const attemptsArray = Object.values(attempts);
+                    
+                    if (attemptsArray.length === 0) {
+                        showNotification('No previous attempts found', 'info');
+                        return;
+                    }
+                    
+                    // Sort by timestamp (newest first)
+                    attemptsArray.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    
+                    // Display attempts
+                    displayPreviousAttempts(attemptsArray);
+                })
+                .catch((error) => {
+                    console.error('Error loading previous attempts:', error);
+                    showNotification('Error loading previous attempts', 'error');
+                });
+        }
+
+        // Display previous attempts
+        function displayPreviousAttempts(attempts) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: white;
+                border-radius: 20px;
+                padding: 30px;
+                max-width: 600px;
+                max-height: 80vh;
+                overflow-y: auto;
+                position: relative;
+            `;
+            
+            let attemptsHTML = '<h3 style="margin-bottom: 20px;">📊 Previous Attempts</h3>';
+            
+            attempts.forEach((attempt, index) => {
+                const date = new Date(attempt.timestamp).toLocaleDateString();
+                const time = new Date(attempt.timestamp).toLocaleTimeString();
+                attemptsHTML += `
+                    <div style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <strong>Attempt ${index + 1}</strong>
+                            <span style="color: #6b7280;">${date} ${time}</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
+                            <div>
+                                <div style="font-size: 18px; font-weight: bold; color: #16a34a;">${attempt.score}</div>
+                                <div style="font-size: 12px; color: #6b7280;">Score</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: bold; color: #2563eb;">${attempt.correct}</div>
+                                <div style="font-size: 12px; color: #6b7280;">Correct</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: bold; color: #dc2626;">${attempt.incorrect}</div>
+                                <div style="font-size: 12px; color: #6b7280;">Incorrect</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: bold; color: #6b7280;">${attempt.accuracy}%</div>
+                                <div style="font-size: 12px; color: #6b7280;">Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            content.innerHTML = attemptsHTML + `
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: #2563eb;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                    width: 100%;
+                ">Close</button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        // Compare with topper
+        function compareWithTopper() {
+            if (!isFirebaseEnabled) {
+                showNotification('Comparison feature requires Firebase connection', 'error');
+                return;
+            }
+            
+            const testId = localStorage.getItem('testId') || 'default_test';
+            const currentScore = parseFloat(localStorage.getItem('testScore') || '0');
+            
+            // Get all results for this test
+            database.ref('testResults/' + testId).once('value')
+                .then((snapshot) => {
+                    const allResults = snapshot.val() || {};
+                    const resultsArray = Object.values(allResults);
+                    
+                    if (resultsArray.length < 2) {
+                        showNotification('Not enough data for comparison', 'info');
+                        return;
+                    }
+                    
+                    // Find topper (highest score)
+                    const topper = resultsArray.reduce((prev, current) => 
+                        (prev.score > current.score) ? prev : current
+                    );
+                    
+                    // Find current user
+                    const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+                    const currentUser = resultsArray.find(r => r.userId === userId);
+                    
+                    if (!currentUser) {
+                        showNotification('Your result not found for comparison', 'error');
+                        return;
+                    }
+                    
+                    // Display comparison
+                    displayComparison(currentUser, topper);
+                })
+                .catch((error) => {
+                    console.error('Error loading comparison data:', error);
+                    showNotification('Error loading comparison data', 'error');
+                });
+        }
+
+        // Display comparison
+        function displayComparison(currentUser, topper) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: white;
+                border-radius: 20px;
+                padding: 30px;
+                max-width: 500px;
+                position: relative;
+            `;
+            
+            const scoreDiff = (topper.score - currentUser.score).toFixed(1);
+            const accuracyDiff = (topper.accuracy - currentUser.accuracy).toFixed(1);
+            
+            content.innerHTML = `
+                <h3 style="margin-bottom: 20px; text-align: center;">🏆 Comparison with Topper</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div style="text-align: center; padding: 15px; border: 2px solid #e5e7eb; border-radius: 10px;">
+                        <div style="font-weight: bold; color: #2563eb; margin-bottom: 10px;">You</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #16a34a;">${currentUser.score}</div>
+                        <div style="color: #6b7280;">Score</div>
+                        <div style="font-size: 18px; color: #6b7280; margin-top: 5px;">${currentUser.accuracy}%</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 15px; border: 2px solid #fbbf24; border-radius: 10px;">
+                        <div style="font-weight: bold; color: #f59e0b; margin-bottom: 10px;">🥇 Topper</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #16a34a;">${topper.score}</div>
+                        <div style="color: #6b7280;">Score</div>
+                        <div style="font-size: 18px; color: #6b7280; margin-top: 5px;">${topper.accuracy}%</div>
+                    </div>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <div style="font-weight: bold; margin-bottom: 10px;">📊 Gap Analysis:</div>
+                    <div>• Score difference: <strong>${scoreDiff} points</strong></div>
+                    <div>• Accuracy difference: <strong>${accuracyDiff}%</strong></div>
+                    <div>• You need <strong>${Math.ceil(scoreDiff / 2)} more correct answers</strong> to match the topper</div>
+                </div>
+                
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: #2563eb;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    width: 100%;
+                ">Close</button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
         if (isFirebaseEnabled) {
             const testId = localStorage.getItem('testId') || 'default';
             database.ref('results/' + testId).on('value', (snapshot) => {

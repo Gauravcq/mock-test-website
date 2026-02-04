@@ -616,27 +616,48 @@
 
         // Load test data from localStorage or URL parameters
         function loadTestData() {
-            // Try to get data from localStorage first
-            const savedQuestions = localStorage.getItem('testQuestions');
-            const savedAnswers = localStorage.getItem('testAnswers');
+            // Try to get test result data from localStorage
+            const testResult = localStorage.getItem('testResult');
             
-            if (savedQuestions && savedAnswers) {
+            if (testResult) {
                 try {
-                    allQuestions = JSON.parse(savedQuestions);
-                    const answers = JSON.parse(savedAnswers);
+                    const result = JSON.parse(testResult);
+                    const questions = result.questions || [];
+                    const questionStates = result.questionStates || [];
                     
-                    // Map answers to questions
-                    allQuestions.forEach((question, index) => {
-                        question.userAnswer = answers[index] || null;
-                        question.status = question.userAnswer === question.correctAnswer ? 'correct' : 
-                                       question.userAnswer === null ? 'unattempted' : 'incorrect';
+                    console.log('📋 Loading questions from test result:', questions.length);
+                    
+                    // Map questions with their states
+                    allQuestions = questions.map((question, index) => {
+                        const state = questionStates[index] || {};
+                        const userAnswer = state.userAnswer;
+                        const correctAnswer = question.correctAnswer?.en || question.correctAnswer || '';
+                        
+                        let status = 'unattempted';
+                        if (userAnswer !== null) {
+                            status = (userAnswer === correctAnswer) ? 'correct' : 'incorrect';
+                        }
+                        
+                        return {
+                            id: index + 1,
+                            question: question.question || {},
+                            options: question.options || [],
+                            correctAnswer: correctAnswer,
+                            userAnswer: userAnswer,
+                            status: status,
+                            explanation: question.explanation || {}
+                        };
                     });
+                    
+                    console.log('✅ Loaded', allQuestions.length, 'questions from test result');
+                    
                 } catch (e) {
-                    console.error('Error loading saved data:', e);
+                    console.error('Error loading test result data:', e);
                     allQuestions = sampleQuestions;
                 }
             } else {
-                // Use sample data for demo
+                // Fallback to sample data for demo
+                console.warn('⚠️ No test result found, using sample data');
                 allQuestions = sampleQuestions;
             }
             
