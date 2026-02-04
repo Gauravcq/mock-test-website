@@ -42,7 +42,7 @@
         console.log('✅ Quiz system initialized successfully');
     }
 
-    // Load questions from backend API
+    // Load questions using your existing system
     function loadQuestions() {
         try {
             const urlParams = new URLSearchParams(window.location.search);
@@ -50,32 +50,52 @@
             
             console.log(`📡 Loading questions for test: ${testId}`);
             
-            // Try to load from backend API first
-            fetch(`/api/questions/${testId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data && data.questions && data.questions.length > 0) {
-                        window.QUIZ_DATA.questions = data.questions;
-                        window.QUIZ_DATA.testInfo = {
-                            id: testId,
-                            title: data.title || 'Test',
-                            duration: data.duration || 25,
-                            subject: data.subject || 'Mathematics'
-                        };
-                        console.log(`✅ Loaded ${data.questions.length} questions from backend API`);
-                    } else {
-                        throw new Error('No questions in API response');
-                    }
-                })
-                .catch(error => {
-                    console.warn('⚠️ Backend API failed, trying fallback:', error.message);
-                    loadFallbackQuestions(testId);
-                });
+            // Use your existing question loading logic
+            if (typeof QUESTIONS_DATABASE !== 'undefined' && QUESTIONS_DATABASE[testId]) {
+                const raw = QUESTIONS_DATABASE[testId];
+                const questions = Array.isArray(raw) ? raw : (raw.questions || []);
+                
+                window.QUIZ_DATA.questions = questions;
+                window.QUIZ_DATA.testInfo = {
+                    id: testId,
+                    title: `${testId.replace(/_/g, ' ').toUpperCase()}`,
+                    duration: 25,
+                    subject: 'Mathematics'
+                };
+                
+                console.log(`✅ Loaded ${questions.length} questions from QUESTIONS_DATABASE`);
+                return;
+            }
+            
+            // Try API if available
+            if (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getQuestions) {
+                ExamAxisAPI.getQuestions(testId)
+                    .then(response => {
+                        if (response?.success && response?.data?.questions?.length) {
+                            window.QUIZ_DATA.questions = response.data.questions;
+                            window.QUIZ_DATA.testInfo = {
+                                id: testId,
+                                title: response.data.title || testId,
+                                duration: response.data.duration || 25,
+                                subject: response.data.subject || 'Mathematics'
+                            };
+                            console.log(`✅ Loaded ${response.data.questions.length} questions from API`);
+                            
+                            // Initialize quiz after questions load
+                            if (window.QUIZ_DATA.isQuizStarted) {
+                                initializeQuizInterface();
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.warn('⚠️ API failed, using fallback:', error.message);
+                        loadFallbackQuestions(testId);
+                    });
+                return;
+            }
+            
+            // Fallback if nothing works
+            loadFallbackQuestions(testId);
             
         } catch (error) {
             console.error('❌ Error loading questions:', error);
@@ -201,10 +221,39 @@
             console.log('✅ Shown quiz UI');
         }
         
-        // Initialize quiz
-        initializeQuizInterface();
+        // Load questions first, then initialize
+        console.log('📚 Loading questions...');
+        loadQuestions();
+        
+        // Try to initialize immediately if questions are already loaded
+        if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
+            initializeQuizInterface();
+        } else {
+            // Wait a bit for questions to load
+            setTimeout(() => {
+                if (window.QUIZ_DATA.questions && window.QUIZ_DATA.questions.length > 0) {
+                    initializeQuizInterface();
+                } else {
+                    console.warn('⚠️ Questions not loaded yet, showing loading message');
+                    showLoadingMessage();
+                }
+            }, 1000);
+        }
         
         console.log('🎯 Quiz started successfully!');
+    }
+
+    // Show loading message while questions load
+    function showLoadingMessage() {
+        const questionArea = document.getElementById('question-area');
+        if (questionArea) {
+            questionArea.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <div style="font-size: 24px; margin-bottom: 20px;">📚 Loading Questions...</div>
+                    <div style="color: #6b7280;">Please wait while we load your test questions.</div>
+                </div>
+            `;
+        }
     }
 
     // Initialize quiz interface

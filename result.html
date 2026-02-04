@@ -386,6 +386,193 @@
             50% { opacity: 0.5; }
         }
 
+        .questions-review-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-card {
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card.correct {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .question-card.incorrect {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .question-card.unattempted {
+            border-color: var(--warning);
+            background: #fffbeb;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .question-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .question-status.correct {
+            background: var(--success);
+            color: white;
+        }
+
+        .question-status.incorrect {
+            background: var(--danger);
+            color: white;
+        }
+
+        .question-status.unattempted {
+            background: var(--warning);
+            color: white;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .options-container {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .option-item.user-answer {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-item.correct-answer {
+            border-color: var(--success);
+            background: #dcfce7;
+        }
+
+        .option-item.user-answer.correct-answer {
+            border-color: var(--success);
+            background: #dcfce7;
+        }
+
+        .option-label {
+            font-weight: 700;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-indicator {
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .option-indicator.user-answer {
+            color: var(--primary);
+        }
+
+        .option-indicator.correct-answer {
+            color: var(--success);
+        }
+
+        .explanation-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: var(--info);
+            margin-bottom: 10px;
+        }
+
+        .explanation-text {
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -515,6 +702,26 @@
                     Back to Tests
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- Questions Review Section -->
+    <div class="questions-review-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-list-check"></i>
+                Complete Question Review
+            </h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterQuestions('all')">All Questions</button>
+                <button class="filter-btn" onclick="filterQuestions('correct')">Correct</button>
+                <button class="filter-btn" onclick="filterQuestions('incorrect')">Incorrect</button>
+                <button class="filter-btn" onclick="filterQuestions('unattempted')">Unattempted</button>
+            </div>
+        </div>
+        
+        <div id="questions-container" class="questions-container">
+            <!-- Questions will be dynamically loaded here -->
         </div>
     </div>
 
@@ -828,6 +1035,9 @@
             if (testSubject) testSubject.textContent = results.subject || 'Mathematics';
             if (testDate) testDate.textContent = new Date(results.timestamp).toLocaleDateString();
             
+            // Load all questions for review
+            loadQuestionsForReview(results);
+            
             // Save results to Firebase for real-time rankings
             saveResultsToFirebase(results);
             updateRanking(results);
@@ -847,6 +1057,124 @@
                 });
             }, 500);
         });
+
+        // Load all questions for review
+        function loadQuestionsForReview(results) {
+            const container = document.getElementById('questions-container');
+            if (!container) return;
+            
+            const questions = results.questions || [];
+            const questionStates = results.questionStates || [];
+            
+            console.log('📋 Loading questions for review:', questions.length);
+            
+            if (questions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6b7280;">No questions available for review.</p>';
+                return;
+            }
+            
+            // Display all questions
+            displayQuestions(questions, questionStates, 'all');
+        }
+
+        // Display questions based on filter
+        function displayQuestions(questions, questionStates, filter) {
+            const container = document.getElementById('questions-container');
+            if (!container) return;
+            
+            let filteredQuestions = [];
+            
+            questions.forEach((question, index) => {
+                const state = questionStates[index] || {};
+                const status = state.resultCategory || 'unattempted';
+                
+                if (filter === 'all' || filter === status) {
+                    filteredQuestions.push({ question, state, index, status });
+                }
+            });
+            
+            if (filteredQuestions.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: #6b7280;">No ${filter} questions found.</p>`;
+                return;
+            }
+            
+            container.innerHTML = filteredQuestions.map(({ question, state, index, status }) => {
+                const questionText = question.question?.en || question.question || '';
+                const options = question.options || [];
+                const correctAnswer = question.correctAnswer?.en || question.correctAnswer || '';
+                const userAnswer = state.userAnswer;
+                const explanation = question.explanation?.en || question.explanation || '';
+                
+                return `
+                    <div class="question-card ${status}">
+                        <div class="question-header">
+                            <div class="question-number">Question ${index + 1}</div>
+                            <div class="question-status ${status}">
+                                ${status === 'correct' ? '✓ Correct' : status === 'incorrect' ? '✗ Incorrect' : '⚠ Unattempted'}
+                            </div>
+                        </div>
+                        
+                        <div class="question-text">${questionText}</div>
+                        
+                        <div class="options-container">
+                            ${options.map((option, i) => {
+                                const optionText = option.en || option || '';
+                                const isCorrect = optionText === correctAnswer;
+                                const isUserAnswer = optionText === userAnswer;
+                                const letter = String.fromCharCode(65 + i);
+                                
+                                let optionClass = 'option-item';
+                                let indicator = '';
+                                
+                                if (isCorrect && isUserAnswer) {
+                                    optionClass += ' user-answer correct-answer';
+                                    indicator = '<span class="option-indicator correct-answer">✓ Your Answer (Correct)</span>';
+                                } else if (isCorrect) {
+                                    optionClass += ' correct-answer';
+                                    indicator = '<span class="option-indicator correct-answer">✓ Correct Answer</span>';
+                                } else if (isUserAnswer) {
+                                    optionClass += ' user-answer';
+                                    indicator = '<span class="option-indicator user-answer">✗ Your Answer</span>';
+                                }
+                                
+                                return `
+                                    <div class="${optionClass}">
+                                        <span class="option-label">${letter}.</span>
+                                        <span class="option-text">${optionText}</span>
+                                        ${indicator}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        
+                        ${explanation ? `
+                            <div class="explanation-box">
+                                <div class="explanation-title">💡 Explanation:</div>
+                                <div class="explanation-text">${explanation}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase().includes(filter) || 
+                    (filter === 'all' && btn.textContent === 'All Questions'));
+            });
+        }
+
+        // Filter questions
+        function filterQuestions(filter) {
+            const resultData = localStorage.getItem('testResult');
+            if (!resultData) return;
+            
+            const results = JSON.parse(resultData);
+            const questions = results.questions || [];
+            const questionStates = results.questionStates || [];
+            
+            displayQuestions(questions, questionStates, filter);
+        }
 
         // Listen for real-time updates if Firebase is enabled
         if (isFirebaseEnabled) {
