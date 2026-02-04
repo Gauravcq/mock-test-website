@@ -1707,51 +1707,9 @@ body.results-scroll {
 
 <script src="js/tests-list.js"></script>
 <script src="js/questions-db.js"></script>
-<script src="js/test-logic.js"></script>
+<!-- Robust Quiz System - Replaces corrupted test-logic.js -->
+<script src="js/robust-quiz.js"></script>
 <script src="js/attempt-sync.js"></script>
-
-    <!-- Start Button Fix -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const startBtn = document.getElementById('start-test-btn');
-        if (startBtn) {
-            console.log('Found start test button, adding event listener');
-            
-            const newBtn = startBtn.cloneNode(true);
-            startBtn.parentNode.replaceChild(newBtn, startBtn);
-            
-            newBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('Start test button clicked!');
-                
-                const instructionsModal = document.getElementById('instructions-modal');
-                if (instructionsModal) {
-                    instructionsModal.classList.add('hidden');
-                    console.log('Hidden instructions modal');
-                }
-                
-                const quizUI = document.getElementById('quiz-ui');
-                if (quizUI) {
-                    quizUI.classList.remove('hidden');
-                    console.log('Shown quiz UI');
-                }
-                
-                if (typeof initQuiz === 'function') {
-                    initQuiz();
-                    console.log('Called initQuiz function');
-                }
-                
-                if (window.QUIZ_DATA) {
-                    window.QUIZ_DATA.isQuizStarted = true;
-                }
-            });
-            
-            console.log('Start test button event listeners added successfully');
-        } else {
-            console.error('Start test button not found!');
-        }
-    });
-    </script>
 
 <script>
 /**
