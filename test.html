@@ -1712,6 +1712,78 @@ body.results-scroll {
 <script src="js/attempt-sync.js"></script>
 
 <script>
+(function () {
+  function toLangObj(val) {
+    if (!val) return { en: '', hi: '' };
+    if (typeof val === 'string') return { en: val, hi: val };
+    if (typeof val === 'object') {
+      const en = val.en ?? val.text ?? val.value ?? val.option ?? '';
+      const hi = val.hi ?? val.hindi ?? val.text_hi ?? en ?? '';
+      return { en: String(en || ''), hi: String(hi || en || '') };
+    }
+    return { en: String(val), hi: String(val) };
+  }
+
+  function extractOptions(q) {
+    if (Array.isArray(q.options) && q.options.length) return q.options;
+    if (Array.isArray(q.choices) && q.choices.length) return q.choices;
+    if (Array.isArray(q.answers) && q.answers.length) return q.answers;
+
+    const maybeObj = q.options || q.choices || q.answers;
+    if (maybeObj && typeof maybeObj === 'object' && !Array.isArray(maybeObj)) {
+      const vals = Object.values(maybeObj);
+      if (vals.length) return vals;
+    }
+
+    const fromKeys = [
+      q.optionA, q.optionB, q.optionC, q.optionD,
+      q.option1, q.option2, q.option3, q.option4,
+      q.a, q.b, q.c, q.d
+    ].filter(v => v !== undefined && v !== null && String(v).trim() !== '');
+
+    return fromKeys;
+  }
+
+  function normalizeOne(raw) {
+    if (!raw || typeof raw !== 'object') return raw;
+
+    if (!raw.question && (raw.questionText || raw.text || raw.ques || raw.question_text)) {
+      raw.question = raw.questionText || raw.text || raw.ques || raw.question_text;
+    }
+
+    raw.question = toLangObj(raw.question);
+
+    const opts = extractOptions(raw);
+    raw.options = (opts || []).map((opt, i) => {
+      const o = toLangObj(opt);
+      o.index = i;
+      return o;
+    });
+
+    return raw;
+  }
+
+  function normalizeQuizDataOnceReady() {
+    const qd = window.QUIZ_DATA;
+    if (!qd || !Array.isArray(qd.questions) || qd.questions.length === 0) return false;
+
+    qd.questions = qd.questions.map(normalizeOne);
+    return true;
+  }
+
+  let tries = 0;
+  const maxTries = 40;
+  const timer = setInterval(() => {
+    tries++;
+    const ok = normalizeQuizDataOnceReady();
+    if (ok || tries >= maxTries) {
+      clearInterval(timer);
+    }
+  }, 100);
+})();
+</script>
+
+<script>
 /**
  * Auto‑update palette legend counts based on classes on .palette-btn
  */
