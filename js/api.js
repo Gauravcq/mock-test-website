@@ -63,6 +63,12 @@ class ExamAxisAPI {
       if (data && data.success && data.token && data.data?.user) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
+
+        const u = data.data.user;
+        const userId = u.id || u._id || u.userId;
+        if (userId) localStorage.setItem('userId', String(userId));
+        const userName = u.fullName || u.name || u.username || u.email;
+        if (userName) localStorage.setItem('userName', String(userName));
       }
 
       return data || { success: false, message: 'Unexpected server response.' };
@@ -93,6 +99,12 @@ class ExamAxisAPI {
       if (data && data.success && data.token && data.data?.user) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
+
+        const u = data.data.user;
+        const userId = u.id || u._id || u.userId;
+        if (userId) localStorage.setItem('userId', String(userId));
+        const userName = u.fullName || u.name || u.username || u.email;
+        if (userName) localStorage.setItem('userName', String(userName));
       }
 
       return data || { success: false, message: 'Unexpected server response.' };
@@ -111,6 +123,8 @@ class ExamAxisAPI {
 
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
     return { success: true };
   }
 
@@ -124,6 +138,12 @@ class ExamAxisAPI {
 
       if (data.data?.isAuthenticated && data.data.user) {
         localStorage.setItem('user', JSON.stringify(data.data.user));
+
+        const u = data.data.user;
+        const userId = u.id || u._id || u.userId;
+        if (userId) localStorage.setItem('userId', String(userId));
+        const userName = u.fullName || u.name || u.username || u.email;
+        if (userName) localStorage.setItem('userName', String(userName));
         return { isAuthenticated: true, user: data.data.user };
       }
 

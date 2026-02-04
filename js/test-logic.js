@@ -504,6 +504,10 @@
 
         window._originalConsole?.log?.('🔍 TestId from URL:', testId);
 
+        if (testId) {
+            localStorage.setItem('testId', String(testId));
+        }
+
         if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
             localStorage.setItem('redirectAfterLogin', window.location.href);
             window.location.href = 'login.html';
@@ -1212,12 +1216,34 @@
                 const accuracy = (correct + incorrect) > 0 ? (correct / (correct + incorrect)) * 100 : 0;
                 QD.reviewQuestionList = filterQuestions('all');
 
+                try {
+                    const attemptPayload = {
+                        testId: String(QD.testInfo.id || testId),
+                        testInfo: QD.testInfo,
+                        questions,
+                        questionStates: QD.questionStates,
+                        score: Number(score.toFixed(2)),
+                        correct,
+                        incorrect,
+                        unattempted,
+                        accuracy: Number(accuracy.toFixed(1)),
+                        timeTaken: {
+                            mins,
+                            secs
+                        },
+                        timestamp: Date.now()
+                    };
+                    localStorage.setItem('testResult', JSON.stringify(attemptPayload));
+                } catch (e) {
+                }
+
                 const reviewArea = $('review-button-area');
                 if (reviewArea) {
                     reviewArea.innerHTML = `
                         <div style="margin-bottom:20px;"><h3>${QD.testInfo.title}</h3><p style="color:#6b7280;">Questions: ${questions.length} | Max: ${questions.length * 2}</p></div>
                         <div style="display:flex;gap:12px;flex-wrap:wrap;">
                             <button id="review-test-btn" style="background:#4f46e5;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-weight:600;">📝 Review</button>
+                            <a href="result.html" style="background:#2563eb;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">📊 Results</a>
                             <a href="index.html" style="background:#e5e7eb;color:#374151;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">🏠 Tests</a>
                         </div>
                     `;
@@ -1240,8 +1266,7 @@
                 setTimeout(() => {
                     const revBtn = $('review-test-btn');
                     if (revBtn) revBtn.onclick = () => {
-                        const allTab = resultTabsContainer?.querySelectorAll('a')[1];
-                        if (allTab) handleTabClick({ preventDefault: () => {}, target: allTab });
+                        window.location.href = 'review.html';
                     };
                 }, 100);
 
