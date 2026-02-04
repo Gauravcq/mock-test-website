@@ -1081,7 +1081,11 @@
                     showQuestion(QD.currentQuestionIndex);
                 };
             }
-            
+
+            if (submitSummaryModal) {
+                submitSummaryModal.classList.add('hidden');
+            }
+
             function showSubmitModal() {
                 if (!submitSummaryModal) return;
 
@@ -1100,7 +1104,7 @@
                 } else {
                     submitSummaryModal.innerHTML = `
                         <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
-                        <div style="margin:10px 0;">Unanswered: <strong>${questions.length - answered}</strong></div>
+                        <div>Unanswered: <strong>${questions.length - answered}</strong></div>
                     `;
                 }
 
@@ -1116,11 +1120,52 @@
                 finalSubmitBtn.parentNode.replaceChild(newFinal, finalSubmitBtn);
                 newFinal.onclick = (e) => {
                     e.preventDefault();
+
                     if (QD.isSubmitted) return;
                     QD.isSubmitted = true;
                     submitSummaryModal?.classList.add('hidden');
                     submitQuiz();
                 };
+            }
+
+            function formatTime(totalSeconds) {
+                const secs = Math.max(0, Math.floor(totalSeconds));
+                const m = Math.floor(secs / 60);
+                const s = secs % 60;
+                return `${m}:${String(s).padStart(2, '0')}`;
+            }
+
+            function startTimer() {
+                if (!timerEl) return;
+                clearInterval(QD.timerInterval);
+
+                const update = () => {
+                    let remainingTotal = 0;
+                    for (const s in QD.sectionTimeRemaining) {
+                        remainingTotal += (QD.sectionTimeRemaining[s] || 0);
+                    }
+                    timerEl.textContent = formatTime(remainingTotal);
+                };
+
+                update();
+
+                QD.timerInterval = setInterval(() => {
+                    if (!QD.isQuizStarted || QD.isSubmitted) return;
+                    if (QD.isPaused) return;
+
+                    const currentSubject = questions[QD.currentQuestionIndex]?.subject;
+                    if (currentSubject && typeof QD.sectionTimeRemaining[currentSubject] === 'number') {
+                        QD.sectionTimeRemaining[currentSubject] = Math.max(0, QD.sectionTimeRemaining[currentSubject] - 1);
+                    }
+
+                    update();
+
+                    let remainingTotal = 0;
+                    for (const s in QD.sectionTimeRemaining) remainingTotal += (QD.sectionTimeRemaining[s] || 0);
+                    if (remainingTotal <= 0 && !QD.isSubmitted) {
+                        showSubmitModal();
+                    }
+                }, 1000);
             }
 
             // ========== SUBMIT QUIZ ==========
@@ -1341,6 +1386,11 @@
                 document.querySelectorAll('input[name="option"]:checked').forEach(r => r.checked = false);
                 updatePalette();
             };
+
+            createPalette();
+            showQuestion(0);
+            updatePalette();
+            startTimer();
 
             window._originalConsole?.log?.('✅ Quiz ready!');
         }
