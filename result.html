@@ -873,8 +873,8 @@
         function saveResultsToFirebase(results) {
             if (!isFirebaseEnabled) return;
             const userId = localStorage.getItem('userId') || 
-                          localStorage.getItem('user_id') || 
-                          `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+                          localStorage.getItem('user_id');
+            if (!userId) return;
             
             const userName = localStorage.getItem('userName') || 
                            localStorage.getItem('name') || 
@@ -1082,21 +1082,18 @@
         // Calculate and update ranking
         function updateRanking(results) {
             if (!isFirebaseEnabled) {
-                // Simulated ranking when Firebase is not available
-                const simulatedRank = Math.floor(Math.random() * 100) + 1;
-                const simulatedPercentile = Math.floor(Math.random() * 30) + 70;
-                
-                document.getElementById('rankNumber').textContent = simulatedRank;
-                document.getElementById('percentileValue').textContent = simulatedPercentile + '%';
-                document.getElementById('percentileFill').style.width = simulatedPercentile + '%';
-                
-                // Update performance chart
-                updatePerformanceChart(results.score, results.totalQuestions * 2);
+                const rankEl = document.getElementById('rankNumber');
+                const percEl = document.getElementById('percentileValue');
+                const percFill = document.getElementById('percentileFill');
+                if (rankEl) rankEl.textContent = 'N/A';
+                if (percEl) percEl.textContent = 'N/A';
+                if (percFill) percFill.style.width = '0%';
                 return;
             }
 
             // Real Firebase ranking logic
-            const userId = localStorage.getItem('userId') || 'anonymous';
+            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            if (!userId) return;
             const testId = localStorage.getItem('testId') || 'default';
             
             // Save user's result to Firebase

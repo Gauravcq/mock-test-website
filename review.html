@@ -6,6 +6,9 @@
     <title>Test Review - Exam Axis</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
@@ -140,6 +143,86 @@
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 20px;
+        }
+
+        .rank-card {
+            background: white;
+            border-radius: 15px;
+            padding: 18px 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .rank-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rank-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .rank-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .rank-subtitle {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        .rank-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .rank-metric {
+            text-align: right;
+            min-width: 120px;
+        }
+
+        .rank-metric .value {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .rank-metric .label {
+            color: #6b7280;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .percentile-bar {
+            width: 220px;
+            height: 10px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            overflow: hidden;
+        }
+
+        .percentile-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
         }
 
         .stat-item {
@@ -482,6 +565,31 @@
             <div class="stat-item">
                 <div class="stat-value" id="accuracyRate">--</div>
                 <div class="stat-label"><span data-en="Accuracy" data-hi="सटीकता">Accuracy</span></div>
+            </div>
+        </div>
+
+        <div class="rank-card" id="rankCard" style="display:none;">
+            <div class="rank-left">
+                <div class="rank-badge">#</div>
+                <div>
+                    <div class="rank-title">Rank & Percentile</div>
+                    <div class="rank-subtitle" id="rankSubtitle">--</div>
+                </div>
+            </div>
+            <div class="rank-right">
+                <div class="rank-metric">
+                    <div class="value" id="rankReviewNumber">--</div>
+                    <div class="label">Rank</div>
+                </div>
+                <div>
+                    <div class="rank-metric" style="text-align:left;min-width:220px;">
+                        <div class="value" id="percentileReviewValue">--</div>
+                        <div class="label">Percentile</div>
+                    </div>
+                    <div class="percentile-bar" aria-label="Percentile">
+                        <div class="percentile-fill" id="percentileReviewFill"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -858,6 +966,77 @@
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             initializeReview();
+        });
+
+        // Firebase ranking (real users only)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
+            authDomain: "exam-axis.firebaseapp.com",
+            databaseURL: "https://exam-axis-default-rtdb.firebaseio.com",
+            projectId: "exam-axis",
+            storageBucket: "exam-axis.firebasestorage.app",
+            messagingSenderId: "285879641284",
+            appId: "1:285879641284:web:10a1800c5e579e68ee1591",
+            measurementId: "G-2ML43R0G1X"
+        };
+
+        let reviewDb = null;
+
+        function initReviewFirebase() {
+            try {
+                if (!firebase.apps || firebase.apps.length === 0) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                reviewDb = firebase.database();
+            } catch (e) {
+                reviewDb = null;
+            }
+        }
+
+        function updateReviewRankUI(rank, totalUsers, percentile) {
+            const card = document.getElementById('rankCard');
+            if (!card) return;
+
+            const rankEl = document.getElementById('rankReviewNumber');
+            const percEl = document.getElementById('percentileReviewValue');
+            const fillEl = document.getElementById('percentileReviewFill');
+            const subtitle = document.getElementById('rankSubtitle');
+
+            if (rankEl) rankEl.textContent = String(rank);
+            if (percEl) percEl.textContent = `${percentile}%`;
+            if (fillEl) fillEl.style.width = `${percentile}%`;
+            if (subtitle) subtitle.textContent = `#${rank} of ${totalUsers} students`;
+            card.style.display = '';
+        }
+
+        function loadReviewRanking() {
+            if (!reviewDb) return;
+
+            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            const testId = localStorage.getItem('testId') || localStorage.getItem('test_id');
+            if (!userId || !testId) return;
+
+            reviewDb.ref('results/' + testId).once('value')
+                .then((snapshot) => {
+                    const allResults = snapshot.val() || {};
+                    const resultsArray = Object.values(allResults);
+                    if (!resultsArray.length) return;
+
+                    resultsArray.sort((a, b) => (b.score || 0) - (a.score || 0));
+                    const idx = resultsArray.findIndex(r => String(r.userId) === String(userId));
+                    if (idx < 0) return;
+
+                    const rank = idx + 1;
+                    const totalUsers = resultsArray.length;
+                    const percentile = Number((((totalUsers - rank + 1) / totalUsers) * 100).toFixed(1));
+                    updateReviewRankUI(rank, totalUsers, percentile);
+                })
+                .catch(() => {});
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initReviewFirebase();
+            loadReviewRanking();
         });
     </script>
 </body>

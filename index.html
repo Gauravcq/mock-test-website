@@ -1436,42 +1436,6 @@
             box-shadow: 0 8px 24px var(--dp-glow);
         }
 
-        /* ============================================
-           TELEGRAM FLOATING BUTTON
-           ============================================ */
-        .telegram-float-btn {
-            position: fixed;
-            bottom: 90px;
-            right: 28px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #0088cc, #006699);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0, 136, 204, 0.4);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .telegram-float-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 32px rgba(0, 136, 204, 0.6);
-        }
-
-        .telegram-float-btn.joined {
-            display: none;
-        }
-
-        .telegram-float-btn.hidden {
-            display: none;
-        }
-
         /* Footer decoration */
         .footer-decoration {
             position: fixed;
@@ -2325,16 +2289,10 @@
 <!-- Help Button -->
 <button class="help-btn" aria-label="Get help">💬</button>
 
-<!-- Floating Telegram Button -->
-<button class="telegram-float-btn" id="telegramFloatBtn" onclick="handleTelegramFloatClick()">
-    <i class="fab fa-telegram"></i>
-</button>
-
 <!-- Scripts -->
 <script src="js/api.js"></script>
 <script src="js/tests-list.js"></script>
 <script src="js/premium-access.js"></script>
-<script src="js/telegram-integration.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -2343,9 +2301,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     })();
-
-    // ==================== TELEGRAM FLOAT BUTTON ====================
-    initializeTelegramFloatButton();
 
     // ==================== INITIALIZATION =====================
     // DOM Elements - Cache all at once
@@ -2886,73 +2841,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load history in background (non-blocking)
     requestIdleCallback ? requestIdleCallback(loadHistory) : setTimeout(loadHistory, 100);
 });
-
-// ==================== TELEGRAM FLOAT BUTTON FUNCTIONS ====================
-function initializeTelegramFloatButton() {
-    const telegramBtn = document.getElementById('telegramFloatBtn');
-    if (!telegramBtn) return;
-
-    // Check if user is logged in
-    const token = localStorage.getItem('token');
-    if (!token) {
-        telegramBtn.classList.add('hidden');
-        return;
-    }
-
-    // Check if user is premium
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const isPremium = 
-        user.plan === 'premium' || 
-        user.isPremium === true || 
-        user.subscription === 'premium' ||
-        user.premium === true ||
-        user.role === 'premium' ||
-        user.role === 'admin' ||  // Admin is also premium
-        user.userType === 'premium' ||
-        user.membership === 'premium' ||
-        user.access === 'premium' ||
-        (user.plan && user.plan.toLowerCase().includes('premium')) ||
-        (user.subscription && user.subscription.toLowerCase().includes('premium'));
-
-    // Only show button for premium users
-    if (!isPremium) {
-        telegramBtn.classList.add('hidden');
-        return;
-    }
-
-    // Check if already joined - if yes, hide button completely
-    const hasJoined = localStorage.getItem('telegramJoined') === 'true';
-    if (hasJoined) {
-        telegramBtn.classList.add('joined');
-        return;
-    }
-
-    // Show button for premium users who haven't joined
-    telegramBtn.title = 'Join Premium Telegram Group';
-}
-
-function handleTelegramFloatClick() {
-    const telegramBtn = document.getElementById('telegramFloatBtn');
-    if (!telegramBtn) return;
-
-    // Open Telegram app directly
-    const telegramUrl = 'tg://join?invite=wkVQs6V5sEkyODI9';
-    
-    // Try to open Telegram app first
-    window.location.href = telegramUrl;
-    
-    // Fallback: open in browser if app doesn't open after 1 second
-    setTimeout(() => {
-        window.open('https://t.me/+wkVQs6V5sEkyODI9', '_blank');
-    }, 1000);
-
-    // Mark as joined and HIDE button completely
-    localStorage.setItem('telegramJoined', 'true');
-    telegramBtn.classList.add('joined');
-
-    // Show success message
-    showToast('Welcome to the Premium Telegram Group! 🎉', 'success');
-}
 
 // ==================== CHECK PREMIUM STATUS ====================
 async function checkAndUpdatePremiumButton() {
