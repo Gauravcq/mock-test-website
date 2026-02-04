@@ -1044,6 +1044,7 @@
 
         // Save to backend
         if (window.ExamAxisAPI?.isLoggedIn()) {
+            const QD = window.QUIZ_DATA;
             const answersObj = {};
             QD.questionStates.forEach((state, i) => {
                 answersObj[i] = {
@@ -1081,13 +1082,29 @@
                 };
             }
             
-            if (submitSummaryModal) {
+            function showSubmitModal() {
+                if (!submitSummaryModal) return;
+
                 const answered = QD.questionStates.filter(s => s.status === 'answered').length;
-                submitSummaryModal.innerHTML = `
-                    <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
-                    <div>Unanswered: <strong>${questions.length - answered}</strong></div>
-                `;
-                submitSummaryModal?.classList.remove('hidden');
+                const notAnswered = QD.questionStates.filter(s => s.status === 'not-answered').length;
+                const notVisited = QD.questionStates.filter(s => s.status === 'not-visited').length;
+                const marked = QD.questionStates.filter(s => s.markedForReview).length;
+
+                if (submissionStatsEl) {
+                    submissionStatsEl.innerHTML = `
+                        <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
+                        <div style="margin:10px 0;">Not Answered: <strong>${notAnswered}</strong></div>
+                        <div style="margin:10px 0;">Not Visited: <strong>${notVisited}</strong></div>
+                        <div style="margin:10px 0;">Marked For Review: <strong>${marked}</strong></div>
+                    `;
+                } else {
+                    submitSummaryModal.innerHTML = `
+                        <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
+                        <div style="margin:10px 0;">Unanswered: <strong>${questions.length - answered}</strong></div>
+                    `;
+                }
+
+                submitSummaryModal.classList.remove('hidden');
             }
 
             if (submitTestBtn) submitTestBtn.onclick = showSubmitModal;
