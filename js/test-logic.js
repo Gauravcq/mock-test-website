@@ -1,6 +1,6 @@
 // test-logic.js - FINAL VERSION v9 with SECURITY
 // Features: Anti-copy, Anti-console, Anti-inspect, Tab detection
-function initQuiz() {
+(function() {
     'use strict';
 
     // ========== SECURITY FEATURES ==========
@@ -1041,10 +1041,7 @@ function initQuiz() {
                 // Initialize the quiz
                 initQuiz();
             };
-        }
-
-        // IMPORTANT: Do NOT force results mode on page load.
-        // Results UI should be shown only after submission.
+        } // Added missing closing brace here
 
         // Save to backend
         if (window.ExamAxisAPI?.isLoggedIn()) {
@@ -1453,15 +1450,11 @@ function initQuiz() {
                 renderSectionTabs();
             }
 
-            createPalette();
-            showQuestion(0);
-            updatePalette();
-            startTimer();
+createPalette();
+showQuestion(0);
+updatePalette();
+startTimer();
 
-            window._originalConsole?.log?.('✅ Quiz ready!');
-        }
-    })();
+window._originalConsole?.log?.('✅ Quiz ready!');
 }
-
-// Initialize quiz when DOM is ready
-initQuiz();
+})();
