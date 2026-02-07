@@ -225,12 +225,12 @@
 
         enableExamMode() {
             document.body.classList.add('exam-mode');
-            window._originalConsole?.log?.('🔒 Exam mode enabled');
+            console.log('🔒 Exam mode enabled');
         },
 
         disableExamMode() {
             document.body.classList.remove('exam-mode');
-            window._originalConsole?.log?.('🔓 Exam mode disabled');
+            console.log('🔓 Exam mode disabled');
         }
     };
 
@@ -247,7 +247,7 @@
         const freeTestIds = Object.values(FREE_TESTS);
         const isFreeTest = freeTestIds.includes(testId);
         if (isFreeTest) {
-            window._originalConsole?.log?.('✅ Free test - access granted');
+            console.log('✅ Free test - access granted');
             return true;
         }
         try {
@@ -258,13 +258,13 @@
             });
             const data = await response.json();
             if (data.success && data.data && data.data.isPremium) {
-                window._originalConsole?.log?.('✅ Premium user - access granted');
+                console.log('✅ Premium user - access granted');
                 return true;
             }
         } catch (error) {
-            window._originalConsole?.error?.('Premium check error:', error);
+            console.error('Premium check error:', error);
         }
-        window._originalConsole?.warn?.('🔒 Premium test - access denied');
+        console.warn('🔒 Premium test - access denied');
         const userChoice = confirm('🔒 Premium Content\n\nThis test is available for Premium Members only.\n\nWould you like to upgrade to Premium for just ₹99 (Lifetime Access)?\n\nClick OK to upgrade, or Cancel to go back.');
         if (userChoice) { window.location.href = 'payment.html'; } else { window.location.href = 'index.html'; }
         return false;
@@ -453,12 +453,44 @@
             return;
         }
 
+        // ========== ✅ FIX: FORCE SUBJECT ASSIGNMENT FOR FULL MOCK ==========
         const subjectName = testInfo.subject || 'General';
-        window.QUIZ_DATA.questions = questions.map((q, i) => ({
-            ...normalizeQuestion(q, i),
-            originalIndex: i,
-            subject: q.subject || subjectName
-        })).filter(q => q !== null);
+        const isFullMockTest = testId && (testId.includes('fullmock') || testId.includes('full_mock'));
+        
+        console.log('🔍 Is Full Mock Test?', isFullMockTest);
+        console.log('🔍 Total Questions:', questions.length);
+
+        window.QUIZ_DATA.questions = questions.map((q, i) => {
+            let assignedSubject;
+            
+            // Force subject assignment for 100-question full mock tests
+            if (isFullMockTest && questions.length === 100) {
+                if (i < 25) {
+                    assignedSubject = 'maths';
+                } else if (i < 50) {
+                    assignedSubject = 'english';
+                } else if (i < 75) {
+                    assignedSubject = 'gk';
+                } else {
+                    assignedSubject = 'reasoning';
+                }
+                
+                // Log first question of each section
+                if (i === 0 || i === 25 || i === 50 || i === 75) {
+                    console.log(`📌 Q${i+1} assigned to: ${assignedSubject}`);
+                }
+            } else {
+                // Use existing subject or fallback
+                assignedSubject = q.subject || subjectName;
+            }
+            
+            return {
+                ...normalizeQuestion(q, i),
+                originalIndex: i,
+                subject: assignedSubject
+            };
+        }).filter(q => q !== null);
+
         console.log(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
 
         // ========== DETECT SECTIONS ==========
@@ -1086,7 +1118,7 @@
             updatePalette();
             startTimer();
             console.log('✅ Quiz initialized and ready!');
-        } // ← THIS WAS MISSING! Closes initQuiz()
+        }
 
         document.addEventListener('keydown', (e) => {
             const QD = window.QUIZ_DATA;
