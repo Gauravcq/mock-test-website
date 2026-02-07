@@ -1,7 +1,6 @@
-// test-logic.js - FINAL VERSION v10 with SECTIONS SUPPORT - FIXED
+// test-logic.js - FINAL VERSION v12 with FIXED FULL MOCK TIMER
 // Features: Anti-copy, Anti-console, Anti-inspect, Tab detection, Section-based Full Mock
-// test-logic.js - FINAL VERSION v11 with SECURITY ENABLED
-// Features: Anti-copy, Anti-console, Anti-inspect, Tab detection, Section-based Full Mock
+// Timer Fix: Full Mock now correctly shows 60 minutes instead of 240 minutes
 (function() {
     'use strict';
 
@@ -453,7 +452,8 @@
         sectionTimeRemaining: {}, totalInitialTime: 0, reviewQuestionList: [],
         currentReviewIndex: 0, currentQuestionIndex: 0, isQuizStarted: false,
         isSubmitted: false, timerInterval: null, isPaused: false,
-        sections: [], currentSection: null, isFullMock: false
+        sections: [], currentSection: null, isFullMock: false,
+        sharedTimeRemaining: 0 // Added for full mock shared timer
     };
 
     // ========== MAIN INITIALIZATION ==========
@@ -630,64 +630,64 @@
             return;
         }
 
-// ========== ✅ IMPROVED FULL MOCK DETECTION ==========
-const subjectName = testInfo.subject || 'General';
+        // ========== ✅ IMPROVED FULL MOCK DETECTION ==========
+        const subjectName = testInfo.subject || 'General';
 
-// Method 1: Check testId for fullmock keyword
-const hasFullMockInId = testId && (
-    testId.toLowerCase().includes('fullmock') || 
-    testId.toLowerCase().includes('full_mock') ||
-    testId.toLowerCase().includes('full-mock')
-);
+        // Method 1: Check testId for fullmock keyword
+        const hasFullMockInId = testId && (
+            testId.toLowerCase().includes('fullmock') || 
+            testId.toLowerCase().includes('full_mock') ||
+            testId.toLowerCase().includes('full-mock')
+        );
 
-// Method 2: Check testInfo for section type
-const hasFullMockSection = testInfo.section === 'fullmock' || testInfo.type === 'fullmock';
+        // Method 2: Check testInfo for section type
+        const hasFullMockSection = testInfo.section === 'fullmock' || testInfo.type === 'fullmock';
 
-// Method 3: Check question count (SSC pattern: 100 questions)
-const hasFullMockCount = questions.length === 100;
+        // Method 3: Check question count (SSC pattern: 100 questions)
+        const hasFullMockCount = questions.length === 100;
 
-// Method 4: Check if questions already have multiple subjects
-const existingSubjects = [...new Set(questions.map(q => q.subject).filter(Boolean))];
-const hasMultipleSubjects = existingSubjects.length >= 4;
+        // Method 4: Check if questions already have multiple subjects
+        const existingSubjects = [...new Set(questions.map(q => q.subject).filter(Boolean))];
+        const hasMultipleSubjects = existingSubjects.length >= 4;
 
-// Combine all methods
-const isFullMockTest = hasFullMockInId || hasFullMockSection || (hasFullMockCount && !hasMultipleSubjects);
+        // Combine all methods
+        const isFullMockTest = hasFullMockInId || hasFullMockSection || (hasFullMockCount && !hasMultipleSubjects);
 
-console.log('🔍 Full Mock Detection:');
-console.log('  - Has "fullmock" in ID:', hasFullMockInId);
-console.log('  - Has fullmock section:', hasFullMockSection);
-console.log('  - Has 100 questions:', hasFullMockCount);
-console.log('  - Has multiple subjects:', hasMultipleSubjects);
-console.log('  - Final Decision:', isFullMockTest);
+        console.log('🔍 Full Mock Detection:');
+        console.log('  - Has "fullmock" in ID:', hasFullMockInId);
+        console.log('  - Has fullmock section:', hasFullMockSection);
+        console.log('  - Has 100 questions:', hasFullMockCount);
+        console.log('  - Has multiple subjects:', hasMultipleSubjects);
+        console.log('  - Final Decision:', isFullMockTest);
 
-window.QUIZ_DATA.questions = questions.map((q, i) => {
-    let assignedSubject;
-    
-    // If questions already have correct subjects, use them
-    if (hasMultipleSubjects && q.subject) {
-        assignedSubject = q.subject;
-    }
-    // Force subject assignment for full mock without subjects
-    else if (isFullMockTest && questions.length === 100) {
-        if (i < 25) {
-            assignedSubject = 'maths';
-        } else if (i < 50) {
-            assignedSubject = 'english';
-        } else if (i < 75) {
-            assignedSubject = 'gk';
-        } else {
-            assignedSubject = 'reasoning';
-        }
-    } else {
-        assignedSubject = q.subject || subjectName;
-    }
-    
-    return {
-        ...normalizeQuestion(q, i),
-        originalIndex: i,
-        subject: assignedSubject
-    };
-}).filter(q => q !== null);
+        window.QUIZ_DATA.questions = questions.map((q, i) => {
+            let assignedSubject;
+            
+            // If questions already have correct subjects, use them
+            if (hasMultipleSubjects && q.subject) {
+                assignedSubject = q.subject;
+            }
+            // Force subject assignment for full mock without subjects
+            else if (isFullMockTest && questions.length === 100) {
+                if (i < 25) {
+                    assignedSubject = 'maths';
+                } else if (i < 50) {
+                    assignedSubject = 'english';
+                } else if (i < 75) {
+                    assignedSubject = 'gk';
+                } else {
+                    assignedSubject = 'reasoning';
+                }
+            } else {
+                assignedSubject = q.subject || subjectName;
+            }
+            
+            return {
+                ...normalizeQuestion(q, i),
+                originalIndex: i,
+                subject: assignedSubject
+            };
+        }).filter(q => q !== null);
 
         console.log(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
 
@@ -953,10 +953,30 @@ window.QUIZ_DATA.questions = questions.map((q, i) => {
             const duration = QD.testInfo.duration || (QD.testInfo.section === 'fullmock' ? 60 : 25);
             QD.sectionTimeRemaining = {};
             QD.totalInitialTime = 0;
-            [...new Set(questions.map(q => q.subject))].forEach(s => {
-                QD.sectionTimeRemaining[s] = duration * 60;
-                QD.totalInitialTime += duration * 60;
-            });
+
+            // ========== FIX: Full Mock Timer - 60 minutes total ==========
+            if (QD.isFullMock) {
+                // For full mock, all sections share ONE timer (60 minutes total)
+                QD.totalInitialTime = duration * 60; // 60 minutes = 3600 seconds
+                QD.sharedTimeRemaining = duration * 60; // Shared timer for all sections
+                
+                // Initialize section timers (for display purposes only)
+                [...new Set(questions.map(q => q.subject))].forEach(s => {
+                    QD.sectionTimeRemaining[s] = duration * 60;
+                });
+                
+                console.log(`⏱️ Full Mock Timer: ${duration} minutes (shared across all sections)`);
+                console.log(`⏱️ Total seconds: ${QD.sharedTimeRemaining}`);
+            } else {
+                // For sectional tests, each section gets full time
+                [...new Set(questions.map(q => q.subject))].forEach(s => {
+                    QD.sectionTimeRemaining[s] = duration * 60;
+                    QD.totalInitialTime += duration * 60;
+                });
+                
+                console.log(`⏱️ Sectional Test Timer: ${duration} minutes`);
+            }
+
             QD.questionStates = questions.map(() => ({
                 status: 'not-visited',
                 userAnswer: null,
@@ -1060,33 +1080,71 @@ window.QUIZ_DATA.questions = questions.map((q, i) => {
                 return `${m}:${String(s).padStart(2, '0')}`;
             }
 
+            // ========== FIXED START TIMER FUNCTION ==========
             function startTimer() {
                 if (!timerEl) return;
                 clearInterval(QD.timerInterval);
+                
+                // ========== FIX: Timer display update function ==========
                 const update = () => {
                     let remainingTotal = 0;
-                    for (const s in QD.sectionTimeRemaining) {
-                        remainingTotal += (QD.sectionTimeRemaining[s] || 0);
+                    
+                    // Use shared timer for full mock, otherwise sum section timers
+                    if (QD.isFullMock) {
+                        remainingTotal = QD.sharedTimeRemaining || 0;
+                    } else {
+                        for (const s in QD.sectionTimeRemaining) {
+                            remainingTotal += (QD.sectionTimeRemaining[s] || 0);
+                        }
                     }
+                    
                     timerEl.textContent = formatTime(remainingTotal);
+                    
+                    // Color coding for low time
                     if (remainingTotal <= 60) {
                         timerEl.style.color = '#ef4444';
                         timerEl.style.fontWeight = 'bold';
                     } else if (remainingTotal <= 300) {
                         timerEl.style.color = '#f59e0b';
+                    } else {
+                        timerEl.style.color = '';
+                        timerEl.style.fontWeight = '';
                     }
                 };
+                
                 update();
+                
+                // ========== FIX: Timer countdown interval ==========
                 QD.timerInterval = setInterval(() => {
                     if (!QD.isQuizStarted || QD.isSubmitted) return;
                     if (QD.isPaused) return;
-                    const currentSubject = questions[QD.currentQuestionIndex]?.subject;
-                    if (currentSubject && typeof QD.sectionTimeRemaining[currentSubject] === 'number') {
-                        QD.sectionTimeRemaining[currentSubject] = Math.max(0, QD.sectionTimeRemaining[currentSubject] - 1);
+
+                    // Decrement appropriate timer
+                    if (QD.isFullMock) {
+                        // Full mock: decrement shared timer only
+                        if (typeof QD.sharedTimeRemaining === 'number') {
+                            QD.sharedTimeRemaining = Math.max(0, QD.sharedTimeRemaining - 1);
+                        }
+                    } else {
+                        // Sectional: decrement current section's timer
+                        const currentSubject = questions[QD.currentQuestionIndex]?.subject;
+                        if (currentSubject && typeof QD.sectionTimeRemaining[currentSubject] === 'number') {
+                            QD.sectionTimeRemaining[currentSubject] = Math.max(0, QD.sectionTimeRemaining[currentSubject] - 1);
+                        }
                     }
+
                     update();
+
+                    // Check if time is up
                     let remainingTotal = 0;
-                    for (const s in QD.sectionTimeRemaining) remainingTotal += (QD.sectionTimeRemaining[s] || 0);
+                    if (QD.isFullMock) {
+                        remainingTotal = QD.sharedTimeRemaining || 0;
+                    } else {
+                        for (const s in QD.sectionTimeRemaining) {
+                            remainingTotal += (QD.sectionTimeRemaining[s] || 0);
+                        }
+                    }
+
                     if (remainingTotal <= 0 && !QD.isSubmitted) {
                         QD.isSubmitted = true;
                         SECURITY.showWarning('⏰ Time is up! Submitting your test...', 'warning');
@@ -1095,14 +1153,24 @@ window.QUIZ_DATA.questions = questions.map((q, i) => {
                 }, 1000);
             }
 
+            // ========== FIXED SUBMIT QUIZ FUNCTION ==========
             function submitQuiz() {
                 clearInterval(QD.timerInterval);
                 SECURITY.disableExamMode();
+                
+                // ========== FIX: Calculate remaining time correctly ==========
                 let remaining = 0;
-                for (let s in QD.sectionTimeRemaining) remaining += QD.sectionTimeRemaining[s];
+                if (QD.isFullMock) {
+                    remaining = QD.sharedTimeRemaining || 0;
+                } else {
+                    for (let s in QD.sectionTimeRemaining) {
+                        remaining += QD.sectionTimeRemaining[s];
+                    }
+                }
                 const timeTaken = QD.totalInitialTime - remaining;
                 const mins = Math.floor(timeTaken / 60);
                 const secs = timeTaken % 60;
+                
                 let correct = 0, incorrect = 0, unattempted = 0, score = 0;
                 QD.questionStates.forEach((state, i) => {
                     const q = questions[i];
@@ -1303,6 +1371,7 @@ window.QUIZ_DATA.questions = questions.map((q, i) => {
             console.log('📊 isFullMock:', QD.isFullMock);
             console.log('📊 Sections:', QD.sections);
             console.log('📊 Questions:', QD.questions.length);
+            console.log('⏱️ Timer Duration:', QD.isFullMock ? `${QD.sharedTimeRemaining} seconds (shared)` : 'Per section');
 
             if (QD.isFullMock) {
                 console.log('✅ Full Mock Detected - Rendering Section Tabs');
