@@ -739,15 +739,16 @@
         };
 
         // Initialize Firebase with your actual config
-        let firebase;
         let database;
         let isFirebaseEnabled = true;
 
         // Initialize Firebase immediately with your config
         function initializeFirebase() {
             try {
-                // Initialize Firebase
-                firebase.initializeApp(firebaseConfig);
+                // Initialize Firebase (avoid duplicate initialization)
+                if (!firebase.apps || firebase.apps.length === 0) {
+                    firebase.initializeApp(firebaseConfig);
+                }
                 database = firebase.database();
                 isFirebaseEnabled = true;
                 console.log('✅ Firebase initialized successfully');
@@ -765,7 +766,7 @@
             if (!isFirebaseEnabled) return;
             
             const testId = localStorage.getItem('testId') || 'default';
-            const resultsRef = database.ref('results/' + testId);
+            const resultsRef = database.ref('testResults/' + testId);
             
             // Listen for real-time updates
             resultsRef.on('value', (snapshot) => {
@@ -1071,12 +1072,18 @@
 
         // Update UI with test results
         function updateResults(results) {
-            document.getElementById('scoreValue').textContent = results.score;
-            document.getElementById('scoreMax').textContent = `/ ${results.totalQuestions * 2}`;
-            document.getElementById('correctCount').textContent = results.correct;
-            document.getElementById('incorrectCount').textContent = results.incorrect;
-            document.getElementById('unattemptedCount').textContent = results.unattempted;
-            document.getElementById('accuracyValue').textContent = results.accuracy + '%';
+            const correct = Number(results.correct || 0);
+            const incorrect = Number(results.incorrect || 0);
+            const unattempted = Number(results.unattempted || 0);
+            const totalQuestions = correct + incorrect + unattempted;
+            const maxMarks = totalQuestions * 2;
+            
+            document.getElementById('scoreValue').textContent = Number(results.score || 0).toFixed(1);
+            document.getElementById('scoreMax').textContent = `/ ${isFinite(maxMarks) && maxMarks > 0 ? maxMarks : 0}`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('unattemptedCount').textContent = unattempted;
+            document.getElementById('accuracyValue').textContent = (results.accuracy ?? 0) + '%';
         }
 
         // Calculate and update ranking
@@ -1097,7 +1104,7 @@
             const testId = localStorage.getItem('testId') || 'default';
             
             // Save user's result to Firebase
-            database.ref('results/' + testId + '/' + userId).set({
+            database.ref('testResults/' + testId + '/' + userId).set({
                 score: results.score,
                 correct: results.correct,
                 incorrect: results.incorrect,
@@ -1107,7 +1114,7 @@
             });
 
             // Get all results and calculate ranking
-            database.ref('results/' + testId).once('value', (snapshot) => {
+            database.ref('testResults/' + testId).once('value', (snapshot) => {
                 const allResults = snapshot.val();
                 const resultsArray = Object.values(allResults || {});
                 
@@ -1154,14 +1161,21 @@
             const userId = localStorage.getItem('userId') || 'anonymous';
             const testId = localStorage.getItem('testId') || 'default';
             
-            database.ref('results/' + testId + '/' + userId).once('value', (snapshot) => {
-                const attempts = snapshot.val();
-                if (attempts) {
-                    alert(`Previous attempts:\nScore: ${attempts.score}\nAccuracy: ${attempts.accuracy}%\nDate: ${new Date(attempts.timestamp).toLocaleString()}`);
-                } else {
-                    alert('No previous attempts found.');
-                }
-            });
+            // Load user's attempts history for this test
+            database.ref('userAttempts/' + userId + '/' + testId).once('value')
+                .then((snapshot) => {
+                    const attempts = snapshot.val() || {};
+                    const list = Object.values(attempts);
+                    if (list.length > 0) {
+                        // Sort by timestamp (newest first)
+                        list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                        const latest = list[0];
+                        alert(`Previous attempt:\nScore: ${latest.score}\nAccuracy: ${latest.accuracy}%\nDate: ${new Date(latest.timestamp).toLocaleString()}`);
+                    } else {
+                        alert('No previous attempts found.');
+                    }
+                })
+                .catch(() => alert('Failed to load previous attempts.'));
         }
 
         // Compare with topper
@@ -1173,7 +1187,7 @@
             
             const testId = localStorage.getItem('testId') || 'default';
             
-            database.ref('results/' + testId).orderByChild('score').limitToLast(1).once('value', (snapshot) => {
+            database.ref('testResults/' + testId).orderByChild('score').limitToLast(1).once('value', (snapshot) => {
                 const topperData = snapshot.val();
                 if (topperData) {
                     const topper = Object.values(topperData)[0];

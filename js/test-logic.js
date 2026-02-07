@@ -919,11 +919,15 @@
             newBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (window.QUIZ_DATA.isQuizStarted) return;
+                try { newBtn.disabled = true; newBtn.textContent = 'Starting...'; } catch {}
                 window.QUIZ_DATA.isQuizStarted = true;
                 SECURITY.enableExamMode();
                 if (instructionsModal) instructionsModal.classList.add('hidden');
                 if (quizUI) quizUI.classList.remove('hidden');
                 initQuiz();
+                setTimeout(() => {
+                    try { newBtn.disabled = false; newBtn.textContent = 'Start Test'; } catch {}
+                }, 1000);
             });
         }
 

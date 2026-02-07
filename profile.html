@@ -214,13 +214,25 @@
                 }
                 
                 // Set member since date
-                const joinDate = user.createdAt || user.joinDate || new Date().toISOString();
-                const date = new Date(joinDate);
-                document.getElementById('memberSince').textContent = date.toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
+                try {
+                    const me = await ExamAxisAPI.getMe();
+                    const serverUser = me?.data?.user || null;
+                    if (serverUser) {
+                        localStorage.setItem('user', JSON.stringify(serverUser));
+                    }
+                    const effectiveUser = serverUser || user;
+                    const joinDate = effectiveUser.createdAt || effectiveUser.joinDate || effectiveUser.created_on || effectiveUser.registeredAt || null;
+                    const date = joinDate ? new Date(joinDate) : null;
+                    document.getElementById('memberSince').textContent = date
+                        ? date.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
+                        : 'Unknown';
+                } catch {
+                    const joinDate = user.createdAt || user.joinDate || null;
+                    const date = joinDate ? new Date(joinDate) : null;
+                    document.getElementById('memberSince').textContent = date
+                        ? date.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
+                        : 'Unknown';
+                }
                 
                 // Load test statistics
                 try {

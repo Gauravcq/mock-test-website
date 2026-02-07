@@ -49,6 +49,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// Auto-refresh dashboard data periodically for near real-time progress
+setInterval(async () => {
+    try {
+        if (!isAuthenticated()) return;
+        await loadDashboardData();
+    } catch (e) {
+        // ignore transient errors
+    }
+}, 30000);
 // ========== AUTHENTICATION ==========
 function isAuthenticated() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
