@@ -879,8 +879,13 @@
         // Save test results to Firebase
         function saveResultsToFirebase(results) {
             if (!isFirebaseEnabled) return;
-            const userId = localStorage.getItem('userId') || 
-                          localStorage.getItem('user_id');
+            let userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            if (!userId) {
+                try {
+                    const u = JSON.parse(localStorage.getItem('user') || '{}');
+                    userId = u.id || u._id || u.userId || null;
+                } catch {}
+            }
             if (!userId) return;
             
             const userName = localStorage.getItem('userName') || 
@@ -888,7 +893,16 @@
                            localStorage.getItem('user_name') || 
                            `User_${userId.substr(-6)}`;
             
-            const testId = results.testId || 'default_test';
+            const testId = (function(res) {
+                if (res?.testId) return String(res.testId);
+                const lsTid = localStorage.getItem('testId');
+                if (lsTid) return String(lsTid);
+                try {
+                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
+                    if (last && last.testId) return String(last.testId);
+                } catch {}
+                return 'default';
+            })(results);
             
             const resultData = {
                 userId: userId,
@@ -1107,7 +1121,14 @@
             // Real Firebase ranking logic
             const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
             if (!userId) return;
-            const testId = localStorage.getItem('testId') || 'default';
+            let testId = localStorage.getItem('testId');
+            if (!testId) {
+                try {
+                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
+                    if (last && last.testId) testId = String(last.testId);
+                } catch {}
+            }
+            testId = testId || 'default';
             
             // Save user's result to Firebase
             database.ref('testResults/' + testId + '/' + userId).set({
@@ -1117,7 +1138,7 @@
                 unattempted: results.unattempted,
                 accuracy: results.accuracy,
                 timestamp: Date.now()
-            });
+            }).catch(() => {});
 
             // Get all results and calculate ranking
             database.ref('testResults/' + testId).once('value', (snapshot) => {
@@ -1198,7 +1219,14 @@
                 return;
             }
             
-            const testId = localStorage.getItem('testId') || 'default';
+            let testId = localStorage.getItem('testId');
+            if (!testId) {
+                try {
+                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
+                    if (last && last.testId) testId = String(last.testId);
+                } catch {}
+            }
+            testId = testId || 'default';
             
             database.ref('testResults/' + testId).orderByChild('score').limitToLast(1).once('value', (snapshot) => {
                 const topperData = snapshot.val();
@@ -1432,8 +1460,21 @@
                 return;
             }
             
-            const testId = localStorage.getItem('testId') || 'default_test';
-            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            let testId = localStorage.getItem('testId');
+            if (!testId) {
+                try {
+                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
+                    if (last && last.testId) testId = String(last.testId);
+                } catch {}
+            }
+            testId = testId || 'default';
+            let userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            if (!userId) {
+                try {
+                    const u = JSON.parse(localStorage.getItem('user') || '{}');
+                    userId = u.id || u._id || u.userId || null;
+                } catch {}
+            }
             
             if (!userId) {
                 showNotification('User ID not found', 'error');
