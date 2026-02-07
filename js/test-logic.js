@@ -9,7 +9,7 @@
     const SECURITY = {
         // Set to true to enable ALL security features
         // Set to false for development (console will still be disabled during exam)
-        enableFullSecurity: false,
+        enableFullSecurity: true,
         
         init() {
             // These ALWAYS run (core exam protection)
