@@ -1,5 +1,5 @@
-// test-logic.js - FINAL VERSION v10 with SECURITY (FIXED)
-// Features: Anti-copy, Anti-console, Anti-inspect, Tab detection
+// test-logic.js - FINAL VERSION v10 with SECTIONS SUPPORT
+// Features: Anti-copy, Anti-console, Anti-inspect, Tab detection, Section-based Full Mock
 (function() {
     'use strict';
 
@@ -26,7 +26,6 @@
             console.log('🔒 Security features enabled');
         },
 
-        // 1. Disable Copy/Paste (only when exam is running)
         disableCopyPaste() {
             document.addEventListener('copy', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
@@ -50,7 +49,6 @@
             });
         },
 
-        // 2. Disable Right Click (only when exam is running)
         disableRightClick() {
             document.addEventListener('contextmenu', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
@@ -60,9 +58,7 @@
             });
         },
 
-        // 3. Disable Text Selection
         disableTextSelection() {
-            // CSS approach
             const style = document.createElement('style');
             style.textContent = `
                 body.exam-mode,
@@ -81,7 +77,6 @@
             `;
             document.head.appendChild(style);
 
-            // JS approach
             document.addEventListener('selectstart', (e) => {
                 if (document.body.classList.contains('exam-mode')) {
                     e.preventDefault();
@@ -90,24 +85,14 @@
             });
         },
 
-        // 4. Disable Keyboard Shortcuts (only when exam is running)
         disableKeyboardShortcuts() {
             document.addEventListener('keydown', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
 
-                // Ctrl/Cmd combinations
                 if (e.ctrlKey || e.metaKey) {
                     const blockedKeys = [
-                        'c', 'C',  // Copy
-                        'v', 'V',  // Paste
-                        'x', 'X',  // Cut
-                        'a', 'A',  // Select All
-                        's', 'S',  // Save
-                        'p', 'P',  // Print
-                        'u', 'U',  // View Source
-                        'i', 'I',  // Dev Tools (Inspect)
-                        'j', 'J',  // Dev Tools (Console)
-                        'k', 'K',  // Dev Tools
+                        'c', 'C', 'v', 'V', 'x', 'X', 'a', 'A', 's', 'S', 
+                        'p', 'P', 'u', 'U', 'i', 'I', 'j', 'J', 'k', 'K',
                     ];
                     
                     if (blockedKeys.includes(e.key)) {
@@ -116,20 +101,14 @@
                         return false;
                     }
 
-                    // Ctrl+Shift+S / Cmd+Shift+3/4/5 - Screenshot (Mac/Windows)
                     if (e.shiftKey && (e.key === 's' || e.key === 'S' || e.key === '3' || e.key === '4' || e.key === '5')) {
                         e.preventDefault();
                         this.showWarning('Screenshots are not allowed during exam!');
                         return false;
                     }
 
-                    // Ctrl+Shift combinations
                     if (e.shiftKey) {
-                        const blockedShiftKeys = [
-                            'i', 'I',  // Dev Tools
-                            'j', 'J',  // Console
-                            'c', 'C',  // Inspect
-                        ];
+                        const blockedShiftKeys = ['i', 'I', 'j', 'J', 'c', 'C'];
                         if (blockedShiftKeys.includes(e.key)) {
                             e.preventDefault();
                             this.showWarning('Developer tools are disabled during exam!');
@@ -138,7 +117,6 @@
                     }
                 }
 
-                // Win+Shift+S (Windows Snipping Tool / screenshot) - block Shift+S in exam
                 if (e.shiftKey && (e.key === 's' || e.key === 'S')) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -147,20 +125,17 @@
                     return false;
                 }
 
-                // F12 - Dev Tools
                 if (e.key === 'F12') {
                     e.preventDefault();
                     this.showWarning('Developer tools are disabled during exam!');
                     return false;
                 }
 
-                // F7 - Caret browsing
                 if (e.key === 'F7') {
                     e.preventDefault();
                     return false;
                 }
 
-                // PrintScreen / Screenshot keys (only during running test - not on review/result page)
                 const isScreenshotKey = e.key === 'PrintScreen' ||
                     (e.keyCode === 44) ||
                     (e.metaKey && e.shiftKey && ['3', '4', '5'].includes(e.key));
@@ -173,7 +148,6 @@
                 }
             });
 
-            // keyup: some systems fire PrintScreen on keyup
             document.addEventListener('keyup', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
                 if (e.key === 'PrintScreen' || e.keyCode === 44) {
@@ -185,20 +159,16 @@
             });
         },
 
-        // 5. Disable/Detect Console
         disableConsole() {
-            // Override console methods
             const noop = () => {};
             const methods = ['log', 'debug', 'info', 'warn', 'error', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 'clear', 'count', 'countReset', 'assert', 'profile', 'profileEnd', 'time', 'timeLog', 'timeEnd', 'timeStamp'];
             
-            // Store original console for internal use
             window._originalConsole = { ...console };
             
             methods.forEach(method => {
                 console[method] = noop;
             });
 
-            // Detect if console is opened
             const element = new Image();
             Object.defineProperty(element, 'id', {
                 get: () => {
@@ -206,14 +176,12 @@
                 }
             });
             
-            // Periodically check
             setInterval(() => {
                 console.log(element);
                 console.clear();
             }, 1000);
         },
 
-        // 6. Detect DevTools
         detectDevTools() {
             const threshold = 160;
             
@@ -226,13 +194,10 @@
                 }
             };
 
-            // Check on resize
             window.addEventListener('resize', checkDevTools);
             
-            // Periodic check
             setInterval(checkDevTools, 1000);
 
-            // Debugger detection
             setInterval(() => {
                 const startTime = performance.now();
                 debugger;
@@ -243,7 +208,6 @@
             }, 1000);
         },
 
-        // 7. Detect Tab Switch / Visibility
         detectTabSwitch() {
             let tabSwitchCount = 0;
             const maxTabSwitches = 3;
@@ -254,18 +218,14 @@
                     
                     if (tabSwitchCount >= maxTabSwitches) {
                         this.showWarning(`⚠️ WARNING: You have switched tabs ${tabSwitchCount} times! Your test may be auto-submitted.`, 'error');
-                        // Optional: Auto-submit
-                        // document.getElementById('final-submit-btn')?.click();
                     } else {
                         this.showWarning(`⚠️ Tab switch detected! (${tabSwitchCount}/${maxTabSwitches}) Please stay on this page.`, 'warning');
                     }
 
-                    // Log the event
                     window._originalConsole?.warn?.(`Tab switch detected: ${tabSwitchCount}`);
                 }
             });
 
-            // Detect window blur
             window.addEventListener('blur', () => {
                 if (window.QUIZ_DATA?.isQuizStarted && !window.QUIZ_DATA?.isSubmitted) {
                     window._originalConsole?.warn?.('Window lost focus');
@@ -273,7 +233,6 @@
             });
         },
 
-        // 8. Disable Drag and Drop
         disableDragDrop() {
             document.addEventListener('dragstart', (e) => {
                 e.preventDefault();
@@ -286,9 +245,7 @@
             });
         },
 
-        // 9. Disable Print
         disablePrint() {
-            // CSS to hide content when printing
             const style = document.createElement('style');
             style.textContent = `
                 @media print {
@@ -306,39 +263,28 @@
             `;
             document.head.appendChild(style);
 
-            // Detect print attempt
             window.addEventListener('beforeprint', (e) => {
                 e.preventDefault();
                 this.showWarning('Printing is not allowed during exam!');
             });
 
-            // Override print function
             window.print = () => {
                 this.showWarning('Printing is not allowed during exam!');
             };
         },
 
-        // Handle DevTools Open
         handleDevToolsOpen() {
-            // You can customize this action
-            // Options: Show warning, blur content, submit test, etc.
             if (!this._devToolsWarningShown) {
                 this._devToolsWarningShown = true;
                 this.showWarning('⚠️ Developer tools detected! This activity is being logged.', 'error');
                 
-                // Optional: Blur the exam content
-                // document.getElementById('quiz-ui')?.style.filter = 'blur(10px)';
-                
-                // Reset after 5 seconds
                 setTimeout(() => {
                     this._devToolsWarningShown = false;
                 }, 5000);
             }
         },
 
-        // Show Warning Popup
         showWarning(message, type = 'warning') {
-            // Remove existing warning
             const existing = document.getElementById('security-warning');
             if (existing) existing.remove();
 
@@ -381,19 +327,16 @@
             `;
             document.body.appendChild(warning);
 
-            // Auto remove after 3 seconds
             setTimeout(() => {
                 warning.remove();
             }, 3000);
         },
 
-        // Enable exam mode (call when quiz starts)
         enableExamMode() {
             document.body.classList.add('exam-mode');
             window._originalConsole?.log?.('🔒 Exam mode enabled');
         },
 
-        // Disable exam mode (call when quiz ends)
         disableExamMode() {
             document.body.classList.remove('exam-mode');
             window._originalConsole?.log?.('🔓 Exam mode disabled');
@@ -402,41 +345,32 @@
 
     // ========== PREMIUM ACCESS CHECK ==========
     async function checkPremiumAccess(testId) {
-        // If no testId, allow (will fail later with different error)
         if (!testId) return true;
         
-        // Define free test IDs for each category
-        // These are the FIRST tests in each category that are free
         const FREE_TESTS = {
-            // CGL - First sectional of each subject + first full mock
             CGL_MATHS: 'ssc_cgl_12_sep_s1',
             CGL_REASONING: 'ssc_cgl_12_sep_s1-r',
             CGL_ENGLISH: 'ssc_cgl_eng_12_sep_s1',
             CGL_GK: 'ssc_cgl_gk_12_sep_s1',
             CGL_FULLMOCK: 'ssc_cgl_fullmock_12_sep_s1',
             
-            // CHSL - First sectional of each subject + first full mock
             CHSL_MATHS: 'ssc_chsl_maths_12_nov_s1',
             CHSL_REASONING: 'ssc_chsl_reasoning_12_nov_s1',
             CHSL_ENGLISH: 'ssc_chsl_eng_12_nov_s1',
             CHSL_GK: 'ssc_chsl_gk_12_nov_s1',
             CHSL_TOP100: 'CHSL_TOP_100_MATHS',
             
-            // DP - First sectional of each subject
             DP_REASONING: 'dp_constable_reasoning_s1'
         };
         
-        // Check if this test is in the free list
         const freeTestIds = Object.values(FREE_TESTS);
         const isFreeTest = freeTestIds.includes(testId);
         
-        // If it's a free test, allow access
         if (isFreeTest) {
             window._originalConsole?.log?.('✅ Free test - access granted');
             return true;
         }
         
-        // Check premium status from API
         try {
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:5000/api'
@@ -458,10 +392,8 @@
             window._originalConsole?.error?.('Premium check error:', error);
         }
         
-        // User is not premium and test is not free - show upgrade message
         window._originalConsole?.warn?.('🔒 Premium test - access denied');
         
-        // Show alert and redirect
         const userChoice = confirm(
             '🔒 Premium Content\n\n' +
             'This test is available for Premium Members only.\n\n' +
@@ -492,12 +424,15 @@
         isQuizStarted: false,
         isSubmitted: false,
         timerInterval: null,
-        isPaused: false
+        isPaused: false,
+        // NEW: Section support
+        sections: [],
+        currentSection: null,
+        isFullMock: false
     };
 
     // ========== MAIN INITIALIZATION ==========
     document.addEventListener('DOMContentLoaded', async () => {
-        // Initialize security (but don't enable exam mode yet)
         SECURITY.init();
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -515,14 +450,11 @@
             return;
         }
         
-        // ========== PREMIUM ACCESS CHECK ==========
-        // Check if user has access to this test
         const premiumCheckPassed = await checkPremiumAccess(testId);
         if (!premiumCheckPassed) {
-            return; // User redirected to payment or index page
+            return;
         }
 
-        // ========== DOM ELEMENT REFERENCES ==========
         const $ = id => document.getElementById(id);
         const $q = sel => document.querySelector(sel);
         
@@ -656,13 +588,6 @@
 
             q._normalized = true;
 
-            if (index < 3) {
-                window._originalConsole?.log?.(`✅ Q${index + 1}:`, {
-                    correctAnswer: q.correctAnswer.en || '(empty)',
-                    hasExplanation: !!q.explanation.en
-                });
-            }
-
             return q;
         }
 
@@ -765,10 +690,72 @@
         window.QUIZ_DATA.questions = questions.map((q, i) => ({
             ...normalizeQuestion(q, i),
             originalIndex: i,
-            subject: subjectName
+            subject: q.subject || subjectName
         })).filter(q => q !== null);
 
         window._originalConsole?.log?.(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
+
+        // ========== DETECT SECTIONS (NEW) ==========
+        function detectSections(questions) {
+            const subjects = [...new Set(questions.map(q => q.subject))];
+            
+            // If only one subject, it's not a full mock
+            if (subjects.length <= 1) {
+                return [];
+            }
+            
+            // Create sections based on subjects
+            const sections = [];
+            const subjectLabels = {
+                'maths': 'PART-A Mathematics',
+                'english': 'PART-B English',
+                'gk': 'PART-C General Awareness',
+                'reasoning': 'PART-D Reasoning'
+            };
+            
+            let currentSubject = null;
+            let sectionStart = 0;
+            
+            questions.forEach((q, idx) => {
+                if (q.subject !== currentSubject) {
+                    if (currentSubject !== null) {
+                        // Save previous section
+                        sections.push({
+                            subject: currentSubject,
+                            label: subjectLabels[currentSubject] || currentSubject.toUpperCase(),
+                            startIndex: sectionStart,
+                            endIndex: idx - 1,
+                            totalQuestions: idx - sectionStart
+                        });
+                    }
+                    currentSubject = q.subject;
+                    sectionStart = idx;
+                }
+            });
+            
+            // Add last section
+            if (currentSubject !== null) {
+                sections.push({
+                    subject: currentSubject,
+                    label: subjectLabels[currentSubject] || currentSubject.toUpperCase(),
+                    startIndex: sectionStart,
+                    endIndex: questions.length - 1,
+                    totalQuestions: questions.length - sectionStart
+                });
+            }
+            
+            return sections;
+        }
+
+        // Detect sections
+        const sections = detectSections(window.QUIZ_DATA.questions);
+        window.QUIZ_DATA.sections = sections;
+        window.QUIZ_DATA.isFullMock = sections.length > 1;
+        
+        if (window.QUIZ_DATA.isFullMock) {
+            window.QUIZ_DATA.currentSection = sections[0].subject;
+            window._originalConsole?.log?.('📚 Full Mock Detected:', sections.length, 'sections');
+        }
 
         // ========== HELPER FUNCTIONS ==========
         function getCorrectAnswer(q, lang) {
@@ -992,11 +979,9 @@
         // ========== START BUTTON HANDLER ==========
         const startBtn = $('start-test-btn');
         if (startBtn) {
-            // Remove any existing event listeners by cloning
             const newBtn = startBtn.cloneNode(true);
             startBtn.parentNode.replaceChild(newBtn, startBtn);
             
-            // Add fresh event listener
             newBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 
@@ -1006,10 +991,8 @@
                 
                 window.QUIZ_DATA.isQuizStarted = true;
                 
-                // 🔒 Enable exam mode security
                 SECURITY.enableExamMode();
                 
-                // Hide instructions and show quiz
                 if (instructionsModal) {
                     instructionsModal.classList.add('hidden');
                 }
@@ -1018,7 +1001,6 @@
                     quizUI.classList.remove('hidden');
                 }
                 
-                // Initialize the quiz
                 initQuiz();
             });
         }
@@ -1048,7 +1030,6 @@
             }
         }
         
-        // Initialize pause/resume
         setupPauseResume();
 
         // ========== INIT QUIZ FUNCTION ==========
@@ -1083,6 +1064,63 @@
                 submitSummaryModal.classList.add('hidden');
             }
 
+            // ========== RENDER SECTION TABS (NEW) ==========
+            function renderSectionTabs() {
+                const tabsContainer = document.getElementById('section-tabs-container');
+                if (!tabsContainer || !QD.isFullMock) return;
+                
+                tabsContainer.style.display = 'flex';
+                tabsContainer.innerHTML = '';
+                
+                QD.sections.forEach(section => {
+                    const tab = document.createElement('button');
+                    tab.className = 'section-tab';
+                    tab.dataset.section = section.subject;
+                    
+                    const answeredCount = QD.questionStates
+                        .slice(section.startIndex, section.endIndex + 1)
+                        .filter(s => s.status === 'answered').length;
+                    
+                    tab.innerHTML = `
+                        <div>${section.label}</div>
+                        <div class="section-progress">${answeredCount}/${section.totalQuestions}</div>
+                    `;
+                    
+                    tab.onclick = () => {
+                        saveAnswer();
+                        QD.currentSection = section.subject;
+                        showQuestion(section.startIndex);
+                        updateSectionTabs();
+                    };
+                    
+                    tabsContainer.appendChild(tab);
+                });
+                
+                updateSectionTabs();
+            }
+            
+            function updateSectionTabs() {
+                const tabsContainer = document.getElementById('section-tabs-container');
+                if (!tabsContainer || !QD.isFullMock) return;
+                
+                tabsContainer.querySelectorAll('.section-tab').forEach(tab => {
+                    const section = QD.sections.find(s => s.subject === tab.dataset.section);
+                    if (!section) return;
+                    
+                    const isActive = QD.currentSection === section.subject;
+                    tab.classList.toggle('active', isActive);
+                    
+                    const answeredCount = QD.questionStates
+                        .slice(section.startIndex, section.endIndex + 1)
+                        .filter(s => s.status === 'answered').length;
+                    
+                    const progressEl = tab.querySelector('.section-progress');
+                    if (progressEl) {
+                        progressEl.textContent = `${answeredCount}/${section.totalQuestions}`;
+                    }
+                });
+            }
+
             // ========== SHOW SUBMIT MODAL ==========
             function showSubmitModal() {
                 if (!submitSummaryModal) return;
@@ -1099,41 +1137,11 @@
                         <div style="margin:10px 0;">Not Visited: <strong>${notVisited}</strong></div>
                         <div style="margin:10px 0;">Marked For Review: <strong>${marked}</strong></div>
                     `;
-                } else {
-                    const modalContent = submitSummaryModal.querySelector('.modal-content') || submitSummaryModal;
-                    modalContent.innerHTML = `
-                        <h3>Submit Test?</h3>
-                        <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
-                        <div style="margin:10px 0;">Unanswered: <strong>${questions.length - answered}</strong></div>
-                        <div style="margin-top:20px;">
-                            <button id="final-submit-btn" style="background:#ef4444;color:white;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;margin-right:10px;">Submit</button>
-                            <button id="cancel-submit-btn" style="background:#e5e7eb;color:#374151;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;">Cancel</button>
-                        </div>
-                    `;
-                    
-                    // Re-bind buttons
-                    const newFinalBtn = $('final-submit-btn');
-                    const newCancelBtn = $('cancel-submit-btn');
-                    
-                    if (newFinalBtn) {
-                        newFinalBtn.onclick = (e) => {
-                            e.preventDefault();
-                            if (QD.isSubmitted) return;
-                            QD.isSubmitted = true;
-                            submitSummaryModal.classList.add('hidden');
-                            submitQuiz();
-                        };
-                    }
-                    
-                    if (newCancelBtn) {
-                        newCancelBtn.onclick = () => submitSummaryModal.classList.add('hidden');
-                    }
                 }
 
                 submitSummaryModal.classList.remove('hidden');
             }
 
-            // Bind submit buttons
             if (submitTestBtn) submitTestBtn.onclick = showSubmitModal;
             if (submitTestFooterBtn) submitTestFooterBtn.onclick = showSubmitModal;
             if (cancelSubmitBtn) cancelSubmitBtn.onclick = () => submitSummaryModal?.classList.add('hidden');
@@ -1170,7 +1178,6 @@
                     }
                     timerEl.textContent = formatTime(remainingTotal);
                     
-                    // Change color when time is low
                     if (remainingTotal <= 60) {
                         timerEl.style.color = '#ef4444';
                         timerEl.style.fontWeight = 'bold';
@@ -1195,7 +1202,6 @@
                     let remainingTotal = 0;
                     for (const s in QD.sectionTimeRemaining) remainingTotal += (QD.sectionTimeRemaining[s] || 0);
                     if (remainingTotal <= 0 && !QD.isSubmitted) {
-                        // Auto submit when time runs out
                         QD.isSubmitted = true;
                         SECURITY.showWarning('⏰ Time is up! Submitting your test...', 'warning');
                         setTimeout(() => {
@@ -1209,7 +1215,6 @@
             function submitQuiz() {
                 clearInterval(QD.timerInterval);
                 
-                // 🔓 Disable exam mode after submission
                 SECURITY.disableExamMode();
 
                 let remaining = 0;
@@ -1249,7 +1254,6 @@
                 const accuracy = (correct + incorrect) > 0 ? (correct / (correct + incorrect)) * 100 : 0;
                 QD.reviewQuestionList = filterQuestions('all');
 
-                // Save to localStorage
                 try {
                     const attemptPayload = {
                         testId: String(QD.testInfo.id || testId),
@@ -1272,7 +1276,6 @@
                     window._originalConsole?.error?.('Failed to save result to localStorage:', e);
                 }
 
-                // Update review area
                 const reviewArea = $('review-button-area');
                 if (reviewArea) {
                     reviewArea.innerHTML = `
@@ -1285,7 +1288,6 @@
                     `;
                 }
 
-                // Update stats area
                 const statsArea = $('stats-cards-area');
                 if (statsArea) {
                     statsArea.innerHTML = `
@@ -1300,7 +1302,6 @@
                     `;
                 }
 
-                // Bind review button
                 setTimeout(() => {
                     const revBtn = $('review-test-btn');
                     if (revBtn) {
@@ -1315,7 +1316,6 @@
                 resultSummaryPage?.classList.remove('hidden');
                 document.body.classList.add('results-scroll');
 
-                // Save to backend
                 if (window.ExamAxisAPI?.isLoggedIn()) {
                     const answersObj = {};
                     QD.questionStates.forEach((state, i) => {
@@ -1348,34 +1348,63 @@
                 }
             }
 
-            // ========== CREATE PALETTE ==========
+            // ========== CREATE PALETTE (SECTION-BASED) ==========
             function createPalette() {
                 if (!questionPalette) return;
                 questionPalette.innerHTML = '';
-                questions.forEach((_, i) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'palette-btn not-visited';
-                    btn.textContent = i + 1;
-                    btn.onclick = () => { 
-                        saveAnswer(); 
-                        showQuestion(i); 
-                    };
-                    questionPalette.appendChild(btn);
-                });
+                
+                if (QD.isFullMock && QD.currentSection) {
+                    // Show only current section's questions
+                    const section = QD.sections.find(s => s.subject === QD.currentSection);
+                    if (!section) return;
+                    
+                    for (let i = section.startIndex; i <= section.endIndex; i++) {
+                        const btn = document.createElement('button');
+                        btn.className = 'palette-btn not-visited';
+                        btn.textContent = i - section.startIndex + 1; // Show 1-25 for each section
+                        btn.dataset.globalIndex = i;
+                        btn.onclick = () => { 
+                            saveAnswer(); 
+                            showQuestion(i); 
+                        };
+                        questionPalette.appendChild(btn);
+                    }
+                } else {
+                    // Show all questions for regular tests
+                    questions.forEach((_, i) => {
+                        const btn = document.createElement('button');
+                        btn.className = 'palette-btn not-visited';
+                        btn.textContent = i + 1;
+                        btn.onclick = () => { 
+                            saveAnswer(); 
+                            showQuestion(i); 
+                        };
+                        questionPalette.appendChild(btn);
+                    });
+                }
             }
 
             // ========== UPDATE PALETTE ==========
             function updatePalette() {
-                questionPalette?.querySelectorAll('.palette-btn').forEach((btn, i) => {
-                    const st = QD.questionStates[i];
+                if (!questionPalette) return;
+                
+                questionPalette.querySelectorAll('.palette-btn').forEach((btn, btnIndex) => {
+                    const globalIndex = QD.isFullMock ? parseInt(btn.dataset.globalIndex) : btnIndex;
+                    const st = QD.questionStates[globalIndex];
+                    
                     btn.className = 'palette-btn';
                     if (st.userAnswer && st.markedForReview) btn.classList.add('answered-marked-review');
                     else if (st.markedForReview) btn.classList.add('marked-review');
                     else if (st.userAnswer) btn.classList.add('answered');
                     else if (st.status === 'not-answered') btn.classList.add('not-answered');
                     else btn.classList.add('not-visited');
-                    if (i === QD.currentQuestionIndex) btn.classList.add('current');
+                    if (globalIndex === QD.currentQuestionIndex) btn.classList.add('current');
                 });
+                
+                // Update section tabs if full mock
+                if (QD.isFullMock) {
+                    updateSectionTabs();
+                }
             }
 
             // ========== SHOW QUESTION ==========
@@ -1386,8 +1415,32 @@
                 const state = QD.questionStates[index];
                 const lang = QD.currentLanguage;
 
+                // Update current section
+                if (QD.isFullMock) {
+                    const section = QD.sections.find(s => 
+                        index >= s.startIndex && index <= s.endIndex
+                    );
+                    if (section && section.subject !== QD.currentSection) {
+                        QD.currentSection = section.subject;
+                        createPalette(); // Recreate palette for new section
+                    }
+                }
+
                 if (state.status === 'not-visited') state.status = 'not-answered';
-                if (questionTitle) questionTitle.textContent = `${q.subject} | Q${index + 1} of ${questions.length}`;
+                
+                if (questionTitle) {
+                    if (QD.isFullMock) {
+                        const section = QD.sections.find(s => 
+                            index >= s.startIndex && index <= s.endIndex
+                        );
+                        if (section) {
+                            const sectionQNum = index - section.startIndex + 1;
+                            questionTitle.textContent = `${section.label} | Q${sectionQNum} of ${section.totalQuestions}`;
+                        }
+                    } else {
+                        questionTitle.textContent = `${q.subject} | Q${index + 1} of ${questions.length}`;
+                    }
+                }
 
                 const qText = q.question?.[lang] || q.question?.en || '';
                 let optionsHTML = '';
@@ -1415,10 +1468,8 @@
                         ${optionsHTML}
                     `;
                     
-                    // Add click handlers to labels for better UX
                     questionArea.querySelectorAll('label').forEach(label => {
                         label.addEventListener('click', () => {
-                            // Small delay to allow radio to be checked
                             setTimeout(updatePalette, 10);
                         });
                     });
@@ -1442,46 +1493,6 @@
                 state.userAnswer = sel ? sel.value : null;
                 state.status = sel ? 'answered' : 'not-answered';
                 updatePalette();
-            }
-
-            // ========== RENDER SECTION TABS (for full mock tests) ==========
-            function renderSectionTabs() {
-                const header = $('question-header');
-                if (!header) return;
-
-                const subjects = [...new Set(questions.map(q => q.subject))];
-                if (subjects.length <= 1) return;
-
-                const sectionTabsContainer = document.createElement('div');
-                sectionTabsContainer.id = 'section-tabs';
-                sectionTabsContainer.style.cssText = 'display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;';
-
-                const partLabels = {
-                    english: 'PART-A',
-                    maths: 'PART-B',
-                    gk: 'PART-C',
-                    reasoning: 'PART-D'
-                };
-
-                subjects.forEach(subject => {
-                    const tab = document.createElement('button');
-                    const subjectLower = subject.toLowerCase();
-                    const partLabel = partLabels[subjectLower] || subject.toUpperCase();
-                    tab.textContent = `${partLabel} ${subject.charAt(0).toUpperCase() + subject.slice(1)}`;
-                    tab.style.cssText = 'background:#e5e7eb;color:#374151;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:14px;transition:all 0.2s;';
-                    tab.onclick = () => {
-                        saveAnswer();
-                        const firstQuestionIndex = questions.findIndex(q => q.subject === subject);
-                        if (firstQuestionIndex !== -1) showQuestion(firstQuestionIndex);
-                    };
-                    tab.onmouseover = () => tab.style.background = '#d1d5db';
-                    tab.onmouseout = () => tab.style.background = '#e5e7eb';
-                    sectionTabsContainer.appendChild(tab);
-                });
-
-                const existingTabs = header.querySelector('#section-tabs');
-                if (existingTabs) existingTabs.remove();
-                header.appendChild(sectionTabsContainer);
             }
 
             // ========== BIND NAVIGATION BUTTONS ==========
@@ -1526,12 +1537,11 @@
                 };
             }
 
-            // Render section tabs if it's a full mock test
-            if (testInfo.section === 'fullmock' && questions.some(q => q.subject)) {
+            // ========== INITIALIZE QUIZ UI ==========
+            if (QD.isFullMock) {
                 renderSectionTabs();
             }
-
-            // ========== INITIALIZE QUIZ UI ==========
+            
             createPalette();
             showQuestion(0);
             updatePalette();
@@ -1545,7 +1555,6 @@
             const QD = window.QUIZ_DATA;
             if (!QD.isQuizStarted || QD.isSubmitted || QD.isPaused) return;
             
-            // Don't capture if user is typing somewhere
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             
             switch(e.key) {
@@ -1563,7 +1572,6 @@
                 case '2':
                 case '3':
                 case '4':
-                    // Select option by number
                     const optionIndex = parseInt(e.key) - 1;
                     const options = document.querySelectorAll('input[name="option"]');
                     if (options[optionIndex]) {
@@ -1582,6 +1590,6 @@
             }
         });
 
-    }); // End of DOMContentLoaded
+    });
 
-})(); // End of IIFE
+})();
