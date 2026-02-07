@@ -1,6 +1,6 @@
 // test-logic.js - FINAL VERSION v9 with SECURITY
 // Features: Anti-copy, Anti-console, Anti-inspect, Tab detection
-(function() {
+function initQuiz() {
     'use strict';
 
     // ========== SECURITY FEATURES ==========
@@ -1062,7 +1062,7 @@
         function initQuiz() {
             const QD = window.QUIZ_DATA;
             const questions = QD.questions;
-            const duration = QD.testInfo.duration || 25;
+            const duration = QD.testInfo.duration || (QD.testInfo.section === 'fullmock' ? 60 : 25);
 
             QD.sectionTimeRemaining = {};
             QD.totalInitialTime = 0;
@@ -1191,7 +1191,7 @@
                     const q = questions[i];
                     const correctText = getCorrectAnswer(q, 'en');
 
-                    if (state.userAnswer !== null) {
+                    if (state.userAnswer !== null && state.userAnswer !== '') {
                         const isMatch = textsMatch(state.userAnswer, correctText) || 
                                        state.userAnswer === correctText ||
                                        state.userAnswer?.trim() === correctText?.trim();
@@ -1211,7 +1211,7 @@
                     }
                 });
 
-                window._originalConsole?.log?.('✅ Results:', { correct, incorrect, unattempted, score });
+                window._originalConsole?.log?.(' Results:', { correct, incorrect, unattempted, score });
 
                 const accuracy = (correct + incorrect) > 0 ? (correct / (correct + incorrect)) * 100 : 0;
                 QD.reviewQuestionList = filterQuestions('all');
@@ -1388,6 +1388,43 @@
                 updatePalette();
             }
 
+            function renderSectionTabs() {
+                const header = $('question-header');
+                if (!header) return;
+
+                const subjects = [...new Set(questions.map(q => q.subject))];
+                if (subjects.length === 0) return;
+
+                const sectionTabsContainer = document.createElement('div');
+                sectionTabsContainer.id = 'section-tabs';
+                sectionTabsContainer.style.cssText = 'display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;';
+
+                const partLabels = {
+                    english: 'PART-A',
+                    maths: 'PART-B',
+                    gk: 'PART-C',
+                    reasoning: 'PART-D'
+                };
+
+                subjects.forEach(subject => {
+                    const tab = document.createElement('button');
+                    const partLabel = partLabels[subject.toLowerCase()] || subject.toUpperCase();
+                    tab.textContent = `${partLabel} ${subject.charAt(0).toUpperCase() + subject.slice(1)}`;
+                    tab.style.cssText = 'background:#e5e7eb;color:#374151;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:14px;transition:all 0.2s;';
+                    tab.onclick = () => {
+                        const firstQuestionIndex = questions.findIndex(q => q.subject === subject);
+                        if (firstQuestionIndex !== -1) showQuestion(firstQuestionIndex);
+                    };
+                    tab.onmouseover = () => tab.style.background = '#d1d5db';
+                    tab.onmouseout = () => tab.style.background = '#e5e7eb';
+                    sectionTabsContainer.appendChild(tab);
+                });
+
+                const existingTabs = header.querySelector('#section-tabs');
+                if (existingTabs) existingTabs.remove();
+                header.appendChild(sectionTabsContainer);
+            }
+
             if (nextBtn) nextBtn.onclick = () => {
                 saveAnswer();
                 if (QD.currentQuestionIndex < questions.length - 1) showQuestion(QD.currentQuestionIndex + 1);
@@ -1412,6 +1449,10 @@
                 updatePalette();
             };
 
+            if (testInfo.section === 'fullmock' && questions.some(q => q.subject)) {
+                renderSectionTabs();
+            }
+
             createPalette();
             showQuestion(0);
             updatePalette();
@@ -1419,5 +1460,8 @@
 
             window._originalConsole?.log?.('✅ Quiz ready!');
         }
-    });
-})();
+    })();
+}
+
+// Initialize quiz when DOM is ready
+initQuiz();
