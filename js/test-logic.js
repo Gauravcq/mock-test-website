@@ -453,43 +453,64 @@
             return;
         }
 
-        // ========== ✅ FIX: FORCE SUBJECT ASSIGNMENT FOR FULL MOCK ==========
-        const subjectName = testInfo.subject || 'General';
-        const isFullMockTest = testId && (testId.includes('fullmock') || testId.includes('full_mock'));
-        
-        console.log('🔍 Is Full Mock Test?', isFullMockTest);
-        console.log('🔍 Total Questions:', questions.length);
+// ========== ✅ IMPROVED FULL MOCK DETECTION ==========
+const subjectName = testInfo.subject || 'General';
 
-        window.QUIZ_DATA.questions = questions.map((q, i) => {
-            let assignedSubject;
-            
-            // Force subject assignment for 100-question full mock tests
-            if (isFullMockTest && questions.length === 100) {
-                if (i < 25) {
-                    assignedSubject = 'maths';
-                } else if (i < 50) {
-                    assignedSubject = 'english';
-                } else if (i < 75) {
-                    assignedSubject = 'gk';
-                } else {
-                    assignedSubject = 'reasoning';
-                }
-                
-                // Log first question of each section
-                if (i === 0 || i === 25 || i === 50 || i === 75) {
-                    console.log(`📌 Q${i+1} assigned to: ${assignedSubject}`);
-                }
-            } else {
-                // Use existing subject or fallback
-                assignedSubject = q.subject || subjectName;
-            }
-            
-            return {
-                ...normalizeQuestion(q, i),
-                originalIndex: i,
-                subject: assignedSubject
-            };
-        }).filter(q => q !== null);
+// Method 1: Check testId for fullmock keyword
+const hasFullMockInId = testId && (
+    testId.toLowerCase().includes('fullmock') || 
+    testId.toLowerCase().includes('full_mock') ||
+    testId.toLowerCase().includes('full-mock')
+);
+
+// Method 2: Check testInfo for section type
+const hasFullMockSection = testInfo.section === 'fullmock' || testInfo.type === 'fullmock';
+
+// Method 3: Check question count (SSC pattern: 100 questions)
+const hasFullMockCount = questions.length === 100;
+
+// Method 4: Check if questions already have multiple subjects
+const existingSubjects = [...new Set(questions.map(q => q.subject).filter(Boolean))];
+const hasMultipleSubjects = existingSubjects.length >= 4;
+
+// Combine all methods
+const isFullMockTest = hasFullMockInId || hasFullMockSection || (hasFullMockCount && !hasMultipleSubjects);
+
+console.log('🔍 Full Mock Detection:');
+console.log('  - Has "fullmock" in ID:', hasFullMockInId);
+console.log('  - Has fullmock section:', hasFullMockSection);
+console.log('  - Has 100 questions:', hasFullMockCount);
+console.log('  - Has multiple subjects:', hasMultipleSubjects);
+console.log('  - Final Decision:', isFullMockTest);
+
+window.QUIZ_DATA.questions = questions.map((q, i) => {
+    let assignedSubject;
+    
+    // If questions already have correct subjects, use them
+    if (hasMultipleSubjects && q.subject) {
+        assignedSubject = q.subject;
+    }
+    // Force subject assignment for full mock without subjects
+    else if (isFullMockTest && questions.length === 100) {
+        if (i < 25) {
+            assignedSubject = 'maths';
+        } else if (i < 50) {
+            assignedSubject = 'english';
+        } else if (i < 75) {
+            assignedSubject = 'gk';
+        } else {
+            assignedSubject = 'reasoning';
+        }
+    } else {
+        assignedSubject = q.subject || subjectName;
+    }
+    
+    return {
+        ...normalizeQuestion(q, i),
+        originalIndex: i,
+        subject: assignedSubject
+    };
+}).filter(q => q !== null);
 
         console.log(`✅ Loaded ${window.QUIZ_DATA.questions.length} questions from ${questionsSource}`);
 
