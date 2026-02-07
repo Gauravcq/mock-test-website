@@ -5,7 +5,7 @@
 
     // ========== SECURITY FEATURES ==========
     const SECURITY = {
-        enabled: false,
+        enabled: true,
         
         init() {
             if (!this.enabled) {
