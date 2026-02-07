@@ -2575,7 +2575,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const lastScoreHtml = isHistoryLoaded 
             ? (attempt && !isLocked
-                ? `<div class="last-score">Last score: <strong>${attempt.score || attempt.totalMarks || 0}/${attempt.totalMarks || getMaxScoreForTest(test)}</strong></div>`
+                ? `<div class="last-score">Last score: <strong>${(attempt.score ?? 0)}/${(attempt.maxScore ?? attempt.totalMarks ?? getMaxScoreForTest(test))}</strong></div>`
                 : `<div class="last-score not-attempted">${isLocked ? 'Unlock with Premium' : 'Not attempted yet'}</div>`)
             : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading...</div>`;
 

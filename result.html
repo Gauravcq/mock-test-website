@@ -1159,7 +1159,14 @@
             }
             
             const userId = localStorage.getItem('userId') || 'anonymous';
-            const testId = localStorage.getItem('testId') || 'default';
+            let testId = localStorage.getItem('testId');
+            if (!testId) {
+                try {
+                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
+                    if (last && last.testId) testId = String(last.testId);
+                } catch {}
+            }
+            testId = testId || 'default';
             
             // Load user's attempts history for this test
             database.ref('userAttempts/' + userId + '/' + testId).once('value')

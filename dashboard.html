@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Exam-Axis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -949,11 +952,22 @@
     <!-- Scripts -->
     <script src="js/api.js"></script>
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
+            authDomain: "exam-axis.firebaseapp.com",
+            databaseURL: "https://exam-axis-default-rtdb.firebaseio.com",
+            projectId: "exam-axis",
+            storageBucket: "exam-axis.firebasestorage.app",
+            messagingSenderId: "285879641284",
+            appId: "1:285879641284:web:10a1800c5e579e68ee1591",
+            measurementId: "G-2ML43R0G1X"
+        };
         // Dashboard Data Manager
         class DashboardManager {
             constructor() {
                 this.userData = null;
                 this.testHistory = [];
+                this.db = null;
                 this.init();
             }
 
@@ -962,13 +976,54 @@
                 await this.loadTestHistory();
                 this.updateUI();
                 this.hideLoading();
+                this.startFirebaseLive();
+            }
+
+            startFirebaseLive() {
+                try {
+                    if (!firebase.apps || firebase.apps.length === 0) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+                    this.db = firebase.database();
+                    const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+                    if (!userId) return;
+                    this.db.ref('userAttempts/' + userId).on('value', (snapshot) => {
+                        this.handleAttemptsSnapshot(snapshot.val() || {});
+                    });
+                } catch (e) {}
+            }
+
+            handleAttemptsSnapshot(raw) {
+                const list = [];
+                Object.keys(raw).forEach(testId => {
+                    const attemptsById = raw[testId] || {};
+                    Object.values(attemptsById).forEach(a => {
+                        const minutes = typeof a.timeTaken === 'number' ? a.timeTaken : (a.timeTaken && a.timeTaken.mins) ? a.timeTaken.mins : 0;
+                        const totalQ = (a.totalQuestions != null) ? a.totalQuestions : ((a.correct || 0) + (a.incorrect || 0) + (a.unattempted || 0));
+                        const acc = (a.accuracy != null) ? Math.round(a.accuracy) : (totalQ > 0 ? Math.round(((a.correct || 0) / totalQ) * 100) : 0);
+                        list.push({
+                            testName: a.testTitle || a.title || 'Test',
+                            subject: a.subject || 'General',
+                            score: acc,
+                            totalQuestions: totalQ || 100,
+                            correctAnswers: a.correct || 0,
+                            wrongAnswers: a.incorrect || 0,
+                            unanswered: a.unattempted || 0,
+                            timeTaken: `${minutes} min`,
+                            completedAt: a.timestamp ? new Date(a.timestamp).toISOString() : new Date().toISOString()
+                        });
+                    });
+                });
+                list.sort((a,b) => new Date(b.completedAt) - new Date(a.completedAt));
+                this.testHistory = list.slice(0, 5);
+                this.calculateRealStats();
+                this.updateUI();
             }
 
             async loadUserData() {
                 try {
                     // Get user from localStorage
                     const user = JSON.parse(localStorage.getItem('user') || '{}');
-                    this.userData = user;
 
                     // Try to get fresh data from API
                     try {

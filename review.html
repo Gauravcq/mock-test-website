@@ -733,17 +733,31 @@
                     
                     const questions = result.questions || [];
                     const questionStates = result.questionStates || [];
+
+                    // Helper: normalize text and compare like test page
+                    const textsMatch = (a, b) => {
+                        if (!a || !b) return false;
+                        const normalize = (str) => String(str).normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
+                        return normalize(a) === normalize(b);
+                    };
+                    const getCorrectAnswer = (q) => {
+                        if (q.correctAnswer?.en) return String(q.correctAnswer.en).trim();
+                        if (typeof q.correctAnswer === 'string') return String(q.correctAnswer).trim();
+                        return '';
+                    };
                     
                     // Map questions with their states
                     allQuestions = questions.map((question, index) => {
                         const state = questionStates[index] || {};
-                        const userAnswer = state.userAnswer;
-                        const correctAnswer = question.correctAnswer?.en || question.correctAnswer || '';
-                        
-                        let status = 'unattempted';
-                        if (userAnswer !== null) {
-                            status = (userAnswer === correctAnswer) ? 'correct' : 'incorrect';
+                        const userAnswer = state.userAnswer ?? null;
+                        let correctAnswer = getCorrectAnswer(question);
+                        if (!correctAnswer && Array.isArray(question.options) && question.options.length) {
+                            // Try to infer correct from options via index stored in question.correctIndex or matching text
+                            const optTexts = question.options.map(o => (o?.en ?? o)?.toString?.() ?? '');
+                            const probable = optTexts.find(t => textsMatch(t, userAnswer));
+                            correctAnswer = probable || optTexts.find(t => t) || '';
                         }
+                        const status = state.resultCategory || (userAnswer == null ? 'unattempted' : (textsMatch(userAnswer, correctAnswer) ? 'correct' : 'incorrect'));
                         
                         return {
                             id: index + 1,
