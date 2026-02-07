@@ -1065,39 +1065,61 @@
             }
 
             // ========== RENDER SECTION TABS (NEW) ==========
-            function renderSectionTabs() {
-                const tabsContainer = document.getElementById('section-tabs-container');
-                if (!tabsContainer || !QD.isFullMock) return;
-                
-                tabsContainer.style.display = 'flex';
-                tabsContainer.innerHTML = '';
-                
-                QD.sections.forEach(section => {
-                    const tab = document.createElement('button');
-                    tab.className = 'section-tab';
-                    tab.dataset.section = section.subject;
-                    
-                    const answeredCount = QD.questionStates
-                        .slice(section.startIndex, section.endIndex + 1)
-                        .filter(s => s.status === 'answered').length;
-                    
-                    tab.innerHTML = `
-                        <div>${section.label}</div>
-                        <div class="section-progress">${answeredCount}/${section.totalQuestions}</div>
-                    `;
-                    
-                    tab.onclick = () => {
-                        saveAnswer();
-                        QD.currentSection = section.subject;
-                        showQuestion(section.startIndex);
-                        updateSectionTabs();
-                    };
-                    
-                    tabsContainer.appendChild(tab);
-                });
-                
-                updateSectionTabs();
-            }
+// ========== RENDER SECTION TABS (DEBUG VERSION) ==========
+function renderSectionTabs() {
+    console.log('🔍 renderSectionTabs called');
+    console.log('🔍 QD.isFullMock:', QD.isFullMock);
+    console.log('🔍 QD.sections:', QD.sections);
+    
+    const tabsContainer = document.getElementById('section-tabs-container');
+    console.log('🔍 tabsContainer element:', tabsContainer);
+    
+    if (!tabsContainer) {
+        console.error('❌ ERROR: section-tabs-container NOT FOUND in DOM!');
+        return;
+    }
+    
+    if (!QD.isFullMock) {
+        console.log('⚠️ Not a full mock test, hiding tabs');
+        tabsContainer.style.display = 'none';
+        return;
+    }
+    
+    console.log('✅ Rendering section tabs...');
+    tabsContainer.style.display = 'flex';
+    tabsContainer.innerHTML = '';
+    
+    QD.sections.forEach((section, idx) => {
+        console.log(`📌 Creating tab for: ${section.label}`);
+        
+        const tab = document.createElement('button');
+        tab.className = 'section-tab';
+        tab.dataset.section = section.subject;
+        
+        const answeredCount = QD.questionStates
+            .slice(section.startIndex, section.endIndex + 1)
+            .filter(s => s.status === 'answered').length;
+        
+        tab.innerHTML = `
+            <div>${section.label}</div>
+            <div class="section-progress">${answeredCount}/${section.totalQuestions}</div>
+        `;
+        
+        tab.onclick = () => {
+            console.log(`🖱️ Clicked section: ${section.label}`);
+            saveAnswer();
+            QD.currentSection = section.subject;
+            showQuestion(section.startIndex);
+            updateSectionTabs();
+        };
+        
+        tabsContainer.appendChild(tab);
+        console.log(`✅ Tab ${idx + 1} appended to container`);
+    });
+    
+    console.log('✅ All tabs rendered, calling updateSectionTabs()');
+    updateSectionTabs();
+}
             
             function updateSectionTabs() {
                 const tabsContainer = document.getElementById('section-tabs-container');
