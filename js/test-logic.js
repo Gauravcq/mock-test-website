@@ -1,4 +1,4 @@
-// test-logic.js - FINAL VERSION v9 with SECURITY
+// test-logic.js - FINAL VERSION v10 with SECURITY (FIXED)
 // Features: Anti-copy, Anti-console, Anti-inspect, Tab detection
 (function() {
     'use strict';
@@ -495,6 +495,7 @@
         isPaused: false
     };
 
+    // ========== MAIN INITIALIZATION ==========
     document.addEventListener('DOMContentLoaded', async () => {
         // Initialize security (but don't enable exam mode yet)
         SECURITY.init();
@@ -521,6 +522,7 @@
             return; // User redirected to payment or index page
         }
 
+        // ========== DOM ELEMENT REFERENCES ==========
         const $ = id => document.getElementById(id);
         const $q = sel => document.querySelector(sel);
         
@@ -928,7 +930,7 @@
             if (window.MathJax) try { MathJax.typeset(); } catch(e) {}
         }
 
-        // ========== TAB CLICK ==========
+        // ========== TAB CLICK HANDLER ==========
         function handleTabClick(e) {
             e.preventDefault();
             const tab = e.target;
@@ -970,14 +972,24 @@
             });
         }
 
-        if (reviewPrevBtn) reviewPrevBtn.onclick = () => {
-            if (window.QUIZ_DATA.currentReviewIndex > 0) showReviewQuestion(window.QUIZ_DATA.currentReviewIndex - 1);
-        };
-        if (reviewNextBtn) reviewNextBtn.onclick = () => {
-            if (window.QUIZ_DATA.currentReviewIndex < window.QUIZ_DATA.reviewQuestionList.length - 1) showReviewQuestion(window.QUIZ_DATA.currentReviewIndex + 1);
-        };
+        // ========== REVIEW NAVIGATION ==========
+        if (reviewPrevBtn) {
+            reviewPrevBtn.onclick = () => {
+                if (window.QUIZ_DATA.currentReviewIndex > 0) {
+                    showReviewQuestion(window.QUIZ_DATA.currentReviewIndex - 1);
+                }
+            };
+        }
+        
+        if (reviewNextBtn) {
+            reviewNextBtn.onclick = () => {
+                if (window.QUIZ_DATA.currentReviewIndex < window.QUIZ_DATA.reviewQuestionList.length - 1) {
+                    showReviewQuestion(window.QUIZ_DATA.currentReviewIndex + 1);
+                }
+            };
+        }
 
-        // ========== START BUTTON ==========
+        // ========== START BUTTON HANDLER ==========
         const startBtn = $('start-test-btn');
         if (startBtn) {
             // Remove any existing event listeners by cloning
@@ -998,9 +1010,6 @@
                 SECURITY.enableExamMode();
                 
                 // Hide instructions and show quiz
-                const instructionsModal = $('instructions-modal');
-                const quizUI = $('quiz-ui');
-                
                 if (instructionsModal) {
                     instructionsModal.classList.add('hidden');
                 }
@@ -1011,51 +1020,38 @@
                 
                 // Initialize the quiz
                 initQuiz();
-            });
-            
-            // Also add fallback onclick for compatibility
-            newBtn.onclick = function(e) {
-                e.preventDefault();
-                
-                if (window.QUIZ_DATA.isQuizStarted) {
-                    return;
-                }
-                
-                window.QUIZ_DATA.isQuizStarted = true;
-                
-                // 🔒 Enable exam mode security
-                SECURITY.enableExamMode();
-                
-                // Hide instructions and show quiz
-                const instructionsModal = $('instructions-modal');
-                const quizUI = $('quiz-ui');
-                
-                if (instructionsModal) {
-                    instructionsModal.classList.add('hidden');
-                }
-                
-                if (quizUI) {
-                    quizUI.classList.remove('hidden');
-                }
-                
-                // Initialize the quiz
-                initQuiz();
-            };
-        } // Added missing closing brace here
-
-        // Save to backend
-        if (window.ExamAxisAPI?.isLoggedIn()) {
-            const QD = window.QUIZ_DATA;
-            const answersObj = {};
-            QD.questionStates.forEach((state, i) => {
-                answersObj[i] = {
-                    userAnswer: state.userAnswer,
-                    isCorrect: state.resultCategory === 'correct'
-                };
             });
         }
 
-        // ========== INIT QUIZ ==========
+        // ========== PAUSE/RESUME FUNCTIONALITY ==========
+        function setupPauseResume() {
+            if (pauseBtn) {
+                pauseBtn.onclick = () => {
+                    if (window.QUIZ_DATA.isSubmitted) return;
+                    
+                    window.QUIZ_DATA.isPaused = true;
+                    if (pauseOverlay) {
+                        pauseOverlay.classList.remove('hidden');
+                    }
+                    window._originalConsole?.log?.('⏸️ Quiz paused');
+                };
+            }
+            
+            if (resumeBtn) {
+                resumeBtn.onclick = () => {
+                    window.QUIZ_DATA.isPaused = false;
+                    if (pauseOverlay) {
+                        pauseOverlay.classList.add('hidden');
+                    }
+                    window._originalConsole?.log?.('▶️ Quiz resumed');
+                };
+            }
+        }
+        
+        // Initialize pause/resume
+        setupPauseResume();
+
+        // ========== INIT QUIZ FUNCTION ==========
         function initQuiz() {
             const QD = window.QUIZ_DATA;
             const questions = QD.questions;
@@ -1087,6 +1083,7 @@
                 submitSummaryModal.classList.add('hidden');
             }
 
+            // ========== SHOW SUBMIT MODAL ==========
             function showSubmitModal() {
                 if (!submitSummaryModal) return;
 
@@ -1103,15 +1100,40 @@
                         <div style="margin:10px 0;">Marked For Review: <strong>${marked}</strong></div>
                     `;
                 } else {
-                    submitSummaryModal.innerHTML = `
+                    const modalContent = submitSummaryModal.querySelector('.modal-content') || submitSummaryModal;
+                    modalContent.innerHTML = `
+                        <h3>Submit Test?</h3>
                         <div style="margin:10px 0;">Answered: <strong>${answered}/${questions.length}</strong></div>
-                        <div>Unanswered: <strong>${questions.length - answered}</strong></div>
+                        <div style="margin:10px 0;">Unanswered: <strong>${questions.length - answered}</strong></div>
+                        <div style="margin-top:20px;">
+                            <button id="final-submit-btn" style="background:#ef4444;color:white;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;margin-right:10px;">Submit</button>
+                            <button id="cancel-submit-btn" style="background:#e5e7eb;color:#374151;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;">Cancel</button>
+                        </div>
                     `;
+                    
+                    // Re-bind buttons
+                    const newFinalBtn = $('final-submit-btn');
+                    const newCancelBtn = $('cancel-submit-btn');
+                    
+                    if (newFinalBtn) {
+                        newFinalBtn.onclick = (e) => {
+                            e.preventDefault();
+                            if (QD.isSubmitted) return;
+                            QD.isSubmitted = true;
+                            submitSummaryModal.classList.add('hidden');
+                            submitQuiz();
+                        };
+                    }
+                    
+                    if (newCancelBtn) {
+                        newCancelBtn.onclick = () => submitSummaryModal.classList.add('hidden');
+                    }
                 }
 
                 submitSummaryModal.classList.remove('hidden');
             }
 
+            // Bind submit buttons
             if (submitTestBtn) submitTestBtn.onclick = showSubmitModal;
             if (submitTestFooterBtn) submitTestFooterBtn.onclick = showSubmitModal;
             if (cancelSubmitBtn) cancelSubmitBtn.onclick = () => submitSummaryModal?.classList.add('hidden');
@@ -1121,7 +1143,6 @@
                 finalSubmitBtn.parentNode.replaceChild(newFinal, finalSubmitBtn);
                 newFinal.onclick = (e) => {
                     e.preventDefault();
-
                     if (QD.isSubmitted) return;
                     QD.isSubmitted = true;
                     submitSummaryModal?.classList.add('hidden');
@@ -1129,6 +1150,7 @@
                 };
             }
 
+            // ========== FORMAT TIME ==========
             function formatTime(totalSeconds) {
                 const secs = Math.max(0, Math.floor(totalSeconds));
                 const m = Math.floor(secs / 60);
@@ -1136,6 +1158,7 @@
                 return `${m}:${String(s).padStart(2, '0')}`;
             }
 
+            // ========== START TIMER ==========
             function startTimer() {
                 if (!timerEl) return;
                 clearInterval(QD.timerInterval);
@@ -1146,6 +1169,14 @@
                         remainingTotal += (QD.sectionTimeRemaining[s] || 0);
                     }
                     timerEl.textContent = formatTime(remainingTotal);
+                    
+                    // Change color when time is low
+                    if (remainingTotal <= 60) {
+                        timerEl.style.color = '#ef4444';
+                        timerEl.style.fontWeight = 'bold';
+                    } else if (remainingTotal <= 300) {
+                        timerEl.style.color = '#f59e0b';
+                    }
                 };
 
                 update();
@@ -1164,7 +1195,12 @@
                     let remainingTotal = 0;
                     for (const s in QD.sectionTimeRemaining) remainingTotal += (QD.sectionTimeRemaining[s] || 0);
                     if (remainingTotal <= 0 && !QD.isSubmitted) {
-                        showSubmitModal();
+                        // Auto submit when time runs out
+                        QD.isSubmitted = true;
+                        SECURITY.showWarning('⏰ Time is up! Submitting your test...', 'warning');
+                        setTimeout(() => {
+                            submitQuiz();
+                        }, 1500);
                     }
                 }, 1000);
             }
@@ -1208,11 +1244,12 @@
                     }
                 });
 
-                window._originalConsole?.log?.(' Results:', { correct, incorrect, unattempted, score });
+                window._originalConsole?.log?.('📊 Results:', { correct, incorrect, unattempted, score });
 
                 const accuracy = (correct + incorrect) > 0 ? (correct / (correct + incorrect)) * 100 : 0;
                 QD.reviewQuestionList = filterQuestions('all');
 
+                // Save to localStorage
                 try {
                     const attemptPayload = {
                         testId: String(QD.testInfo.id || testId),
@@ -1232,8 +1269,10 @@
                     };
                     localStorage.setItem('testResult', JSON.stringify(attemptPayload));
                 } catch (e) {
+                    window._originalConsole?.error?.('Failed to save result to localStorage:', e);
                 }
 
+                // Update review area
                 const reviewArea = $('review-button-area');
                 if (reviewArea) {
                     reviewArea.innerHTML = `
@@ -1246,6 +1285,7 @@
                     `;
                 }
 
+                // Update stats area
                 const statsArea = $('stats-cards-area');
                 if (statsArea) {
                     statsArea.innerHTML = `
@@ -1260,11 +1300,14 @@
                     `;
                 }
 
+                // Bind review button
                 setTimeout(() => {
                     const revBtn = $('review-test-btn');
-                    if (revBtn) revBtn.onclick = () => {
-                        window.location.href = 'review.html';
-                    };
+                    if (revBtn) {
+                        revBtn.onclick = () => {
+                            window.location.href = 'review.html';
+                        };
+                    }
                 }, 100);
 
                 bindTabs();
@@ -1297,14 +1340,15 @@
 
                     ExamAxisAPI.saveTestAttempt(attemptData)
                         .then(result => {
-                            window._originalConsole?.log?.(result.success ? '✅ Saved' : '⚠️ Failed:', result.message);
+                            window._originalConsole?.log?.(result.success ? '✅ Saved to backend' : '⚠️ Failed to save:', result.message);
                         })
                         .catch(err => {
-                            window._originalConsole?.warn?.('⚠️ Error:', err.message);
+                            window._originalConsole?.warn?.('⚠️ Backend save error:', err.message);
                         });
                 }
             }
 
+            // ========== CREATE PALETTE ==========
             function createPalette() {
                 if (!questionPalette) return;
                 questionPalette.innerHTML = '';
@@ -1312,11 +1356,15 @@
                     const btn = document.createElement('button');
                     btn.className = 'palette-btn not-visited';
                     btn.textContent = i + 1;
-                    btn.onclick = () => { saveAnswer(); showQuestion(i); };
+                    btn.onclick = () => { 
+                        saveAnswer(); 
+                        showQuestion(i); 
+                    };
                     questionPalette.appendChild(btn);
                 });
             }
 
+            // ========== UPDATE PALETTE ==========
             function updatePalette() {
                 questionPalette?.querySelectorAll('.palette-btn').forEach((btn, i) => {
                     const st = QD.questionStates[i];
@@ -1330,6 +1378,7 @@
                 });
             }
 
+            // ========== SHOW QUESTION ==========
             function showQuestion(index) {
                 if (index < 0 || index >= questions.length) return;
                 QD.currentQuestionIndex = index;
@@ -1350,7 +1399,7 @@
                     const letter = String.fromCharCode(65 + i);
 
                     optionsHTML += `
-                        <label style="display:flex;align-items:center;background:${isChecked ? '#eff6ff' : '#f8fafc'};border:2px solid ${isChecked ? '#3b82f6' : '#e2e8f0'};border-radius:10px;padding:14px 18px;margin-bottom:12px;cursor:pointer;">
+                        <label style="display:flex;align-items:center;background:${isChecked ? '#eff6ff' : '#f8fafc'};border:2px solid ${isChecked ? '#3b82f6' : '#e2e8f0'};border-radius:10px;padding:14px 18px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;">
                             <span style="font-weight:700;min-width:28px;">${letter}.</span>
                             <input type="radio" name="option" value="${escapeHtml(value)}" ${isChecked ? 'checked' : ''} style="width:20px;height:20px;margin-right:14px;accent-color:#3b82f6;">
                             <span style="flex:1;">${safeRender(text)}</span>
@@ -1365,6 +1414,14 @@
                         </div>
                         ${optionsHTML}
                     `;
+                    
+                    // Add click handlers to labels for better UX
+                    questionArea.querySelectorAll('label').forEach(label => {
+                        label.addEventListener('click', () => {
+                            // Small delay to allow radio to be checked
+                            setTimeout(updatePalette, 10);
+                        });
+                    });
                 }
 
                 updateNav();
@@ -1372,11 +1429,13 @@
                 if (window.MathJax) try { MathJax.typeset(); } catch(e) {}
             }
 
+            // ========== UPDATE NAVIGATION ==========
             function updateNav() {
                 if (prevBtn) prevBtn.disabled = QD.currentQuestionIndex === 0;
                 if (nextBtn) nextBtn.textContent = QD.currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Save & Next';
             }
 
+            // ========== SAVE ANSWER ==========
             function saveAnswer() {
                 const sel = document.querySelector('input[name="option"]:checked');
                 const state = QD.questionStates[QD.currentQuestionIndex];
@@ -1385,12 +1444,13 @@
                 updatePalette();
             }
 
+            // ========== RENDER SECTION TABS (for full mock tests) ==========
             function renderSectionTabs() {
                 const header = $('question-header');
                 if (!header) return;
 
                 const subjects = [...new Set(questions.map(q => q.subject))];
-                if (subjects.length === 0) return;
+                if (subjects.length <= 1) return;
 
                 const sectionTabsContainer = document.createElement('div');
                 sectionTabsContainer.id = 'section-tabs';
@@ -1405,10 +1465,12 @@
 
                 subjects.forEach(subject => {
                     const tab = document.createElement('button');
-                    const partLabel = partLabels[subject.toLowerCase()] || subject.toUpperCase();
+                    const subjectLower = subject.toLowerCase();
+                    const partLabel = partLabels[subjectLower] || subject.toUpperCase();
                     tab.textContent = `${partLabel} ${subject.charAt(0).toUpperCase() + subject.slice(1)}`;
                     tab.style.cssText = 'background:#e5e7eb;color:#374151;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:14px;transition:all 0.2s;';
                     tab.onclick = () => {
+                        saveAnswer();
                         const firstQuestionIndex = questions.findIndex(q => q.subject === subject);
                         if (firstQuestionIndex !== -1) showQuestion(firstQuestionIndex);
                     };
@@ -1422,39 +1484,104 @@
                 header.appendChild(sectionTabsContainer);
             }
 
-            if (nextBtn) nextBtn.onclick = () => {
-                saveAnswer();
-                if (QD.currentQuestionIndex < questions.length - 1) showQuestion(QD.currentQuestionIndex + 1);
-                else showSubmitModal();
-            };
+            // ========== BIND NAVIGATION BUTTONS ==========
+            if (nextBtn) {
+                nextBtn.onclick = () => {
+                    saveAnswer();
+                    if (QD.currentQuestionIndex < questions.length - 1) {
+                        showQuestion(QD.currentQuestionIndex + 1);
+                    } else {
+                        showSubmitModal();
+                    }
+                };
+            }
             
-            if (prevBtn) prevBtn.onclick = () => {
-                saveAnswer();
-                if (QD.currentQuestionIndex > 0) showQuestion(QD.currentQuestionIndex - 1);
-            };
+            if (prevBtn) {
+                prevBtn.onclick = () => {
+                    saveAnswer();
+                    if (QD.currentQuestionIndex > 0) {
+                        showQuestion(QD.currentQuestionIndex - 1);
+                    }
+                };
+            }
             
-            if (markReviewBtn) markReviewBtn.onclick = () => {
-                QD.questionStates[QD.currentQuestionIndex].markedForReview = !QD.questionStates[QD.currentQuestionIndex].markedForReview;
-                saveAnswer();
-                if (QD.currentQuestionIndex < questions.length - 1) showQuestion(QD.currentQuestionIndex + 1);
-            };
+            if (markReviewBtn) {
+                markReviewBtn.onclick = () => {
+                    QD.questionStates[QD.currentQuestionIndex].markedForReview = !QD.questionStates[QD.currentQuestionIndex].markedForReview;
+                    saveAnswer();
+                    if (QD.currentQuestionIndex < questions.length - 1) {
+                        showQuestion(QD.currentQuestionIndex + 1);
+                    } else {
+                        updatePalette();
+                    }
+                };
+            }
             
-            if (clearResponseBtn) clearResponseBtn.onclick = () => {
-                QD.questionStates[QD.currentQuestionIndex].userAnswer = null;
-                QD.questionStates[QD.currentQuestionIndex].status = 'not-answered';
-                document.querySelectorAll('input[name="option"]:checked').forEach(r => r.checked = false);
-                updatePalette();
-            };
+            if (clearResponseBtn) {
+                clearResponseBtn.onclick = () => {
+                    QD.questionStates[QD.currentQuestionIndex].userAnswer = null;
+                    QD.questionStates[QD.currentQuestionIndex].status = 'not-answered';
+                    document.querySelectorAll('input[name="option"]:checked').forEach(r => r.checked = false);
+                    updatePalette();
+                };
+            }
 
+            // Render section tabs if it's a full mock test
             if (testInfo.section === 'fullmock' && questions.some(q => q.subject)) {
                 renderSectionTabs();
             }
 
-createPalette();
-showQuestion(0);
-updatePalette();
-startTimer();
+            // ========== INITIALIZE QUIZ UI ==========
+            createPalette();
+            showQuestion(0);
+            updatePalette();
+            startTimer();
 
-window._originalConsole?.log?.('✅ Quiz ready!');
-}
-})();
+            window._originalConsole?.log?.('✅ Quiz initialized and ready!');
+        }
+
+        // ========== KEYBOARD SHORTCUTS FOR QUIZ ==========
+        document.addEventListener('keydown', (e) => {
+            const QD = window.QUIZ_DATA;
+            if (!QD.isQuizStarted || QD.isSubmitted || QD.isPaused) return;
+            
+            // Don't capture if user is typing somewhere
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'n':
+                case 'N':
+                    if (nextBtn && !nextBtn.disabled) nextBtn.click();
+                    break;
+                case 'ArrowLeft':
+                case 'p':
+                case 'P':
+                    if (prevBtn && !prevBtn.disabled) prevBtn.click();
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                    // Select option by number
+                    const optionIndex = parseInt(e.key) - 1;
+                    const options = document.querySelectorAll('input[name="option"]');
+                    if (options[optionIndex]) {
+                        options[optionIndex].checked = true;
+                        options[optionIndex].dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                    break;
+                case 'm':
+                case 'M':
+                    if (markReviewBtn) markReviewBtn.click();
+                    break;
+                case 'c':
+                case 'C':
+                    if (!e.ctrlKey && !e.metaKey && clearResponseBtn) clearResponseBtn.click();
+                    break;
+            }
+        });
+
+    }); // End of DOMContentLoaded
+
+})(); // End of IIFE
