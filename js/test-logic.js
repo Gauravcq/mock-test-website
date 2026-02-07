@@ -1,76 +1,134 @@
 // test-logic.js - FINAL VERSION v10 with SECTIONS SUPPORT - FIXED
 // Features: Anti-copy, Anti-console, Anti-inspect, Tab detection, Section-based Full Mock
+// test-logic.js - FINAL VERSION v11 with SECURITY ENABLED
+// Features: Anti-copy, Anti-console, Anti-inspect, Tab detection, Section-based Full Mock
 (function() {
     'use strict';
 
     // ========== SECURITY FEATURES ==========
     const SECURITY = {
-        enabled: true,
+        // Set to true to enable ALL security features
+        // Set to false for development (console will still be disabled during exam)
+        enableFullSecurity: false,
         
         init() {
-            if (!this.enabled) {
-                console.log('⚠️ Security features disabled (dev mode)');
-                return;
-            }
-            this.disableCopyPaste();
+            // These ALWAYS run (core exam protection)
             this.disableRightClick();
             this.disableTextSelection();
-            this.disableKeyboardShortcuts();
-            this.disableConsole();
-            this.detectDevTools();
-            this.detectTabSwitch();
+            this.disableCopyPaste();
             this.disableDragDrop();
             this.disablePrint();
-            console.log('🔒 Security features enabled');
+            this.detectTabSwitch();
+            
+            // These only run in full security mode
+            if (this.enableFullSecurity) {
+                this.disableKeyboardShortcuts();
+                this.detectDevTools();
+                console.log('🔒 Full security features enabled');
+            } else {
+                console.log('⚠️ Basic security enabled (dev mode)');
+            }
         },
 
+        // ========== DISABLE CONSOLE (Called when exam starts) ==========
+        disableConsole() {
+            // Store original console for internal use
+            if (!window._originalConsole) {
+                window._originalConsole = { ...console };
+            }
+            
+            // Create no-op function
+            const noop = () => {};
+            const methods = [
+                'log', 'debug', 'info', 'warn', 'error', 'table', 'trace', 
+                'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 
+                'clear', 'count', 'countReset', 'assert', 'profile', 
+                'profileEnd', 'time', 'timeLog', 'timeEnd', 'timeStamp'
+            ];
+            
+            // Override all console methods
+            methods.forEach(method => {
+                console[method] = noop;
+            });
+            
+            // Prevent console.log from working
+            Object.defineProperty(window, 'console', {
+                value: console,
+                writable: false,
+                configurable: false
+            });
+            
+            window._originalConsole?.log?.('🔇 Console disabled for exam');
+        },
+
+        // ========== RESTORE CONSOLE (Called when exam ends) ==========
+        restoreConsole() {
+            if (window._originalConsole) {
+                Object.keys(window._originalConsole).forEach(method => {
+                    console[method] = window._originalConsole[method];
+                });
+                console.log('🔊 Console restored');
+            }
+        },
+
+        // ========== DISABLE COPY/PASTE ==========
         disableCopyPaste() {
             document.addEventListener('copy', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
-                this.showWarning('Copying is not allowed during exam!');
+                this.showWarning('📋 Copying is not allowed during exam!');
                 return false;
             });
+
             document.addEventListener('cut', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
-                this.showWarning('Cutting is not allowed during exam!');
+                this.showWarning('✂️ Cutting is not allowed during exam!');
                 return false;
             });
+
             document.addEventListener('paste', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
                 e.preventDefault();
-                this.showWarning('Pasting is not allowed during exam!');
+                this.showWarning('📋 Pasting is not allowed during exam!');
                 return false;
             });
         },
 
+        // ========== DISABLE RIGHT CLICK ==========
         disableRightClick() {
             document.addEventListener('contextmenu', (e) => {
-                if (!document.body.classList.contains('exam-mode')) return;
+                if (!document.body.classList.contains('exam-mode')) return true;
                 e.preventDefault();
-                this.showWarning('Right-click is disabled during exam!');
+                e.stopPropagation();
+                this.showWarning('🚫 Right-click is disabled during exam!');
                 return false;
-            });
+            }, true);
         },
 
+        // ========== DISABLE TEXT SELECTION ==========
         disableTextSelection() {
             const style = document.createElement('style');
+            style.id = 'exam-security-styles';
             style.textContent = `
-                body.exam-mode, body.exam-mode * {
+                body.exam-mode,
+                body.exam-mode * {
                     -webkit-user-select: none !important;
                     -moz-user-select: none !important;
                     -ms-user-select: none !important;
                     user-select: none !important;
+                    -webkit-touch-callout: none !important;
                 }
                 body.exam-mode input[type="radio"],
                 body.exam-mode input[type="checkbox"],
-                body.exam-mode button {
+                body.exam-mode button,
+                body.exam-mode .btn {
                     -webkit-user-select: auto !important;
                     user-select: auto !important;
                 }
             `;
             document.head.appendChild(style);
+
             document.addEventListener('selectstart', (e) => {
                 if (document.body.classList.contains('exam-mode')) {
                     e.preventDefault();
@@ -79,107 +137,119 @@
             });
         },
 
+        // ========== DISABLE KEYBOARD SHORTCUTS ==========
         disableKeyboardShortcuts() {
             document.addEventListener('keydown', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
+
+                // Block Ctrl/Cmd combinations
                 if (e.ctrlKey || e.metaKey) {
-                    const blockedKeys = ['c', 'C', 'v', 'V', 'x', 'X', 'a', 'A', 's', 'S', 'p', 'P', 'u', 'U', 'i', 'I', 'j', 'J', 'k', 'K'];
+                    const blockedKeys = [
+                        'c', 'C', 'v', 'V', 'x', 'X', 'a', 'A', 's', 'S', 
+                        'p', 'P', 'u', 'U', 'i', 'I', 'j', 'J', 'k', 'K'
+                    ];
+                    
                     if (blockedKeys.includes(e.key)) {
                         e.preventDefault();
-                        this.showWarning('This shortcut is disabled during exam!');
+                        e.stopPropagation();
+                        this.showWarning('⌨️ This shortcut is disabled during exam!');
                         return false;
                     }
-                    if (e.shiftKey && (e.key === 's' || e.key === 'S' || e.key === '3' || e.key === '4' || e.key === '5')) {
-                        e.preventDefault();
-                        this.showWarning('Screenshots are not allowed during exam!');
-                        return false;
-                    }
+
+                    // Block Ctrl+Shift combinations (Dev Tools)
                     if (e.shiftKey) {
                         const blockedShiftKeys = ['i', 'I', 'j', 'J', 'c', 'C'];
                         if (blockedShiftKeys.includes(e.key)) {
                             e.preventDefault();
-                            this.showWarning('Developer tools are disabled during exam!');
+                            e.stopPropagation();
+                            this.showWarning('🛠️ Developer tools are disabled during exam!');
                             return false;
                         }
                     }
                 }
-                if (e.shiftKey && (e.key === 's' || e.key === 'S')) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.showWarning('Screenshots are not allowed during exam!');
-                    navigator.clipboard.writeText('').catch(() => {});
-                    return false;
-                }
+
+                // Block F12 (Dev Tools)
                 if (e.key === 'F12') {
                     e.preventDefault();
-                    this.showWarning('Developer tools are disabled during exam!');
+                    e.stopPropagation();
+                    this.showWarning('🛠️ Developer tools are disabled during exam!');
                     return false;
                 }
+
+                // Block F7 (Caret browsing)
                 if (e.key === 'F7') {
                     e.preventDefault();
                     return false;
                 }
-                const isScreenshotKey = e.key === 'PrintScreen' || (e.keyCode === 44) || (e.metaKey && e.shiftKey && ['3', '4', '5'].includes(e.key));
-                if (isScreenshotKey) {
+
+                // Block Print Screen
+                if (e.key === 'PrintScreen' || e.keyCode === 44) {
                     e.preventDefault();
                     e.stopPropagation();
-                    this.showWarning('Screenshots are not allowed during exam!');
-                    navigator.clipboard.writeText('').catch(() => {});
+                    this.showWarning('📸 Screenshots are not allowed during exam!');
+                    try { navigator.clipboard.writeText(''); } catch(err) {}
                     return false;
                 }
-            });
+            }, true);
+
+            // Also block on keyup (some browsers fire PrintScreen on keyup)
             document.addEventListener('keyup', (e) => {
                 if (!document.body.classList.contains('exam-mode')) return;
                 if (e.key === 'PrintScreen' || e.keyCode === 44) {
                     e.preventDefault();
                     e.stopPropagation();
-                    navigator.clipboard.writeText('').catch(() => {});
+                    try { navigator.clipboard.writeText(''); } catch(err) {}
                     return false;
                 }
-            });
+            }, true);
         },
 
-        disableConsole() {
-            const noop = () => {};
-            const methods = ['log', 'debug', 'info', 'warn', 'error', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 'clear', 'count', 'countReset', 'assert', 'profile', 'profileEnd', 'time', 'timeLog', 'timeEnd', 'timeStamp'];
-            window._originalConsole = { ...console };
-            methods.forEach(method => { console[method] = noop; });
-            const element = new Image();
-            Object.defineProperty(element, 'id', { get: () => { this.handleDevToolsOpen(); } });
-            setInterval(() => { console.log(element); console.clear(); }, 1000);
-        },
-
+        // ========== DETECT DEV TOOLS ==========
         detectDevTools() {
             const threshold = 160;
+            let devToolsOpen = false;
+            
             const checkDevTools = () => {
                 const widthThreshold = window.outerWidth - window.innerWidth > threshold;
                 const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-                if (widthThreshold || heightThreshold) { this.handleDevToolsOpen(); }
+                
+                if ((widthThreshold || heightThreshold) && !devToolsOpen) {
+                    devToolsOpen = true;
+                    this.handleDevToolsOpen();
+                } else if (!widthThreshold && !heightThreshold) {
+                    devToolsOpen = false;
+                }
             };
+
             window.addEventListener('resize', checkDevTools);
             setInterval(checkDevTools, 1000);
-            setInterval(() => {
-                const startTime = performance.now();
-                debugger;
-                const endTime = performance.now();
-                if (endTime - startTime > 100) { this.handleDevToolsOpen(); }
-            }, 1000);
         },
 
+        // ========== DETECT TAB SWITCH ==========
         detectTabSwitch() {
             let tabSwitchCount = 0;
             const maxTabSwitches = 3;
+
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden && window.QUIZ_DATA?.isQuizStarted && !window.QUIZ_DATA?.isSubmitted) {
                     tabSwitchCount++;
+                    
+                    // Store tab switch count
+                    window.QUIZ_DATA.tabSwitchCount = tabSwitchCount;
+                    
                     if (tabSwitchCount >= maxTabSwitches) {
-                        this.showWarning(`⚠️ WARNING: You have switched tabs ${tabSwitchCount} times! Your test may be auto-submitted.`, 'error');
+                        this.showWarning(`⚠️ WARNING: Tab switch ${tabSwitchCount}/${maxTabSwitches}! Test may be auto-submitted.`, 'error');
+                        // Optional: Auto-submit after max switches
+                        // document.getElementById('final-submit-btn')?.click();
                     } else {
-                        this.showWarning(`⚠️ Tab switch detected! (${tabSwitchCount}/${maxTabSwitches}) Please stay on this page.`, 'warning');
+                        this.showWarning(`⚠️ Tab switch detected! (${tabSwitchCount}/${maxTabSwitches})`, 'warning');
                     }
-                    window._originalConsole?.warn?.(`Tab switch detected: ${tabSwitchCount}`);
+                    
+                    window._originalConsole?.warn?.(`Tab switch: ${tabSwitchCount}/${maxTabSwitches}`);
                 }
             });
+
+            // Also detect window blur
             window.addEventListener('blur', () => {
                 if (window.QUIZ_DATA?.isQuizStarted && !window.QUIZ_DATA?.isSubmitted) {
                     window._originalConsole?.warn?.('Window lost focus');
@@ -187,50 +257,157 @@
             });
         },
 
+        // ========== DISABLE DRAG AND DROP ==========
         disableDragDrop() {
-            document.addEventListener('dragstart', (e) => { e.preventDefault(); return false; });
-            document.addEventListener('drop', (e) => { e.preventDefault(); return false; });
+            document.addEventListener('dragstart', (e) => {
+                if (document.body.classList.contains('exam-mode')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('drop', (e) => {
+                if (document.body.classList.contains('exam-mode')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
         },
 
+        // ========== DISABLE PRINT ==========
         disablePrint() {
             const style = document.createElement('style');
-            style.textContent = `@media print { body * { display: none !important; } body::after { content: "Printing is not allowed during exam."; display: block !important; font-size: 24px; text-align: center; padding: 50px; } }`;
+            style.textContent = `
+                @media print {
+                    body.exam-mode * {
+                        display: none !important;
+                    }
+                    body.exam-mode::after {
+                        content: "🚫 Printing is not allowed during exam.";
+                        display: block !important;
+                        font-size: 24px;
+                        text-align: center;
+                        padding: 50px;
+                        color: #ef4444;
+                    }
+                }
+            `;
             document.head.appendChild(style);
-            window.addEventListener('beforeprint', (e) => { e.preventDefault(); this.showWarning('Printing is not allowed during exam!'); });
-            window.print = () => { this.showWarning('Printing is not allowed during exam!'); };
+
+            window.addEventListener('beforeprint', (e) => {
+                if (document.body.classList.contains('exam-mode')) {
+                    e.preventDefault();
+                    this.showWarning('🖨️ Printing is not allowed during exam!');
+                }
+            });
+
+            // Override print function
+            const originalPrint = window.print;
+            window.print = function() {
+                if (document.body.classList.contains('exam-mode')) {
+                    SECURITY.showWarning('🖨️ Printing is not allowed during exam!');
+                    return;
+                }
+                originalPrint.call(window);
+            };
         },
 
+        // ========== HANDLE DEV TOOLS OPEN ==========
         handleDevToolsOpen() {
-            if (!this._devToolsWarningShown) {
+            if (!this._devToolsWarningShown && document.body.classList.contains('exam-mode')) {
                 this._devToolsWarningShown = true;
-                this.showWarning('⚠️ Developer tools detected! This activity is being logged.', 'error');
-                setTimeout(() => { this._devToolsWarningShown = false; }, 5000);
+                this.showWarning('🛠️ Developer tools detected! This is being logged.', 'error');
+                
+                // Optional: Blur the exam content
+                const quizUI = document.getElementById('quiz-ui');
+                if (quizUI) {
+                    quizUI.style.filter = 'blur(10px)';
+                    setTimeout(() => {
+                        quizUI.style.filter = 'none';
+                    }, 3000);
+                }
+                
+                setTimeout(() => {
+                    this._devToolsWarningShown = false;
+                }, 5000);
             }
         },
 
+        // ========== SHOW WARNING POPUP ==========
         showWarning(message, type = 'warning') {
+            // Remove existing warning
             const existing = document.getElementById('security-warning');
             if (existing) existing.remove();
+
             const colors = {
                 warning: { bg: '#fef3c7', border: '#f59e0b', text: '#92400e' },
-                error: { bg: '#fee2e2', border: '#ef4444', text: '#991b1b' }
+                error: { bg: '#fee2e2', border: '#ef4444', text: '#991b1b' },
+                info: { bg: '#dbeafe', border: '#3b82f6', text: '#1e40af' }
             };
+
             const color = colors[type] || colors.warning;
+
             const warning = document.createElement('div');
             warning.id = 'security-warning';
-            warning.innerHTML = `<div style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: ${color.bg}; border: 2px solid ${color.border}; color: ${color.text}; padding: 15px 25px; border-radius: 10px; font-weight: 600; font-size: 14px; z-index: 999999; box-shadow: 0 4px 20px rgba(0,0,0,0.15); animation: slideDown 0.3s ease; max-width: 90%; text-align: center;">${message}</div><style>@keyframes slideDown { from { transform: translateX(-50%) translateY(-100%); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }</style>`;
+            warning.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${color.bg};
+                    border: 2px solid ${color.border};
+                    color: ${color.text};
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 999999;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                    animation: securitySlideDown 0.3s ease;
+                    max-width: 90%;
+                    text-align: center;
+                ">
+                    ${message}
+                </div>
+                <style>
+                    @keyframes securitySlideDown {
+                        from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+                        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                    }
+                </style>
+            `;
             document.body.appendChild(warning);
-            setTimeout(() => { warning.remove(); }, 3000);
+
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (warning.parentNode) {
+                    warning.remove();
+                }
+            }, 3000);
         },
 
+        // ========== ENABLE EXAM MODE ==========
         enableExamMode() {
             document.body.classList.add('exam-mode');
-            console.log('🔒 Exam mode enabled');
+            
+            // Disable console when exam starts
+            this.disableConsole();
+            
+            // Enable keyboard shortcuts blocking
+            this.disableKeyboardShortcuts();
+            
+            window._originalConsole?.log?.('🔒 Exam mode enabled - Security active');
         },
 
+        // ========== DISABLE EXAM MODE ==========
         disableExamMode() {
             document.body.classList.remove('exam-mode');
-            console.log('🔓 Exam mode disabled');
+            
+            // Restore console when exam ends
+            this.restoreConsole();
+            
+            console.log('🔓 Exam mode disabled - Security relaxed');
         }
     };
 
