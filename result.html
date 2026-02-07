@@ -719,6 +719,12 @@
                 <button class="filter-btn" onclick="filterQuestions('unattempted')">Unattempted</button>
             </div>
         </div>
+        <div id="section-tabs" class="filter-buttons" style="margin-top:12px;">
+            <!-- Section tabs will be injected -->
+        </div>
+        <div id="section-palette" style="display:flex;gap:8px;margin:8px 0 16px 0;">
+            <!-- Section palette counts will be injected -->
+        </div>
         
         <div id="questions-container" class="questions-container">
             <!-- Questions will be dynamically loaded here -->
@@ -1259,11 +1265,13 @@
                 return;
             }
             
+            setupSectionUI(questions, questionStates);
             // Display all questions
             displayQuestions(questions, questionStates, 'all');
         }
 
         // Display questions based on filter
+        let currentSectionKey = null;
         function displayQuestions(questions, questionStates, filter) {
             const container = document.getElementById('questions-container');
             if (!container) return;
@@ -1273,8 +1281,10 @@
             questions.forEach((question, index) => {
                 const state = questionStates[index] || {};
                 const status = state.resultCategory || 'unattempted';
+                const subject = (question.subject || '').toLowerCase();
+                const sectionMatches = !currentSectionKey || subject === currentSectionKey;
                 
-                if (filter === 'all' || filter === status) {
+                if (sectionMatches && (filter === 'all' || filter === status)) {
                     filteredQuestions.push({ question, state, index, status });
                 }
             });
@@ -1348,6 +1358,121 @@
                 btn.classList.toggle('active', btn.textContent.toLowerCase().includes(filter) || 
                     (filter === 'all' && btn.textContent === 'All Questions'));
             });
+        }
+
+        // Build sections from subjects and inject tabs/palette
+        function setupSectionUI(questions, questionStates) {
+            const sectionTabs = document.getElementById('section-tabs');
+            const paletteEl = document.getElementById('section-palette');
+            if (!sectionTabs || !paletteEl) return;
+            const subjects = [...new Set(questions.map(q => (q.subject || '').toLowerCase()).filter(Boolean))];
+            if (subjects.length <= 1) {
+                sectionTabs.innerHTML = '';
+                paletteEl.innerHTML = '';
+                return;
+            }
+            const labels = { maths: 'PART‑A Mathematics', english: 'PART‑B English', gk: 'PART‑C General Awareness', reasoning: 'PART‑D Reasoning' };
+            sectionTabs.innerHTML = subjects.map(s => {
+                const lbl = labels[s] || s.toUpperCase();
+                return `<button class="filter-btn" data-section="${s}">${lbl}</button>`;
+            }).join('');
+            sectionTabs.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    sectionTabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentSectionKey = btn.dataset.section;
+                    updateSectionPalette(questions, questionStates, currentSectionKey);
+                    // Default to show attempted only, up to 4 items
+                    displaySectionPreview(questions, questionStates, currentSectionKey);
+                });
+            });
+            // Activate first section by default
+            const first = sectionTabs.querySelector('button');
+            if (first) first.click();
+        }
+
+        function updateSectionPalette(questions, questionStates, sectionKey) {
+            const paletteEl = document.getElementById('section-palette');
+            if (!paletteEl) return;
+            let correct = 0, incorrect = 0, unattempted = 0;
+            questions.forEach((q, i) => {
+                const subj = (q.subject || '').toLowerCase();
+                if (subj !== sectionKey) return;
+                const st = questionStates[i] || {};
+                const cat = st.resultCategory || 'unattempted';
+                if (cat === 'correct') correct++;
+                else if (cat === 'incorrect') incorrect++;
+                else unattempted++;
+            });
+            paletteEl.innerHTML = `
+                <div style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#f0fdf4;">Correct: ${correct}</div>
+                <div style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#fee2e2;">Incorrect: ${incorrect}</div>
+                <div style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#fef3c7;">Unattempted: ${unattempted}</div>
+            `;
+        }
+
+        function displaySectionPreview(questions, questionStates, sectionKey) {
+            const container = document.getElementById('questions-container');
+            if (!container) return;
+            const attempted = [];
+            questions.forEach((q, i) => {
+                const subj = (q.subject || '').toLowerCase();
+                if (subj !== sectionKey) return;
+                const st = questionStates[i] || {};
+                if (st.userAnswer != null && st.userAnswer !== '') {
+                    attempted.push({ question: q, state: st, index: i, status: st.resultCategory || 'unattempted' });
+                }
+            });
+            const preview = attempted.slice(0, 4);
+            if (preview.length === 0) {
+                container.innerHTML = `<p style="text-align:center;color:#6b7280;">No attempted questions in this section.</p>`;
+                return;
+            }
+            // Render preview cards
+            const html = preview.map(({ question, state, index, status }) => {
+                const questionText = question.question?.en || question.question || '';
+                const options = question.options || [];
+                const correctAnswer = question.correctAnswer?.en || question.correctAnswer || '';
+                const userAnswer = state.userAnswer;
+                const explanation = question.explanation?.en || question.explanation || '';
+                return `
+                    <div class="question-card ${status}">
+                        <div class="question-header">
+                            <div class="question-number">${(question.subject || '').toUpperCase()} • Q${index + 1}</div>
+                            <div class="question-status ${status}">
+                                ${status === 'correct' ? '✓ Correct' : status === 'incorrect' ? '✗ Incorrect' : '⚠ Unattempted'}
+                            </div>
+                        </div>
+                        <div class="question-text">${questionText}</div>
+                        <div class="options-container">
+                            ${options.map((option, i) => {
+                                const optionText = option.en || option || '';
+                                const isCorrect = optionText === correctAnswer;
+                                const isUserAnswer = optionText === userAnswer;
+                                const letter = String.fromCharCode(65 + i);
+                                let optionClass = 'option-item';
+                                let indicator = '';
+                                if (isCorrect && isUserAnswer) { optionClass += ' user-answer correct-answer'; indicator = '<span class="option-indicator correct-answer">✓ Your Answer (Correct)</span>'; }
+                                else if (isCorrect) { optionClass += ' correct-answer'; indicator = '<span class="option-indicator correct-answer">✓ Correct Answer</span>'; }
+                                else if (isUserAnswer) { optionClass += ' user-answer'; indicator = '<span class="option-indicator user-answer">✗ Your Answer</span>'; }
+                                return `
+                                    <div class="${optionClass}">
+                                        <span class="option-label">${letter}.</span>
+                                        <span class="option-text">${optionText}</span>
+                                        ${indicator}
+                                    </div>`;
+                            }).join('')}
+                        </div>
+                        ${explanation ? `
+                            <div class="explanation-box">
+                                <div class="explanation-title">💡 Explanation:</div>
+                                <div class="explanation-text">${explanation}</div>
+                            </div>` : ''}
+                    </div>`;
+            }).join('');
+            // Add a link to show all questions for this section
+            const showAllBtn = `<div style="text-align:center;margin:12px 0;"><button class="filter-btn" onclick="displayQuestions(JSON.parse(localStorage.getItem('testResult')).questions, JSON.parse(localStorage.getItem('testResult')).questionStates, 'all')">Show all in section</button></div>`;
+            container.innerHTML = html + showAllBtn;
         }
 
         // Filter questions

@@ -1026,6 +1026,9 @@
                         console.log(`🖱️ Clicked section: ${section.label}`);
                         saveAnswer();
                         QD.currentSection = section.subject;
+                        // Rebuild palette when changing section
+                        createPalette();
+                        updatePalette();
                         showQuestion(section.startIndex);
                         updateSectionTabs();
                     };
