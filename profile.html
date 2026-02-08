@@ -190,12 +190,13 @@
                 }
                 
                 // Update UI with user data
-                document.getElementById('userName').textContent = user.name || user.email.split('@')[0] || 'User';
+                const displayName = user.fullName || user.name || user.username || (user.email ? user.email.split('@')[0] : 'User');
+                document.getElementById('userName').textContent = displayName;
                 document.getElementById('userEmail').textContent = user.email;
                 document.getElementById('userPhone').textContent = user.phone || 'Not provided';
                 
                 // Update avatar with first letter
-                const firstLetter = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                const firstLetter = (user.fullName || user.name || user.username || user.email || 'U').charAt(0).toUpperCase();
                 document.getElementById('userAvatar').textContent = firstLetter;
                 
                 // Update plan badge

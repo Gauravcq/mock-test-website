@@ -1459,7 +1459,8 @@
         (function initTelegramSupport() {
             const btn = document.getElementById('telegram-support-btn');
             if (!btn) return;
-            const STORAGE_KEY = 'telegramJoined';
+            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id') || 'anon';
+            const STORAGE_KEY = `telegramJoined:${userId}`;
             function setJoinedUI() {
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fab fa-telegram"></i> Telegram Joined';
