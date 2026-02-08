@@ -880,6 +880,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Telegram Support</h4>
+                                <p>Premium members get access to our Telegram support group</p>
+                                <button id="telegram-support-btn" class="telegram-btn" hidden="true">
+                                    <i class="fab fa-telegram"></i> Join Telegram Support
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -951,6 +963,7 @@
 
     <!-- Scripts -->
     <script src="js/api.js"></script>
+    <script src="js/premium-access.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
@@ -1457,6 +1470,87 @@
             localStorage.clear();
             window.location.href = 'index.html';
         }
+        (function initTelegramSupport() {
+            const btn = document.getElementById('telegram-support-btn');
+            if (!btn) return;
+            const STORAGE_KEY = 'telegramJoined';
+            function setJoinedUI() {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fab fa-telegram"></i> Telegram Joined';
+            }
+            function setActiveUI() {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fab fa-telegram"></i> Join Telegram Support';
+            }
+            async function markJoined() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, 'true');
+                    await ExamAxisAPI.request('/api/support/telegram/mark-joined', { method: 'POST' });
+                } catch (_) {}
+            }
+            async function isJoined() {
+                if (localStorage.getItem(STORAGE_KEY) === 'true') return true;
+                try {
+                    const { data } = await ExamAxisAPI.request('/api/support/telegram/status');
+                    const joined = data && data.data && data.data.joined === true;
+                    if (joined) localStorage.setItem(STORAGE_KEY, 'true');
+                    return joined;
+                } catch (_) {
+                    return false;
+                }
+            }
+            async function updateVisibility() {
+                try {
+                    if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
+                        btn.hidden = true;
+                        return;
+                    }
+                    if (typeof PremiumAccess !== 'undefined' && PremiumAccess.checkPremiumStatus) {
+                        const isPremium = await PremiumAccess.checkPremiumStatus();
+                        if (!isPremium) {
+                            btn.hidden = true;
+                            return;
+                        }
+                        const joined = await isJoined();
+                        btn.hidden = false;
+                        if (joined) setJoinedUI(); else setActiveUI();
+                        return;
+                    }
+                    const user = JSON.parse(localStorage.getItem('user') || '{}');
+                    const isPremium =
+                        user.plan === 'premium' ||
+                        user.isPremium === true ||
+                        user.subscription === 'premium' ||
+                        user.premium === true ||
+                        user.role === 'premium' ||
+                        user.role === 'admin' ||
+                        user.userType === 'premium' ||
+                        user.membership === 'premium' ||
+                        user.access === 'premium' ||
+                        (user.plan && String(user.plan).toLowerCase().includes('premium')) ||
+                        (user.subscription && String(user.subscription).toLowerCase().includes('premium')) ||
+                        (user.membership && String(user.membership).toLowerCase().includes('premium'));
+                    if (!isPremium) {
+                        btn.hidden = true;
+                        return;
+                    }
+                    const joined = await isJoined();
+                    btn.hidden = false;
+                    if (joined) setJoinedUI(); else setActiveUI();
+                } catch (_) {
+                    btn.hidden = true;
+                }
+            }
+            async function onTelegramClick() {
+                btn.disabled = true;
+                const inviteLink = 'https://t.me/+wkVQs6V5sEkyODI9';
+                window.open(inviteLink, '_blank', 'noopener');
+                await markJoined();
+                setJoinedUI();
+            }
+            btn.addEventListener('click', onTelegramClick);
+            updateVisibility();
+        })();
     </script>
 </body>
 </html>
