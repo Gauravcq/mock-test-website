@@ -1459,7 +1459,11 @@
         (function initTelegramSupport() {
             const btn = document.getElementById('telegram-support-btn');
             if (!btn) return;
-            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id') || 'anon';
+            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            if (!userId) {
+                btn.hidden = true;
+                return;
+            }
             const STORAGE_KEY = `telegramJoined:${userId}`;
             function setJoinedUI() {
                 btn.disabled = true;
@@ -1478,6 +1482,8 @@
             async function isJoined() {
                 if (localStorage.getItem(STORAGE_KEY) === 'true') return true;
                 try {
+                    const token = ExamAxisAPI.getToken && ExamAxisAPI.getToken();
+                    if (!token) return false;
                     const { data } = await ExamAxisAPI.request('/api/support/telegram/status');
                     const joined = data && data.data && data.data.joined === true;
                     if (joined) localStorage.setItem(STORAGE_KEY, 'true');
