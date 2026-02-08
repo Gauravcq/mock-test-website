@@ -1037,12 +1037,14 @@
                 try {
                     // Get user from localStorage
                     const user = JSON.parse(localStorage.getItem('user') || '{}');
+                    this.userData = user || {};
 
                     // Try to get fresh data from API
                     try {
-                        const response = await ExamAxisAPI.getUserStats();
-                        if (response.success) {
-                            this.userData = { ...this.userData, ...response.data };
+                        const response = await ExamAxisAPI.getMe();
+                        if (response && (response.success || response.data)) {
+                            const serverUser = (response.data && (response.data.user || response.data)) || {};
+                            this.userData = Object.assign({}, this.userData || {}, serverUser);
                         }
                     } catch (error) {
                         console.log('Using cached user data');
@@ -1068,7 +1070,7 @@
             }
 
             hideUpgradeForPremium() {
-                const user = this.userData;
+                const user = this.userData || {};
                 console.log('Dashboard checking premium status for user:', user);
                 
                 // Check multiple premium indicators (same logic as telegram integration)
@@ -1130,7 +1132,7 @@
 
             setupUserDropdown() {
                 // Hide upgrade link in dropdown for premium users
-                const user = this.userData;
+                const user = this.userData || {};
                 const isPremium = 
                     user.plan === 'premium' || 
                     user.isPremium === true || 
@@ -1267,30 +1269,14 @@
             }
 
             updateUserInfo() {
-                console.log('=== DASHBOARD USER INFO DEBUG ===');
-                console.log('Full user data:', JSON.stringify(this.userData, null, 2));
-                console.log('Available fields:', Object.keys(this.userData));
-                console.log('Name field:', this.userData.name);
-                console.log('Email field:', this.userData.email);
-                console.log('Username field:', this.userData.username);
-                console.log('FullName field:', this.userData.fullName);
-                
                 // Try multiple possible name fields
-                const userName = this.userData.name || 
-                               this.userData.fullName || 
-                               this.userData.username || 
-                               this.userData.email?.split('@')[0] || 
-                               'Student';
+                const u = this.userData || {};
+                const userName = u.fullName || u.name || u.username || (u.email && String(u.email).split('@')[0]) || 'Student';
                 
-                const firstLetter = userName.charAt(0).toUpperCase();
-                
-                console.log('Final username:', userName);
-                console.log('Final first letter:', firstLetter);
+                const firstLetter = userName && userName.length ? userName.charAt(0).toUpperCase() : 'S';
                 
                 document.getElementById('userName').textContent = userName;
                 document.getElementById('userAvatar').textContent = firstLetter;
-                
-                console.log('=== END DEBUG ===');
             }
 
             updateStats() {
