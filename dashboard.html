@@ -1486,7 +1486,11 @@
                     if (!token) return false;
                     const { data } = await ExamAxisAPI.request('/api/support/telegram/status');
                     const joined = data && data.data && data.data.joined === true;
-                    if (joined) localStorage.setItem(STORAGE_KEY, 'true');
+                    if (joined) {
+                        localStorage.setItem(STORAGE_KEY, 'true');
+                    } else {
+                        localStorage.removeItem(STORAGE_KEY);
+                    }
                     return joined;
                 } catch (_) {
                     return false;
@@ -1510,7 +1514,11 @@
                     } catch (_) {
                         isPremium = false;
                     }
-                    if (!isPremium) { btn.hidden = true; return; }
+                    if (!isPremium) {
+                        btn.hidden = true;
+                        localStorage.removeItem(STORAGE_KEY);
+                        return;
+                    }
                     const joined = await isJoined();
                     btn.hidden = false;
                     if (joined) setJoinedUI(); else setActiveUI();
