@@ -2837,6 +2837,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Update premium button
     checkAndUpdatePremiumButton();
+    initTelegramPopup();
     
     // Load history in background (non-blocking)
     requestIdleCallback ? requestIdleCallback(loadHistory) : setTimeout(loadHistory, 100);
@@ -2878,7 +2879,69 @@ async function checkAndUpdatePremiumButton() {
         }
     }
 }
+
+async function initTelegramPopup() {
+    const popup = document.getElementById('telegramPopup');
+    const joinBtn = document.getElementById('telegramPopupJoin');
+    const closeBtn = document.getElementById('telegramPopupClose');
+    if (!popup || !joinBtn || !closeBtn) return;
+    const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+    const token = localStorage.getItem('token');
+    if (!userId || !token) return;
+    const key = `telegramJoined:${userId}`;
+    let isPremium = false;
+    try {
+        if (typeof PremiumAccess !== 'undefined' && PremiumAccess.checkPremiumStatus) {
+            isPremium = await PremiumAccess.checkPremiumStatus();
+        } else if (typeof ExamAxisAPI !== 'undefined') {
+            const { data } = await ExamAxisAPI.request('/api/payment/premium-status');
+            isPremium = !!(data && data.data && data.data.isPremium);
+        }
+    } catch (_) {}
+    if (!isPremium) return;
+    let joined = localStorage.getItem(key) === 'true';
+    if (!joined && typeof ExamAxisAPI !== 'undefined') {
+        try {
+            const { data } = await ExamAxisAPI.request('/api/support/telegram/status');
+            joined = data && data.data && data.data.joined === true;
+            if (joined) localStorage.setItem(key, 'true'); else localStorage.removeItem(key);
+        } catch (_) {}
+    }
+    if (joined) return;
+    popup.style.display = 'flex';
+    closeBtn.onclick = function(e) {
+        e.preventDefault();
+        popup.style.display = 'none';
+    };
+    joinBtn.onclick = async function(e) {
+        e.preventDefault();
+        joinBtn.disabled = true;
+        const inviteLink = 'https://t.me/+wkVQs6V5sEkyODI9';
+        window.open(inviteLink, '_blank', 'noopener');
+        try {
+            localStorage.setItem(key, 'true');
+            if (typeof ExamAxisAPI !== 'undefined') {
+                await ExamAxisAPI.request('/api/support/telegram/mark-joined', { method: 'POST' });
+            }
+        } catch (_) {}
+        popup.style.display = 'none';
+    };
+}
 </script>
+
+<div id="telegramPopup" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(15,23,42,0.6);z-index:9999;">
+  <div style="background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color);box-shadow:var(--shadow-lg);border-radius:16px;max-width:420px;width:92%;padding:24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <i class="fab fa-telegram" style="color:#2AABEE;font-size:24px;"></i>
+      <h3 style="margin:0;font-size:18px;">Telegram Support</h3>
+    </div>
+    <p style="margin:8px 0 16px;color:var(--text-secondary);">Premium access to the Telegram support group</p>
+    <div style="display:flex;gap:12px;justify-content:flex-end;">
+      <button id="telegramPopupJoin" class="attempt-btn" style="background:#2AABEE;border-color:#2AABEE;">Join Now</button>
+      <button id="telegramPopupClose" class="attempt-btn" style="background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color);">Maybe later</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

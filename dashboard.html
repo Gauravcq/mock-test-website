@@ -1498,7 +1498,9 @@
             }
             async function updateVisibility() {
                 try {
+                    const container = btn.closest('.contact-item');
                     if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
+                        if (container) container.style.display = 'none';
                         btn.hidden = true;
                         return;
                     }
@@ -1515,14 +1517,23 @@
                         isPremium = false;
                     }
                     if (!isPremium) {
+                        if (container) container.style.display = 'none';
                         btn.hidden = true;
                         localStorage.removeItem(STORAGE_KEY);
                         return;
                     }
                     const joined = await isJoined();
                     btn.hidden = false;
-                    if (joined) setJoinedUI(); else setActiveUI();
+                    if (container) container.style.display = 'block';
+                    if (joined) {
+                        setJoinedUI();
+                        if (container) container.style.display = 'none';
+                    } else {
+                        setActiveUI();
+                    }
                 } catch (_) {
+                    const container = btn.closest('.contact-item');
+                    if (container) container.style.display = 'none';
                     btn.hidden = true;
                 }
             }
@@ -1532,6 +1543,8 @@
                 window.open(inviteLink, '_blank', 'noopener');
                 await markJoined();
                 setJoinedUI();
+                const container = btn.closest('.contact-item');
+                if (container) container.style.display = 'none';
             }
             btn.addEventListener('click', onTelegramClick);
             updateVisibility();
