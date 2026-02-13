@@ -465,6 +465,15 @@
   <script src="js/api.js"></script>
   <script src="js/tests-list.js"></script>
   <script src="js/admin.js"></script>
+  <script>
+    if (typeof initAdmin === 'function') { initAdmin(); }
+    if (typeof applyUserFilters === 'undefined') { window.applyUserFilters = function() {}; }
+    if (typeof clearUserFilters === 'undefined') { window.clearUserFilters = function() {}; }
+    if (typeof prevUsersPage === 'undefined') { window.prevUsersPage = function() {}; }
+    if (typeof nextUsersPage === 'undefined') { window.nextUsersPage = function() {}; }
+    if (typeof createCoupon === 'undefined') { window.createCoupon = function() {}; }
+    if (typeof loadCoupons === 'undefined') { window.loadCoupons = function() {}; }
+  </script>
 
 </body>
 </html>
