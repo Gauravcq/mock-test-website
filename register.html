@@ -717,6 +717,16 @@
                 </div>
             </div>
 
+            <!-- Coupon Code -->
+            <div class="form-group">
+                <label>Coupon Code <span style="color: var(--light-text-secondary); font-weight: 400;">(Optional)</span></label>
+                <div class="input-wrapper">
+                    <input type="text" class="form-control" id="couponCode" 
+                           placeholder="Enter coupon code">
+                    <i class="fas fa-ticket-alt input-icon"></i>
+                </div>
+            </div>
+
             <!-- Password Row -->
             <div class="form-row">
                 <div class="form-group">
@@ -797,6 +807,13 @@
             const p = new URLSearchParams(window.location.search);
             const c = p.get('coupon') || p.get('code');
             if (c) localStorage.setItem('couponCode', c);
+        } catch (_) {}
+    })();
+    (function syncCouponInput() {
+        try {
+            const input = document.getElementById('couponCode');
+            const saved = localStorage.getItem('couponCode');
+            if (input && saved) input.value = saved;
         } catch (_) {}
     })();
 
@@ -907,7 +924,8 @@
         
         try {
             // Call API
-            const couponCode = localStorage.getItem('couponCode') || '';
+            const typedCoupon = (document.getElementById('couponCode')?.value || '').trim();
+            const couponCode = typedCoupon || localStorage.getItem('couponCode') || '';
             const payload = {
                 fullName,
                 username,
@@ -918,6 +936,7 @@
                 confirmPassword
             };
             if (couponCode) payload.couponCode = couponCode;
+            if (typedCoupon) localStorage.setItem('couponCode', typedCoupon);
             const result = await ExamAxisAPI.register(payload);
             
             submitBtn.classList.remove('loading');
