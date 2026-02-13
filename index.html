@@ -2325,6 +2325,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSection = 'sectional';
     let historyMap = {};
     let isHistoryLoaded = false;
+    const BATCH_SIZE = 24;
+    let currentFilteredTests = [];
+    let renderIndex = 0;
+    let io = null;
+    let sentinel = null;
     
     // ==================== PERFORMANCE: Debounce function ====================
     function debounce(func, wait) {
@@ -2636,20 +2641,37 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.gridContainer.style.opacity = '0';
             
             requestAnimationFrame(() => {
+                // cleanup previous infinite scroll
+                if (io) { try { io.disconnect(); } catch(_){} io = null; }
+                if (sentinel && sentinel.parentNode) { try { sentinel.parentNode.removeChild(sentinel); } catch(_){} }
+                elements.gridContainer.innerHTML = '';
+
                 if (filteredTests.length > 0) {
-                    let html = '';
-                    
+                    // optional header for Top100Maths
                     if (currentSubject === 'Top100Maths') {
-                        html += `
+                        elements.gridContainer.insertAdjacentHTML('beforeend', `
                             <div class="section-header top100-header">
                                 <h2>🔥 MATHS TOP 100 - 2025</h2>
                                 <p>Master the most important 100 questions for SSC CHSL 2025</p>
-                            </div>`;
+                            </div>`);
                     }
-                    
-                    // Build HTML string (faster than multiple DOM operations)
-                    html += filteredTests.map((test, i) => generateCardHTML(test, i)).join('');
-                    elements.gridContainer.innerHTML = html;
+                    currentFilteredTests = filteredTests;
+                    renderIndex = 0;
+                    // initial batch
+                    appendBatch();
+                    // setup sentinel
+                    sentinel = document.createElement('div');
+                    sentinel.style.height = '1px';
+                    sentinel.style.width = '100%';
+                    elements.gridContainer.appendChild(sentinel);
+                    io = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                appendBatch();
+                            }
+                        });
+                    }, { rootMargin: '200px 0px' });
+                    io.observe(sentinel);
                 } else {
                     const sectionName = SECTION_CONFIG[currentSection].title;
                     const sectionIcon = SECTION_CONFIG[currentSection].icon;
@@ -2700,6 +2722,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }, 50); // 50ms debounce
+
+    function appendBatch() {
+        if (!currentFilteredTests.length) return;
+        const end = Math.min(renderIndex + BATCH_SIZE, currentFilteredTests.length);
+        if (renderIndex >= end) return;
+        const frag = document.createDocumentFragment();
+        for (let i = renderIndex; i < end; i++) {
+            const div = document.createElement('div');
+            div.innerHTML = generateCardHTML(currentFilteredTests[i], i);
+            frag.appendChild(div.firstElementChild);
+        }
+        elements.gridContainer.insertBefore(frag, sentinel);
+        renderIndex = end;
+        if (renderIndex >= currentFilteredTests.length && io) {
+            try { io.disconnect(); } catch(_) {}
+            io = null;
+            if (sentinel && sentinel.parentNode) { try { sentinel.parentNode.removeChild(sentinel); } catch(_){} }
+            sentinel = null;
+        }
+    }
 
     function updateTabsForExam(exam) {
         elements.tabs.forEach(tab => {

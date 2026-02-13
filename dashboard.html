@@ -989,7 +989,9 @@
                 await this.loadTestHistory();
                 this.updateUI();
                 this.hideLoading();
-                this.startFirebaseLive();
+                setTimeout(() => {
+                    this.startFirebaseLive();
+                }, 1200);
             }
 
             startFirebaseLive() {
