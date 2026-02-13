@@ -343,15 +343,16 @@
     <div class="section">
       <div class="section-header">
         <h2>👥 Registered Users</h2>
-        <div class="user-search-container">
-          <input 
-            type="text" 
-            id="userSearchInput" 
-            placeholder="🔍 Search by name, email, or mobile..."
-            class="user-search-input"
-            onkeyup="searchUsers()"
-          >
-          <button class="btn btn-secondary" onclick="clearUserSearch()">✖ Clear</button>
+        <div class="user-search-container" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="userSearchInput" class="user-search-input" placeholder="🔍 Search users">
+          <select id="premiumFilter">
+            <option value="">All</option>
+            <option value="true">Premium</option>
+            <option value="false">Free</option>
+          </select>
+          <input id="couponFilterInput" class="user-search-input" placeholder="Coupon code">
+          <button class="btn btn-primary" onclick="applyUserFilters()">Apply</button>
+          <button class="btn btn-secondary" onclick="clearUserFilters()">✖ Clear</button>
         </div>
       </div>
       <div style="overflow-x: auto;">
@@ -363,7 +364,9 @@
               <th>Email</th>
               <th>Mobile</th>
               <th>Role</th>
-              <th>Plan</th>
+              <th>Premium</th>
+              <th>Premium Since</th>
+              <th>Coupon Code</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -375,8 +378,56 @@
           </tbody>
         </table>
       </div>
+      <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-top:8px;">
+        <button class="btn btn-secondary" onclick="prevUsersPage()">⬅ Prev</button>
+        <span id="usersPageInfo"></span>
+        <button class="btn btn-secondary" onclick="nextUsersPage()">Next ➡</button>
+      </div>
       <div id="noUsersFound" style="display: none; text-align: center; padding: 20px; color: #666;">
         <p>🔍 No users found matching your search criteria.</p>
+      </div>
+    </div>
+
+    <!-- Coupons Section -->
+    <div class="section">
+      <div class="section-header">
+        <h2>🏷️ Coupons</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input id="newCouponCode" class="user-search-input" placeholder="Code (e.g., ABC123)">
+          <select id="newCouponType">
+            <option value="percent">Percent</option>
+            <option value="flat">Flat</option>
+          </select>
+          <input id="newCouponDiscount" type="number" min="1" class="user-search-input" placeholder="Discount">
+          <input id="newCouponMaxUses" type="number" min="1" class="user-search-input" placeholder="Max Uses">
+          <input id="newCouponExpiresAt" type="date" class="user-search-input">
+          <label style="display:flex;align-items:center;gap:6px;">
+            <input id="newCouponActive" type="checkbox" checked> Active
+          </label>
+          <button class="btn btn-primary" onclick="createCoupon()">Create</button>
+          <button class="btn btn-secondary" onclick="loadCoupons()">Refresh</button>
+        </div>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Type</th>
+              <th>Discount</th>
+              <th>Max Uses</th>
+              <th>Used</th>
+              <th>Active</th>
+              <th>Expires</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody id="coupons-tbody">
+            <tr>
+              <td colspan="8" style="text-align: center;">Loading coupons...</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

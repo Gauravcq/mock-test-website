@@ -461,9 +461,17 @@ class ExamAxisAPI {
   }
 
   // Get all users (admin)
-  static async getAdminUsers() {
+  static async getAdminUsers(opts = {}) {
     try {
-      const { response, data, error } = await this.request('/api/admin/users');
+      const params = new URLSearchParams();
+      if (opts.page != null) params.set('page', String(opts.page));
+      if (opts.limit != null) params.set('limit', String(opts.limit));
+      if (opts.search) params.set('search', opts.search);
+      if (typeof opts.isPremium === 'boolean') params.set('isPremium', String(opts.isPremium));
+      if (opts.couponCode) params.set('couponCode', opts.couponCode);
+      const qs = params.toString();
+      const path = qs ? `/api/admin/users?${qs}` : '/api/admin/users';
+      const { response, data, error } = await this.request(path);
 
       if (error === 'NETWORK_ERROR') {
         return { success: false, message: 'Network error' };
@@ -476,6 +484,55 @@ class ExamAxisAPI {
       return data;
     } catch (error) {
       return { success: false, message: 'Failed to load users' };
+    }
+  }
+
+  static async getUsersByCoupon(code) {
+    try {
+      const c = encodeURIComponent(code || '');
+      const { response, data, error } = await this.request(`/api/admin/users/by-coupon?code=${c}`);
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to load users' };
+      }
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to load users' };
+    }
+  }
+
+  static async getAdminCoupons() {
+    try {
+      const { response, data, error } = await this.request('/api/admin/coupons');
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to load coupons' };
+      }
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to load coupons' };
+    }
+  }
+
+  static async createAdminCoupon(payload) {
+    try {
+      const { response, data, error } = await this.request('/api/admin/coupons', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      if (error === 'NETWORK_ERROR') {
+        return { success: false, message: 'Network error' };
+      }
+      if (!response || !response.ok) {
+        return { success: false, message: data?.message || 'Failed to create coupon' };
+      }
+      return data;
+    } catch (error) {
+      return { success: false, message: 'Failed to create coupon' };
     }
   }
 

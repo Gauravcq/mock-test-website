@@ -54,8 +54,68 @@ async function loadAllData() {
   await Promise.all([
     loadDashboardStats(),
     loadUsers(),
-    loadTests()
+    loadTests(),
+    loadCoupons()
   ]);
+}
+
+async function loadCoupons() {
+  const tbody = document.getElementById('coupons-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Loading coupons...</td></tr>';
+  try {
+    const result = await ExamAxisAPI.getAdminCoupons();
+    if (!result.success) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
+      return;
+    }
+    const coupons = result.data?.coupons || result.data || [];
+    if (!Array.isArray(coupons) || coupons.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No coupons found</td></tr>';
+      return;
+    }
+    tbody.innerHTML = coupons.map(c => `
+      <tr>
+        <td>${c.code}</td>
+        <td>${c.type}</td>
+        <td>${c.discount}</td>
+        <td>${c.maxUses ?? '—'}</td>
+        <td>${c.usedCount ?? 0}</td>
+        <td>${c.active === false ? 'No' : 'Yes'}</td>
+        <td>${c.expiresAt ? new Date(c.expiresAt).toLocaleDateString() : '—'}</td>
+        <td>${c.createdAt ? new Date(c.createdAt).toLocaleString() : '—'}</td>
+      </tr>
+    `).join('');
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: red;">Failed to load coupons</td></tr>';
+  }
+}
+
+async function createCoupon() {
+  const code = document.getElementById('newCouponCode')?.value?.trim();
+  const type = document.getElementById('newCouponType')?.value;
+  const discount = Number(document.getElementById('newCouponDiscount')?.value || 0);
+  const maxUses = Number(document.getElementById('newCouponMaxUses')?.value || 0);
+  const expiresAtInput = document.getElementById('newCouponExpiresAt')?.value || '';
+  const active = !!document.getElementById('newCouponActive')?.checked;
+  if (!code || !type || !discount) {
+    alert('Enter code, type and discount');
+    return;
+  }
+  const payload = { code, type, discount, active };
+  if (maxUses > 0) payload.maxUses = maxUses;
+  if (expiresAtInput) payload.expiresAt = new Date(expiresAtInput).toISOString();
+  const res = await ExamAxisAPI.createAdminCoupon(payload);
+  if (!res.success) {
+    alert(res.message || 'Failed to create coupon');
+    return;
+  }
+  document.getElementById('newCouponCode').value = '';
+  document.getElementById('newCouponDiscount').value = '';
+  document.getElementById('newCouponMaxUses').value = '';
+  document.getElementById('newCouponExpiresAt').value = '';
+  document.getElementById('newCouponActive').checked = true;
+  loadCoupons();
 }
 
 // ==================== DASHBOARD STATS ====================
@@ -87,36 +147,53 @@ function updateStatCard(id, value) {
 
 // ==================== USERS MANAGEMENT ====================
 
-// Global variable to store all users
 let allUsers = [];
+let usersTotal = 0;
+let usersPage = 1;
+let usersTotalPages = 1;
+let usersLimit = 50;
+let usersSearch = '';
+let usersIsPremium = null;
+let usersCouponCode = '';
 
 async function loadUsers() {
   const tbody = document.getElementById('users-tbody');
   if (!tbody) return;
 
-  tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Loading...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="10" style="text-align: center;">Loading...</td></tr>';
 
   try {
-    const result = await ExamAxisAPI.getAdminUsers();
+    const result = await ExamAxisAPI.getAdminUsers({
+      page: usersPage,
+      limit: usersLimit,
+      search: usersSearch,
+      isPremium: typeof usersIsPremium === 'boolean' ? usersIsPremium : undefined,
+      couponCode: usersCouponCode || undefined
+    });
 
     if (!result.success) {
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
       return;
     }
 
-    allUsers = result.data?.users || result.data || [];
+    const payload = result.data || {};
+    allUsers = payload.users || payload;
+    usersTotal = payload.total || (Array.isArray(allUsers) ? allUsers.length : 0);
+    usersPage = payload.page || usersPage;
+    usersTotalPages = payload.totalPages || 1;
 
     if (allUsers.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No users found</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="10" style="text-align: center;">No users found</td></tr>';
       return;
     }
 
     // Display all users initially
     displayUsers(allUsers);
+    updateUsersPageInfo();
 
   } catch (error) {
     console.error('Load users error:', error);
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: red;">Failed to load users</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: red;">Failed to load users</td></tr>';
   }
 }
 
@@ -139,7 +216,13 @@ function displayUsers(users) {
     noUsersFound.style.display = 'none';
   }
 
-  tbody.innerHTML = users.map(user => `
+  tbody.innerHTML = users.map(user => {
+    const isPrem = user.isPremium === true || user.role === 'premium';
+    const premBadge = `<span class="badge ${isPrem ? 'badge-paid' : 'badge-free'}">${isPrem ? '💎 Premium' : 'Free'}</span>`;
+    const premSince = user.premiumSince ? new Date(user.premiumSince).toLocaleDateString() : '';
+    const coupon = user.couponCode || (user.attribution && user.attribution.couponCode) || '';
+    const couponCell = coupon ? `${coupon} <a href="#" onclick="viewAllForCoupon('${coupon}');return false;">View all</a>` : '';
+    return `
     <tr>
       <td>${user.id}</td>
       <td>${user.fullName || user.username || 'N/A'}</td>
@@ -150,11 +233,9 @@ function displayUsers(users) {
           ${user.role || 'user'}
         </span>
       </td>
-      <td>
-        <span class="badge ${user.isPaid ? 'badge-paid' : 'badge-free'}">
-          ${user.isPaid ? '💎 Paid' : 'Free'}
-        </span>
-      </td>
+      <td>${premBadge}</td>
+      <td>${premSince || '—'}</td>
+      <td>${couponCell || '—'}</td>
       <td>
         <span class="badge ${user.isActive !== false ? 'badge-active' : 'badge-inactive'}">
           ${user.isActive !== false ? '✓ Active' : '✗ Inactive'}
@@ -166,44 +247,84 @@ function displayUsers(users) {
         </button>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
-// Search users function
 function searchUsers() {
   const searchInput = document.getElementById('userSearchInput');
-  if (!searchInput || !allUsers.length) return;
-
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  
-  if (searchTerm === '') {
-    displayUsers(allUsers);
-    return;
-  }
-
-  const filteredUsers = allUsers.filter(user => {
-    // Search by name
-    const name = (user.fullName || user.username || '').toLowerCase();
-    // Search by email
-    const email = (user.email || '').toLowerCase();
-    // Search by mobile
-    const mobile = (user.phone || user.mobile || '').toLowerCase();
-    
-    return name.includes(searchTerm) || 
-           email.includes(searchTerm) || 
-           mobile.includes(searchTerm);
-  });
-
-  displayUsers(filteredUsers);
+  if (!searchInput) return;
+  usersSearch = searchInput.value.trim();
+  usersPage = 1;
+  loadUsers();
 }
 
-// Clear search function
 function clearUserSearch() {
   const searchInput = document.getElementById('userSearchInput');
-  if (searchInput) {
-    searchInput.value = '';
+  if (searchInput) searchInput.value = '';
+  usersSearch = '';
+  usersPage = 1;
+  loadUsers();
+}
+
+function applyUserFilters() {
+  const premiumSel = document.getElementById('premiumFilter');
+  const couponInput = document.getElementById('couponFilterInput');
+  usersIsPremium = premiumSel && premiumSel.value !== '' ? premiumSel.value === 'true' : null;
+  usersCouponCode = couponInput ? couponInput.value.trim() : '';
+  usersPage = 1;
+  loadUsers();
+}
+
+function clearUserFilters() {
+  const premiumSel = document.getElementById('premiumFilter');
+  const couponInput = document.getElementById('couponFilterInput');
+  if (premiumSel) premiumSel.value = '';
+  if (couponInput) couponInput.value = '';
+  usersIsPremium = null;
+  usersCouponCode = '';
+  usersPage = 1;
+  loadUsers();
+}
+
+function updateUsersPageInfo() {
+  const el = document.getElementById('usersPageInfo');
+  if (el) {
+    el.textContent = `Page ${usersPage} of ${usersTotalPages}`;
   }
-  displayUsers(allUsers);
+}
+
+function prevUsersPage() {
+  if (usersPage > 1) {
+    usersPage -= 1;
+    loadUsers();
+  }
+}
+
+function nextUsersPage() {
+  if (usersPage < usersTotalPages) {
+    usersPage += 1;
+    loadUsers();
+  }
+}
+
+async function viewAllForCoupon(code) {
+  const tbody = document.getElementById('users-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="10" style="text-align: center;">Loading...</td></tr>';
+  try {
+    const result = await ExamAxisAPI.getUsersByCoupon(code);
+    if (!result.success) {
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: red;">Error: ${result.message}</td></tr>`;
+      return;
+    }
+    const users = result.data?.users || [];
+    displayUsers(users);
+    const el = document.getElementById('usersPageInfo');
+    if (el) el.textContent = `Coupon ${result.data?.coupon || code} • ${result.data?.total || users.length} users`;
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: red;">Failed to load users</td></tr>';
+  }
 }
 
 // View user details (optional function for future enhancement)

@@ -792,6 +792,13 @@
         document.body.classList.add('dark-mode');
         document.getElementById('themeToggle').textContent = '☀️';
     }
+    (function captureCouponFromUrl() {
+        try {
+            const p = new URLSearchParams(window.location.search);
+            const c = p.get('coupon') || p.get('code');
+            if (c) localStorage.setItem('couponCode', c);
+        } catch (_) {}
+    })();
 
     // ==================== Password Toggle ====================
     function togglePassword(inputId, iconId) {
@@ -900,7 +907,8 @@
         
         try {
             // Call API
-            const result = await ExamAxisAPI.register({
+            const couponCode = localStorage.getItem('couponCode') || '';
+            const payload = {
                 fullName,
                 username,
                 email,
@@ -908,7 +916,9 @@
                 preferredExam,
                 password,
                 confirmPassword
-            });
+            };
+            if (couponCode) payload.couponCode = couponCode;
+            const result = await ExamAxisAPI.register(payload);
             
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
