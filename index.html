@@ -2658,7 +2658,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentFilteredTests = filteredTests;
                     renderIndex = 0;
                     // initial batch
-                    appendBatch();
+                    try { appendBatch(); } catch (e) { renderIndex = 0; }
                     // setup sentinel
                     sentinel = document.createElement('div');
                     sentinel.style.height = '1px';
@@ -2667,11 +2667,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     io = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
-                                appendBatch();
+                                try { appendBatch(); } catch (_) {}
                             }
                         });
                     }, { rootMargin: '200px 0px' });
                     io.observe(sentinel);
+                    // fallback: if nothing was rendered, use original full render
+                    if (renderIndex === 0 && currentFilteredTests.length > 0) {
+                        let html = '';
+                        if (currentSubject === 'Top100Maths') {
+                            html += `
+                                <div class="section-header top100-header">
+                                    <h2>🔥 MATHS TOP 100 - 2025</h2>
+                                    <p>Master the most important 100 questions for SSC CHSL 2025</p>
+                                </div>`;
+                        }
+                        html += currentFilteredTests.map((test, i) => generateCardHTML(test, i)).join('');
+                        elements.gridContainer.innerHTML = html;
+                        if (io) { try { io.disconnect(); } catch(_){} io = null; }
+                        sentinel = null;
+                    }
                 } else {
                     const sectionName = SECTION_CONFIG[currentSection].title;
                     const sectionIcon = SECTION_CONFIG[currentSection].icon;
