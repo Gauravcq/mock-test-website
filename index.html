@@ -2650,15 +2650,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!token || !ids.length) return Promise.resolve();
         if (lastAttemptsCache[cacheKey]) {
             lastAttemptsMap = lastAttemptsCache[cacheKey];
+            console.log('📦 Using cached last attempts for', ids.length, 'tests');
             return Promise.resolve();
         }
         const qs = encodeURIComponent(cacheKey);
+        console.log('🔄 Fetching last attempts for testIds:', qs);
         return ExamAxisAPI.request(`/api/tests/last-attempts?testIds=${qs}`).then(({ response, data }) => {
             if (response && response.ok && data && data.data && data.data.lastAttempts) {
                 lastAttemptsMap = data.data.lastAttempts || {};
                 lastAttemptsCache[cacheKey] = lastAttemptsMap;
+                console.log('✅ Last attempts loaded:', Object.keys(lastAttemptsMap).length, 'tests have attempts');
+                // Debug: Log each testId with its attempt data
+                Object.entries(lastAttemptsMap).forEach(([testId, attempt]) => {
+                    console.log(`📝 Test ${testId}:`, attempt ? 'has attempt' : 'no attempt');
+                });
+            } else {
+                console.warn('⚠️ Failed to load last attempts:', response?.status, data?.message);
+                lastAttemptsMap = {};
             }
-        }).catch(() => {});
+        }).catch((error) => {
+            console.error('❌ Error loading last attempts:', error);
+            lastAttemptsMap = {};
+        });
     }
 
     const displayTests = debounce(function() {

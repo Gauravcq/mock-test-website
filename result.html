@@ -748,7 +748,7 @@
         let database;
         let isFirebaseEnabled = true;
 
-        // Initialize Firebase immediately with your config
+        // Initialize Firebase with your config
         function initializeFirebase() {
             try {
                 // Initialize Firebase (avoid duplicate initialization)
@@ -759,14 +759,17 @@
                 isFirebaseEnabled = true;
                 console.log('✅ Firebase initialized successfully');
                 
-                try {
-                    if (firebase.auth) {
-                        firebase.auth().signInAnonymously().catch(()=>{});
+                // Try to get current user first, then sign in anonymously if needed
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        console.log('✅ Firebase user authenticated:', user.uid);
+                    } else {
+                        console.log('🔄 No Firebase user, signing in anonymously');
+                        firebase.auth().signInAnonymously().catch((error) => {
+                            console.warn('⚠️ Anonymous sign-in failed:', error);
+                        });
                     }
-                } catch (_) {}
-                
-                // Start real-time updates
-                startRealtimeUpdates();
+                });
             } catch (error) {
                 console.error('❌ Firebase initialization failed:', error);
                 isFirebaseEnabled = false;
@@ -777,7 +780,9 @@
         function startRealtimeUpdates() {
             if (!isFirebaseEnabled) return;
             
-            const testId = localStorage.getItem('testId') || 'default';
+            // IMPORTANT: Use URL testId for proper isolation
+            const urlParams = new URLSearchParams(window.location.search);
+            const testId = urlParams.get('testId') || localStorage.getItem('testId') || 'default';
             const resultsRef = database.ref('testResults/' + testId);
             
             // Listen for real-time updates
@@ -863,10 +868,20 @@
         // Get test results from URL parameters or localStorage
         async function getTestResults() {
             const urlParams = new URLSearchParams(window.location.search);
+            const urlTestId = urlParams.get('testId');
             const ls = localStorage.getItem('testResult');
             let base = ls ? JSON.parse(ls) : {};
-            let testId = urlParams.get('testId') || base.testId || localStorage.getItem('testId') || '';
+            
+            // IMPORTANT: Use URL testId first, then fallback to localStorage
+            let testId = urlTestId || base.testId || localStorage.getItem('testId') || '';
             const viewOnly = urlParams.get('viewOnly') === '1';
+            
+            // Clear any conflicting testId from localStorage when loading different test
+            if (urlTestId && urlTestId !== localStorage.getItem('testId')) {
+                console.log('🔄 Different testId detected, clearing localStorage conflicts');
+                // Don't clear testId here, use URL parameter
+            }
+            
             if (!testId) return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
             try {
                 const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
@@ -963,8 +978,12 @@
                            localStorage.getItem('user_name') || 
                            `User_${userId.substr(-6)}`;
             
+            // IMPORTANT: Use URL testId for proper isolation
+            const urlParams = new URLSearchParams(window.location.search);
             const testId = (function(res) {
                 if (res?.testId) return String(res.testId);
+                const urlTestId = urlParams.get('testId');
+                if (urlTestId) return String(urlTestId);
                 const lsTid = localStorage.getItem('testId');
                 if (lsTid) return String(lsTid);
                 try {
@@ -1577,97 +1596,37 @@
                     // Sort by timestamp (newest first)
                     attemptsArray.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     
-                    // Display attempts
-                    displayPreviousAttempts(attemptsArray);
+                    // Simple modal display
+                    const modal = document.createElement('div');
+                    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:10000;';
+                    
+                    let content = '<div style="background:white;border-radius:15px;padding:25px;max-width:500px;max-height:80vh;overflow-y:auto;">';
+                    content += '<h3 style="margin:0 0 20px 0;color:#1f2937;">📊 Previous Attempts</h3>';
+                    
+                    attemptsArray.forEach((attempt, index) => {
+                        const date = new Date(attempt.timestamp).toLocaleDateString();
+                        const score = attempt.score || 0;
+                        content += '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:15px;margin-bottom:10px;">';
+                        content += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">';
+                        content += '<span style="font-weight:bold;">Attempt #' + (attemptsArray.length - index) + '</span>';
+                        content += '<span style="color:#6b7280;">' + date + '</span>';
+                        content += '</div><div><strong>Score: ' + score + '/' + (attempt.totalMarks || 50) + '</strong></div></div>';
+                    });
+                    
+                    content += '<button onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;padding:10px 20px;background:#ef4444;color:white;border:none;border-radius:5px;cursor:pointer;">Close</button>';
+                    content += '</div>';
+                    
+                    modal.innerHTML = content;
+                    document.body.appendChild(modal);
+                    
+                    // Close on background click
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) modal.remove();
+                    });
                 })
                 .catch((error) => {
                     console.error('Error loading previous attempts:', error);
-                    showNotification('Error loading previous attempts', 'error');
                 });
-        }
-
-        // Display previous attempts
-        function displayPreviousAttempts(attempts) {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-            `;
-            
-            const content = document.createElement('div');
-            content.style.cssText = `
-                background: white;
-                border-radius: 20px;
-                padding: 30px;
-                max-width: 600px;
-                max-height: 80vh;
-                overflow-y: auto;
-                position: relative;
-            `;
-            
-            let attemptsHTML = '<h3 style="margin-bottom: 20px;">📊 Previous Attempts</h3>';
-            
-            attempts.forEach((attempt, index) => {
-                const date = new Date(attempt.timestamp).toLocaleDateString();
-                const time = new Date(attempt.timestamp).toLocaleTimeString();
-                attemptsHTML += `
-                    <div style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                            <strong>Attempt ${index + 1}</strong>
-                            <span style="color: #6b7280;">${date} ${time}</span>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
-                            <div>
-                                <div style="font-size: 18px; font-weight: bold; color: #16a34a;">${attempt.score}</div>
-                                <div style="font-size: 12px; color: #6b7280;">Score</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 18px; font-weight: bold; color: #2563eb;">${attempt.correct}</div>
-                                <div style="font-size: 12px; color: #6b7280;">Correct</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 18px; font-weight: bold; color: #dc2626;">${attempt.incorrect}</div>
-                                <div style="font-size: 12px; color: #6b7280;">Incorrect</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 18px; font-weight: bold; color: #6b7280;">${attempt.accuracy}%</div>
-                                <div style="font-size: 12px; color: #6b7280;">Accuracy</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            content.innerHTML = attemptsHTML + `
-                <button onclick="this.parentElement.parentElement.remove()" style="
-                    background: #2563eb;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                    width: 100%;
-                ">Close</button>
-            `;
-            
-            modal.appendChild(content);
-            document.body.appendChild(modal);
-            
-            // Close on background click
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
         }
 
         // Compare with topper

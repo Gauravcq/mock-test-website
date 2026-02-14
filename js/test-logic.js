@@ -462,7 +462,12 @@
         const urlParams = new URLSearchParams(window.location.search);
         const testId = urlParams.get('testId') || urlParams.get('id');
         console.log('🔍 TestId from URL:', testId);
-        if (testId) { localStorage.setItem('testId', String(testId)); }
+        
+        // IMPORTANT: Only set testId if it exists in URL, don't override existing
+        if (testId) { 
+            localStorage.setItem('testId', String(testId)); 
+            console.log('✅ TestId set to localStorage:', testId);
+        }
         if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
             localStorage.setItem('redirectAfterLogin', window.location.href);
             window.location.href = 'login.html';
@@ -585,10 +590,13 @@
         }
         if (!questions.length) {
             try {
+                console.log('🔄 Fetching questions from API for testId:', testId);
                 const response = await ExamAxisAPI.getQuestions(testId);
                 if (response?.success && response?.data?.questions?.length) {
                     let apiQuestions = response.data.questions;
                     questionsSource = 'API';
+                    console.log('✅ API SUCCESS:', apiQuestions.length, 'questions for', testId);
+                    questions = apiQuestions;
                     console.log('📡 API:', apiQuestions.length, 'questions');
                     if (apiQuestions[0]?.correctAnswer) {
                         console.log('✅ API has correctAnswer');
