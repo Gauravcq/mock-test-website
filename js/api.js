@@ -409,9 +409,9 @@ class ExamAxisAPI {
       console.log("✅ API Response for", testId, ":", {
         success: data?.success,
         questionsCount: questions.length,
-        firstQuestion: questions[0]?.question?.substring(0, 50) + "...",
+        firstQuestion: questions[0] && questions[0].question ? questions[0].question.substring(0, 50) + '...' : 'No question text',
         firstQuestionId: questions[0]?.id,
-        allQuestionIds: questions.slice(0, 5).map((q) => q.id || "no-id"),
+        allQuestionIds: questions.slice(0, 5).map(q => q.id || 'no-id')
       });
 
       // Compare with previous test to check for duplicates
@@ -436,14 +436,14 @@ class ExamAxisAPI {
       }
 
       // Store for next comparison
-      localStorage.setItem(
-        "lastQuestionsDebug",
-        JSON.stringify({
-          testId: testId,
-          questions: questions.slice(0, 3),
-          timestamp: Date.now(),
-        }),
-      );
+      localStorage.setItem('lastQuestionsDebug', JSON.stringify({
+        testId: testId,
+        questions: questions.slice(0, 3).map(q => ({
+          id: q.id,
+          question: q.question ? q.question.substring(0, 50) : 'No question'
+        })),
+        timestamp: Date.now()
+      }));
 
       return data || { success: false, message: "No questions found" };
     } catch (error) {
