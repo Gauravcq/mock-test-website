@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="js/api.js"></script>
     
     <style>
         :root {
@@ -601,6 +602,13 @@
             <div id="questionsList"></div>
         </div>
 
+        <div class="rank-card" id="attemptsSection" style="display:none;">
+            <div style="width:100%;">
+                <div class="rank-title">Attempts History</div>
+                <div id="attemptsList" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px;"></div>
+            </div>
+        </div>
+
         <div class="navigation-bar">
             <div class="nav-buttons">
                 <button class="nav-btn primary" onclick="previousQuestion()" id="prevBtn">
@@ -715,8 +723,8 @@
         ];
 
         // Initialize the review page
-        function initializeReview() {
-            loadTestData();
+        async function initializeReview() {
+            await loadTestData();
             updateStats();
             renderQuestions();
             updateNavigation();
@@ -1040,6 +1048,7 @@
                     firebase.initializeApp(firebaseConfig);
                 }
                 reviewDb = firebase.database();
+                try { if (firebase.auth) firebase.auth().signInAnonymously().catch(()=>{}); } catch(_) {}
             } catch (e) {
                 reviewDb = null;
             }
@@ -1068,7 +1077,7 @@
             const testId = localStorage.getItem('testId') || localStorage.getItem('test_id');
             if (!userId || !testId) return;
 
-            reviewDb.ref('results/' + testId).once('value')
+            reviewDb.ref('testResults/' + testId).once('value')
                 .then((snapshot) => {
                     const allResults = snapshot.val() || {};
                     const resultsArray = Object.values(allResults);
@@ -1086,9 +1095,40 @@
                 .catch(() => {});
         }
 
+        function loadAttemptsHistory() {
+            if (!reviewDb) return;
+            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
+            const testId = localStorage.getItem('testId') || localStorage.getItem('test_id');
+            if (!userId || !testId) return;
+            reviewDb.ref('userAttempts/' + userId + '/' + testId).once('value')
+                .then((snapshot) => {
+                    const attempts = Object.values(snapshot.val() || {});
+                    if (!attempts.length) return;
+                    attempts.sort((a,b)=> (b.timestamp || 0) - (a.timestamp || 0));
+                    const listEl = document.getElementById('attemptsList');
+                    const secEl = document.getElementById('attemptsSection');
+                    if (!listEl || !secEl) return;
+                    const html = attempts.map(a => {
+                        const when = a.timestamp ? new Date(a.timestamp).toLocaleString() : '—';
+                        const total = a.totalQuestions ? a.totalQuestions * 2 : (a.totalMarks || 50);
+                        const mins = (typeof a.timeTaken === 'number') ? Math.round(a.timeTaken/60) : (a.timeTaken?.mins ?? 0);
+                        return `<div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
+                            <div style="font-weight:700;color:#111827;margin-bottom:4px;">${a.testTitle || 'Attempt'}</div>
+                            <div style="color:#374151;font-weight:600;">${a.score || 0}/${total}</div>
+                            <div style="color:#6b7280;font-size:12px;">${mins}m • ${when}</div>
+                            <div style="color:#6b7280;font-size:12px;margin-top:6px;">Correct: ${a.correct || 0} • Wrong: ${a.incorrect || 0} • Unanswered: ${a.unattempted || 0}</div>
+                        </div>`;
+                    }).join('');
+                    listEl.innerHTML = html;
+                    secEl.style.display = '';
+                })
+                .catch(()=>{});
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             initReviewFirebase();
             loadReviewRanking();
+            loadAttemptsHistory();
         });
     </script>
 </body>
