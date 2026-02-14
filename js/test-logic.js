@@ -1211,6 +1211,16 @@
                         timeTaken: { mins, secs }, timestamp: Date.now()
                     };
                     localStorage.setItem('testResult', JSON.stringify(attemptPayload));
+                    
+                    // Also save to testResults map for test cards
+                    try {
+                        const allResults = JSON.parse(localStorage.getItem('testResults') || '{}');
+                        allResults[String(QD.testInfo.id || testId)] = attemptPayload;
+                        localStorage.setItem('testResults', JSON.stringify(allResults));
+                        console.log('✅ Saved to testResults map for testId:', String(QD.testInfo.id || testId));
+                    } catch (e) { 
+                        console.error('Failed to save to testResults map:', e); 
+                    }
                 } catch (e) { console.error('Failed to save result to localStorage:', e); }
                 const reviewArea = $('review-button-area');
                 if (reviewArea) {

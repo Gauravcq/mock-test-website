@@ -2429,29 +2429,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!window.ExamAxisAPI || !ExamAxisAPI.isLoggedIn()) {
             historyMap = {};
             isHistoryLoaded = true;
-            return Promise.resolve();
+            return;
         }
-
-        return ExamAxisAPI.getTestHistory()
-            .then(res => {
-                historyMap = {};
-                if (res.success && res.data?.attempts) {
-                    res.data.attempts.forEach(a => {
-                        const key = String(a.testId);
-                        const existing = historyMap[key];
-                        if (!existing || new Date(a.createdAt) > new Date(existing.createdAt)) {
-                            historyMap[key] = a;
-                        }
-                    });
-                }
-                isHistoryLoaded = true;
-                displayTests();
-            })
-            .catch(err => {
-                console.error('Failed to load history:', err);
-                historyMap = {};
-                isHistoryLoaded = true;
-            });
+        
+        // First, try to load from localStorage as fallback
+        try {
+            const savedResults = localStorage.getItem('testResults');
+            if (savedResults) {
+                const results = JSON.parse(savedResults);
+                historyMap = results;
+                console.log('📦 Loaded test results from localStorage:', Object.keys(results).length, 'tests');
+            }
+        } catch (e) {
+            console.warn('⚠️ Failed to load from localStorage:', e);
+        }
+        
+        isHistoryLoaded = true;
     }
 
     // ==================== HELPER FUNCTIONS ====================
@@ -2526,7 +2519,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const la = lastAttemptsMap[String(test.id)];
-        const attempt = la || historyMap[String(test.id)];
+        const attempt = la || historyMap[String(test.id)] || (() => {
+            // Fallback to localStorage testResults
+            try {
+                const allResults = JSON.parse(localStorage.getItem('testResults') || '{}');
+                return allResults[String(test.id)];
+            } catch (e) {
+                console.warn('⚠️ Failed to read testResults:', e);
+                return null;
+            }
+        })();
         
         // Function to get max score for test
         function getMaxScoreForTest(test) {

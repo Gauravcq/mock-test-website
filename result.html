@@ -748,7 +748,7 @@
         let database;
         let isFirebaseEnabled = true;
 
-        // Initialize Firebase with your config
+        // Initialize Firebase immediately with your config
         function initializeFirebase() {
             try {
                 // Initialize Firebase (avoid duplicate initialization)
@@ -763,18 +763,63 @@
                 firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                         console.log('✅ Firebase user authenticated:', user.uid);
+                        showNotification('Connected to Firebase successfully', 'success');
                     } else {
                         console.log('🔄 No Firebase user, signing in anonymously');
                         firebase.auth().signInAnonymously().catch((error) => {
                             console.warn('⚠️ Anonymous sign-in failed:', error);
+                            showNotification('Firebase authentication failed', 'error');
                         });
                     }
                 });
+                
+                // Start real-time updates after auth is ready
+                setTimeout(startRealtimeUpdates, 1000);
             } catch (error) {
                 console.error('❌ Firebase initialization failed:', error);
                 isFirebaseEnabled = false;
+                showNotification('Firebase connection failed - some features may not work', 'warning');
             }
         }
+
+        // Simple notification system
+        function showNotification(message, type = 'info') {
+            const colors = {
+                success: '#16a34a',
+                error: '#dc2626', 
+                warning: '#f59e0b',
+                info: '#2563eb'
+            };
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                background: ${colors[type]}; color: white; padding: 12px 20px;
+                border-radius: 8px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Add animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Start real-time updates for rankings
         function startRealtimeUpdates() {
