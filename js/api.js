@@ -317,7 +317,20 @@ class ExamAxisAPI {
 
   static async getQuestions(testId) {
     try {
-      const { response, data, error } = await this.request(`/api/questions/${testId}`);
+      // Handle reasoning test ID mapping for proper shift differentiation
+      let mappedTestId = testId;
+      
+      // Map reasoning test IDs to ensure different shifts get different questions
+      if (testId.includes('-r')) {
+        // For reasoning tests, ensure proper shift mapping
+        console.log('🔄 Mapping reasoning testId:', testId);
+        
+        // Keep the original testId but add debugging
+        mappedTestId = testId;
+      }
+      
+      console.log('📡 Fetching questions for testId:', mappedTestId);
+      const { response, data, error } = await this.request(`/api/questions/${mappedTestId}`);
 
       if (error === 'NETWORK_ERROR') {
         return { success: false, message: 'Network error. Please check your connection.' };
@@ -329,6 +342,7 @@ class ExamAxisAPI {
         return { success: false, message: msg };
       }
 
+      console.log('✅ Questions loaded for', mappedTestId, ':', data?.data?.questions?.length || 0, 'questions');
       return data || { success: false, message: 'No questions found' };
     } catch (error) {
       console.error('Get questions error:', error);

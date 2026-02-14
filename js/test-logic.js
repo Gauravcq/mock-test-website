@@ -457,8 +457,34 @@
     };
 
     // ========== MAIN INITIALIZATION ==========
-    document.addEventListener('DOMContentLoaded', async () => {
+    // Debug function to check testId handling
+function debugTestIdHandling() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const testId = urlParams.get('testId') || urlParams.get('id');
+    console.log('🔍 DEBUG - TestId Analysis:');
+    console.log('- URL testId:', testId);
+    console.log('- localStorage testId:', localStorage.getItem('testId'));
+    console.log('- Is reasoning test?', testId?.includes('-r'));
+    
+    // Check test info
+    const testInfo = ALL_TESTS.find(t => String(t.id) === testId);
+    if (testInfo) {
+        console.log('- Test found in ALL_TESTS:', testInfo);
+        console.log('- Subject:', testInfo.subject);
+        console.log('- Title:', testInfo.title);
+    } else {
+        console.warn('⚠️ Test not found in ALL_TESTS for testId:', testId);
+    }
+    
+    return testId;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
         SECURITY.init();
+        
+        // Debug testId handling
+        debugTestIdHandling();
+        
         const urlParams = new URLSearchParams(window.location.search);
         const testId = urlParams.get('testId') || urlParams.get('id');
         console.log('🔍 TestId from URL:', testId);

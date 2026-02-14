@@ -751,6 +751,14 @@
         // Initialize Firebase immediately with your config
         function initializeFirebase() {
             try {
+                // Check if Firebase is available
+                if (typeof firebase === 'undefined') {
+                    console.warn('⚠️ Firebase SDK not loaded');
+                    isFirebaseEnabled = false;
+                    showNotification('Firebase not available - some features disabled', 'warning');
+                    return;
+                }
+                
                 // Initialize Firebase (avoid duplicate initialization)
                 if (!firebase.apps || firebase.apps.length === 0) {
                     firebase.initializeApp(firebaseConfig);
@@ -759,26 +767,28 @@
                 isFirebaseEnabled = true;
                 console.log('✅ Firebase initialized successfully');
                 
-                // Try to get current user first, then sign in anonymously if needed
-                firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                        console.log('✅ Firebase user authenticated:', user.uid);
-                        showNotification('Connected to Firebase successfully', 'success');
-                    } else {
-                        console.log('🔄 No Firebase user, signing in anonymously');
-                        firebase.auth().signInAnonymously().catch((error) => {
-                            console.warn('⚠️ Anonymous sign-in failed:', error);
-                            showNotification('Firebase authentication failed', 'error');
-                        });
-                    }
+                // Simple anonymous sign-in with timeout
+                const authTimeout = setTimeout(() => {
+                    console.log('⏰ Firebase auth timeout - proceeding without auth');
+                    showNotification('Firebase connected (limited features)', 'info');
+                }, 3000);
+                
+                firebase.auth().signInAnonymously().then(() => {
+                    clearTimeout(authTimeout);
+                    console.log('✅ Firebase anonymous auth successful');
+                    showNotification('Firebase connected successfully', 'success');
+                    setTimeout(startRealtimeUpdates, 500);
+                }).catch((error) => {
+                    clearTimeout(authTimeout);
+                    console.warn('⚠️ Firebase auth failed:', error.message);
+                    showNotification('Firebase connected (no authentication)', 'warning');
+                    setTimeout(startRealtimeUpdates, 500);
                 });
                 
-                // Start real-time updates after auth is ready
-                setTimeout(startRealtimeUpdates, 1000);
             } catch (error) {
                 console.error('❌ Firebase initialization failed:', error);
                 isFirebaseEnabled = false;
-                showNotification('Firebase connection failed - some features may not work', 'warning');
+                showNotification('Firebase unavailable - using offline mode', 'warning');
             }
         }
 
