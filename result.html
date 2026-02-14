@@ -1335,6 +1335,14 @@
                 saveResultsToFirebase(results);
             }
             updateRanking(results, !!results.viewOnly);
+
+            try {
+                const link = document.querySelector('.action-buttons a[href*="review.html"]');
+                if (link) {
+                    const tid = results.testId || (new URLSearchParams(window.location.search)).get('testId');
+                    if (tid) link.setAttribute('href', `review.html?testId=${encodeURIComponent(tid)}`);
+                }
+            } catch (_) {}
             
             // Add animations
             setTimeout(() => {

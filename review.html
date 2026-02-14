@@ -751,18 +751,52 @@
                     if (la && Array.isArray(questions) && questions.length) {
                         const answers = la.answers || {};
                         const normalize = (str) => String(str || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
+                        const letterToIndex = (s) => {
+                            const m = String(s || '').trim().toUpperCase();
+                            return {A:0,B:1,C:2,D:3}[m];
+                        };
+                        const getOptionText = (opts, idxOrText) => {
+                            if (idxOrText == null) return null;
+                            if (typeof idxOrText === 'number') {
+                                if (Array.isArray(opts)) return opts[idxOrText];
+                                if (Array.isArray(opts?.en)) return opts.en[idxOrText];
+                                return null;
+                            }
+                            const letterIdx = letterToIndex(idxOrText);
+                            if (letterIdx != null) {
+                                if (Array.isArray(opts)) return opts[letterIdx];
+                                if (Array.isArray(opts?.en)) return opts.en[letterIdx];
+                            }
+                            return String(idxOrText);
+                        };
+                        const getCorrectText = (q) => {
+                            if (typeof q.correctAnswer === 'number') return getOptionText(q.options, q.correctAnswer);
+                            if (typeof q.correctAnswer === 'string') return q.correctAnswer;
+                            if (q.correctAnswer?.en) return q.correctAnswer.en;
+                            return '';
+                        };
+                        const pickAnswer = (q, idx) => {
+                            const keys = [
+                                q.id != null ? String(q.id) : null,
+                                q.qid != null ? String(q.qid) : null,
+                                String(idx+1)
+                            ].filter(Boolean);
+                            for (const k of keys) {
+                                if (answers[k] != null) return answers[k];
+                            }
+                            return null;
+                        };
                         allQuestions = questions.map((q, idx) => {
-                            const qid = q.id != null ? String(q.id) : String(idx + 1);
-                            const sel = answers[qid] != null ? answers[qid] : answers[idx];
-                            const selText = typeof sel === 'string' ? sel : (Array.isArray(q.options) && typeof sel === 'number' ? q.options[sel] : null);
-                            const corrText = (q.correctAnswer && q.correctAnswer.en) ? q.correctAnswer.en : q.correctAnswer;
-                            const status = selText == null || selText === '' ? 'unattempted' : (normalize(selText) === normalize(corrText) ? 'correct' : 'incorrect');
+                            const rawSel = pickAnswer(q, idx);
+                            const userText = getOptionText(q.options, rawSel);
+                            const corrText = getCorrectText(q);
+                            const status = (userText == null || userText === '') ? 'unattempted' : (normalize(userText) === normalize(corrText) ? 'correct' : 'incorrect');
                             return {
                                 id: q.id ?? idx + 1,
                                 question: q.question || q,
                                 options: q.options || [],
                                 correctAnswer: corrText,
-                                userAnswer: selText,
+                                userAnswer: userText,
                                 explanation: q.explanation || {},
                                 status
                             };
