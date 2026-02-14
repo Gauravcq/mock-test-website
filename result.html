@@ -866,6 +866,7 @@
             const ls = localStorage.getItem('testResult');
             let base = ls ? JSON.parse(ls) : {};
             let testId = urlParams.get('testId') || base.testId || localStorage.getItem('testId') || '';
+            const viewOnly = urlParams.get('viewOnly') === '1';
             if (!testId) return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
             try {
                 const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
@@ -894,6 +895,7 @@
                     });
                     const merged = {
                         testId,
+                        viewOnly,
                         title: base.title || la.title || 'Test',
                         subject: base.subject || la.subject || 'General',
                         score: la.score ?? base.score ?? 0,
@@ -915,8 +917,13 @@
         }
 
         // Save test results to Firebase
-        function saveResultsToFirebase(results) {
+        async function saveResultsToFirebase(results) {
             if (!isFirebaseEnabled) return;
+            try {
+                if (firebase.auth && !firebase.auth().currentUser) {
+                    await firebase.auth().signInAnonymously().catch(()=>{});
+                }
+            } catch (_) {}
             let userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
             if (!userId) {
                 try {
@@ -973,8 +980,8 @@
                     updateRealtimeRankings(testId, userId);
                 })
                 .catch((error) => {
-                    // Show user-friendly error
-                    showNotification('Unable to save results to leaderboard', 'error');
+                    // Fallback: still compute ranking in read-only mode
+                    updateRealtimeRankings(testId, userId);
                 });
         }
 
@@ -1145,7 +1152,7 @@
         }
 
         // Calculate and update ranking
-        function updateRanking(results) {
+        function updateRanking(results, viewOnly) {
             if (!isFirebaseEnabled) {
                 const rankEl = document.getElementById('rankNumber');
                 const percEl = document.getElementById('percentileValue');
@@ -1168,15 +1175,17 @@
             }
             testId = testId || 'default';
             
-            // Save user's result to Firebase
-            database.ref('testResults/' + testId + '/' + userId).set({
-                score: results.score,
-                correct: results.correct,
-                incorrect: results.incorrect,
-                unattempted: results.unattempted,
-                accuracy: results.accuracy,
-                timestamp: Date.now()
-            }).catch(() => {});
+            // Save user's result to Firebase unless view-only
+            if (!viewOnly) {
+                database.ref('testResults/' + testId + '/' + userId).set({
+                    score: results.score,
+                    correct: results.correct,
+                    incorrect: results.incorrect,
+                    unattempted: results.unattempted,
+                    accuracy: results.accuracy,
+                    timestamp: Date.now()
+                }).catch(() => {});
+            }
 
             // Get all results and calculate ranking
             database.ref('testResults/' + testId).once('value', (snapshot) => {
@@ -1297,8 +1306,10 @@
             loadQuestionsForReview(results);
             
             // Save results to Firebase for real-time rankings
-            saveResultsToFirebase(results);
-            updateRanking(results);
+            if (!results.viewOnly) {
+                saveResultsToFirebase(results);
+            }
+            updateRanking(results, !!results.viewOnly);
             
             // Add animations
             setTimeout(() => {

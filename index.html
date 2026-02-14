@@ -2331,6 +2331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let io = null;
     let sentinel = null;
     let lastAttemptsMap = {};
+    const lastAttemptsCache = {};
     
     // ==================== PERFORMANCE: Debounce function ====================
     function debounce(func, wait) {
@@ -2614,6 +2615,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
             <article class="${cardClasses}" 
                      role="listitem" 
+                     data-test-id="${test.id}"
                      style="animation-delay: ${maxDelay}s">
                 <div class="card-glow"></div>
                 ${badges.join('')}
@@ -2640,26 +2642,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================== PERFORMANCE: Optimized displayTests ====================
-    async function loadLastAttemptsForTests(tests) {
+    function loadLastAttemptsForTests(tests) {
         lastAttemptsMap = {};
-        try {
-            const token = (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getToken) ? ExamAxisAPI.getToken() : localStorage.getItem('token');
-            const ids = tests.map(t => t.id).filter(Boolean);
-            if (!token || !ids.length) return;
-            const qs = encodeURIComponent(ids.join(','));
-            const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempts?testIds=${qs}`);
+        const ids = tests.map(t => t.id).filter(Boolean);
+        const cacheKey = ids.sort().join(',');
+        const token = (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getToken) ? ExamAxisAPI.getToken() : localStorage.getItem('token');
+        if (!token || !ids.length) return Promise.resolve();
+        if (lastAttemptsCache[cacheKey]) {
+            lastAttemptsMap = lastAttemptsCache[cacheKey];
+            return Promise.resolve();
+        }
+        const qs = encodeURIComponent(cacheKey);
+        return ExamAxisAPI.request(`/api/tests/last-attempts?testIds=${qs}`).then(({ response, data }) => {
             if (response && response.ok && data && data.data && data.data.lastAttempts) {
                 lastAttemptsMap = data.data.lastAttempts || {};
+                lastAttemptsCache[cacheKey] = lastAttemptsMap;
             }
-        } catch (_) {}
+        }).catch(() => {});
     }
 
-    const displayTests = debounce(async function() {
+    const displayTests = debounce(function() {
         const filteredTests = getFilteredTests(currentExam, currentSubject, currentSection);
 
         updateSectionCounts();
         updateSectionInfoBanner();
-        await loadLastAttemptsForTests(filteredTests);
+        loadLastAttemptsForTests(filteredTests).then(() => {
+            updateLastAttemptsUI(filteredTests);
+        });
         
         // Use requestAnimationFrame for smooth rendering
         requestAnimationFrame(() => {
@@ -2774,6 +2783,7 @@ document.addEventListener('DOMContentLoaded', () => {
             frag.appendChild(div.firstElementChild);
         }
         elements.gridContainer.insertBefore(frag, sentinel);
+        updateLastAttemptsUI(currentFilteredTests.slice(renderIndex, end));
         renderIndex = end;
         if (renderIndex >= currentFilteredTests.length && io) {
             try { io.disconnect(); } catch(_) {}
@@ -2803,7 +2813,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scoreEl) scoreEl.textContent = `${data.score ?? 0}/${total}`;
             if (timeEl) timeEl.textContent = `${minutes}m • ${submitted}`;
             if (detailsEl) detailsEl.textContent = `Correct: ${correct} • Wrong: ${wrong} • Unanswered: ${unans}`;
-            if (viewBtn) viewBtn.setAttribute('href', `result.html?testId=${encodeURIComponent(testId)}`);
+            if (viewBtn) viewBtn.setAttribute('href', `result.html?testId=${encodeURIComponent(testId)}&viewOnly=1`);
             if (modal) modal.style.display = 'flex';
         } catch (_) {}
     };
@@ -2811,6 +2821,43 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('attemptModal');
         if (modal) modal.style.display = 'none';
     };
+
+    function updateLastAttemptsUI(tests) {
+        tests.forEach(t => {
+            const la = lastAttemptsMap[String(t.id)];
+            const article = elements.gridContainer.querySelector(`article[data-test-id="${t.id}"]`);
+            if (!article) return;
+            const lastEl = article.querySelector('.last-score');
+            const isLocked = article.classList.contains('locked');
+            if (la && lastEl && !isLocked) {
+                const total = la.totalMarks ?? la.maxScore ?? (currentSection === 'fullmock' || t.exam === 'CHSL_TOP_100_MATHS' ? 200 : 50);
+                const minutes = Math.round(((la.timeTaken ?? 0) / 60));
+                const correct = la.correctAnswers ?? la.correct ?? 0;
+                const wrong = la.wrongAnswers ?? la.incorrect ?? 0;
+                const unans = la.unanswered ?? la.unattempted ?? 0;
+                lastEl.innerHTML = `Last: <strong>${(la.score ?? 0)}/${total}</strong> • ${minutes}m`;
+                lastEl.setAttribute('title', `Correct: ${correct} • Wrong: ${wrong} • Unanswered: ${unans}`);
+                const attemptedBadge = article.querySelector('.attempted-badge');
+                if (!attemptedBadge) {
+                    const badge = document.createElement('div');
+                    badge.className = 'attempted-badge';
+                    badge.textContent = 'Attempted';
+                    article.insertAdjacentElement('afterbegin', badge);
+                }
+                const viewBtn = article.querySelector('button[onclick^="viewAttempt"]');
+                if (!viewBtn) {
+                    const btn = document.createElement('button');
+                    btn.className = 'attempt-btn';
+                    btn.style.background = 'var(--bg-secondary)';
+                    btn.style.color = 'var(--text-primary)';
+                    btn.style.border = '1px solid var(--border-color)';
+                    btn.textContent = 'View Attempt';
+                    btn.onclick = () => window.viewAttempt(String(t.id));
+                    article.appendChild(btn);
+                }
+            }
+        });
+    }
 
     function updateTabsForExam(exam) {
         elements.tabs.forEach(tab => {

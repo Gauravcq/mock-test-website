@@ -722,10 +722,48 @@
             updateNavigation();
         }
 
-        // Load test data from localStorage or URL parameters
-        function loadTestData() {
+        // Load test data from localStorage or URL parameters (fetch real last attempt)
+        async function loadTestData() {
             // Try to get test result data from localStorage
             const testResult = localStorage.getItem('testResult');
+            const params = new URLSearchParams(window.location.search);
+            const testId = params.get('testId') || (() => {
+                try { const r = JSON.parse(testResult || '{}'); return r?.testId; } catch { return null; }
+            })() || localStorage.getItem('testId');
+            
+            if (testId) {
+                try {
+                    const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
+                    const la = (response && response.ok && data && (data.data || data.lastAttempt)) ? (data.data?.lastAttempt || data.data || data.lastAttempt) : null;
+                    let questions = [];
+                    try {
+                        const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
+                        questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
+                    } catch (_) {}
+                    if (la && Array.isArray(questions) && questions.length) {
+                        const answers = la.answers || {};
+                        const normalize = (str) => String(str || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
+                        allQuestions = questions.map((q, idx) => {
+                            const qid = q.id != null ? String(q.id) : String(idx + 1);
+                            const sel = answers[qid] != null ? answers[qid] : answers[idx];
+                            const selText = typeof sel === 'string' ? sel : (Array.isArray(q.options) && typeof sel === 'number' ? q.options[sel] : null);
+                            const corrText = (q.correctAnswer && q.correctAnswer.en) ? q.correctAnswer.en : q.correctAnswer;
+                            const status = selText == null || selText === '' ? 'unattempted' : (normalize(selText) === normalize(corrText) ? 'correct' : 'incorrect');
+                            return {
+                                id: q.id ?? idx + 1,
+                                question: q.question || q,
+                                options: q.options || [],
+                                correctAnswer: corrText,
+                                userAnswer: selText,
+                                explanation: q.explanation || {},
+                                status
+                            };
+                        });
+                        filteredQuestions = [...allQuestions];
+                        return;
+                    }
+                } catch (_) {}
+            }
             
             if (testResult) {
                 try {
