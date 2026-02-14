@@ -2813,6 +2813,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scoreEl) scoreEl.textContent = `${data.score ?? 0}/${total}`;
             if (timeEl) timeEl.textContent = `${minutes}m • ${submitted}`;
             if (detailsEl) detailsEl.textContent = `Correct: ${correct} • Wrong: ${wrong} • Unanswered: ${unans}`;
+            try {
+                localStorage.setItem('testId', String(testId));
+                localStorage.setItem('viewAttempt', JSON.stringify({ testId: String(testId), lastAttempt: data }));
+            } catch (_) {}
             if (viewBtn) viewBtn.setAttribute('href', `result.html?testId=${encodeURIComponent(testId)}&viewOnly=1`);
             if (modal) modal.style.display = 'flex';
         } catch (_) {}

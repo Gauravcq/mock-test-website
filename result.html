@@ -913,6 +913,31 @@
                     return merged;
                 }
             } catch (_) {}
+            // Fallback to data sent from index page
+            try {
+                const cached = JSON.parse(localStorage.getItem('viewAttempt') || '{}');
+                if (cached && String(cached.testId) === String(testId) && cached.lastAttempt) {
+                    const la = cached.lastAttempt;
+                    const merged = {
+                        testId,
+                        viewOnly,
+                        title: la.title || base.title || 'Test',
+                        subject: la.subject || base.subject || 'General',
+                        score: la.score ?? base.score ?? 0,
+                        correct: la.correctAnswers ?? base.correct ?? 0,
+                        incorrect: la.wrongAnswers ?? base.incorrect ?? 0,
+                        unattempted: la.unanswered ?? base.unattempted ?? 0,
+                        totalMarks: la.totalMarks ?? (base.totalMarks || 50),
+                        accuracy: base.accuracy ?? Math.round(((la.correctAnswers || 0)/((la.correctAnswers||0)+(la.wrongAnswers||0)+(la.unanswered||0)||1))*100),
+                        timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
+                        timestamp: la.submittedAt || base.timestamp || new Date().toISOString(),
+                        questionStates: base.questionStates || [],
+                        questions: base.questions || []
+                    };
+                    localStorage.setItem('testResult', JSON.stringify(merged));
+                    return merged;
+                }
+            } catch (_) {}
             return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
         }
 
@@ -1140,8 +1165,8 @@
             const correct = Number(results.correct || 0);
             const incorrect = Number(results.incorrect || 0);
             const unattempted = Number(results.unattempted || 0);
-            const totalQuestions = correct + incorrect + unattempted;
-            const maxMarks = totalQuestions * 2;
+            const totalQuestions = results.totalQuestions || (correct + incorrect + unattempted);
+            const maxMarks = (results.totalMarks != null) ? Number(results.totalMarks) : (totalQuestions * 2);
             
             document.getElementById('scoreValue').textContent = Number(results.score || 0).toFixed(1);
             document.getElementById('scoreMax').textContent = `/ ${isFinite(maxMarks) && maxMarks > 0 ? maxMarks : 0}`;
