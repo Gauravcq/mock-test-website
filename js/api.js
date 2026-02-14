@@ -235,16 +235,33 @@ class ExamAxisAPI {
 
   // ==================== TESTS ====================
 
+  // Debug flag to log all API calls
+  static debugAPI = true;
+
   static async saveTestAttempt(attemptData) {
     try {
       // ✅ DEBUG: Log the attempt data being sent
-      console.log('📤 Saving attempt with data:', {
+      console.log('📤 SAVING ATTEMPT - Full Data:', {
         testId: attemptData.testId,
         score: attemptData.score,
         questionsCount: attemptData.questionsSnapshot?.length || 0,
         hasQuestions: !!attemptData.questionsSnapshot,
-        subject: attemptData.subject
+        subject: attemptData.subject,
+        totalMarks: attemptData.totalMarks,
+        correctAnswers: attemptData.correctAnswers,
+        wrongAnswers: attemptData.wrongAnswers
       });
+      
+      // Log first 3 questions to verify data
+      if (attemptData.questionsSnapshot) {
+        console.log('📋 Sample questions being sent:', 
+          attemptData.questionsSnapshot.slice(0, 3).map(q => ({
+            id: q.id,
+            subject: q.subject,
+            firstChars: q.question?.substring(0, 30)
+          }))
+        );
+      }
       
       const { response, data } = await this.request('/api/tests/attempt', {
         method: 'POST',
@@ -255,15 +272,15 @@ class ExamAxisAPI {
         const msg =
           (data && (data.message || data.error)) ||
           `Failed to save test attempt (${response.status})`;
-        console.error('❌ Failed to save attempt:', msg);
-        return { success: false, message: msg };
+        console.error('❌ Failed to save attempt:', msg, 'Status:', response.status);
+        return { success: false, message: msg, status: response.status };
       }
 
-      console.log('✅ Attempt saved successfully');
+      console.log('✅ Attempt saved successfully. Response:', data);
       return data;
     } catch (error) {
       console.error('❌ Save attempt error:', error);
-      return { success: false, message: 'Failed to save test attempt' };
+      return { success: false, message: 'Failed to save test attempt', error: error.message };
     }
   }
 
@@ -329,40 +346,53 @@ class ExamAxisAPI {
 
   static async getQuestions(testId) {
     try {
-      // Handle reasoning test ID mapping for proper shift differentiation
-      let mappedTestId = testId;
-      
-      // Map reasoning test IDs to ensure different shifts get different questions
-      if (testId.includes('-r')) {
-        // For reasoning tests, ensure proper shift mapping
-        console.log('🔄 Mapping reasoning testId:', testId);
-        
-        // Keep the original testId but add debugging
-        mappedTestId = testId;
-      }
-      
-      console.log('📡 Fetching questions for testId:', mappedTestId);
-      const { response, data, error } = await this.request(`/api/questions/${mappedTestId}`);
+      console.log('� GET QUESTIONS - Request for testId:', testId);
+      const { response, data, error } = await this.request(`/api/questions/${testId}`);
 
       if (error === 'NETWORK_ERROR') {
-        console.error('❌ Network error for testId:', mappedTestId);
+        console.error('❌ Network error for testId:', testId);
         return { success: false, message: 'Network error. Please check your connection.' };
       }
 
       if (!response.ok) {
         const msg = (data && (data.message || data.error)) ||
           `Failed to load questions (${response.status})`;
-        console.error('❌ API error for testId:', mappedTestId, '-', response.status, msg);
+        console.error('❌ API error for testId:', testId, '-', response.status, msg);
         return { success: false, message: msg };
       }
 
       // CRITICAL: Log the actual response to debug
-      console.log('✅ API Response for', mappedTestId, ':', {
+      const questions = data?.data?.questions || data?.questions || [];
+      console.log('✅ API Response for', testId, ':', {
         success: data?.success,
-        questionsCount: data?.data?.questions?.length,
-        firstQuestion: data?.data?.questions?.[0]?.text?.substring(0, 50) + '...',
-        allQuestionIds: data?.data?.questions?.map(q => q.id || 'no-id').slice(0, 5)
+        questionsCount: questions.length,
+        firstQuestion: questions[0]?.question?.substring(0, 50) + '...',
+        firstQuestionId: questions[0]?.id,
+        allQuestionIds: questions.slice(0, 5).map(q => q.id || 'no-id')
       });
+      
+      // Compare with previous test to check for duplicates
+      const lastQuestions = localStorage.getItem('lastQuestionsDebug');
+      if (lastQuestions) {
+        const last = JSON.parse(lastQuestions);
+        const isSame = last.testId !== testId && 
+          questions.length > 0 && last.questions.length > 0 &&
+          questions[0].id === last.questions[0].id;
+        if (isSame) {
+          console.warn('⚠️ WARNING: Same questions returned for different testIds!', {
+            currentTestId: testId,
+            previousTestId: last.testId,
+            sameQuestionId: questions[0].id
+          });
+        }
+      }
+      
+      // Store for next comparison
+      localStorage.setItem('lastQuestionsDebug', JSON.stringify({
+        testId: testId,
+        questions: questions.slice(0, 3),
+        timestamp: Date.now()
+      }));
       
       return data || { success: false, message: 'No questions found' };
     } catch (error) {

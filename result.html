@@ -945,17 +945,29 @@
                     // ✅ NEW: Use questions from attempt snapshot if available
                     let questions = la.questionsSnapshot || [];
                     
+                    console.log('🔍 LOAD ATTEMPT - Backend returned:', {
+                        testId: testId,
+                        hasQuestionsSnapshot: !!la.questionsSnapshot,
+                        questionsCount: questions.length,
+                        score: la.score,
+                        correctAnswers: la.correctAnswers,
+                        wrongAnswers: la.wrongAnswers
+                    });
+                    
                     // If no questions in attempt, fallback to API fetch
                     if (questions.length === 0) {
+                        console.warn('⚠️ No questionsSnapshot in attempt! Falling back to API fetch');
                         try {
-                            console.log('🔄 No questions in attempt, fetching from API');
+                            console.log('🔄 Fetching questions from API for testId:', testId);
                             const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
                             questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
-                        } catch (_) {
-                            console.warn('⚠️ Failed to fetch questions from API');
+                            console.log('✅ Fetched', questions.length, 'questions from API');
+                        } catch (e) {
+                            console.error('❌ Failed to fetch questions from API:', e);
                         }
                     } else {
-                        console.log('✅ Using questions from attempt snapshot:', questions.length);
+                        console.log('✅ Using', questions.length, 'questions from attempt snapshot');
+                        console.log('📋 First question:', questions[0]?.question?.substring(0, 50));
                     }
                     
                     // build questionStates from answers
