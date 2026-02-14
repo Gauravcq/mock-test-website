@@ -1264,7 +1264,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 quizUI?.classList.add('hidden');
                 resultSummaryPage?.classList.remove('hidden');
                 document.body.classList.add('results-scroll');
+                
+                // DEBUG: Check if we should save attempt
+                console.log('🔍 SAVE ATTEMPT CHECK:', {
+                    isLoggedIn: window.ExamAxisAPI?.isLoggedIn(),
+                    hasExamAxisAPI: !!window.ExamAxisAPI,
+                    testId: QD.testInfo.id || testId,
+                    score: score,
+                    questionsCount: questions.length
+                });
+                
                 if (window.ExamAxisAPI?.isLoggedIn()) {
+                    console.log('✅ User is logged in, saving attempt...');
                     const answersObj = {};
                     QD.questionStates.forEach((state, i) => {
                         answersObj[i] = { userAnswer: state.userAnswer, isCorrect: state.resultCategory === 'correct' };
@@ -1273,8 +1284,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         testId: String(QD.testInfo.id || testId), examType: 'CGL', subject: subjectName || 'Mathematics',
                         score: Number(score.toFixed(2)), totalMarks: questions.length * 2, correctAnswers: correct,
                         wrongAnswers: incorrect, unanswered: unattempted, timeTaken: mins, answers: answersObj,
-                        // ✅ NEW: Send questions snapshot for review
-                        questionsSnapshot: questions.map(q => ({
+                        // ✅ Send as 'questions' field (backend stores as questionsSnapshot)
+                        questions: questions.map(q => ({
                             id: q.id,
                             subject: q.subject || subjectName || 'Mathematics',
                             question: q.question,
@@ -1283,9 +1294,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                             explanation: q.explanation || ''
                         }))
                     };
+                    
+                    console.log('📤 About to call ExamAxisAPI.saveTestAttempt with:', {
+                        testId: attemptData.testId,
+                        questionsCount: attemptData.questionsSnapshot?.length
+                    });
+                    
                     ExamAxisAPI.saveTestAttempt(attemptData).then(result => {
-                        console.log(result.success ? '✅ Saved to backend' : '⚠️ Failed to save:', result.message);
-                    }).catch(err => { console.warn('⚠️ Backend save error:', err.message); });
+                        console.log('✅ Save attempt result:', result);
+                    }).catch(err => { 
+                        console.error('❌ Save attempt error:', err);
+                    });
+                } else {
+                    console.warn('⚠️ User not logged in, attempt not saved to backend');
                 }
             }
 

@@ -942,12 +942,12 @@
                 const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
                 const la = (response && response.ok && data && (data.data || data.lastAttempt)) ? (data.data?.lastAttempt || data.data || data.lastAttempt) : null;
                 if (la) {
-                    // ✅ NEW: Use questions from attempt snapshot if available
-                    let questions = la.questionsSnapshot || [];
+                    // ✅ Backend returns questions in 'questions' field
+                    let questions = la.questions || [];
                     
                     console.log('🔍 LOAD ATTEMPT - Backend returned:', {
                         testId: testId,
-                        hasQuestionsSnapshot: !!la.questionsSnapshot,
+                        hasQuestions: !!la.questions,
                         questionsCount: questions.length,
                         score: la.score,
                         correctAnswers: la.correctAnswers,
@@ -1683,7 +1683,7 @@
                     attemptsArray.forEach((attempt, index) => {
                         const date = new Date(attempt.timestamp).toLocaleDateString();
                         const score = attempt.score || 0;
-                        const questionCount = attempt.questionsSnapshot?.length || attempt.totalQuestions || 25;
+                        const questionCount = attempt.questions?.length || attempt.totalQuestions || 25;
                         
                         content += '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:15px;margin-bottom:10px;">';
                         content += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">';
@@ -1696,7 +1696,7 @@
                         content += '</div>';
                         
                         // Add review button if questions are available
-                        if (attempt.questionsSnapshot && attempt.questionsSnapshot.length > 0) {
+                        if (attempt.questions && attempt.questions.length > 0) {
                             content += '<button onclick="window.location.href=\'result.html?testId=' + attempt.testId + '&viewOnly=1\'" style="margin-top:10px;padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;font-size:12px;">📝 Review Solutions</button>';
                         }
                         
