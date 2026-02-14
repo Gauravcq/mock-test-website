@@ -1278,26 +1278,39 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log('✅ User is logged in, saving attempt...');
                     const answersObj = {};
                     QD.questionStates.forEach((state, i) => {
-                        answersObj[i] = { userAnswer: state.userAnswer, isCorrect: state.resultCategory === 'correct' };
+                        answersObj[i] = state.userAnswer;  // Store as questionId -> answer
                     });
+                    
+                    // ✅ CRITICAL: Prepare questions snapshot with proper IDs
+                    const questionsSnapshot = questions.map((q, index) => ({
+                        id: index,  // Use index as ID
+                        subject: q.subject || subjectName || 'General',
+                        question: q.question,
+                        options: q.options,
+                        correctAnswer: q.correctAnswer,
+                        explanation: q.explanation || ''
+                    }));
+                    
                     const attemptData = {
-                        testId: String(QD.testInfo.id || testId), examType: 'CGL', subject: subjectName || 'Mathematics',
-                        score: Number(score.toFixed(2)), totalMarks: questions.length * 2, correctAnswers: correct,
-                        wrongAnswers: incorrect, unanswered: unattempted, timeTaken: mins, answers: answersObj,
-                        // ✅ Send as 'questions' field (backend stores as questionsSnapshot)
-                        questions: questions.map(q => ({
-                            id: q.id,
-                            subject: q.subject || subjectName || 'Mathematics',
-                            question: q.question,
-                            options: q.options,
-                            correctAnswer: q.correctAnswer,
-                            explanation: q.explanation || ''
-                        }))
+                        testId: String(QD.testInfo.id || testId), 
+                        examType: 'CGL', 
+                        subject: subjectName || 'Mathematics',
+                        score: Number(score.toFixed(2)), 
+                        totalMarks: questions.length * 2, 
+                        correctAnswers: correct,
+                        wrongAnswers: incorrect, 
+                        unanswered: unattempted, 
+                        timeTaken: mins, 
+                        answers: answersObj,
+                        // ✅ Send questions snapshot
+                        questions: questionsSnapshot
                     };
                     
-                    console.log('📤 About to call ExamAxisAPI.saveTestAttempt with:', {
+                    console.log('📤 Saving attempt with:', {
                         testId: attemptData.testId,
-                        questionsCount: attemptData.questionsSnapshot?.length
+                        questionsCount: questionsSnapshot.length,
+                        answersCount: Object.keys(answersObj).length,
+                        score: attemptData.score
                     });
                     
                     ExamAxisAPI.saveTestAttempt(attemptData).then(result => {

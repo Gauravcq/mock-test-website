@@ -240,22 +240,17 @@ class ExamAxisAPI {
 
   static async saveTestAttempt(attemptData) {
     try {
-      // ✅ DEBUG: Log the attempt data being sent
-      console.log('📤 SAVING ATTEMPT - Full Data:', {
+      console.log('📤 Saving test attempt:', {
         testId: attemptData.testId,
-        score: attemptData.score,
-        questionsCount: attemptData.questionsSnapshot?.length || 0,
-        hasQuestions: !!attemptData.questionsSnapshot,
-        subject: attemptData.subject,
-        totalMarks: attemptData.totalMarks,
-        correctAnswers: attemptData.correctAnswers,
-        wrongAnswers: attemptData.wrongAnswers
+        questionsCount: attemptData.questions?.length || 0,
+        answersCount: Object.keys(attemptData.answers || {}).length,
+        score: attemptData.score
       });
       
       // Log first 3 questions to verify data
-      if (attemptData.questionsSnapshot) {
+      if (attemptData.questions) {
         console.log('📋 Sample questions being sent:', 
-          attemptData.questionsSnapshot.slice(0, 3).map(q => ({
+          attemptData.questions.slice(0, 3).map(q => ({
             id: q.id,
             subject: q.subject,
             firstChars: q.question?.substring(0, 30)
@@ -263,9 +258,24 @@ class ExamAxisAPI {
         );
       }
       
+      // ✅ Use 'questions' field (backend stores as questionsSnapshot)
+      const payload = {
+        testId: attemptData.testId,
+        examType: attemptData.examType,
+        subject: attemptData.subject,
+        score: attemptData.score,
+        totalMarks: attemptData.totalMarks,
+        correctAnswers: attemptData.correctAnswers,
+        wrongAnswers: attemptData.wrongAnswers,
+        unanswered: attemptData.unanswered,
+        timeTaken: attemptData.timeTaken,
+        answers: attemptData.answers,
+        questions: attemptData.questions  // ✅ Backend expects 'questions' field
+      };
+      
       const { response, data } = await this.request('/api/tests/attempt', {
         method: 'POST',
-        body: JSON.stringify(attemptData),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
