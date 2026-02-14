@@ -942,12 +942,22 @@
                 const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
                 const la = (response && response.ok && data && (data.data || data.lastAttempt)) ? (data.data?.lastAttempt || data.data || data.lastAttempt) : null;
                 if (la) {
-                    // fetch questions for full paper render
-                    let questions = [];
-                    try {
-                        const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
-                        questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
-                    } catch (_) {}
+                    // ✅ NEW: Use questions from attempt snapshot if available
+                    let questions = la.questionsSnapshot || [];
+                    
+                    // If no questions in attempt, fallback to API fetch
+                    if (questions.length === 0) {
+                        try {
+                            console.log('🔄 No questions in attempt, fetching from API');
+                            const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
+                            questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
+                        } catch (_) {
+                            console.warn('⚠️ Failed to fetch questions from API');
+                        }
+                    } else {
+                        console.log('✅ Using questions from attempt snapshot:', questions.length);
+                    }
+                    
                     // build questionStates from answers
                     const answers = la.answers || {};
                     const states = [];
@@ -1661,11 +1671,24 @@
                     attemptsArray.forEach((attempt, index) => {
                         const date = new Date(attempt.timestamp).toLocaleDateString();
                         const score = attempt.score || 0;
+                        const questionCount = attempt.questionsSnapshot?.length || attempt.totalQuestions || 25;
+                        
                         content += '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:15px;margin-bottom:10px;">';
                         content += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">';
                         content += '<span style="font-weight:bold;">Attempt #' + (attemptsArray.length - index) + '</span>';
                         content += '<span style="color:#6b7280;">' + date + '</span>';
-                        content += '</div><div><strong>Score: ' + score + '/' + (attempt.totalMarks || 50) + '</strong></div></div>';
+                        content += '</div>';
+                        content += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+                        content += '<div><strong>Score: ' + score + '/' + (attempt.totalMarks || 50) + '</strong></div>';
+                        content += '<div style="color:#6b7280;font-size:14px;">Questions: ' + questionCount + '</div>';
+                        content += '</div>';
+                        
+                        // Add review button if questions are available
+                        if (attempt.questionsSnapshot && attempt.questionsSnapshot.length > 0) {
+                            content += '<button onclick="window.location.href=\'result.html?testId=' + attempt.testId + '&viewOnly=1\'" style="margin-top:10px;padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;font-size:12px;">📝 Review Solutions</button>';
+                        }
+                        
+                        content += '</div>';
                     });
                     
                     content += '<button onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;padding:10px 20px;background:#ef4444;color:white;border:none;border-radius:5px;cursor:pointer;">Close</button>';

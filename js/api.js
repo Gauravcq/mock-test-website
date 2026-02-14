@@ -237,6 +237,15 @@ class ExamAxisAPI {
 
   static async saveTestAttempt(attemptData) {
     try {
+      // ✅ DEBUG: Log the attempt data being sent
+      console.log('📤 Saving attempt with data:', {
+        testId: attemptData.testId,
+        score: attemptData.score,
+        questionsCount: attemptData.questionsSnapshot?.length || 0,
+        hasQuestions: !!attemptData.questionsSnapshot,
+        subject: attemptData.subject
+      });
+      
       const { response, data } = await this.request('/api/tests/attempt', {
         method: 'POST',
         body: JSON.stringify(attemptData),
@@ -246,11 +255,14 @@ class ExamAxisAPI {
         const msg =
           (data && (data.message || data.error)) ||
           `Failed to save test attempt (${response.status})`;
+        console.error('❌ Failed to save attempt:', msg);
         return { success: false, message: msg };
       }
 
+      console.log('✅ Attempt saved successfully');
       return data;
     } catch (error) {
+      console.error('❌ Save attempt error:', error);
       return { success: false, message: 'Failed to save test attempt' };
     }
   }
@@ -333,19 +345,28 @@ class ExamAxisAPI {
       const { response, data, error } = await this.request(`/api/questions/${mappedTestId}`);
 
       if (error === 'NETWORK_ERROR') {
+        console.error('❌ Network error for testId:', mappedTestId);
         return { success: false, message: 'Network error. Please check your connection.' };
       }
 
       if (!response.ok) {
         const msg = (data && (data.message || data.error)) ||
           `Failed to load questions (${response.status})`;
+        console.error('❌ API error for testId:', mappedTestId, '-', response.status, msg);
         return { success: false, message: msg };
       }
 
-      console.log('✅ Questions loaded for', mappedTestId, ':', data?.data?.questions?.length || 0, 'questions');
+      // CRITICAL: Log the actual response to debug
+      console.log('✅ API Response for', mappedTestId, ':', {
+        success: data?.success,
+        questionsCount: data?.data?.questions?.length,
+        firstQuestion: data?.data?.questions?.[0]?.text?.substring(0, 50) + '...',
+        allQuestionIds: data?.data?.questions?.map(q => q.id || 'no-id').slice(0, 5)
+      });
+      
       return data || { success: false, message: 'No questions found' };
     } catch (error) {
-      console.error('Get questions error:', error);
+      console.error('❌ Get questions error for testId:', testId, '-', error);
       return { success: false, message: 'Failed to load questions' };
     }
   }

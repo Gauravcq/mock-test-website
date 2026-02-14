@@ -1272,7 +1272,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const attemptData = {
                         testId: String(QD.testInfo.id || testId), examType: 'CGL', subject: subjectName || 'Mathematics',
                         score: Number(score.toFixed(2)), totalMarks: questions.length * 2, correctAnswers: correct,
-                        wrongAnswers: incorrect, unanswered: unattempted, timeTaken: mins, answers: answersObj
+                        wrongAnswers: incorrect, unanswered: unattempted, timeTaken: mins, answers: answersObj,
+                        // ✅ NEW: Send questions snapshot for review
+                        questionsSnapshot: questions.map(q => ({
+                            id: q.id,
+                            subject: q.subject || subjectName || 'Mathematics',
+                            question: q.question,
+                            options: q.options,
+                            correctAnswer: q.correctAnswer,
+                            explanation: q.explanation || ''
+                        }))
                     };
                     ExamAxisAPI.saveTestAttempt(attemptData).then(result => {
                         console.log(result.success ? '✅ Saved to backend' : '⚠️ Failed to save:', result.message);
