@@ -1,825 +1,964 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Results - Exam Axis</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-    
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --success: #16a34a;
-            --warning: #f59e0b;
-            --danger: #dc2626;
-            --info: #0891b2;
-            --dark: #1f2937;
-            --light: #f9fafb;
-            --border: #e5e7eb;
-            --shadow: 0 10px 25px rgba(0,0,0,0.1);
-            --shadow-lg: 0 20px 40px rgba(0,0,0,0.15);
-        }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Test Results - Exam Axis</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+        <style>
+            :root {
+                --primary: #2563eb;
+                --primary-dark: #1d4ed8;
+                --success: #16a34a;
+                --warning: #f59e0b;
+                --danger: #dc2626;
+                --info: #0891b2;
+                --dark: #1f2937;
+                --light: #f9fafb;
+                --border: #e5e7eb;
+                --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                color: var(--dark);
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .header {
+                background: white;
+                border-radius: 20px;
+                padding: 30px;
+                margin-bottom: 30px;
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .header::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 5px;
+                background: linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--success),
+                    var(--warning)
+                );
+            }
+
+            .exam-title {
+                font-size: 2rem;
+                font-weight: 800;
+                color: var(--dark);
+                margin-bottom: 10px;
+            }
+
+            .exam-subtitle {
+                color: #6b7280;
+                font-size: 1.1rem;
+            }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: var(--dark);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-lg);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--success), var(--warning));
-        }
-
-        .exam-title {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        .exam-subtitle {
-            color: #6b7280;
-            font-size: 1.1rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .score-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: var(--shadow-lg);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .score-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(16, 163, 74, 0.1));
-            transform: rotate(45deg);
-        }
-
-        .score-display {
-            position: relative;
-            z-index: 1;
-        }
-
-        .score-label {
-            font-size: 1.2rem;
-            color: #6b7280;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .score-value {
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--success));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            line-height: 1;
-        }
-
-        .score-max {
-            font-size: 1.5rem;
-            color: #9ca3af;
-            font-weight: 600;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .stat-card {
-            background: var(--light);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-        }
-
-        .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .stat-card.correct .stat-icon { color: var(--success); }
-        .stat-card.incorrect .stat-icon { color: var(--danger); }
-        .stat-card.unattempted .stat-icon { color: #6b7280; }
-        .stat-card.accuracy .stat-icon { color: var(--info); }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #6b7280;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .ranking-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--primary);
-        }
-
-        .rank-display {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 163, 74, 0.1));
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-
-        .rank-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .rank-label {
-            font-size: 1.1rem;
-            color: #6b7280;
-            font-weight: 600;
-        }
-
-        .percentile-bar {
-            margin-bottom: 20px;
-        }
-
-        .percentile-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .percentile-progress {
-            height: 20px;
-            background: var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .percentile-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--success));
-            border-radius: 10px;
-            transition: width 1s ease;
-            position: relative;
-        }
-
-        .percentile-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .performance-chart {
-            background: var(--light);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-
-        .chart-bars {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            height: 150px;
-            gap: 10px;
-        }
-
-        .chart-bar {
-            flex: 1;
-            background: linear-gradient(to top, var(--primary), var(--success));
-            border-radius: 8px 8px 0 0;
-            position: relative;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .chart-bar:hover {
-            transform: scaleY(1.05);
-        }
-
-        .chart-label {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #6b7280;
-        }
-
-        .actions-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .action-btn {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .action-btn.primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-        }
-
-        .action-btn.success {
-            background: linear-gradient(135deg, var(--success), #15803d);
-            color: white;
-        }
-
-        .action-btn.warning {
-            background: linear-gradient(135deg, var(--warning), #d97706);
-            color: white;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .live-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 163, 74, 0.1);
-            color: var(--success);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .questions-review-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 30px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--border);
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .questions-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .question-card {
-            border: 2px solid var(--border);
-            border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .question-card.correct {
-            border-color: var(--success);
-            background: #f0fdf4;
-        }
-
-        .question-card.incorrect {
-            border-color: var(--danger);
-            background: #fef2f2;
-        }
-
-        .question-card.unattempted {
-            border-color: var(--warning);
-            background: #fffbeb;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .question-number {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .question-status {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .question-status.correct {
-            background: var(--success);
-            color: white;
-        }
-
-        .question-status.incorrect {
-            background: var(--danger);
-            color: white;
-        }
-
-        .question-status.unattempted {
-            background: var(--warning);
-            color: white;
-        }
-
-        .question-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .options-container {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .option-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .option-item.user-answer {
-            border-color: var(--primary);
-            background: #eff6ff;
-        }
-
-        .option-item.correct-answer {
-            border-color: var(--success);
-            background: #dcfce7;
-        }
-
-        .option-item.user-answer.correct-answer {
-            border-color: var(--success);
-            background: #dcfce7;
-        }
-
-        .option-label {
-            font-weight: 700;
-            margin-right: 15px;
-            min-width: 30px;
-        }
-
-        .option-text {
-            flex: 1;
-        }
-
-        .option-indicator {
-            margin-left: 15px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .option-indicator.user-answer {
-            color: var(--primary);
-        }
-
-        .option-indicator.correct-answer {
-            color: var(--success);
-        }
-
-        .explanation-box {
-            background: #f8fafc;
-            border-left: 4px solid var(--info);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .explanation-title {
-            font-weight: 700;
-            color: var(--info);
-            margin-bottom: 10px;
-        }
-
-        .explanation-text {
-            line-height: 1.6;
-            color: var(--dark);
-        }
-
-        @media (max-width: 768px) {
             .main-content {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                margin-bottom: 30px;
             }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
+
+            .score-section {
+                background: white;
+                border-radius: 20px;
+                padding: 40px;
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                position: relative;
+                overflow: hidden;
             }
-            
-            .action-buttons {
-                grid-template-columns: 1fr;
+
+            .score-section::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                right: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(
+                    45deg,
+                    rgba(37, 99, 235, 0.1),
+                    rgba(16, 163, 74, 0.1)
+                );
+                transform: rotate(45deg);
             }
-            
+
+            .score-display {
+                position: relative;
+                z-index: 1;
+            }
+
+            .score-label {
+                font-size: 1.2rem;
+                color: #6b7280;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
             .score-value {
-                font-size: 3rem;
+                font-size: 4rem;
+                font-weight: 900;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--success)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 10px;
+                line-height: 1;
             }
-            
+
+            .score-max {
+                font-size: 1.5rem;
+                color: #9ca3af;
+                font-weight: 600;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                margin-top: 30px;
+            }
+
+            .stat-card {
+                background: var(--light);
+                padding: 20px;
+                border-radius: 15px;
+                text-align: center;
+                transition:
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--shadow);
+            }
+
+            .stat-icon {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+
+            .stat-card.correct .stat-icon {
+                color: var(--success);
+            }
+            .stat-card.incorrect .stat-icon {
+                color: var(--danger);
+            }
+            .stat-card.unattempted .stat-icon {
+                color: #6b7280;
+            }
+            .stat-card.accuracy .stat-icon {
+                color: var(--info);
+            }
+
+            .stat-value {
+                font-size: 2rem;
+                font-weight: 800;
+                margin-bottom: 5px;
+            }
+
+            .stat-label {
+                color: #6b7280;
+                font-size: 0.9rem;
+                font-weight: 600;
+            }
+
+            .ranking-section {
+                background: white;
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 25px;
+                color: var(--dark);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .section-title i {
+                color: var(--primary);
+            }
+
+            .rank-display {
+                text-align: center;
+                padding: 30px;
+                background: linear-gradient(
+                    135deg,
+                    rgba(37, 99, 235, 0.1),
+                    rgba(16, 163, 74, 0.1)
+                );
+                border-radius: 15px;
+                margin-bottom: 25px;
+            }
+
             .rank-number {
-                font-size: 2.5rem;
+                font-size: 3.5rem;
+                font-weight: 900;
+                color: var(--primary);
+                margin-bottom: 10px;
             }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 class="exam-title">Test Results</h1>
-            <p class="exam-subtitle">SSC CGL Mock Test - Complete Analysis</p>
-        </div>
 
-        <div class="main-content">
-            <div class="score-section">
-                <div class="score-display">
-                    <div class="score-label">Your Score</div>
-                    <div class="score-value" id="scoreValue">--</div>
-                    <div class="score-max" id="scoreMax">/ 200</div>
+            .rank-label {
+                font-size: 1.1rem;
+                color: #6b7280;
+                font-weight: 600;
+            }
+
+            .percentile-bar {
+                margin-bottom: 20px;
+            }
+
+            .percentile-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                font-weight: 600;
+            }
+
+            .percentile-progress {
+                height: 20px;
+                background: var(--border);
+                border-radius: 10px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .percentile-fill {
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--success)
+                );
+                border-radius: 10px;
+                transition: width 1s ease;
+                position: relative;
+            }
+
+            .percentile-fill::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                );
+                animation: shimmer 2s infinite;
+            }
+
+            @keyframes shimmer {
+                0% {
+                    transform: translateX(-100%);
+                }
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+
+            .performance-chart {
+                background: var(--light);
+                padding: 20px;
+                border-radius: 15px;
+                margin-bottom: 25px;
+            }
+
+            .chart-bars {
+                display: flex;
+                justify-content: space-between;
+                align-items: end;
+                height: 150px;
+                gap: 10px;
+            }
+
+            .chart-bar {
+                flex: 1;
+                background: linear-gradient(
+                    to top,
+                    var(--primary),
+                    var(--success)
+                );
+                border-radius: 8px 8px 0 0;
+                position: relative;
+                transition: transform 0.3s ease;
+                cursor: pointer;
+            }
+
+            .chart-bar:hover {
+                transform: scaleY(1.05);
+            }
+
+            .chart-label {
+                position: absolute;
+                bottom: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: #6b7280;
+            }
+
+            .actions-section {
+                background: white;
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .action-buttons {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .action-btn {
+                padding: 15px 25px;
+                border: none;
+                border-radius: 12px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .action-btn.primary {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-dark)
+                );
+                color: white;
+            }
+
+            .action-btn.success {
+                background: linear-gradient(135deg, var(--success), #15803d);
+                color: white;
+            }
+
+            .action-btn.warning {
+                background: linear-gradient(135deg, var(--warning), #d97706);
+                color: white;
+            }
+
+            .action-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow);
+            }
+
+            .loading-spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 1s ease-in-out infinite;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .live-indicator {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(16, 163, 74, 0.1);
+                color: var(--success);
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+
+            .live-dot {
+                width: 8px;
+                height: 8px;
+                background: var(--success);
+                border-radius: 50%;
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .questions-review-section {
+                background: white;
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: var(--shadow-lg);
+                margin-bottom: 30px;
+            }
+
+            .section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 30px;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .filter-buttons {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                border: 2px solid var(--border);
+                background: white;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+
+            .filter-btn:hover {
+                border-color: var(--primary);
+                color: var(--primary);
+            }
+
+            .filter-btn.active {
+                background: var(--primary);
+                border-color: var(--primary);
+                color: white;
+            }
+
+            .questions-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .question-card {
+                border: 2px solid var(--border);
+                border-radius: 15px;
+                padding: 25px;
+                transition: all 0.3s ease;
+            }
+
+            .question-card.correct {
+                border-color: var(--success);
+                background: #f0fdf4;
+            }
+
+            .question-card.incorrect {
+                border-color: var(--danger);
+                background: #fef2f2;
+            }
+
+            .question-card.unattempted {
+                border-color: var(--warning);
+                background: #fffbeb;
+            }
+
+            .question-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 20px;
+            }
+
+            .question-number {
+                font-weight: 700;
+                color: var(--primary);
+                font-size: 1.1rem;
+            }
+
+            .question-status {
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 0.9rem;
+                font-weight: 600;
+            }
+
+            .question-status.correct {
+                background: var(--success);
+                color: white;
+            }
+
+            .question-status.incorrect {
+                background: var(--danger);
+                color: white;
+            }
+
+            .question-status.unattempted {
+                background: var(--warning);
+                color: white;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                color: var(--dark);
+            }
+
+            .options-container {
+                display: grid;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .option-item {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                border-radius: 10px;
+                border: 2px solid var(--border);
+                transition: all 0.3s ease;
+            }
+
+            .option-item.user-answer {
+                border-color: var(--primary);
+                background: #eff6ff;
+            }
+
+            .option-item.correct-answer {
+                border-color: var(--success);
+                background: #dcfce7;
+            }
+
+            .option-item.user-answer.correct-answer {
+                border-color: var(--success);
+                background: #dcfce7;
+            }
+
+            .option-label {
+                font-weight: 700;
+                margin-right: 15px;
+                min-width: 30px;
+            }
+
+            .option-text {
+                flex: 1;
+            }
+
+            .option-indicator {
+                margin-left: 15px;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .option-indicator.user-answer {
+                color: var(--primary);
+            }
+
+            .option-indicator.correct-answer {
+                color: var(--success);
+            }
+
+            .explanation-box {
+                background: #f8fafc;
+                border-left: 4px solid var(--info);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 20px;
+            }
+
+            .explanation-title {
+                font-weight: 700;
+                color: var(--info);
+                margin-bottom: 10px;
+            }
+
+            .explanation-text {
+                line-height: 1.6;
+                color: var(--dark);
+            }
+
+            @media (max-width: 768px) {
+                .main-content {
+                    grid-template-columns: 1fr;
+                }
+
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .action-buttons {
+                    grid-template-columns: 1fr;
+                }
+
+                .score-value {
+                    font-size: 3rem;
+                }
+
+                .rank-number {
+                    font-size: 2.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1 class="exam-title">Test Results</h1>
+                <p class="exam-subtitle">
+                    SSC CGL Mock Test - Complete Analysis
+                </p>
+            </div>
+
+            <div class="main-content">
+                <div class="score-section">
+                    <div class="score-display">
+                        <div class="score-label">Your Score</div>
+                        <div class="score-value" id="scoreValue">--</div>
+                        <div class="score-max" id="scoreMax">/ 200</div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card correct">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-value" id="correctCount">--</div>
+                            <div class="stat-label">Correct</div>
+                        </div>
+                        <div class="stat-card incorrect">
+                            <div class="stat-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="stat-value" id="incorrectCount">--</div>
+                            <div class="stat-label">Incorrect</div>
+                        </div>
+                        <div class="stat-card unattempted">
+                            <div class="stat-icon">
+                                <i class="fas fa-minus-circle"></i>
+                            </div>
+                            <div class="stat-value" id="unattemptedCount">
+                                --
+                            </div>
+                            <div class="stat-label">Unattempted</div>
+                        </div>
+                        <div class="stat-card accuracy">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-value" id="accuracyValue">--</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card correct">
-                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                        <div class="stat-value" id="correctCount">--</div>
-                        <div class="stat-label">Correct</div>
+
+                <div class="ranking-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-trophy"></i>
+                        Real-time Ranking
+                    </h2>
+
+                    <div class="live-indicator">
+                        <div class="live-dot"></div>
+                        Live Rankings
                     </div>
-                    <div class="stat-card incorrect">
-                        <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
-                        <div class="stat-value" id="incorrectCount">--</div>
-                        <div class="stat-label">Incorrect</div>
+
+                    <div class="rank-display">
+                        <div class="rank-number" id="rankNumber">--</div>
+                        <div class="rank-label">Your Rank</div>
                     </div>
-                    <div class="stat-card unattempted">
-                        <div class="stat-icon"><i class="fas fa-minus-circle"></i></div>
-                        <div class="stat-value" id="unattemptedCount">--</div>
-                        <div class="stat-label">Unattempted</div>
+
+                    <div class="percentile-bar">
+                        <div class="percentile-header">
+                            <span>Percentile</span>
+                            <span id="percentileValue">--</span>
+                        </div>
+                        <div class="percentile-progress">
+                            <div
+                                class="percentile-fill"
+                                id="percentileFill"
+                                style="width: 0%"
+                            ></div>
+                        </div>
                     </div>
-                    <div class="stat-card accuracy">
-                        <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                        <div class="stat-value" id="accuracyValue">--</div>
-                        <div class="stat-label">Accuracy</div>
+
+                    <div class="performance-chart">
+                        <h3 style="margin-bottom: 15px; font-size: 1.1rem">
+                            Performance Comparison
+                        </h3>
+                        <div class="chart-bars" id="performanceChart">
+                            <div class="chart-bar" style="height: 70%">
+                                <div class="chart-label">You</div>
+                            </div>
+                            <div class="chart-bar" style="height: 85%">
+                                <div class="chart-label">Avg</div>
+                            </div>
+                            <div class="chart-bar" style="height: 95%">
+                                <div class="chart-label">Top</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="ranking-section">
+            <div class="actions-section">
                 <h2 class="section-title">
-                    <i class="fas fa-trophy"></i>
-                    Real-time Ranking
+                    <i class="fas fa-tools"></i>
+                    Actions & Analysis
                 </h2>
-                
-                <div class="live-indicator">
-                    <div class="live-dot"></div>
-                    Live Rankings
-                </div>
 
-                <div class="rank-display">
-                    <div class="rank-number" id="rankNumber">--</div>
-                    <div class="rank-label">Your Rank</div>
-                </div>
-
-                <div class="percentile-bar">
-                    <div class="percentile-header">
-                        <span>Percentile</span>
-                        <span id="percentileValue">--</span>
-                    </div>
-                    <div class="percentile-progress">
-                        <div class="percentile-fill" id="percentileFill" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="performance-chart">
-                    <h3 style="margin-bottom: 15px; font-size: 1.1rem;">Performance Comparison</h3>
-                    <div class="chart-bars" id="performanceChart">
-                        <div class="chart-bar" style="height: 70%">
-                            <div class="chart-label">You</div>
-                        </div>
-                        <div class="chart-bar" style="height: 85%">
-                            <div class="chart-label">Avg</div>
-                        </div>
-                        <div class="chart-bar" style="height: 95%">
-                            <div class="chart-label">Top</div>
-                        </div>
-                    </div>
+                <div class="action-buttons">
+                    <a href="review.html" class="action-btn primary">
+                        <i class="fas fa-eye"></i>
+                        Review Solutions
+                    </a>
+                    <a
+                        href="#"
+                        class="action-btn success"
+                        onclick="showPreviousAttempts()"
+                    >
+                        <i class="fas fa-history"></i>
+                        Previous Attempts
+                    </a>
+                    <a
+                        href="#"
+                        class="action-btn warning"
+                        onclick="compareWithTopper()"
+                    >
+                        <i class="fas fa-chart-bar"></i>
+                        Compare with Topper
+                    </a>
+                    <a href="index.html" class="action-btn primary">
+                        <i class="fas fa-home"></i>
+                        Back to Tests
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="actions-section">
-            <h2 class="section-title">
-                <i class="fas fa-tools"></i>
-                Actions & Analysis
-            </h2>
-            
-            <div class="action-buttons">
-                <a href="review.html" class="action-btn primary">
-                    <i class="fas fa-eye"></i>
-                    Review Solutions
-                </a>
-                <a href="#" class="action-btn success" onclick="showPreviousAttempts()">
-                    <i class="fas fa-history"></i>
-                    Previous Attempts
-                </a>
-                <a href="#" class="action-btn warning" onclick="compareWithTopper()">
-                    <i class="fas fa-chart-bar"></i>
-                    Compare with Topper
-                </a>
-                <a href="index.html" class="action-btn primary">
-                    <i class="fas fa-home"></i>
-                    Back to Tests
-                </a>
+        <!-- Questions Review Section -->
+        <div class="questions-review-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-list-check"></i>
+                    Complete Question Review
+                </h2>
+                <div class="filter-buttons">
+                    <button
+                        class="filter-btn active"
+                        onclick="filterQuestions('all')"
+                    >
+                        All Questions
+                    </button>
+                    <button
+                        class="filter-btn"
+                        onclick="filterQuestions('correct')"
+                    >
+                        Correct
+                    </button>
+                    <button
+                        class="filter-btn"
+                        onclick="filterQuestions('incorrect')"
+                    >
+                        Incorrect
+                    </button>
+                    <button
+                        class="filter-btn"
+                        onclick="filterQuestions('unattempted')"
+                    >
+                        Unattempted
+                    </button>
+                </div>
+            </div>
+            <div
+                id="section-tabs"
+                class="filter-buttons"
+                style="margin-top: 12px"
+            >
+                <!-- Section tabs will be injected -->
+            </div>
+            <div
+                id="section-palette"
+                style="display: flex; gap: 8px; margin: 8px 0 16px 0"
+            >
+                <!-- Section palette counts will be injected -->
+            </div>
+
+            <div id="questions-container" class="questions-container">
+                <!-- Questions will be dynamically loaded here -->
             </div>
         </div>
-    </div>
 
-    <!-- Questions Review Section -->
-    <div class="questions-review-section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <i class="fas fa-list-check"></i>
-                Complete Question Review
-            </h2>
-            <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterQuestions('all')">All Questions</button>
-                <button class="filter-btn" onclick="filterQuestions('correct')">Correct</button>
-                <button class="filter-btn" onclick="filterQuestions('incorrect')">Incorrect</button>
-                <button class="filter-btn" onclick="filterQuestions('unattempted')">Unattempted</button>
-            </div>
-        </div>
-        <div id="section-tabs" class="filter-buttons" style="margin-top:12px;">
-            <!-- Section tabs will be injected -->
-        </div>
-        <div id="section-palette" style="display:flex;gap:8px;margin:8px 0 16px 0;">
-            <!-- Section palette counts will be injected -->
-        </div>
-        
-        <div id="questions-container" class="questions-container">
-            <!-- Questions will be dynamically loaded here -->
-        </div>
-    </div>
-
-    <script>
-        // Firebase Configuration - Your actual config
-        const firebaseConfig = {
-            apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
-            authDomain: "exam-axis.firebaseapp.com",
-            databaseURL: "https://exam-axis-default-rtdb.firebaseio.com",
-            projectId: "exam-axis",
-            storageBucket: "exam-axis.firebasestorage.app",
-            messagingSenderId: "285879641284",
-            appId: "1:285879641284:web:10a1800c5e579e68ee1591",
-            measurementId: "G-2ML43R0G1X"
-        };
-
-        // Initialize Firebase with your actual config
-        let database;
-        let isFirebaseEnabled = true;
-
-        // Initialize Firebase immediately with your config
-        function initializeFirebase() {
-            try {
-                // Check if Firebase is available
-                if (typeof firebase === 'undefined') {
-                    console.warn('⚠️ Firebase SDK not loaded');
-                    isFirebaseEnabled = false;
-                    showNotification('Firebase not available - some features disabled', 'warning');
-                    return;
-                }
-                
-                // Initialize Firebase (avoid duplicate initialization)
-                if (!firebase.apps || firebase.apps.length === 0) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                database = firebase.database();
-                isFirebaseEnabled = true;
-                console.log('✅ Firebase initialized successfully');
-                
-                // Simple anonymous sign-in with timeout
-                const authTimeout = setTimeout(() => {
-                    console.log('⏰ Firebase auth timeout - proceeding without auth');
-                    showNotification('Firebase connected (limited features)', 'info');
-                }, 3000);
-                
-                firebase.auth().signInAnonymously().then(() => {
-                    clearTimeout(authTimeout);
-                    console.log('✅ Firebase anonymous auth successful');
-                    showNotification('Firebase connected successfully', 'success');
-                    setTimeout(startRealtimeUpdates, 500);
-                }).catch((error) => {
-                    clearTimeout(authTimeout);
-                    console.warn('⚠️ Firebase auth failed:', error.message);
-                    showNotification('Firebase connected (no authentication)', 'warning');
-                    setTimeout(startRealtimeUpdates, 500);
-                });
-                
-            } catch (error) {
-                console.error('❌ Firebase initialization failed:', error);
-                isFirebaseEnabled = false;
-                showNotification('Firebase unavailable - using offline mode', 'warning');
-            }
-        }
-
-        // Simple notification system
-        function showNotification(message, type = 'info') {
-            const colors = {
-                success: '#16a34a',
-                error: '#dc2626', 
-                warning: '#f59e0b',
-                info: '#2563eb'
+        <script>
+            // Firebase Configuration - Your actual config
+            const firebaseConfig = {
+                apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
+                authDomain: "exam-axis.firebaseapp.com",
+                databaseURL: "https://exam-axis-default-rtdb.firebaseio.com",
+                projectId: "exam-axis",
+                storageBucket: "exam-axis.firebasestorage.app",
+                messagingSenderId: "285879641284",
+                appId: "1:285879641284:web:10a1800c5e579e68ee1591",
+                measurementId: "G-2ML43R0G1X",
             };
-            
-            const notification = document.createElement('div');
-            notification.style.cssText = `
+
+            // Initialize Firebase with your actual config
+            let database;
+            let isFirebaseEnabled = true;
+
+            // Initialize Firebase immediately with your config
+            function initializeFirebase() {
+                try {
+                    // Check if Firebase is available
+                    if (typeof firebase === "undefined") {
+                        console.warn("⚠️ Firebase SDK not loaded");
+                        isFirebaseEnabled = false;
+                        showNotification(
+                            "Firebase not available - some features disabled",
+                            "warning",
+                        );
+                        return;
+                    }
+
+                    // Initialize Firebase (avoid duplicate initialization)
+                    if (!firebase.apps || firebase.apps.length === 0) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+                    database = firebase.database();
+                    isFirebaseEnabled = true;
+                    console.log("✅ Firebase initialized successfully");
+
+                    // Simple anonymous sign-in with timeout
+                    const authTimeout = setTimeout(() => {
+                        console.log(
+                            "⏰ Firebase auth timeout - proceeding without auth",
+                        );
+                        showNotification(
+                            "Firebase connected (limited features)",
+                            "info",
+                        );
+                    }, 3000);
+
+                    firebase
+                        .auth()
+                        .signInAnonymously()
+                        .then(() => {
+                            clearTimeout(authTimeout);
+                            console.log(
+                                "✅ Firebase anonymous auth successful",
+                            );
+                            showNotification(
+                                "Firebase connected successfully",
+                                "success",
+                            );
+                            setTimeout(startRealtimeUpdates, 500);
+                        })
+                        .catch((error) => {
+                            clearTimeout(authTimeout);
+                            console.warn(
+                                "⚠️ Firebase auth failed:",
+                                error.message,
+                            );
+                            showNotification(
+                                "Firebase connected (no authentication)",
+                                "warning",
+                            );
+                            setTimeout(startRealtimeUpdates, 500);
+                        });
+                } catch (error) {
+                    console.error("❌ Firebase initialization failed:", error);
+                    isFirebaseEnabled = false;
+                    showNotification(
+                        "Firebase unavailable - using offline mode",
+                        "warning",
+                    );
+                }
+            }
+
+            // Simple notification system
+            function showNotification(message, type = "info") {
+                const colors = {
+                    success: "#16a34a",
+                    error: "#dc2626",
+                    warning: "#f59e0b",
+                    info: "#2563eb",
+                };
+
+                const notification = document.createElement("div");
+                notification.style.cssText = `
                 position: fixed; top: 20px; right: 20px; z-index: 10000;
                 background: ${colors[type]}; color: white; padding: 12px 20px;
                 border-radius: 8px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 animation: slideIn 0.3s ease;
             `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // Add animations
-        const style = document.createElement('style');
-        style.textContent = `
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.animation = "slideOut 0.3s ease";
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+
+            // Add animations
+            const style = document.createElement("style");
+            style.textContent = `
             @keyframes slideIn {
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
@@ -829,331 +968,710 @@
                 to { transform: translateX(100%); opacity: 0; }
             }
         `;
-        document.head.appendChild(style);
+            document.head.appendChild(style);
 
-        // Start real-time updates for rankings
-        function startRealtimeUpdates() {
-            if (!isFirebaseEnabled) return;
-            
-            // IMPORTANT: Use URL testId for proper isolation
-            const urlParams = new URLSearchParams(window.location.search);
-            const testId = urlParams.get('testId') || localStorage.getItem('testId') || 'default';
-            const resultsRef = database.ref('testResults/' + testId);
-            
-            // Listen for real-time updates
-            resultsRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    updateRankings(data);
-                }
-            });
-            
-            console.log('🔄 Real-time updates started for test:', testId);
-        }
+            // Start real-time updates for rankings
+            function startRealtimeUpdates() {
+                if (!isFirebaseEnabled) return;
 
-        // Update rankings with real-time data
-        function updateRankings(allResults) {
-            const resultsArray = Object.values(allResults);
-            resultsArray.sort((a, b) => b.score - a.score);
-            
-            const userId = localStorage.getItem('userId') || 'anonymous';
-            const userResult = resultsArray.find(r => r.userId === userId);
-            
-            if (userResult) {
-                const rank = resultsArray.indexOf(userResult) + 1;
-                const percentile = ((resultsArray.length - rank + 1) / resultsArray.length * 100).toFixed(1);
-                
-                // Update rank display
-                const rankElement = document.getElementById('rank-display');
-                if (rankElement) {
-                    rankElement.innerHTML = `#${rank} <span style="font-size: 16px; color: #6b7280;">of ${resultsArray.length}</span>`;
-                }
-                
-                // Update percentile display
-                const percentileElement = document.getElementById('percentile-bar');
-                if (percentileElement) {
-                    percentileElement.style.width = `${percentile}%`;
-                    const percentileText = document.getElementById('percentile-text');
-                    if (percentileText) {
-                        percentileText.textContent = `${percentile}%`;
+                // IMPORTANT: Use URL testId for proper isolation
+                const urlParams = new URLSearchParams(window.location.search);
+                const testId =
+                    urlParams.get("testId") ||
+                    localStorage.getItem("testId") ||
+                    "default";
+                const resultsRef = database.ref("testResults/" + testId);
+
+                // Listen for real-time updates
+                resultsRef.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        updateRankings(data);
                     }
-                }
-                
-                // Update comparison chart
-                updateComparisonChart(userResult.score, resultsArray);
-            }
-        }
+                });
 
-        // Update comparison chart
-        function updateComparisonChart(userScore, allResults) {
-            const ctx = document.getElementById('comparison-chart');
-            if (!ctx) return;
-            
-            const scores = allResults.map(r => r.score);
-            const average = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
-            const highest = Math.max(...scores);
-            
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Your Score', 'Average', 'Highest'],
-                    datasets: [{
-                        label: 'Score',
-                        data: [userScore, average, highest],
-                        backgroundColor: ['#2563eb', '#f59e0b', '#16a34a'],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
+                console.log("🔄 Real-time updates started for test:", testId);
+            }
+
+            // Update rankings with real-time data
+            function updateRankings(allResults) {
+                const resultsArray = Object.values(allResults);
+                resultsArray.sort((a, b) => b.score - a.score);
+
+                const userId = localStorage.getItem("userId") || "anonymous";
+                const userResult = resultsArray.find(
+                    (r) => r.userId === userId,
+                );
+
+                if (userResult) {
+                    const rank = resultsArray.indexOf(userResult) + 1;
+                    const percentile = (
+                        ((resultsArray.length - rank + 1) /
+                            resultsArray.length) *
+                        100
+                    ).toFixed(1);
+
+                    // Update rank display
+                    const rankElement = document.getElementById("rank-display");
+                    if (rankElement) {
+                        rankElement.innerHTML = `#${rank} <span style="font-size: 16px; color: #6b7280;">of ${resultsArray.length}</span>`;
+                    }
+
+                    // Update percentile display
+                    const percentileElement =
+                        document.getElementById("percentile-bar");
+                    if (percentileElement) {
+                        percentileElement.style.width = `${percentile}%`;
+                        const percentileText =
+                            document.getElementById("percentile-text");
+                        if (percentileText) {
+                            percentileText.textContent = `${percentile}%`;
                         }
+                    }
+
+                    // Update comparison chart
+                    updateComparisonChart(userResult.score, resultsArray);
+                }
+            }
+
+            // Update comparison chart
+            function updateComparisonChart(userScore, allResults) {
+                const ctx = document.getElementById("comparison-chart");
+                if (!ctx) return;
+
+                const scores = allResults.map((r) => r.score);
+                const average = (
+                    scores.reduce((a, b) => a + b, 0) / scores.length
+                ).toFixed(1);
+                const highest = Math.max(...scores);
+
+                new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: ["Your Score", "Average", "Highest"],
+                        datasets: [
+                            {
+                                label: "Score",
+                                data: [userScore, average, highest],
+                                backgroundColor: [
+                                    "#2563eb",
+                                    "#f59e0b",
+                                    "#16a34a",
+                                ],
+                                borderRadius: 8,
+                            },
+                        ],
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                        },
+                    },
+                });
+            }
+
+            // Get test results from URL parameters or localStorage
+            async function getTestResults() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlTestId = urlParams.get("testId");
+                const ls = localStorage.getItem("testResult");
+                let base = ls ? JSON.parse(ls) : {};
+
+                // IMPORTANT: Use URL testId first, then fallback to localStorage
+                let testId =
+                    urlTestId ||
+                    base.testId ||
+                    localStorage.getItem("testId") ||
+                    "";
+                const viewOnly = urlParams.get("viewOnly") === "1";
+
+                console.log("🔍 Getting test results for:", {
+                    testId,
+                    viewOnly,
+                    urlTestId,
+                });
+
+                if (!testId) {
+                    console.warn("⚠️ No testId found");
+                    return (
+                        base || {
+                            score: 0,
+                            correct: 0,
+                            incorrect: 0,
+                            unattempted: 0,
+                            totalQuestions: 100,
+                            accuracy: 0,
+                            timestamp: new Date().toISOString(),
+                        }
+                    );
+                }
+
+                // ✅ Enhanced backend fetch with TestService
+                try {
+                    if (typeof TestService !== "undefined") {
+                        console.log(
+                            "🔄 Using TestService to fetch last attempt...",
+                        );
+                        const data = await TestService.getLastAttempt(testId);
+
+                        if (data && data.lastAttempt) {
+                            const la = data.lastAttempt;
+                            let questions = la.questions || [];
+
+                            console.log("✅ TestService returned:", {
+                                testId: testId,
+                                hasQuestions: !!la.questions,
+                                questionsCount: questions.length,
+                                score: la.score,
+                                correctAnswers: la.correctAnswers,
+                                wrongAnswers: la.wrongAnswers,
+                            });
+
+                            // If no questions, try to get them from other sources
+                            if (questions.length === 0) {
+                                console.warn(
+                                    "⚠️ No questions in attempt, trying alternatives...",
+                                );
+
+                                // Try localStorage first
+                                const localQuestions =
+                                    getQuestionsFromLocalStorage(testId);
+                                if (localQuestions.length > 0) {
+                                    questions = localQuestions;
+                                    console.log(
+                                        "✅ Using questions from localStorage:",
+                                        questions.length,
+                                    );
+                                } else {
+                                    // Try API fallback
+                                    try {
+                                        console.log(
+                                            "🔄 Fetching questions from API for testId:",
+                                            testId,
+                                        );
+                                        const q = await ExamAxisAPI.request(
+                                            `/api/questions/${encodeURIComponent(testId)}`,
+                                        );
+                                        questions =
+                                            (q.data &&
+                                                (q.data.data?.questions ||
+                                                    q.data.questions ||
+                                                    q.data)) ||
+                                            [];
+                                        console.log(
+                                            "✅ Fetched",
+                                            questions.length,
+                                            "questions from API",
+                                        );
+                                    } catch (e) {
+                                        console.error(
+                                            "❌ Failed to fetch questions from API:",
+                                            e,
+                                        );
+                                    }
+                                }
+                            }
+
+                            // ✅ Enhanced answer mapping with multiple ID formats
+                            const answers = la.answers || {};
+                            const states = [];
+                            const norm = (s) =>
+                                String(s || "")
+                                    .normalize("NFKC")
+                                    .replace(/\s+/g, " ")
+                                    .trim()
+                                    .toLowerCase();
+
+                            questions.forEach((q, idx) => {
+                                // Try multiple ID formats for better compatibility
+                                const testSpecificId = `${testId}_${idx}`;
+                                const questionId = q.id || testSpecificId;
+                                const originalIndex =
+                                    q.originalIndex !== undefined
+                                        ? q.originalIndex
+                                        : idx;
+
+                                // Find user's answer using various key formats
+                                let selected = null;
+                                if (answers[testSpecificId] !== undefined) {
+                                    selected = answers[testSpecificId];
+                                } else if (answers[questionId] !== undefined) {
+                                    selected = answers[questionId];
+                                } else if (
+                                    answers[originalIndex] !== undefined
+                                ) {
+                                    selected = answers[originalIndex];
+                                } else if (answers[idx] !== undefined) {
+                                    selected = answers[idx];
+                                }
+
+                                const selText =
+                                    typeof selected === "string"
+                                        ? selected
+                                        : Array.isArray(q.options) &&
+                                            typeof selected === "number"
+                                          ? q.options[selected]
+                                          : null;
+
+                                // Handle different correctAnswer formats
+                                let correctText = "";
+                                if (typeof q.correctAnswer === "string") {
+                                    correctText = q.correctAnswer;
+                                } else if (q.correctAnswer?.en) {
+                                    correctText = q.correctAnswer.en;
+                                } else if (q.correctAnswer?.text) {
+                                    correctText = q.correctAnswer.text;
+                                }
+
+                                let state = "unattempted";
+                                if (selText != null && selText !== "") {
+                                    state =
+                                        norm(selText) === norm(correctText)
+                                            ? "correct"
+                                            : "incorrect";
+                                }
+
+                                states.push({
+                                    index: idx,
+                                    state,
+                                    selected: selText,
+                                    correct: correctText,
+                                    resultCategory: state,
+                                    userAnswer: selText,
+                                });
+                            });
+
+                            const merged = {
+                                testId,
+                                viewOnly,
+                                title:
+                                    base.title ||
+                                    la.title ||
+                                    getTestTitle(testId) ||
+                                    "Test",
+                                subject:
+                                    base.subject ||
+                                    la.subject ||
+                                    getTestSubject(testId) ||
+                                    "General",
+                                score: Number(la.score ?? base.score ?? 0),
+                                correct: Number(
+                                    la.correctAnswers ?? base.correct ?? 0,
+                                ),
+                                incorrect: Number(
+                                    la.wrongAnswers ?? base.incorrect ?? 0,
+                                ),
+                                unattempted: Number(
+                                    la.unanswered ?? base.unattempted ?? 0,
+                                ),
+                                totalQuestions: questions.length || 0,
+                                totalMarks: questions.length * 2 || 0,
+                                accuracy: Math.round(
+                                    ((la.correctAnswers || 0) /
+                                        Math.max(
+                                            (la.correctAnswers || 0) +
+                                                (la.wrongAnswers || 0) +
+                                                (la.unanswered || 0),
+                                            1,
+                                        )) *
+                                        100,
+                                ),
+                                timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
+                                timestamp:
+                                    la.submittedAt ||
+                                    base.timestamp ||
+                                    new Date().toISOString(),
+                                questionStates: states,
+                                questions: questions,
+                                // Enhanced metadata
+                                metadata: {
+                                    source: "backend",
+                                    fetchTime: new Date().toISOString(),
+                                    hasQuestions: questions.length > 0,
+                                    answersCount: Object.keys(answers).length,
+                                },
+                            };
+
+                            // Save enhanced result
+                            localStorage.setItem(
+                                "testResult",
+                                JSON.stringify(merged),
+                            );
+                            console.log("✅ Enhanced result saved:", {
+                                testId: merged.testId,
+                                score: merged.score,
+                                questionsCount: merged.questions.length,
+                            });
+
+                            return merged;
                         }
                     }
+                } catch (error) {
+                    console.error("❌ TestService fetch failed:", error);
                 }
-            });
-        }
 
-        // Get test results from URL parameters or localStorage
-        async function getTestResults() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlTestId = urlParams.get('testId');
-            const ls = localStorage.getItem('testResult');
-            let base = ls ? JSON.parse(ls) : {};
-            
-            // IMPORTANT: Use URL testId first, then fallback to localStorage
-            let testId = urlTestId || base.testId || localStorage.getItem('testId') || '';
-            const viewOnly = urlParams.get('viewOnly') === '1';
-            
-            // Clear any conflicting testId from localStorage when loading different test
-            if (urlTestId && urlTestId !== localStorage.getItem('testId')) {
-                console.log('🔄 Different testId detected, clearing localStorage conflicts');
-                // Don't clear testId here, use URL parameter
-            }
-            
-            if (!testId) return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
-            try {
-                const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
-                const la = (response && response.ok && data && (data.data || data.lastAttempt)) ? (data.data?.lastAttempt || data.data || data.lastAttempt) : null;
-                if (la) {
-                    // ✅ Backend returns questions in 'questions' field
-                    let questions = la.questions || [];
-                    
-                    console.log('🔍 LOAD ATTEMPT - Backend returned:', {
-                        testId: testId,
-                        hasQuestions: !!la.questions,
-                        questionsCount: questions.length,
-                        score: la.score,
-                        correctAnswers: la.correctAnswers,
-                        wrongAnswers: la.wrongAnswers
-                    });
-                    
-                    // If no questions in attempt, fallback to API fetch
-                    if (questions.length === 0) {
-                        console.warn('⚠️ No questionsSnapshot in attempt! Falling back to API fetch');
-                        try {
-                            console.log('🔄 Fetching questions from API for testId:', testId);
-                            const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
-                            questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
-                            console.log('✅ Fetched', questions.length, 'questions from API');
-                        } catch (e) {
-                            console.error('❌ Failed to fetch questions from API:', e);
-                        }
-                    } else {
-                        console.log('✅ Using', questions.length, 'questions from attempt snapshot');
-                        console.log('📋 First question:', questions[0]?.question?.substring(0, 50));
-                    }
-                    
-                    // build questionStates from answers
-                    const answers = la.answers || {};
-                    const states = [];
-                    const norm = s => String(s || '').normalize('NFKC').replace(/\s+/g,' ').trim().toLowerCase();
-                    questions.forEach((q, idx) => {
-                        const qid = q.id != null ? String(q.id) : String(idx+1);
-                        const selected = answers[qid] != null ? answers[qid] : answers[idx] != null ? answers[idx] : null;
-                        const selText = typeof selected === 'string' ? selected : (Array.isArray(q.options) && typeof selected === 'number' ? q.options[selected] : null);
-                        const correctText = (q.correctAnswer && q.correctAnswer.en) ? q.correctAnswer.en : q.correctAnswer;
-                        let state = 'unattempted';
-                        if (selText != null && selText !== '') {
-                            state = (norm(selText) === norm(correctText)) ? 'correct' : 'incorrect';
-                        }
-                        states.push({ index: idx, state, selected: selText, correct: correctText });
-                    });
-                    const merged = {
-                        testId,
-                        viewOnly,
-                        title: base.title || la.title || 'Test',
-                        subject: base.subject || la.subject || 'General',
-                        score: la.score ?? base.score ?? 0,
-                        correct: la.correctAnswers ?? base.correct ?? 0,
-                        incorrect: la.wrongAnswers ?? base.incorrect ?? 0,
-                        unattempted: la.unanswered ?? base.unattempted ?? 0,
-                        totalQuestions: base.totalQuestions || questions.length || 0,
-                        accuracy: base.accuracy ?? Math.round(((la.correctAnswers || 0)/((la.correctAnswers||0)+(la.wrongAnswers||0)+(la.unanswered||0)||1))*100),
-                        timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
-                        timestamp: la.submittedAt || base.timestamp || new Date().toISOString(),
-                        questionStates: states,
-                        questions
-                    };
-                    localStorage.setItem('testResult', JSON.stringify(merged));
-                    return merged;
-                }
-            } catch (_) {}
-            // Fallback to data sent from index page
-            try {
-                const cached = JSON.parse(localStorage.getItem('viewAttempt') || '{}');
-                if (cached && String(cached.testId) === String(testId) && cached.lastAttempt) {
-                    const la = cached.lastAttempt;
-                    const merged = {
-                        testId,
-                        viewOnly,
-                        title: la.title || base.title || 'Test',
-                        subject: la.subject || base.subject || 'General',
-                        score: la.score ?? base.score ?? 0,
-                        correct: la.correctAnswers ?? base.correct ?? 0,
-                        incorrect: la.wrongAnswers ?? base.incorrect ?? 0,
-                        unattempted: la.unanswered ?? base.unattempted ?? 0,
-                        totalMarks: la.totalMarks ?? (base.totalMarks || 50),
-                        accuracy: base.accuracy ?? Math.round(((la.correctAnswers || 0)/((la.correctAnswers||0)+(la.wrongAnswers||0)+(la.unanswered||0)||1))*100),
-                        timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
-                        timestamp: la.submittedAt || base.timestamp || new Date().toISOString(),
-                        questionStates: base.questionStates || [],
-                        questions: base.questions || []
-                    };
-                    localStorage.setItem('testResult', JSON.stringify(merged));
-                    return merged;
-                }
-            } catch (_) {}
-            return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
-        }
+                // ✅ Enhanced localStorage fallback
+                try {
+                    console.log("🔄 Trying enhanced localStorage fallback...");
 
-        // Save test results to Firebase
-        async function saveResultsToFirebase(results) {
-            if (!isFirebaseEnabled) return;
-            try {
-                if (firebase.auth && !firebase.auth().currentUser) {
-                    await firebase.auth().signInAnonymously().catch(()=>{});
-                }
-            } catch (_) {}
-            let userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
-            if (!userId) {
-                try {
-                    const u = JSON.parse(localStorage.getItem('user') || '{}');
-                    userId = u.id || u._id || u.userId || null;
-                } catch {}
-            }
-            if (!userId) return;
-            
-            const userName = localStorage.getItem('userName') || 
-                           localStorage.getItem('name') || 
-                           localStorage.getItem('user_name') || 
-                           `User_${userId.substr(-6)}`;
-            
-            // IMPORTANT: Use URL testId for proper isolation
-            const urlParams = new URLSearchParams(window.location.search);
-            const testId = (function(res) {
-                if (res?.testId) return String(res.testId);
-                const urlTestId = urlParams.get('testId');
-                if (urlTestId) return String(urlTestId);
-                const lsTid = localStorage.getItem('testId');
-                if (lsTid) return String(lsTid);
-                try {
-                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
-                    if (last && last.testId) return String(last.testId);
-                } catch {}
-                return 'default';
-            })(results);
-            
-            const resultData = {
-                userId: userId,
-                userName: userName,
-                score: results.score || 0,
-                correct: results.correct || 0,
-                incorrect: results.incorrect || 0,
-                unattempted: results.unattempted || 0,
-                totalQuestions: results.totalQuestions || 0,
-                accuracy: results.accuracy || 0,
-                timeTaken: results.timeTaken || 0,
-                timestamp: results.timestamp || new Date().toISOString(),
-                testId: testId,
-                testTitle: results.title || 'Test',
-                subject: results.subject || 'Mathematics'
-            };
-            
-            // Save to main results for ranking
-            database.ref('testResults/' + testId + '/' + userId).set(resultData)
-                .then(() => {
-                    // Also save to user attempts for history
-                    const attemptId = Date.now().toString();
-                    database.ref('userAttempts/' + userId + '/' + testId + '/' + attemptId).set(resultData)
-                        .then(() => {
-                        })
-                        .catch((error) => {
+                    // Try testResults map first
+                    const testResults = JSON.parse(
+                        localStorage.getItem("testResults") || "{}",
+                    );
+                    if (testResults[testId]) {
+                        const result = testResults[testId];
+                        console.log("✅ Found in testResults map:", {
+                            testId: result.testId,
+                            score: result.score,
+                            questionsCount: result.questions?.length || 0,
                         });
-                    
-                    // Update real-time rankings after saving
-                    updateRealtimeRankings(testId, userId);
-                })
-                .catch((error) => {
-                    // Fallback: still compute ranking in read-only mode
-                    updateRealtimeRankings(testId, userId);
-                });
-        }
 
-        // Update real-time rankings
-        function updateRealtimeRankings(testId, currentUserId) {
-            if (!isFirebaseEnabled) return;
-            
-            database.ref('testResults/' + testId).once('value')
-                .then((snapshot) => {
-                    const allResults = snapshot.val() || {};
-                    const resultsArray = Object.values(allResults);
-                    
-                    if (resultsArray.length === 0) {
-                        updateRankingDisplay(1, 1, 100); // Default for first user
-                        return;
+                        return enhanceResultData(result, testId);
                     }
-                    
-                    // Sort by score (descending)
-                    resultsArray.sort((a, b) => b.score - a.score);
-                    
-                    // Find current user rank
-                    const userRank = resultsArray.findIndex(r => r.userId === currentUserId) + 1;
-                    const totalUsers = resultsArray.length;
-                    
-                    // Calculate percentile correctly (higher rank = higher percentile)
-                    const percentile = totalUsers > 0 ? ((totalUsers - userRank + 1) / totalUsers * 100) : 0;
-                    
-                    // Update UI
-                    updateRankingDisplay(userRank, totalUsers, percentile);
-                    
-                    // Store for comparison feature
-                    localStorage.setItem('currentRank', userRank.toString());
-                    localStorage.setItem('totalUsers', totalUsers.toString());
-                    localStorage.setItem('percentile', percentile.toFixed(1));
-                    
-                    // Update leaderboard
-                    updateLeaderboard(resultsArray, currentUserId);
-                })
-                .catch((error) => {
-                    // Show default values
-                    updateRankingDisplay(1, 1, 100);
-                });
-        }
 
-        // Update leaderboard display
-        function updateLeaderboard(resultsArray, currentUserId) {
-            const leaderboardContainer = document.getElementById('leaderboard-container');
-            
-            if (!leaderboardContainer) {
-                // Create leaderboard container if it doesn't exist
-                const leaderboardHTML = `
+                    // Try viewAttempt cache
+                    const cached = JSON.parse(
+                        localStorage.getItem("viewAttempt") || "{}",
+                    );
+                    if (
+                        cached &&
+                        String(cached.testId) === String(testId) &&
+                        cached.lastAttempt
+                    ) {
+                        const la = cached.lastAttempt;
+                        console.log("✅ Found in viewAttempt cache");
+
+                        const merged = {
+                            testId,
+                            viewOnly,
+                            title:
+                                la.title ||
+                                base.title ||
+                                getTestTitle(testId) ||
+                                "Test",
+                            subject:
+                                la.subject ||
+                                base.subject ||
+                                getTestSubject(testId) ||
+                                "General",
+                            score: Number(la.score ?? base.score ?? 0),
+                            correct: Number(
+                                la.correctAnswers ?? base.correct ?? 0,
+                            ),
+                            incorrect: Number(
+                                la.wrongAnswers ?? base.incorrect ?? 0,
+                            ),
+                            unattempted: Number(
+                                la.unanswered ?? base.unattempted ?? 0,
+                            ),
+                            totalMarks:
+                                la.totalMarks ?? (base.totalMarks || 50),
+                            totalQuestions:
+                                la.totalQuestions ?? base.totalQuestions ?? 0,
+                            accuracy: Math.round(
+                                ((la.correctAnswers || 0) /
+                                    Math.max(
+                                        (la.correctAnswers || 0) +
+                                            (la.wrongAnswers || 0) +
+                                            (la.unanswered || 0),
+                                        1,
+                                    )) *
+                                    100,
+                            ),
+                            timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
+                            timestamp:
+                                la.submittedAt ||
+                                base.timestamp ||
+                                new Date().toISOString(),
+                            questionStates: base.questionStates || [],
+                            questions: base.questions || [],
+                            metadata: {
+                                source: "viewAttempt",
+                                fetchTime: new Date().toISOString(),
+                            },
+                        };
+
+                        localStorage.setItem(
+                            "testResult",
+                            JSON.stringify(merged),
+                        );
+                        return merged;
+                    }
+
+                    // Try base testResult if it matches
+                    if (base.testId === testId) {
+                        console.log("✅ Using base testResult data");
+                        return enhanceResultData(base, testId);
+                    }
+                } catch (error) {
+                    console.error("❌ localStorage fallback failed:", error);
+                }
+
+                console.warn("⚠️ No data found, returning defaults");
+                return enhanceResultData(
+                    {
+                        score: 0,
+                        correct: 0,
+                        incorrect: 0,
+                        unattempted: 0,
+                        totalQuestions: 100,
+                        accuracy: 0,
+                        timestamp: new Date().toISOString(),
+                    },
+                    testId,
+                );
+            }
+
+            // ✅ Helper functions for enhanced data handling
+            function getQuestionsFromLocalStorage(testId) {
+                try {
+                    // Try testResults first
+                    const testResults = JSON.parse(
+                        localStorage.getItem("testResults") || "{}",
+                    );
+                    if (testResults[testId] && testResults[testId].questions) {
+                        return testResults[testId].questions;
+                    }
+
+                    // Try current testResult
+                    const testResult = JSON.parse(
+                        localStorage.getItem("testResult") || "{}",
+                    );
+                    if (testResult.testId === testId && testResult.questions) {
+                        return testResult.questions;
+                    }
+
+                    // Try window.questions
+                    if (window.questions && Array.isArray(window.questions)) {
+                        return window.questions;
+                    }
+                } catch (error) {
+                    console.error(
+                        "Error reading questions from localStorage:",
+                        error,
+                    );
+                }
+                return [];
+            }
+
+            function getTestTitle(testId) {
+                if (typeof ALL_TESTS !== "undefined") {
+                    const test = ALL_TESTS.find(
+                        (t) => String(t.id) === String(testId),
+                    );
+                    return test?.title;
+                }
+                return null;
+            }
+
+            function getTestSubject(testId) {
+                if (typeof ALL_TESTS !== "undefined") {
+                    const test = ALL_TESTS.find(
+                        (t) => String(t.id) === String(testId),
+                    );
+                    return test?.subject;
+                }
+                return null;
+            }
+
+            function enhanceResultData(result, testId) {
+                return {
+                    testId: testId,
+                    viewOnly: false,
+                    title: result.title || getTestTitle(testId) || "Test",
+                    subject:
+                        result.subject || getTestSubject(testId) || "General",
+                    score: Number(result.score || 0),
+                    correct: Number(result.correct || 0),
+                    incorrect: Number(result.incorrect || 0),
+                    unattempted: Number(result.unattempted || 0),
+                    totalQuestions: Number(
+                        result.totalQuestions || result.questions?.length || 0,
+                    ),
+                    totalMarks: Number(
+                        result.totalMarks || result.questions?.length * 2 || 0,
+                    ),
+                    accuracy: Number(result.accuracy || 0),
+                    timeTaken: Number(result.timeTaken || 0),
+                    timestamp: result.timestamp || new Date().toISOString(),
+                    questionStates: result.questionStates || [],
+                    questions: result.questions || [],
+                    metadata: {
+                        source: "enhanced",
+                        fetchTime: new Date().toISOString(),
+                        ...result.metadata,
+                    },
+                };
+            }
+
+            // Save test results to Firebase
+            async function saveResultsToFirebase(results) {
+                if (!isFirebaseEnabled) return;
+                try {
+                    if (firebase.auth && !firebase.auth().currentUser) {
+                        await firebase
+                            .auth()
+                            .signInAnonymously()
+                            .catch(() => {});
+                    }
+                } catch (_) {}
+                let userId =
+                    localStorage.getItem("userId") ||
+                    localStorage.getItem("user_id");
+                if (!userId) {
+                    try {
+                        const u = JSON.parse(
+                            localStorage.getItem("user") || "{}",
+                        );
+                        userId = u.id || u._id || u.userId || null;
+                    } catch {}
+                }
+                if (!userId) return;
+
+                const userName =
+                    localStorage.getItem("userName") ||
+                    localStorage.getItem("name") ||
+                    localStorage.getItem("user_name") ||
+                    `User_${userId.substr(-6)}`;
+
+                // IMPORTANT: Use URL testId for proper isolation
+                const urlParams = new URLSearchParams(window.location.search);
+                const testId = (function (res) {
+                    if (res?.testId) return String(res.testId);
+                    const urlTestId = urlParams.get("testId");
+                    if (urlTestId) return String(urlTestId);
+                    const lsTid = localStorage.getItem("testId");
+                    if (lsTid) return String(lsTid);
+                    try {
+                        const last = JSON.parse(
+                            localStorage.getItem("testResult") || "{}",
+                        );
+                        if (last && last.testId) return String(last.testId);
+                    } catch {}
+                    return "default";
+                })(results);
+
+                const resultData = {
+                    userId: userId,
+                    userName: userName,
+                    score: results.score || 0,
+                    correct: results.correct || 0,
+                    incorrect: results.incorrect || 0,
+                    unattempted: results.unattempted || 0,
+                    totalQuestions: results.totalQuestions || 0,
+                    accuracy: results.accuracy || 0,
+                    timeTaken: results.timeTaken || 0,
+                    timestamp: results.timestamp || new Date().toISOString(),
+                    testId: testId,
+                    testTitle: results.title || "Test",
+                    subject: results.subject || "Mathematics",
+                };
+
+                // Save to main results for ranking
+                database
+                    .ref("testResults/" + testId + "/" + userId)
+                    .set(resultData)
+                    .then(() => {
+                        // Also save to user attempts for history
+                        const attemptId = Date.now().toString();
+                        database
+                            .ref(
+                                "userAttempts/" +
+                                    userId +
+                                    "/" +
+                                    testId +
+                                    "/" +
+                                    attemptId,
+                            )
+                            .set(resultData)
+                            .then(() => {})
+                            .catch((error) => {});
+
+                        // Update real-time rankings after saving
+                        updateRealtimeRankings(testId, userId);
+                    })
+                    .catch((error) => {
+                        // Fallback: still compute ranking in read-only mode
+                        updateRealtimeRankings(testId, userId);
+                    });
+            }
+
+            // Update real-time rankings
+            function updateRealtimeRankings(testId, currentUserId) {
+                if (!isFirebaseEnabled) return;
+
+                database
+                    .ref("testResults/" + testId)
+                    .once("value")
+                    .then((snapshot) => {
+                        const allResults = snapshot.val() || {};
+                        const resultsArray = Object.values(allResults);
+
+                        if (resultsArray.length === 0) {
+                            updateRankingDisplay(1, 1, 100); // Default for first user
+                            return;
+                        }
+
+                        // Sort by score (descending)
+                        resultsArray.sort((a, b) => b.score - a.score);
+
+                        // Find current user rank
+                        const userRank =
+                            resultsArray.findIndex(
+                                (r) => r.userId === currentUserId,
+                            ) + 1;
+                        const totalUsers = resultsArray.length;
+
+                        // Calculate percentile correctly (higher rank = higher percentile)
+                        const percentile =
+                            totalUsers > 0
+                                ? ((totalUsers - userRank + 1) / totalUsers) *
+                                  100
+                                : 0;
+
+                        // Update UI
+                        updateRankingDisplay(userRank, totalUsers, percentile);
+
+                        // Store for comparison feature
+                        localStorage.setItem(
+                            "currentRank",
+                            userRank.toString(),
+                        );
+                        localStorage.setItem(
+                            "totalUsers",
+                            totalUsers.toString(),
+                        );
+                        localStorage.setItem(
+                            "percentile",
+                            percentile.toFixed(1),
+                        );
+
+                        // Update leaderboard
+                        updateLeaderboard(resultsArray, currentUserId);
+                    })
+                    .catch((error) => {
+                        // Show default values
+                        updateRankingDisplay(1, 1, 100);
+                    });
+            }
+
+            // Update leaderboard display
+            function updateLeaderboard(resultsArray, currentUserId) {
+                const leaderboardContainer = document.getElementById(
+                    "leaderboard-container",
+                );
+
+                if (!leaderboardContainer) {
+                    // Create leaderboard container if it doesn't exist
+                    const leaderboardHTML = `
                     <div class="leaderboard-section" style="margin-top: 30px;">
                         <h3 style="text-align: center; margin-bottom: 20px; color: #1f2937;">
                             🏆 Top Performers
@@ -1163,67 +1681,78 @@
                         </div>
                     </div>
                 `;
-                
-                // Insert after the main stats section
-                const mainContent = document.querySelector('.main-content');
-                if (mainContent) {
-                    mainContent.insertAdjacentHTML('beforeend', leaderboardHTML);
+
+                    // Insert after the main stats section
+                    const mainContent = document.querySelector(".main-content");
+                    if (mainContent) {
+                        mainContent.insertAdjacentHTML(
+                            "beforeend",
+                            leaderboardHTML,
+                        );
+                    }
                 }
-            }
-            
-            const container = document.getElementById('leaderboard-container');
-            
-            // Show top 5 users
-            const topUsers = resultsArray.slice(0, 5);
-            
-            let leaderboardHTML = '<div class="leaderboard-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">';
-            
-            topUsers.forEach((user, index) => {
-                const isCurrentUser = user.userId === currentUserId;
-                const rankEmoji = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'][index] || `${index + 1}`;
-                
-                leaderboardHTML += `
+
+                const container = document.getElementById(
+                    "leaderboard-container",
+                );
+
+                // Show top 5 users
+                const topUsers = resultsArray.slice(0, 5);
+
+                let leaderboardHTML =
+                    '<div class="leaderboard-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">';
+
+                topUsers.forEach((user, index) => {
+                    const isCurrentUser = user.userId === currentUserId;
+                    const rankEmoji =
+                        ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"][index] || `${index + 1}`;
+
+                    leaderboardHTML += `
                     <div class="leaderboard-card" style="
-                        background: ${isCurrentUser ? '#dbeafe' : 'white'};
-                        border: 2px solid ${isCurrentUser ? '#2563eb' : '#e5e7eb'};
+                        background: ${isCurrentUser ? "#dbeafe" : "white"};
+                        border: 2px solid ${isCurrentUser ? "#2563eb" : "#e5e7eb"};
                         border-radius: 12px;
                         padding: 15px;
                         text-align: center;
                         position: relative;
                     ">
-                        ${isCurrentUser ? '<div style="position: absolute; top: -10px; right: -10px; background: #2563eb; color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">YOU</div>' : ''}
+                        ${isCurrentUser ? '<div style="position: absolute; top: -10px; right: -10px; background: #2563eb; color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">YOU</div>' : ""}
                         <div style="font-size: 24px; margin-bottom: 5px;">${rankEmoji}</div>
-                        <div style="font-weight: bold; color: #1f2937; margin-bottom: 5px;">${user.userName || 'Anonymous'}</div>
+                        <div style="font-weight: bold; color: #1f2937; margin-bottom: 5px;">${user.userName || "Anonymous"}</div>
                         <div style="font-size: 20px; font-weight: bold; color: #16a34a; margin-bottom: 5px;">${user.score || 0}</div>
                         <div style="font-size: 12px; color: #6b7280;">Score</div>
                         <div style="font-size: 14px; color: #2563eb; margin-top: 5px;">${user.accuracy || 0}%</div>
                         <div style="font-size: 11px; color: #6b7280;">Accuracy</div>
                     </div>
                 `;
-            });
-            
-            leaderboardHTML += '</div>';
-            container.innerHTML = leaderboardHTML;
-        }
+                });
 
-        // Update ranking display
-        function updateRankingDisplay(rank, totalUsers, percentile) {
-            const rankElement = document.getElementById('user-rank');
-            const percentileElement = document.getElementById('user-percentile');
-            const totalUsersElement = document.getElementById('total-users');
-            
-            if (rankElement) rankElement.textContent = rank;
-            if (percentileElement) percentileElement.textContent = percentile.toFixed(1) + '%';
-            if (totalUsersElement) totalUsersElement.textContent = totalUsers;
-        }
+                leaderboardHTML += "</div>";
+                container.innerHTML = leaderboardHTML;
+            }
 
-        // Show notification
-        function showNotification(message, type = 'info') {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            notification.style.cssText = `
+            // Update ranking display
+            function updateRankingDisplay(rank, totalUsers, percentile) {
+                const rankElement = document.getElementById("user-rank");
+                const percentileElement =
+                    document.getElementById("user-percentile");
+                const totalUsersElement =
+                    document.getElementById("total-users");
+
+                if (rankElement) rankElement.textContent = rank;
+                if (percentileElement)
+                    percentileElement.textContent = percentile.toFixed(1) + "%";
+                if (totalUsersElement)
+                    totalUsersElement.textContent = totalUsers;
+            }
+
+            // Show notification
+            function showNotification(message, type = "info") {
+                // Create notification element
+                const notification = document.createElement("div");
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
@@ -1235,538 +1764,751 @@
                 opacity: 0;
                 transform: translateX(100%);
                 transition: all 0.3s ease;
-                background: ${type === 'error' ? '#dc2626' : '#16a34a'};
+                background: ${type === "error" ? "#dc2626" : "#16a34a"};
             `;
-            
-            document.body.appendChild(notification);
-            
-            // Show notification
-            setTimeout(() => {
-                notification.style.opacity = '1';
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            // Hide after 3 seconds
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateX(100%)';
+
+                document.body.appendChild(notification);
+
+                // Show notification
                 setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
-        }
+                    notification.style.opacity = "1";
+                    notification.style.transform = "translateX(0)";
+                }, 100);
 
-        // Update UI with test results
-        function updateResults(results) {
-            const correct = Number(results.correct || 0);
-            const incorrect = Number(results.incorrect || 0);
-            const unattempted = Number(results.unattempted || 0);
-            const totalQuestions = results.totalQuestions || (correct + incorrect + unattempted);
-            const maxMarks = (results.totalMarks != null) ? Number(results.totalMarks) : (totalQuestions * 2);
-            
-            document.getElementById('scoreValue').textContent = Number(results.score || 0).toFixed(1);
-            document.getElementById('scoreMax').textContent = `/ ${isFinite(maxMarks) && maxMarks > 0 ? maxMarks : 0}`;
-            document.getElementById('correctCount').textContent = correct;
-            document.getElementById('incorrectCount').textContent = incorrect;
-            document.getElementById('unattemptedCount').textContent = unattempted;
-            document.getElementById('accuracyValue').textContent = (results.accuracy ?? 0) + '%';
-        }
-
-        // Calculate and update ranking
-        function updateRanking(results, viewOnly) {
-            if (!isFirebaseEnabled) {
-                const rankEl = document.getElementById('rankNumber');
-                const percEl = document.getElementById('percentileValue');
-                const percFill = document.getElementById('percentileFill');
-                if (rankEl) rankEl.textContent = 'N/A';
-                if (percEl) percEl.textContent = 'N/A';
-                if (percFill) percFill.style.width = '0%';
-                return;
-            }
-
-            // Real Firebase ranking logic
-            const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
-            if (!userId) return;
-            let testId = localStorage.getItem('testId');
-            if (!testId) {
-                try {
-                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
-                    if (last && last.testId) testId = String(last.testId);
-                } catch {}
-            }
-            testId = testId || 'default';
-            
-            // Save user's result to Firebase unless view-only
-            if (!viewOnly) {
-                database.ref('testResults/' + testId + '/' + userId).set({
-                    score: results.score,
-                    correct: results.correct,
-                    incorrect: results.incorrect,
-                    unattempted: results.unattempted,
-                    accuracy: results.accuracy,
-                    timestamp: Date.now()
-                }).catch(() => {});
-            }
-
-            // Get all results and calculate ranking
-            database.ref('testResults/' + testId).once('value', (snapshot) => {
-                const allResults = snapshot.val();
-                const resultsArray = Object.values(allResults || {});
-                
-                // Sort by score (descending)
-                resultsArray.sort((a, b) => b.score - a.score);
-                
-                // Find user's rank
-                const userRank = resultsArray.findIndex(result => result.score === results.score) + 1;
-                const percentile = ((resultsArray.length - userRank + 1) / resultsArray.length * 100).toFixed(1);
-                
-                document.getElementById('rankNumber').textContent = userRank;
-                document.getElementById('percentileValue').textContent = percentile + '%';
-                document.getElementById('percentileFill').style.width = percentile + '%';
-                
-                // Update performance chart
-                const avgScore = resultsArray.reduce((sum, r) => sum + r.score, 0) / resultsArray.length;
-                const topScore = resultsArray[0]?.score || results.score;
-                updatePerformanceChart(results.score, avgScore, topScore);
-            });
-        }
-
-        // Update performance comparison chart
-        function updatePerformanceChart(userScore, avgScore, topScore) {
-            const maxScore = Math.max(userScore, avgScore, topScore);
-            const chartBars = document.querySelectorAll('.chart-bar');
-            
-            // User bar
-            chartBars[0].style.height = (userScore / maxScore * 100) + '%';
-            
-            // Average bar
-            chartBars[1].style.height = (avgScore / maxScore * 100) + '%';
-            
-            // Top score bar
-            chartBars[2].style.height = (topScore / maxScore * 100) + '%';
-        }
-
-        // Show previous attempts
-        function showPreviousAttempts() {
-            if (!isFirebaseEnabled) {
-                alert('Previous attempts feature requires Firebase configuration. Please provide Firebase details.');
-                return;
-            }
-            
-            const userId = localStorage.getItem('userId') || 'anonymous';
-            let testId = localStorage.getItem('testId');
-            if (!testId) {
-                try {
-                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
-                    if (last && last.testId) testId = String(last.testId);
-                } catch {}
-            }
-            testId = testId || 'default';
-            
-            // Load user's attempts history for this test
-            database.ref('userAttempts/' + userId + '/' + testId).once('value')
-                .then((snapshot) => {
-                    const attempts = snapshot.val() || {};
-                    const list = Object.values(attempts);
-                    if (list.length > 0) {
-                        // Sort by timestamp (newest first)
-                        list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                        const latest = list[0];
-                        alert(`Previous attempt:\nScore: ${latest.score}\nAccuracy: ${latest.accuracy}%\nDate: ${new Date(latest.timestamp).toLocaleString()}`);
-                    } else {
-                        alert('No previous attempts found.');
-                    }
-                })
-                .catch(() => alert('Failed to load previous attempts.'));
-        }
-
-        // Compare with topper
-        function compareWithTopper() {
-            if (!isFirebaseEnabled) {
-                alert('Comparison feature requires Firebase configuration. Please provide Firebase details.');
-                return;
-            }
-            
-            let testId = localStorage.getItem('testId');
-            if (!testId) {
-                try {
-                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
-                    if (last && last.testId) testId = String(last.testId);
-                } catch {}
-            }
-            testId = testId || 'default';
-            
-            database.ref('testResults/' + testId).orderByChild('score').limitToLast(1).once('value', (snapshot) => {
-                const topperData = snapshot.val();
-                if (topperData) {
-                    const topper = Object.values(topperData)[0];
-                    alert(`Topper's Performance:\nScore: ${topper.score}\nAccuracy: ${topper.accuracy}%\nCorrect: ${topper.correct}\nIncorrect: ${topper.incorrect}`);
-                } else {
-                    alert('No comparison data available.');
-                }
-            });
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', async function() {
-            initializeFirebase();
-            
-            const results = await getTestResults();
-            updateResults(results);
-            
-            // Update test-specific elements
-            const testTitle = document.getElementById('test-title');
-            const testSubject = document.getElementById('test-subject');
-            const testDate = document.getElementById('test-date');
-            
-            if (testTitle) testTitle.textContent = results.title || 'Test';
-            if (testSubject) testSubject.textContent = results.subject || 'Mathematics';
-            if (testDate) testDate.textContent = new Date(results.timestamp).toLocaleDateString();
-            
-            // Load all questions for review
-            loadQuestionsForReview(results);
-            
-            // Save results to Firebase for real-time rankings
-            if (!results.viewOnly) {
-                saveResultsToFirebase(results);
-            }
-            updateRanking(results, !!results.viewOnly);
-
-            try {
-                const link = document.querySelector('.action-buttons a[href*="review.html"]');
-                if (link) {
-                    const tid = results.testId || (new URLSearchParams(window.location.search)).get('testId');
-                    if (tid) link.setAttribute('href', `review.html?testId=${encodeURIComponent(tid)}`);
-                }
-            } catch (_) {}
-            
-            // Add animations
-            setTimeout(() => {
-                document.querySelectorAll('.stat-card').forEach((card, index) => {
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    notification.style.opacity = "0";
+                    notification.style.transform = "translateX(100%)";
                     setTimeout(() => {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.5s ease';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 100);
-                    }, index * 100);
-                });
-            }, 500);
-        });
-
-        // Load all questions for review
-        function loadQuestionsForReview(results) {
-            const container = document.getElementById('questions-container');
-            if (!container) return;
-            
-            const questions = results.questions || [];
-            const questionStates = results.questionStates || [];
-            
-            console.log('📋 Loading questions for review:', questions.length);
-            
-            if (questions.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #6b7280;">No questions available for review.</p>';
-                return;
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
             }
-            
-            setupSectionUI(questions, questionStates);
-            // Display all questions
-            displayQuestions(questions, questionStates, 'all');
-        }
 
-        // Display questions based on filter
-        let currentSectionKey = null;
-        function displayQuestions(questions, questionStates, filter) {
-            const container = document.getElementById('questions-container');
-            if (!container) return;
-            
-            let filteredQuestions = [];
-            
-            questions.forEach((question, index) => {
-                const state = questionStates[index] || {};
-                const status = state.resultCategory || 'unattempted';
-                const subject = (question.subject || '').toLowerCase();
-                const sectionMatches = !currentSectionKey || subject === currentSectionKey;
-                
-                if (sectionMatches && (filter === 'all' || filter === status)) {
-                    filteredQuestions.push({ question, state, index, status });
+            // Update UI with test results
+            function updateResults(results) {
+                const correct = Number(results.correct || 0);
+                const incorrect = Number(results.incorrect || 0);
+                const unattempted = Number(results.unattempted || 0);
+                const totalQuestions =
+                    results.totalQuestions || correct + incorrect + unattempted;
+                const maxMarks =
+                    results.totalMarks != null
+                        ? Number(results.totalMarks)
+                        : totalQuestions * 2;
+
+                document.getElementById("scoreValue").textContent = Number(
+                    results.score || 0,
+                ).toFixed(1);
+                document.getElementById("scoreMax").textContent =
+                    `/ ${isFinite(maxMarks) && maxMarks > 0 ? maxMarks : 0}`;
+                document.getElementById("correctCount").textContent = correct;
+                document.getElementById("incorrectCount").textContent =
+                    incorrect;
+                document.getElementById("unattemptedCount").textContent =
+                    unattempted;
+                document.getElementById("accuracyValue").textContent =
+                    (results.accuracy ?? 0) + "%";
+            }
+
+            // Calculate and update ranking
+            function updateRanking(results, viewOnly) {
+                if (!isFirebaseEnabled) {
+                    const rankEl = document.getElementById("rankNumber");
+                    const percEl = document.getElementById("percentileValue");
+                    const percFill = document.getElementById("percentileFill");
+                    if (rankEl) rankEl.textContent = "N/A";
+                    if (percEl) percEl.textContent = "N/A";
+                    if (percFill) percFill.style.width = "0%";
+                    return;
                 }
-            });
-            
-            if (filteredQuestions.length === 0) {
-                container.innerHTML = `<p style="text-align: center; color: #6b7280;">No ${filter} questions found.</p>`;
-                return;
+
+                // Real Firebase ranking logic
+                const userId =
+                    localStorage.getItem("userId") ||
+                    localStorage.getItem("user_id");
+                if (!userId) return;
+                let testId = localStorage.getItem("testId");
+                if (!testId) {
+                    try {
+                        const last = JSON.parse(
+                            localStorage.getItem("testResult") || "{}",
+                        );
+                        if (last && last.testId) testId = String(last.testId);
+                    } catch {}
+                }
+                testId = testId || "default";
+
+                // Save user's result to Firebase unless view-only
+                if (!viewOnly) {
+                    database
+                        .ref("testResults/" + testId + "/" + userId)
+                        .set({
+                            score: results.score,
+                            correct: results.correct,
+                            incorrect: results.incorrect,
+                            unattempted: results.unattempted,
+                            accuracy: results.accuracy,
+                            timestamp: Date.now(),
+                        })
+                        .catch(() => {});
+                }
+
+                // Get all results and calculate ranking
+                database
+                    .ref("testResults/" + testId)
+                    .once("value", (snapshot) => {
+                        const allResults = snapshot.val();
+                        const resultsArray = Object.values(allResults || {});
+
+                        // Sort by score (descending)
+                        resultsArray.sort((a, b) => b.score - a.score);
+
+                        // Find user's rank
+                        const userRank =
+                            resultsArray.findIndex(
+                                (result) => result.score === results.score,
+                            ) + 1;
+                        const percentile = (
+                            ((resultsArray.length - userRank + 1) /
+                                resultsArray.length) *
+                            100
+                        ).toFixed(1);
+
+                        document.getElementById("rankNumber").textContent =
+                            userRank;
+                        document.getElementById("percentileValue").textContent =
+                            percentile + "%";
+                        document.getElementById("percentileFill").style.width =
+                            percentile + "%";
+
+                        // Update performance chart
+                        const avgScore =
+                            resultsArray.reduce((sum, r) => sum + r.score, 0) /
+                            resultsArray.length;
+                        const topScore =
+                            resultsArray[0]?.score || results.score;
+                        updatePerformanceChart(
+                            results.score,
+                            avgScore,
+                            topScore,
+                        );
+                    });
             }
-            
-            container.innerHTML = filteredQuestions.map(({ question, state, index, status }) => {
-                const questionText = question.question?.en || question.question || '';
-                const options = question.options || [];
-                const correctAnswer = question.correctAnswer?.en || question.correctAnswer || '';
-                const userAnswer = state.userAnswer;
-                const explanation = question.explanation?.en || question.explanation || '';
-                
-                return `
+
+            // Update performance comparison chart
+            function updatePerformanceChart(userScore, avgScore, topScore) {
+                const maxScore = Math.max(userScore, avgScore, topScore);
+                const chartBars = document.querySelectorAll(".chart-bar");
+
+                // User bar
+                chartBars[0].style.height = (userScore / maxScore) * 100 + "%";
+
+                // Average bar
+                chartBars[1].style.height = (avgScore / maxScore) * 100 + "%";
+
+                // Top score bar
+                chartBars[2].style.height = (topScore / maxScore) * 100 + "%";
+            }
+
+            // Show previous attempts
+            function showPreviousAttempts() {
+                if (!isFirebaseEnabled) {
+                    alert(
+                        "Previous attempts feature requires Firebase configuration. Please provide Firebase details.",
+                    );
+                    return;
+                }
+
+                const userId = localStorage.getItem("userId") || "anonymous";
+                let testId = localStorage.getItem("testId");
+                if (!testId) {
+                    try {
+                        const last = JSON.parse(
+                            localStorage.getItem("testResult") || "{}",
+                        );
+                        if (last && last.testId) testId = String(last.testId);
+                    } catch {}
+                }
+                testId = testId || "default";
+
+                // Load user's attempts history for this test
+                database
+                    .ref("userAttempts/" + userId + "/" + testId)
+                    .once("value")
+                    .then((snapshot) => {
+                        const attempts = snapshot.val() || {};
+                        const list = Object.values(attempts);
+                        if (list.length > 0) {
+                            // Sort by timestamp (newest first)
+                            list.sort(
+                                (a, b) =>
+                                    (b.timestamp || 0) - (a.timestamp || 0),
+                            );
+                            const latest = list[0];
+                            alert(
+                                `Previous attempt:\nScore: ${latest.score}\nAccuracy: ${latest.accuracy}%\nDate: ${new Date(latest.timestamp).toLocaleString()}`,
+                            );
+                        } else {
+                            alert("No previous attempts found.");
+                        }
+                    })
+                    .catch(() => alert("Failed to load previous attempts."));
+            }
+
+            // Compare with topper
+            function compareWithTopper() {
+                if (!isFirebaseEnabled) {
+                    alert(
+                        "Comparison feature requires Firebase configuration. Please provide Firebase details.",
+                    );
+                    return;
+                }
+
+                let testId = localStorage.getItem("testId");
+                if (!testId) {
+                    try {
+                        const last = JSON.parse(
+                            localStorage.getItem("testResult") || "{}",
+                        );
+                        if (last && last.testId) testId = String(last.testId);
+                    } catch {}
+                }
+                testId = testId || "default";
+
+                database
+                    .ref("testResults/" + testId)
+                    .orderByChild("score")
+                    .limitToLast(1)
+                    .once("value", (snapshot) => {
+                        const topperData = snapshot.val();
+                        if (topperData) {
+                            const topper = Object.values(topperData)[0];
+                            alert(
+                                `Topper's Performance:\nScore: ${topper.score}\nAccuracy: ${topper.accuracy}%\nCorrect: ${topper.correct}\nIncorrect: ${topper.incorrect}`,
+                            );
+                        } else {
+                            alert("No comparison data available.");
+                        }
+                    });
+            }
+
+            // Initialize the page
+            document.addEventListener("DOMContentLoaded", async function () {
+                initializeFirebase();
+
+                const results = await getTestResults();
+                updateResults(results);
+
+                // Update test-specific elements
+                const testTitle = document.getElementById("test-title");
+                const testSubject = document.getElementById("test-subject");
+                const testDate = document.getElementById("test-date");
+
+                if (testTitle) testTitle.textContent = results.title || "Test";
+                if (testSubject)
+                    testSubject.textContent = results.subject || "Mathematics";
+                if (testDate)
+                    testDate.textContent = new Date(
+                        results.timestamp,
+                    ).toLocaleDateString();
+
+                // Load all questions for review
+                loadQuestionsForReview(results);
+
+                // Save results to Firebase for real-time rankings
+                if (!results.viewOnly) {
+                    saveResultsToFirebase(results);
+                }
+                updateRanking(results, !!results.viewOnly);
+
+                try {
+                    const link = document.querySelector(
+                        '.action-buttons a[href*="review.html"]',
+                    );
+                    if (link) {
+                        const tid =
+                            results.testId ||
+                            new URLSearchParams(window.location.search).get(
+                                "testId",
+                            );
+                        if (tid)
+                            link.setAttribute(
+                                "href",
+                                `review.html?testId=${encodeURIComponent(tid)}`,
+                            );
+                    }
+                } catch (_) {}
+
+                // Add animations
+                setTimeout(() => {
+                    document
+                        .querySelectorAll(".stat-card")
+                        .forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.opacity = "0";
+                                card.style.transform = "translateY(20px)";
+                                setTimeout(() => {
+                                    card.style.transition = "all 0.5s ease";
+                                    card.style.opacity = "1";
+                                    card.style.transform = "translateY(0)";
+                                }, 100);
+                            }, index * 100);
+                        });
+                }, 500);
+            });
+
+            // Load all questions for review
+            function loadQuestionsForReview(results) {
+                const container = document.getElementById(
+                    "questions-container",
+                );
+                if (!container) return;
+
+                const questions = results.questions || [];
+                const questionStates = results.questionStates || [];
+
+                console.log(
+                    "📋 Loading questions for review:",
+                    questions.length,
+                );
+
+                if (questions.length === 0) {
+                    container.innerHTML =
+                        '<p style="text-align: center; color: #6b7280;">No questions available for review.</p>';
+                    return;
+                }
+
+                setupSectionUI(questions, questionStates);
+                // Display all questions
+                displayQuestions(questions, questionStates, "all");
+            }
+
+            // Display questions based on filter
+            let currentSectionKey = null;
+            function displayQuestions(questions, questionStates, filter) {
+                const container = document.getElementById(
+                    "questions-container",
+                );
+                if (!container) return;
+
+                let filteredQuestions = [];
+
+                questions.forEach((question, index) => {
+                    const state = questionStates[index] || {};
+                    const status = state.resultCategory || "unattempted";
+                    const subject = (question.subject || "").toLowerCase();
+                    const sectionMatches =
+                        !currentSectionKey || subject === currentSectionKey;
+
+                    if (
+                        sectionMatches &&
+                        (filter === "all" || filter === status)
+                    ) {
+                        filteredQuestions.push({
+                            question,
+                            state,
+                            index,
+                            status,
+                        });
+                    }
+                });
+
+                if (filteredQuestions.length === 0) {
+                    container.innerHTML = `<p style="text-align: center; color: #6b7280;">No ${filter} questions found.</p>`;
+                    return;
+                }
+
+                container.innerHTML = filteredQuestions
+                    .map(({ question, state, index, status }) => {
+                        const questionText =
+                            question.question?.en || question.question || "";
+                        const options = question.options || [];
+                        const correctAnswer =
+                            question.correctAnswer?.en ||
+                            question.correctAnswer ||
+                            "";
+                        const userAnswer = state.userAnswer;
+                        const explanation =
+                            question.explanation?.en ||
+                            question.explanation ||
+                            "";
+
+                        return `
                     <div class="question-card ${status}">
                         <div class="question-header">
                             <div class="question-number">Question ${index + 1}</div>
                             <div class="question-status ${status}">
-                                ${status === 'correct' ? '✓ Correct' : status === 'incorrect' ? '✗ Incorrect' : '⚠ Unattempted'}
+                                ${status === "correct" ? "✓ Correct" : status === "incorrect" ? "✗ Incorrect" : "⚠ Unattempted"}
                             </div>
                         </div>
-                        
+
                         <div class="question-text">${questionText}</div>
-                        
+
                         <div class="options-container">
-                            ${options.map((option, i) => {
-                                const optionText = option.en || option || '';
-                                const isCorrect = optionText === correctAnswer;
-                                const isUserAnswer = optionText === userAnswer;
-                                const letter = String.fromCharCode(65 + i);
-                                
-                                let optionClass = 'option-item';
-                                let indicator = '';
-                                
-                                if (isCorrect && isUserAnswer) {
-                                    optionClass += ' user-answer correct-answer';
-                                    indicator = '<span class="option-indicator correct-answer">✓ Your Answer (Correct)</span>';
-                                } else if (isCorrect) {
-                                    optionClass += ' correct-answer';
-                                    indicator = '<span class="option-indicator correct-answer">✓ Correct Answer</span>';
-                                } else if (isUserAnswer) {
-                                    optionClass += ' user-answer';
-                                    indicator = '<span class="option-indicator user-answer">✗ Your Answer</span>';
-                                }
-                                
-                                return `
+                            ${options
+                                .map((option, i) => {
+                                    const optionText =
+                                        option.en || option || "";
+                                    const isCorrect =
+                                        optionText === correctAnswer;
+                                    const isUserAnswer =
+                                        optionText === userAnswer;
+                                    const letter = String.fromCharCode(65 + i);
+
+                                    let optionClass = "option-item";
+                                    let indicator = "";
+
+                                    if (isCorrect && isUserAnswer) {
+                                        optionClass +=
+                                            " user-answer correct-answer";
+                                        indicator =
+                                            '<span class="option-indicator correct-answer">✓ Your Answer (Correct)</span>';
+                                    } else if (isCorrect) {
+                                        optionClass += " correct-answer";
+                                        indicator =
+                                            '<span class="option-indicator correct-answer">✓ Correct Answer</span>';
+                                    } else if (isUserAnswer) {
+                                        optionClass += " user-answer";
+                                        indicator =
+                                            '<span class="option-indicator user-answer">✗ Your Answer</span>';
+                                    }
+
+                                    return `
                                     <div class="${optionClass}">
                                         <span class="option-label">${letter}.</span>
                                         <span class="option-text">${optionText}</span>
                                         ${indicator}
                                     </div>
                                 `;
-                            }).join('')}
+                                })
+                                .join("")}
                         </div>
-                        
-                        ${explanation ? `
+
+                        ${
+                            explanation
+                                ? `
                             <div class="explanation-box">
                                 <div class="explanation-title">💡 Explanation:</div>
                                 <div class="explanation-text">${explanation}</div>
                             </div>
-                        ` : ''}
+                        `
+                                : ""
+                        }
                     </div>
                 `;
-            }).join('');
-            
-            // Update filter buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.textContent.toLowerCase().includes(filter) || 
-                    (filter === 'all' && btn.textContent === 'All Questions'));
-            });
-        }
+                    })
+                    .join("");
 
-        // Build sections from subjects and inject tabs/palette
-        function setupSectionUI(questions, questionStates) {
-            const sectionTabs = document.getElementById('section-tabs');
-            const paletteEl = document.getElementById('section-palette');
-            if (!sectionTabs || !paletteEl) return;
-            const subjects = [...new Set(questions.map(q => (q.subject || '').toLowerCase()).filter(Boolean))];
-            if (subjects.length <= 1) {
-                sectionTabs.innerHTML = '';
-                paletteEl.innerHTML = '';
-                return;
-            }
-            const labels = { maths: 'PART‑A Mathematics', english: 'PART‑B English', gk: 'PART‑C General Awareness', reasoning: 'PART‑D Reasoning' };
-            sectionTabs.innerHTML = subjects.map(s => {
-                const lbl = labels[s] || s.toUpperCase();
-                return `<button class="filter-btn" data-section="${s}">${lbl}</button>`;
-            }).join('');
-            sectionTabs.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    sectionTabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentSectionKey = btn.dataset.section;
-                    updateSectionPalette(questions, questionStates, currentSectionKey);
-                    // Show all 25 questions for selected part
-                    displayQuestions(questions, questionStates, 'all');
+                // Update filter buttons
+                document.querySelectorAll(".filter-btn").forEach((btn) => {
+                    btn.classList.toggle(
+                        "active",
+                        btn.textContent.toLowerCase().includes(filter) ||
+                            (filter === "all" &&
+                                btn.textContent === "All Questions"),
+                    );
                 });
-            });
-            // Activate first section by default
-            const first = sectionTabs.querySelector('button');
-            if (first) first.click();
-        }
+            }
 
-        function updateSectionPalette(questions, questionStates, sectionKey) {
-            const paletteEl = document.getElementById('section-palette');
-            if (!paletteEl) return;
-            let correct = 0, incorrect = 0, unattempted = 0;
-            questions.forEach((q, i) => {
-                const subj = (q.subject || '').toLowerCase();
-                if (subj !== sectionKey) return;
-                const st = questionStates[i] || {};
-                const cat = st.resultCategory || 'unattempted';
-                if (cat === 'correct') correct++;
-                else if (cat === 'incorrect') incorrect++;
-                else unattempted++;
-            });
-            paletteEl.innerHTML = `
+            // Build sections from subjects and inject tabs/palette
+            function setupSectionUI(questions, questionStates) {
+                const sectionTabs = document.getElementById("section-tabs");
+                const paletteEl = document.getElementById("section-palette");
+                if (!sectionTabs || !paletteEl) return;
+                const subjects = [
+                    ...new Set(
+                        questions
+                            .map((q) => (q.subject || "").toLowerCase())
+                            .filter(Boolean),
+                    ),
+                ];
+                if (subjects.length <= 1) {
+                    sectionTabs.innerHTML = "";
+                    paletteEl.innerHTML = "";
+                    return;
+                }
+                const labels = {
+                    maths: "PART‑A Mathematics",
+                    english: "PART‑B English",
+                    gk: "PART‑C General Awareness",
+                    reasoning: "PART‑D Reasoning",
+                };
+                sectionTabs.innerHTML = subjects
+                    .map((s) => {
+                        const lbl = labels[s] || s.toUpperCase();
+                        return `<button class="filter-btn" data-section="${s}">${lbl}</button>`;
+                    })
+                    .join("");
+                sectionTabs.querySelectorAll("button").forEach((btn) => {
+                    btn.addEventListener("click", (e) => {
+                        sectionTabs
+                            .querySelectorAll("button")
+                            .forEach((b) => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        currentSectionKey = btn.dataset.section;
+                        updateSectionPalette(
+                            questions,
+                            questionStates,
+                            currentSectionKey,
+                        );
+                        // Show all 25 questions for selected part
+                        displayQuestions(questions, questionStates, "all");
+                    });
+                });
+                // Activate first section by default
+                const first = sectionTabs.querySelector("button");
+                if (first) first.click();
+            }
+
+            function updateSectionPalette(
+                questions,
+                questionStates,
+                sectionKey,
+            ) {
+                const paletteEl = document.getElementById("section-palette");
+                if (!paletteEl) return;
+                let correct = 0,
+                    incorrect = 0,
+                    unattempted = 0;
+                questions.forEach((q, i) => {
+                    const subj = (q.subject || "").toLowerCase();
+                    if (subj !== sectionKey) return;
+                    const st = questionStates[i] || {};
+                    const cat = st.resultCategory || "unattempted";
+                    if (cat === "correct") correct++;
+                    else if (cat === "incorrect") incorrect++;
+                    else unattempted++;
+                });
+                paletteEl.innerHTML = `
                 <div style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#f0fdf4;">Correct: ${correct}</div>
                 <div style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#fee2e2;">Incorrect: ${incorrect}</div>
                 <div style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#fef3c7;">Unattempted: ${unattempted}</div>
             `;
-        }
+            }
 
-        // Preview function removed; showing full 25 questions per section by default
+            // Preview function removed; showing full 25 questions per section by default
 
-        // Filter questions
-        function filterQuestions(filter) {
-            const resultData = localStorage.getItem('testResult');
-            if (!resultData) return;
-            
-            const results = JSON.parse(resultData);
-            const questions = results.questions || [];
-            const questionStates = results.questionStates || [];
-            
-            displayQuestions(questions, questionStates, filter);
-        }
+            // Filter questions
+            function filterQuestions(filter) {
+                const resultData = localStorage.getItem("testResult");
+                if (!resultData) return;
 
-        // Show previous attempts
-        function showPreviousAttempts() {
-            if (!isFirebaseEnabled) {
-                showNotification('Previous attempts require Firebase connection', 'error');
-                return;
-            }
-            
-            let testId = localStorage.getItem('testId');
-            if (!testId) {
-                try {
-                    const last = JSON.parse(localStorage.getItem('testResult') || '{}');
-                    if (last && last.testId) testId = String(last.testId);
-                } catch {}
-            }
-            testId = testId || 'default';
-            let userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
-            if (!userId) {
-                try {
-                    const u = JSON.parse(localStorage.getItem('user') || '{}');
-                    userId = u.id || u._id || u.userId || null;
-                } catch {}
-            }
-            
-            if (!userId) {
-                showNotification('User ID not found', 'error');
-                return;
-            }
-            
-            // Get all user's attempts for this test
-            database.ref('userAttempts/' + userId + '/' + testId).once('value')
-                .then((snapshot) => {
-                    const attempts = snapshot.val() || {};
-                    const attemptsArray = Object.values(attempts);
-                    
-                    if (attemptsArray.length === 0) {
-                        showNotification('No previous attempts found', 'info');
-                        return;
-                    }
-                    
-                    // Sort by timestamp (newest first)
-                    attemptsArray.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-                    
-                    // Simple modal display
-                    const modal = document.createElement('div');
-                    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:10000;';
-                    
-                    let content = '<div style="background:white;border-radius:15px;padding:25px;max-width:500px;max-height:80vh;overflow-y:auto;">';
-                    content += '<h3 style="margin:0 0 20px 0;color:#1f2937;">📊 Previous Attempts</h3>';
-                    
-                    attemptsArray.forEach((attempt, index) => {
-                        const date = new Date(attempt.timestamp).toLocaleDateString();
-                        const score = attempt.score || 0;
-                        const questionCount = attempt.questions?.length || attempt.totalQuestions || 25;
-                        
-                        content += '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:15px;margin-bottom:10px;">';
-                        content += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">';
-                        content += '<span style="font-weight:bold;">Attempt #' + (attemptsArray.length - index) + '</span>';
-                        content += '<span style="color:#6b7280;">' + date + '</span>';
-                        content += '</div>';
-                        content += '<div style="display:flex;justify-content:space-between;align-items:center;">';
-                        content += '<div><strong>Score: ' + score + '/' + (attempt.totalMarks || 50) + '</strong></div>';
-                        content += '<div style="color:#6b7280;font-size:14px;">Questions: ' + questionCount + '</div>';
-                        content += '</div>';
-                        
-                        // Add review button if questions are available
-                        if (attempt.questions && attempt.questions.length > 0) {
-                            content += '<button onclick="window.location.href=\'result.html?testId=' + attempt.testId + '&viewOnly=1\'" style="margin-top:10px;padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;font-size:12px;">📝 Review Solutions</button>';
-                        }
-                        
-                        content += '</div>';
-                    });
-                    
-                    content += '<button onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;padding:10px 20px;background:#ef4444;color:white;border:none;border-radius:5px;cursor:pointer;">Close</button>';
-                    content += '</div>';
-                    
-                    modal.innerHTML = content;
-                    document.body.appendChild(modal);
-                    
-                    // Close on background click
-                    modal.addEventListener('click', function(e) {
-                        if (e.target === modal) modal.remove();
-                    });
-                })
-                .catch((error) => {
-                    console.error('Error loading previous attempts:', error);
-                });
-        }
+                const results = JSON.parse(resultData);
+                const questions = results.questions || [];
+                const questionStates = results.questionStates || [];
 
-        // Compare with topper
-        function compareWithTopper() {
-            if (!isFirebaseEnabled) {
-                showNotification('Comparison feature requires Firebase connection', 'error');
-                return;
+                displayQuestions(questions, questionStates, filter);
             }
-            
-            const testId = localStorage.getItem('testId') || 'default_test';
-            const currentScore = parseFloat(localStorage.getItem('testScore') || '0');
-            
-            // Get all results for this test
-            database.ref('testResults/' + testId).once('value')
-                .then((snapshot) => {
-                    const allResults = snapshot.val() || {};
-                    const resultsArray = Object.values(allResults);
-                    
-                    if (resultsArray.length < 2) {
-                        showNotification('Not enough data for comparison', 'info');
-                        return;
-                    }
-                    
-                    // Find topper (highest score)
-                    const topper = resultsArray.reduce((prev, current) => 
-                        (prev.score > current.score) ? prev : current
+
+            // Show previous attempts
+            function showPreviousAttempts() {
+                if (!isFirebaseEnabled) {
+                    showNotification(
+                        "Previous attempts require Firebase connection",
+                        "error",
                     );
-                    
-                    // Find current user
-                    const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
-                    const currentUser = resultsArray.find(r => r.userId === userId);
-                    
-                    if (!currentUser) {
-                        showNotification('Your result not found for comparison', 'error');
-                        return;
-                    }
-                    
-                    // Display comparison
-                    displayComparison(currentUser, topper);
-                })
-                .catch((error) => {
-                    console.error('Error loading comparison data:', error);
-                    showNotification('Error loading comparison data', 'error');
-                });
-        }
+                    return;
+                }
 
-        // Display comparison
-        function displayComparison(currentUser, topper) {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
+                let testId = localStorage.getItem("testId");
+                if (!testId) {
+                    try {
+                        const last = JSON.parse(
+                            localStorage.getItem("testResult") || "{}",
+                        );
+                        if (last && last.testId) testId = String(last.testId);
+                    } catch {}
+                }
+                testId = testId || "default";
+                let userId =
+                    localStorage.getItem("userId") ||
+                    localStorage.getItem("user_id");
+                if (!userId) {
+                    try {
+                        const u = JSON.parse(
+                            localStorage.getItem("user") || "{}",
+                        );
+                        userId = u.id || u._id || u.userId || null;
+                    } catch {}
+                }
+
+                if (!userId) {
+                    showNotification("User ID not found", "error");
+                    return;
+                }
+
+                // Get all user's attempts for this test
+                database
+                    .ref("userAttempts/" + userId + "/" + testId)
+                    .once("value")
+                    .then((snapshot) => {
+                        const attempts = snapshot.val() || {};
+                        const attemptsArray = Object.values(attempts);
+
+                        if (attemptsArray.length === 0) {
+                            showNotification(
+                                "No previous attempts found",
+                                "info",
+                            );
+                            return;
+                        }
+
+                        // Sort by timestamp (newest first)
+                        attemptsArray.sort(
+                            (a, b) =>
+                                new Date(b.timestamp) - new Date(a.timestamp),
+                        );
+
+                        // Simple modal display
+                        const modal = document.createElement("div");
+                        modal.style.cssText =
+                            "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:10000;";
+
+                        let content =
+                            '<div style="background:white;border-radius:15px;padding:25px;max-width:500px;max-height:80vh;overflow-y:auto;">';
+                        content +=
+                            '<h3 style="margin:0 0 20px 0;color:#1f2937;">📊 Previous Attempts</h3>';
+
+                        attemptsArray.forEach((attempt, index) => {
+                            const date = new Date(
+                                attempt.timestamp,
+                            ).toLocaleDateString();
+                            const score = attempt.score || 0;
+                            const questionCount =
+                                attempt.questions?.length ||
+                                attempt.totalQuestions ||
+                                25;
+
+                            content +=
+                                '<div style="border:1px solid #e5e7eb;border-radius:8px;padding:15px;margin-bottom:10px;">';
+                            content +=
+                                '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">';
+                            content +=
+                                '<span style="font-weight:bold;">Attempt #' +
+                                (attemptsArray.length - index) +
+                                "</span>";
+                            content +=
+                                '<span style="color:#6b7280;">' +
+                                date +
+                                "</span>";
+                            content += "</div>";
+                            content +=
+                                '<div style="display:flex;justify-content:space-between;align-items:center;">';
+                            content +=
+                                "<div><strong>Score: " +
+                                score +
+                                "/" +
+                                (attempt.totalMarks || 50) +
+                                "</strong></div>";
+                            content +=
+                                '<div style="color:#6b7280;font-size:14px;">Questions: ' +
+                                questionCount +
+                                "</div>";
+                            content += "</div>";
+
+                            // Add review button if questions are available
+                            if (
+                                attempt.questions &&
+                                attempt.questions.length > 0
+                            ) {
+                                content +=
+                                    "<button onclick=\"window.location.href='result.html?testId=" +
+                                    attempt.testId +
+                                    '&viewOnly=1\'" style="margin-top:10px;padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;font-size:12px;">📝 Review Solutions</button>';
+                            }
+
+                            content += "</div>";
+                        });
+
+                        content +=
+                            '<button onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;padding:10px 20px;background:#ef4444;color:white;border:none;border-radius:5px;cursor:pointer;">Close</button>';
+                        content += "</div>";
+
+                        modal.innerHTML = content;
+                        document.body.appendChild(modal);
+
+                        // Close on background click
+                        modal.addEventListener("click", function (e) {
+                            if (e.target === modal) modal.remove();
+                        });
+                    })
+                    .catch((error) => {
+                        console.error(
+                            "Error loading previous attempts:",
+                            error,
+                        );
+                    });
+            }
+
+            // Compare with topper
+            function compareWithTopper() {
+                if (!isFirebaseEnabled) {
+                    showNotification(
+                        "Comparison feature requires Firebase connection",
+                        "error",
+                    );
+                    return;
+                }
+
+                const testId = localStorage.getItem("testId") || "default_test";
+                const currentScore = parseFloat(
+                    localStorage.getItem("testScore") || "0",
+                );
+
+                // Get all results for this test
+                database
+                    .ref("testResults/" + testId)
+                    .once("value")
+                    .then((snapshot) => {
+                        const allResults = snapshot.val() || {};
+                        const resultsArray = Object.values(allResults);
+
+                        if (resultsArray.length < 2) {
+                            showNotification(
+                                "Not enough data for comparison",
+                                "info",
+                            );
+                            return;
+                        }
+
+                        // Find topper (highest score)
+                        const topper = resultsArray.reduce((prev, current) =>
+                            prev.score > current.score ? prev : current,
+                        );
+
+                        // Find current user
+                        const userId =
+                            localStorage.getItem("userId") ||
+                            localStorage.getItem("user_id");
+                        const currentUser = resultsArray.find(
+                            (r) => r.userId === userId,
+                        );
+
+                        if (!currentUser) {
+                            showNotification(
+                                "Your result not found for comparison",
+                                "error",
+                            );
+                            return;
+                        }
+
+                        // Display comparison
+                        displayComparison(currentUser, topper);
+                    })
+                    .catch((error) => {
+                        console.error("Error loading comparison data:", error);
+                        showNotification(
+                            "Error loading comparison data",
+                            "error",
+                        );
+                    });
+            }
+
+            // Display comparison
+            function displayComparison(currentUser, topper) {
+                const modal = document.createElement("div");
+                modal.style.cssText = `
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -1778,22 +2520,24 @@
                 justify-content: center;
                 z-index: 1000;
             `;
-            
-            const content = document.createElement('div');
-            content.style.cssText = `
+
+                const content = document.createElement("div");
+                content.style.cssText = `
                 background: white;
                 border-radius: 20px;
                 padding: 30px;
                 max-width: 500px;
                 position: relative;
             `;
-            
-            const scoreDiff = (topper.score - currentUser.score).toFixed(1);
-            const accuracyDiff = (topper.accuracy - currentUser.accuracy).toFixed(1);
-            
-            content.innerHTML = `
+
+                const scoreDiff = (topper.score - currentUser.score).toFixed(1);
+                const accuracyDiff = (
+                    topper.accuracy - currentUser.accuracy
+                ).toFixed(1);
+
+                content.innerHTML = `
                 <h3 style="margin-bottom: 20px; text-align: center;">🏆 Comparison with Topper</h3>
-                
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                     <div style="text-align: center; padding: 15px; border: 2px solid #e5e7eb; border-radius: 10px;">
                         <div style="font-weight: bold; color: #2563eb; margin-bottom: 10px;">You</div>
@@ -1801,7 +2545,7 @@
                         <div style="color: #6b7280;">Score</div>
                         <div style="font-size: 18px; color: #6b7280; margin-top: 5px;">${currentUser.accuracy}%</div>
                     </div>
-                    
+
                     <div style="text-align: center; padding: 15px; border: 2px solid #fbbf24; border-radius: 10px;">
                         <div style="font-weight: bold; color: #f59e0b; margin-bottom: 10px;">🥇 Topper</div>
                         <div style="font-size: 24px; font-weight: bold; color: #16a34a;">${topper.score}</div>
@@ -1809,14 +2553,14 @@
                         <div style="font-size: 18px; color: #6b7280; margin-top: 5px;">${topper.accuracy}%</div>
                     </div>
                 </div>
-                
+
                 <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
                     <div style="font-weight: bold; margin-bottom: 10px;">📊 Gap Analysis:</div>
                     <div>• Score difference: <strong>${scoreDiff} points</strong></div>
                     <div>• Accuracy difference: <strong>${accuracyDiff}%</strong></div>
                     <div>• You need <strong>${Math.ceil(scoreDiff / 2)} more correct answers</strong> to match the topper</div>
                 </div>
-                
+
                 <button onclick="this.parentElement.parentElement.remove()" style="
                     background: #2563eb;
                     color: white;
@@ -1827,24 +2571,24 @@
                     width: 100%;
                 ">Close</button>
             `;
-            
-            modal.appendChild(content);
-            document.body.appendChild(modal);
-            
-            // Close on background click
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-        }
-        if (isFirebaseEnabled) {
-            const testId = localStorage.getItem('testId') || 'default';
-            database.ref('results/' + testId).on('value', (snapshot) => {
-                const results = getTestResults();
-                updateRanking(results);
-            });
-        }
-    </script>
-</body>
+
+                modal.appendChild(content);
+                document.body.appendChild(modal);
+
+                // Close on background click
+                modal.addEventListener("click", (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+            }
+            if (isFirebaseEnabled) {
+                const testId = localStorage.getItem("testId") || "default";
+                database.ref("results/" + testId).on("value", (snapshot) => {
+                    const results = getTestResults();
+                    updateRanking(results);
+                });
+            }
+        </script>
+    </body>
 </html>
