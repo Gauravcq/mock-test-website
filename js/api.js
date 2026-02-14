@@ -406,10 +406,15 @@ class ExamAxisAPI {
 
       // CRITICAL: Log the actual response to debug
       const questions = data?.data?.questions || data?.questions || [];
+      const firstQuestionText = questions[0]?.question;
+      const firstQuestionPreview = typeof firstQuestionText === 'string' 
+        ? firstQuestionText.substring(0, 50) + '...' 
+        : (firstQuestionText?.en ? firstQuestionText.en.substring(0, 50) + '...' : 'No question text');
+      
       console.log("✅ API Response for", testId, ":", {
         success: data?.success,
         questionsCount: questions.length,
-        firstQuestion: questions[0] && questions[0].question ? questions[0].question.substring(0, 50) + '...' : 'No question text',
+        firstQuestion: firstQuestionPreview,
         firstQuestionId: questions[0]?.id,
         allQuestionIds: questions.slice(0, 5).map(q => q.id || 'no-id')
       });
@@ -438,10 +443,16 @@ class ExamAxisAPI {
       // Store for next comparison
       localStorage.setItem('lastQuestionsDebug', JSON.stringify({
         testId: testId,
-        questions: questions.slice(0, 3).map(q => ({
-          id: q.id,
-          question: q.question ? q.question.substring(0, 50) : 'No question'
-        })),
+        questions: questions.slice(0, 3).map(q => {
+          const qText = q.question;
+          const preview = typeof qText === 'string' 
+            ? qText.substring(0, 50) 
+            : (qText?.en ? qText.en.substring(0, 50) : 'No question');
+          return {
+            id: q.id,
+            question: preview
+          };
+        }),
         timestamp: Date.now()
       }));
 
