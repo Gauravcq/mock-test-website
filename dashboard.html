@@ -1000,6 +1000,7 @@
                         firebase.initializeApp(firebaseConfig);
                     }
                     this.db = firebase.database();
+                    try { if (firebase.auth) firebase.auth().signInAnonymously().catch(()=>{}); } catch(_) {}
                     const userId = localStorage.getItem('userId') || localStorage.getItem('user_id');
                     if (!userId) return;
                     this.db.ref('userAttempts/' + userId).on('value', (snapshot) => {

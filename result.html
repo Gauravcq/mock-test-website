@@ -759,6 +759,12 @@
                 isFirebaseEnabled = true;
                 console.log('✅ Firebase initialized successfully');
                 
+                try {
+                    if (firebase.auth) {
+                        firebase.auth().signInAnonymously().catch(()=>{});
+                    }
+                } catch (_) {}
+                
                 // Start real-time updates
                 startRealtimeUpdates();
             } catch (error) {
@@ -855,25 +861,57 @@
         }
 
         // Get test results from URL parameters or localStorage
-        function getTestResults() {
+        async function getTestResults() {
             const urlParams = new URLSearchParams(window.location.search);
-            const resultData = localStorage.getItem('testResult');
-            if (!resultData) {
-                console.error('❌ No test results found');
-                return {
-                    score: 0,
-                    correct: 0,
-                    incorrect: 0,
-                    unattempted: 0,
-                    totalQuestions: 100,
-                    accuracy: 0,
-                    timestamp: new Date().toISOString()
-                };
-            }
-            
-            const results = JSON.parse(resultData);
-            
-            return results;
+            const ls = localStorage.getItem('testResult');
+            let base = ls ? JSON.parse(ls) : {};
+            let testId = urlParams.get('testId') || base.testId || localStorage.getItem('testId') || '';
+            if (!testId) return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
+            try {
+                const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
+                const la = (response && response.ok && data && (data.data || data.lastAttempt)) ? (data.data?.lastAttempt || data.data || data.lastAttempt) : null;
+                if (la) {
+                    // fetch questions for full paper render
+                    let questions = [];
+                    try {
+                        const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
+                        questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
+                    } catch (_) {}
+                    // build questionStates from answers
+                    const answers = la.answers || {};
+                    const states = [];
+                    const norm = s => String(s || '').normalize('NFKC').replace(/\s+/g,' ').trim().toLowerCase();
+                    questions.forEach((q, idx) => {
+                        const qid = q.id != null ? String(q.id) : String(idx+1);
+                        const selected = answers[qid] != null ? answers[qid] : answers[idx] != null ? answers[idx] : null;
+                        const selText = typeof selected === 'string' ? selected : (Array.isArray(q.options) && typeof selected === 'number' ? q.options[selected] : null);
+                        const correctText = (q.correctAnswer && q.correctAnswer.en) ? q.correctAnswer.en : q.correctAnswer;
+                        let state = 'unattempted';
+                        if (selText != null && selText !== '') {
+                            state = (norm(selText) === norm(correctText)) ? 'correct' : 'incorrect';
+                        }
+                        states.push({ index: idx, state, selected: selText, correct: correctText });
+                    });
+                    const merged = {
+                        testId,
+                        title: base.title || la.title || 'Test',
+                        subject: base.subject || la.subject || 'General',
+                        score: la.score ?? base.score ?? 0,
+                        correct: la.correctAnswers ?? base.correct ?? 0,
+                        incorrect: la.wrongAnswers ?? base.incorrect ?? 0,
+                        unattempted: la.unanswered ?? base.unattempted ?? 0,
+                        totalQuestions: base.totalQuestions || questions.length || 0,
+                        accuracy: base.accuracy ?? Math.round(((la.correctAnswers || 0)/((la.correctAnswers||0)+(la.wrongAnswers||0)+(la.unanswered||0)||1))*100),
+                        timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
+                        timestamp: la.submittedAt || base.timestamp || new Date().toISOString(),
+                        questionStates: states,
+                        questions
+                    };
+                    localStorage.setItem('testResult', JSON.stringify(merged));
+                    return merged;
+                }
+            } catch (_) {}
+            return base || { score:0, correct:0, incorrect:0, unattempted:0, totalQuestions:100, accuracy:0, timestamp:new Date().toISOString() };
         }
 
         // Save test results to Firebase
@@ -1240,10 +1278,10 @@
         }
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             initializeFirebase();
             
-            const results = getTestResults();
+            const results = await getTestResults();
             updateResults(results);
             
             // Update test-specific elements

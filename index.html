@@ -2330,6 +2330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let renderIndex = 0;
     let io = null;
     let sentinel = null;
+    let lastAttemptsMap = {};
     
     // ==================== PERFORMANCE: Debounce function ====================
     function debounce(func, wait) {
@@ -2523,7 +2524,8 @@ document.addEventListener('DOMContentLoaded', () => {
             time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
         }
         
-        const attempt = historyMap[String(test.id)];
+        const la = lastAttemptsMap[String(test.id)];
+        const attempt = la || historyMap[String(test.id)];
         
         // Function to get max score for test
         function getMaxScoreForTest(test) {
@@ -2572,17 +2574,24 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (test.isNew && !isLocked) badges.push('<div class="new-badge">✨ NEW</div>');
         if (test.exam === 'CHSL_TOP_100_MATHS') badges.push('<div class="top100-badge">🔥 TOP 100</div>');
-        if (attempt && isHistoryLoaded && !isLocked) badges.push('<div class="attempted-badge">Attempted</div>');
+        if (attempt && !isLocked) badges.push('<div class="attempted-badge">Attempted</div>');
         
         if (currentSection === 'chapterwise' && test.chapter) {
             badges.push(`<div class="chapter-badge">📖 ${test.chapter}</div>`);
         }
 
-        const lastScoreHtml = isHistoryLoaded 
-            ? (attempt && !isLocked
-                ? `<div class="last-score">Last score: <strong>${(attempt.score ?? 0)}/${(attempt.maxScore ?? attempt.totalMarks ?? getMaxScoreForTest(test))}</strong></div>`
-                : `<div class="last-score not-attempted">${isLocked ? 'Unlock with Premium' : 'Not attempted yet'}</div>`)
-            : `<div class="last-score" style="background: transparent; border: none; color: var(--text-muted);">Loading...</div>`;
+        let lastScoreHtml;
+        if (attempt && !isLocked) {
+            const total = (attempt.totalMarks ?? attempt.maxScore ?? getMaxScoreForTest(test));
+            const minutes = Math.round(((attempt.timeTaken ?? 0) / 60));
+            const correct = attempt.correctAnswers ?? attempt.correct ?? 0;
+            const wrong = attempt.wrongAnswers ?? attempt.incorrect ?? 0;
+            const unans = attempt.unanswered ?? attempt.unattempted ?? 0;
+            const tooltip = `Correct: ${correct} • Wrong: ${wrong} • Unanswered: ${unans}`;
+            lastScoreHtml = `<div class="last-score" title="${tooltip}">Last: <strong>${(attempt.score ?? 0)}/${total}</strong> • ${minutes}m</div>`;
+        } else {
+            lastScoreHtml = `<div class="last-score not-attempted">${isLocked ? 'Unlock with Premium' : 'Not attempted yet'}</div>`;
+        }
 
         // Limit animation delay to max 0.3s for faster perceived load
         const maxDelay = Math.min(index * 0.03, 0.3);
@@ -2625,16 +2634,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 ${lastScoreHtml}
+                ${(attempt && !isLocked) ? `<button class="attempt-btn" style="background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color);" onclick="viewAttempt('${test.id}')">View Attempt</button>` : ''}
                 ${buttonHtml}
             </article>`;
     }
 
     // ==================== PERFORMANCE: Optimized displayTests ====================
-    const displayTests = debounce(function() {
+    async function loadLastAttemptsForTests(tests) {
+        lastAttemptsMap = {};
+        try {
+            const token = (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getToken) ? ExamAxisAPI.getToken() : localStorage.getItem('token');
+            const ids = tests.map(t => t.id).filter(Boolean);
+            if (!token || !ids.length) return;
+            const qs = encodeURIComponent(ids.join(','));
+            const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempts?testIds=${qs}`);
+            if (response && response.ok && data && data.data && data.data.lastAttempts) {
+                lastAttemptsMap = data.data.lastAttempts || {};
+            }
+        } catch (_) {}
+    }
+
+    const displayTests = debounce(async function() {
         const filteredTests = getFilteredTests(currentExam, currentSubject, currentSection);
 
         updateSectionCounts();
         updateSectionInfoBanner();
+        await loadLastAttemptsForTests(filteredTests);
         
         // Use requestAnimationFrame for smooth rendering
         requestAnimationFrame(() => {
@@ -2757,6 +2782,35 @@ document.addEventListener('DOMContentLoaded', () => {
             sentinel = null;
         }
     }
+    window.viewAttempt = function(testId) {
+        try {
+            const data = lastAttemptsMap[String(testId)] || historyMap[String(testId)];
+            if (!data) return;
+            const modal = document.getElementById('attemptModal');
+            const titleEl = document.getElementById('attemptModalTitle');
+            const scoreEl = document.getElementById('attemptModalScore');
+            const timeEl = document.getElementById('attemptModalTime');
+            const detailsEl = document.getElementById('attemptModalDetails');
+            const viewBtn = document.getElementById('attemptModalOpen');
+            const test = currentFilteredTests.find(t => String(t.id) === String(testId));
+            const total = data.totalMarks ?? data.maxScore ?? (test ? (test.section === 'fullmock' || test.exam === 'CHSL_TOP_100_MATHS' ? 200 : 50) : 50);
+            const minutes = Math.round(((data.timeTaken ?? 0) / 60));
+            const submitted = data.submittedAt ? new Date(data.submittedAt).toLocaleString() : '—';
+            const correct = data.correctAnswers ?? data.correct ?? 0;
+            const wrong = data.wrongAnswers ?? data.incorrect ?? 0;
+            const unans = data.unanswered ?? data.unattempted ?? 0;
+            if (titleEl) titleEl.textContent = test ? (test.date ? `${test.date} ${test.title}` : test.title) : `Test ${testId}`;
+            if (scoreEl) scoreEl.textContent = `${data.score ?? 0}/${total}`;
+            if (timeEl) timeEl.textContent = `${minutes}m • ${submitted}`;
+            if (detailsEl) detailsEl.textContent = `Correct: ${correct} • Wrong: ${wrong} • Unanswered: ${unans}`;
+            if (viewBtn) viewBtn.setAttribute('href', `result.html?testId=${encodeURIComponent(testId)}`);
+            if (modal) modal.style.display = 'flex';
+        } catch (_) {}
+    };
+    window.closeAttemptModal = function() {
+        const modal = document.getElementById('attemptModal');
+        if (modal) modal.style.display = 'none';
+    };
 
     function updateTabsForExam(exam) {
         elements.tabs.forEach(tab => {
@@ -2985,6 +3039,22 @@ async function initTelegramPopup() {
     };
 }
 </script>
+
+<div id="attemptModal" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(15,23,42,0.6);z-index:9999;">
+  <div style="background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color);box-shadow:var(--shadow-lg);border-radius:16px;max-width:520px;width:92%;padding:24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span style="font-size:22px;">📊</span>
+      <h3 id="attemptModalTitle" style="margin:0;font-size:18px;">Last Attempt</h3>
+    </div>
+    <p id="attemptModalScore" style="margin:6px 0 0;font-weight:600;"></p>
+    <p id="attemptModalTime" style="margin:6px 0;color:var(--text-secondary);"></p>
+    <p id="attemptModalDetails" style="margin:6px 0;color:var(--text-secondary);"></p>
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:12px;">
+      <a id="attemptModalOpen" class="attempt-btn" style="background:var(--primary);border-color:var(--primary);color:#fff;" href="#">View Detail</a>
+      <button class="attempt-btn" style="background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color);" onclick="closeAttemptModal()">Close</button>
+    </div>
+  </div>
+</div>
 
 <div id="telegramPopup" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(15,23,42,0.6);z-index:9999;">
   <div style="background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color);box-shadow:var(--shadow-lg);border-radius:16px;max-width:420px;width:92%;padding:24px;">
