@@ -1237,6 +1237,7 @@
                         };
                         localStorage.setItem('testResults', JSON.stringify(allResults));
                         console.log('✅ Saved to testResults map for testId:', String(QD.testInfo.id || testId));
+                        try { localStorage.setItem('attemptsDirty', '1'); } catch (_) {}
                     } catch (e) { 
                         console.error('Failed to save to testResults map:', e); 
                     }

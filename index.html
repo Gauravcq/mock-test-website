@@ -2297,12 +2297,14 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        const resetFlag = localStorage.getItem('attemptsV2ResetDone');
-        if (resetFlag !== '1') {
+        const currentVersion = '2';
+        const storedVersion = localStorage.getItem('attemptsStoreVersion');
+        if (storedVersion !== currentVersion) {
             localStorage.removeItem('testResults');
             localStorage.removeItem('testResult');
             localStorage.removeItem('viewAttempt');
-            localStorage.setItem('attemptsV2ResetDone', '1');
+            localStorage.removeItem('testId');
+            localStorage.setItem('attemptsStoreVersion', currentVersion);
         }
     } catch (_) {}
     // ==================== PERFORMANCE: Apply theme BEFORE paint ====================
@@ -2659,7 +2661,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const cacheKey = ids.sort().join(',');
         const token = (typeof ExamAxisAPI !== 'undefined' && ExamAxisAPI.getToken) ? ExamAxisAPI.getToken() : localStorage.getItem('token');
         if (!token || !ids.length) return Promise.resolve();
-        if (lastAttemptsCache[cacheKey]) {
+        const attemptsDirty = localStorage.getItem('attemptsDirty') === '1';
+        if (!attemptsDirty && lastAttemptsCache[cacheKey]) {
             lastAttemptsMap = lastAttemptsCache[cacheKey];
             console.log('📦 Using cached last attempts for', ids.length, 'tests');
             return Promise.resolve();
@@ -2670,6 +2673,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response && response.ok && data && data.data && data.data.lastAttempts) {
                 lastAttemptsMap = data.data.lastAttempts || {};
                 lastAttemptsCache[cacheKey] = lastAttemptsMap;
+                try { localStorage.removeItem('attemptsDirty'); } catch (_) {}
                 console.log('✅ Last attempts loaded:', Object.keys(lastAttemptsMap).length, 'tests have attempts');
                 // Debug: Log each testId with its attempt data
                 Object.entries(lastAttemptsMap).forEach(([testId, attempt]) => {
