@@ -1064,7 +1064,6 @@
             initializeReview();
         });
 
-        // Firebase ranking (real users only)
         const firebaseConfig = {
             apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
             authDomain: "exam-axis.firebaseapp.com",
@@ -1077,17 +1076,38 @@
         };
 
         let reviewDb = null;
+        const RANKING_ENABLED = true;
+        const FIREBASE_CONFIG = firebaseConfig;
+        function initFirebaseSafely() {
+            try {
+                if (!window.firebase) {
+                    return { enabled: false, reason: 'SDK missing' };
+                }
+                if (!FIREBASE_CONFIG || !FIREBASE_CONFIG.apiKey) {
+                    return { enabled: false, reason: 'Missing config' };
+                }
+                const app = (firebase.apps && firebase.apps.length) ? firebase.apps[0] : firebase.initializeApp(FIREBASE_CONFIG);
+                const auth = firebase.auth();
+                const db = firebase.database();
+                return { enabled: true, app, auth, db };
+            } catch (e) {
+                return { enabled: false, reason: e.message };
+            }
+        }
+        const FB = RANKING_ENABLED ? initFirebaseSafely() : { enabled: false, reason: 'Ranking disabled' };
+        async function startAnonymousIfEnabled() {
+            if (!FB.enabled) return null;
+            try {
+                const cred = await FB.auth.signInAnonymously();
+                return cred.user;
+            } catch (_) {
+                return null;
+            }
+        }
 
         function initReviewFirebase() {
-            try {
-                if (!firebase.apps || firebase.apps.length === 0) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                reviewDb = firebase.database();
-                try { if (firebase.auth) firebase.auth().signInAnonymously().catch(()=>{}); } catch(_) {}
-            } catch (e) {
-                reviewDb = null;
-            }
+            reviewDb = FB.enabled ? FB.db : null;
+            startAnonymousIfEnabled().then(()=>{});
         }
 
         function updateReviewRankUI(rank, totalUsers, percentile) {
