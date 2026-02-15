@@ -1232,7 +1232,14 @@
                 }
                 setTimeout(() => {
                     const revBtn = $('review-test-btn');
-                    if (revBtn) revBtn.onclick = () => { window.location.href = 'review.html'; };
+                    if (revBtn) revBtn.onclick = () => {
+                        const tid = String(window.QUIZ_DATA?.testInfo?.id || testId || '');
+                        if (tid) {
+                            window.location.href = `review.html?testId=${encodeURIComponent(tid)}`;
+                        } else {
+                            window.location.href = 'review.html';
+                        }
+                    };
                 }, 100);
                 bindTabs();
                 quizUI?.classList.add('hidden');
@@ -1244,9 +1251,17 @@
                         answersObj[i] = { userAnswer: state.userAnswer, isCorrect: state.resultCategory === 'correct' };
                     });
                     const attemptData = {
-                        testId: String(QD.testInfo.id || testId), examType: 'CGL', subject: subjectName || 'Mathematics',
-                        score: Number(score.toFixed(2)), totalMarks: questions.length * 2, correctAnswers: correct,
-                        wrongAnswers: incorrect, unanswered: unattempted, timeTaken: mins, answers: answersObj
+                        testId: String(QD.testInfo.id || testId),
+                        examType: 'CGL',
+                        subject: subjectName || 'Mathematics',
+                        score: Number(score.toFixed(2)),
+                        totalMarks: questions.length * 2,
+                        correctAnswers: correct,
+                        wrongAnswers: incorrect,
+                        unanswered: unattempted,
+                        timeTaken: mins,
+                        answers: answersObj,
+                        questionsSnapshot: questions
                     };
                     ExamAxisAPI.saveTestAttempt(attemptData).then(result => {
                         console.log(result.success ? '✅ Saved to backend' : '⚠️ Failed to save:', result.message);

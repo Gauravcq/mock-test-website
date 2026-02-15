@@ -1298,27 +1298,53 @@
         }
     }
 
+    async function fetchPaymentsByStatus(status, limit = 200) {
+        const params = new URLSearchParams();
+        if (status && status !== 'all') params.set('status', status);
+        params.set('page', '1');
+        params.set('limit', String(limit));
+        try {
+            const res = await fetch(`${API_URL}/payment/all?${params.toString()}`, {
+                headers: { 'Authorization': `Bearer ${getToken()}` }
+            });
+            const json = await res.json().catch(() => ({}));
+            if (json && json.success && Array.isArray(json.data)) return json.data;
+        } catch (e) {
+            console.error('fetchPaymentsByStatus error:', e);
+        }
+        return [];
+    }
+
     async function loadPayments() {
         const refreshBtn = document.getElementById('refreshBtn');
         refreshBtn.classList.add('loading');
         showLoading(true);
         
         try {
-            const response = await fetch(`${API_URL}/payment/all`, {
-                headers: {
-                    'Authorization': `Bearer ${getToken()}`
-                }
+            const [pending, approved, rejected] = await Promise.all([
+                fetchPaymentsByStatus('pending', 200),
+                fetchPaymentsByStatus('approved', 200),
+                fetchPaymentsByStatus('rejected', 200),
+            ]);
+
+            allPayments = [...pending, ...approved, ...rejected].sort((a, b) => {
+                const da = new Date(a.createdAt || a.created_at || 0).getTime();
+                const db = new Date(b.createdAt || b.created_at || 0).getTime();
+                return db - da;
             });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                allPayments = data.data || [];
-                filterPayments(currentFilter);
-                loadStats();
-            } else {
-                showToast(data.message || 'Failed to load payments', 'error');
-            }
+
+            const allTab = document.getElementById('allTab');
+            const approvedTab = document.getElementById('approvedTab');
+            const rejectedTab = document.getElementById('rejectedTab');
+            const pendingTab = document.getElementById('pendingTab');
+
+            if (allTab) allTab.textContent = allPayments.length;
+            if (approvedTab) approvedTab.textContent = approved.length;
+            if (rejectedTab) rejectedTab.textContent = rejected.length;
+            if (pendingTab) pendingTab.textContent = pending.length;
+
+            filterPayments(currentFilter);
+            loadStats();
         } catch (error) {
             console.error('Failed to load payments:', error);
             showToast('Failed to load payments', 'error');
