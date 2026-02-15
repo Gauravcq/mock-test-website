@@ -743,11 +743,13 @@
                 try {
                     const { response, data } = await ExamAxisAPI.request(`/api/tests/last-attempt/${encodeURIComponent(testId)}`);
                     const la = (response && response.ok && data && (data.data || data.lastAttempt)) ? (data.data?.lastAttempt || data.data || data.lastAttempt) : null;
-                    let questions = [];
-                    try {
-                        const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
-                        questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
-                    } catch (_) {}
+                    let questions = Array.isArray(la?.questions) && la.questions.length ? la.questions : [];
+                    if (!questions.length) {
+                        try {
+                            const q = await ExamAxisAPI.request(`/api/questions/${encodeURIComponent(testId)}`);
+                            questions = (q.data && (q.data.data?.questions || q.data.questions || q.data)) || [];
+                        } catch (_) {}
+                    }
                     if (la && Array.isArray(questions) && questions.length) {
                         const answers = la.answers || {};
                         const normalize = (str) => String(str || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();

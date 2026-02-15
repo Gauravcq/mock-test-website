@@ -1206,16 +1206,35 @@
                 QD.reviewQuestionList = filterQuestions('all');
                 try {
                     const attemptPayload = {
-                        testId: String(QD.testInfo.id || testId), testInfo: QD.testInfo, questions, questionStates: QD.questionStates,
-                        score: Number(score.toFixed(2)), correct, incorrect, unattempted, accuracy: Number(accuracy.toFixed(1)),
-                        timeTaken: { mins, secs }, timestamp: Date.now()
+                        testId: String(QD.testInfo.id || testId),
+                        testInfo: QD.testInfo,
+                        questions,
+                        questionStates: QD.questionStates,
+                        score: Number(score.toFixed(2)),
+                        correct,
+                        incorrect,
+                        unattempted,
+                        accuracy: Number(accuracy.toFixed(1)),
+                        timeTaken: (mins * 60) + secs,
+                        timestamp: Date.now(),
+                        submittedAt: new Date().toISOString()
                     };
                     localStorage.setItem('testResult', JSON.stringify(attemptPayload));
                     
                     // Also save to testResults map for test cards
                     try {
                         const allResults = JSON.parse(localStorage.getItem('testResults') || '{}');
-                        allResults[String(QD.testInfo.id || testId)] = attemptPayload;
+                        allResults[String(QD.testInfo.id || testId)] = {
+                            testId: attemptPayload.testId,
+                            score: attemptPayload.score,
+                            totalMarks: questions.length * 2,
+                            correctAnswers: correct,
+                            wrongAnswers: incorrect,
+                            unanswered: unattempted,
+                            timeTaken: attemptPayload.timeTaken,
+                            submittedAt: attemptPayload.submittedAt,
+                            accuracy: attemptPayload.accuracy
+                        };
                         localStorage.setItem('testResults', JSON.stringify(allResults));
                         console.log('✅ Saved to testResults map for testId:', String(QD.testInfo.id || testId));
                     } catch (e) { 

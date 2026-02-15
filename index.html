@@ -2296,6 +2296,15 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const resetFlag = localStorage.getItem('attemptsV2ResetDone');
+        if (resetFlag !== '1') {
+            localStorage.removeItem('testResults');
+            localStorage.removeItem('testResult');
+            localStorage.removeItem('viewAttempt');
+            localStorage.setItem('attemptsV2ResetDone', '1');
+        }
+    } catch (_) {}
     // ==================== PERFORMANCE: Apply theme BEFORE paint ====================
     (function() {
         const savedTheme = localStorage.getItem('theme') || 'light';
