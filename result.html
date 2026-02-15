@@ -746,7 +746,7 @@
 
         // Initialize Firebase with your actual config
         let database;
-        let isFirebaseEnabled = true;
+        let isFirebaseEnabled = false;
 
         // Initialize Firebase immediately with your config
         function initializeFirebase() {
@@ -756,7 +756,7 @@
                     firebase.initializeApp(firebaseConfig);
                 }
                 database = firebase.database();
-                isFirebaseEnabled = true;
+                isFirebaseEnabled = !!(database && typeof database.ref === 'function');
                 console.log('✅ Firebase initialized successfully');
                 
                 // Try to get current user first, then sign in anonymously if needed
@@ -768,6 +768,7 @@
                         console.log('🔄 No Firebase user, signing in anonymously');
                         firebase.auth().signInAnonymously().catch((error) => {
                             console.warn('⚠️ Anonymous sign-in failed:', error);
+                            isFirebaseEnabled = false;
                             showNotification('Firebase authentication failed', 'error');
                         });
                     }
@@ -823,7 +824,7 @@
 
         // Start real-time updates for rankings
         function startRealtimeUpdates() {
-            if (!isFirebaseEnabled) return;
+            if (!isFirebaseEnabled || !database || typeof database.ref !== 'function') return;
             
             // IMPORTANT: Use URL testId for proper isolation
             const urlParams = new URLSearchParams(window.location.search);
@@ -1791,13 +1792,6 @@
                 if (e.target === modal) {
                     modal.remove();
                 }
-            });
-        }
-        if (isFirebaseEnabled) {
-            const testId = localStorage.getItem('testId') || 'default';
-            database.ref('results/' + testId).on('value', (snapshot) => {
-                const results = getTestResults();
-                updateRanking(results);
             });
         }
     </script>
