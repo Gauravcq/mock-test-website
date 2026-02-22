@@ -773,7 +773,7 @@
                 console.log('✅ Firebase anonymous auth OK');
                 return cred.user;
             } catch (err) {
-                console.log('⚠️ Anonymous sign-in failed:', err.message);
+                console.log('⚠️ Anonymous sign-in failed:', err && err.message ? err.message : 'unknown');
                 return null;
             }
         }
@@ -837,10 +837,19 @@
             
             // Listen for real-time updates
             resultsRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    updateRankings(data);
-                }
+                try {
+                    const data = snapshot.val();
+                    if (data) {
+                        updateRankings(data);
+                    } else {
+                        // No data; show N/A
+                        updateRankUI(null, 0, 0);
+                    }
+                } catch (_) {}
+            }, (error) => {
+                try { console.log('Firebase read error:', error && error.message); } catch(_) {}
+                updateRankUI(null, 0, 0);
+                try { resultsRef.off(); } catch(_) {}
             });
             
             console.log('🔄 Real-time updates started for test:', testId);

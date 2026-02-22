@@ -2530,7 +2530,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const la = lastAttemptsMap[String(test.id)];
-        const attempt = la || historyMap[String(test.id)] || (() => {
+        let attempt = la || historyMap[String(test.id)] || (() => {
             // Fallback to localStorage testResults
             try {
                 const allResults = JSON.parse(localStorage.getItem('testResults') || '{}');
@@ -2540,6 +2540,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return null;
             }
         })();
+        
+        if (attempt && attempt.testId && String(attempt.testId) !== String(test.id)) {
+            attempt = null;
+        }
         
         // Function to get max score for test
         function getMaxScoreForTest(test) {
