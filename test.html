@@ -1469,6 +1469,7 @@ body.results-scroll {
 
     <div class="ins-footer">
         <a href="index.html" class="btn-orange">Go to Tests</a>
+        <button id="view-last-attempt-btn" class="btn secondary">View Last Attempt</button>
         <button id="start-test-btn" class="btn-blue">Start Test</button>
     </div>
 </div>
@@ -1774,9 +1775,115 @@ body.results-scroll {
 
 <script src="js/tests-list.js"></script>
 <script src="js/questions-db.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script>
+  window.FIREBASE_CONFIG = {
+    apiKey: "AIzaSyAbNjrfIO19ZZqqOHcFFXkCF_Nz9vMCJrU",
+    authDomain: "exam-axis.firebaseapp.com",
+    databaseURL: "https://exam-axis-default-rtdb.firebaseio.com",
+    projectId: "exam-axis",
+    storageBucket: "exam-axis.firebasestorage.app",
+    messagingSenderId: "285879641284",
+    appId: "1:285879641284:web:10a1800c5e579e68ee1591",
+    measurementId: "G-2ML43R0G1X"
+  };
+  (function () {
+    try {
+      if (!window.firebase) return;
+      if (!window.FIREBASE_CONFIG || !window.FIREBASE_CONFIG.apiKey) return;
+      if (!firebase.apps || firebase.apps.length === 0) {
+        firebase.initializeApp(window.FIREBASE_CONFIG);
+      }
+      if (firebase.auth) {
+        firebase.auth().signInAnonymously().catch(function(){});
+      }
+      window.FB = { app: firebase.app(), auth: firebase.auth(), db: firebase.database() };
+    } catch (e) {}
+  })();
+</script>
 <!-- Use ORIGINAL test-logic.js -->
 <script src="js/test-logic.js"></script>
 <script src="js/attempt-sync.js"></script>
+<script>
+  (function () {
+    function getTestId() {
+      const p = new URLSearchParams(window.location.search);
+      return p.get('testId') || localStorage.getItem('testId') || '';
+    }
+    function getUserId() {
+      var id = localStorage.getItem('userId') || localStorage.getItem('user_id') || localStorage.getItem('anonUserId');
+      if (id) return String(id);
+      try {
+        if (firebase && firebase.auth && firebase.auth().currentUser && firebase.auth().currentUser.uid) {
+          id = 'anon_' + firebase.auth().currentUser.uid;
+        }
+      } catch (_) {}
+      if (!id) {
+        id = 'anon_' + Math.random().toString(36).slice(2, 10);
+      }
+      try { localStorage.setItem('anonUserId', String(id)); if (!localStorage.getItem('userId')) localStorage.setItem('userId', String(id)); } catch (_) {}
+      return String(id);
+    }
+    function normalizeForResult(a, testId) {
+      var t = a || {};
+      var totalQ = t.totalQuestions || ((t.correct||0)+(t.incorrect||0)+(t.unattempted||0));
+      return {
+        testId: String(testId||t.testId||'default'),
+        title: t.testTitle || t.title || 'Test',
+        subject: t.subject || 'General',
+        score: Number(t.score||0),
+        correct: Number(t.correct||0),
+        incorrect: Number(t.incorrect||0),
+        unattempted: Number(t.unattempted||0),
+        totalQuestions: Number(totalQ||0),
+        totalMarks: Number(totalQ*2||0),
+        accuracy: Number(t.accuracy||0),
+        timeTaken: Number(t.timeTaken||0),
+        timestamp: t.timestamp || new Date().toISOString(),
+        viewOnly: true
+      };
+    }
+    function onClick() {
+      if (!window.firebase || !window.FB || !FB.db) { alert('Firebase not available'); return; }
+      var testId = getTestId();
+      if (!testId) { alert('No test selected'); return; }
+      var userId = getUserId();
+      var ref = FB.db.ref('userAttempts/'+userId+'/'+String(testId));
+      ref.once('value').then(function(snapshot){
+        var attempts = snapshot.val()||{};
+        var list = Object.values(attempts);
+        if (!list.length) { alert('No previous attempts found'); return; }
+        list.sort(function(a,b){ return (b.timestamp||0)-(a.timestamp||0); });
+        var latest = list[0];
+        var merged = normalizeForResult(latest, testId);
+        try { localStorage.setItem('testResult', JSON.stringify(merged)); localStorage.setItem('testId', String(merged.testId)); } catch (_) {}
+        window.location.href = 'result.html?viewOnly=1&testId='+encodeURIComponent(String(merged.testId));
+      }).catch(function(){ alert('Failed to load previous attempts'); });
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      var btn = document.getElementById('view-last-attempt-btn');
+      if (btn) btn.addEventListener('click', onClick);
+    });
+  })();
+</script>
+<script>
+(function(){
+  function g(k){var p=new URLSearchParams(location.search);return p.get(k)}
+  if(g('debug')!=='1')return;
+  var s=document.createElement('style');s.textContent='#diag{position:fixed;right:12px;bottom:12px;background:#111827;color:#fff;padding:12px 14px;border-radius:10px;z-index:99999;font:600 12px Inter,system-ui}.ok{color:#34d399}.err{color:#f87171}.row{margin:4px 0}';document.head.appendChild(s);
+  var d=document.createElement('div');d.id='diag';d.innerHTML='Diagnostics';document.body.appendChild(d);
+  function uid(){var u=localStorage.getItem('userId')||localStorage.getItem('user_id')||localStorage.getItem('anonUserId');if(u)return String(u);try{if(firebase&&firebase.auth&&firebase.auth().currentUser&&firebase.auth().currentUser.uid){u='anon_'+firebase.auth().currentUser.uid}}catch(_){}if(!u){u='anon_'+Math.random().toString(36).slice(2,10)}try{localStorage.setItem('anonUserId',u);if(!localStorage.getItem('userId'))localStorage.setItem('userId',u)}catch(_){}return String(u)}
+  function tid(){var p=new URLSearchParams(location.search);return p.get('testId')||localStorage.getItem('testId')||'default'}
+  function row(k,v,ok){var r=document.createElement('div');r.className='row';r.innerHTML=k+': <span class="'+(ok?'ok':'err')+'">'+v+'</span>';d.appendChild(r)}
+  var okFB=!!(window.firebase&&window.FIREBASE_CONFIG&&window.FB&&FB.db);row('Firebase',okFB?'ok':'missing',okFB);
+  var u=uid();row('userId',u,!!u);
+  var t=tid();row('testId',t,!!t);
+  window.examDiag=async function(){var out={};out.firebase=okFB;out.userId=u;out.testId=t;if(okFB){try{var snap=await FB.db.ref('userAttempts/'+u+'/'+t).limitToLast(1).once('value');out.read=!!snap.val();row('read',out.read?'ok':'empty',true)}catch(e){out.read=false;row('read','error',false)}}return out};
+  window.examDiag();
+})();
+</script>
 
 <script>
 (function () {

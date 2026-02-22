@@ -4,6 +4,66 @@
 (function() {
     'use strict';
 
+    const FB_HELPER = (function () {
+        try {
+            if (window.firebase && window.FIREBASE_CONFIG) {
+                const app = (firebase.apps && firebase.apps.length) ? firebase.apps[0] : firebase.initializeApp(window.FIREBASE_CONFIG);
+                const auth = firebase.auth();
+                const db = firebase.database();
+                try { auth.signInAnonymously().catch(function(){}); } catch (_) {}
+                return { app, auth, db };
+            }
+        } catch (_) {}
+        return null;
+    })();
+
+    function getOrCreateUserId() {
+        let uid = localStorage.getItem('userId') || localStorage.getItem('user_id') || localStorage.getItem('anonUserId');
+        if (uid) return String(uid);
+        try {
+            if (FB_HELPER && FB_HELPER.auth && FB_HELPER.auth.currentUser && FB_HELPER.auth.currentUser.uid) {
+                uid = 'anon_' + FB_HELPER.auth.currentUser.uid;
+            }
+        } catch (_) {}
+        if (!uid) {
+            uid = 'anon_' + Math.random().toString(36).slice(2, 10);
+        }
+        try {
+            localStorage.setItem('anonUserId', String(uid));
+            if (!localStorage.getItem('userId')) localStorage.setItem('userId', String(uid));
+        } catch (_) {}
+        return String(uid);
+    }
+
+    async function saveAttemptToFirebase(payload) {
+        try {
+            if (!window.firebase || !FB_HELPER) return;
+            const db = FB_HELPER.db;
+            const userId = getOrCreateUserId();
+            const userName = localStorage.getItem('userName') || localStorage.getItem('name') || 'Guest';
+            const testId = String(payload.testId || localStorage.getItem('testId') || 'default');
+            const attemptId = String(payload.timestamp || Date.now());
+            const totalQuestions = Array.isArray(payload.questions) ? payload.questions.length : (payload.totalQuestions || ((payload.correct || 0) + (payload.incorrect || 0) + (payload.unattempted || 0)));
+            const data = {
+                userId: userId,
+                userName: userName,
+                testId: testId,
+                testTitle: (payload.testInfo && payload.testInfo.title) || payload.title || 'Test',
+                subject: (payload.testInfo && payload.testInfo.subject) || payload.subject || 'General',
+                score: payload.score || 0,
+                correct: payload.correct || 0,
+                incorrect: payload.incorrect || 0,
+                unattempted: payload.unattempted || 0,
+                totalQuestions: totalQuestions || 0,
+                accuracy: payload.accuracy || 0,
+                timeTaken: payload.timeTaken || 0,
+                timestamp: payload.timestamp || Date.now()
+            };
+            try { await db.ref('testResults/' + testId + '/' + userId).set(data); } catch (_) {}
+            try { await db.ref('userAttempts/' + userId + '/' + testId + '/' + attemptId).set(data); } catch (_) {}
+        } catch (_) {}
+    }
+
     // ========== SECURITY FEATURES ==========
     const SECURITY = {
         // Set to true to enable ALL security features
@@ -1220,6 +1280,8 @@
                         submittedAt: new Date().toISOString()
                     };
                     localStorage.setItem('testResult', JSON.stringify(attemptPayload));
+                    try { localStorage.setItem('testId', String(attemptPayload.testId)); } catch (_) {}
+                    try { saveAttemptToFirebase(attemptPayload); } catch (_) {}
                     
                     // Also save to testResults map for test cards
                     try {
