@@ -2533,9 +2533,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==================== HELPER FUNCTIONS ====================
     function getFilteredTests(exam, subject, section) {
-        if (section === 'chapterwise') {
-            return buildChapterwiseTests(exam, subject);
-        }
         if (exam === 'CHSL' && subject === 'Top100Maths') {
             return ALL_TESTS.filter(test => 
                 test.exam === 'CHSL_TOP_100_MATHS' && 
@@ -2573,7 +2570,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        counts.chapterwise += getChapterCount(subject);
+        // counts reflect only tests present in ALL_TESTS
 
         return counts;
     }
@@ -2593,17 +2590,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
     }
 
-    // Quick switch helper for Chapterwise subjects
-    function selectChapterwiseSubject(subject) {
-        // Activate the corresponding subject tab visually
-        elements.tabs.forEach(t => {
-            const isActive = t.dataset.subject === subject;
-            t.classList.toggle('active', isActive);
-            t.setAttribute('aria-selected', isActive);
-        });
-        currentSubject = subject;
-        displayTests();
-    }
+    // (removed subject quick-switch for chapterwise placeholder)
 
     // ==================== PERFORMANCE: Use DocumentFragment for batch DOM updates ====================
     function generateCardHTML(test, index) {
@@ -2866,37 +2853,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>`;
                     } else if (currentSection === 'chapterwise') {
-                        // Show 4 subject sections for chapterwise (available for all exams)
-                        const subjects = [
-                            { key: 'Maths', icon: '📐', desc: 'Algebra • Geometry • Arithmetic' },
-                            { key: 'Reasoning', icon: '🧩', desc: 'Analogy • Series • Puzzles' },
-                            { key: 'GK', icon: '🌍', desc: 'History • Polity • Science' },
-                            { key: 'English', icon: '📖', desc: 'Grammar • Vocab • Comprehension' }
-                        ];
-                        const cards = subjects.map(s => `
-                            <article class="test-card section-chapterwise-card" role="listitem" data-chapter-subject="${s.key}">
-                                <div class="card-glow"></div>
-                                <h3 class="card-title">${s.icon} ${s.key} — Chapters</h3>
-                                <hr>
-                                <div class="card-stats">
-                                    <div class="stat-item">
-                                        <div class="value">Focused</div>
-                                        <div class="label">Practice</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="value">Smart</div>
-                                        <div class="label">Tracking</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="value">Adaptive</div>
-                                        <div class="label">Levels</div>
-                                    </div>
-                                </div>
-                                <div class="last-score">${s.desc}</div>
-                                <button class="attempt-btn" onclick="selectChapterwiseSubject('${s.key}')">Open Chapters</button>
-                            </article>
-                        `).join('');
-                        message = cards;
+                        message = `<div class="no-tests-message section-chapterwise">
+                            <div class="icon">${sectionIcon}</div>
+                            <h3>Chapterwise Tests Coming Soon!</h3>
+                            <p>Master each chapter of ${currentSubject} with focused practice.</p>
+                            <div class="coming-soon-features">
+                                <span>✓ Topic-wise practice</span>
+                                <span>✓ Difficulty levels</span>
+                                <span>✓ Progress tracking</span>
+                            </div>
+                        </div>`;
                     } else {
                         message = `<div class="no-tests-message">
                             <div class="icon">📭</div>

@@ -3952,9 +3952,206 @@ const ALL_TESTS = [
     exam: "CGL",
     section: "fullmock",
     questions: 100,
+  },
+
+  // ==================== CHAPTERWISE TESTS ====================
+  // CGL Maths Chapterwise Tests
+  {
+    id: "cgl_percentage_001",
+    title: "Percentage",
+    subject: "Maths",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Percentage",
+    questions: 25
+  },
+  {
+    id: "cgl_simple_interest_001",
+    title: "Simple Interest",
+    subject: "Maths",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Simple Interest",
+    questions: 25
+  },
+  {
+    id: "cgl_compound_interest_001",
+    title: "Compound Interest",
+    subject: "Maths",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Compound Interest",
+    questions: 25
+  },
+
+  // CGL Reasoning Chapterwise Tests
+  {
+    id: "cgl_blood_relations_001",
+    title: "Blood Relations",
+    subject: "Reasoning",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Blood Relations",
+    questions: 25
+  },
+  {
+    id: "cgl_direction_sense_001",
+    title: "Direction Sense",
+    subject: "Reasoning",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Direction Sense",
+    questions: 25
+  },
+
+  // CGL English Chapterwise Tests
+  {
+    id: "cgl_cloze_test_001",
+    title: "Cloze Test",
+    subject: "English",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Cloze Test",
+    questions: 25
+  },
+  {
+    id: "cgl_reading_comprehension_001",
+    title: "Reading Comprehension",
+    subject: "English",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Reading Comprehension",
+    questions: 25
+  },
+
+  // CGL GK Chapterwise Tests
+  {
+    id: "cgl_history_001",
+    title: "History",
+    subject: "GK",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "History",
+    questions: 25
+  },
+  {
+    id: "cgl_polity_001",
+    title: "Polity",
+    subject: "GK",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Polity",
+    questions: 25
+  },
+
+  // CHSL Maths Chapterwise Tests
+  {
+    id: "chsl_percentage_001",
+    title: "Percentage",
+    subject: "Maths",
+    exam: "CHSL",
+    section: "chapterwise",
+    chapter: "Percentage",
+    questions: 25
+  },
+  {
+    id: "chsl_simple_interest_001",
+    title: "Simple Interest",
+    subject: "Maths",
+    exam: "CHSL",
+    section: "chapterwise",
+    chapter: "Simple Interest",
+    questions: 25
+  },
+
+  // CHSL Reasoning Chapterwise Tests
+  {
+    id: "chsl_blood_relations_001",
+    title: "Blood Relations",
+    subject: "Reasoning",
+    exam: "CHSL",
+    section: "chapterwise",
+    chapter: "Blood Relations",
+    questions: 25
+  },
+
+  // CHSL English Chapterwise Tests
+  {
+    id: "chsl_cloze_test_001",
+    title: "Cloze Test",
+    subject: "English",
+    exam: "CHSL",
+    section: "chapterwise",
+    chapter: "Cloze Test",
+    questions: 25
+  },
+
+  // CHSL GK Chapterwise Tests
+  {
+    id: "chsl_history_001",
+    title: "History",
+    subject: "GK",
+    exam: "CHSL",
+    section: "chapterwise",
+    chapter: "History",
+    questions: 25
+  },
+
+  // DP Maths Chapterwise Tests
+  {
+    id: "dp_percentage_001",
+    title: "Percentage",
+    subject: "Maths",
+    exam: "DP",
+    section: "chapterwise",
+    chapter: "Percentage",
+    questions: 25
+  },
+  {
+    id: "dp_simple_interest_001",
+    title: "Simple Interest",
+    subject: "Maths",
+    exam: "DP",
+    section: "chapterwise",
+    chapter: "Simple Interest",
+    questions: 25
+  },
+
+  // DP Reasoning Chapterwise Tests
+  {
+    id: "dp_blood_relations_001",
+    title: "Blood Relations",
+    subject: "Reasoning",
+    exam: "DP",
+    section: "chapterwise",
+    chapter: "Blood Relations",
+    questions: 25
+  },
+
+  // DP English Chapterwise Tests
+  {
+    id: "dp_cloze_test_001",
+    title: "Cloze Test",
+    subject: "English",
+    exam: "DP",
+    section: "chapterwise",
+    chapter: "Cloze Test",
+    questions: 25
+  },
+
+  // DP GK Chapterwise Tests
+  {
+    id: "dp_history_001",
+    title: "History",
+    subject: "GK",
+    exam: "DP",
+    section: "chapterwise",
+    chapter: "History",
+    questions: 25
   }
 
-
 ];
+
+
 
 
