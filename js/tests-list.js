@@ -4148,6 +4148,36 @@ const ALL_TESTS = [
     section: "chapterwise",
     chapter: "History",
     questions: 25
+  },
+
+  // ==================== ADDITIONAL CHAPTERWISE TESTS ====================
+  // CGL Maths Additional Chapters
+  {
+    id: "cgl_number_system_001",
+    title: "Number System",
+    subject: "Maths",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Number System",
+    questions: 30
+  },
+  {
+    id: "cgl_profit_loss_001",
+    title: "Profit & Loss",
+    subject: "Maths",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Profit & Loss",
+    questions: 35
+  },
+  {
+    id: "cgl_ratio_proportion_001",
+    title: "Ratio & Proportion",
+    subject: "Maths",
+    exam: "CGL",
+    section: "chapterwise",
+    chapter: "Ratio & Proportion",
+    questions: 25
   }
 
 ];

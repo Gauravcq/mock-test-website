@@ -2595,7 +2595,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==================== PERFORMANCE: Use DocumentFragment for batch DOM updates ====================
     function generateCardHTML(test, index) {
         const fullTitle = test.date ? `${test.date} ${test.title}` : test.title;
-        const questions = test.questions || 25;
+        const isChapter = (test.section === 'chapterwise' || currentSection === 'chapterwise');
+        const la = lastAttemptsMap[String(test.id)];
+        // For chapterwise tests, don't rely on test.questions (backend decides count)
+        const questions = isChapter 
+            ? (typeof la?.totalQuestions === 'number' ? la.totalQuestions : null)
+            : (test.questions || 25);
         
         let time;
         if (currentSection === 'fullmock') {
@@ -2606,7 +2611,7 @@ document.addEventListener('DOMContentLoaded', () => {
             time = SUBJECT_DISPLAY_TIMES[test.subject] || SUBJECT_DISPLAY_TIMES["General"];
         }
         
-        const la = lastAttemptsMap[String(test.id)];
+        // la already computed above
         let attempt = la || historyMap[String(test.id)] || (() => {
             // Fallback to localStorage testResults
             try {
@@ -2706,6 +2711,8 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonHtml = `<a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>`;
         }
 
+        const qDisplay = (questions == null) ? 'Varies' : String(questions);
+        const marksDisplay = (questions == null) ? 'Varies' : String((Number(questions) || 0) * 2);
         return `
             <article class="${cardClasses}" 
                      role="listitem" 
@@ -2717,11 +2724,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <hr>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <div class="value">${questions}</div>
+                        <div class="value">${qDisplay}</div>
                         <div class="label">Questions</div>
                     </div>
                     <div class="stat-item">
-                        <div class="value">${questions * 2}</div>
+                        <div class="value">${marksDisplay}</div>
                         <div class="label">Marks</div>
                     </div>
                     <div class="stat-item">
