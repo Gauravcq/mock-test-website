@@ -935,6 +935,11 @@
             let testId = urlTestId || base.testId || localStorage.getItem('testId') || '';
             const viewOnly = urlParams.get('viewOnly') === '1';
             
+            // If we already have embedded questions for this test in localStorage, prefer them
+            if (base && String(base.testId || '') === String(testId || '') && Array.isArray(base.questions) && base.questions.length) {
+                return Object.assign({}, base, { viewOnly });
+            }
+            
             // Clear any conflicting testId from localStorage when loading different test
             if (urlTestId && urlTestId !== localStorage.getItem('testId')) {
                 console.log('🔄 Different testId detected, clearing localStorage conflicts');
@@ -992,6 +997,22 @@
                 const cached = JSON.parse(localStorage.getItem('viewAttempt') || '{}');
                 if (cached && String(cached.testId) === String(testId) && cached.lastAttempt) {
                     const la = cached.lastAttempt;
+                    // Prefer embedded review questions from cached attempt
+                    let questions = [];
+                    let states = [];
+                    try {
+                        if (la.review && Array.isArray(la.review.questions) && la.review.questions.length) {
+                            questions = la.review.questions.map(function(item){
+                                return {
+                                    question: { en: item.question, hi: item.question },
+                                    options: (item.options||[]).map(function(o){ return { en: o, hi: o }; }),
+                                    correctAnswer: { en: item.correctAnswer, hi: item.correctAnswer },
+                                    subject: item.subject || ''
+                                };
+                            });
+                            states = Array.isArray(la.review.questionStates) ? la.review.questionStates : [];
+                        }
+                    } catch (_) {}
                     const merged = {
                         testId,
                         viewOnly,
@@ -1005,8 +1026,8 @@
                         accuracy: base.accuracy ?? Math.round(((la.correctAnswers || 0)/((la.correctAnswers||0)+(la.wrongAnswers||0)+(la.unanswered||0)||1))*100),
                         timeTaken: la.timeTaken ?? base.timeTaken ?? 0,
                         timestamp: la.submittedAt || base.timestamp || new Date().toISOString(),
-                        questionStates: base.questionStates || [],
-                        questions: base.questions || []
+                        questionStates: states,
+                        questions: questions
                     };
                     localStorage.setItem('testResult', JSON.stringify(merged));
                     return merged;

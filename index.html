@@ -2397,6 +2397,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const CHAPTERWISE_CATALOG = {
+        Maths: {
+            Arithmetic: [
+                'Number System','Percentage','Profit & Loss','Simple Interest','Compound Interest',
+                'Ratio & Proportion','Averages','Mixture & Alligation','Time & Work','Pipes & Cisterns',
+                'Time, Speed & Distance','Boats & Streams','Trains'
+            ],
+            Advanced: [
+                'Algebra','Geometry','Mensuration','Trigonometry','Coordinate Geometry'
+            ]
+        },
+        Reasoning: [
+            'Analogy','Classification','Series','Coding-Decoding','Blood Relations','Direction Sense',
+            'Syllogism','Venn Diagrams','Seating Arrangement','Puzzles','Clocks & Calendars','Non-Verbal'
+        ],
+        English: [
+            'Grammar','Spotting Errors','Sentence Improvement','Fill in the Blanks','Cloze Test',
+            'Synonyms & Antonyms','One Word Substitution','Idioms & Phrases','Para Jumbles','Reading Comprehension'
+        ],
+        GK: [
+            'History','Polity','Geography','Economics','Science','Static GK','Current Affairs','Computer Awareness'
+        ]
+    };
+
+    function slugify(s) {
+        return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+    }
+
+    function buildChapterwiseTests(exam, subject) {
+        const out = [];
+        if (subject === 'Maths' && CHAPTERWISE_CATALOG.Maths) {
+            const groups = CHAPTERWISE_CATALOG.Maths;
+            Object.keys(groups).forEach(group => {
+                groups[group].forEach(ch => {
+                    out.push({
+                        id: `${exam}_CH_${subject}_${slugify(ch)}`,
+                        title: `${ch} (${group})`,
+                        subject: subject,
+                        section: 'chapterwise',
+                        exam: exam,
+                        chapter: ch,
+                        questions: 25
+                    });
+                });
+            });
+            return out;
+        }
+        const arr = CHAPTERWISE_CATALOG[subject];
+        if (Array.isArray(arr)) {
+            arr.forEach(ch => {
+                out.push({
+                    id: `${exam}_CH_${subject}_${slugify(ch)}`,
+                    title: ch,
+                    subject: subject,
+                    section: 'chapterwise',
+                    exam: exam,
+                    chapter: ch,
+                    questions: 25
+                });
+            });
+        }
+        return out;
+    }
+
+    function getChapterCount(subject) {
+        if (subject === 'Maths' && CHAPTERWISE_CATALOG.Maths) {
+            const g = CHAPTERWISE_CATALOG.Maths;
+            return (g.Arithmetic?.length || 0) + (g.Advanced?.length || 0);
+        }
+        const arr = CHAPTERWISE_CATALOG[subject];
+        return Array.isArray(arr) ? arr.length : 0;
+    }
+
     // ==================== THEME MANAGEMENT (Optimized) ====================
     function applyTheme(theme) {
         const isDark = theme === 'dark';
@@ -2460,6 +2533,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==================== HELPER FUNCTIONS ====================
     function getFilteredTests(exam, subject, section) {
+        if (section === 'chapterwise') {
+            return buildChapterwiseTests(exam, subject);
+        }
         if (exam === 'CHSL' && subject === 'Top100Maths') {
             return ALL_TESTS.filter(test => 
                 test.exam === 'CHSL_TOP_100_MATHS' && 
@@ -2497,6 +2573,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        counts.chapterwise += getChapterCount(subject);
+
         return counts;
     }
 
@@ -2513,6 +2591,18 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.sectionInfoTitle.textContent = config.title;
         elements.sectionInfoDesc.textContent = config.description;
         elements.sectionInfoBanner.className = `section-info-banner section-${currentSection}`;
+    }
+
+    // Quick switch helper for Chapterwise subjects
+    function selectChapterwiseSubject(subject) {
+        // Activate the corresponding subject tab visually
+        elements.tabs.forEach(t => {
+            const isActive = t.dataset.subject === subject;
+            t.classList.toggle('active', isActive);
+            t.setAttribute('aria-selected', isActive);
+        });
+        currentSubject = subject;
+        displayTests();
     }
 
     // ==================== PERFORMANCE: Use DocumentFragment for batch DOM updates ====================
@@ -2776,16 +2866,37 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>`;
                     } else if (currentSection === 'chapterwise') {
-                        message = `<div class="no-tests-message section-chapterwise">
-                            <div class="icon">${sectionIcon}</div>
-                            <h3>Chapterwise Tests Coming Soon!</h3>
-                            <p>Master each chapter of ${currentSubject} with focused practice.</p>
-                            <div class="coming-soon-features">
-                                <span>✓ Topic-wise practice</span>
-                                <span>✓ Difficulty levels</span>
-                                <span>✓ Progress tracking</span>
-                            </div>
-                        </div>`;
+                        // Show 4 subject sections for chapterwise (available for all exams)
+                        const subjects = [
+                            { key: 'Maths', icon: '📐', desc: 'Algebra • Geometry • Arithmetic' },
+                            { key: 'Reasoning', icon: '🧩', desc: 'Analogy • Series • Puzzles' },
+                            { key: 'GK', icon: '🌍', desc: 'History • Polity • Science' },
+                            { key: 'English', icon: '📖', desc: 'Grammar • Vocab • Comprehension' }
+                        ];
+                        const cards = subjects.map(s => `
+                            <article class="test-card section-chapterwise-card" role="listitem" data-chapter-subject="${s.key}">
+                                <div class="card-glow"></div>
+                                <h3 class="card-title">${s.icon} ${s.key} — Chapters</h3>
+                                <hr>
+                                <div class="card-stats">
+                                    <div class="stat-item">
+                                        <div class="value">Focused</div>
+                                        <div class="label">Practice</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="value">Smart</div>
+                                        <div class="label">Tracking</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="value">Adaptive</div>
+                                        <div class="label">Levels</div>
+                                    </div>
+                                </div>
+                                <div class="last-score">${s.desc}</div>
+                                <button class="attempt-btn" onclick="selectChapterwiseSubject('${s.key}')">Open Chapters</button>
+                            </article>
+                        `).join('');
+                        message = cards;
                     } else {
                         message = `<div class="no-tests-message">
                             <div class="icon">📭</div>
@@ -2899,7 +3010,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.tabs.forEach(tab => {
             const subject = tab.dataset.subject;
             
-            if (exam === "DP" && subject === "English") {
+            if (exam === "DP" && subject === "English" && currentSection !== 'chapterwise') {
                 tab.style.display = "none";
             } else if (subject === "Top100Maths") {
                 tab.style.display = exam === "CHSL" ? "block" : "none";
@@ -2908,7 +3019,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if ((exam === "DP" && currentSubject === "English") || 
+        if ((exam === "DP" && currentSubject === "English" && currentSection !== 'chapterwise') || 
             (exam !== "CHSL" && currentSubject === "Top100Maths")) {
             currentSubject = "Maths";
             elements.tabs.forEach(tab => {

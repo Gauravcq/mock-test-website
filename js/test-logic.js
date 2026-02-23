@@ -35,15 +35,70 @@
         return String(uid);
     }
 
-    async function saveAttemptToFirebase(payload) {
+    async function saveAttemptToBackend(payload) {
+        try {
+            // Prepare questions snapshot for backend
+            const questionsSnapshot = Array.isArray(payload.questions) ? payload.questions.map(q => ({
+                id: q.id,
+                questionNumber: q.questionNumber,
+                question: q.question,
+                options: q.options,
+                correctAnswer: q.correctAnswer,
+                explanation: q.explanation,
+                subject: q.subject
+            })) : [];
+
+            const backendPayload = {
+                testId: String(payload.testId || localStorage.getItem('testId') || 'default'),
+                examType: (payload.testInfo && payload.testInfo.examType) || 'CGL',
+                subject: (payload.testInfo && payload.testInfo.subject) || payload.subject || 'General',
+                score: payload.score || 0,
+                totalMarks: payload.totalQuestions || ((payload.correct || 0) + (payload.incorrect || 0) + (payload.unattempted || 0)),
+                correctAnswers: payload.correct || 0,
+                wrongAnswers: payload.incorrect || 0,
+                unanswered: payload.unattempted || 0,
+                timeTaken: payload.timeTaken || 0,
+                answers: payload.answers || {},
+                questionsSnapshot: questionsSnapshot
+            };
+
+            // Save to backend API
+            const token = localStorage.getItem('token');
+            if (token) {
+                const response = await fetch('https://exam-axis-backend.vercel.app/api/tests/attempt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(backendPayload)
+                });
+                
+                if (response.ok) {
+                    console.log('✅ Test attempt saved to backend successfully');
+                } else {
+                    console.warn('⚠️ Backend save failed, falling back to Firebase');
+                    saveAttemptToFirebaseForRanking(payload);
+                }
+            } else {
+                // No auth token, use Firebase for ranking only
+                saveAttemptToFirebaseForRanking(payload);
+            }
+        } catch (error) {
+            console.warn('Backend save error, using Firebase for ranking:', error);
+            saveAttemptToFirebaseForRanking(payload);
+        }
+    }
+
+    async function saveAttemptToFirebaseForRanking(payload) {
         try {
             if (!window.firebase || !FB_HELPER) return;
             const db = FB_HELPER.db;
             const userId = getOrCreateUserId();
             const userName = localStorage.getItem('userName') || localStorage.getItem('name') || 'Guest';
             const testId = String(payload.testId || localStorage.getItem('testId') || 'default');
-            const attemptId = String(payload.timestamp || Date.now());
             const totalQuestions = Array.isArray(payload.questions) ? payload.questions.length : (payload.totalQuestions || ((payload.correct || 0) + (payload.incorrect || 0) + (payload.unattempted || 0)));
+            
             const data = {
                 userId: userId,
                 userName: userName,
@@ -59,8 +114,9 @@
                 timeTaken: payload.timeTaken || 0,
                 timestamp: payload.timestamp || Date.now()
             };
+            
+            // Save only to testResults for real-time ranking (not userAttempts)
             try { await db.ref('testResults/' + testId + '/' + userId).set(data); } catch (_) {}
-            try { await db.ref('userAttempts/' + userId + '/' + testId + '/' + attemptId).set(data); } catch (_) {}
         } catch (_) {}
     }
 
@@ -1281,7 +1337,7 @@
                     };
                     localStorage.setItem('testResult', JSON.stringify(attemptPayload));
                     try { localStorage.setItem('testId', String(attemptPayload.testId)); } catch (_) {}
-                    try { saveAttemptToFirebase(attemptPayload); } catch (_) {}
+                    try { saveAttemptToBackend(attemptPayload); } catch (_) {}
                     
                     // Also save to testResults map for test cards
                     try {
