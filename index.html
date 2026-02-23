@@ -3067,15 +3067,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function switchSection(section) {
+        console.log('🔄 SWITCH SECTION called:', {
+            fromSection: currentSection,
+            toSection: section,
+            isSame: currentSection === section
+        });
+        
         if (currentSection === section) return; // Prevent unnecessary updates
         
         currentSection = section;
+        console.log('✅ Section switched to:', section);
         
         elements.sectionTabs.forEach(tab => {
             const isActive = tab.dataset.section === section;
             tab.classList.toggle('active', isActive);
             tab.setAttribute('aria-selected', isActive);
         });
+        
+        // Update URL without page reload
+        const url = new URL(window.location);
+        url.searchParams.set('section', section);
+        window.history.pushState({}, '', url);
         
         displayTests();
     }
