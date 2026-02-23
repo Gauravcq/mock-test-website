@@ -2746,6 +2746,24 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonHtml = `<a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>`;
         }
 
+        // For chapterwise tests, show simplified card with only start button
+        if (isChapter) {
+            return `
+                <article class="${cardClasses}" 
+                         role="listitem" 
+                         data-test-id="${test.id}"
+                         style="animation-delay: ${maxDelay}s">
+                    <div class="card-glow"></div>
+                    ${badges.join('')}
+                    <h3 class="card-title">${fullTitle}</h3>
+                    <hr>
+                    ${lastScoreHtml}
+                    ${(attempt && !isLocked) ? `<button class="attempt-btn" style="background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color);" onclick="viewAttempt('${test.id}')">View Attempt</button>` : ''}
+                    ${buttonHtml}
+                </article>`;
+        }
+
+        // For non-chapterwise tests, show full stats
         const qDisplay = (questions == null) ? 'Varies' : String(questions);
         const marksDisplay = (questions == null) ? 'Varies' : String((Number(questions) || 0) * 2);
         return `
