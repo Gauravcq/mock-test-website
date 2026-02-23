@@ -3093,6 +3093,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================== EVENT LISTENERS (Optimized) ====================
+    console.log('🔧 SETUP EVENT LISTENERS:', {
+        sectionTabsFound: elements.sectionTabs.length,
+        sectionTabs: Array.from(elements.sectionTabs).map(tab => ({
+            text: tab.textContent.trim(),
+            section: tab.dataset.section
+        }))
+    });
+    
     elements.btnCGL.addEventListener('click', () => switchExam('CGL'));
     elements.btnCHSL.addEventListener('click', () => switchExam('CHSL'));
     elements.btnDP.addEventListener('click', () => switchExam('DP'));
@@ -3107,13 +3115,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             tab.classList.add('active');
             tab.setAttribute('aria-selected', 'true');
-            currentSubject = tab.dataset.subject;
-            displayTests();
+            
+            switchSubject(tab.dataset.subject);
         });
     });
 
     elements.sectionTabs.forEach(tab => {
+        console.log('📌 Adding click listener to section tab:', {
+            text: tab.textContent.trim(),
+            section: tab.dataset.section
+        });
+        
         tab.addEventListener('click', () => {
+            console.log('🖱️ Section tab clicked:', tab.dataset.section);
             switchSection(tab.dataset.section);
         });
     });
