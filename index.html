@@ -2533,14 +2533,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==================== HELPER FUNCTIONS ====================
     function getFilteredTests(exam, subject, section) {
+        // DEBUG: Check if ALL_TESTS is loaded
+        console.log('🔍 FILTER DEBUG:', {
+            exam,
+            subject, 
+            section,
+            allTestsCount: typeof ALL_TESTS !== 'undefined' ? ALL_TESTS.length : 'undefined',
+            hasTests: typeof ALL_TESTS !== 'undefined' && ALL_TESTS.length > 0
+        });
+        
+        if (typeof ALL_TESTS === 'undefined' || ALL_TESTS.length === 0) {
+            console.error('❌ ALL_TESTS not loaded! Check tests-list.js');
+            return [];
+        }
+        
+        // DEBUG: Check for chapterwise tests specifically
+        if (section === 'chapterwise') {
+            const chapterwiseTests = ALL_TESTS.filter(test => test.section === 'chapterwise');
+            console.log('📚 CHAPTERWISE DEBUG:', {
+                totalChapterwise: chapterwiseTests.length,
+                exam,
+                subject,
+                sampleTests: chapterwiseTests.slice(0, 3).map(t => ({
+                    id: t.id,
+                    title: t.title,
+                    subject: t.subject,
+                    exam: t.exam
+                }))
+            });
+        }
+        
         if (exam === 'CHSL' && subject === 'Top100Maths') {
-            return ALL_TESTS.filter(test => 
+            const filtered = ALL_TESTS.filter(test => 
                 test.exam === 'CHSL_TOP_100_MATHS' && 
                 (test.section === section || (!test.section && section === 'sectional'))
             );
+            console.log('✅ Top100Maths filtered:', filtered.length, 'tests');
+            return filtered;
         }
         
-        return ALL_TESTS.filter(test => {
+        const filtered = ALL_TESTS.filter(test => {
             const examMatch = test.exam === exam;
             const subjectMatch = (section === 'fullmock' && test.subject === 'All') 
                                  || test.subject === subject;
@@ -2548,6 +2580,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                  (!test.section && section === 'sectional');
             return examMatch && subjectMatch && sectionMatch;
         });
+        
+        console.log('✅ Standard filtered:', filtered.length, 'tests for', exam, subject, section);
+        return filtered;
     }
 
     function getTestCountBySection(exam, subject) {
