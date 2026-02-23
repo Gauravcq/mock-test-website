@@ -3092,6 +3092,31 @@ document.addEventListener('DOMContentLoaded', () => {
         displayTests();
     }
 
+    function switchSubject(subject) {
+        console.log('🔄 SWITCH SUBJECT called:', {
+            fromSubject: currentSubject,
+            toSubject: subject
+        });
+        
+        if (currentSubject === subject) return;
+        
+        currentSubject = subject;
+        console.log('✅ Subject switched to:', subject);
+        
+        elements.tabs.forEach(tab => {
+            const isActive = tab.dataset.subject === subject;
+            tab.classList.toggle('active', isActive);
+            tab.setAttribute('aria-selected', isActive);
+        });
+        
+        // Update URL without page reload
+        const url = new URL(window.location);
+        url.searchParams.set('subject', subject);
+        window.history.pushState({}, '', url);
+        
+        displayTests();
+    }
+
     // ==================== EVENT LISTENERS (Optimized) ====================
     console.log('🔧 SETUP EVENT LISTENERS:', {
         sectionTabsFound: elements.sectionTabs.length,
@@ -3181,6 +3206,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load history in background (non-blocking)
     requestIdleCallback ? requestIdleCallback(loadHistory) : setTimeout(loadHistory, 100);
 });
+
+// Global functions for inline event handlers
+function switchSubject(subject) {
+    console.log('🔄 SWITCH SUBJECT called:', {
+        fromSubject: currentSubject,
+        toSubject: subject
+    });
+ 
+    if (currentSubject === subject) return;
+ 
+    currentSubject = subject;
+    console.log('✅ Subject switched to:', subject);
+    
+    // Update active tab
+    elements.tabs.forEach(tab => {
+        const isActive = tab.dataset.subject === subject;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive);
+    });
+    
+    // Update URL without page reload
+    const url = new URL(window.location);
+    url.searchParams.set('subject', subject);
+    window.history.pushState({}, '', url);
+    
+    displayTests();
+}
+
+// Make variables global
+window.elements = elements;
+window.currentSubject = currentSubject;
+window.currentExam = currentExam;
+window.currentSection = currentSection;
 
 // ==================== CHECK PREMIUM STATUS ====================
 async function checkAndUpdatePremiumButton() {
