@@ -47,7 +47,6 @@
         
         // Return cached value if available
         if (isPremiumUser !== null) {
-            console.log('🔍 Using cached premium status:', isPremiumUser);
             return isPremiumUser;
         }
 
@@ -60,7 +59,6 @@
             // Check if user is logged in
             if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
                 isPremiumUser = false;
-                console.log('🔍 User not logged in, premium status: false');
                 return false;
             }
 
@@ -76,19 +74,7 @@
                 });
 
                 const data = await response.json();
-                console.log('🔍 Premium status API response:', data);
                 isPremiumUser = data.success && data.data && data.data.isPremium;
-                console.log('🔍 Premium status result:', isPremiumUser);
-                
-                // Also check localStorage for immediate UI update
-                const userStr = localStorage.getItem('user');
-                if (userStr) {
-                    const userData = JSON.parse(userStr);
-                    console.log('🔍 User data from localStorage:', userData);
-                    console.log('🔍 User role:', userData.role);
-                    console.log('🔍 User premium from API:', isPremiumUser);
-                }
-                
                 return isPremiumUser;
             } catch (error) {
                 console.log('Could not check premium status:', error);

@@ -2716,33 +2716,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const badges = [];
         
         // Premium/Free badge (show only for logged in users who are not premium)
-        if (window.PremiumAccess) {
-            // Check localStorage first for immediate UI update
-            const userStr = localStorage.getItem('user');
-            let isPremium = PremiumAccess.isPremium;
-            
-            // If API hasn't responded yet, check localStorage user data
-            if (isPremium === null && userStr) {
-                try {
-                    const userData = JSON.parse(userStr);
-                    // Check if user has premium in their data
-                    if (userData.isPremium || userData.subscription === 'premium') {
-                        isPremium = true;
-                    }
-                } catch (e) {
-                    console.log('Error parsing user data:', e);
-                }
-            }
-            
-            if (isPremium === false) {
-                if (accessStatus.isFree) {
-                    badges.push('<div class="free-badge">FREE</div>');
-                } else {
-                    badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
-                }
-            } else if (isPremium === true) {
-                // Show premium badge for premium users
-                badges.push('<div class="premium-user-badge">👑 PREMIUM</div>');
+        if (window.PremiumAccess && PremiumAccess.isPremium === false) {
+            if (accessStatus.isFree) {
+                badges.push('<div class="free-badge">FREE</div>');
+            } else {
+                badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
             }
         }
         
