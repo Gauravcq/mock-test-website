@@ -2716,12 +2716,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const badges = [];
         
         // Premium/Free badge (show only for logged in users who are not premium)
+        console.log('🔍 Badge Logic Debug:');
+        console.log('  - PremiumAccess exists:', !!window.PremiumAccess);
+        console.log('  - PremiumAccess.isPremium:', PremiumAccess.isPremium);
+        console.log('  - accessStatus.isFree:', accessStatus.isFree);
+        console.log('  - accessStatus.canAccess:', accessStatus.canAccess);
+        
         if (window.PremiumAccess && PremiumAccess.isPremium === false) {
+            console.log('  - Showing lock/free badge (non-premium user)');
             if (accessStatus.isFree) {
                 badges.push('<div class="free-badge">FREE</div>');
             } else {
                 badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
             }
+        } else if (window.PremiumAccess && PremiumAccess.isPremium === true) {
+            console.log('  - Showing premium badge (premium user)');
+            // Show premium badge for premium users
+            badges.push('<div class="premium-user-badge">👑 PREMIUM</div>');
+        } else {
+            console.log('  - No badge shown (PremiumAccess not available or isPremium is null)');
         }
         
         if (test.isNew && !isLocked) badges.push('<div class="new-badge">✨ NEW</div>');
