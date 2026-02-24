@@ -123,6 +123,7 @@
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary), var(--success));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
             line-height: 1;
@@ -811,12 +812,17 @@
         async function startAnonymousIfEnabled() {
             if (!FB.enabled) return null;
             try {
+                // Try anonymous sign-in with better error handling
                 const cred = await FB.auth.signInAnonymously();
                 console.log('✅ Firebase anonymous auth OK');
                 return cred.user;
             } catch (err) {
                 console.log('⚠️ Anonymous sign-in failed:', err && err.message ? err.message : 'unknown');
-                return null;
+                // Fallback: Create a mock user for local functionality
+                return {
+                    uid: localStorage.getItem('userId') || 'anonymous_' + Date.now(),
+                    isAnonymous: true
+                };
             }
         }
 
@@ -889,7 +895,14 @@
                     }
                 } catch (_) {}
             }, (error) => {
-                try { console.log('Firebase read error:', error && error.message); } catch(_) {}
+                try { 
+                    console.log('Firebase read error:', error && error.message); 
+                    // Handle permission denied gracefully
+                    if (error && error.message && error.message.includes('permission_denied')) {
+                        console.log('🔒 Firebase permission denied - using local fallback');
+                        updateRankUI(null, 0, 0);
+                    }
+                } catch(_) {}
                 updateRankUI(null, 0, 0);
                 try { resultsRef.off(); } catch(_) {}
             });
@@ -927,6 +940,38 @@
                 
                 // Update comparison chart
                 updateComparisonChart(userResult.score, resultsArray);
+            }
+        }
+
+        // Handle UI updates when no data or errors occur
+        function updateRankUI(userResult, rank, totalUsers) {
+            const rankElement = document.getElementById('rank-display');
+            const percentileElement = document.getElementById('percentile-bar');
+            const percentileText = document.getElementById('percentile-text');
+            
+            if (userResult && rank > 0) {
+                // Show actual rank
+                if (rankElement) {
+                    rankElement.innerHTML = `#${rank} <span style="font-size: 16px; color: #6b7280;">of ${totalUsers}</span>`;
+                }
+                const percentile = ((totalUsers - rank + 1) / totalUsers * 100).toFixed(1);
+                if (percentileElement) {
+                    percentileElement.style.width = `${percentile}%`;
+                }
+                if (percentileText) {
+                    percentileText.textContent = `${percentile}%`;
+                }
+            } else {
+                // Show N/A when no data
+                if (rankElement) {
+                    rankElement.innerHTML = '#N/A <span style="font-size: 16px; color: #6b7280;">of 0</span>';
+                }
+                if (percentileElement) {
+                    percentileElement.style.width = '0%';
+                }
+                if (percentileText) {
+                    percentileText.textContent = 'N/A';
+                }
             }
         }
 
@@ -1131,21 +1176,29 @@
                 subject: results.subject || 'Mathematics'
             };
             
-            // Save to main results for ranking
+            // Save to main results for ranking with better error handling
             database.ref('testResults/' + testId + '/' + userId).set(resultData)
                 .then(() => {
+                    console.log('✅ Results saved to Firebase successfully');
                     // Also save to user attempts for history
                     const attemptId = Date.now().toString();
                     database.ref('userAttempts/' + userId + '/' + testId + '/' + attemptId).set(resultData)
                         .then(() => {
+                            console.log('✅ User attempt saved to Firebase');
                         })
                         .catch((error) => {
+                            console.log('⚠️ Failed to save user attempt:', error);
                         });
                     
                     // Update real-time rankings after saving
                     updateRealtimeRankings(testId, userId);
                 })
                 .catch((error) => {
+                    console.log('⚠️ Firebase save error:', error);
+                    // Handle permission denied gracefully
+                    if (error && error.message && error.message.includes('permission_denied')) {
+                        console.log('🔒 Firebase permission denied - results saved locally only');
+                    }
                     // Fallback: still compute ranking in read-only mode
                     updateRealtimeRankings(testId, userId);
                 });

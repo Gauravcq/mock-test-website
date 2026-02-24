@@ -2295,6 +2295,22 @@
 <script src="js/premium-access.js"></script>
 
 <script>
+// Global DOM Elements - Cache all at once
+const elements = {
+    mainTitle: document.getElementById('main-title'),
+    gridContainer: document.getElementById('test-grid-container'),
+    tabs: document.querySelectorAll('.tab'),
+    sectionTabs: document.querySelectorAll('.section-tab'),
+    themeToggle: document.getElementById('themeToggle'),
+    btnCGL: document.getElementById('btn-cgl'),
+    btnCHSL: document.getElementById('btn-chsl'),
+    btnDP: document.getElementById('btn-dp'),
+    sectionInfoBanner: document.getElementById('section-info-banner'),
+    sectionInfoIcon: document.getElementById('section-info-icon'),
+    sectionInfoTitle: document.getElementById('section-info-title'),
+    sectionInfoDesc: document.getElementById('section-info-desc')
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     try {
         const currentVersion = '2';
@@ -2314,22 +2330,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     // ==================== INITIALIZATION =====================
-    // DOM Elements - Cache all at once
-    const elements = {
-        mainTitle: document.getElementById('main-title'),
-        gridContainer: document.getElementById('test-grid-container'),
-        tabs: document.querySelectorAll('.tab'),
-        sectionTabs: document.querySelectorAll('.section-tab'),
-        themeToggle: document.getElementById('themeToggle'),
-        btnCGL: document.getElementById('btn-cgl'),
-        btnCHSL: document.getElementById('btn-chsl'),
-        btnDP: document.getElementById('btn-dp'),
-        sectionInfoBanner: document.getElementById('section-info-banner'),
-        sectionInfoIcon: document.getElementById('section-info-icon'),
-        sectionInfoTitle: document.getElementById('section-info-title'),
-        sectionInfoDesc: document.getElementById('section-info-desc')
-    };
-
     // State
     let currentExam = 'CGL';
     let currentSubject = 'Maths';

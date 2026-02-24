@@ -325,6 +325,13 @@
         return false;
     }
 
+    /**
+     * Initialize with premium check (for page load)
+     */
+    function initializeWithPremiumCheck() {
+        return checkPremiumStatus();
+    }
+
     // ==================== EXPORT ====================
     
     window.PremiumAccess = {
