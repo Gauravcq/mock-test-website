@@ -29,6 +29,7 @@
         }
     };
 
+    
     // Track test indices per category to determine which is "first"
     let testIndexCache = {};
 
@@ -200,6 +201,7 @@
      */
     function getTestAccessStatusSync(test, allTests) {
         const isFree = isTestFree(test, allTests);
+        // Fix: Treat null as not premium (free access) to avoid locking tests
         const userIsPremium = isPremiumUser === true;
 
         return {
@@ -297,6 +299,32 @@
         showPremiumModal();
     }
 
+    /**
+     * Validate test access on click (fallback for uncertain premium status)
+     */
+    function validateTestAccess(testId, event) {
+        // Check if user is logged in
+        if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
+            event.preventDefault();
+            handlePremiumTestClick(event, testId);
+            return false;
+        }
+
+        // Check premium status asynchronously
+        checkPremiumStatus().then(isPremium => {
+            if (isPremium) {
+                // User is premium, allow access
+                window.location.href = `test.html?testId=${testId}`;
+            } else {
+                // User is not premium, show premium modal
+                handlePremiumTestClick(event, testId);
+            }
+        });
+
+        event.preventDefault();
+        return false;
+    }
+
     // ==================== EXPORT ====================
     
     window.PremiumAccess = {
@@ -307,6 +335,7 @@
         getTestAccessStatus,
         getTestAccessStatusSync,
         handlePremiumTestClick,
+        validateTestAccess,
         initializeWithPremiumCheck,
         closeModal,
         

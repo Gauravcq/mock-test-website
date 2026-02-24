@@ -2740,8 +2740,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Button - either starts test or unlocks premium
         let buttonHtml;
+        
+        // Fix: Ensure premium status is checked before determining lock status
         if (isLocked) {
-            buttonHtml = `<a href="#" class="attempt-btn" onclick="PremiumAccess.handlePremiumTestClick(event, '${test.id}')">Unlock Test</a>`;
+            // Double-check if user is premium before locking
+            if (window.PremiumAccess && PremiumAccess.isPremium) {
+                // User is premium, don't lock
+                buttonHtml = `<a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>`;
+            } else {
+                // Fallback: If premium status uncertain, allow start but check on test page
+                buttonHtml = `<a href="test.html?testId=${test.id}" class="attempt-btn" onclick="return PremiumAccess.validateTestAccess('${test.id}', event)">Start Test</a>`;
+            }
         } else {
             buttonHtml = `<a href="test.html?testId=${test.id}" class="attempt-btn">Start Test</a>`;
         }
@@ -3207,12 +3216,16 @@ document.addEventListener('DOMContentLoaded', () => {
         PremiumAccess.buildTestIndex(ALL_TESTS);
     }
     
-    // Check premium status first (async), then display tests
+    // Initialize with premium check
     async function initializeWithPremiumCheck() {
-        if (window.PremiumAccess) {
-            await PremiumAccess.checkPremiumStatus();
-        }
-        displayTests();
+        if (window.PremiumAccess && PremiumAccess.initializeWithPremiumCheck) {
+            PremiumAccess.initializeWithPremiumCheck().then(() => {
+                console.log('📊 Premium status initialized, rendering tests...');
+                displayTests();
+            });
+        } else {
+            displayTests();
+        }  
     }
     
     initializeWithPremiumCheck();
