@@ -394,6 +394,33 @@
             margin-bottom: 30px;
         }
 
+        .language-toggle {
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            display: flex;
+            gap: 4px;
+            margin-left: auto;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -712,6 +739,14 @@
                 <i class="fas fa-list-check"></i>
                 Complete Question Review
             </h2>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="language-toggle">
+                    <button class="lang-btn active" onclick="setReviewLanguage('en')">English</button>
+                    <button class="lang-btn" onclick="setReviewLanguage('hi')">हिंदी</button>
+                </div>
+            </div>
+        </div>
+        <div class="section-header" style="margin-top: 20px;">
             <div class="filter-buttons">
                 <button class="filter-btn active" onclick="filterQuestions('all')">All Questions</button>
                 <button class="filter-btn" onclick="filterQuestions('correct')">Correct</button>
@@ -1504,11 +1539,11 @@
             }
             
             container.innerHTML = filteredQuestions.map(({ question, state, index, status }) => {
-                const questionText = question.question?.en || question.question || '';
+                const questionText = question.question?.[currentReviewLanguage] || question.question?.en || question.question || '';
                 const options = question.options || [];
-                const correctAnswer = question.correctAnswer?.en || question.correctAnswer || '';
+                const correctAnswer = question.correctAnswer?.[currentReviewLanguage] || question.correctAnswer?.en || question.correctAnswer || '';
                 const userAnswer = state.userAnswer;
-                const explanation = question.explanation?.en || question.explanation || '';
+                const explanation = question.explanation?.[currentReviewLanguage] || question.explanation?.en || question.explanation || '';
                 
                 return `
                     <div class="question-card ${status}">
@@ -1523,7 +1558,7 @@
                         
                         <div class="options-container">
                             ${options.map((option, i) => {
-                                const optionText = option.en || option || '';
+                                const optionText = option?.[currentReviewLanguage] || option?.en || option || '';
                                 const isCorrect = optionText === correctAnswer;
                                 const isUserAnswer = optionText === userAnswer;
                                 const letter = String.fromCharCode(65 + i);
@@ -1621,6 +1656,30 @@
         }
 
         // Preview function removed; showing full 25 questions per section by default
+
+        // Language switching for review page
+        let currentReviewLanguage = 'en';
+        
+        function setReviewLanguage(lang) {
+            currentReviewLanguage = lang;
+            
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Re-render questions with new language
+            const resultData = localStorage.getItem('testResult');
+            if (resultData) {
+                const results = JSON.parse(resultData);
+                const questions = results.questions || [];
+                const questionStates = results.questionStates || [];
+                const currentFilter = document.querySelector('.filter-btn.active')?.textContent?.toLowerCase() || 'all';
+                
+                displayQuestions(questions, questionStates, currentFilter);
+            }
+        }
 
         // Filter questions
         function filterQuestions(filter) {
