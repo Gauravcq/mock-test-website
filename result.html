@@ -676,7 +676,14 @@
                     Real-time Ranking
                 </h2>
                 
-                <div class="live-indicator">
+                <div id="ranking-status" style="display: none; text-align: center; padding: 20px; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="font-size: 14px; color: #92400e;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+                        Real-time rankings are temporarily disabled. Your test results are saved locally.
+                    </div>
+                </div>
+                
+                <div class="live-indicator" id="live-indicator">
                     <div class="live-dot"></div>
                     Live Rankings
                 </div>
@@ -788,8 +795,8 @@
         };
 
         let database;
-        let isFirebaseEnabled = false;
-        const RANKING_ENABLED = true;
+        let// Disable Firebase temporarily due to permission issues
+        const RANKING_ENABLED = false; // Set to false until Firebase rules are fixed
         const FIREBASE_CONFIG = firebaseConfig;
         function initFirebaseSafely() {
             try {
@@ -829,6 +836,25 @@
         function initializeFirebase() {
             database = FB.enabled ? FB.db : null;
             isFirebaseEnabled = !!(database && typeof database.ref === 'function');
+            
+            // Show/hide ranking status message
+            const rankingStatus = document.getElementById('ranking-status');
+            const liveIndicator = document.getElementById('live-indicator');
+            const rankDisplay = document.getElementById('rankNumber');
+            const percentileBar = document.getElementById('percentileFill');
+            const percentileText = document.getElementById('percentileValue');
+            
+            if (!isFirebaseEnabled && rankingStatus) {
+                rankingStatus.style.display = 'block';
+                if (liveIndicator) liveIndicator.style.display = 'none';
+                if (rankDisplay) rankDisplay.textContent = '--';
+                if (percentileBar) percentileBar.style.width = '0%';
+                if (percentileText) percentileText.textContent = '--';
+            } else if (rankingStatus) {
+                rankingStatus.style.display = 'none';
+                if (liveIndicator) liveIndicator.style.display = 'flex';
+            }
+            
             if (!isFirebaseEnabled) return;
             startAnonymousIfEnabled().then(() => {
                 startRealtimeUpdates();
