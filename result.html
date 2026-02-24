@@ -795,8 +795,8 @@
         };
 
         let database;
-        let// Re-enable Firebase with better error handling
-        const RANKING_ENABLED = true; // Set to true when Firebase is properly configured
+        let// Firebase enabled - ready for real-time features
+        const RANKING_ENABLED = true; // Firebase Anonymous Auth and Database Rules configured
         const FIREBASE_CONFIG = firebaseConfig;
         function initFirebaseSafely() {
             try {
@@ -821,7 +821,8 @@
             try {
                 // Try anonymous sign-in with better error handling
                 const cred = await FB.auth.signInAnonymously();
-                console.log('✅ Firebase anonymous auth OK');
+                console.log('✅ Firebase anonymous authentication successful');
+                console.log('🔥 User ID:', cred.user.uid);
                 return cred.user;
             } catch (err) {
                 console.log('⚠️ Anonymous sign-in failed:', err && err.message ? err.message : 'unknown');
@@ -1215,12 +1216,15 @@
             // Save to main results for ranking with better error handling
             database.ref('testResults/' + testId + '/' + userId).set(resultData)
                 .then(() => {
-                    console.log('✅ Results saved to Firebase successfully');
+                    console.log('✅ Test results saved to Firebase successfully');
+                    console.log('📊 Test ID:', testId);
+                    console.log('👤 User ID:', userId);
+                    console.log('💯 Score:', resultData.score);
                     // Also save to user attempts for history
                     const attemptId = Date.now().toString();
                     database.ref('userAttempts/' + userId + '/' + testId + '/' + attemptId).set(resultData)
                         .then(() => {
-                            console.log('✅ User attempt saved to Firebase');
+                            console.log('✅ User attempt history saved to Firebase');
                         })
                         .catch((error) => {
                             console.log('⚠️ Failed to save user attempt:', error);

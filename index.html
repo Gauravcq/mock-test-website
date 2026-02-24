@@ -1991,6 +1991,20 @@
     z-index: 10;
 }
 
+.premium-user-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
 .test-card.locked .attempt-btn {
     background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
     cursor: pointer;
@@ -2708,6 +2722,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
             }
+        } else if (window.PremiumAccess && PremiumAccess.isPremium === true) {
+            // Show premium badge for premium users
+            badges.push('<div class="premium-user-badge">👑 PREMIUM</div>');
         }
         
         if (test.isNew && !isLocked) badges.push('<div class="new-badge">✨ NEW</div>');
