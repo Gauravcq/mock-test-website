@@ -2722,19 +2722,50 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('  - accessStatus.isFree:', accessStatus.isFree);
         console.log('  - accessStatus.canAccess:', accessStatus.canAccess);
         
-        if (window.PremiumAccess && PremiumAccess.isPremium === false) {
-            console.log('  - Showing lock/free badge (non-premium user)');
-            if (accessStatus.isFree) {
-                badges.push('<div class="free-badge">FREE</div>');
+        if (window.PremiumAccess) {
+            // Check if premium status is still being determined
+            if (PremiumAccess.isPremium === null) {
+                console.log('  - Premium status still loading, checking...');
+                // Wait for premium status to be determined
+                PremiumAccess.checkPremiumStatus().then(isPremium => {
+                    console.log('  - Premium status determined:', isPremium);
+                    if (isPremium === false) {
+                        if (accessStatus.isFree) {
+                            badges.push('<div class="free-badge">FREE</div>');
+                        } else {
+                            badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
+                        }
+                    } else if (isPremium === true) {
+                        console.log('  - Showing premium badge (premium user)');
+                        // Show premium badge for premium users
+                        badges.push('<div class="premium-user-badge">👑 PREMIUM</div>');
+                    }
+                    // Re-render badges with premium status
+                    const card = document.querySelector(`[data-test-id="${test.id}"]`);
+                    if (card) {
+                        const badgesContainer = card.querySelector('.test-badges');
+                        if (badgesContainer) {
+                            badgesContainer.innerHTML = badges.join('');
+                        }
+                    }
+                });
             } else {
-                badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
+                // Premium status already determined, use cached value
+                if (PremiumAccess.isPremium === false) {
+                    console.log('  - Showing lock/free badge (non-premium user)');
+                    if (accessStatus.isFree) {
+                        badges.push('<div class="free-badge">FREE</div>');
+                    } else {
+                        badges.push('<div class="premium-lock-badge">👑 PREMIUM</div>');
+                    }
+                } else if (PremiumAccess.isPremium === true) {
+                    console.log('  - Showing premium badge (premium user)');
+                    // Show premium badge for premium users
+                    badges.push('<div class="premium-user-badge">👑 PREMIUM</div>');
+                }
             }
-        } else if (window.PremiumAccess && PremiumAccess.isPremium === true) {
-            console.log('  - Showing premium badge (premium user)');
-            // Show premium badge for premium users
-            badges.push('<div class="premium-user-badge">👑 PREMIUM</div>');
         } else {
-            console.log('  - No badge shown (PremiumAccess not available or isPremium is null)');
+            console.log('  - No badge shown (PremiumAccess not available)');
         }
         
         if (test.isNew && !isLocked) badges.push('<div class="new-badge">✨ NEW</div>');
@@ -3082,38 +3113,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 tab.style.display = "block";
             }
-        });
-
-        if ((exam === "DP" && currentSubject === "English" && currentSection !== 'chapterwise') || 
-            (exam !== "CHSL" && currentSubject === "Top100Maths")) {
-            currentSubject = "Maths";
-            elements.tabs.forEach(tab => {
-                const isActive = tab.dataset.subject === "Maths";
-                tab.classList.toggle("active", isActive);
-                tab.setAttribute('aria-selected', isActive);
-            });
-        }
-    }
-
-    function switchExam(exam) {
-        if (currentExam === exam) return; // Prevent unnecessary updates
-        
-        currentExam = exam;
-
-        [elements.btnCGL, elements.btnCHSL, elements.btnDP].forEach(btn => {
-            const isActive = btn.dataset.exam === exam;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-selected', isActive);
-        });
-
-        document.body.classList.remove('exam-chsl', 'exam-dp');
-        
-        const titles = {
-            'CGL': 'SSC <strong>CGL</strong> Mock Tests',
-            'CHSL': 'SSC <strong>CHSL</strong> Mock Tests',
-            'DP': '<strong>DP Constable</strong> Mock Tests'
-        };
-
+            const viewBtn = article.querySelector('button[onclick^="viewAttempt"]');
+            if (!viewBtn) {
+                const btn = document.createElement('button');
+                btn.className = 'attempt-btn';
+                btn.style.background = 'var(--bg-secondary)';
+                btn.style.color = 'var(--text-primary)';
+                btn.style.border = '1px solid var(--border-color)';
+                btn.textContent = 'View Attempt';
+                btn.onclick = () => window.viewAttempt(String(t.id));
+                article.appendChild(btn);
         elements.mainTitle.innerHTML = titles[exam];
 
         if (exam === 'CHSL') document.body.classList.add('exam-chsl');
@@ -3149,27 +3158,28 @@ document.addEventListener('DOMContentLoaded', () => {
         displayTests();
     }
 
-    function switchSubject(subject) {
-        console.log('🔄 SWITCH SUBJECT called:', {
-            fromSubject: currentSubject,
-            toSubject: subject
+    function switchExam(exam) {
+        console.log('🔄 SWITCH EXAM called:', {
+            fromExam: currentExam,
+            toExam: exam
         });
         
-        if (currentSubject === subject) return;
+        if (currentExam === exam) return;
         
-        currentSubject = subject;
-        console.log('✅ Subject switched to:', subject);
+        currentExam = exam;
+        console.log('✅ Exam switched to:', exam);
         
-        elements.tabs.forEach(tab => {
-            const isActive = tab.dataset.subject === subject;
-            tab.classList.toggle('active', isActive);
-            tab.setAttribute('aria-selected', isActive);
-        });
+        // Update exam buttons
+        elements.btnCGL.classList.toggle('active', exam === 'CGL');
+        elements.btnCHSL.classList.toggle('active', exam === 'CHSL');
+        elements.btnDP.classList.toggle('active', exam === 'DP');
         
-        // Update URL without page reload
-        const url = new URL(window.location);
-        url.searchParams.set('subject', subject);
-        window.history.pushState({}, '', url);
+        // Reset subject based on exam
+        if (exam === 'CGL' || exam === 'CHSL') {
+            switchSubject('Maths');
+        } else if (exam === 'DP') {
+            switchSubject('Maths');
+        }
         
         displayTests();
     }
@@ -3242,7 +3252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==================== INITIAL LOAD ====================
     
     // Build test index for premium access check
-    if (window.PremiumAccess) {
+    if (window.PremiumAccess && typeof PremiumAccess.buildTestIndex === 'function') {
         PremiumAccess.buildTestIndex(ALL_TESTS);
     }
     
@@ -3268,29 +3278,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestIdleCallback ? requestIdleCallback(loadHistory) : setTimeout(loadHistory, 100);
 });
 
-// Global functions for inline event handlers
-function switchSubject(subject) {
-    console.log('🔄 SWITCH SUBJECT called:', {
-        fromSubject: currentSubject,
-        toSubject: subject
-    });
- 
-    if (currentSubject === subject) return;
- 
-    currentSubject = subject;
-    console.log('✅ Subject switched to:', subject);
-    
-    // Update active tab
-    elements.tabs.forEach(tab => {
-        const isActive = tab.dataset.subject === subject;
-        tab.classList.toggle('active', isActive);
-        tab.setAttribute('aria-selected', isActive);
-    });
-    
-    // Update URL without page reload
-    const url = new URL(window.location);
-    url.searchParams.set('subject', subject);
-    window.history.pushState({}, '', url);
     
     displayTests();
 }
