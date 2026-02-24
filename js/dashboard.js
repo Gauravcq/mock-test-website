@@ -848,6 +848,12 @@ function handleLogout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     localStorage.removeItem('user');
+    
+    // Reset premium cache after logout
+    if (window.PremiumAccess && PremiumAccess.resetPremiumCache) {
+        PremiumAccess.resetPremiumCache();
+    }
+    
     showToast('Logged out successfully!', 'success');
     setTimeout(() => {
         window.location.href = 'login.html';

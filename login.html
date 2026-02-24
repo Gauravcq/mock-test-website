@@ -699,6 +699,11 @@
         submitBtn.disabled = false;
         
         if (result.success) {
+            // Reset premium cache after login
+            if (window.PremiumAccess && PremiumAccess.resetPremiumCache) {
+                PremiumAccess.resetPremiumCache();
+            }
+            
             document.getElementById('successMessage').textContent = result.message;
             successAlert.classList.add('show');
             

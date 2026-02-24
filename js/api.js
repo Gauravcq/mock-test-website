@@ -123,6 +123,10 @@ class ExamAxisAPI {
 
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    // Reset premium cache after logout
+    if (window.PremiumAccess && PremiumAccess.resetPremiumCache) {
+      PremiumAccess.resetPremiumCache();
+    }
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
     return { success: true };
@@ -1001,6 +1005,12 @@ function updateHeaderAuthUI() {
 
 async function handleLogout() {
   await ExamAxisAPI.logout();
+  
+  // Reset premium cache after logout (double protection)
+  if (window.PremiumAccess && PremiumAccess.resetPremiumCache) {
+    PremiumAccess.resetPremiumCache();
+  }
+  
   window.location.href = 'index.html';
 }
 

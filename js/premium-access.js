@@ -37,7 +37,13 @@
     let isPremiumUser = null; // Cache premium status
     let premiumCheckPromise = null;
 
-    async function checkPremiumStatus() {
+    async function checkPremiumStatus(forceRefresh = false) {
+        // Force refresh if requested
+        if (forceRefresh) {
+            isPremiumUser = null;
+            premiumCheckPromise = null;
+        }
+        
         // Return cached value if available
         if (isPremiumUser !== null) {
             return isPremiumUser;
@@ -84,6 +90,11 @@
         isPremiumUser = null;
         premiumCheckPromise = null;
         testIndexCache = {};
+    }
+
+    // Force refresh premium status (useful for troubleshooting)
+    function forceRefreshPremiumStatus() {
+        return checkPremiumStatus(true);
     }
 
     // ==================== FREE TEST DETERMINATION ====================
@@ -291,18 +302,13 @@
     window.PremiumAccess = {
         checkPremiumStatus,
         resetPremiumCache,
+        forceRefreshPremiumStatus,
         isTestFree,
         getTestAccessStatus,
         getTestAccessStatusSync,
-        buildTestIndex,
-        showPremiumModal,
-        closeModal,
         handlePremiumTestClick,
-        
-        // Expose config for debugging
-        get config() {
-            return FREE_ACCESS_CONFIG;
-        },
+        initializeWithPremiumCheck,
+        closeModal,
         
         // Expose cached status for debugging
         get isPremium() {
