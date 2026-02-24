@@ -2694,7 +2694,10 @@ document.addEventListener('DOMContentLoaded', () => {
             PremiumAccess.getTestAccessStatusSync(test, ALL_TESTS) : 
             { isFree: true, canAccess: true };
         
-        const isLocked = !accessStatus.canAccess;
+        // Check if user has full access (premium OR admin)
+        const hasFullAccess = window.PremiumAccess ? PremiumAccess.hasFullAccess() : false;
+        
+        const isLocked = !accessStatus.canAccess && !hasFullAccess;
         
         const badges = [];
         
