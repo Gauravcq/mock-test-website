@@ -425,6 +425,38 @@ body {
 .question-header h2#question-title { margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
 .language-select { padding: 6px 25px 6px 10px; border-radius: 6px; border: 1px solid var(--border-soft); font-size: 0.9rem; background: #fff; }
 
+.language-toggle {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 4px;
+    display: flex;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.lang-btn:hover {
+    color: #1a73e8;
+}
+
+.lang-btn.active {
+    background: white;
+    color: #1a73e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 /* SCROLLABLE QUESTION CONTENT */
 .question-content {
     flex: 1;
@@ -1531,10 +1563,10 @@ body.results-scroll {
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2 id="question-title">Question 1 of 25</h2>
-        <select class="language-select">
-            <option value="en">English</option>
-            <option value="hi">Hindi</option>
-        </select>
+        <div class="language-toggle">
+            <button class="lang-btn active" onclick="setTestLanguage('en')">English</button>
+            <button class="lang-btn" onclick="setTestLanguage('hi')">हिंदी</button>
+        </div>
     </div>
 </div>
             <div id="question-area" class="question-content"></div>

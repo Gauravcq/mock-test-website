@@ -1111,12 +1111,36 @@
                 markedForReview: false,
                 resultCategory: null
             }));
+            // Language toggle function for test page
+            function setTestLanguage(lang) {
+                QD.currentLanguage = lang;
+                
+                // Update button states
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                // Refresh current question
+                showQuestion(QD.currentQuestionIndex);
+            }
+
+            // Make function global
+            window.setTestLanguage = setTestLanguage;
+
+            // Initialize language toggle buttons
+            const langButtons = document.querySelectorAll('.lang-btn');
+            if (langButtons.length > 0) {
+                langButtons.forEach(btn => {
+                    if (btn.textContent.includes('English') || btn.onclick?.toString().includes('en')) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+
+            // Remove old dropdown logic
             if (languageSelect) {
-                languageSelect.value = QD.currentLanguage;
-                languageSelect.onchange = (e) => {
-                    QD.currentLanguage = e.target.value;
-                    showQuestion(QD.currentQuestionIndex);
-                };
+                languageSelect.style.display = 'none';
             }
             if (submitSummaryModal) submitSummaryModal.classList.add('hidden');
 

@@ -21,6 +21,7 @@
             --dark: #1f2937;
             --light: #f9fafb;
             --border: #e5e7eb;
+            --text-secondary: #6b7280;
             --shadow: 0 10px 25px rgba(0,0,0,0.1);
             --shadow-lg: 0 20px 40px rgba(0,0,0,0.15);
         }
@@ -395,13 +396,14 @@
         }
 
         .language-toggle {
-            background: var(--light);
-            border: 2px solid var(--border);
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 4px;
             display: flex;
             gap: 4px;
             margin-left: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .lang-btn {
@@ -412,12 +414,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: transparent;
-            color: var(--text-secondary);
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .lang-btn:hover {
+            color: #2563eb;
         }
 
         .lang-btn.active {
             background: white;
-            color: var(--primary);
+            color: #2563eb;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
