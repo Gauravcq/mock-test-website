@@ -56,6 +56,21 @@
         }
 
         premiumCheckPromise = (async () => {
+            // Check if user is admin first (admins get full access)
+            try {
+                const userStr = localStorage.getItem('user');
+                if (userStr) {
+                    const userData = JSON.parse(userStr);
+                    if (userData.role === 'admin' || userData.role === 'superadmin') {
+                        console.log('👑 Admin user detected - granting full premium access');
+                        isPremiumUser = true;
+                        return true;
+                    }
+                }
+            } catch (error) {
+                console.log('Error checking admin status:', error);
+            }
+
             // Check if user is logged in
             if (typeof ExamAxisAPI === 'undefined' || !ExamAxisAPI.isLoggedIn()) {
                 isPremiumUser = false;
@@ -74,7 +89,9 @@
                 });
 
                 const data = await response.json();
+                console.log('🔍 Premium status API response:', data);
                 isPremiumUser = data.success && data.data && data.data.isPremium;
+                console.log('🔍 Premium status result:', isPremiumUser);
                 return isPremiumUser;
             } catch (error) {
                 console.log('Could not check premium status:', error);
@@ -91,6 +108,24 @@
         isPremiumUser = null;
         premiumCheckPromise = null;
         testIndexCache = {};
+    }
+
+    // Check if current user is admin
+    function isAdmin() {
+        try {
+            const userStr = localStorage.getItem('user');
+            if (userStr) {
+                const userData = JSON.parse(userStr);
+                const isAdminUser = userData.role === 'admin' || userData.role === 'superadmin';
+                if (isAdminUser) {
+                    console.log('👑 Admin access confirmed for user:', userData.name || userData.email);
+                }
+                return isAdminUser;
+            }
+        } catch (error) {
+            // Ignore admin check errors
+        }
+        return false;
     }
 
     // Force refresh premium status (useful for troubleshooting)
@@ -201,8 +236,22 @@
      */
     function getTestAccessStatusSync(test, allTests) {
         const isFree = isTestFree(test, allTests);
-        // Fix: Treat null as not premium (free access) to avoid locking tests
-        const userIsPremium = isPremiumUser === true;
+        
+        // Check if user is admin first (admins get full access)
+        let userIsPremium = isPremiumUser === true;
+        if (!userIsPremium) {
+            try {
+                const userStr = localStorage.getItem('user');
+                if (userStr) {
+                    const userData = JSON.parse(userStr);
+                    if (userData.role === 'admin' || userData.role === 'superadmin') {
+                        userIsPremium = true;
+                    }
+                }
+            } catch (error) {
+                // Ignore admin check errors
+            }
+        }
 
         return {
             isFree: isFree,
@@ -345,6 +394,7 @@
         validateTestAccess,
         initializeWithPremiumCheck,
         closeModal,
+        isAdmin,
         
         // Expose cached status for debugging
         get isPremium() {
