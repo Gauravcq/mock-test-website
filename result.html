@@ -795,8 +795,8 @@
         };
 
         let database;
-        let// Disable Firebase temporarily due to permission issues
-        const RANKING_ENABLED = false; // Set to false until Firebase rules are fixed
+        let// Re-enable Firebase with better error handling
+        const RANKING_ENABLED = true; // Set to true when Firebase is properly configured
         const FIREBASE_CONFIG = firebaseConfig;
         function initFirebaseSafely() {
             try {
@@ -825,6 +825,13 @@
                 return cred.user;
             } catch (err) {
                 console.log('⚠️ Anonymous sign-in failed:', err && err.message ? err.message : 'unknown');
+                
+                // Check if it's a configuration error
+                if (err && err.message && err.message.includes('configuration-not-found')) {
+                    console.log('🔧 Firebase Anonymous Auth not enabled. Please enable in Firebase Console → Authentication → Sign-in method');
+                    showNotification('Firebase Anonymous Auth is disabled. Please enable it in Firebase Console.', 'warning');
+                }
+                
                 // Fallback: Create a mock user for local functionality
                 return {
                     uid: localStorage.getItem('userId') || 'anonymous_' + Date.now(),
@@ -926,11 +933,14 @@
                     // Handle permission denied gracefully
                     if (error && error.message && error.message.includes('permission_denied')) {
                         console.log('🔒 Firebase permission denied - using local fallback');
+                        console.log('🔧 To fix: Go to Firebase Console → Database → Rules and set:');
+                        console.log('📝 Rules: { ".read": true, ".write": true, "testResults": { ".read": true, ".write": true }, "userAttempts": { ".read": true, ".write": true } }');
+                        showNotification('Firebase permissions denied. Please check Database Rules in Firebase Console.', 'error');
                         updateRankUI(null, 0, 0);
                     }
-                } catch(_) {}
+                } catch (_) {}
                 updateRankUI(null, 0, 0);
-                try { resultsRef.off(); } catch(_) {}
+                try { resultsRef.off(); } catch (_) {}
             });
             
             console.log('🔄 Real-time updates started for test:', testId);
