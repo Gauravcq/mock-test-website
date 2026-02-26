@@ -624,6 +624,29 @@
         const reviewPaletteClean = $('review-palette-clean');
         const resultTabsContainer = $q('#result-summary-page .results-header-nav');
         const reviewTabsContainer = $q('#review-page .results-header-nav');
+        const candidateNameEl = $('candidate-name');
+
+        async function resolveCandidateName() {
+            let name = localStorage.getItem('userName') || localStorage.getItem('name') || localStorage.getItem('user_name') || '';
+            try {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                name = name || user.fullName || user.name || user.username || (user.email ? user.email.split('@')[0] : '');
+            } catch (_) {}
+            if (!name && window.ExamAxisAPI && ExamAxisAPI.getMe) {
+                try {
+                    const me = await ExamAxisAPI.getMe();
+                    const serverUser = (me && (me.data?.user || me.data || me.user)) || null;
+                    if (serverUser) {
+                        try { localStorage.setItem('user', JSON.stringify(serverUser)); } catch (_) {}
+                        name = serverUser.fullName || serverUser.name || serverUser.username || (serverUser.email ? serverUser.email.split('@')[0] : '');
+                    }
+                } catch (_) {}
+            }
+            if (!name) name = 'User';
+            if (candidateNameEl) candidateNameEl.textContent = name;
+        }
+
+        resolveCandidateName();
 
         function containsHTML(str) { return str && /<[a-z][\s\S]*>/i.test(str); }
         function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = String(text); return div.innerHTML; }
