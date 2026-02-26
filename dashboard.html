@@ -984,14 +984,39 @@
                 this.init();
             }
 
+            loadCachedSnapshot() {
+                try {
+                    const cached = JSON.parse(localStorage.getItem('dashboardCache') || '{}');
+                    if (cached && cached.userData) this.userData = cached.userData;
+                    if (cached && Array.isArray(cached.testHistory)) this.testHistory = cached.testHistory;
+                    if (this.userData || (this.testHistory && this.testHistory.length)) {
+                        this.calculateRealStats();
+                        this.updateUI();
+                        this.hideLoading();
+                    }
+                } catch (_) {}
+            }
+
+            saveCache() {
+                try {
+                    localStorage.setItem('dashboardCache', JSON.stringify({
+                        userData: this.userData,
+                        testHistory: this.testHistory,
+                        ts: Date.now()
+                    }));
+                } catch (_) {}
+            }
+
             async init() {
-                await this.loadUserData();
-                await this.loadTestHistory();
+                this.loadCachedSnapshot();
+                await Promise.all([this.loadUserData(), this.loadTestHistory()]);
+                this.calculateRealStats();
                 this.updateUI();
+                this.saveCache();
                 this.hideLoading();
                 setTimeout(() => {
                     this.startFirebaseLive();
-                }, 1200);
+                }, 600);
             }
 
             startFirebaseLive() {
@@ -1044,7 +1069,10 @@
 
                     // Try to get fresh data from API
                     try {
-                        const response = await ExamAxisAPI.getMe();
+                        const response = await Promise.race([
+                            ExamAxisAPI.getMe(),
+                            new Promise(resolve => setTimeout(() => resolve(null), 1200))
+                        ]);
                         if (response && (response.success || response.data)) {
                             const serverUser = (response.data && (response.data.user || response.data)) || {};
                             this.userData = Object.assign({}, this.userData || {}, serverUser);
